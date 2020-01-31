@@ -170,7 +170,6 @@
         <joda-time.version>2.10.1</joda-time.version>
         <jodconverter.version>4.2.2</jodconverter.version>
         <junit.version>4.12</junit.version>
-        <log4j.version>1.2.17</log4j.version>
         <logback-extensions.version>0.1.2</logback-extensions.version>
         <logstash-logback-encoder.version>4.8</logstash-logback-encoder.version>
         <lombok.version>1.18.8</lombok.version>
@@ -1219,11 +1218,6 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
