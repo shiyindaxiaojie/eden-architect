@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eden-spring-boot-starters</artifactId>
+    <packaging>pom</packaging>
+    <name>eden-spring-boot-starters</name>
+    <description>Eden* Spring Boot Starters</description>
+
+    <parent>
+        <groupId>org.ylzl</groupId>
+        <artifactId>eden-spring-boot-project</artifactId>
+        <version>1.0.0.RELEASE</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <modules>
+        <module>eden-activemq-spring-boot-starter</module>
+        <module>eden-annotation-processer-spring-boot-starter</module>
+        <module>eden-caffeine-spring-boot-starter</module>
+        <module>eden-canel-spring-boot-starter</module>
+        <module>eden-cloud-admin-client-spring-boot-starter</module>
+        <module>eden-cloud-admin-server-spring-boot-starter</module>
+        <module>eden-cloud-bus-kafka-spring-boot-starter</module>
+        <module>eden-cloud-bus-rabbitmq-spring-boot-starter</module>
+        <module>eden-cloud-config-client-spring-boot-starter</module>
+        <module>eden-cloud-config-server-spring-boot-starter</module>
+        <module>eden-devtools-spring-boot-starter</module>
+        <module>eden-druid-spring-boot-starter</module>
+        <module>eden-dubbo-spring-boot-starter</module>
+        <module>eden-easyexcel-spring-boot-starter</module>
+        <module>eden-ehcache-spring-boot-starter</module>
+        <module>eden-elasticsearch-spring-boot-starter</module>
+        <module>eden-eureka-server-spring-boot-starter</module>
+        <module>eden-eureka-spring-boot-starter</module>
+        <module>eden-feign-spring-boot-starter</module>
+		<module>eden-flowable-spring-boot-starter</module>
+        <module>eden-flyway-spring-boot-starter</module>
+        <module>eden-ftpserver-spring-boot-starter</module>
+        <module>eden-hazelcast-spring-boot-starter</module>
+        <module>eden-hbase-spring-boot-starter</module>
+        <module>eden-hessian-spring-boot-starter</module>
+        <module>eden-hibernate-spring-boot-starter</module>
+        <module>eden-hikaricp-spring-boot-starter</module>
+        <module>eden-httpclient-spring-boot-starter</module>
+        <module>eden-hystrix-dashboard-spring-boot-starter</module>
+        <module>eden-hystrix-spring-boot-starter</module>
+        <module>eden-infinispan-spring-boot-starter</module>
+		<module>eden-javamelody-spring-boot-starter</module>
+        <module>eden-jpa-spring-boot-starter</module>
+        <module>eden-jwt-spring-boot-starter</module>
+        <module>eden-kafka-spring-boot-starter</module>
+        <module>eden-liquibase-spring-boot-starter</module>
+        <module>eden-logstash-spring-boot-starter</module>
+        <module>eden-mail-spring-boot-starter</module>
+        <module>eden-memcached-spring-boot-starter</module>
+        <module>eden-metrics-spring-boot-starter</module>
+		<module>eden-mina-spring-boot-starter</module>
+        <module>eden-mongobee-spring-boot-starter</module>
+        <module>eden-mongodb-spring-boot-starter</module>
+        <module>eden-mybatis-spring-boot-starter</module>
+        <module>eden-mycat-spring-boot-starter</module>
+        <module>eden-mysql-spring-boot-starter</module>
+        <module>eden-nacos-spring-boot-starter</module>
+        <module>eden-neo4j-spring-boot-starter</module>
+		<module>eden-netty-spring-boot-starter</module>
+        <module>eden-oauth2-spring-boot-starter</module>
+        <module>eden-oracle-spring-boot-starter</module>
+        <module>eden-prometheus-spring-boot-starter</module>
+        <module>eden-qpid-spring-boot-starter</module>
+        <module>eden-rabbitmq-spring-boot-starter</module>
+        <module>eden-redis-spring-boot-starter</module>
+        <module>eden-ribbon-spring-boot-starter</module>
+        <module>eden-rockmq-spring-boot-starter</module>
+        <module>eden-shardingjdbc-spring-boot-starter</module>
+        <module>eden-swagger2-spring-boot-starter</module>
+        <module>eden-test-spring-boot-starter</module>
+        <module>eden-tomcat-spring-boot-starter</module>
+        <module>eden-truelicense-spring-boot-starter</module>
+        <module>eden-turbine-spring-boot-starter</module>
+        <module>eden-undertow-spring-boot-starter</module>
+        <module>eden-zipkin-server-spring-boot-starter</module>
+        <module>eden-zipkin-spring-boot-starter</module>
+        <module>eden-zuul-spring-boot-starter</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.ylzl</groupId>
+                <artifactId>eden-spring-boot-dependencies</artifactId>
+                <version>1.0.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

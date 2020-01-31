@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eden-cloud-admin-server-spring-boot-starter</artifactId>
+    <packaging>jar</packaging>
+    <name>eden-cloud-admin-server-spring-boot-starter</name>
+    <description>Eden* Spring Cloud Admin Server Spring Boot Starter</description>
+
+    <parent>
+        <groupId>org.ylzl</groupId>
+        <artifactId>eden-spring-boot-starters</artifactId>
+        <version>1.0.0.RELEASE</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-activiti</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ylzl</groupId>
+            <artifactId>eden-spring-boot-cloud</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot-support</artifactId>
+		</dependency>
+    </dependencies>
+
+</project>

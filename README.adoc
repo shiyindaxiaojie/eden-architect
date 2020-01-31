@@ -1,0 +1,140 @@
+= Eden* Spring Boot
+
+image:https://img.shields.io/badge/build-success-pure.svg[]
+image:https://img.shields.io/badge/language-java-blue.svg[]
+image:https://img.shields.io/badge/license-apache 2.0-E864DE.svg[]
+
+Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，
+消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
+
+您可以通过 Eden* Spring Boot 创建独立的 Java 应用程序，使用 `java -jar` 或更传统的 WAR 部署来启动它。
+
+WARNING: 为了兼容 JDK 1.7 的版本，Eden* Spring Boot 使用的 Spring Boot 是 1.4.7 版本，如果需要升级较高的版本，请根据 Spring 官方的 API 变化进行改造。
+
+== 主要特性
+
+1. 自动化配置优先，组件的集成配置只需要引入指定的 starter 即可，如果默认配置不满足你的需求，可以按自己的配置覆盖它；
+2. 对常见的依赖和插件统一管理，解决了大量的依赖冲突，简化 POM 文件的配置工作；
+3. 完善的微服务体系框架，基于服务发现覆盖单机配置，增强网关的认证口令传输；
+4. 认证授权流程开箱即用，如 OAuth2、Jwt、Shiro 等安全框架；
+5. 常用组件的自动化配置，如 Swagger、Metrics、Logstash、HazelCast 等等；
+6. 通用的工具库积累，并对 Apache Commons 和 Google Guava 等工具类进行适配封装；
+7. 丰富的组件测试框架，允许在测试的生命周期启动嵌入式的 Redis、Kafka、MongoDB 等中间件执行测试。
+
+== 安装入门
+
+=== 构建源码
+
+Eden* Spring Boot 的源码支持在 JDK 1.7 以上的版本编译构建
+
+CAUTION: 以下情况需要在 JDK 1.8 以上的版本运行： 运行 liquibase-maven-plugin 插件执行性能测试；
+使用 swagger2markup-maven-plugin 插件生成接口文档；集成 zipkin 依赖组件。
+
+您可以使用以下命令构建并发布到本地的 Maven 仓库中：
+
+[indent=0]
+----
+
+$ ./mvnw clean install
+
+----
+
+=== 示例代码
+
+以下是 Spring Boot 应用程序的示例：
+
+[source,java,indent=0]
+----
+
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@SpringBootApplication
+public class Example {
+
+    @RequestMapping("/")
+    public String home() {
+        return "Hello World!";
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(Example.class, args);
+    }
+}
+
+----
+
+== 模块清单
+
+|===
+| 应用名称 | 描述 | 技术栈
+
+| eden-spring-boot-project
+| 开发程序集
+| -
+
+| eden-spring-boot-cloud
+| 微服务组件
+| Dubbo、Netflix (Eureka + Feign + Hystrix + Ribbon)
+
+| eden-spring-boot-commons
+| 工具类库
+| Apache Commons、Google Guava
+
+| eden-spring-boot-data
+| 数据仓库
+| Jpa、MongoDB、Mybatis (PagerHelper + Mapper)、Neo4j、Redis...
+
+| eden-spring-boot-dependencies
+| 依赖管理
+| -
+
+| eden-spring-boot-framework
+| 基础框架
+| HttpClient
+
+| eden-spring-boot-integration
+| 组件集成
+| EasyExcel、Flowable、HazelCast、Kafka、Logstash、Metrics、Netty、RabbitMQ、Swagger...
+
+| eden-spring-boot-security
+| 安全认证
+| Jwt、OAuth2、Shiro
+
+| eden-spring-boot-starters
+| 依赖集
+| -
+
+| eden-spring-boot-support
+| 帮助支持
+| -
+
+| eden-spring-boot-test
+| 测试框架
+| -
+
+| eden-spring-boot-tests
+| 测试程序集
+| -
+
+| eden-spring-boot-deployment-tests
+| 部署测试集
+| -
+
+| eden-spring-boot-integration-tests
+| 集成测试集
+| -
+
+| eden-spring-boot-smoke-tests
+| 冒烟测试集
+| -
+|===
+
+== 许可声明
+Eden* Spring Boot 为本人在工作之余开发完成，主要用于学习交流，完全开源免费，遵循
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]
+
+== 联系方式
+image:src/docs/asciidoc/wechat.jpg[title="扫码加好友", width="233"]

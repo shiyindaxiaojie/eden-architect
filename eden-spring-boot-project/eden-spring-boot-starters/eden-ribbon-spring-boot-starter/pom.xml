@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eden-ribbon-spring-boot-starter</artifactId>
+    <packaging>jar</packaging>
+    <name>eden-ribbon-spring-boot-starter</name>
+    <description>Eden* Ribbon Spring Boot Starter</description>
+
+    <parent>
+        <groupId>org.ylzl</groupId>
+        <artifactId>eden-spring-boot-starters</artifactId>
+        <version>1.0.0.RELEASE</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ylzl</groupId>
+            <artifactId>eden-spring-boot-cloud</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot-support</artifactId>
+		</dependency>
+    </dependencies>
+
+</project>

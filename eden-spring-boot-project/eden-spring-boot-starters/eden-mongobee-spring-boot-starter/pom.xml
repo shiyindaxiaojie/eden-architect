@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eden-mongobee-spring-boot-starter</artifactId>
+    <packaging>jar</packaging>
+    <name>eden-mongobee-spring-boot-starter</name>
+    <description>Eden* Mongobee Spring Boot Starter</description>
+
+    <parent>
+        <groupId>org.ylzl</groupId>
+        <artifactId>eden-spring-boot-starters</artifactId>
+        <version>1.0.0.RELEASE</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.mongobee</groupId>
+            <artifactId>mongobee</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ylzl</groupId>
+            <artifactId>eden-spring-boot-data</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

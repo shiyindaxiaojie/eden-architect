@@ -1,0 +1,16 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.spring.boot.data.elasticsearch.EnhancedElasticsearchDataAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.flyway.FixedFlywayAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.jdbc.EnhancedJdbcTemplateAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.liquibase.EnhancedLiquibaseAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.mongobee.MongobeeAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.mongodb.MongoDBAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.mybatis.EnhancedMybatisAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.mybatis.MybatisMapperAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.mybatis.MybatisPageHelperAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.neo4j.FixedNeo4jAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.redis.EnhancedRedisAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.redis.RedisCacheAutoConfiguration
+
