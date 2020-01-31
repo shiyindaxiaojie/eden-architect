@@ -17,23 +17,23 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>eden-spring-boot-deployment-tests</artifactId>
-    <packaging>pom</packaging>
-    <name>eden-spring-boot-deployment-tests</name>
-    <description>Eden* Spring Boot Deployment Tests</description>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>eden-spring-boot-deployment-tests</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-spring-boot-deployment-tests</name>
+	<description>Eden* Spring Boot Deployment Tests</description>
 
-    <parent>
-        <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot-tests</artifactId>
-        <version>1.0.0.RELEASE</version>
-        <relativePath>..</relativePath>
-    </parent>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-spring-boot-tests</artifactId>
+		<version>1.0.0.RELEASE</version>
+		<relativePath>..</relativePath>
+	</parent>
 
-    <modules>
+	<modules>
 		<module>eden-spring-boot-deployment-test-glassfish</module>
 		<module>eden-spring-boot-deployment-test-tomee</module>
 		<module>eden-spring-boot-deployment-test-tomcat</module>
@@ -41,10 +41,80 @@
 		<module>eden-spring-boot-deployment-test-wlp</module>
 	</modules>
 
-    <properties>
-		<cargo.timeout>1200000</cargo.timeout>
+	<properties>
+		<appserver.port/>
+		<appserver.admin.port/>
+		<appserver.jms.port/>
+		<appserver.iiop.port/>
+		<appserver.https.port/>
+		<appserver.iiops.port/>
+		<appserver.iiopmutualauth.port/>
+		<appserver.jmx.port/>
+		<appserver.osgishell.port/>
+		<appserver.debugger.port/>
+		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+		<cargo.container.id/>
 		<cargo.container.download-dir>${settings.localRepository}/.cache/cargo/installs</cargo.container.download-dir>
+		<cargo.container.url/>
+		<cargo.timeout>1200000</cargo.timeout>
+		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
 	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>${cargo-maven2-plugin.version}</version>
+					<configuration>
+						<container>
+							<containerId>${cargo.container.id}</containerId>
+							<timeout>${cargo.timeout}</timeout>
+							<zipUrlInstaller>
+								<url>${cargo.container.url}</url>
+								<downloadDir>${cargo.container.download-dir}</downloadDir>
+							</zipUrlInstaller>
+							<systemProperties>
+								<java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
+								<java.net.preferIPv4Addresses>true</java.net.preferIPv4Addresses>
+							</systemProperties>
+						</container>
+						<deployables>
+							<deployable>
+								<properties>
+									<context>/bootapp</context>
+								</properties>
+								<pingURL>http://localhost:${appserver.port}/bootapp</pingURL>
+								<pingTimeout>60000</pingTimeout>
+							</deployable>
+						</deployables>
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-cargo</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>start</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>stop-cargo</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>stop</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<dependencies>
 		<dependency>
