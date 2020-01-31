@@ -1,8 +1,8 @@
 = Eden* Spring Boot
 
-image:https://img.shields.io/badge/build-success-pure.svg[]
+image:https://github.com/eden-lab/eden-spring-boot/workflows/Application%20CI/badge.svg[]
 image:https://img.shields.io/badge/language-java-blue.svg[]
-image:https://img.shields.io/badge/license-apache 2.0-E864DE.svg[]
+image:https://img.shields.io/badge/license-apache 2.0-green.svg[]
 
 Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，
 消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
