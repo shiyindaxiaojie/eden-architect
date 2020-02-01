@@ -31,6 +31,7 @@ import java.sql.Types;
  * @author gyl
  * @since 0.0.1
  */
+@SuppressWarnings("unchecked")
 public class SQLiteDialect extends Dialect {
 
     public SQLiteDialect() {

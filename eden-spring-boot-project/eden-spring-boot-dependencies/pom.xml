@@ -57,6 +57,7 @@
 		<glassfish.version>3.0.1</glassfish.version>
         <guava.version>20.0</guava.version>
         <hessian.version>4.0.38</hessian.version>
+		<hibernate.version>4.3.11.Final</hibernate.version>
         <hibernate-commons.version>4.0.5.Final</hibernate-commons.version>
         <hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
 		<infinispan.version>9.4.17.Final</infinispan.version>
