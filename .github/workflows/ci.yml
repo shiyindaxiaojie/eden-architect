@@ -12,9 +12,9 @@ jobs:
             - uses: actions/setup-java@v1
               with:
                   java-version: '7.x'
-            - name: Verify application
+            - name: Package application
               run: |
                   chmod +x mvnw
-                  ./mvnw -ntp clean verify -e -U
-            - name: Package application
-              run: ./mvnw -ntp package -DskipTests  -e -U
+                  ./mvnw -ntp package -DskipTests -e -U
+            - name: Verify application
+              run: ./mvnw -ntp clean verify
