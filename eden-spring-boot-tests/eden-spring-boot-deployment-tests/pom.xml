@@ -30,7 +30,7 @@
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-tests</artifactId>
 		<version>1.0.0.RELEASE</version>
-		<relativePath>..</relativePath>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<modules>
