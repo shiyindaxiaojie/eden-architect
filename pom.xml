@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.ylzl</groupId>
     <artifactId>eden-spring-boot</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.0.1.RELEASE</version>
     <packaging>pom</packaging>
     <name>eden-spring-boot</name>
     <description>Eden* Spring Boot</description>

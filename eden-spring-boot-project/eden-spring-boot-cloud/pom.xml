@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.ylzl</groupId>
         <artifactId>eden-spring-boot-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.RELEASE</version>
         <relativePath>../eden-spring-boot-parent</relativePath>
     </parent>
 
