@@ -95,6 +95,11 @@
 							<goals>
 								<goal>start</goal>
 							</goals>
+							<configuration>
+								<container>
+									<timeout>60000</timeout>
+								</container>
+							</configuration>
 						</execution>
 						<execution>
 							<id>stop-cargo</id>
@@ -102,6 +107,11 @@
 							<goals>
 								<goal>stop</goal>
 							</goals>
+							<configuration>
+								<container>
+									<timeout>10000</timeout>
+								</container>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
