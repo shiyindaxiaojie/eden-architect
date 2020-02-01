@@ -27,9 +27,9 @@
 
 	<parent>
 		<groupId>org.ylzl</groupId>
-		<artifactId>eden-spring-boot</artifactId>
+		<artifactId>eden-spring-boot-parent</artifactId>
 		<version>1.0.0.RELEASE</version>
-		<relativePath>..</relativePath>
+		<relativePath>../eden-spring-boot-project/eden-spring-boot-parent</relativePath>
 	</parent>
 
 	<modules>
@@ -37,18 +37,6 @@
 		<module>eden-spring-boot-integration-tests</module>
 		<module>eden-spring-boot-smoke-tests</module>
 	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-spring-boot-dependencies</artifactId>
-				<version>1.0.0.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>

@@ -17,14 +17,13 @@
 
 package org.ylzl.eden.spring.boot.data.flyway.datasource;
 
-import org.sqlite.SQLiteDataSource;
-
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.sqlite.SQLiteDataSource;
 
 /**
- * TODO
+ * Flyway SQLite 数据源
  *
  * @author gyl
  * @since 0.0.1
@@ -42,11 +41,6 @@ public class FlywaySQLiteDataSource extends SQLiteDataSource {
     @Override
     public Connection getConnection() throws SQLException {
        return getConnectionWithKeepAlive();
-    }
-
-    @Override
-    public Connection getConnection(String username, String password) throws SQLException {
-        return getConnectionWithKeepAlive();
     }
 
     private Connection getConnectionWithKeepAlive() throws SQLException {

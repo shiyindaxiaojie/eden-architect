@@ -42,7 +42,7 @@
 	</modules>
 
 	<properties>
-		<appserver.port/>
+		<!--<appserver.port/>
 		<appserver.admin.port/>
 		<appserver.jms.port/>
 		<appserver.iiop.port/>
@@ -51,13 +51,12 @@
 		<appserver.iiopmutualauth.port/>
 		<appserver.jmx.port/>
 		<appserver.osgishell.port/>
-		<appserver.debugger.port/>
-		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+		<appserver.debugger.port/>-->
 		<cargo.container.id/>
 		<cargo.container.download-dir>${settings.localRepository}/.cache/cargo/installs</cargo.container.download-dir>
 		<cargo.container.url/>
 		<cargo.timeout>1200000</cargo.timeout>
-		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
+		<jakarta-servlet.version>4.0.3</jakarta-servlet.version>
 	</properties>
 
 	<build>
@@ -66,7 +65,6 @@
 				<plugin>
 					<groupId>org.codehaus.cargo</groupId>
 					<artifactId>cargo-maven2-plugin</artifactId>
-					<version>${cargo-maven2-plugin.version}</version>
 					<configuration>
 						<container>
 							<containerId>${cargo.container.id}</containerId>
@@ -107,16 +105,40 @@
 						</execution>
 					</executions>
 				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${build-helper-maven-plugin.version}</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${jakarta-servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-support</artifactId>

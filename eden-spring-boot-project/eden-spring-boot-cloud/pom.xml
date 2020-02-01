@@ -27,22 +27,31 @@
 
     <parent>
         <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot-project</artifactId>
+        <artifactId>eden-spring-boot-parent</artifactId>
         <version>1.0.0.RELEASE</version>
-        <relativePath>..</relativePath>
+        <relativePath>../eden-spring-boot-parent</relativePath>
     </parent>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.ylzl</groupId>
-                <artifactId>eden-spring-boot-dependencies</artifactId>
-                <version>1.0.0.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
     <dependencies>
         <dependency>

@@ -25,24 +25,12 @@
     <name>eden-spring-boot-test</name>
     <description>Eden* Spring Boot Test</description>
 
-    <parent>
-        <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot-project</artifactId>
-        <version>1.0.0.RELEASE</version>
-        <relativePath>..</relativePath>
-    </parent>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.ylzl</groupId>
-                <artifactId>eden-spring-boot-dependencies</artifactId>
-                <version>1.0.0.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-spring-boot-parent</artifactId>
+		<version>1.0.0.RELEASE</version>
+		<relativePath>../eden-spring-boot-parent</relativePath>
+	</parent>
 
     <dependencies>
         <dependency>
