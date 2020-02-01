@@ -4,7 +4,7 @@ jobs:
     applications:
         name: Application test suite
         runs-on: ubuntu-latest
-        timeout-minutes: 40
+        timeout-minutes: 30
         env:
             SPRING_OUTPUT_ANSI_ENABLED: DETECT
         steps:

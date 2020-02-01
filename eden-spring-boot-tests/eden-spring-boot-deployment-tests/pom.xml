@@ -84,7 +84,7 @@
 									<context>/bootapp</context>
 								</properties>
 								<pingURL>http://localhost:${appserver.port}/bootapp</pingURL>
-								<pingTimeout>60000</pingTimeout>
+								<pingTimeout>120000</pingTimeout>
 							</deployable>
 						</deployables>
 					</configuration>
