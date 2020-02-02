@@ -39,36 +39,4 @@
         <module>eden-spring-boot-tests</module>
     </modules>
 
-    <developers>
-        <developer>
-            <id>guoyuanlu</id>
-            <name>郭远陆</name>
-            <email>1813986321@qq.com</email>
-            <organization>ylzl</organization>
-            <organizationUrl>https://github.com/ylzl-github</organizationUrl>
-            <roles>
-                <role>DevOps</role>
-            </roles>
-        </developer>
-    </developers>
-
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
-		</license>
-	</licenses>
-
-	<scm>
-		<url>https://github.com/eden-lab/eden-spring-boot</url>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/shiyindaxiaojie/eden-spring-boot</url>
-		</repository>
-	</distributionManagement>
-
 </project>
