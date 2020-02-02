@@ -42,7 +42,7 @@
 	</modules>
 
 	<properties>
-		<!--<appserver.port/>
+		<appserver.port/>
 		<appserver.admin.port/>
 		<appserver.jms.port/>
 		<appserver.iiop.port/>
@@ -51,7 +51,7 @@
 		<appserver.iiopmutualauth.port/>
 		<appserver.jmx.port/>
 		<appserver.osgishell.port/>
-		<appserver.debugger.port/>-->
+		<appserver.debugger.port/>
 		<cargo.container.id/>
 		<cargo.container.download-dir>${settings.localRepository}/.cache/cargo/installs</cargo.container.download-dir>
 		<cargo.container.url/>

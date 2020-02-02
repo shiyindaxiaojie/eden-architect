@@ -16,5 +16,5 @@ jobs:
               run: |
                   chmod +x mvnw
                   ./mvnw -ntp package -DskipTests -e -U
-            - name: Verify application
-              run: ./mvnw -ntp clean verify
+#            - name: Verify application
+#              run: ./mvnw -ntp clean verify
