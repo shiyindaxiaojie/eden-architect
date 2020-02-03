@@ -1,8 +1,8 @@
 = Eden* Spring Boot
 
 image:https://github.com/eden-lab/eden-spring-boot/workflows/Application%20CI/badge.svg[]
-image:https://img.shields.io/badge/language-java-blue.svg[]
-image:https://img.shields.io/badge/license-apache 2.0-green.svg[]
+image:src/docs/asciidoc/language-java-blue.svg[]
+image:src/docs/asciidoc/license-apache 2.0-red.svg[]
 
 Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
 
@@ -11,7 +11,6 @@ Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各
 WARNING: 为了兼容 JDK 1.7 的版本，Eden* Spring Boot 使用的 Spring Boot 是 1.4.7 版本，如果需要升级较高的版本，请根据 Spring 官方的 API 变化进行改造。
 
 == 基本介绍
-
 1. 自动化配置优先，组件的集成配置只需要引入指定的 starter 即可，你也可以按自己的需求去覆盖默认的配置；
 2. 统一的依赖和插件管理，解决了大量的依赖冲突，简化 POM 文件的配置工作；
 3. 完善的微服务体系框架，基于服务发现覆盖单机配置，增强网关的认证口令传输；
@@ -44,7 +43,7 @@ $ ./mvnw clean install
 
 从 eden-spring-boot-starters 中选择您需要的组件，以依赖引入的形式添加到应用程序的 POM 文件。此处已完成配置 Swagger2 的工作。
 
-[xml,indent=0]
+[source,xml,indent=0]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -78,9 +77,9 @@ $ ./mvnw clean install
 
 === 微调配置
 
-Eden* Spring Boot 提供了自动化配置和默认的配置值，当然，您可以在应用配置属性文件中覆盖它。
+Eden* Spring Boot 提供了自动化配置和默认的配置值，当然，您可以参考下述代码在应用配置属性文件中覆盖它。
 
-[indent=0]
+[source,yaml,indent=0]
 ----
 eden:
     integration:
@@ -120,63 +119,78 @@ public class Example {
 === 模块清单
 
 |===
-| 应用名称 | 描述
+| 应用名称 | 描述 | 技术栈
 
 | eden-spring-boot-project
 | 开发程序集
+| -
 
 | eden-spring-boot-cloud
 | 微服务框架
+| Spring Cloud Config、Eureka、Consul...
 
 | eden-spring-boot-commons
 | 工具类库
+| Apache Commons、Googla Guava...
 
 | eden-spring-boot-data
 | 数据仓库
+| Spring Data、Flyway、Liquibase、Mongobee
 
 | eden-spring-boot-dependencies
 | 依赖管理
+| -
 
 | eden-spring-boot-framework
 | 基础框架
+| HttpClient...
 
 | eden-spring-boot-integration
 | 组件集成
+| Hazelcast、Kafka、Logstash、Metrics、Netty、Swagger...
 
 | eden-spring-boot-parent
 | 构建管理
+| -
 
 | eden-spring-boot-security
 | 安全认证
+| Spring Security OAuth2、Jwt...
 
 | eden-spring-boot-starters
 | 依赖集
+| -
 
 | eden-spring-boot-support
 | 帮助支持
+| -
 
 | eden-spring-boot-test
 | 测试框架
+| -
 
 | eden-spring-boot-tests
 | 测试程序集
+| -
 
 | eden-spring-boot-deployment-tests
 | 部署测试集
+| -
 
 | eden-spring-boot-integration-tests
 | 集成测试集
+| -
 
 | eden-spring-boot-smoke-tests
 | 冒烟测试集
+| -
 |===
 
-=== 模块依赖
+=== 开发视图
+
 image:src/docs/staruml/html-docs/diagrams/d5507f74c7649420f3e80c315002ce65.svg[width="600"]
 
 == 许可声明
+
 Eden* Spring Boot 为本人在工作之余开发而成，主要用于学习交流，完全开源免费，遵循
 https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]
-
-== 联系方式
-image:src/docs/asciidoc/wechat.jpg[title="扫码加好友", width="233"]
