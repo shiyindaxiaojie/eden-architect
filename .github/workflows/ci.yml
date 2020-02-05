@@ -1,8 +1,8 @@
-name: Application CI
+name: build
 on: [push, pull_request]
 jobs:
     applications:
-        name: Application test suite
+        name: application test suite
         runs-on: ubuntu-latest
         timeout-minutes: 30
         env:
