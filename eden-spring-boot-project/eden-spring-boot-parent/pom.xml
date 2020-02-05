@@ -162,22 +162,255 @@
 		<pluginManagement>
 			<!-- 相同的 phase 按引入顺序执行 -->
 			<plugins>
-				<!-- wrapper-maven-plugin:initalize -->
+			    <plugin>
+					<groupId>com.github.jeluard</groupId>
+					<artifactId>plantuml-maven-plugin</artifactId>
+					<version>${plantuml-maven-plugin.version}</version>
+					<configuration>
+						<graphvizDot>${graphvizDot}</graphvizDot>
+						<sourceFiles>
+							<directory>${plantuml.output.directory}</directory>
+							<includes>
+								<include>**/*.puml</include>
+							</includes>
+						</sourceFiles>
+					</configuration>
+					<executions>
+						<execution>
+							<id>plantuml-generate</id>
+							<phase>pre-site</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>net.sourceforge.plantuml</groupId>
+							<artifactId>plantuml</artifactId>
+							<version>${plantuml.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>com.google.cloud.tools</groupId>
+					<artifactId>jib-maven-plugin</artifactId>
+					<version>${jib-maven-plugin.version}</version>
+					<configuration>
+						<from>
+							<image>openjdk:7-jre-alpine</image>
+						</from>
+						<to>
+							<image>${project.name}:latest</image>
+						</to>
+						<container>
+							<entrypoint>
+								<shell>sh</shell>
+								<option>-c</option>
+								<arg>chmod +x /entrypoint.sh &amp;&amp; sync &amp;&amp; /entrypoint.sh</arg>
+							</entrypoint>
+							<ports>
+								<port>8080</port>
+							</ports>
+							<environment>
+								<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
+								<RUN_SLEEP>0</RUN_SLEEP>
+							</environment>
+							<useCurrentTimestamp>true</useCurrentTimestamp>
+						</container>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>com.rimerosolutions.maven.plugins</groupId>
 					<artifactId>wrapper-maven-plugin</artifactId>
 					<version>${wrapper-maven-plugin.version}</version>
 				</plugin>
-				<!-- maven-idea-plugin:initalize -->
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-idea-plugin</artifactId>
-					<version>${maven-idea-plugin.version}</version>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>${dockerfile-maven-plugin.version}</version>
 					<configuration>
-						<exclude>node_modules</exclude>
+						<repository>${project.name}</repository>
+						<tag>${project.version}</tag>
+						<contextDirectory>${project.build.directory}</contextDirectory>
 					</configuration>
 				</plugin>
-				<!-- maven-eclipse-plugin:initalize -->
+				<plugin>
+					<groupId>de.elnarion.maven</groupId>
+					<artifactId>plantuml-generator-maven-plugin</artifactId>
+					<version>${plantuml-generator-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>io.gatling</groupId>
+					<artifactId>gatling-maven-plugin</artifactId>
+					<version>${gatling-maven-plugin.version}</version>
+					<configuration>
+						<disableCompiler>true</disableCompiler>
+						<propagateSystemProperties>true</propagateSystemProperties>
+						<failOnError>true</failOnError>
+						<runMultipleSimulations>true</runMultipleSimulations>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>io.github.swagger2markup</groupId>
+					<artifactId>swagger2markup-maven-plugin</artifactId>
+					<version>${swagger2markup-maven-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>io.github.swagger2markup</groupId>
+							<artifactId>swagger2markup-import-files-ext</artifactId>
+							<version>${swagger2markup-extensions.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>io.github.swagger2markup</groupId>
+							<artifactId>swagger2markup-spring-restdocs-ext</artifactId>
+							<version>${swagger2markup-extensions.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<swaggerInput>${swagger.input}</swaggerInput>
+						<outputDir>${asciidoctor.generated.directory}</outputDir>
+						<config>
+							<swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+							<swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
+							<swagger2markup.extensions.dynamicOverview.contentPath>
+								${project.basedir}/src/docs/asciidoc/extensions/overview
+							</swagger2markup.extensions.dynamicOverview.contentPath>
+							<swagger2markup.extensions.dynamicDefinitions.contentPath>
+								${project.basedir}/src/docs/asciidoc/extensions/definitions
+							</swagger2markup.extensions.dynamicDefinitions.contentPath>
+							<swagger2markup.extensions.dadmynamicPaths.contentPath>
+								${project.basedir}/src/docs/asciidoc/extensions/paths
+							</swagger2markup.extensions.dadmynamicPaths.contentPath>
+							<swagger2markup.extensions.dynamicSecurity.contentPath>
+								${project.basedir}/src/docs/asciidoc/extensions/security
+							</swagger2markup.extensions.dynamicSecurity.contentPath>
+							<swagger2markup.extensions.springRestDocs.snippetBaseUri>${swagger.snippetOutput.dir}
+							</swagger2markup.extensions.springRestDocs.snippetBaseUri>
+							<swagger2markup.extensions.springRestDocs.defaultSnippets>true
+							</swagger2markup.extensions.springRestDocs.defaultSnippets>
+						</config>
+					</configuration>
+					<executions>
+						<execution>
+							<id>swagger2markup-maven-plugin-convertSwagger2markup</id>
+							<phase>pre-site</phase>
+							<goals>
+								<goal>convertSwagger2markup</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>it.ozimov</groupId>
+					<artifactId>yaml-properties-maven-plugin</artifactId>
+					<version>${yaml-properties-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>yaml-read-project-properties</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+								<files>
+									<file>${project.build.outputDirectory}/config/application-${spring.profiles.active}.yml</file>
+								</files>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>scala-maven-plugin</artifactId>
+					<version>${scala-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>scala-testCompile</id>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+							<configuration>
+								<jvmArgs>
+									<jvmArg>-Xss100M</jvmArg>
+								</jvmArgs>
+								<args>
+									<arg>-target:jvm-1.8</arg>
+									<arg>-deprecation</arg>
+									<arg>-feature</arg>
+									<arg>-unchecked</arg>
+									<arg>-language:implicitConversions</arg>
+									<arg>-language:postfixOps</arg>
+								</args>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.johnzon</groupId>
+					<artifactId>johnzon-maven-plugin</artifactId>
+					<version>${johnzon-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+					<configuration>
+						<descriptors>
+							<descriptor>src/main/assembly/assembly.xml</descriptor>
+						</descriptors>
+					</configuration>
+					<executions>
+						<execution>
+							<id>assembly-single</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.hibernate</groupId>
+								<artifactId>hibernate-jpamodelgen</artifactId>
+								<version>${hibernate.version}</version>
+							</path>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+							<path>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-configuration-processor</artifactId>
+								<version>${spring-boot.version}</version>
+							</path>
+						</annotationProcessorPaths>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<showWarnings>false</showWarnings>
+						<compilerArgs>
+							<arg>-Xlint</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-eclipse-plugin</artifactId>
@@ -187,7 +420,6 @@
 						<downloadJavadocs>true</downloadJavadocs>
 					</configuration>
 				</plugin>
-				<!-- maven-enforcer-plugin:validate -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
@@ -226,22 +458,99 @@
 						</rules>
 					</configuration>
 				</plugin>
-				<!-- dependency-check-maven:validate -->
 				<plugin>
-					<groupId>org.owasp</groupId>
-					<artifactId>dependency-check-maven</artifactId>
-					<version>${dependency-check-maven.version}</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+					<configuration>
+						<updateReleaseInfo>true</updateReleaseInfo>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+					<configuration>
+						<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+						<runOrder>alphabetical</runOrder>
+						<reportsDirectory>${junit.itReportFolder}</reportsDirectory>
+						<includes>
+							<include>**/*IT*</include>
+							<include>**/*IntTest*</include>
+						</includes>
+					</configuration>
 					<executions>
 						<execution>
-							<id>dependency-check</id>
-							<phase>validate</phase>
+							<id>integration-test</id>
+							<phase>integration-test</phase>
 							<goals>
-								<goal>check</goal>
+								<goal>integration-test</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>verify</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>verify</goal>
 							</goals>
 						</execution>
 					</executions>
 				</plugin>
-				<!-- maven-resources-plugin:process-resources -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-help-plugin</artifactId>
+					<version>${maven-help-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-idea-plugin</artifactId>
+					<version>${maven-idea-plugin.version}</version>
+					<configuration>
+						<exclude>node_modules</exclude>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-invoker-plugin</artifactId>
+					<version>${maven-invoker-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>**/rebel.xml</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+					<configuration>
+						<source>8</source>
+					</configuration>
+					<executions>
+						<execution>
+							<id>javadoc-jar</id>
+							<phase>pre-site</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>${maven-project-info-reports-plugin.version}</version>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -299,178 +608,21 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- yaml-properties-maven-plugin:process-resources -->
-				<plugin>
-					<groupId>it.ozimov</groupId>
-					<artifactId>yaml-properties-maven-plugin</artifactId>
-					<version>${yaml-properties-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>yaml-read-project-properties</id>
-							<phase>prepare-package</phase>
-							<goals>
-								<goal>read-project-properties</goal>
-							</goals>
-							<configuration>
-								<files>
-									<file>${project.build.outputDirectory}/config/application-${spring.profiles.active}.yml</file>
-								</files>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- properties-maven-plugin:process-resources -->
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>properties-maven-plugin</artifactId>
-					<version>${properties-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>properties-read-project-properties</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>read-project-properties</goal>
-							</goals>
-							<configuration>
-								<files>
-									<file>${project.build.outputDirectory}/*.properties</file>
-								</files>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- maven-compiler-plugin:compile -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-					<configuration>
-						<annotationProcessorPaths>
-							<path>
-								<groupId>org.hibernate</groupId>
-								<artifactId>hibernate-jpamodelgen</artifactId>
-								<version>${hibernate.version}</version>
-							</path>
-							<path>
-								<groupId>org.projectlombok</groupId>
-								<artifactId>lombok</artifactId>
-								<version>${lombok.version}</version>
-							</path>
-							<path>
-								<groupId>org.mapstruct</groupId>
-								<artifactId>mapstruct-processor</artifactId>
-								<version>${mapstruct.version}</version>
-							</path>
-							<path>
-								<groupId>org.springframework.boot</groupId>
-								<artifactId>spring-boot-configuration-processor</artifactId>
-								<version>${spring-boot.version}</version>
-							</path>
-						</annotationProcessorPaths>
-						<source>${java.version}</source>
-						<target>${java.version}</target>
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<showWarnings>false</showWarnings>
-						<compilerArgs>
-							<arg>-Xlint</arg>
-						</compilerArgs>
-					</configuration>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>${maven-shade-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.jetbrains.kotlin</groupId>
-					<artifactId>kotlin-maven-plugin</artifactId>
-					<version>${kotlin-maven-plugin.version}</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
 				</plugin>
-				<!-- scala-maven-plugin:testCompile -->
 				<plugin>
-					<groupId>net.alchim31.maven</groupId>
-					<artifactId>scala-maven-plugin</artifactId>
-					<version>${scala-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>scala-testCompile</id>
-							<goals>
-								<goal>testCompile</goal>
-							</goals>
-							<configuration>
-								<jvmArgs>
-									<jvmArg>-Xss100M</jvmArg>
-								</jvmArgs>
-								<args>
-									<arg>-target:jvm-1.8</arg>
-									<arg>-deprecation</arg>
-									<arg>-feature</arg>
-									<arg>-unchecked</arg>
-									<arg>-language:implicitConversions</arg>
-									<arg>-language:postfixOps</arg>
-								</args>
-							</configuration>
-						</execution>
-					</executions>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
 				</plugin>
-				<!-- gatling-maven-plugin:test -->
-				<plugin>
-					<groupId>io.gatling</groupId>
-					<artifactId>gatling-maven-plugin</artifactId>
-					<version>${gatling-maven-plugin.version}</version>
-					<configuration>
-						<disableCompiler>true</disableCompiler>
-						<propagateSystemProperties>true</propagateSystemProperties>
-						<failOnError>true</failOnError>
-						<runMultipleSimulations>true</runMultipleSimulations>
-					</configuration>
-				</plugin>
-				<!-- jacoco-maven-plugin:test&post-integration-test -->
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${jacoco-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>jacoco-prepare-agent</id>
-							<phase>test</phase>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.utReportFile}</destFile>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-report</id>
-							<phase>test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.utReportFile}</dataFile>
-								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-prepare-agent-integration</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>prepare-agent-integration</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.itReportFile}</destFile>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-report-integration</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>report-integration</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.itReportFile}</dataFile>
-								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- maven-surefire-plugin:test -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -484,55 +636,6 @@
 						</excludes>
 					</configuration>
 				</plugin>
-				<!-- maven-failsafe-plugin:pre-integration-test&integration-test -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>${maven-failsafe-plugin.version}</version>
-					<configuration>
-						<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-						<runOrder>alphabetical</runOrder>
-						<reportsDirectory>${junit.itReportFolder}</reportsDirectory>
-						<includes>
-							<include>**/*IT*</include>
-							<include>**/*IntTest*</include>
-						</includes>
-					</configuration>
-					<executions>
-						<execution>
-							<id>integration-test</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>integration-test</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>verify</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>verify</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- sonar-maven-plugin:test -->
-				<plugin>
-					<groupId>org.sonarsource.scanner.maven</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>${sonar-maven-plugin.version}</version>
-				</plugin>
-				<!-- maven-jar-plugin:package -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven-jar-plugin.version}</version>
-					<configuration>
-						<excludes>
-							<exclude>**/rebel.xml</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
-				<!-- maven-war-plugin:package -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
@@ -548,164 +651,6 @@
 						<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
 					</configuration>
 				</plugin>
-				<!-- maven-assembly-plugin:package -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>${maven-assembly-plugin.version}</version>
-					<configuration>
-						<descriptors>
-							<descriptor>src/main/assembly/assembly.xml</descriptor>
-						</descriptors>
-					</configuration>
-					<executions>
-						<execution>
-							<id>assembly-single</id>
-							<phase>package</phase>
-							<goals>
-								<goal>single</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- spring-boot-maven-plugin:package -->
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<executable>true</executable>
-						<fork>true</fork>
-						<mainClass>${start-class}</mainClass>
-					</configuration>
-					<executions>
-						<execution>
-							<id>spring-boot-build-repackage</id>
-							<goals>
-								<goal>build-info</goal>
-								<goal>repackage</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- maven-deploy-plugin:deploy -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>${maven-deploy-plugin.version}</version>
-					<configuration>
-						<updateReleaseInfo>true</updateReleaseInfo>
-					</configuration>
-				</plugin>
-				<!-- jib-maven-plugin:deploy -->
-				<plugin>
-					<groupId>com.google.cloud.tools</groupId>
-					<artifactId>jib-maven-plugin</artifactId>
-					<version>${jib-maven-plugin.version}</version>
-					<configuration>
-						<from>
-							<image>openjdk:7-jre-alpine</image>
-						</from>
-						<to>
-							<image>${project.name}:latest</image>
-						</to>
-						<container>
-							<entrypoint>
-								<shell>sh</shell>
-								<option>-c</option>
-								<arg>chmod +x /entrypoint.sh &amp;&amp; sync &amp;&amp; /entrypoint.sh</arg>
-							</entrypoint>
-							<ports>
-								<port>8080</port>
-							</ports>
-							<environment>
-								<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
-								<RUN_SLEEP>0</RUN_SLEEP>
-							</environment>
-							<useCurrentTimestamp>true</useCurrentTimestamp>
-						</container>
-					</configuration>
-				</plugin>
-				<!-- dockerfile-maven-plugin:deploy -->
-				<plugin>
-					<groupId>com.spotify</groupId>
-					<artifactId>dockerfile-maven-plugin</artifactId>
-					<version>${dockerfile-maven-plugin.version}</version>
-					<configuration>
-						<repository>${project.name}</repository>
-						<tag>${project.version}</tag>
-						<contextDirectory>${project.build.directory}</contextDirectory>
-					</configuration>
-				</plugin>
-				<!-- maven-javadoc-plugin:pre-site -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-					<configuration>
-						<source>8</source>
-					</configuration>
-					<executions>
-						<execution>
-							<id>javadoc-jar</id>
-							<phase>pre-site</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- swagger2markup-maven-plugin:pre-site -->
-				<plugin>
-					<groupId>io.github.swagger2markup</groupId>
-					<artifactId>swagger2markup-maven-plugin</artifactId>
-					<version>${swagger2markup-maven-plugin.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>io.github.swagger2markup</groupId>
-							<artifactId>swagger2markup-import-files-ext</artifactId>
-							<version>${swagger2markup-extensions.version}</version>
-						</dependency>
-						<dependency>
-							<groupId>io.github.swagger2markup</groupId>
-							<artifactId>swagger2markup-spring-restdocs-ext</artifactId>
-							<version>${swagger2markup-extensions.version}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<swaggerInput>${swagger.input}</swaggerInput>
-						<outputDir>${asciidoctor.generated.directory}</outputDir>
-						<config>
-							<swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
-							<swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
-							<swagger2markup.extensions.dynamicOverview.contentPath>
-								${project.basedir}/src/docs/asciidoc/extensions/overview
-							</swagger2markup.extensions.dynamicOverview.contentPath>
-							<swagger2markup.extensions.dynamicDefinitions.contentPath>
-								${project.basedir}/src/docs/asciidoc/extensions/definitions
-							</swagger2markup.extensions.dynamicDefinitions.contentPath>
-							<swagger2markup.extensions.dadmynamicPaths.contentPath>
-								${project.basedir}/src/docs/asciidoc/extensions/paths
-							</swagger2markup.extensions.dadmynamicPaths.contentPath>
-							<swagger2markup.extensions.dynamicSecurity.contentPath>
-								${project.basedir}/src/docs/asciidoc/extensions/security
-							</swagger2markup.extensions.dynamicSecurity.contentPath>
-							<swagger2markup.extensions.springRestDocs.snippetBaseUri>${swagger.snippetOutput.dir}
-							</swagger2markup.extensions.springRestDocs.snippetBaseUri>
-							<swagger2markup.extensions.springRestDocs.defaultSnippets>true
-							</swagger2markup.extensions.springRestDocs.defaultSnippets>
-						</config>
-					</configuration>
-					<executions>
-						<execution>
-							<id>swagger2markup-maven-plugin-convertSwagger2markup</id>
-							<phase>pre-site</phase>
-							<goals>
-								<goal>convertSwagger2markup</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- asciidoctor-maven-plugin:pre-site -->
 				<plugin>
 					<groupId>org.asciidoctor</groupId>
 					<artifactId>asciidoctor-maven-plugin</artifactId>
@@ -757,7 +702,104 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- liquibase-maven-plugin:pre-site -->
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>${cargo-maven2-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>${flatten-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>${properties-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>properties-read-project-properties</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+								<files>
+									<file>${project.build.outputDirectory}/*.properties</file>
+								</files>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.flywaydb</groupId>
+					<artifactId>flyway-maven-plugin</artifactId>
+					<version>${flyway-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.infinispan</groupId>
+					<artifactId>infinispan-protocol-parser-generator-maven-plugin</artifactId>
+					<version>${infinispan-protocol-parser-generator-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>jacoco-prepare-agent</id>
+							<phase>test</phase>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							<configuration>
+								<destFile>${jacoco.utReportFile}</destFile>
+							</configuration>
+						</execution>
+						<execution>
+							<id>jacoco-report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<configuration>
+								<dataFile>${jacoco.utReportFile}</dataFile>
+								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
+							</configuration>
+						</execution>
+						<execution>
+							<id>jacoco-prepare-agent-integration</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>prepare-agent-integration</goal>
+							</goals>
+							<configuration>
+								<destFile>${jacoco.itReportFile}</destFile>
+							</configuration>
+						</execution>
+						<execution>
+							<id>jacoco-report-integration</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>report-integration</goal>
+							</goals>
+							<configuration>
+								<dataFile>${jacoco.itReportFile}</dataFile>
+								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.jetbrains.kotlin</groupId>
+					<artifactId>kotlin-maven-plugin</artifactId>
+					<version>${kotlin-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jooq</groupId>
+					<artifactId>jooq-codegen-maven</artifactId>
+					<version>${jooq-codegen-maven.version}</version>
+				</plugin>
 				<plugin>
 					<groupId>org.liquibase</groupId>
 					<artifactId>liquibase-maven-plugin</artifactId>
@@ -813,115 +855,42 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-				<!-- plantuml-maven-plugin:pre-site -->
 				<plugin>
-					<groupId>com.github.jeluard</groupId>
-					<artifactId>plantuml-maven-plugin</artifactId>
-					<version>${plantuml-maven-plugin.version}</version>
-					<configuration>
-						<graphvizDot>${graphvizDot}</graphvizDot>
-						<sourceFiles>
-							<directory>${plantuml.output.directory}</directory>
-							<includes>
-								<include>**/*.puml</include>
-							</includes>
-						</sourceFiles>
-					</configuration>
+					<groupId>org.owasp</groupId>
+					<artifactId>dependency-check-maven</artifactId>
+					<version>${dependency-check-maven.version}</version>
 					<executions>
 						<execution>
-							<id>plantuml-generate</id>
-							<phase>pre-site</phase>
+							<id>dependency-check</id>
+							<phase>validate</phase>
 							<goals>
-								<goal>generate</goal>
+								<goal>check</goal>
 							</goals>
 						</execution>
 					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>net.sourceforge.plantuml</groupId>
-							<artifactId>plantuml</artifactId>
-							<version>${plantuml.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<!-- plantuml-generator-maven-plugin:pre-site -->
-				<plugin>
-					<groupId>de.elnarion.maven</groupId>
-					<artifactId>plantuml-generator-maven-plugin</artifactId>
-					<version>${plantuml-generator-maven-plugin.version}</version>
-				</plugin>
-				<!-- maven-site-plugin:site -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<version>${maven-site-plugin.version}</version>
-				</plugin>
-				<!-- maven-project-info-reports-plugin:site -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>${maven-project-info-reports-plugin.version}</version>
-				</plugin>
-				<!-- TODO -->
-				<plugin>
-					<groupId>org.apache.johnzon</groupId>
-					<artifactId>johnzon-maven-plugin</artifactId>
-					<version>${johnzon-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.codehaus.cargo</groupId>
-					<artifactId>cargo-maven2-plugin</artifactId>
-					<version>${cargo-maven2-plugin.version}</version>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.jooq</groupId>
-					<artifactId>jooq-codegen-maven</artifactId>
-					<version>${jooq-codegen-maven.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>${maven-antrun-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>${maven-install-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-invoker-plugin</artifactId>
-					<version>${maven-invoker-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-help-plugin</artifactId>
-					<version>${maven-help-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>${maven-shade-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${maven-source-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>flatten-maven-plugin</artifactId>
-					<version>${flatten-maven-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.flywaydb</groupId>
-					<artifactId>flyway-maven-plugin</artifactId>
-					<version>${flyway-maven-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.infinispan</groupId>
-					<artifactId>infinispan-protocol-parser-generator-maven-plugin</artifactId>
-					<version>${infinispan-protocol-parser-generator-maven-plugin.version}</version>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<executable>true</executable>
+						<fork>true</fork>
+						<mainClass>${start-class}</mainClass>
+					</configuration>
+					<executions>
+						<execution>
+							<id>spring-boot-build-repackage</id>
+							<goals>
+								<goal>build-info</goal>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>pl.project13.maven</groupId>
