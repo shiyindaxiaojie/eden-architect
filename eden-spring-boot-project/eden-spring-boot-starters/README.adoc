@@ -1,10 +1,10 @@
 = Eden* Spring Boot Starters
 
-== 入门
-
 Eden* Spring Boot Starters 是一组简化依赖引入的描述符，您可以将它们作为依赖项引入到您的应用程序中。例如，如果您想开始使用 Spring 和用于数据库访问的 JPA，只需要引入 `eden-jpa-spring-boot-starter` 依赖项到应用程序中，祝您一切顺利。
 
-WARNING: 本程序的每组依赖项可视为一项技术栈的封装集，命名遵循 `spring-boot-starters` 规范，下列是使用到的依赖项。
+== 依赖清单
+
+本程序的每组依赖项可视为一项技术栈的封装集，命名遵循 `spring-boot-starters` 规范，下列是使用到的依赖项。
 
 |===
 | 依赖项 | Github
