@@ -31,14 +31,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.ylzl.eden.spring.boot.data.redis.serializer.IntegerRedisSerializer;
 import org.ylzl.eden.spring.boot.data.redis.serializer.LongRedisSerializer;
-import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Method;
 
@@ -49,7 +47,7 @@ import java.lang.reflect.Method;
  * @since 0.0.1
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnClass({JedisConnection.class, RedisOperations.class, Jedis.class, RedisCacheManager.class})
+@ConditionalOnClass({RedisOperations.class, RedisCacheManager.class})
 @EnableCaching
 @Slf4j
 @Configuration

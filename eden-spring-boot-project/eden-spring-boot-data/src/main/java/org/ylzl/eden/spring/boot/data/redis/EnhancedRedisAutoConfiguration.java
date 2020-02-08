@@ -23,9 +23,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisOperations;
-import redis.clients.jedis.Jedis;
 
 /**
  * Redis 自动配置
@@ -34,7 +32,7 @@ import redis.clients.jedis.Jedis;
  * @since 0.0.1
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnClass({JedisConnection.class, RedisOperations.class, Jedis.class})
+@ConditionalOnClass({RedisOperations.class})
 @EnableCaching
 @Slf4j
 @Configuration
