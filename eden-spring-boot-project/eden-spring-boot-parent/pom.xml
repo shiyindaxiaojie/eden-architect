@@ -158,7 +158,6 @@
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<finalName>${project.name}</finalName>
-		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<pluginManagement>
 			<!-- 相同的 phase 按引入顺序执行 -->
 			<plugins>

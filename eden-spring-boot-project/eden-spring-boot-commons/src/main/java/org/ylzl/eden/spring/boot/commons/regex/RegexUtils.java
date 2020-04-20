@@ -16,9 +16,8 @@
  */
 package org.ylzl.eden.spring.boot.commons.regex;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;

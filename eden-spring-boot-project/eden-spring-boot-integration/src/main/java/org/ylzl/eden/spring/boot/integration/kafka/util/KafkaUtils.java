@@ -17,28 +17,19 @@
 
 package org.ylzl.eden.spring.boot.integration.kafka.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.ylzl.eden.spring.boot.commons.lang.CharConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 
 /**
- * Kakfa 模板助手
+ * Kakfa 工具
  *
  * @author gyl
  * @since 0.0.1
  */
-@Slf4j
-public class KafkaTemplateHelper {
+public class KafkaUtils {
 
     public static final String MSG_WARN_CREATE_TOPIC = "Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. " +
 		"To avoid issues it is best to use either, but not both.";
-
-    private final KafkaTemplate kafkaTemplate;
-
-    public KafkaTemplateHelper(KafkaTemplate kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
 
     /**
      * 判断主题是否包含碰撞字符
@@ -46,11 +37,8 @@ public class KafkaTemplateHelper {
      * @param topic Kafka 主题
      * @return 是否包含碰撞字符
      */
-    public boolean hasCollisionChars(String topic) {
-        if (StringUtils.contains(topic, CharConstants.DOT) && StringUtils.contains(topic, CharConstants.UNDERLINE)) {
-            log.warn(MSG_WARN_CREATE_TOPIC);
-            return true;
-        }
-        return false;
-    }
+    public static boolean hasCollisionChars(String topic) {
+		return StringUtils.contains(topic, CharConstants.DOT) &&
+			StringUtils.contains(topic, CharConstants.UNDERLINE);
+	}
 }

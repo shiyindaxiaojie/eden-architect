@@ -15,38 +15,23 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
-
-import lombok.NonNull;
-import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
+package org.ylzl.eden.spring.boot.commons.algorithms.searches;
 
 /**
- * 冒泡排序
+ * 查找接口
  *
  * @author gyl
  * @since 0.0.1
  */
-public class BubbleSort extends AbstractSort implements Sort {
+public interface Search {
 
 	/**
-	 * 排序数组
+	 * 查找
 	 *
-	 * @param unsorted - 未排序的数组
-	 * @return 排序后的数组
+	 * @param array 数组
+	 * @param key 查找关键字
+	 * @param <T> 泛型
+	 * @return 匹配值
 	 */
-	@Override
-	public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
-		int last = unsorted.length;
-		boolean swap;
-		do {
-			swap = false;
-			for (int count = 0; count < last - 1; count++) {
-				if (SortUtils.less(unsorted[count], unsorted[count + 1])) {
-					swap = SortUtils.swap(unsorted, count, count + 1);
-				}
-			}
-			last--;
-		} while (swap);
-		return unsorted;
-	}
+	<T extends Comparable<T>> int search(T[] array, T key);
 }

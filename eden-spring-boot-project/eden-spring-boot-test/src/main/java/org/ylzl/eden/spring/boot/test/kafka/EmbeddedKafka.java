@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.boot.test.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
-import org.ylzl.eden.spring.boot.integration.kafka.KafkaProperties;
+import org.ylzl.eden.spring.boot.integration.kafka.FixedKafkaProperties;
 
 /**
  * 嵌入式的 Kafka
@@ -44,7 +44,7 @@ public class EmbeddedKafka extends KafkaEmbedded {
         super(count, controlledShutdown, partitions, topics);
     }
 
-    public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
+    public EmbeddedKafka(FixedKafkaProperties fixedKafkaProperties, String... topics) {
         super(1,true,  topics);
     }
 

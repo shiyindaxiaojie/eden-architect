@@ -31,6 +31,7 @@ import org.ylzl.eden.spring.boot.commons.lang.reflect.ReflectionUtils;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
@@ -48,7 +49,7 @@ import java.util.List;
  */
 public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
 
-    private static final int[] EMPTY_EFFECTIVE_ROWS = {};
+	private static final int[] EMPTY_EFFECTIVE_ROWS = {};
 
 	private static final String BPS_INSERT_PATTERN = "INSERT INTO {0} ({1}) VALUES ({2})";
 
@@ -56,9 +57,11 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 
 	private static final String BPS_DELETE_PATTERN = "DELETE FROM {0} WHERE {1} = {2}";
 
-    public EnhancedNamedParameterJdbcTemplate(DataSource dataSource) {
-        super(dataSource);
-    }
+	private static final String SERIAL_VERSION_UID = "serialVersionUID";
+
+	public EnhancedNamedParameterJdbcTemplate(DataSource dataSource) {
+		super(dataSource);
+	}
 
 	public <T> int[] batchInsert(@NonNull final Collection<T> datas, final int executeBatchSize) {
 		if (datas.isEmpty()) {
@@ -73,13 +76,28 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 
 		List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
 		for (Field field : fields) {
+			if (SERIAL_VERSION_UID.equals(field.getName())) {
+				continue;
+			}
+
 			if (field.isAnnotationPresent(Column.class)) {
 				Column column = field.getAnnotation(Column.class);
 				if (ObjectUtils.isNull(column) || !column.insertable()) {
 					continue;
 				}
 
-				columns.add(column.name());
+				columns.add(StringUtils.isNotBlank(column.name()) ? column.name() : field.getName());
+				namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
+			} else if (field.isAnnotationPresent(Id.class)) {
+				Id id = field.getAnnotation(Id.class);
+				if (ObjectUtils.isNull(id)) {
+					continue;
+				}
+
+				columns.add(field.getName());
+				namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
+			} else if (!field.isAnnotationPresent(Transient.class)) {
+				columns.add(field.getName());
 				namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
 			}
 		}
@@ -96,37 +114,44 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 		}
 
 		T data = getClass(datas);
-        String tableName = this.getTableName(data.getClass());
+		String tableName = this.getTableName(data.getClass());
 
-        final List<String> columnAndNamedColumns = new ArrayList<>();
-        String pkColumnName = null;
-        String pkNamedColumn = null;
+		final List<String> columnAndNamedColumns = new ArrayList<>();
+		String pkColumnName = null;
+		String pkNamedColumn = null;
 
-        List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(Column.class)) {
-                Column column = field.getAnnotation(Column.class);
-                if (ObjectUtils.isNull(column)) {
-                    continue;
-                }
+		List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
+		for (Field field : fields) {
+			if (SERIAL_VERSION_UID.equals(field.getName())) {
+				continue;
+			}
 
-				if (field.isAnnotationPresent(Id.class)) {
-					pkColumnName = column.name();
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+				if (ObjectUtils.isNull(column) || !column.updatable()) {
+					continue;
+				}
+
+				if (field.isAnnotationPresent(Id.class)) { // 同时标注了 @Id 和 @Column
+					pkColumnName = StringUtils.isNotBlank(column.name()) ? column.name() : field.getName();
 					pkNamedColumn = field.getName();
 					continue;
 				}
 
-				if (!column.updatable()) {
-					continue;
-				}
-				columnAndNamedColumns.add(StringUtils.join(column.name(), StringConstants.EQ, StringConstants.COLON, field.getName()));
-            }
-        }
+				columnAndNamedColumns.add(StringUtils.join(StringUtils.isNotBlank(column.name()) ? column.name() : field.getName(),
+					StringConstants.EQ, StringConstants.COLON, field.getName()));
+			} else if (field.isAnnotationPresent(Id.class)) {
+				pkColumnName = field.getName();
+				pkNamedColumn = field.getName();
+			} else if (!field.isAnnotationPresent(Transient.class)) {
+				columnAndNamedColumns.add(StringUtils.join(field.getName(), StringConstants.EQ, StringConstants.COLON, field.getName()));
+			}
+		}
 
-        String sql = MessageFormat.format(BPS_UPDATE_PATTERN, tableName, StringUtils.join(columnAndNamedColumns, StringConstants.COMMA),
+		String sql = MessageFormat.format(BPS_UPDATE_PATTERN, tableName, StringUtils.join(columnAndNamedColumns, StringConstants.COMMA),
 			pkColumnName, StringUtils.join(StringConstants.COLON, pkNamedColumn));
-        return this.batchUpdate(sql, datas, executeBatchSize);
-    }
+		return this.batchUpdate(sql, datas, executeBatchSize);
+	}
 
 	public <T> int[] batchDelete(@NonNull final Collection<T> datas, final int executeBatchSize) {
 		if (datas.isEmpty()) {
@@ -141,6 +166,10 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 
 		List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
 		for (Field field : fields) {
+			if (SERIAL_VERSION_UID.equals(field.getName())) {
+				continue;
+			}
+
 			if (field.isAnnotationPresent(Column.class)) {
 				Column column = field.getAnnotation(Column.class);
 				if (ObjectUtils.isNull(column)) {
@@ -148,14 +177,19 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 				}
 
 				if (field.isAnnotationPresent(Id.class)) {
-					pkColumnName = column.name();
+					pkColumnName = StringUtils.isNotBlank(column.name()) ? column.name() : field.getName();
 					pkNamedColumn = field.getName();
 					break;
 				}
+			} else if (field.isAnnotationPresent(Id.class)) {
+				pkColumnName = field.getName();
+				pkNamedColumn = field.getName();
+				break;
 			}
 		}
 
-		String sql = MessageFormat.format(BPS_DELETE_PATTERN, tableName, pkColumnName, StringUtils.join(StringConstants.COLON, pkNamedColumn));
+		String sql = MessageFormat.format(BPS_DELETE_PATTERN, tableName, pkColumnName,
+			StringUtils.join(StringConstants.COLON, pkNamedColumn));
 		return this.batchUpdate(sql, datas, executeBatchSize);
 	}
 
@@ -190,34 +224,33 @@ public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTempla
 		return datas.iterator().next();
 	}
 
-    private <T> String getTableName(Class<T> clazz) {
-        if (!clazz.isAnnotationPresent(Table.class)) {
-            throw new RuntimeException("java.persistence.Table 注解未找到");
-        }
+	private <T> String getTableName(Class<T> clazz) {
+		if (clazz.isAnnotationPresent(Table.class)) {
+			Table table = clazz.getAnnotation(Table.class);
+			if (ObjectUtils.isNull(table)) {
+				throw new RuntimeException("java.persistence.Table 注解为空");
+			}
+			return table.name();
+		}
+		return clazz.getSimpleName().toLowerCase();
+	}
 
-        Table table = clazz.getAnnotation(Table.class);
-        if (ObjectUtils.isNull(table)) {
-            throw new RuntimeException("java.persistence.Table 注解为空");
-        }
-        return table.name();
-    }
-
-    private void setStatementParameters(Object[] values, PreparedStatement ps, int[] columnTypes) throws SQLException {
-        int paramIndex = 0;
-        for (Object value : values) {
-            paramIndex++;
-            if (value instanceof SqlParameterValue) {
-                SqlParameterValue paramValue = (SqlParameterValue) value;
-                StatementCreatorUtils.setParameterValue(ps, paramIndex, paramValue, paramValue.getValue());
-            } else {
-                int colType;
-                if (columnTypes == null || columnTypes.length < paramIndex) {
-                    colType = SqlTypeValue.TYPE_UNKNOWN;
-                } else {
-                    colType = columnTypes[paramIndex - 1];
-                }
-                StatementCreatorUtils.setParameterValue(ps, paramIndex, colType, value);
-            }
-        }
-    }
+	private void setStatementParameters(Object[] values, PreparedStatement ps, int[] columnTypes) throws SQLException {
+		int paramIndex = 0;
+		for (Object value : values) {
+			paramIndex++;
+			if (value instanceof SqlParameterValue) {
+				SqlParameterValue paramValue = (SqlParameterValue) value;
+				StatementCreatorUtils.setParameterValue(ps, paramIndex, paramValue, paramValue.getValue());
+			} else {
+				int colType;
+				if (columnTypes == null || columnTypes.length < paramIndex) {
+					colType = SqlTypeValue.TYPE_UNKNOWN;
+				} else {
+					colType = columnTypes[paramIndex - 1];
+				}
+				StatementCreatorUtils.setParameterValue(ps, paramIndex, colType, value);
+			}
+		}
+	}
 }

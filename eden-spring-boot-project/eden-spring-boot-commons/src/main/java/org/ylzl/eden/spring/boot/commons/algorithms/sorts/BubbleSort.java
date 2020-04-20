@@ -15,31 +15,39 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
+package org.ylzl.eden.spring.boot.commons.algorithms.sorts;
 
-import java.util.List;
+import lombok.NonNull;
+import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
 
 /**
- * 排序接口
+ * 冒泡排序
  *
  * @author gyl
  * @since 0.0.1
  */
-public interface Sort {
+public class BubbleSort extends AbstractSort implements Sort {
 
 	/**
 	 * 排序数组
 	 *
-	 * @param unsorted - 未排序的数组
+	 * @param array - 未排序的数组
 	 * @return 排序后的数组
 	 */
-	<T extends Comparable<T>> T[] sort(T[] unsorted);
-
-	/**
-	 * 排序列表
-	 *
-	 * @param unsorted - 未排序的列表
-	 * @return 排序后的列表
-	 */
-	<T extends Comparable<T>> List<T> sort(List<T> unsorted);
+	@Override
+	public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
+		for (int i = 0, size = array.length; i < size - 1; i++) {
+			boolean swapped = false;
+			for (int j = 0; j < size - 1 - i; j++) { // 因为最后一个是最大值，所以每 i 轮循环，j 比较的次数减 1
+				if (SortUtils.less(array[j], array[j + 1])) {
+					SortUtils.swap(array, j, j + 1);
+					swapped = true;
+				}
+			}
+			if (!swapped) {
+				break;
+			}
+		}
+		return array;
+	}
 }

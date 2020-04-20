@@ -17,9 +17,8 @@
 
 package org.ylzl.eden.spring.boot.commons.lang;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.codec.binary.Base64;
 import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
 import org.ylzl.eden.spring.boot.commons.lang.math.NumberUtils;
@@ -42,7 +41,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @UtilityClass
-public class ObjectUtils {
+public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 
     public static boolean isEmpty(Object object) {
         if (object == null) {

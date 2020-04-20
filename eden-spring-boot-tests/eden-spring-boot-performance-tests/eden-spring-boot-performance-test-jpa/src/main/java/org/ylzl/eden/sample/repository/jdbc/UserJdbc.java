@@ -15,29 +15,31 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
+package org.ylzl.eden.sample.repository.jdbc;
 
-import java.util.Arrays;
-import java.util.List;
 import lombok.NonNull;
+import org.springframework.stereotype.Repository;
+import org.ylzl.eden.sample.domain.User;
+import org.ylzl.eden.spring.boot.data.jdbc.namedparam.EnhancedNamedParameterJdbcTemplate;
+
+import java.util.List;
 
 /**
- * 排序算法抽象类
+ * TODO
  *
  * @author gyl
  * @since 0.0.1
  */
-public abstract class AbstractSort implements Sort {
+@Repository
+public class UserJdbc {
 
-	/**
-	 * 排序列表
-	 *
-	 * @param unsorted - 未排序的列表
-	 * @return 排序后的列表
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
-		return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
+	private final EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate;
+
+	public UserJdbc(EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate) {
+		this.enhancedNamedParameterJdbcTemplate = enhancedNamedParameterJdbcTemplate;
+	}
+
+	public int[] batchInsert(@NonNull List<User> users, int executeBatchSize) {
+		return enhancedNamedParameterJdbcTemplate.batchInsert(users, executeBatchSize);
 	}
 }

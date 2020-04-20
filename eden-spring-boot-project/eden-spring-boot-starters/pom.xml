@@ -99,6 +99,7 @@
         <module>eden-undertow-spring-boot-starter</module>
         <module>eden-zipkin-server-spring-boot-starter</module>
         <module>eden-zipkin-spring-boot-starter</module>
+		<module>eden-zookeeper-spring-boot-starter</module>
         <module>eden-zuul-spring-boot-starter</module>
     </modules>
 

@@ -27,7 +27,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.util.UrlPathHelper;
 
 /**
  * 框架自动配置
@@ -47,11 +46,12 @@ public class FrameworkAutoConfiguration {
         return new AntPathMatcher();
     }
 
+/*    @ConditionalOnClass(Servlet.class)
     @ConditionalOnMissingBean
     @Bean
     public UrlPathHelper urlPathHelper() {
         return new UrlPathHelper();
-    }
+    }*/
 
     @ConditionalOnMissingBean
     @Bean

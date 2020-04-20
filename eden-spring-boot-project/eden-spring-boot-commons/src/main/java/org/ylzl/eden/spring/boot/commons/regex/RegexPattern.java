@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.regex;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 正则表达式

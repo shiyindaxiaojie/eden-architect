@@ -67,7 +67,7 @@ public class AsyncFlyway extends Flyway {
     @Override
     public int migrate() throws FlywayException {
         if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            try (Connection connection = getDataSource().getConnection()) {
+            try (Connection ignored = getDataSource().getConnection()) {
                 asyncTaskExecutor.submit(new Callable() {
 
                     @Override

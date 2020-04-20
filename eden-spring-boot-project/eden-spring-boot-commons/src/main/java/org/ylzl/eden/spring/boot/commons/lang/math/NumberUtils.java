@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.commons.lang.math;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 数值工具集
@@ -29,4 +28,21 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 
+	public String binaryToOctal(int binary) {
+		StringBuilder octal = new StringBuilder();
+		int currBit;
+		int j = 1;
+		while (binary != 0) {
+			int code = 0;
+			for (int i = 0; i < 3; i++) {
+				currBit = binary % 10;
+				binary = binary / 10;
+				code += currBit * j;
+				j *= 2;
+			}
+			octal.append(code);
+			j = 1;
+		}
+		return octal.toString();
+	}
 }

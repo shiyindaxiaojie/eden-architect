@@ -229,6 +229,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
+			<optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.ylzl</groupId>

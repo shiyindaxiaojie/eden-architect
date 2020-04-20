@@ -95,7 +95,7 @@ public class FixedFlywayAutoConfiguration {
     @Configuration
     public static class FlywayConfiguration {
 
-        private static final String MSG_INJECT_LIQUIBASE = "Inject Flyway";
+        private static final String MSG_INJECT_FLYWAY = "Inject Flyway";
 
         public static final String DEFAULT_LOCATIONS = "classpath:config/flyway/db/migration";
 
@@ -122,7 +122,7 @@ public class FixedFlywayAutoConfiguration {
         @Bean
         public Flyway flyway(@Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) AsyncTaskExecutor asyncTaskExecutor,
                              @Value("${flyway.locations:" + DEFAULT_LOCATIONS + "}") String[] locations, Environment environment) {
-            log.debug(MSG_INJECT_LIQUIBASE);
+            log.debug(MSG_INJECT_FLYWAY);
             Flyway flyway = new AsyncFlyway(asyncTaskExecutor, environment);
             flyway.setDataSource(dataSource);
             flyway.setLocations(locations);

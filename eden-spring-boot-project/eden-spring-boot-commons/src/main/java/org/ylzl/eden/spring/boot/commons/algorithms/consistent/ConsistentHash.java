@@ -17,11 +17,12 @@
 
 package org.ylzl.eden.spring.boot.commons.algorithms.consistent;
 
+import lombok.Getter;
+import lombok.NonNull;
+
 import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * 一致性哈希
@@ -32,7 +33,7 @@ import lombok.NonNull;
 public class ConsistentHash<T> {
 
 	/**
-	 * 虚拟节点个数
+	 * 虚拟节点个数，考虑到实际的节点数可能比较少，在每个节点增加虚拟节点让 hash 节点分布更均匀
 	 */
 	private final int numberOfReplicas;
 

@@ -63,7 +63,7 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
         if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            try (Connection connection = getDataSource().getConnection()) {
+            try (Connection ignored = getDataSource().getConnection()) {
                 asyncTaskExecutor.execute(new Runnable() {
 
                     @Override

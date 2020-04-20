@@ -35,6 +35,7 @@
 	<modules>
 		<module>eden-spring-boot-deployment-tests</module>
 		<module>eden-spring-boot-integration-tests</module>
+		<module>eden-spring-boot-performance-tests</module>
 		<module>eden-spring-boot-smoke-tests</module>
 	</modules>
 
