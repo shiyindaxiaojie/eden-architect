@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  * 请求未认证
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class UnauthorizedException extends BadRequestAlertException {
 

@@ -22,9 +22,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.commons.lang.math.NumberUtils;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 import org.ylzl.eden.spring.boot.framework.core.util.SpringProfileUtils;
@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.framework.core.util.SpringProfileUtils;
  * Spring Boot 应用启动入口适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public abstract class SpringBootApplicationAdapter {
@@ -72,7 +72,7 @@ public abstract class SpringBootApplicationAdapter {
 
 	protected static void logApplicationServerAfterRunning(Environment env) {
 		String applicationName = StringUtils.trimToEmpty(env.getProperty("spring.application.name"));
-		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.context-path"));
+		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
 		int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
 		String protocol = env.containsProperty("server.ssl.key-store")? "https" : "http";
 		String localhostAddress = "localhost";

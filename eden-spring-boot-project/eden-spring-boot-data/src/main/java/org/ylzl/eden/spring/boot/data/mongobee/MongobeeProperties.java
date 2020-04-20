@@ -22,14 +22,14 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Mongobee 属性类
+ * Mongobee 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "mongobee", ignoreUnknownFields = true)
+@ConfigurationProperties(prefix = "mongobee")
 public class MongobeeProperties {
 
     private Boolean enabled;

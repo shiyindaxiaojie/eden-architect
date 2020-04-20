@@ -14,21 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.cloud.turbine.client;
 
-import org.springframework.cloud.stream.annotation.Input;
-import org.springframework.messaging.SubscribableChannel;
+package org.ylzl.eden.spring.boot.cloud.profile.endpoint;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Map;
 
 /**
- * Turbine Stream 客户端接口
+ * 运行环境描述信息
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public interface TurbineStreamClient {
+@AllArgsConstructor
+@Builder
+@Data
+@NoArgsConstructor
+public class ProfileDescriptor {
 
-    String INPUT = "turbineStreamInput";
+    private String[] activeProfiles;
 
-    @Input(INPUT)
-    SubscribableChannel turbineStreamInput();
+    private String ribbonEnv;
+
+    private List<Map<String, Object>> configurationSources;
 }

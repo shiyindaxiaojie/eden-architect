@@ -21,21 +21,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.io.Serializable;
+import java.util.Optional;
+
 /**
- * 图形数据库业务接口
+ * Neo4j 业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public interface GraphService<T> extends PagingAndSortingService<T, Long> {
+public interface Neo4jService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
 
     <S extends T> T save(S entity, int depth);
 
     <S extends T> Iterable<S> save(Iterable<S> entities, int depth);
 
-    T findOne(Long id, int depth);
+    @Deprecated
+	Optional<T> findOne(ID id, int depth);
 
-    Iterable<T> findAll();
+	Optional<T> findById(ID id, int depth);
 
     Iterable<T> findAll(int depth);
 
@@ -43,13 +47,20 @@ public interface GraphService<T> extends PagingAndSortingService<T, Long> {
 
     Iterable<T> findAll(Sort sort, int depth);
 
-    Iterable<T> findAll(Iterable<Long> ids);
+	@Deprecated
+	Iterable<T> findAll(Iterable<ID> ids, int depth);
 
-    Iterable<T> findAll(Iterable<Long> ids, int depth);
+	@Deprecated
+	Iterable<T> findAll(Iterable<ID> ids, Sort sort);
 
-    Iterable<T> findAll(Iterable<Long> ids, Sort sort);
+	@Deprecated
+	Iterable<T> findAll(Iterable<ID> ids, Sort sort, int depth);
 
-    Iterable<T> findAll(Iterable<Long> ids, Sort sort, int depth);
+	Iterable<T> findAllById(Iterable<ID> ids, int depth);
+
+	Iterable<T> findAllById(Iterable<ID> ids, Sort sort);
+
+	Iterable<T> findAllById(Iterable<ID> ids, Sort sort, int depth);
 
     Page<T> findAll(Pageable pageable);
 

@@ -31,7 +31,7 @@ import java.io.File;
  * 许可证安装服务
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class LicenseInstall implements InitializingBean {

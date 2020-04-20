@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  * Hessian 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(HessianProxy.class)
 @ConditionalOnExpression(HessianAutoConfiguration.EXPS_HESSIAN_ENABLED)

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
  * InfoContributor 常量定义
  *
  * @author sion
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class InfoContributorConstants {

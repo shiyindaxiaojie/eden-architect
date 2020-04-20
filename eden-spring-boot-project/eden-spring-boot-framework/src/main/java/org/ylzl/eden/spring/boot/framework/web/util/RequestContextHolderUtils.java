@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * Spring 请求上下文工具
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class RequestContextHolderUtils {
 
@@ -53,45 +53,70 @@ public class RequestContextHolderUtils {
     }
 
     public static String getRemoteUser() {
-        return StringUtils.trimToEmpty(getRequest().getRemoteUser());
+        HttpServletRequest request = getRequest();
+		return getRemoteUser(request);
     }
+
+	public static String getRemoteUser(HttpServletRequest request) {
+		return StringUtils.trimToEmpty(request.getRemoteUser());
+	}
 
     public static String getRequestURI() {
-        return getRequest().getRequestURI();
+		HttpServletRequest request = getRequest();
+		return getRequestURI(request);
     }
+
+	public static String getRequestURI(HttpServletRequest request) {
+		return request.getRequestURI();
+	}
 
     public static String getContextPath() {
-        return getRequest().getContextPath();
+		HttpServletRequest request = getRequest();
+		return getContextPath(request);
     }
 
+	public static String getContextPath(HttpServletRequest request) {
+		return request.getContextPath();
+	}
+
     public static String getQueryString() {
-        return getRequest().getQueryString();
+		HttpServletRequest request = getRequest();
+		return getQueryString(request);
     }
+
+	public static String getQueryString(HttpServletRequest request) {
+		return request.getQueryString();
+	}
 
     public static String getRequestPath() {
         HttpServletRequest request = getRequest();
-        String queryString = request.getQueryString();
-        String requestURI = request.getRequestURI();
-        if (StringUtils.isNotEmpty(queryString)) {
-            requestURI += "?" + queryString;
-        }
-        int index = requestURI.indexOf("&");
-        if (index > -1) {
-            requestURI = requestURI.substring(0, index);
-        }
-        return requestURI.substring(request.getContextPath().length() + 1);
+        return getRequestPath(request);
     }
+
+	public static String getRequestPath(HttpServletRequest request) {
+		String queryString = request.getQueryString();
+		String requestURI = request.getRequestURI();
+		if (StringUtils.isNotEmpty(queryString)) {
+			requestURI += "?" + queryString;
+		}
+		int index = requestURI.indexOf("&");
+		if (index > -1) {
+			requestURI = requestURI.substring(0, index);
+		}
+		return requestURI.substring(request.getContextPath().length() + 1);
+	}
 
     public static boolean isAjaxRequest() {
         HttpServletRequest request = getRequest();
-        String accept = request.getHeader("accept");
-        if (accept != null && accept.indexOf("application/json") != -1) {
-            return true;
-        }
-        String xRequestedWith = request.getHeader("X-Requested-With");
-        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
-            return true;
-        }
-        return false;
+        return isAjaxRequest(request);
     }
+
+	public static boolean isAjaxRequest(HttpServletRequest request) {
+		String accept = request.getHeader("accept");
+		if (accept != null && accept.contains("application/json")) {
+			return true;
+		}
+		String xRequestedWith = request.getHeader("X-Requested-With");
+		return xRequestedWith != null && xRequestedWith.contains("XMLHttpRequest");
+	}
 }

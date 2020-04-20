@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.integration.activemq;
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class ActiveMQConfiguration {
 }

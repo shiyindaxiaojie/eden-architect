@@ -24,16 +24,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.util.UrlPathHelper;
+import org.ylzl.eden.spring.boot.framework.core.bind.BinderHelper;
 
 /**
  * 框架自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(FrameworkProperties.class)
@@ -58,4 +60,10 @@ public class FrameworkAutoConfiguration {
     public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
         return new PathMatchingResourcePatternResolver();
     }
+
+	@ConditionalOnMissingBean
+	@Bean
+	public BinderHelper binderHelper(Environment environment) {
+		return new BinderHelper(environment);
+	}
 }

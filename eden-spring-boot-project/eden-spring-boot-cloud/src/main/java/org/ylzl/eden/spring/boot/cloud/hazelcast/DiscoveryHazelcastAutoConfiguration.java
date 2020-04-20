@@ -40,7 +40,7 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
  * 基于 Spring Cloud 的 Hazelcast 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({
     HazelcastAutoConfiguration.class,
@@ -92,7 +92,7 @@ public class DiscoveryHazelcastAutoConfiguration extends EnhancedHazelcastAutoCo
     private void discoveryHazelcast(Config config) {
         String serviceId = registration.getId();
         NetworkConfig networkConfig = config.getNetworkConfig();
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+        if (environment.acceptsProfiles(Profile.of(ProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
             log.debug(MSG_DICOVERY_HAZELCAST_IN_DEV);
             System.setProperty(PROP_HAZELCAST_LOCAL_ADDRESS, LOCAL_ADDRESS);
             networkConfig.setPort(serverProperties.getPort() + NetworkConfig.DEFAULT_PORT);

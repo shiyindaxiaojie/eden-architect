@@ -38,7 +38,7 @@ import java.util.jar.JarFile;
  * 类工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class ClassUtils {

@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import org.ylzl.eden.spring.boot.commons.json.jackson.mapper.DefaultObjectMapper;
 import org.ylzl.eden.spring.boot.commons.json.jackson.mapper.DefaultXmlMapper;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
@@ -40,7 +39,7 @@ import java.util.Map;
  * Jackson 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class JacksonUtils {
@@ -82,7 +81,7 @@ public class JacksonUtils {
     }
 
     public static String toXMLString(String jsonString, Include include, ObjectMapper objectMapper,
-                                     XmlMapper xmlMapper) throws JsonProcessingException, IOException {
+                                     XmlMapper xmlMapper) throws IOException {
         if (objectMapper == null) {
             objectMapper = getDefaultObjectMapper();
         }
@@ -93,13 +92,12 @@ public class JacksonUtils {
         return StringUtils.trimToEmpty(objectWriter.writeValueAsString(objectMapper.readTree(jsonString)));
     }
 
-    public static String toXMLString(String jsonString, Include include) throws JsonProcessingException, IOException {
+    public static String toXMLString(String jsonString, Include include) throws IOException {
         return toXMLString(jsonString, include, getDefaultObjectMapper(), getDefaultXmlMapper());
     }
 
     public static String toXMLString(String jsonString, Class<?> cls, Include include,
-                                     ObjectMapper objectMapper, XmlMapper xmlMapper) throws JsonProcessingException,
-        IOException {
+                                     ObjectMapper objectMapper, XmlMapper xmlMapper) throws IOException {
         Object object = toObject(jsonString, cls, objectMapper);
         ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
         return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
@@ -118,13 +116,11 @@ public class JacksonUtils {
         return toXMLString(object, getDefaultXmlMapper());
     }
 
-    public static <T> T toObject(String jsonString, Class<T> cls, ObjectMapper objectMapper)
-        throws JsonParseException, JsonMappingException, IOException {
+    public static <T> T toObject(String jsonString, Class<T> cls, ObjectMapper objectMapper) throws IOException {
         return objectMapper.readValue(jsonString, cls);
     }
 
-    public static <T> T toObject(String jsonString, Class<T> cls) throws JsonParseException,
-        JsonMappingException, IOException {
+    public static <T> T toObject(String jsonString, Class<T> cls) throws IOException {
         return toObject(jsonString, cls, getDefaultObjectMapper());
     }
 
@@ -143,16 +139,14 @@ public class JacksonUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> toMap(String jsonString) throws JsonParseException,
-        JsonMappingException, IOException {
+    public static <K, V> Map<K, V> toMap(String jsonString) throws IOException {
         return toMap(jsonString, getDefaultObjectMapper());
     }
 
     @SuppressWarnings("unchecked")
     public static <T> List<T> toList(String jsonString, Class<T> cls, ObjectMapper objectMapper)
-        throws JsonParseException, JsonMappingException, IOException {
-        List<Map<Object, Object>> list = objectMapper.readValue(jsonString, new TypeReference<List<T>>() {
-        });
+        throws IOException {
+        List<Map<Object, Object>> list = objectMapper.readValue(jsonString, new TypeReference<List<Map<Object, Object>>>() {});
         List<T> result = new ArrayList<T>();
         for (Map<Object, Object> map : list) {
             result.add(toObject(map, cls, objectMapper));
@@ -161,8 +155,7 @@ public class JacksonUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> List<T> toList(String jsonString, Class<T> cls) throws JsonParseException,
-        JsonMappingException, IOException {
+    public static <T> List<T> toList(String jsonString, Class<T> cls) throws IOException {
         return toList(jsonString, cls, getDefaultObjectMapper());
     }
 

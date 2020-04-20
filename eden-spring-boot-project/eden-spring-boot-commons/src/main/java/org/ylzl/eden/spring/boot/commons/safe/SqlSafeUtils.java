@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  * SQL 安全工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class SqlSafeUtils {

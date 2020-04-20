@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
  * 已认证的 Feign 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({Feign.class})
 @Slf4j

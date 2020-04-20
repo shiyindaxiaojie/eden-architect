@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
  * Kakfa 模板助手
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class KafkaTemplateHelper {

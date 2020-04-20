@@ -18,34 +18,52 @@
 package org.ylzl.eden.spring.boot.support.service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * 增删查改业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface CrudService<T, ID extends Serializable> {
 
     long count();
 
+    @Deprecated
     void delete(ID id);
 
     void delete(T entity);
 
+	@Deprecated
     void delete(Iterable<? extends T> entities);
 
     void deleteAll();
 
+	void deleteAll(Iterable<? extends T> entities);
+
+	void deleteById(ID id);
+
     boolean exists(ID id);
+
+	boolean existsById(ID id);
 
     Iterable<T> findAll();
 
+	@Deprecated
     Iterable<T> findAll(Iterable<ID> ids);
 
-    T findOne(ID id);
+	Iterable<T> findAllById(Iterable<ID> ids);
+
+	@Deprecated
+	Optional<T> findOne(ID id);
+
+	Optional<T> findById(ID id);
 
     <S extends T> S save(S entity);
 
+	@Deprecated
     <S extends T> Iterable<S> save(Iterable<S> entities);
+
+	<S extends T> Iterable<S> saveAll(Iterable<S> entities);
 }

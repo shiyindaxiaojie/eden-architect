@@ -47,7 +47,7 @@ import java.util.List;
  * Mybatis 自定义配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore({MybatisAutoConfiguration.class})

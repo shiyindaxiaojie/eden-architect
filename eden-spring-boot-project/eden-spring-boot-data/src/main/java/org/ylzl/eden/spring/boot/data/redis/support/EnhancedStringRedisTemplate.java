@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.data.redis.support;
  * 增强式 StringRedisTemplate
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EnhancedStringRedisTemplate extends EnhancedRedisTemplate<String, String> {
 

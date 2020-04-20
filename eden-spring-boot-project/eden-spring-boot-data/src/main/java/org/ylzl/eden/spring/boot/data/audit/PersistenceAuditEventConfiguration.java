@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.boot.data.audit.event.AuditEventConverter;
  *
  * @see org.springframework.boot.actuate.audit.AuditEvent
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(AuditEvent.class)
 @Slf4j

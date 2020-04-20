@@ -24,7 +24,7 @@ import java.util.*;
  * Cookie 集合
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CookieCollection implements Collection<Cookie> {
 

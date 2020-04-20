@@ -17,7 +17,7 @@
 
 package org.ylzl.eden.spring.boot.framework.info;
 
-import org.springframework.boot.actuate.autoconfigure.ConditionalOnEnabledInfoContributor;
+import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,10 +29,16 @@ import org.ylzl.eden.spring.boot.framework.info.contributor.MailEnabledInfoContr
 /**
  * InfoContributor 自动配置
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration 迁移到 {@link InfoContributorAutoConfiguration}</li>
+ *     <li>org.springframework.boot.actuate.autoconfigure.ConditionalOnEnabledInfoContributor 迁移到 {@link ConditionalOnEnabledInfoContributor}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
-@AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration.class)
+@AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
 @Configuration("extendsInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 

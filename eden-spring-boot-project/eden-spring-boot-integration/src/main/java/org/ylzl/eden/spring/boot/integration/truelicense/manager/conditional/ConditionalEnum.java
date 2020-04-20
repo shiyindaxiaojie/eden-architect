@@ -22,7 +22,7 @@ import org.ylzl.eden.spring.boot.commons.lang.type.PrimitiveTypeEnum;
  * 动态条件枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum ConditionalEnum {
 

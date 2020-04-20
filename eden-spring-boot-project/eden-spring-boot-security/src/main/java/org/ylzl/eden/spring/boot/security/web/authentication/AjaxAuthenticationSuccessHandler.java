@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * Ajax 认证成功处理类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 

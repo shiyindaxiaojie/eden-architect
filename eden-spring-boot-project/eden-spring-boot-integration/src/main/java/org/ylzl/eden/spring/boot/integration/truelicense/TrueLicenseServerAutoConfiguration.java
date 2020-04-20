@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseStore;
  * TrueLicense 服务端配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnExpression(TrueLicenseServerAutoConfiguration.EXPS_TRUE_LICENSE_ENABLED)
 @Import(TrueLicenseConfiguration.class)

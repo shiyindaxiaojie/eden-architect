@@ -18,7 +18,8 @@ package org.ylzl.eden.spring.boot.cloud.zuul.endpoint;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.endpoint.AbstractEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
@@ -29,12 +30,18 @@ import java.util.List;
 /**
  * 网关端点
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Builder
 @Slf4j
-public class ZuulRouteEndpoint extends AbstractEndpoint<List<ZuulRoute>> {
+@Endpoint(id = ZuulRouteEndpoint.ENDPOINT_ID)
+public class ZuulRouteEndpoint {
 
 	public static final String ENDPOINT_ID = "zuul-routes";
 
@@ -43,13 +50,12 @@ public class ZuulRouteEndpoint extends AbstractEndpoint<List<ZuulRoute>> {
     private final DiscoveryClient discoveryClient;
 
     public ZuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
-        super(ENDPOINT_ID);
         this.routeLocator = routeLocator;
         this.discoveryClient = discoveryClient;
     }
 
-    @Override
-    public List<ZuulRoute> invoke() {
+	@ReadOperation
+    public List<ZuulRoute> zuulRoutes() {
         List<Route> routes = routeLocator.getRoutes();
         List<ZuulRoute> zuulRoutes = new ArrayList<>();
         for (Route route : routes) {

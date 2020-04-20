@@ -33,7 +33,7 @@ import javax.sql.DataSource;
  * Flowable 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(ProcessEngineConfigurationConfigurer.class)
 @EnableConfigurationProperties(EnhancedFlowableProperties.class)

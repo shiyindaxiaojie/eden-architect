@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.security.core.login.Login;
  * JWT 身份验证服务
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class JwtTokenService {

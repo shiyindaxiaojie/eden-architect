@@ -9,7 +9,7 @@ Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各
 
 您可以通过 Eden* Spring Boot 创建独立的 Java 应用程序，使用 `java -jar` 或更传统的 WAR 部署来启动它。
 
-WARNING: 为了兼容 JDK 1.7 的版本，Eden* Spring Boot 使用的 Spring Boot 是 1.4.7 版本，如果需要升级较高的版本，请根据 Spring 官方的 API 变化进行改造。
+WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上，如果需要支持 JDK 1.7，请切换为 1.X.X 分支。
 
 == 基本介绍
 1. 自动化配置优先，组件的集成配置只需要引入指定的 starter 即可，你也可以按自己的需求去覆盖默认的配置；
@@ -24,10 +24,7 @@ WARNING: 为了兼容 JDK 1.7 的版本，Eden* Spring Boot 使用的 Spring Boo
 
 === 构建源码
 
-Eden* Spring Boot 的源码支持在 JDK 1.7 以上的版本编译构建。
-
-CAUTION: 以下情况需要在 JDK 1.8 以上的版本运行：运行 liquibase-maven-plugin 插件执行性能测试；
-使用 swagger2markup-maven-plugin 插件生成接口文档；集成 zipkin 依赖组件。
+Eden* Spring Boot 的源码支持在 JDK 1.8 以上的版本编译构建。
 
 您可以使用以下命令构建并发布到本地的 Maven 仓库中：
 
@@ -62,7 +59,7 @@ $ ./mvnw clean install
     <parent>
         <groupId>org.ylzl</groupId>
         <artifactId>eden-spring-boot-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath/>
     </parent>
 

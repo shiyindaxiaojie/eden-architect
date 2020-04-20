@@ -3,29 +3,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>eden-eureka-spring-boot-starter</artifactId>
+    <artifactId>eden-eureka-client-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
-    <name>eden-eureka-spring-boot-starter</name>
+    <name>eden-eureka-client-spring-boot-starter</name>
     <description>Eden* Eureka Spring Boot Starter</description>
 
     <parent>
         <groupId>org.ylzl</groupId>
         <artifactId>eden-spring-boot-starters</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>woodstox-core-asl</artifactId>
-                    <groupId>org.codehaus.woodstox</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>HdrHistogram</artifactId>
+					<groupId>org.hdrhistogram</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+					<groupId>org.springframework.cloud</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-cloud-netflix-ribbon</artifactId>
+					<groupId>org.springframework.cloud</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>

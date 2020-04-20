@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Data 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

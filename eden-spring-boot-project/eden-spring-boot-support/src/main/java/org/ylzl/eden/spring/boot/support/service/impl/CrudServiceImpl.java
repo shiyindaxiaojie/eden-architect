@@ -21,12 +21,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.ylzl.eden.spring.boot.support.service.CrudService;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * 增删查改业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<T, ID> {
 
@@ -41,9 +42,10 @@ public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<
         return crudRepository.count();
     }
 
+    @Deprecated
     @Override
     public void delete(ID id) {
-        crudRepository.delete(id);
+        crudRepository.deleteById(id);
     }
 
     @Override
@@ -51,9 +53,10 @@ public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<
         crudRepository.delete(entity);
     }
 
+    @Deprecated
     @Override
     public void delete(Iterable<? extends T> entities) {
-        crudRepository.delete(entities);
+        crudRepository.deleteAll(entities);
     }
 
     @Override
@@ -61,24 +64,52 @@ public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<
         crudRepository.deleteAll();
     }
 
+	@Override
+	public void deleteAll(Iterable<? extends T> entities) {
+		crudRepository.deleteAll(entities);
+	}
+
+	@Override
+	public void deleteById(ID id) {
+		crudRepository.deleteById(id);
+	}
+
     @Override
     public boolean exists(ID id) {
-        return crudRepository.exists(id);
+        return crudRepository.existsById(id);
     }
+
+	@Deprecated
+	@Override
+	public boolean existsById(ID id) {
+		return crudRepository.existsById(id);
+	}
 
     @Override
     public Iterable<T> findAll() {
         return crudRepository.findAll();
     }
 
+    @Deprecated
     @Override
     public Iterable<T> findAll(Iterable<ID> ids) {
-        return crudRepository.findAll(ids);
+        return crudRepository.findAllById(ids);
     }
 
+	@Override
+	public Iterable<T> findAllById(Iterable<ID> ids) {
+		return crudRepository.findAllById(ids);
+	}
+
+	@Deprecated
+	@Override
+	public Optional<T> findOne(ID id) {
+		return crudRepository.findById(id);
+	}
+
     @Override
-    public T findOne(ID id) {
-        return crudRepository.findOne(id);
+    public Optional<T> findById(ID id) {
+        return crudRepository.findById(id);
     }
 
     @Override
@@ -86,8 +117,14 @@ public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<
         return crudRepository.save(entity);
     }
 
+	@Deprecated
     @Override
     public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return crudRepository.save(entities);
+        return crudRepository.saveAll(entities);
     }
+
+	@Override
+	public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
+		return crudRepository.saveAll(entities);
+	}
 }

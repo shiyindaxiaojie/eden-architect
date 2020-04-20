@@ -38,7 +38,7 @@ import java.util.Date;
  * 抽象审计实体
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Data

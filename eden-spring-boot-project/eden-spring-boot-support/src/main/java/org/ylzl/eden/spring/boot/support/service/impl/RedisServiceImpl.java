@@ -15,24 +15,26 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.flyway;
+package org.ylzl.eden.spring.boot.support.service.impl;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
+import org.ylzl.eden.spring.boot.data.redis.repository.RedisRepository;
+import org.ylzl.eden.spring.boot.support.service.RedisService;
+
+import java.io.Serializable;
 
 /**
- * Flyway 配置属性
+ * Redis 业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@Getter
-@Setter
-@ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX)
-public class FixedFlywayProperties extends FlywayProperties {
+@SuppressWarnings("unchecked")
+public class RedisServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID> implements RedisService<T, ID> {
 
-    private boolean baselineOnMigrate;
+    private final RedisRepository<T, ID> redisRepository;
+
+    public RedisServiceImpl(RedisRepository<T, ID> redisRepository) {
+        super(redisRepository);
+        this.redisRepository = redisRepository;
+    }
 }

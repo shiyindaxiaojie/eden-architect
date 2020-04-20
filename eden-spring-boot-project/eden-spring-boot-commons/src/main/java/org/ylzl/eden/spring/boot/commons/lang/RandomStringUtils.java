@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * 随机字符串工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {

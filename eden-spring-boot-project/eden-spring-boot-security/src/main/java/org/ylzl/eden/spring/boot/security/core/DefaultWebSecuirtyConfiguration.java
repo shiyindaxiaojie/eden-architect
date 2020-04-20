@@ -18,6 +18,7 @@
 package org.ylzl.eden.spring.boot.security.core;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +27,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.ylzl.eden.spring.boot.security.crypto.PasswordEncoderFactories;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +40,7 @@ import java.util.List;
  * Web 安全配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration
@@ -58,7 +60,7 @@ public class DefaultWebSecuirtyConfiguration {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		log.debug(MSG_INJECT_PASSWORD_ENCODER);
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 
 	@ConditionalOnMissingBean
@@ -67,7 +69,7 @@ public class DefaultWebSecuirtyConfiguration {
 		log.debug(MSG_INJECT_USER_DETAILS_SERVICE);
 		SecurityProperties.User user = securityProperties.getUser();
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		List<String> roles = user.getRole();
+		List<String> roles = user.getRoles();
 		for (String role : roles) {
 			authorities.add(new SimpleGrantedAuthority(role));
 		}

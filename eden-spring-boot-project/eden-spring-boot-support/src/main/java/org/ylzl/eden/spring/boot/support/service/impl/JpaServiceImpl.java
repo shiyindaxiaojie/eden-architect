@@ -26,12 +26,13 @@ import org.ylzl.eden.spring.boot.support.service.JpaService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * 关系数据库业务实现
+ * JPA 业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID> implements JpaService<T, ID> {
 
@@ -62,9 +63,10 @@ public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSorting
         return jpaRepository.findAll();
     }
 
+    @Deprecated
     @Override
     public List<T> findAll(Iterable<ID> ids) {
-        return jpaRepository.findAll(ids);
+        return jpaRepository.findAllById(ids);
     }
 
     @Override
@@ -87,8 +89,13 @@ public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSorting
         return jpaRepository.findAll(sort);
     }
 
+	@Override
+	public List<T> findAllById(Iterable<ID> ids) {
+		return jpaRepository.findAllById(ids);
+	}
+
     @Override
-    public T findOne(Specification<T> spec) {
+    public Optional<T> findOne(Specification<T> spec) {
         return jpaRepository.findOne(spec);
     }
 
@@ -102,10 +109,16 @@ public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSorting
         return jpaRepository.getOne(id);
     }
 
+    @Deprecated
     @Override
     public <S extends T> List<S> save(Iterable<S> entities) {
-        return jpaRepository.save(entities);
+        return jpaRepository.saveAll(entities);
     }
+
+	@Override
+	public <S extends T> List<S> saveAll(Iterable<S> entities) {
+		return jpaRepository.saveAll(entities);
+	}
 
     @Override
     public <S extends T> S saveAndFlush(S entity) {

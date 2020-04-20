@@ -33,7 +33,7 @@ import java.util.Set;
  * 修复 FixedClassPathMapperScanner
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class FixedClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {

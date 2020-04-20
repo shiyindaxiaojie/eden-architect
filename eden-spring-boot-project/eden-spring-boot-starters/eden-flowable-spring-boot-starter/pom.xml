@@ -11,15 +11,15 @@
     <parent>
         <groupId>org.ylzl</groupId>
         <artifactId>eden-spring-boot-starters</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-spring-boot-starter-basic</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.flowable</groupId>
+			<artifactId>flowable-spring-boot-starter-basic</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.ylzl</groupId>
             <artifactId>eden-spring-boot-framework</artifactId>

@@ -17,7 +17,6 @@
 
 package org.ylzl.eden.spring.boot.integration.metrics;
 
-import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Slf4jReporter;
 import com.codahale.metrics.health.HealthCheckRegistry;
@@ -25,6 +24,7 @@ import com.codahale.metrics.jvm.*;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.metrics.JmxReporter;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -40,8 +40,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * Metrics 自动配置
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>{@link com.ryantenney.metrics.spring.config.annotation.DelegatingMetricsConfiguration} 默认装配了 {@link MetricRegistry} 和 {@link HealthCheckRegistry}</li>
+ * </ul>
+ *
+ * @see com.ryantenney.metrics.spring.config.annotation.DelegatingMetricsConfiguration
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({MetricRegistry.class, HealthCheckRegistry.class})
 @ConditionalOnExpression(MetricsAutoConfiguration.EXPS_METRICS_ENABLED)
@@ -71,24 +77,24 @@ public class MetricsAutoConfiguration extends MetricsConfigurerAdapter {
 
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
 
-    private final MetricRegistry metricRegistry = new MetricRegistry();
+    private final MetricRegistry metricRegistry;
 
-    private final HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
+    private final HealthCheckRegistry healthCheckRegistry;
 
     private final MetricsProperties metricsProperties;
 
-    public MetricsAutoConfiguration(MetricsProperties metricsProperties) {
-        this.metricsProperties = metricsProperties;
-    }
+	public MetricsAutoConfiguration(MetricRegistry metricRegistry, HealthCheckRegistry healthCheckRegistry, MetricsProperties metricsProperties) {
+		this.metricRegistry = metricRegistry;
+		this.healthCheckRegistry = healthCheckRegistry;
+		this.metricsProperties = metricsProperties;
+	}
 
     @Override
-    @Bean
     public MetricRegistry getMetricRegistry() {
         return metricRegistry;
     }
 
     @Override
-    @Bean
     public HealthCheckRegistry getHealthCheckRegistry() {
         return healthCheckRegistry;
     }
@@ -101,11 +107,11 @@ public class MetricsAutoConfiguration extends MetricsConfigurerAdapter {
         metricRegistry.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
         metricRegistry.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
-        if (metricsProperties.getJmx().isEnabled()) {
+        /*if (metricsProperties.getJmx().isEnabled()) {
             log.debug(MSG_INJECT_JMX_REPORT);
             JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
             jmxReporter.start();
-        }
+        }*/
         if (metricsProperties.getLogs().isEnabled()) {
             log.info(MSG_INJECT_MSG_REPORT);
             final Slf4jReporter reporter = Slf4jReporter.forRegistry(metricRegistry)

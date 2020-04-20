@@ -29,7 +29,7 @@ import java.util.concurrent.Future;
  * 异步任务执行异常处理类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, InitializingBean, DisposableBean {

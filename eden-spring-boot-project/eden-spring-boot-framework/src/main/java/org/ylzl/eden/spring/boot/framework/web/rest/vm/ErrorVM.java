@@ -32,7 +32,7 @@ import java.util.List;
  * 错误视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder(toBuilder = true)
 @Data

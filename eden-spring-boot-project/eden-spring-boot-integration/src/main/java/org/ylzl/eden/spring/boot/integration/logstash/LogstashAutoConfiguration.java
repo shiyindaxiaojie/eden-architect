@@ -63,7 +63,7 @@ import java.util.Map;
  * Logstash 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(LogstashEncoder.class)
 @ConditionalOnExpression(LogstashAutoConfiguration.EXPS_LOGSTASH_ENABLED)

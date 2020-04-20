@@ -23,15 +23,16 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.AbstractEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.MimeMappings;
-import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
+import org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.server.MimeMappings;
+import org.springframework.boot.web.server.WebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.http.MediaType;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
@@ -40,7 +41,10 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkProperties;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 import org.ylzl.eden.spring.boot.framework.web.filter.CachingHttpHeadersFilter;
 
-import javax.servlet.*;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRegistration;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -51,12 +55,21 @@ import java.util.EnumSet;
 /**
  * Web 配置适配器
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer 变更为 {@link WebServerFactoryCustomizer}</li>
+ *     <li>org.springframework.boot.context.embedded.MimeMappings 迁移到 {@link MimeMappings}</li>
+ *     <li>org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory 迁移到 {@link JettyServletWebServerFactory}</li>
+ *     <li>org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory 迁移到 {@link TomcatServletWebServerFactory}</li>
+ *     <li>org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory 迁移到 {@link UndertowServletWebServerFactory}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @EnableRestErrorAdvice
 @Slf4j
-public class WebConfigurerAdapter implements EmbeddedServletContainerCustomizer, ServletContextInitializer {
+public class WebConfigurerAdapter implements WebServerFactoryCustomizer<WebServerFactory>, ServletContextInitializer {
 
 	private static final String MSG_INJECT_CACHE_HTTP_HEADER_FILTER = "Inject cached HttpHeaders filter";
 
@@ -68,7 +81,7 @@ public class WebConfigurerAdapter implements EmbeddedServletContainerCustomizer,
 
 	private static final String MSG_UNSUPPORTED_CONTAINER = "Unsupported container";
 
-	private static final String DEFAULT_OUTPUT_DIR = "target/";
+	private static final String DEFAULT_OUTPUT_DIR = "target/classes/static";
 
 	@Setter
 	@Autowired(required = false)
@@ -84,15 +97,15 @@ public class WebConfigurerAdapter implements EmbeddedServletContainerCustomizer,
 	}
 
 	@Override
-	public void customize(ConfigurableEmbeddedServletContainer container) {
-		this.setMimeMappings(container);
-		this.setLocationForStaticAssets(container);
+	public void customize(WebServerFactory webServerFactory) {
+		this.setMimeMappings(webServerFactory);
+		this.setLocationForStaticAssets(webServerFactory);
 	}
 
 	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
+	public void onStartup(ServletContext servletContext) {
 		EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
-		if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+		if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_PRODUCTION))) {
 			this.initCachingHttpHeadersFilter(servletContext, disps, "/i18n/*", "/content/*", "/app/*");
 		}
 		if (metricRegistry != null) {
@@ -127,38 +140,47 @@ public class WebConfigurerAdapter implements EmbeddedServletContainerCustomizer,
 		metricsServlet.setLoadOnStartup(2);
 	}
 
-	protected void setMimeMappings(ConfigurableEmbeddedServletContainer container) {
-		if (container instanceof UndertowEmbeddedServletContainerFactory) {
+	protected void setMimeMappings(WebServerFactory webServerFactory) {
+		if (webServerFactory instanceof UndertowServletWebServerFactory) {
 			MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
 			mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
 			mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
 
-			UndertowEmbeddedServletContainerFactory undertow = (UndertowEmbeddedServletContainerFactory) container;
+			UndertowServletWebServerFactory undertow = (UndertowServletWebServerFactory) webServerFactory;
 			undertow.setMimeMappings(mappings);
 		}
 	}
 
-	protected void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {
+	protected void setLocationForStaticAssets(WebServerFactory webServerFactory) {
 		String pathPrefix = resolvePathPrefix();
 		String webappPath = StringUtils.join(pathPrefix, DEFAULT_OUTPUT_DIR, "classes/static/");
 		File root = new File(webappPath);
 		if (root.exists() || root.isDirectory()) {
-			this.setDocumentRoot(container, root);
+			this.setDocumentRoot(webServerFactory, root);
 		}
 	}
 
-	private void setDocumentRoot(ConfigurableEmbeddedServletContainer container, File root) {
-		AbstractEmbeddedServletContainerFactory factory = null;
-		if (container instanceof UndertowEmbeddedServletContainerFactory) {
-			factory = (UndertowEmbeddedServletContainerFactory) container;
-		} else if (container instanceof TomcatEmbeddedServletContainerFactory) {
-			factory = (TomcatEmbeddedServletContainerFactory) container;
-		} else if (container instanceof JettyEmbeddedServletContainerFactory) {
-			factory = (JettyEmbeddedServletContainerFactory) container;
-		} else {
-			throw new UnsupportedOperationException(MSG_UNSUPPORTED_CONTAINER);
+	private void setDocumentRoot(WebServerFactory webServerFactory, File root) {
+		if (webServerFactory instanceof UndertowServletWebServerFactory) {
+			((UndertowServletWebServerFactory) webServerFactory).setDocumentRoot(root);
+			return;
 		}
-		factory.setDocumentRoot(root);
+
+		if (webServerFactory instanceof TomcatServletWebServerFactory) {
+			((TomcatServletWebServerFactory) webServerFactory).setDocumentRoot(root);
+			return;
+		}
+
+		if (webServerFactory instanceof JettyServletWebServerFactory) {
+			((JettyServletWebServerFactory) webServerFactory).setDocumentRoot(root);
+			return;
+		}
+
+		if (webServerFactory instanceof NettyReactiveWebServerFactory) {
+			return;
+		}
+
+		throw new UnsupportedOperationException(MSG_UNSUPPORTED_CONTAINER);
 	}
 
 	private String resolvePathPrefix() {

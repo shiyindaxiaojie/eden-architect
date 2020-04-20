@@ -27,7 +27,7 @@ import lombok.NonNull;
  * 一致性哈希
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class ConsistentHash<T> {
 

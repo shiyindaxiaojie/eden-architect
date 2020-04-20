@@ -14,7 +14,7 @@ import java.util.Map;
  * JWT 令牌增强器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Component
 public class JwtTokenEnhancer implements TokenEnhancer {

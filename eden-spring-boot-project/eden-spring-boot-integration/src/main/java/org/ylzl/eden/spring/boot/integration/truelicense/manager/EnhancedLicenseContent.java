@@ -30,7 +30,7 @@ import java.util.Date;
  * 许可证存储
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Data

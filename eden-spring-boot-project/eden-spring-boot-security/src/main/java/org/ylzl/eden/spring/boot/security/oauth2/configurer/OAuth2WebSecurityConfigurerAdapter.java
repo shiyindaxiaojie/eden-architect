@@ -27,7 +27,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * OAuth2 WebSecurity 配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class OAuth2WebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 

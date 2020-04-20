@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.boot.commons.env.CharsetConstants;
  * 框架常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class FrameworkConstants {
@@ -81,5 +81,5 @@ public final class FrameworkConstants {
     /**
      * 当前属性前缀
      */
-    public static final String PROP_PREFIX = PROP_EDEN_PREFIX + "framework";
+    public static final String PROP_PREFIX = PROP_EDEN_PREFIX + ".framework";
 }

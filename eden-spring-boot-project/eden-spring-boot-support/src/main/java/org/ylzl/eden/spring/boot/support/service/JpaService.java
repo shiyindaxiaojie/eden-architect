@@ -24,12 +24,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * 关系数据库业务接口
+ * JPA 业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public interface JpaService<T, ID extends Serializable> extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
 
@@ -41,6 +42,7 @@ public interface JpaService<T, ID extends Serializable> extends CrudService<T, I
 
     List<T> findAll();
 
+    @Deprecated
     List<T> findAll(Iterable<ID> ids);
 
     List<T> findAll(Specification<T> spec);
@@ -51,13 +53,18 @@ public interface JpaService<T, ID extends Serializable> extends CrudService<T, I
 
     List<T> findAll(Sort sort);
 
-    T findOne(Specification<T> spec);
+	List<T> findAllById(Iterable<ID> ids);
+
+	Optional<T> findOne(Specification<T> spec);
 
     void flush();
 
-    T getOne(ID id);
+	T getOne(ID id);
 
+	@Deprecated
     <S extends T> List<S> save(Iterable<S> entities);
+
+	<S extends T> List<S> saveAll(Iterable<S> entities);
 
     <S extends T> S saveAndFlush(S entity);
 }

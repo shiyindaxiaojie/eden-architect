@@ -15,33 +15,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.security.oauth2.resource;
+package org.ylzl.eden.spring.boot.support.service;
 
-import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
-
-import java.util.Map;
+import java.io.Serializable;
 
 /**
- * 用户提取器
+ * MongoDB 业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public class SimplePrincipalExtractor implements PrincipalExtractor {
-
-    public static final String DEFAULT_VALUE = "unknown";
-
-    private final String oauth2PrincipalAttribute;
-
-    public SimplePrincipalExtractor(String oauth2PrincipalAttribute) {
-        this.oauth2PrincipalAttribute = oauth2PrincipalAttribute;
-    }
-
-    @Override
-    public Object extractPrincipal(Map<String, Object> map) {
-        if (map.containsKey(oauth2PrincipalAttribute)) {
-            return map.get(oauth2PrincipalAttribute);
-        }
-        return DEFAULT_VALUE;
-    }
+public interface MongoDBService<T, ID extends Serializable> extends CrudService<T, ID> {
 }

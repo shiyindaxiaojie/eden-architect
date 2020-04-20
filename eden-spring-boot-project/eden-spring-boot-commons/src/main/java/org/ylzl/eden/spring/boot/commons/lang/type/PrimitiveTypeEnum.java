@@ -24,7 +24,7 @@ import lombok.NonNull;
  * 基本类型枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum PrimitiveTypeEnum {
 

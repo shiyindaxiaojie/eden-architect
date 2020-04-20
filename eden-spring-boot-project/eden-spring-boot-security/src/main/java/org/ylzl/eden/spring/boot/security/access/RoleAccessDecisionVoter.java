@@ -31,7 +31,7 @@ import java.util.Map;
  * 角色访问决策适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class RoleAccessDecisionVoter implements AccessDecisionVoter<Object> {
 
@@ -39,7 +39,7 @@ public class RoleAccessDecisionVoter implements AccessDecisionVoter<Object> {
     private final Map<String,String> urlRoleMap = new HashMap<String,String>(){{
         put("/open/**","ROLE_ANONYMOUS");
         put("/health","ROLE_ANONYMOUS");
-        put("/restart","ROLE_ADMIN");
+        put("/restart","ADMIN");
         put("/demo","ROLE_USER");
     }};
 

@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  * 冒泡排序
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class BubbleSort extends AbstractSort implements Sort {
 

@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Spring Integration 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class IntegrationConstants {

@@ -31,25 +31,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.ylzl.eden.spring.boot.data.redis.serializer.IntegerRedisSerializer;
-import org.ylzl.eden.spring.boot.data.redis.serializer.LongRedisSerializer;
-import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Method;
 
 /**
  * Redis 缓存自动配置
  *
+ * <p>变更日志：Spring Boot 升级 1.X 到 2.X</p>
+ * <ul>
+ *     <li>{@link RedisCacheManager} 移除构造器参数 {@link org.springframework.data.redis.core.RedisTemplate}</li>
+ *     <li>{@link RedisCacheManager} 使用 {@code create()} 创建实例</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnClass({JedisConnection.class, RedisOperations.class, Jedis.class, RedisCacheManager.class})
+@ConditionalOnClass({RedisOperations.class, RedisCacheManager.class})
 @EnableCaching
 @Slf4j
 @Configuration
@@ -57,19 +56,10 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
     private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
 
-    private static final String BEAN_INTEGER_REDIS_CACHE_MGR = "integerRedisCacheManager";
-
-    private static final String BEAN_LONG_REDIS_CACHE_MGR = "longRedisCacheManager";
-
-    private static final String BEAN_STRING_REDIS_CACHE_MGR = "stringRedisCacheManager";
-
     private final RedisConnectionFactory redisConnectionFactory;
 
-    private final RedisTemplate redisTemplate;
-
-    public RedisCacheAutoConfiguration(RedisConnectionFactory redisConnectionFactory, RedisTemplate redisTemplate) {
+    public RedisCacheAutoConfiguration(RedisConnectionFactory redisConnectionFactory) {
         this.redisConnectionFactory = redisConnectionFactory;
-        this.redisTemplate = redisTemplate;
     }
 
     @ConditionalOnMissingBean(name = BEAN_REDIS_CACHE_MGR)
@@ -77,41 +67,13 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
     @Bean
     @Override
     public CacheManager cacheManager() {
-        return new RedisCacheManager(redisTemplate);
+        return RedisCacheManager.create(redisConnectionFactory);
     }
 
     @Bean
     @Override
     public KeyGenerator keyGenerator() {
         return new RedisKeyGenerator();
-    }
-
-    @ConditionalOnMissingBean(name = BEAN_STRING_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager stringRedisCacheManager(StringRedisTemplate stringRedisTemplate) {
-        return new RedisCacheManager(stringRedisTemplate);
-    }
-
-    @SuppressWarnings("unchecked")
-    @ConditionalOnMissingBean(name = BEAN_INTEGER_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager integerRedisCacheManager() {
-        RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(IntegerRedisSerializer.INSTANCE);
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        return new RedisCacheManager(redisTemplate);
-    }
-
-    @SuppressWarnings("unchecked")
-    @ConditionalOnMissingBean(name = BEAN_LONG_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager longRedisCacheManager() {
-        RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(LongRedisSerializer.INSTANCE);
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        return new RedisCacheManager(redisTemplate);
     }
 
     private static class RedisKeyGenerator implements KeyGenerator {

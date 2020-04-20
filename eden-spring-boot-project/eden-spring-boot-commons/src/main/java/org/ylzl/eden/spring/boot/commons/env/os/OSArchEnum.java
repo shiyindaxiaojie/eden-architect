@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.commons.regex.RegexUtils;
  * 操作系统架构枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum OSArchEnum {
 

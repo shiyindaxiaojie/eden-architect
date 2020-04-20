@@ -22,22 +22,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.ylzl.eden.spring.boot.data.elasticsearch.repository.ElasticsearchRepository;
-import org.ylzl.eden.spring.boot.support.service.SearchService;
+import org.ylzl.eden.spring.boot.support.service.ElasticsearchService;
 
 import java.io.Serializable;
 
 /**
- * 全文检索业务实现
+ * Elasticsearch 业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public class SearchServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID>
-    implements SearchService<T, ID> {
+public class ElasticsearchServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID> implements ElasticsearchService<T, ID> {
 
     private final ElasticsearchRepository<T, ID> elasticsearchRepository;
 
-    public SearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
+    public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
         super(elasticsearchRepository);
         this.elasticsearchRepository = elasticsearchRepository;
     }

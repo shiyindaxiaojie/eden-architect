@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
  * Swagger 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class SwaggerDefaults {
@@ -53,5 +53,5 @@ public final class SwaggerDefaults {
 
     public static final boolean useDefaultResponseMessages = true;
 
-    public static final String version = "1.0.0.RELEASE";
+    public static final String version = "2.0.0.RELEASE";
 }

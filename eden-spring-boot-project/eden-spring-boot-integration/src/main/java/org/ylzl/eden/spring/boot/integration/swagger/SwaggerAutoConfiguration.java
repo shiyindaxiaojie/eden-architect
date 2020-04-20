@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.boot.integration.swagger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -54,8 +54,14 @@ import java.util.List;
 /**
  * Swagger 自动配置
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link ManagementServerProperties}</li>
+ *     <li>{@code managementServerProperties.getContextPath()} 修改为 {@code managementServerProperties.getServlet().getContextPath()}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({
     ApiInfo.class,
@@ -117,8 +123,8 @@ public class SwaggerAutoConfiguration {
 
     @Bean
     @ConditionalOnClass(ManagementServerProperties.class)
-    @ConditionalOnProperty("management.context-path")
-    @ConditionalOnExpression("'${management.context-path}'.length() > 0")
+    @ConditionalOnProperty("management.endpoints.web.base-path")
+    @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
     @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
     public Docket swaggerSpringfoxManagementDocket() {
 
@@ -143,7 +149,7 @@ public class SwaggerAutoConfiguration {
             .directModelSubstitute(ByteBuffer.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .select()
-            .paths(PathSelectors.regex(StringUtils.join(managementServerProperties.getContextPath(), ".*")))
+            .paths(PathSelectors.regex(StringUtils.join(managementServerProperties.getServlet().getContextPath(), ".*")))
             .build();
     }
 

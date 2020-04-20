@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Spring Cloud 属性文件
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

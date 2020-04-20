@@ -20,20 +20,27 @@ package org.ylzl.eden.spring.boot.data.flyway.async;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
+import org.flywaydb.core.api.configuration.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.Callable;
 
 /**
  * 异步 Flyway
  *
+ * <p>变更日志：Flyway 升级到 6.X</p>
+ * <ul>
+ *     <li>{@code flyway.getDataSource()} 方法被移除</li>
+ *     <li>Flyway 构造函数新增 {@link Configuration} 为必须参数</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Slf4j
 public class AsyncFlyway extends Flyway {
@@ -54,33 +61,32 @@ public class AsyncFlyway extends Flyway {
 
     private static final int MIGRATION_FAILED_COUNT = 0;
 
+    private final Configuration configuration;
+
     private final AsyncTaskExecutor asyncTaskExecutor;
 
     private final Environment environment;
 
-    public AsyncFlyway(AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
-        this.asyncTaskExecutor = asyncTaskExecutor;
+    public AsyncFlyway(Configuration configuration, AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
+		super(configuration);
+		this.configuration = configuration;
+		this.asyncTaskExecutor = asyncTaskExecutor;
         this.environment = environment;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public int migrate() throws FlywayException {
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            try (Connection connection = getDataSource().getConnection()) {
-                asyncTaskExecutor.submit(new Callable() {
-
-                    @Override
-                    public Integer call() {
-                        try {
-                            log.debug(MSG_STARTING_ASYNC);
-                            return initDb();
-                        } catch (FlywayException e) {
-                            log.error(MSG_EXCEPTION, e.getMessage(), e);
-                            return MIGRATION_FAILED_COUNT;
-                        }
-                    }
-                });
+        if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+            try (Connection ignored = configuration.getDataSource().getConnection()) {
+                asyncTaskExecutor.submit(() -> {
+					try {
+						log.debug(MSG_STARTING_ASYNC);
+						return initDb();
+					} catch (FlywayException e) {
+						log.error(MSG_EXCEPTION, e.getMessage(), e);
+						return MIGRATION_FAILED_COUNT;
+					}
+				});
             } catch (SQLException e) {
                 log.error(MSG_EXCEPTION, e.getMessage(), e);
             }

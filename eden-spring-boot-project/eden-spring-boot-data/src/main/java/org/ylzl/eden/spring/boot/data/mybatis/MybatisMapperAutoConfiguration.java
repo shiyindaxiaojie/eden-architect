@@ -50,7 +50,7 @@ import java.util.Arrays;
  * Mybatis Mapper 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore(MybatisAutoConfiguration.class)

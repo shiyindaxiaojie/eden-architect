@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
  * Ehcache 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class EhcacheDefaults {

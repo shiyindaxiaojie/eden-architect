@@ -11,15 +11,16 @@
     <parent>
         <groupId>org.ylzl</groupId>
         <artifactId>eden-spring-boot-starters</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath>../</relativePath>
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-juli</artifactId>

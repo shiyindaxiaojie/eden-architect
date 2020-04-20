@@ -30,7 +30,7 @@ import java.util.Map;
  * Jwt 令牌处理器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JwtTokenProcessor implements TokenProcessor {
 

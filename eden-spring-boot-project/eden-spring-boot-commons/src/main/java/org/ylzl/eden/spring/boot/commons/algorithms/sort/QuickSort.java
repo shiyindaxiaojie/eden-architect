@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  * 快速排序
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class QuickSort extends AbstractSort implements Sort {
 

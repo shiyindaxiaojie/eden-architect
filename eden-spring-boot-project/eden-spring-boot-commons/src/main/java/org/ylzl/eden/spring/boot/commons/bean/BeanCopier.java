@@ -25,7 +25,7 @@ import org.springframework.cglib.core.Converter;
  * Bean 拷贝工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class BeanCopier {

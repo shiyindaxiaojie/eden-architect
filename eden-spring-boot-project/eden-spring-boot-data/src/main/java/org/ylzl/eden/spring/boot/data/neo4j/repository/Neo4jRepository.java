@@ -16,16 +16,22 @@
  */
 package org.ylzl.eden.spring.boot.data.neo4j.repository;
 
-import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+
+import java.io.Serializable;
 
 /**
  * Neo4j 数据仓库
  *
+ * <P>Spring Data Neo4j 升级到 5.X</P>
+ * <ul>
+ *     <li>org.springframework.data.neo4j.repository.GraphRepository 变更为 {@link org.springframework.data.neo4j.repository.Neo4jRepository}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @NoRepositoryBean
-public interface Neo4jRepository<T> extends GraphRepository<T> {
+public interface Neo4jRepository<T, ID extends Serializable> extends org.springframework.data.neo4j.repository.Neo4jRepository<T, ID> {
 
 }

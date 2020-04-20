@@ -17,9 +17,8 @@
 
 package org.ylzl.eden.spring.boot.commons.io;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.io.Closeable;
 
@@ -27,14 +26,9 @@ import java.io.Closeable;
  * 输入输出工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class IOUtils extends org.apache.commons.io.IOUtils {
 
-    public static void closeQuietly(@NonNull Closeable... closeables) {
-        for (final Closeable closeable : closeables) {
-            closeQuietly(closeable);
-        }
-    }
 }

@@ -17,7 +17,7 @@
 
 package org.ylzl.eden.spring.boot.cloud.feign.authentication;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.annotation.AliasFor;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 
@@ -26,8 +26,13 @@ import java.lang.annotation.*;
 /**
  * 已认证的 FeignClient 注解
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <ul>
+ *     <li>org.springframework.cloud.netflix.feign.FeignClient 迁移到 {@link FeignClient}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

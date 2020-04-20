@@ -31,7 +31,7 @@ import javax.sql.DataSource;
  * Jdbc 模板自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})
 @Slf4j

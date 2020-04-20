@@ -18,35 +18,46 @@
 package org.ylzl.eden.spring.boot.cloud.configserver;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.cloud.config.server.environment.NativeEnvironmentProperties;
+import org.springframework.cloud.config.server.environment.NativeEnvironmentRepository;
+import org.springframework.cloud.config.server.environment.NativeEnvironmentRepositoryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
+import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 
 /**
  * ConfigServer 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({EnableConfigServer.class})
 @ConditionalOnExpression(ConfigServerAutoConfiguration.EXPS_CONFIG_SERVER_ENABLED)
 @EnableConfigServer
+@Profile(ProfileConstants.SPRING_PROFILE_NATIVE)
 @Slf4j
 @Configuration
 public class ConfigServerAutoConfiguration {
 
-	public static final String EXPS_CONFIG_SERVER_ENABLED = "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:false}";
+	public static final String EXPS_CONFIG_SERVER_ENABLED = "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:true}";
 
-	/**
-	 * FIXME 修复错误：Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has beencreated too early.
-	 * @return PropertySourcesPlaceholderConfigurer
-	 */
+	private final NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory;
+
+	public ConfigServerAutoConfiguration(NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory) {
+		this.nativeEnvironmentRepositoryFactory = nativeEnvironmentRepositoryFactory;
+	}
+
+	@ConditionalOnMissingBean
 	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
+	public NativeEnvironmentRepository nativeEnvironmentRepository(NativeEnvironmentRepositoryFactory factory, NativeEnvironmentProperties environmentProperties) {
+		return factory.build(environmentProperties);
 	}
 }

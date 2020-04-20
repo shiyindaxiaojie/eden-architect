@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * Base32 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class Base32 extends org.apache.commons.codec.binary.Base32 {

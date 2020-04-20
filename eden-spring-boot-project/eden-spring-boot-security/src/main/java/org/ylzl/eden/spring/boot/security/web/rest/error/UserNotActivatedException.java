@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.boot.framework.web.rest.errors.BadRequestAlertExcept
  * 用户未激活
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class UserNotActivatedException extends BadRequestAlertException {
 

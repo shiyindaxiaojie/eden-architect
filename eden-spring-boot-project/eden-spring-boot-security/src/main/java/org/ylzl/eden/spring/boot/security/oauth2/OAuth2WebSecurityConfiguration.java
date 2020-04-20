@@ -22,11 +22,11 @@ import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,13 +40,15 @@ import javax.annotation.PostConstruct;
 /**
  * OAuth2 WebSecurity 配置
  *
+ * <p>变更日志：Spring Security 升级到 5.X</p>
+ * <ul>
+ *     <li>org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration 变更为 {@link AuthenticationConfiguration}</li>
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
-@AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)
-@AutoConfigureBefore(AuthenticationManagerConfiguration.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@EnableWebSecurity
+@AutoConfigureAfter({DefaultWebSecuirtyConfiguration.class, AuthenticationConfiguration.class})
 @Slf4j
 @Configuration
 public class OAuth2WebSecurityConfiguration {

@@ -24,13 +24,13 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Security 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class SecurityConstants {
 
     /**
-     * 自定义属性类前缀
+     * 自定义属性前缀
      */
     public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".security";
 
@@ -39,7 +39,7 @@ public final class SecurityConstants {
     /**
      * 管理员
      */
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ADMIN = "ADMIN";
 
     /**
      * 注册用户

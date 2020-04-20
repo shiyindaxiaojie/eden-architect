@@ -21,10 +21,10 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Security 属性类
+ * Security 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

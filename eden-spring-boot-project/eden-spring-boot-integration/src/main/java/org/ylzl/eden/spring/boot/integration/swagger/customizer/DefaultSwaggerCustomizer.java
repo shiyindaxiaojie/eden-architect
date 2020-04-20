@@ -36,7 +36,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
  * 默认的 Swagger 自定义实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
 

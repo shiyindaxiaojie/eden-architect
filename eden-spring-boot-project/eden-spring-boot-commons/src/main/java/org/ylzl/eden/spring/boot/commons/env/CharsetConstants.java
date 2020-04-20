@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
  * 字符集常量
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class CharsetConstants {

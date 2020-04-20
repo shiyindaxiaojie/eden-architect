@@ -29,7 +29,7 @@ import java.util.Map;
  * 增强式 RedisTemplate
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EnhancedRedisTemplate<K, V> extends RedisTemplate<K, V> {
 

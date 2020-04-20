@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  * FtpServer 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

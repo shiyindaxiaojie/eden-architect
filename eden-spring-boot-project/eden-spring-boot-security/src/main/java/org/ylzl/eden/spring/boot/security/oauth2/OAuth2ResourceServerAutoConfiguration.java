@@ -35,12 +35,11 @@ import org.ylzl.eden.spring.boot.security.oauth2.configurer.OAuth2ResourceServer
  * OAuth2 资源服务器配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EnableResourceServer.class)
 @ConditionalOnExpression(OAuth2ResourceServerAutoConfiguration.EXPS_OAUTH2_RESOURCE_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableResourceServer
 @Slf4j
 @Configuration

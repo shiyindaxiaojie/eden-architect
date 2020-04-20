@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * Profile 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ProfileConstants {
@@ -52,4 +52,9 @@ public final class ProfileConstants {
      * 云环境
      */
     public static final String SPRING_PROFILE_CLOUD = "cloud";
+
+	/**
+	 * 本地环境
+	 */
+	public static final String SPRING_PROFILE_NATIVE = "native";
 }

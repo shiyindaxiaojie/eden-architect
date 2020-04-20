@@ -15,4 +15,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.security.crypto;
+package org.ylzl.eden.spring.boot.support.service;
+
+import java.io.Serializable;
+
+/**
+ * Redis 业务接口
+ *
+ * @author gyl
+ * @since 1.0.0
+ */
+public interface RedisService<T, ID extends Serializable> extends CrudService<T, ID> {
+}

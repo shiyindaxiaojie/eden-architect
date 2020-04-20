@@ -44,7 +44,7 @@ import java.util.List;
  * 增强式命名参数 Jdbc 模板
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
 

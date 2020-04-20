@@ -17,13 +17,30 @@
 
 package org.ylzl.eden.spring.boot.support.service;
 
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+
 import java.io.Serializable;
 
 /**
- * 文档数据库业务接口
+ * Elasticsearch 业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public interface DocumentService<T, ID extends Serializable> extends CrudService<T, ID> {
+public interface ElasticsearchService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
+
+    <S extends T> S index(S entity);
+
+    Iterable<T> search(QueryBuilder queryBuilder);
+
+    Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
+
+    Page<T> search(SearchQuery searchQuery);
+
+    Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
+
+    void refresh();
 }

@@ -21,6 +21,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
@@ -32,7 +33,7 @@ import java.sql.SQLException;
  * 异步 Spring Liquibase
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Slf4j
 public class AsyncSpringLiquibase extends SpringLiquibase {
@@ -62,7 +63,7 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+        if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
             try (Connection connection = getDataSource().getConnection()) {
                 asyncTaskExecutor.execute(new Runnable() {
 

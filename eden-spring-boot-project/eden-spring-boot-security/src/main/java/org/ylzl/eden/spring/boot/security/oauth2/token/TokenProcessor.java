@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.security.oauth2.token;
  * 令牌处理器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface TokenProcessor {
 

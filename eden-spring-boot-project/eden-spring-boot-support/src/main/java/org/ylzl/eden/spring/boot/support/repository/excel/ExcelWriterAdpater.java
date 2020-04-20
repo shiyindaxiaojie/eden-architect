@@ -29,7 +29,7 @@ import java.util.Set;
  * Excel 数据读取适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class ExcelWriterAdpater<T> implements ExcelWriter<T> {

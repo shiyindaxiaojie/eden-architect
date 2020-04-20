@@ -15,22 +15,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.security.oauth2;
+package org.ylzl.eden.spring.boot.support.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.ylzl.eden.spring.boot.data.mongodb.repository.MongoRepository;
+import org.ylzl.eden.spring.boot.support.service.MongoDBService;
+
+import java.io.Serializable;
 
 /**
- * TODO
+ * MongoDB 业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@EnableOAuth2Client
-@Slf4j
-@Configuration("enhanceOAuth2ClientConfiguration")
-public class OAuth2ClientConfiguration {
+public class MongoDBServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID> implements MongoDBService<T, ID> {
 
+    private final MongoRepository<T, ID> mongoRepository;
 
+    public MongoDBServiceImpl(MongoRepository<T, ID> mongoRepository) {
+        super(mongoRepository);
+        this.mongoRepository = mongoRepository;
+    }
 }

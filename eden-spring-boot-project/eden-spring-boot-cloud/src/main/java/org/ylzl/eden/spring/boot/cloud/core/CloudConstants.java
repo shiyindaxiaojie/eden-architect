@@ -24,13 +24,13 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Spring Cloud 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class CloudConstants {
 
     /**
-     * 自定义属性类前缀
+     * 自定义配置属性前缀
      */
     public static final String PROP_PREFIX =  FrameworkConstants.PROP_EDEN_PREFIX + ".cloud";
 }

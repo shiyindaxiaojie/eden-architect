@@ -41,22 +41,20 @@ import javax.annotation.PostConstruct;
  * JWT WebSecurity 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@EnableWebSecurity
 @Slf4j
 @Configuration
 public class JwtWebSecurityConfiguration {
 
-	private static final String INIT_AUTHENTICATION_MANAGER = "Initializing AuthenticationManager (JWT)";
+/*	private static final String INIT_AUTHENTICATION_MANAGER = "Initializing AuthenticationManager (JWT)";
 
-	private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";
+	private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";*/
 
 	private static final String MSG_INJECT_AUTHENTICATION_MANAGER = "Inject AuthenticationManager (JWT)";
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+/*    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     private final UserDetailsService userDetailsService;
 
@@ -66,7 +64,7 @@ public class JwtWebSecurityConfiguration {
 		this.authenticationManagerBuilder = authenticationManagerBuilder;
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
-	}
+	}*/
 
     @ConditionalOnMissingBean
     @Bean
@@ -81,7 +79,7 @@ public class JwtWebSecurityConfiguration {
         return webSecurityConfigurerAdapter.authenticationManagerBean();
     }
 
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 		log.debug(INIT_AUTHENTICATION_MANAGER);
 		try {
@@ -89,7 +87,7 @@ public class JwtWebSecurityConfiguration {
 		} catch (Exception e) {
 			throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
 		}
-	}
+	}*/
 
 	protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
 

@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
  * <p> 获取 Spring Boot Maven 插件生成的 build-info.properties </p>
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Data
 public class InfoContributorProvider {

@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 动态数据源代理
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 

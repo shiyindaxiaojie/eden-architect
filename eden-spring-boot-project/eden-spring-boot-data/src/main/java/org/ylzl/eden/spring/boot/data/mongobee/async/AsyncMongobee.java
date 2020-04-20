@@ -21,6 +21,7 @@ import com.github.mongobee.Mongobee;
 import com.mongodb.MongoClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
@@ -29,7 +30,7 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
  * 异步 Mongobee
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Slf4j
 public class AsyncMongobee extends Mongobee {
@@ -60,7 +61,7 @@ public class AsyncMongobee extends Mongobee {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+        if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
             taskExecutor.execute(new Runnable() {
 
                 @Override

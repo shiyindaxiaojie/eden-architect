@@ -17,16 +17,17 @@
 
 package org.ylzl.eden.spring.boot.data.flyway.datasource;
 
+import org.sqlite.SQLiteDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.sql.DataSource;
-import org.sqlite.SQLiteDataSource;
 
 /**
  * Flyway SQLite 数据源
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class FlywaySQLiteDataSource extends SQLiteDataSource {
 

@@ -25,10 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 监控配置属性类
+ * 监控配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

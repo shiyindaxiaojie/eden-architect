@@ -48,7 +48,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.store.ClientCredentialsTo
  * OAuth2 授权客户端自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(RestAutoConfiguration.class)
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration.class)

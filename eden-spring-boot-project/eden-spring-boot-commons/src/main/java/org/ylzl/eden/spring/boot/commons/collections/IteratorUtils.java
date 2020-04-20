@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * 迭代器工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {

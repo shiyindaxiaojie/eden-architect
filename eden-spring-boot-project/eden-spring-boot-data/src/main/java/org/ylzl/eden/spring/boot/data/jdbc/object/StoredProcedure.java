@@ -22,7 +22,7 @@ import java.util.Map;
  * 存储过程抽象类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public abstract class StoredProcedure extends org.springframework.jdbc.object.StoredProcedure {
 

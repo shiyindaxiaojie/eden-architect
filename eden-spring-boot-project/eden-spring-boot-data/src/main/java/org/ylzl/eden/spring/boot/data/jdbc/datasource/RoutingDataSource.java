@@ -14,33 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.ylzl.eden.spring.boot.support.service;
-
-import org.elasticsearch.index.query.QueryBuilder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
-
-import java.io.Serializable;
+package org.ylzl.eden.spring.boot.data.jdbc.datasource;
 
 /**
- * 全文检索业务接口
+ * 动态路由数据源
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public interface SearchService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
+public @interface RoutingDataSource {
 
-    <S extends T> S index(S entity);
+    String value();
 
-    Iterable<T> search(QueryBuilder queryBuilder);
-
-    Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
-
-    Page<T> search(SearchQuery searchQuery);
-
-    Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
-
-    void refresh();
+    DataSourceEnum type() default DataSourceEnum.MASTER;
 }

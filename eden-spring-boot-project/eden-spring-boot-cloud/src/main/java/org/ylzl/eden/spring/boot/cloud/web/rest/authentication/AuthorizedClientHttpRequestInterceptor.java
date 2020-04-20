@@ -34,7 +34,7 @@ import java.io.IOException;
  * 认证的客户端 HTTP 请求拦截器
  *
  * @author sion
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AuthorizedClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 

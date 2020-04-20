@@ -18,14 +18,14 @@
 package org.ylzl.eden.spring.boot.data.audit.event;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Map;
 
 /**
  * 持久化审计事件接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public interface PersistentAuditEvent extends Serializable {
 
@@ -33,9 +33,9 @@ public interface PersistentAuditEvent extends Serializable {
 
     void setPrincipal(String principal);
 
-    Date getEventDate();
+    Instant getEventDate();
 
-    void setEventDate(Date eventDate);
+    void setEventDate(Instant eventDate);
 
     String getEventType();
 

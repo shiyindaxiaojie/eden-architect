@@ -24,31 +24,32 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 import org.ylzl.eden.spring.boot.framework.web.util.RequestContextHolderUtils;
 
+import java.util.Optional;
+
 /**
  * 认证的审计装饰器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public class AuthorizedAuditorAware implements AuditorAware<String> {
 
     @Override
-    public String getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
+    	String authorizedUsername = null;
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication != null) {
                 if (authentication.getPrincipal() instanceof UserDetails) {
                     UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
-                    return springSecurityUser.getUsername();
-                }
-                if (authentication.getPrincipal() instanceof String) {
-                    return (String) authentication.getPrincipal();
+					authorizedUsername = springSecurityUser.getUsername();
+                } else if (authentication.getPrincipal() instanceof String) {
+					authorizedUsername = (String) authentication.getPrincipal();
                 }
             }
+        } else if (RequestContextHolderUtils.getRemoteUser() != null) {
+			authorizedUsername = RequestContextHolderUtils.getRemoteUser();
         }
-        if (RequestContextHolderUtils.getRemoteUser() != null) {
-            return RequestContextHolderUtils.getRemoteUser();
-        }
-        return FrameworkConstants.SYSTEM;
+		return Optional.of(Optional.of(authorizedUsername).orElse(FrameworkConstants.SYSTEM));
     }
 }

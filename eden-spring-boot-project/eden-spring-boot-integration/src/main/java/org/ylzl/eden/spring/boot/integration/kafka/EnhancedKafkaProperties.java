@@ -15,27 +15,24 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.support.service.impl;
+package org.ylzl.eden.spring.boot.integration.kafka;
 
-import org.ylzl.eden.spring.boot.data.redis.repository.RedisRepository;
-import org.ylzl.eden.spring.boot.support.service.KeyValueService;
-
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 
 /**
- * 键值对业务实现
+ * Kafka 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@SuppressWarnings("unchecked")
-public class KeyValueServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
-    implements KeyValueService<T, ID> {
+@Getter
+@Setter
+@ConfigurationProperties(prefix = FrameworkConstants.PROP_SPRING_PREFIX + ".kafka")
+public class EnhancedKafkaProperties extends KafkaProperties {
 
-    private final RedisRepository<T, ID> redisRepository;
-
-    public KeyValueServiceImpl(RedisRepository<T, ID> redisRepository) {
-        super(redisRepository);
-        this.redisRepository = redisRepository;
-    }
+    private Boolean enabled;
 }

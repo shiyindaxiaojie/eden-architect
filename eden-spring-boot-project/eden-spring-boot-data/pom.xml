@@ -28,7 +28,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
-		<version>1.0.0.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
 
@@ -49,6 +49,11 @@
             <artifactId>pagehelper</artifactId>
             <optional>true</optional>
         </dependency>
+		<dependency>
+			<groupId>com.github.vanroy</groupId>
+			<artifactId>spring-boot-starter-data-jest</artifactId>
+			<optional>true</optional>
+		</dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
@@ -69,11 +74,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -110,11 +115,11 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
         </dependency>
         <dependency>
@@ -129,7 +134,6 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
-            <optional>true</optional>
             <scope>provided</scope>
         </dependency>
         <dependency>
