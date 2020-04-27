@@ -15,14 +15,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.redis.support;
+package org.ylzl.eden.spring.boot.integration.netty.buffer;
+
+import io.netty.buffer.ByteBuf;
 
 /**
- * 增强式 StringRedisTemplate
+ * 数据包接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public class EnhancedStringRedisTemplate extends EnhancedRedisTemplate<String, String> {
+public interface Packet<T> {
 
+	T parse(ByteBuf byteBuf);
+
+	byte[] bytes();
+
+	int length();
 }

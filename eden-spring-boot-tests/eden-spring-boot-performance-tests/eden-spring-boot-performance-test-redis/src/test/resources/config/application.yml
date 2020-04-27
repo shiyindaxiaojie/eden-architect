@@ -1,0 +1,55 @@
+liquibase:
+    contexts: test
+
+logging:
+    file: target/sample.log
+    level:
+        ROOT: INFO
+        org.ylzl.eden: DEBUG
+
+spring:
+    application:
+        name: sample
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://localhost:3306/sample?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&useServerPrepStmts=false
+        username: root
+        password: DevOps@303
+        hikari:
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+    jmx:
+        default-domain: ${spring.application.name}
+    jpa:
+        database: MYSQL
+        database-platform: org.hibernate.dialect.MySQLDialect
+        hibernate:
+            ddl-auto: none
+        naming:
+            implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+            physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        open-in-view: false
+        properties:
+            hibernate:
+                cache:
+                    use_second_level_cache: false
+                    use_query_cache: false
+                    use_minimal_puts: true
+                    hazelcast.instance_name: ${spring.application.name}
+                    hazelcast.use_lite_member: true
+                ejb:
+                    entitymanager_factory_name: ${spring.application.name}
+                generate_statistics: true
+                id:
+                    new_generator_mappings: true
+                region:
+                    factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+                show-sql: true
+    mvc:
+        favicon:
+            enabled: false
+    profiles:
+        active: dev

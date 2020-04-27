@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.boot.data.jdbc.namedparam.EnhancedNamedParameterJdbc
 import java.util.List;
 
 /**
- * TODO
+ * 用户 JDBC
  *
  * @author gyl
  * @since 0.0.1
@@ -33,13 +33,13 @@ import java.util.List;
 @Repository
 public class UserJdbc {
 
-	private final EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate;
+	private final EnhancedNamedParameterJdbcTemplate jdbcTemplate;
 
-	public UserJdbc(EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate) {
-		this.enhancedNamedParameterJdbcTemplate = enhancedNamedParameterJdbcTemplate;
+	public UserJdbc(EnhancedNamedParameterJdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	public int[] batchInsert(@NonNull List<User> users, int executeBatchSize) {
-		return enhancedNamedParameterJdbcTemplate.batchInsert(users, executeBatchSize);
+		return jdbcTemplate.batchInsert(users, executeBatchSize);
 	}
 }

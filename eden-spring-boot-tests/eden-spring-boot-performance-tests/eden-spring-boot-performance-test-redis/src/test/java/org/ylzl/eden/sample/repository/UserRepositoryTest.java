@@ -15,22 +15,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.netty.server;
+package org.ylzl.eden.sample.repository;
 
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * TODO
+ * 用户 Redis 读写测试
  *
  * @author gyl
  * @since 0.0.1
  */
-public class NettyServer {
-
-	private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
-
-	private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
-
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class UserRepositoryTest {
 
 }

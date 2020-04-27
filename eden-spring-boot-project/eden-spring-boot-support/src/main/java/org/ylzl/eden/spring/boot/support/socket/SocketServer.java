@@ -17,11 +17,17 @@
 
 package org.ylzl.eden.spring.boot.support.socket;
 
+import java.net.InetSocketAddress;
+
 /**
  * Socket 服务端
  *
  * @author gyl
  * @since 0.0.1
  */
-public interface SocketServer {
+public interface SocketServer<T> {
+
+	T startup(InetSocketAddress address);
+
+	void shutdown();
 }
