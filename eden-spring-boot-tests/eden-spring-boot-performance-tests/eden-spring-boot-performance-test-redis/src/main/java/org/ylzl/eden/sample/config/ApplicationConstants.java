@@ -15,9 +15,4 @@ public class ApplicationConstants {
      * 根目录包路径
      */
     public final String BASE_PACKAGE = "org.ylzl.eden.sample";
-
-    /**
-     * JPA 包路径
-     */
-    public static final String JPA_PACKAGE = BASE_PACKAGE + ".repository";
 }

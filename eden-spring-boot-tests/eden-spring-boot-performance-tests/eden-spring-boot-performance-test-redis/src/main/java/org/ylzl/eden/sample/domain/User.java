@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,20 +20,20 @@ import java.util.Date;
 @EqualsAndHashCode
 @NoArgsConstructor
 @ToString
-@RedisHash("users")
-public class User {
+@RedisHash(value = "users", timeToLive = 30L)
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 5816295498204890068L;
+	private static final long serialVersionUID = 6719807913047955885L;
 
 	@Id
 	private Long id;
 
-	@Indexed
+	@Indexed // 生成 users:login:login.value 和
 	private String login;
 
 	private String password;
 
-	@Indexed
+	@Indexed // 生成 users:email:email.value
 	private String email;
 
 	private Boolean activated = false;

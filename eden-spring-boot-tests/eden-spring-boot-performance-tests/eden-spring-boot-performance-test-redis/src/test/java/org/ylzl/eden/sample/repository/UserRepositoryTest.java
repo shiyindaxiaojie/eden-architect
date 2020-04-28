@@ -17,9 +17,28 @@
 
 package org.ylzl.eden.sample.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.SneakyThrows;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StopWatch;
+import org.ylzl.eden.sample.domain.User;
+import org.ylzl.eden.spring.boot.commons.id.SnowflakeGenerator;
+import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.*;
 
 /**
  * 用户 Redis 读写测试
@@ -31,4 +50,112 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class UserRepositoryTest {
 
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private StringRedisTemplate redisTemplate;
+
+	@Test
+	public void assertThatCURD() {
+		SnowflakeGenerator generator = SnowflakeGenerator.builder().datacenterId(0L).workerId(0L).build();
+		Date nowDate = new Date();
+
+		String login = "batch";
+		User user = User.builder()
+			.id(generator.nextId())
+			.login(login)
+			.password("{noop}batch")
+			.email("batch.com")
+			.activated(false)
+			.locked(false)
+			.langKey("zh-CN")
+			.createdBy("gyl")
+			.createdDate(nowDate)
+			.build();
+
+		User createdUser = userRepository.save(user);
+		assertNotNull(createdUser);
+
+		User queryUser = userRepository.findOneByLogin(login);
+		assertNotNull(queryUser);
+
+		String modifyPassword = "233";
+		queryUser.setPassword(modifyPassword);
+		User modifiedUser = userRepository.save(queryUser);
+		assertEquals(modifyPassword, modifiedUser.getPassword());
+
+		userRepository.delete(modifiedUser.getId());
+		assertNull(userRepository.findOneByLogin(login));
+	}
+
+	@Test
+	public void assertThatPipeline() {
+		int capacity = 81000;
+		final List<User> users = new ArrayList<>(capacity);
+		SnowflakeGenerator generator = SnowflakeGenerator.builder().datacenterId(0L).workerId(0L).build();
+		Date nowDate = new Date();
+		for (int i = 0; i < capacity; i++) {
+			users.add(User.builder()
+				.id(generator.nextId())
+/*				.login("batch" + i)
+				.password("{noop}batch" + i)
+				.email("batch" + i + ".com")
+				.activated(false)
+				.locked(false)
+				.langKey("zh-CN")
+				.createdBy("gyl")
+				.createdDate(nowDate)*/
+				.build()
+			);
+		}
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
+		redisTemplate.executePipelined(new SessionCallback<Object>() {
+
+			@SneakyThrows
+			@Override
+			public <K, V> Object execute(RedisOperations<K, V> redisOperations) throws DataAccessException {
+				for (User user: users) {
+					redisTemplate.opsForValue().set("sample:users:" + user.getId(), "1", 30, TimeUnit.SECONDS);
+				}
+				return null;
+			}
+		});
+		stopWatch.stop();
+		double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+		System.out.println("RedisTemplate.executePipelined cost " + totalTimeSeconds + " seconds");
+		assertTrue(totalTimeSeconds <= 5d); // 理论上是 2秒内，电脑配置跟不上
+	}
+
+	@Test
+	public void assertThatSaveAll() throws JsonProcessingException {
+		int capacity = 81000;
+		final List<User> users = new ArrayList<>(capacity);
+		SnowflakeGenerator generator = SnowflakeGenerator.builder().datacenterId(0L).workerId(0L).build();
+		Date nowDate = new Date();
+		for (int i = capacity + 1; i < capacity << 1; i++) {
+			users.add(User.builder()
+				.id(generator.nextId())
+				.login("batch" + i)
+				.password("{noop}batch" + i)
+				.email("batch" + i + ".com")
+				.activated(false)
+				.locked(false)
+				.langKey("zh-CN")
+				.createdBy("gyl")
+				.createdDate(nowDate)
+				.build()
+			);
+		}
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
+		for (User user: users) {
+			redisTemplate.opsForValue().set("sample:users:" + user.getId(), JacksonUtils.toJSONString(user), 30, TimeUnit.SECONDS);
+		}
+		stopWatch.stop();
+		double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+		System.out.println("RedisTemplate.opsForValue save all entity cost " + totalTimeSeconds + " seconds");
+		assertTrue(totalTimeSeconds <= 60d);
+	}
 }

@@ -13,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.ylzl.eden.spring.boot.data.jpa.id.JpaIdentifierGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -31,9 +32,9 @@ import java.util.Date;
 @Entity
 @GenericGenerator(name = JpaIdentifierGenerator.NAME, strategy = JpaIdentifierGenerator.STRATEGY)
 @Table(name = "sample_user")
-public class User {
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 5816295498204890068L;
+	private static final long serialVersionUID = 6719807913047955885L;
 
 	@ApiModelProperty(value = "主键")
 	@Id

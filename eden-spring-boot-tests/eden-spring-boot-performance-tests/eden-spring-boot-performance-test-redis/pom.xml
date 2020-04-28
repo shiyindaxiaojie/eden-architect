@@ -32,56 +32,6 @@
 		<relativePath>../</relativePath>
 	</parent>
 
-	<profiles>
-		<profile>
-			<id>mysql</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<spring.datasource.driver>com.mysql.jdbc.Driver</spring.datasource.driver>
-				<spring.jpa.database>MYSQL</spring.jpa.database>
-				<spring.jpa.database-platform>org.hibernate.dialect.MySQLDialect</spring.jpa.database-platform>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.ylzl</groupId>
-					<artifactId>eden-mysql-spring-boot-starter</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>mysql8</id>
-			<properties>
-				<java.version>1.8</java.version>
-				<spring.datasource.driver>com.mysql.cj.jdbc.Driver</spring.datasource.driver>
-				<spring.jpa.database>MYSQL</spring.jpa.database>
-				<spring.jpa.database-platform>org.hibernate.dialect.MySQLDialect</spring.jpa.database-platform>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>mysql</groupId>
-					<artifactId>mysql-connector-java</artifactId>
-					<version>8.0.19</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>oracle</id>
-			<properties>
-				<spring.datasource.driver>oracle.jdbc.driver.OracleDriver</spring.datasource.driver>
-				<spring.jpa.database>ORACLE</spring.jpa.database>
-				<spring.jpa.database-platform>org.hibernate.dialect.Oracle10gDialect</spring.jpa.database-platform>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.ylzl</groupId>
-					<artifactId>eden-oracle-spring-boot-starter</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
-
 	<build>
 		<plugins>
 			<plugin>
