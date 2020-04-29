@@ -60,7 +60,7 @@ public class EnhancedRedisTemplate extends RedisTemplate<String, Object> {
 		setValueSerializer(jackson2JsonRedisSerializer);
 	}
 
-	public <T> void clusterPipeline(Collection<T> datas, RedisPipelineCallback<T> callback) {
+	public <T> void executePipelinedCluster(Collection<T> datas, RedisPipelineCallback<T> callback) {
 		Map<JedisPool, List<T>> groupDatas = new HashMap<>();
 
 		if (jedisCluster == null) {

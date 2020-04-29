@@ -32,6 +32,8 @@ import org.springframework.util.StopWatch;
 import org.ylzl.eden.sample.domain.User;
 import org.ylzl.eden.spring.boot.commons.id.SnowflakeGenerator;
 import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
+import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
+import org.ylzl.eden.spring.boot.data.redis.support.EnhancedRedisTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +57,12 @@ public class UserRepositoryTest {
 
 	@Autowired
 	private StringRedisTemplate redisTemplate;
+
+	@Autowired
+	private EnhancedRedisTemplate enhancedRedisTemplate;
+
+	@Autowired(required = false)
+	private FixedJedisCluster jedisCluster;
 
 	@Test
 	public void assertThatCURD() {
@@ -111,17 +119,37 @@ public class UserRepositoryTest {
 		}
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
-		redisTemplate.executePipelined(new SessionCallback<Object>() {
+		if (jedisCluster != null) {
+			enhancedRedisTemplate.executePipelinedCluster(users, new EnhancedRedisTemplate.RedisPipelineCallback<User>() {
 
-			@SneakyThrows
-			@Override
-			public <K, V> Object execute(RedisOperations<K, V> redisOperations) throws DataAccessException {
-				for (User user: users) {
-					redisTemplate.opsForValue().set("sample:users:" + user.getId(), "1", 30, TimeUnit.SECONDS);
+				@Override
+				public String key(User data) {
+					return "sample:users:" + data.getId();
 				}
-				return null;
-			}
-		});
+
+				@Override
+				public int expires(User data) {
+					return 30;
+				}
+
+				@Override
+				public String value(User data) {
+					return "1";
+				}
+			});
+		} else {
+			redisTemplate.executePipelined(new SessionCallback<Object>() {
+
+				@SneakyThrows
+				@Override
+				public <K, V> Object execute(RedisOperations<K, V> redisOperations) throws DataAccessException {
+					for (User user: users) {
+						redisTemplate.opsForValue().set("sample:users:" + user.getId(), "1", 30, TimeUnit.SECONDS);
+					}
+					return null;
+				}
+			});
+		}
 		stopWatch.stop();
 		double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
 		System.out.println("RedisTemplate.executePipelined cost " + totalTimeSeconds + " seconds");

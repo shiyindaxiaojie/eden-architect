@@ -24,7 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
@@ -60,6 +62,7 @@ public class EnhancedRedisAutoConfiguration {
 	@ConditionalOnClass({Jedis.class})
 	public static class FixedJedisAutoConfiguration {
 
+		@ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)
 		@ConditionalOnMissingBean
 		@Bean
 		public FixedJedisCluster jedisCluster(RedisProperties redisProperties) {

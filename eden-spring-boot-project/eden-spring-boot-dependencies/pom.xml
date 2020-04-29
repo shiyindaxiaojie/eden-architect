@@ -149,6 +149,7 @@
         <spring-data-commons.version>1.13.6.RELEASE</spring-data-commons.version>
         <spring-data-hadoop.version>2.5.0.RELEASE</spring-data-hadoop.version>
         <spring-data-jpa.version>1.11.6.RELEASE</spring-data-jpa.version>
+		<spring-data-redis.version>1.8.9.RELEASE</spring-data-redis.version>
         <spring-integration.version>4.3.10.RELEASE</spring-integration.version>
         <spring-integration-kafka.version>2.0.1.RELEASE</spring-integration-kafka.version>
         <spring-kafka.version>1.1.1.RELEASE</spring-kafka.version>
