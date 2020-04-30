@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<jmxConfigurator/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<file>${LOG_FILE}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE"/>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ASYNC" />
+	</root>
+
+	<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<logger name="ch.qos.logback" level="WARN"/>
+	<logger name="com.codahale.metrics" level="WARN"/>
+	<logger name="com.hazelcast" level="INFO"/>
+	<logger name="com.ryantenney" level="WARN"/>
+	<logger name="com.sun" level="WARN"/>
+	<logger name="com.zaxxer" level="WARN"/>
+	<logger name="io.undertow" level="WARN"/>
+	<logger name="io.undertow.websockets.jsr" level="ERROR"/>
+	<logger name="javax.activation" level="WARN"/>
+	<logger name="javax.mail" level="WARN"/>
+	<logger name="javax.xml.bind" level="WARN"/>
+	<logger name="liquibase" level="WARN"/>
+	<logger name="LiquibaseSchemaResolver" level="INFO"/>
+	<logger name="org.apache" level="WARN"/>
+	<logger name="org.bson" level="WARN"/>
+	<logger name="org.hibernate.engine.spi.QueryParameters" level="DEBUG"/>
+	<logger name="org.hibernate" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="org.springframework.web" level="WARN"/>
+	<logger name="org.springframework.security" level="DEBUG"/>
+	<logger name="org.springframework.cache" level="WARN"/>
+	<logger name="org.thymeleaf" level="WARN"/>
+	<logger name="org.xnio" level="WARN"/>
+	<logger name="springfox" level="WARN"/>
+	<logger name="sun.net.www" level="INFO"/>
+	<logger name="sun.rmi" level="WARN"/>
+	<logger name="sun.rmi.transport" level="WARN"/>
+
+</configuration>

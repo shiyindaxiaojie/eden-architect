@@ -35,6 +35,7 @@
 
 	<modules>
 		<module>eden-spring-boot-performance-test-jpa</module>
+		<module>eden-spring-boot-performance-test-kafka</module>
 		<module>eden-spring-boot-performance-test-redis</module>
 	</modules>
 

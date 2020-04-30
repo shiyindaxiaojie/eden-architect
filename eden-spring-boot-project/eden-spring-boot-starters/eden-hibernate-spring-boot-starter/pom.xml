@@ -39,7 +39,13 @@
         <dependency>
             <groupId>org.ylzl</groupId>
             <artifactId>eden-spring-boot-data</artifactId>
-        </dependency>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-web</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
     </dependencies>
 
 </project>

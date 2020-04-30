@@ -130,7 +130,7 @@ public class FixedKafkaProperties {
 
 		private Boolean enableAutoCommit;
 
-		private Integer fetchMaxWait;
+		private Integer fetchMaxWaitMs;
 
 		private Integer fetchMinSize;
 
@@ -176,9 +176,9 @@ public class FixedKafkaProperties {
 				properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,
 					this.enableAutoCommit);
 			}
-			if (this.fetchMaxWait != null) {
+			if (this.fetchMaxWaitMs != null) {
 				properties.put(ConsumerConfig.FETCH_MAX_WAIT_MS_CONFIG,
-					this.fetchMaxWait);
+					this.fetchMaxWaitMs);
 			}
 			if (this.fetchMinSize != null) {
 				properties.put(ConsumerConfig.FETCH_MIN_BYTES_CONFIG, this.fetchMinSize);

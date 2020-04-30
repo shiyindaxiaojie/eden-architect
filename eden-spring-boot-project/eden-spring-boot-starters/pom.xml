@@ -59,6 +59,7 @@
         <module>eden-hbase-spring-boot-starter</module>
         <module>eden-hessian-spring-boot-starter</module>
         <module>eden-hibernate-spring-boot-starter</module>
+		<module>eden-hibernate-validator-spring-boot-starter</module>
         <module>eden-hikaricp-spring-boot-starter</module>
         <module>eden-httpclient-spring-boot-starter</module>
         <module>eden-hystrix-dashboard-spring-boot-starter</module>

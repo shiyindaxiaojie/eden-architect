@@ -96,9 +96,9 @@ public class KafkaAutoConfiguration {
 		return configurer;
 	}
 
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<?, ?> concurrentKafkaListenerContainerFactory(
+	public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
 		ConcurrentKafkaListenerContainerFactoryConfigurer configurer, ConsumerFactory<Object, Object> consumerFactory) {
 		ConcurrentKafkaListenerContainerFactory<Object, Object> containerFactory = new ConcurrentKafkaListenerContainerFactory();
 		configurer.configure(containerFactory, consumerFactory);
