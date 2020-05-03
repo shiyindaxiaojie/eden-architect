@@ -47,21 +47,23 @@ import java.util.List;
 @Configuration
 public class LoadBalancedRestAutoConfiguration {
 
-	public static final String BEAN_LB_REST_TEMPLATE = "loadBalancedRestTemplate";
+  public static final String BEAN_LB_REST_TEMPLATE = "loadBalancedRestTemplate";
 
-    private static final String MSG_INJECT_REST_TEMPLATE = "Inject loadBalanced RestTemplate";
+  private static final String MSG_INJECT_REST_TEMPLATE = "Inject loadBalanced RestTemplate";
 
-    @ConditionalOnMissingBean(name = BEAN_LB_REST_TEMPLATE)
-    @LoadBalanced
-    @Bean
-    public RestTemplate loadBalancedRestTemplate(ClientHttpRequestFactory clientHttpRequestFactory,
-												 @Autowired(required = false) OAuth2Properties oAuth2Properties,
-												 @Autowired(required = false) JwtProperties jwtProperties) {
-        log.debug(MSG_INJECT_REST_TEMPLATE);
-        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-        ClientHttpRequestInterceptor authorizedInterceptor = new AuthorizedClientHttpRequestInterceptor(oAuth2Properties, jwtProperties);
-        interceptors.add(authorizedInterceptor);
-        return restTemplate;
-    }
+  @ConditionalOnMissingBean(name = BEAN_LB_REST_TEMPLATE)
+  @LoadBalanced
+  @Bean
+  public RestTemplate loadBalancedRestTemplate(
+      ClientHttpRequestFactory clientHttpRequestFactory,
+      @Autowired(required = false) OAuth2Properties oAuth2Properties,
+      @Autowired(required = false) JwtProperties jwtProperties) {
+    log.debug(MSG_INJECT_REST_TEMPLATE);
+    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+    List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+    ClientHttpRequestInterceptor authorizedInterceptor =
+        new AuthorizedClientHttpRequestInterceptor(oAuth2Properties, jwtProperties);
+    interceptors.add(authorizedInterceptor);
+    return restTemplate;
+  }
 }

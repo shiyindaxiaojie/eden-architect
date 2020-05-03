@@ -19,8 +19,6 @@ import org.ylzl.eden.spring.boot.data.audit.EnableAuditorAware;
 @Configuration
 public class RepositoryAutoConfiguration {
 
-	/**
-	 * JPA 包路径
-	 */
-	public static final String JPA_PACKAGE = ApplicationConstants.BASE_PACKAGE + ".repository";
+  /** JPA 包路径 */
+  public static final String JPA_PACKAGE = ApplicationConstants.BASE_PACKAGE + ".repository";
 }

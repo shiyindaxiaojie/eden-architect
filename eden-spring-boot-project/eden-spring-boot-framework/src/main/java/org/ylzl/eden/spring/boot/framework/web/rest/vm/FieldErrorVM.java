@@ -39,14 +39,14 @@ import java.io.Serializable;
 @ApiModel(description = "字段错误视图模型")
 public class FieldErrorVM implements Serializable {
 
-    private static final long serialVersionUID = -2067870430489469084L;
+  private static final long serialVersionUID = -2067870430489469084L;
 
-    @ApiModelProperty(value = "对象名称")
-    private String objectName;
+  @ApiModelProperty(value = "对象名称")
+  private String objectName;
 
-    @ApiModelProperty(value = "字段")
-    private String field;
+  @ApiModelProperty(value = "字段")
+  private String field;
 
-    @ApiModelProperty(value = "消息")
-    private String message;
+  @ApiModelProperty(value = "消息")
+  private String message;
 }

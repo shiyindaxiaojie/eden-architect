@@ -28,5 +28,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class EnhancedFlowableDefaults {
 
-    public static final String fontName = "simsun";
+  public static final String fontName = "simsun";
 }

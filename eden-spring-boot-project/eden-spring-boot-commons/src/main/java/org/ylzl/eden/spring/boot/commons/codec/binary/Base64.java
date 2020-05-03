@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.commons.codec.binary;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * Base64 工具集
@@ -27,6 +26,4 @@ import lombok.experimental.UtilityClass;
  * @since 0.0.1
  */
 @UtilityClass
-public class Base64 extends org.apache.commons.codec.binary.Base64 {
-
-}
+public class Base64 extends org.apache.commons.codec.binary.Base64 {}

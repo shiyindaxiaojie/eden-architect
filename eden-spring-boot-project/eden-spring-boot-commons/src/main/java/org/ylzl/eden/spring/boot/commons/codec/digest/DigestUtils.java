@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.codec.digest;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * Digest 工具集
@@ -26,6 +25,4 @@ import lombok.experimental.UtilityClass;
  * @since 0.0.1
  */
 @UtilityClass
-public class DigestUtils extends org.apache.commons.codec.digest.DigestUtils {
-
-}
+public class DigestUtils extends org.apache.commons.codec.digest.DigestUtils {}

@@ -50,7 +50,8 @@ import java.util.List;
  * @since 0.0.1
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
-@ConditionalOnExpression(OAuth2AuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_SERVER)
+@ConditionalOnExpression(
+    OAuth2AuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @EnableAuthorizationServer
 @Import({DefaultWebSecuirtyConfiguration.class, OAuth2WebSecurityConfiguration.class})
@@ -58,94 +59,105 @@ import java.util.List;
 @Configuration
 public class OAuth2AuthorizationServerAutoConfiguration {
 
-	public static final String EXPS_OAUTH2_AUTHORIZATION_SERVER = "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
+  public static final String EXPS_OAUTH2_AUTHORIZATION_SERVER =
+      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
 
-	@ConditionalOnMissingBean
-	@Bean
-	public AuthorizationServerConfigurer authorizationServerConfigurer(AuthenticationManager authenticationManager, TokenStore tokenStore,
-																	   List<TokenEnhancer> tokenEnhancers, OAuth2Properties oAuth2Properties) {
-		return new OAuth2AuthorizationServerConfigurerAdapter(authenticationManager, tokenStore, tokenEnhancers, oAuth2Properties);
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public AuthorizationServerConfigurer authorizationServerConfigurer(
+      AuthenticationManager authenticationManager,
+      TokenStore tokenStore,
+      List<TokenEnhancer> tokenEnhancers,
+      OAuth2Properties oAuth2Properties) {
+    return new OAuth2AuthorizationServerConfigurerAdapter(
+        authenticationManager, tokenStore, tokenEnhancers, oAuth2Properties);
+  }
 
-	@Bean
-	public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-		return new SecurityEvaluationContextExtension();
-	}
+  @Bean
+  public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+    return new SecurityEvaluationContextExtension();
+  }
 
-	@ConditionalOnMissingBean(TokenStore.class)
-	@Slf4j
-	@Configuration
-	public static class JwtOAuth2AuthorizationServerConfiguration {
+  @ConditionalOnMissingBean(TokenStore.class)
+  @Slf4j
+  @Configuration
+  public static class JwtOAuth2AuthorizationServerConfiguration {
 
-		private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR = "Inject JwtAccessTokenConverter (OAuth2AuthorizationServer)";
+    private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
+        "Inject JwtAccessTokenConverter (OAuth2AuthorizationServer)";
 
-		private static final String MSG_INJECT_TOKEN_STORE = "Inject TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
+    private static final String MSG_INJECT_TOKEN_STORE =
+        "Inject TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
 
-		private static final String MSG_INJECT_TOKEN_ENHANCER = "Inject TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
+    private static final String MSG_INJECT_TOKEN_ENHANCER =
+        "Inject TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
 
-		private static final String BEAN_JWT_TOKEN_ENHANCER = "jwtTokenEnhancer";
+    private static final String BEAN_JWT_TOKEN_ENHANCER = "jwtTokenEnhancer";
 
-		private final OAuth2Properties.KeyStore oAuth2Properties;
+    private final OAuth2Properties.KeyStore oAuth2Properties;
 
-		public JwtOAuth2AuthorizationServerConfiguration(OAuth2Properties oAuth2Properties) {
-			this.oAuth2Properties = oAuth2Properties.getKeyStore();
-		}
-
-		@ConditionalOnMissingBean
-		@Bean
-		public JwtAccessTokenConverter jwtAccessTokenConverter() {
-			log.debug(MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR);
-			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-			KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource(oAuth2Properties.getName()),
-				oAuth2Properties.getPassword().toCharArray()).getKeyPair(oAuth2Properties.getAlias());
-			converter.setKeyPair(keyPair);
-			return converter;
-		}
-
-		@Bean
-		public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-			log.debug(MSG_INJECT_TOKEN_STORE);
-			return new JwtTokenStore(jwtAccessTokenConverter);
-		}
-
-		@ConditionalOnMissingBean
-		@Bean(BEAN_JWT_TOKEN_ENHANCER)
-		public TokenEnhancer tokenEnhancer() {
-			log.debug(MSG_INJECT_TOKEN_ENHANCER);
-			return new JwtTokenEnhancer();
-		}
-	}
-
-    /*@ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "redis")
-    @Configuration
-    public static class OAuth2AuthorizationServerRedisConfiguration {
-
-        @ConditionalOnMissingBean
-        @Bean
-        public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
-            return new RedisTokenStore(redisConnectionFactory);
-        }
+    public JwtOAuth2AuthorizationServerConfiguration(OAuth2Properties oAuth2Properties) {
+      this.oAuth2Properties = oAuth2Properties.getKeyStore();
     }
 
-    @ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "jdbc")
-    @Configuration
-    public static class OAuth2AuthorizationServerJdbcConfiguration {
-
-        @ConditionalOnMissingBean
-        @Bean
-        public TokenStore tokenStore(DataSource dataSource) {
-            return new JdbcTokenStore(dataSource);
-        }
+    @ConditionalOnMissingBean
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+      log.debug(MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR);
+      JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+      KeyPair keyPair =
+          new KeyStoreKeyFactory(
+                  new ClassPathResource(oAuth2Properties.getName()),
+                  oAuth2Properties.getPassword().toCharArray())
+              .getKeyPair(oAuth2Properties.getAlias());
+      converter.setKeyPair(keyPair);
+      return converter;
     }
 
-    @ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "in-memory")
-    @Configuration
-    public static class OAuth2AuthorizationServerInMemoryConfiguration {
+    @Bean
+    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+      log.debug(MSG_INJECT_TOKEN_STORE);
+      return new JwtTokenStore(jwtAccessTokenConverter);
+    }
 
-        @ConditionalOnMissingBean
-        @Bean
-        public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
-        }
-    }*/
+    @ConditionalOnMissingBean
+    @Bean(BEAN_JWT_TOKEN_ENHANCER)
+    public TokenEnhancer tokenEnhancer() {
+      log.debug(MSG_INJECT_TOKEN_ENHANCER);
+      return new JwtTokenEnhancer();
+    }
+  }
+
+  /*@ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "redis")
+  @Configuration
+  public static class OAuth2AuthorizationServerRedisConfiguration {
+
+      @ConditionalOnMissingBean
+      @Bean
+      public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
+          return new RedisTokenStore(redisConnectionFactory);
+      }
+  }
+
+  @ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "jdbc")
+  @Configuration
+  public static class OAuth2AuthorizationServerJdbcConfiguration {
+
+      @ConditionalOnMissingBean
+      @Bean
+      public TokenStore tokenStore(DataSource dataSource) {
+          return new JdbcTokenStore(dataSource);
+      }
+  }
+
+  @ConditionalOnProperty(prefix = SecurityConstants.PROP_PREFIX + ".oauth2", name = "authorization.token-store", havingValue = "in-memory")
+  @Configuration
+  public static class OAuth2AuthorizationServerInMemoryConfiguration {
+
+      @ConditionalOnMissingBean
+      @Bean
+      public TokenStore tokenStore() {
+          return new InMemoryTokenStore();
+      }
+  }*/
 }

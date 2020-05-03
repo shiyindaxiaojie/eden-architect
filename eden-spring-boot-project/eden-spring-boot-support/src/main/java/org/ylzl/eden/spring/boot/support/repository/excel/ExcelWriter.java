@@ -29,7 +29,8 @@ import java.util.Set;
  */
 public interface ExcelWriter<T> {
 
-    void write(OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns);
+  void write(
+      OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns);
 
-    void write(OutputStream outputStream, List<T> datas, String sheetName);
+  void write(OutputStream outputStream, List<T> datas, String sheetName);
 }

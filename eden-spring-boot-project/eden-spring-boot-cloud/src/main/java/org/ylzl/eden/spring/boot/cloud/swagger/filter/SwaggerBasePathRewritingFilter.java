@@ -42,58 +42,61 @@ import java.util.zip.GZIPInputStream;
 @Slf4j
 public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
 
-    private ObjectMapper mapper = new ObjectMapper();
+  private ObjectMapper mapper = new ObjectMapper();
 
-    public SwaggerBasePathRewritingFilter() {
-        super();
-    }
+  public SwaggerBasePathRewritingFilter() {
+    super();
+  }
 
-    @Override
-    public String filterType() {
-        return ZuulConstants.FILTER_TYPE_POST;
-    }
+  @Override
+  public String filterType() {
+    return ZuulConstants.FILTER_TYPE_POST;
+  }
 
-    @Override
-    public int filterOrder() {
-        return 100;
-    }
+  @Override
+  public int filterOrder() {
+    return 100;
+  }
 
-    @Override
-    public boolean shouldFilter() {
-        return RequestContext.getCurrentContext().getRequest().getRequestURI().endsWith(Swagger2Controller.DEFAULT_URL);
-    }
+  @Override
+  public boolean shouldFilter() {
+    return RequestContext.getCurrentContext()
+        .getRequest()
+        .getRequestURI()
+        .endsWith(Swagger2Controller.DEFAULT_URL);
+  }
 
-    @Override
-    public Object run() {
-        RequestContext context = RequestContext.getCurrentContext();
-        if (!context.getResponseGZipped()) {
-            context.getResponse().setCharacterEncoding(FrameworkConstants.DEFAULT_ENCODING);
-        }
-        String rewrittenResponse = rewriteBasePath(context);
-        if (rewrittenResponse != null) {
-            context.setResponseBody(rewrittenResponse);
-        }
-        return null;
+  @Override
+  public Object run() {
+    RequestContext context = RequestContext.getCurrentContext();
+    if (!context.getResponseGZipped()) {
+      context.getResponse().setCharacterEncoding(FrameworkConstants.DEFAULT_ENCODING);
     }
+    String rewrittenResponse = rewriteBasePath(context);
+    if (rewrittenResponse != null) {
+      context.setResponseBody(rewrittenResponse);
+    }
+    return null;
+  }
 
-    @SuppressWarnings("unchecked")
-    private String rewriteBasePath(RequestContext context) {
-        InputStream responseDataStream = context.getResponseDataStream();
-        String requestUri = RequestContext.getCurrentContext().getRequest().getRequestURI();
-        try {
-            if (context.getResponseGZipped()) {
-                responseDataStream = new GZIPInputStream(context.getResponseDataStream());
-            }
-            String response = IOUtils.toString(responseDataStream, FrameworkConstants.DEFAULT_ENCODING);
-            if (StringUtils.isNotBlank(response)) {
-                LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
-                String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, StringConstants.EMPTY);
-                map.put("basePath", basePath);
-                return mapper.writeValueAsString(map);
-            }
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+  @SuppressWarnings("unchecked")
+  private String rewriteBasePath(RequestContext context) {
+    InputStream responseDataStream = context.getResponseDataStream();
+    String requestUri = RequestContext.getCurrentContext().getRequest().getRequestURI();
+    try {
+      if (context.getResponseGZipped()) {
+        responseDataStream = new GZIPInputStream(context.getResponseDataStream());
+      }
+      String response = IOUtils.toString(responseDataStream, FrameworkConstants.DEFAULT_ENCODING);
+      if (StringUtils.isNotBlank(response)) {
+        LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
+        String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, StringConstants.EMPTY);
+        map.put("basePath", basePath);
+        return mapper.writeValueAsString(map);
+      }
+    } catch (IOException e) {
+      log.error(e.getMessage(), e);
     }
+    return null;
+  }
 }

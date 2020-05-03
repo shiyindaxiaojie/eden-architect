@@ -39,74 +39,79 @@ import org.ylzl.eden.spring.boot.integration.kafka.configurer.ConcurrentKafkaLis
  * @author gyl
  * @since 0.0.1
  */
-@ConditionalOnClass({
-    KafkaTemplate.class,
-    EnableKafka.class
-})
+@SuppressWarnings("unchecked")
+@ConditionalOnClass({KafkaTemplate.class, EnableKafka.class})
 @ConditionalOnExpression(KafkaAutoConfiguration.EXPS_KEFKA_ENABLED)
-@EnableConfigurationProperties(FixedKafkaProperties.class)
+@EnableConfigurationProperties(KafkaProperties.class)
 @Slf4j
 @Configuration
 public class KafkaAutoConfiguration {
 
-    public static final String EXPS_KEFKA_ENABLED = "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".kafka.enabled:true}";
+  public static final String EXPS_KEFKA_ENABLED =
+      "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".kafka.enabled:true}";
 
-    public static final String MSG_INJECT_KAFKA_TEMPLATE = "Inject KafkaTemplate";
+  public static final String MSG_INJECT_KAFKA_TEMPLATE = "Inject KafkaTemplate";
 
-    private final FixedKafkaProperties properties;
+  private final KafkaProperties properties;
 
-    public KafkaAutoConfiguration(FixedKafkaProperties fixedKafkaProperties) {
-        this.properties = fixedKafkaProperties;
-    }
+  public KafkaAutoConfiguration(KafkaProperties kafkaProperties) {
+    this.properties = kafkaProperties;
+  }
 
-	@ConditionalOnMissingBean(KafkaTemplate.class)
-    @Bean
-    public KafkaTemplate<?, ?> kafkaTemplate(ProducerFactory<Object, Object> kafkaProducerFactory,
-                                             ProducerListener<Object, Object> kafkaProducerListener) {
-        log.debug(MSG_INJECT_KAFKA_TEMPLATE);
-        KafkaTemplate<Object, Object> kafkaTemplate = new KafkaTemplate<>(kafkaProducerFactory);
-        kafkaTemplate.setProducerListener(kafkaProducerListener);
-        kafkaTemplate.setDefaultTopic(this.properties.getTemplate().getDefaultTopic());
-        return kafkaTemplate;
-    }
+  @ConditionalOnMissingBean(KafkaTemplate.class)
+  @Bean
+  public KafkaTemplate<?, ?> kafkaTemplate(
+      ProducerFactory<Object, Object> kafkaProducerFactory,
+      ProducerListener<Object, Object> kafkaProducerListener) {
+    log.debug(MSG_INJECT_KAFKA_TEMPLATE);
+    KafkaTemplate<Object, Object> kafkaTemplate = new KafkaTemplate<>(kafkaProducerFactory);
+    kafkaTemplate.setProducerListener(kafkaProducerListener);
+    kafkaTemplate.setDefaultTopic(this.properties.getTemplate().getDefaultTopic());
+    return kafkaTemplate;
+  }
 
-	@ConditionalOnMissingBean(ProducerListener.class)
-    @Bean
-    public ProducerListener<Object, Object> kafkaProducerListener() {
-        return new LoggingProducerListener<>();
-    }
+  @ConditionalOnMissingBean(ProducerListener.class)
+  @Bean
+  public ProducerListener<Object, Object> kafkaProducerListener() {
+    return new LoggingProducerListener<>();
+  }
 
-	@ConditionalOnMissingBean(ConsumerFactory.class)
-    @Bean
-    public ConsumerFactory<?, ?> kafkaConsumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(this.properties.buildConsumerProperties());
-    }
+  @ConditionalOnMissingBean(ConsumerFactory.class)
+  @Bean
+  public ConsumerFactory<?, ?> kafkaConsumerFactory() {
+    return new DefaultKafkaConsumerFactory<>(this.properties.buildConsumerProperties());
+  }
 
-	@ConditionalOnMissingBean(ProducerFactory.class)
-    @Bean
-    public ProducerFactory<?, ?> kafkaProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(this.properties.buildProducerProperties());
-    }
+  @ConditionalOnMissingBean(ProducerFactory.class)
+  @Bean
+  public ProducerFactory<?, ?> kafkaProducerFactory() {
+    return new DefaultKafkaProducerFactory<>(this.properties.buildProducerProperties());
+  }
 
-    @ConditionalOnMissingBean
-	@Bean
-    public ConcurrentKafkaListenerContainerFactoryConfigurer kafkaListenerContainerFactoryConfigurer() {
-		ConcurrentKafkaListenerContainerFactoryConfigurer configurer = new ConcurrentKafkaListenerContainerFactoryConfigurer();
-		configurer.setFixedKafkaProperties(properties);
-		return configurer;
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public ConcurrentKafkaListenerContainerFactoryConfigurer
+      kafkaListenerContainerFactoryConfigurer() {
+    ConcurrentKafkaListenerContainerFactoryConfigurer configurer =
+        new ConcurrentKafkaListenerContainerFactoryConfigurer();
+    configurer.setKafkaProperties(properties);
+    return configurer;
+  }
 
-	@ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
-	@Bean
-	public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
-		ConcurrentKafkaListenerContainerFactoryConfigurer configurer, ConsumerFactory<Object, Object> consumerFactory) {
-		ConcurrentKafkaListenerContainerFactory<Object, Object> containerFactory = new ConcurrentKafkaListenerContainerFactory();
-		configurer.configure(containerFactory, consumerFactory);
-		return containerFactory;
-	}
+  @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
+      ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+      ConsumerFactory<Object, Object> consumerFactory) {
+    ConcurrentKafkaListenerContainerFactory<Object, Object> containerFactory =
+        new ConcurrentKafkaListenerContainerFactory();
+    configurer.configure(containerFactory, consumerFactory);
+    return containerFactory;
+  }
 
-	@EnableKafka
-	@ConditionalOnMissingBean(name = KafkaListenerConfigUtils.KAFKA_LISTENER_ANNOTATION_PROCESSOR_BEAN_NAME)
-	@Configuration
-	protected static class EnableKafkaConfiguration {}
+  @EnableKafka
+  @ConditionalOnMissingBean(
+      name = KafkaListenerConfigUtils.KAFKA_LISTENER_ANNOTATION_PROCESSOR_BEAN_NAME)
+  @Configuration
+  protected static class EnableKafkaConfiguration {}
 }

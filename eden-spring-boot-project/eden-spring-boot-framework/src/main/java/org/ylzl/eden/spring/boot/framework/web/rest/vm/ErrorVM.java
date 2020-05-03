@@ -41,21 +41,21 @@ import java.util.List;
 @ApiModel(description = "错误视图模型")
 public class ErrorVM implements Serializable {
 
-    private static final long serialVersionUID = 5744374451644419814L;
+  private static final long serialVersionUID = 5744374451644419814L;
 
-    @ApiModelProperty(value = "消息")
-    private String message;
+  @ApiModelProperty(value = "消息")
+  private String message;
 
-    @ApiModelProperty(value = "描述")
-    private String description;
+  @ApiModelProperty(value = "描述")
+  private String description;
 
-    private List<FieldErrorVM> fieldErrors;
+  private List<FieldErrorVM> fieldErrors;
 
-    public void add(String objectName, String field, String message) {
-        if (fieldErrors == null) {
-            fieldErrors = new ArrayList<>();
-        }
-        fieldErrors.add(FieldErrorVM.builder().objectName(objectName).field(field)
-            .message(message).build());
+  public void add(String objectName, String field, String message) {
+    if (fieldErrors == null) {
+      fieldErrors = new ArrayList<>();
     }
+    fieldErrors.add(
+        FieldErrorVM.builder().objectName(objectName).field(field).message(message).build());
+  }
 }

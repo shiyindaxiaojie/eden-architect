@@ -32,22 +32,21 @@ import java.util.Map;
  */
 public class SpringProfileUtils {
 
-    private static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
+  private static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
 
-    private SpringProfileUtils() {
-    }
+  private SpringProfileUtils() {}
 
-    public static void addDefaultProfile(SpringApplication app) {
-        Map<String, Object> defProperties = new HashMap<>();
-        defProperties.put(SPRING_PROFILE_DEFAULT, ProfileConstants.SPRING_PROFILE_DEVELOPMENT);
-        app.setDefaultProperties(defProperties);
-    }
+  public static void addDefaultProfile(SpringApplication app) {
+    Map<String, Object> defProperties = new HashMap<>();
+    defProperties.put(SPRING_PROFILE_DEFAULT, ProfileConstants.SPRING_PROFILE_DEVELOPMENT);
+    app.setDefaultProperties(defProperties);
+  }
 
-    public static String[] getActiveProfiles(Environment env) {
-        String[] profiles = env.getActiveProfiles();
-        if (profiles.length == 0) {
-            return env.getDefaultProfiles();
-        }
-        return profiles;
+  public static String[] getActiveProfiles(Environment env) {
+    String[] profiles = env.getActiveProfiles();
+    if (profiles.length == 0) {
+      return env.getDefaultProfiles();
     }
+    return profiles;
+  }
 }

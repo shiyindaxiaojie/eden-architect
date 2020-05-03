@@ -36,76 +36,78 @@ import java.util.*;
 /**
  * 增强 RedisTemplate
  *
- * 支持 Redis Cluster 多槽位操作
+ * <p>支持 Redis Cluster 多槽位操作
  *
  * @author gyl
  * @since 1.0.0
  */
+@SuppressWarnings("unchecked")
 public class EnhancedRedisTemplate extends RedisTemplate<String, Object> {
 
-	@Autowired(required = false)
-	private FixedJedisCluster jedisCluster;
+  @Autowired(required = false)
+  private FixedJedisCluster jedisCluster;
 
-	public EnhancedRedisTemplate() {
-		RedisSerializer<String> stringSerializer = new StringRedisSerializer();
-		setKeySerializer(stringSerializer);
-		setHashKeySerializer(stringSerializer);
-		setHashValueSerializer(stringSerializer);
+  public EnhancedRedisTemplate() {
+    RedisSerializer<String> stringSerializer = new StringRedisSerializer();
+    setKeySerializer(stringSerializer);
+    setHashKeySerializer(stringSerializer);
+    setHashValueSerializer(stringSerializer);
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
-		setValueSerializer(jackson2JsonRedisSerializer);
-	}
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+    objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+    Jackson2JsonRedisSerializer jackson2JsonRedisSerializer =
+        new Jackson2JsonRedisSerializer(Object.class);
+    jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+    setValueSerializer(jackson2JsonRedisSerializer);
+  }
 
-	public <T> void executePipelinedCluster(Collection<T> datas, RedisPipelineCallback<T> callback) {
-		Map<JedisPool, List<T>> groupDatas = new HashMap<>();
+  public <T> void executePipelinedCluster(Collection<T> datas, RedisPipelineCallback<T> callback) {
+    Map<JedisPool, List<T>> groupDatas = new HashMap<>();
 
-		if (jedisCluster == null) {
-			throw new UnsupportedOperationException("FixedJedisCluster is not injected");
-		}
+    if (jedisCluster == null) {
+      throw new UnsupportedOperationException("FixedJedisCluster is not injected");
+    }
 
-		jedisCluster.refreshCluster();
-		for (T data : datas) {
-			String key = callback.key(data);
-			int slot = JedisClusterCRC16.getSlot(key);
-			JedisPool jedisPool = jedisCluster.getConnectionHandler().getJedisPoolFromSlot(slot);
-			if (groupDatas.keySet().contains(jedisPool)) {
-				List<T> pooldata = groupDatas.get(jedisPool);
-				pooldata.add(data);
-			} else {
-				List<T> newDatas = new ArrayList<>();
-				newDatas.add(data);
-				groupDatas.put(jedisPool, newDatas);
-			}
-		}
+    jedisCluster.refreshCluster();
+    for (T data : datas) {
+      String key = callback.key(data);
+      int slot = JedisClusterCRC16.getSlot(key);
+      JedisPool jedisPool = jedisCluster.getConnectionHandler().getJedisPoolFromSlot(slot);
+      if (groupDatas.keySet().contains(jedisPool)) {
+        List<T> pooldata = groupDatas.get(jedisPool);
+        pooldata.add(data);
+      } else {
+        List<T> newDatas = new ArrayList<>();
+        newDatas.add(data);
+        groupDatas.put(jedisPool, newDatas);
+      }
+    }
 
-		for (Map.Entry<JedisPool, List<T>> entry : groupDatas.entrySet()) {
-			Jedis jedis = entry.getKey().getResource();
-			Pipeline pipeline;
-			try {
-				pipeline = jedis.pipelined();
-				List<T> groupData = entry.getValue();
-				for (T data : groupData) {
-					pipeline.setex(callback.key(data), callback.expires(data), callback.value(data));
-				}
-				pipeline.sync();
-			} finally {
-				if (jedis != null) {
-					jedis.close();
-				}
-			}
-		}
-	}
+    for (Map.Entry<JedisPool, List<T>> entry : groupDatas.entrySet()) {
+      Jedis jedis = entry.getKey().getResource();
+      Pipeline pipeline;
+      try {
+        pipeline = jedis.pipelined();
+        List<T> groupData = entry.getValue();
+        for (T data : groupData) {
+          pipeline.setex(callback.key(data), callback.expires(data), callback.value(data));
+        }
+        pipeline.sync();
+      } finally {
+        if (jedis != null) {
+          jedis.close();
+        }
+      }
+    }
+  }
 
-	public static interface RedisPipelineCallback<T> {
+  public static interface RedisPipelineCallback<T> {
 
-		String key(T data);
+    String key(T data);
 
-		int expires(T data);
+    int expires(T data);
 
-		String value(T data);
-	}
+    String value(T data);
+  }
 }

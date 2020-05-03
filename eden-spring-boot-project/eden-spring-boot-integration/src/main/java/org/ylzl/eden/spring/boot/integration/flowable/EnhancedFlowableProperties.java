@@ -33,5 +33,5 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 @ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".flowable")
 public class EnhancedFlowableProperties {
 
-	private String fontName = EnhancedFlowableDefaults.fontName;
+  private String fontName = EnhancedFlowableDefaults.fontName;
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
 
-	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
 
 	<root level="INFO">
-		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="CONSOLE"/>
 	</root>
 
 	<logger name="ch.qos.logback" level="WARN"/>

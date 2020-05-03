@@ -34,10 +34,10 @@ import org.springframework.http.MediaType;
 @ConfigurationProperties(prefix = "turbine.stream")
 public class TurbineStreamProperties {
 
-    @Value("${server.port:8989}")
-    private int port = 8989;
+  @Value("${server.port:8989}")
+  private int port = 8989;
 
-    private String destination = HystrixConstants.HYSTRIX_STREAM_DESTINATION;
+  private String destination = HystrixConstants.HYSTRIX_STREAM_DESTINATION;
 
-    private String contentType = MediaType.APPLICATION_JSON_VALUE;
+  private String contentType = MediaType.APPLICATION_JSON_VALUE;
 }

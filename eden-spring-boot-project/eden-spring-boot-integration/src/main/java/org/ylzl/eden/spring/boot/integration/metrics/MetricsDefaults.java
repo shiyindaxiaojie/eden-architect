@@ -28,23 +28,22 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class MetricsDefaults {
 
-    public static class Jmx {
+  public static class Jmx {
 
-        public static final boolean enabled = true;
-    }
+    public static final boolean enabled = true;
+  }
 
-    public static class Logs {
+  public static class Logs {
 
-        public static final boolean enabled = false;
+    public static final boolean enabled = false;
 
-        public static final long reportFrequency = 60;
+    public static final long reportFrequency = 60;
+  }
 
-    }
+  public static class Prometheus {
 
-    public static class Prometheus {
+    public static final boolean enabled = false;
 
-        public static final boolean enabled = false;
-
-        public static final String endpoint = "/prometheusMetrics";
-    }
+    public static final String endpoint = "/prometheusMetrics";
+  }
 }

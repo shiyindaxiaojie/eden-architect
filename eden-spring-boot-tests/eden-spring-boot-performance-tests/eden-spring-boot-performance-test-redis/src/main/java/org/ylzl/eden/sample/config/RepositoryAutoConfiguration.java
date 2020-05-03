@@ -10,10 +10,10 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
  * @author gyl
  * @since 0.0.1
  */
-@EnableRedisRepositories(basePackages =RepositoryAutoConfiguration.REDIS_PACKAGE)
+@EnableRedisRepositories(basePackages = RepositoryAutoConfiguration.REDIS_PACKAGE)
 @Slf4j
 @Configuration
 public class RepositoryAutoConfiguration {
 
-	public static final String REDIS_PACKAGE = ApplicationConstants.BASE_PACKAGE + ".domain";
+  public static final String REDIS_PACKAGE = ApplicationConstants.BASE_PACKAGE + ".domain";
 }

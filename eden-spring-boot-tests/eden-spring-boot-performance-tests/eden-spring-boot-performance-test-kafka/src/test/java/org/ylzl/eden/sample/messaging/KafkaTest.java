@@ -25,7 +25,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.sample.domain.User;
@@ -35,12 +34,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * Kafka 测试
  *
- * 使用 MySQL 测试，最好设置参数 innodb_flush_log_at_trx_commit=2
+ * <p>使用 MySQL 测试，最好设置参数 innodb_flush_log_at_trx_commit=2
  *
  * @author gyl
  * @since 1.0.0
@@ -50,48 +47,47 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class KafkaTest {
 
-	@Autowired
-	private UserProducer userProducer;
+  @Autowired private UserProducer userProducer;
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+  @Autowired private JdbcTemplate jdbcTemplate;
 
-	private List<User> users = new ArrayList<>();
+  private List<User> users = new ArrayList<>();
 
-	@Before
-	public void init() {
-		SnowflakeGenerator generator = SnowflakeGenerator.builder().datacenterId(0L).workerId(0L).build();
-		Date nowDate = new Date();
-		for (int i = 0; i < 1000000; i++) {
-			users.add(User.builder()
-				.id(generator.nextId())
-				.login("batch" + i)
-				.password("{noop}batch" + i)
-				.email("batch" + i + ".com")
-				.activated(false)
-				.locked(false)
-				.langKey("zh-CN")
-				.createdBy("gyl")
-				.createdDate(nowDate)
-				.build()
-			);
-		}
-	}
+  @Before
+  public void init() {
+    SnowflakeGenerator generator =
+        SnowflakeGenerator.builder().datacenterId(0L).workerId(0L).build();
+    Date nowDate = new Date();
+    for (int i = 0; i < 1000000; i++) {
+      users.add(
+          User.builder()
+              .id(generator.nextId())
+              .login("batch" + i)
+              .password("{noop}batch" + i)
+              .email("batch" + i + ".com")
+              .activated(false)
+              .locked(false)
+              .langKey("zh-CN")
+              .createdBy("gyl")
+              .createdDate(nowDate)
+              .build());
+    }
+  }
 
-	private void clear() {
-		jdbcTemplate.execute("truncate table sample_user");
-	}
+  private void clear() {
+    jdbcTemplate.execute("truncate table sample_user");
+  }
 
-	@Test
-	public void assertThatBatchSend() throws JsonProcessingException, InterruptedException {
-		clear();
-		StopWatch stopWatch = new StopWatch();
-		stopWatch.start("send");
-		for (User user : users) {
-			userProducer.send(user);
-		}
-		stopWatch.stop();
-		log.debug("批次发送大小为 {}，耗时为 {} 秒", users.size(), stopWatch.getTotalTimeSeconds());
-		Thread.sleep(1000L, 999999);
-	}
+  @Test
+  public void assertThatBatchSend() throws JsonProcessingException, InterruptedException {
+    clear();
+    StopWatch stopWatch = new StopWatch();
+    stopWatch.start("send");
+    for (User user : users) {
+      userProducer.send(user);
+    }
+    stopWatch.stop();
+    log.debug("批次发送大小为 {}，耗时为 {} 秒", users.size(), stopWatch.getTotalTimeSeconds());
+    Thread.sleep(1000L, 999999);
+  }
 }

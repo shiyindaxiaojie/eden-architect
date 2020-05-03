@@ -23,6 +23,4 @@ package org.ylzl.eden.spring.boot.commons.lang.type;
  * @author gyl
  * @since 0.0.1
  */
-public enum ReferenceTypeEnum {
-
-}
+public enum ReferenceTypeEnum {}

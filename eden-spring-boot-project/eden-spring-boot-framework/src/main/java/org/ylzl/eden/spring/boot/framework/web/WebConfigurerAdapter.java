@@ -56,125 +56,138 @@ import java.util.EnumSet;
  */
 @EnableRestErrorAdvice
 @Slf4j
-public class WebConfigurerAdapter implements EmbeddedServletContainerCustomizer, ServletContextInitializer {
+public class WebConfigurerAdapter
+    implements EmbeddedServletContainerCustomizer, ServletContextInitializer {
 
-	private static final String MSG_INJECT_CACHE_HTTP_HEADER_FILTER = "Inject cached HttpHeaders filter";
+  private static final String MSG_INJECT_CACHE_HTTP_HEADER_FILTER =
+      "Inject cached HttpHeaders filter";
 
-	private static final String MSG_INJECT_METRICSR_REGISTRY = "Inject Metrics Registry";
+  private static final String MSG_INJECT_METRICSR_REGISTRY = "Inject Metrics Registry";
 
-	private static final String MSG_INJECT_METRICSR_FILTER = "Inject Metrics Filter";
+  private static final String MSG_INJECT_METRICSR_FILTER = "Inject Metrics Filter";
 
-	private static final String MSG_INJECT_METRICS_SERVLET = "Inject Metrics Servlet";
+  private static final String MSG_INJECT_METRICS_SERVLET = "Inject Metrics Servlet";
 
-	private static final String MSG_UNSUPPORTED_CONTAINER = "Unsupported container";
+  private static final String MSG_UNSUPPORTED_CONTAINER = "Unsupported container";
 
-	private static final String DEFAULT_OUTPUT_DIR = "target/";
+  private static final String DEFAULT_OUTPUT_DIR = "target/";
 
-	@Setter
-	@Autowired(required = false)
-	private MetricRegistry metricRegistry;
+  @Setter
+  @Autowired(required = false)
+  private MetricRegistry metricRegistry;
 
-	private final FrameworkProperties frameworkProperties;
+  private final FrameworkProperties frameworkProperties;
 
-	private final Environment environment;
+  private final Environment environment;
 
-	public WebConfigurerAdapter(FrameworkProperties frameworkProperties, Environment environment) {
-		this.frameworkProperties = frameworkProperties;
-		this.environment = environment;
-	}
+  public WebConfigurerAdapter(FrameworkProperties frameworkProperties, Environment environment) {
+    this.frameworkProperties = frameworkProperties;
+    this.environment = environment;
+  }
 
-	@Override
-	public void customize(ConfigurableEmbeddedServletContainer container) {
-		this.setMimeMappings(container);
-		this.setLocationForStaticAssets(container);
-	}
+  @Override
+  public void customize(ConfigurableEmbeddedServletContainer container) {
+    this.setMimeMappings(container);
+    this.setLocationForStaticAssets(container);
+  }
 
-	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
-		EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
-		if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
-			this.initCachingHttpHeadersFilter(servletContext, disps, "/i18n/*", "/content/*", "/app/*");
-		}
-		if (metricRegistry != null) {
-			this.initMetrics(servletContext, disps);
-		}
-	}
+  @Override
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    EnumSet<DispatcherType> disps =
+        EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+    if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+      this.initCachingHttpHeadersFilter(servletContext, disps, "/i18n/*", "/content/*", "/app/*");
+    }
+    if (metricRegistry != null) {
+      this.initMetrics(servletContext, disps);
+    }
+  }
 
-	protected void initCachingHttpHeadersFilter(ServletContext servletContext, EnumSet<DispatcherType> disps, String... urlPatterns) {
-		log.debug(MSG_INJECT_CACHE_HTTP_HEADER_FILTER);
-		FilterRegistration.Dynamic cachingHttpHeadersFilter = servletContext.addFilter("cachingHttpHeadersFilter",
-			new CachingHttpHeadersFilter(frameworkProperties));
-		for (String urlPattern : urlPatterns) {
-			cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, urlPattern);
-		}
-		cachingHttpHeadersFilter.setAsyncSupported(true);
-	}
+  protected void initCachingHttpHeadersFilter(
+      ServletContext servletContext, EnumSet<DispatcherType> disps, String... urlPatterns) {
+    log.debug(MSG_INJECT_CACHE_HTTP_HEADER_FILTER);
+    FilterRegistration.Dynamic cachingHttpHeadersFilter =
+        servletContext.addFilter(
+            "cachingHttpHeadersFilter", new CachingHttpHeadersFilter(frameworkProperties));
+    for (String urlPattern : urlPatterns) {
+      cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, urlPattern);
+    }
+    cachingHttpHeadersFilter.setAsyncSupported(true);
+  }
 
-	protected void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-		log.debug(MSG_INJECT_METRICSR_REGISTRY);
-		servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE, metricRegistry);
-		servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY, metricRegistry);
+  protected void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+    log.debug(MSG_INJECT_METRICSR_REGISTRY);
+    servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE, metricRegistry);
+    servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY, metricRegistry);
 
-		log.debug(MSG_INJECT_METRICSR_FILTER);
-		FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter", new InstrumentedFilter());
-		metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
-		metricsFilter.setAsyncSupported(true);
+    log.debug(MSG_INJECT_METRICSR_FILTER);
+    FilterRegistration.Dynamic metricsFilter =
+        servletContext.addFilter("webappMetricsFilter", new InstrumentedFilter());
+    metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
+    metricsFilter.setAsyncSupported(true);
 
-		log.debug(MSG_INJECT_METRICS_SERVLET);
-		ServletRegistration.Dynamic metricsServlet = servletContext.addServlet("metricsServlet", new MetricsServlet());
-		metricsServlet.addMapping("/metrics/*");
-		metricsServlet.setAsyncSupported(true);
-		metricsServlet.setLoadOnStartup(2);
-	}
+    log.debug(MSG_INJECT_METRICS_SERVLET);
+    ServletRegistration.Dynamic metricsServlet =
+        servletContext.addServlet("metricsServlet", new MetricsServlet());
+    metricsServlet.addMapping("/metrics/*");
+    metricsServlet.setAsyncSupported(true);
+    metricsServlet.setLoadOnStartup(2);
+  }
 
-	protected void setMimeMappings(ConfigurableEmbeddedServletContainer container) {
-		if (container instanceof UndertowEmbeddedServletContainerFactory) {
-			MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-			mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
-			mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
+  protected void setMimeMappings(ConfigurableEmbeddedServletContainer container) {
+    if (container instanceof UndertowEmbeddedServletContainerFactory) {
+      MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+      mappings.add(
+          "html", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
+      mappings.add(
+          "json", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
 
-			UndertowEmbeddedServletContainerFactory undertow = (UndertowEmbeddedServletContainerFactory) container;
-			undertow.setMimeMappings(mappings);
-		}
-	}
+      UndertowEmbeddedServletContainerFactory undertow =
+          (UndertowEmbeddedServletContainerFactory) container;
+      undertow.setMimeMappings(mappings);
+    }
+  }
 
-	protected void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {
-		String pathPrefix = resolvePathPrefix();
-		String webappPath = StringUtils.join(pathPrefix, DEFAULT_OUTPUT_DIR, "classes/static/");
-		File root = new File(webappPath);
-		if (root.exists() || root.isDirectory()) {
-			this.setDocumentRoot(container, root);
-		}
-	}
+  protected void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {
+    String pathPrefix = resolvePathPrefix();
+    String webappPath = StringUtils.join(pathPrefix, DEFAULT_OUTPUT_DIR, "classes/static/");
+    File root = new File(webappPath);
+    if (root.exists() || root.isDirectory()) {
+      this.setDocumentRoot(container, root);
+    }
+  }
 
-	private void setDocumentRoot(ConfigurableEmbeddedServletContainer container, File root) {
-		AbstractEmbeddedServletContainerFactory factory = null;
-		if (container instanceof UndertowEmbeddedServletContainerFactory) {
-			factory = (UndertowEmbeddedServletContainerFactory) container;
-		} else if (container instanceof TomcatEmbeddedServletContainerFactory) {
-			factory = (TomcatEmbeddedServletContainerFactory) container;
-		} else if (container instanceof JettyEmbeddedServletContainerFactory) {
-			factory = (JettyEmbeddedServletContainerFactory) container;
-		} else {
-			throw new UnsupportedOperationException(MSG_UNSUPPORTED_CONTAINER);
-		}
-		factory.setDocumentRoot(root);
-	}
+  private void setDocumentRoot(ConfigurableEmbeddedServletContainer container, File root) {
+    AbstractEmbeddedServletContainerFactory factory = null;
+    if (container instanceof UndertowEmbeddedServletContainerFactory) {
+      factory = (UndertowEmbeddedServletContainerFactory) container;
+    } else if (container instanceof TomcatEmbeddedServletContainerFactory) {
+      factory = (TomcatEmbeddedServletContainerFactory) container;
+    } else if (container instanceof JettyEmbeddedServletContainerFactory) {
+      factory = (JettyEmbeddedServletContainerFactory) container;
+    } else {
+      throw new UnsupportedOperationException(MSG_UNSUPPORTED_CONTAINER);
+    }
+    factory.setDocumentRoot(root);
+  }
 
-	private String resolvePathPrefix() {
-		String fullExecutablePath;
-		try {
-			fullExecutablePath = URLDecoder.decode(this.getClass().getResource(StringConstants.EMPTY).getPath(), StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-			fullExecutablePath = this.getClass().getResource(StringConstants.EMPTY).getPath();
-		}
+  private String resolvePathPrefix() {
+    String fullExecutablePath;
+    try {
+      fullExecutablePath =
+          URLDecoder.decode(
+              this.getClass().getResource(StringConstants.EMPTY).getPath(),
+              StandardCharsets.UTF_8.name());
+    } catch (UnsupportedEncodingException e) {
+      fullExecutablePath = this.getClass().getResource(StringConstants.EMPTY).getPath();
+    }
 
-		String rootPath = Paths.get(StringConstants.DOT).toUri().normalize().getPath();
-		String extractedPath = fullExecutablePath.replace(rootPath, StringConstants.EMPTY);
-		int extractionEndIndex = extractedPath.indexOf(DEFAULT_OUTPUT_DIR);
-		if (extractionEndIndex <= 0) {
-			return StringConstants.EMPTY;
-		}
-		return extractedPath.substring(0, extractionEndIndex);
-	}
+    String rootPath = Paths.get(StringConstants.DOT).toUri().normalize().getPath();
+    String extractedPath = fullExecutablePath.replace(rootPath, StringConstants.EMPTY);
+    int extractionEndIndex = extractedPath.indexOf(DEFAULT_OUTPUT_DIR);
+    if (extractionEndIndex <= 0) {
+      return StringConstants.EMPTY;
+    }
+    return extractedPath.substring(0, extractionEndIndex);
+  }
 }

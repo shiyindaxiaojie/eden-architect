@@ -22,6 +22,4 @@ package org.ylzl.eden.spring.boot.security.core;
  * @author gyl
  * @since 0.0.1
  */
-public final class SecurityDefaults {
-
-}
+public final class SecurityDefaults {}

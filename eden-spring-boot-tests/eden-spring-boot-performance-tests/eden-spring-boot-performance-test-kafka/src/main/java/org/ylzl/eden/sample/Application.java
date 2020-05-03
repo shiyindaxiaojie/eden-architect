@@ -9,6 +9,4 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 0.0.1
  */
 @SpringBootApplication
-public class Application {
-
-}
+public class Application {}

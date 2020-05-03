@@ -25,5 +25,4 @@ import java.io.Serializable;
  * @author gyl
  * @since 0.0.1
  */
-public interface KeyValueService<T, ID extends Serializable> extends CrudService<T, ID> {
-}
+public interface KeyValueService<T, ID extends Serializable> extends CrudService<T, ID> {}

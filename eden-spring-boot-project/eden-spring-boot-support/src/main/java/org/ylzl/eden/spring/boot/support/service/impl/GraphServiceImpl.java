@@ -30,62 +30,63 @@ import org.ylzl.eden.spring.boot.support.service.GraphService;
  * @since 0.0.1
  */
 @SuppressWarnings("unchecked")
-public class GraphServiceImpl<T> extends PagingAndSortingServiceImpl<T, Long> implements GraphService<T> {
+public class GraphServiceImpl<T> extends PagingAndSortingServiceImpl<T, Long>
+    implements GraphService<T> {
 
-    private final GraphRepository<T> graphRepository;
+  private final GraphRepository<T> graphRepository;
 
-    public GraphServiceImpl(GraphRepository<T> graphRepository) {
-        super(graphRepository);
-        this.graphRepository = graphRepository;
-    }
+  public GraphServiceImpl(GraphRepository<T> graphRepository) {
+    super(graphRepository);
+    this.graphRepository = graphRepository;
+  }
 
-    @Override
-    public <S extends T> T save(S entity, int depth) {
-        return graphRepository.save(entity, depth);
-    }
+  @Override
+  public <S extends T> T save(S entity, int depth) {
+    return graphRepository.save(entity, depth);
+  }
 
-    @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities, int depth) {
-        return graphRepository.save(entities, depth);
-    }
+  @Override
+  public <S extends T> Iterable<S> save(Iterable<S> entities, int depth) {
+    return graphRepository.save(entities, depth);
+  }
 
-    @Override
-    public T findOne(Long id, int depth) {
-        return graphRepository.findOne(id, depth);
-    }
+  @Override
+  public T findOne(Long id, int depth) {
+    return graphRepository.findOne(id, depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(int depth) {
-        return graphRepository.findAll(depth);
-    }
+  @Override
+  public Iterable<T> findAll(int depth) {
+    return graphRepository.findAll(depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(Sort sort, int depth) {
-        return graphRepository.findAll(sort, depth);
-    }
+  @Override
+  public Iterable<T> findAll(Sort sort, int depth) {
+    return graphRepository.findAll(sort, depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(Iterable ids) {
-        return graphRepository.findAll(ids);
-    }
+  @Override
+  public Iterable<T> findAll(Iterable ids) {
+    return graphRepository.findAll(ids);
+  }
 
-    @Override
-    public Iterable<T> findAll(Iterable ids, int depth) {
-        return graphRepository.findAll(ids, depth);
-    }
+  @Override
+  public Iterable<T> findAll(Iterable ids, int depth) {
+    return graphRepository.findAll(ids, depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(Iterable ids, Sort sort) {
-        return graphRepository.findAll(ids, sort);
-    }
+  @Override
+  public Iterable<T> findAll(Iterable ids, Sort sort) {
+    return graphRepository.findAll(ids, sort);
+  }
 
-    @Override
-    public Iterable<T> findAll(Iterable ids, Sort sort, int depth) {
-        return graphRepository.findAll(ids, sort, depth);
-    }
+  @Override
+  public Iterable<T> findAll(Iterable ids, Sort sort, int depth) {
+    return graphRepository.findAll(ids, sort, depth);
+  }
 
-    @Override
-    public Page<T> findAll(Pageable pageable, int depth) {
-        return graphRepository.findAll(pageable, depth);
-    }
+  @Override
+  public Page<T> findAll(Pageable pageable, int depth) {
+    return graphRepository.findAll(pageable, depth);
+  }
 }

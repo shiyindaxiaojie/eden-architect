@@ -36,13 +36,11 @@ import java.io.Serializable;
 @ToString
 public class Login implements Serializable {
 
-    private static final long serialVersionUID = -4828891329390986045L;
+  private static final long serialVersionUID = -4828891329390986045L;
 
-    @NotBlank
-    private String username;
+  @NotBlank private String username;
 
-    @NotBlank
-    private String password;
+  @NotBlank private String password;
 
-    private Boolean rememberMe;
+  private Boolean rememberMe;
 }

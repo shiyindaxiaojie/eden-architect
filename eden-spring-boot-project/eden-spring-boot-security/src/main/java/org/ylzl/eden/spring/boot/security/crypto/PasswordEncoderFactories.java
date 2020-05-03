@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.security.crypto;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,32 +39,32 @@ import java.util.Map;
 @UtilityClass
 public final class PasswordEncoderFactories {
 
-    public static final String KEY_BCRYPT = "bcrypt";
+  public static final String KEY_BCRYPT = "bcrypt";
 
-    public static final String KEY_MD5 = "MD5";
+  public static final String KEY_MD5 = "MD5";
 
-    public static final String KEY_NO_OP = "noop";
+  public static final String KEY_NO_OP = "noop";
 
-    public static final String KEY_PBKDF2 = "pbkdf2";
+  public static final String KEY_PBKDF2 = "pbkdf2";
 
-    public static final String KEY_SCRYPT = "scrypt";
+  public static final String KEY_SCRYPT = "scrypt";
 
-    public static final String KEY_SHA_1 = "SHA-1";
+  public static final String KEY_SHA_1 = "SHA-1";
 
-    public static final String KEY_SHA_256 = "SHA-256";
+  public static final String KEY_SHA_256 = "SHA-256";
 
-    public static final String KEY_SHA256 = "sha256";
+  public static final String KEY_SHA256 = "sha256";
 
-    public static PasswordEncoder createDelegatingPasswordEncoder() {
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(KEY_BCRYPT, new BCryptPasswordEncoder());
-        encoders.put(KEY_MD5, new MessageDigestPasswordEncoder(KEY_MD5));
-        encoders.put(KEY_NO_OP, NoOpPasswordEncoder.getInstance());
-        encoders.put(KEY_PBKDF2, new Pbkdf2PasswordEncoder());
-        encoders.put(KEY_SCRYPT, new SCryptPasswordEncoder());
-        encoders.put(KEY_SHA_1, new MessageDigestPasswordEncoder(KEY_SHA_1));
-        encoders.put(KEY_SHA_256, new MessageDigestPasswordEncoder(KEY_SHA_256));
-        encoders.put(KEY_SHA256, new StandardPasswordEncoder());
-        return new DelegatingPasswordEncoder(KEY_BCRYPT, encoders);
-    }
+  public static PasswordEncoder createDelegatingPasswordEncoder() {
+    Map<String, PasswordEncoder> encoders = new HashMap<>();
+    encoders.put(KEY_BCRYPT, new BCryptPasswordEncoder());
+    encoders.put(KEY_MD5, new MessageDigestPasswordEncoder(KEY_MD5));
+    encoders.put(KEY_NO_OP, NoOpPasswordEncoder.getInstance());
+    encoders.put(KEY_PBKDF2, new Pbkdf2PasswordEncoder());
+    encoders.put(KEY_SCRYPT, new SCryptPasswordEncoder());
+    encoders.put(KEY_SHA_1, new MessageDigestPasswordEncoder(KEY_SHA_1));
+    encoders.put(KEY_SHA_256, new MessageDigestPasswordEncoder(KEY_SHA_256));
+    encoders.put(KEY_SHA256, new StandardPasswordEncoder());
+    return new DelegatingPasswordEncoder(KEY_BCRYPT, encoders);
+  }
 }

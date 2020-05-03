@@ -37,36 +37,41 @@ import java.util.List;
 @Slf4j
 public class ProfileEndpoint extends AbstractEndpoint<Profile> {
 
-    public static final String ENDPOINT_ID = "profiles";
+  public static final String ENDPOINT_ID = "profiles";
 
-    private final Environment env;
+  private final Environment env;
 
-    private final ProfileProperties profileProperties;
+  private final ProfileProperties profileProperties;
 
-    private final ConfigServerProperties configServerProperties;
+  private final ConfigServerProperties configServerProperties;
 
-    public ProfileEndpoint(Environment env, ProfileProperties profileProperties, ConfigServerProperties configServerProperties) {
-        super(ENDPOINT_ID);
-        this.env = env;
-        this.profileProperties = profileProperties;
-        this.configServerProperties = configServerProperties;
+  public ProfileEndpoint(
+      Environment env,
+      ProfileProperties profileProperties,
+      ConfigServerProperties configServerProperties) {
+    super(ENDPOINT_ID);
+    this.env = env;
+    this.profileProperties = profileProperties;
+    this.configServerProperties = configServerProperties;
+  }
+
+  @Override
+  public Profile invoke() {
+    String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
+    return new Profile(
+        activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
+  }
+
+  private String getRibbonEnv(String[] activeProfiles) {
+    if (activeProfiles != null) {
+      List<String> ribbonProfiles =
+          new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
+      List<String> springBootProfiles = Arrays.asList(activeProfiles);
+      ribbonProfiles.retainAll(springBootProfiles);
+      if (!ribbonProfiles.isEmpty()) {
+        return ribbonProfiles.get(0);
+      }
     }
-
-    @Override
-    public Profile invoke() {
-        String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
-        return new Profile(activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
-    }
-
-    private String getRibbonEnv(String[] activeProfiles) {
-        if (activeProfiles != null) {
-            List<String> ribbonProfiles = new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
-            List<String> springBootProfiles = Arrays.asList(activeProfiles);
-            ribbonProfiles.retainAll(springBootProfiles);
-            if (!ribbonProfiles.isEmpty()) {
-                return ribbonProfiles.get(0);
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

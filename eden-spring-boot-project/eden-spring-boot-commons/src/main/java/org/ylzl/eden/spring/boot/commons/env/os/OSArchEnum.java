@@ -29,41 +29,38 @@ import org.ylzl.eden.spring.boot.commons.regex.RegexUtils;
  * @since 0.0.1
  */
 public enum OSArchEnum {
+  ALPHA("alpha"),
+  AMD64("amd64"),
+  ARM("arm"),
+  ARMV41("armv41"),
+  I386("i386"),
+  I686("i686"),
+  IA64N("IA64N"),
+  MIPS("mips"),
+  OS390("02.10.00"),
+  PA_RISC("PA_RISC"),
+  PA_RISC2("PA_RISC2.0"),
+  PARISC("PA-RISC"),
+  POWER_RS("POWER_RS"),
+  POWERPC("PowerPC"),
+  PPC("ppc"),
+  PPC64("ppc64"),
+  SPARC("sparc"),
+  X86("x86"),
+  X86_64("x86_64");
 
-    ALPHA("alpha"),
-    AMD64("amd64"),
-    ARM("arm"),
-    ARMV41("armv41"),
-    I386("i386"),
-    I686("i686"),
-    IA64N("IA64N"),
-    MIPS("mips"),
-    OS390("02.10.00"),
-    PA_RISC("PA_RISC"),
-    PA_RISC2("PA_RISC2.0"),
-    PARISC("PA-RISC"),
-    POWER_RS("POWER_RS"),
-    POWERPC("PowerPC"),
-    PPC("ppc"),
-    PPC64("ppc64"),
-    SPARC("sparc"),
-    X86("x86"),
-    X86_64("x86_64");
+  @Getter @Setter private String name;
 
-    @Getter
-    @Setter
-    private String name;
+  OSArchEnum(String name) {
+    this.name = name;
+  }
 
-    OSArchEnum(String name) {
-        this.name = name;
+  public static OSArchEnum toOSArchEnum(@NonNull String name) {
+    for (OSArchEnum osArchEnum : OSArchEnum.values()) {
+      if (RegexUtils.find(osArchEnum.getName(), name)) {
+        return osArchEnum;
+      }
     }
-
-    public static OSArchEnum toOSArchEnum(@NonNull String name) {
-        for (OSArchEnum osArchEnum : OSArchEnum.values()) {
-            if (RegexUtils.find(osArchEnum.getName(), name)) {
-                return osArchEnum;
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

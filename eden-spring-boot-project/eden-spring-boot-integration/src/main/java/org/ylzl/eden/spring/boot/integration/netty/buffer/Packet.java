@@ -27,9 +27,9 @@ import io.netty.buffer.ByteBuf;
  */
 public interface Packet<T> {
 
-	T parse(ByteBuf byteBuf);
+  T parse(ByteBuf byteBuf);
 
-	byte[] bytes();
+  byte[] bytes();
 
-	int length();
+  int length();
 }

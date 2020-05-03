@@ -34,7 +34,8 @@ import javax.mail.Session;
 @Configuration
 public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {
 
-	public EnhancedMailSenderAutoConfiguration(EnhancedMailProperties properties, ObjectProvider<Session> sessionProvider) {
-		super(properties, sessionProvider);
-	}
+  public EnhancedMailSenderAutoConfiguration(
+      EnhancedMailProperties properties, ObjectProvider<Session> sessionProvider) {
+    super(properties, sessionProvider);
+  }
 }

@@ -34,12 +34,13 @@ import org.ylzl.eden.spring.boot.security.web.authentication.UnauthorizedEntryPo
 @Configuration
 public class WebSecurityAutoConfiguration {
 
-	public static final String MSG_INJECT_AUTH_ENTRY_POINT = "Inject AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
+  public static final String MSG_INJECT_AUTH_ENTRY_POINT =
+      "Inject AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
 
-	@ConditionalOnMissingBean
-	@Bean
-	public AuthenticationEntryPoint authenticationEntryPoint() {
-		log.debug(MSG_INJECT_AUTH_ENTRY_POINT);
-		return new UnauthorizedEntryPointAdapter();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    log.debug(MSG_INJECT_AUTH_ENTRY_POINT);
+    return new UnauthorizedEntryPointAdapter();
+  }
 }

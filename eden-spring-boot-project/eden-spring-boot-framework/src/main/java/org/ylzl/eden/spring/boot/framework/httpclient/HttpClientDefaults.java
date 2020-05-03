@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.framework.httpclient;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * HttpCLient 配置属性默认值
@@ -29,7 +28,7 @@ import lombok.NoArgsConstructor;
 @UtilityClass
 public final class HttpClientDefaults {
 
-    public static final int connectTimeout = 5000;
+  public static final int connectTimeout = 5000;
 
-    public static final int readTimeout = 5000;
+  public static final int readTimeout = 5000;
 }

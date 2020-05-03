@@ -29,6 +29,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = DataConstants.PROP_PREFIX)
-public class DataProperties {
-
-}
+public class DataProperties {}

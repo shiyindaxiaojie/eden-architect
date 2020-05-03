@@ -34,20 +34,20 @@ import java.io.Serializable;
 public class PagingAndSortingServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
     implements PagingAndSortingService<T, ID> {
 
-    private final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
+  private final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
 
-    public PagingAndSortingServiceImpl(PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
-        super(pagingAndSortingRepository);
-        this.pagingAndSortingRepository = pagingAndSortingRepository;
-    }
+  public PagingAndSortingServiceImpl(PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
+    super(pagingAndSortingRepository);
+    this.pagingAndSortingRepository = pagingAndSortingRepository;
+  }
 
-    @Override
-    public Iterable<T> findAll(Sort sort) {
-        return pagingAndSortingRepository.findAll(sort);
-    }
+  @Override
+  public Iterable<T> findAll(Sort sort) {
+    return pagingAndSortingRepository.findAll(sort);
+  }
 
-    @Override
-    public Page<T> findAll(Pageable pageable) {
-        return pagingAndSortingRepository.findAll(pageable);
-    }
+  @Override
+  public Page<T> findAll(Pageable pageable) {
+    return pagingAndSortingRepository.findAll(pageable);
+  }
 }

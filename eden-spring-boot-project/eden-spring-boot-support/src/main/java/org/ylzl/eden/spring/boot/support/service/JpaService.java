@@ -31,33 +31,34 @@ import java.util.List;
  * @author gyl
  * @since 0.0.1
  */
-public interface JpaService<T, ID extends Serializable> extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
+public interface JpaService<T, ID extends Serializable>
+    extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
 
-    long count(Specification<T> spec);
+  long count(Specification<T> spec);
 
-    void deleteAllInBatch();
+  void deleteAllInBatch();
 
-    void deleteInBatch(Iterable<T> entities);
+  void deleteInBatch(Iterable<T> entities);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    List<T> findAll(Iterable<ID> ids);
+  List<T> findAll(Iterable<ID> ids);
 
-    List<T> findAll(Specification<T> spec);
+  List<T> findAll(Specification<T> spec);
 
-    Page<T> findAll(Specification<T> spec, Pageable pageable);
+  Page<T> findAll(Specification<T> spec, Pageable pageable);
 
-    List<T> findAll(Specification<T> spec, Sort sort);
+  List<T> findAll(Specification<T> spec, Sort sort);
 
-    List<T> findAll(Sort sort);
+  List<T> findAll(Sort sort);
 
-    T findOne(Specification<T> spec);
+  T findOne(Specification<T> spec);
 
-    void flush();
+  void flush();
 
-    T getOne(ID id);
+  T getOne(ID id);
 
-    <S extends T> List<S> save(Iterable<S> entities);
+  <S extends T> List<S> save(Iterable<S> entities);
 
-    <S extends T> S saveAndFlush(S entity);
+  <S extends T> S saveAndFlush(S entity);
 }

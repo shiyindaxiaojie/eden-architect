@@ -33,13 +33,14 @@ import javax.sql.DataSource;
  * @author gyl
  * @since 0.0.1
  */
-@AutoConfigureAfter({ DataSourceAutoConfiguration.class })
+@AutoConfigureAfter({DataSourceAutoConfiguration.class})
 @Configuration
 public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {
 
-    public EnhancedHibernateJpaAutoConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
-        super(dataSource, properties, jtaTransactionManagerProvider);
-    }
-
-
+  public EnhancedHibernateJpaAutoConfiguration(
+      DataSource dataSource,
+      JpaProperties properties,
+      ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
+    super(dataSource, properties, jtaTransactionManagerProvider);
+  }
 }

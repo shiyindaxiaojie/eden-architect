@@ -26,12 +26,9 @@ import lombok.Setter;
  * @since 0.0.1
  */
 public enum DataSourceEnum {
+  MANUAL,
+  MASTER,
+  SLAVE;
 
-    MANUAL,
-    MASTER,
-    SLAVE;
-
-    @Getter
-    @Setter
-    private String dataSourceName;
+  @Getter @Setter private String dataSourceName;
 }

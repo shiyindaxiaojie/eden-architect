@@ -42,10 +42,7 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
  * @author gyl
  * @since 0.0.1
  */
-@AutoConfigureBefore({
-    HazelcastAutoConfiguration.class,
-	EnhancedHazelcastAutoConfiguration.class
-})
+@AutoConfigureBefore({HazelcastAutoConfiguration.class, EnhancedHazelcastAutoConfiguration.class})
 @ConditionalOnClass({HazelcastInstance.class})
 @ConditionalOnExpression(DiscoveryHazelcastAutoConfiguration.EXPS_CLOUD_HAZELCAST_ENABLED)
 @ConditionalOnBean({DiscoveryClient.class})
@@ -56,59 +53,65 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
 @Configuration
 public class DiscoveryHazelcastAutoConfiguration extends EnhancedHazelcastAutoConfiguration {
 
-	public static final String EXPS_CLOUD_HAZELCAST_ENABLED = "${" + CloudConstants.PROP_PREFIX + ".hazelcast.enabled:true}";
+  public static final String EXPS_CLOUD_HAZELCAST_ENABLED =
+      "${" + CloudConstants.PROP_PREFIX + ".hazelcast.enabled:true}";
 
-    private static final String MSG_DICOVERY_HAZELCAST_IN_DEV = "Configuring Hazelcast clustering in development";
+  private static final String MSG_DICOVERY_HAZELCAST_IN_DEV =
+      "Configuring Hazelcast clustering in development";
 
-    private static final String MSG_DICOVERY_HAZELCAST = "Configuring Hazelcast clustering for instanceId: {}, members: {}";
+  private static final String MSG_DICOVERY_HAZELCAST =
+      "Configuring Hazelcast clustering for instanceId: {}, members: {}";
 
-    private static final String PROP_HAZELCAST_LOCAL_ADDRESS = "hazelcast.local.localAddress";
+  private static final String PROP_HAZELCAST_LOCAL_ADDRESS = "hazelcast.local.localAddress";
 
-    private static final String LOCAL_ADDRESS = "127.0.0.1";
+  private static final String LOCAL_ADDRESS = "127.0.0.1";
 
-    private final Environment environment;
+  private final Environment environment;
 
-    private final ServerProperties serverProperties;
+  private final ServerProperties serverProperties;
 
-    private final DiscoveryClient discoveryClient;
+  private final DiscoveryClient discoveryClient;
 
-    public DiscoveryHazelcastAutoConfiguration(EnhancedHazelcastProperties enhancedHazelcastProperties,
-											   Environment environment, ServerProperties serverProperties, DiscoveryClient discoveryClient) {
-        super(enhancedHazelcastProperties);
-        this.environment = environment;
-        this.serverProperties = serverProperties;
-        this.discoveryClient = discoveryClient;
-    }
+  public DiscoveryHazelcastAutoConfiguration(
+      EnhancedHazelcastProperties enhancedHazelcastProperties,
+      Environment environment,
+      ServerProperties serverProperties,
+      DiscoveryClient discoveryClient) {
+    super(enhancedHazelcastProperties);
+    this.environment = environment;
+    this.serverProperties = serverProperties;
+    this.discoveryClient = discoveryClient;
+  }
 
-    @Override
-    protected void addDefaultConfig(Config config) {
-        super.addDefaultConfig(config);
-        /*if (this.registration != null) {
-            discoveryHazelcast(config);
-        }*/
-    }
-
-    /*@SuppressWarnings("unchecked")
-    private void discoveryHazelcast(Config config) {
-        String serviceId = registration.getId();
-        NetworkConfig networkConfig = config.getNetworkConfig();
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            log.debug(MSG_DICOVERY_HAZELCAST_IN_DEV);
-            System.setProperty(PROP_HAZELCAST_LOCAL_ADDRESS, LOCAL_ADDRESS);
-            networkConfig.setPort(serverProperties.getPort() + NetworkConfig.DEFAULT_PORT);
-
-            for (ServiceInstance instance : discoveryClient.getInstances(serviceId)) {
-                String clusterMember = StringUtils.join(LOCAL_ADDRESS, StringConstants.COLON, (instance.getPort() + NetworkConfig.DEFAULT_PORT));
-                networkConfig.getJoin().getTcpIpConfig().addMember(clusterMember);
-            }
-        } else {
-            networkConfig.setPort(NetworkConfig.DEFAULT_PORT);
-
-            for (ServiceInstance instance : discoveryClient.getInstances(serviceId)) {
-                String clusterMember = StringUtils.join(instance.getHost(), StringConstants.COLON, NetworkConfig.DEFAULT_PORT);
-                networkConfig.getJoin().getTcpIpConfig().addMember(clusterMember);
-            }
-        }
-        log.debug(MSG_DICOVERY_HAZELCAST, serviceId, networkConfig.getJoin().getTcpIpConfig().getMembers());
+  @Override
+  protected void addDefaultConfig(Config config) {
+    super.addDefaultConfig(config);
+    /*if (this.registration != null) {
+        discoveryHazelcast(config);
     }*/
+  }
+
+  /*@SuppressWarnings("unchecked")
+  private void discoveryHazelcast(Config config) {
+      String serviceId = registration.getId();
+      NetworkConfig networkConfig = config.getNetworkConfig();
+      if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+          log.debug(MSG_DICOVERY_HAZELCAST_IN_DEV);
+          System.setProperty(PROP_HAZELCAST_LOCAL_ADDRESS, LOCAL_ADDRESS);
+          networkConfig.setPort(serverProperties.getPort() + NetworkConfig.DEFAULT_PORT);
+
+          for (ServiceInstance instance : discoveryClient.getInstances(serviceId)) {
+              String clusterMember = StringUtils.join(LOCAL_ADDRESS, StringConstants.COLON, (instance.getPort() + NetworkConfig.DEFAULT_PORT));
+              networkConfig.getJoin().getTcpIpConfig().addMember(clusterMember);
+          }
+      } else {
+          networkConfig.setPort(NetworkConfig.DEFAULT_PORT);
+
+          for (ServiceInstance instance : discoveryClient.getInstances(serviceId)) {
+              String clusterMember = StringUtils.join(instance.getHost(), StringConstants.COLON, NetworkConfig.DEFAULT_PORT);
+              networkConfig.getJoin().getTcpIpConfig().addMember(clusterMember);
+          }
+      }
+      log.debug(MSG_DICOVERY_HAZELCAST, serviceId, networkConfig.getJoin().getTcpIpConfig().getMembers());
+  }*/
 }

@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".http-client")
 public class HttpClientProperties {
 
-    private int connectTimeout = HttpClientDefaults.connectTimeout;
+  private int connectTimeout = HttpClientDefaults.connectTimeout;
 
-    private int readTimeout = HttpClientDefaults.readTimeout;
+  private int readTimeout = HttpClientDefaults.readTimeout;
 }

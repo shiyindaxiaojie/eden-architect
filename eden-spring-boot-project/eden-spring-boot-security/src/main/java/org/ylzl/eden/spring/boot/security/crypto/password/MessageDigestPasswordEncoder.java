@@ -32,66 +32,66 @@ import org.ylzl.eden.spring.boot.security.crypto.keygen.Base64StringKeyGenerator
  */
 public class MessageDigestPasswordEncoder implements PasswordEncoder {
 
-    private static final String PREFIX = "{";
+  private static final String PREFIX = "{";
 
-    private static final String SUFFIX = "}";
+  private static final String SUFFIX = "}";
 
-    private StringKeyGenerator saltGenerator = new Base64StringKeyGenerator();
+  private StringKeyGenerator saltGenerator = new Base64StringKeyGenerator();
 
-    private boolean encodeHashAsBase64;
+  private boolean encodeHashAsBase64;
 
-    private Digester digester;
+  private Digester digester;
 
-    public MessageDigestPasswordEncoder(String algorithm) {
-        this.digester = new Digester(algorithm, 1);
+  public MessageDigestPasswordEncoder(String algorithm) {
+    this.digester = new Digester(algorithm, 1);
+  }
+
+  public void setEncodeHashAsBase64(boolean encodeHashAsBase64) {
+    this.encodeHashAsBase64 = encodeHashAsBase64;
+  }
+
+  @Override
+  public String encode(CharSequence rawPassword) {
+    String salt = PREFIX + this.saltGenerator.generateKey() + SUFFIX;
+    return digest(salt, rawPassword);
+  }
+
+  @Override
+  public boolean matches(CharSequence rawPassword, String encodedPassword) {
+    String salt = extractSalt(encodedPassword);
+    String rawPasswordEncoded = digest(salt, rawPassword);
+    return PasswordEncoderUtils.equals(encodedPassword.toString(), rawPasswordEncoded);
+  }
+
+  private String digest(String salt, CharSequence rawPassword) {
+    String saltedPassword = rawPassword + salt;
+
+    byte[] digest = this.digester.digest(Utf8.encode(saltedPassword));
+    String encoded = encode(digest);
+    return salt + encoded;
+  }
+
+  private String encode(byte[] digest) {
+    if (this.encodeHashAsBase64) {
+      return Utf8.decode(Base64.encodeBase64(digest));
+    } else {
+      return new String(Hex.encode(digest));
     }
+  }
 
-    public void setEncodeHashAsBase64(boolean encodeHashAsBase64) {
-        this.encodeHashAsBase64 = encodeHashAsBase64;
+  public void setIterations(int iterations) {
+    this.digester.setIterations(iterations);
+  }
+
+  private String extractSalt(String prefixEncodedPassword) {
+    int start = prefixEncodedPassword.indexOf(PREFIX);
+    if (start != 0) {
+      return "";
     }
-
-    @Override
-    public String encode(CharSequence rawPassword) {
-        String salt = PREFIX + this.saltGenerator.generateKey() + SUFFIX;
-        return digest(salt, rawPassword);
+    int end = prefixEncodedPassword.indexOf(SUFFIX, start);
+    if (end < 0) {
+      return "";
     }
-
-    @Override
-    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        String salt = extractSalt(encodedPassword);
-        String rawPasswordEncoded = digest(salt, rawPassword);
-        return PasswordEncoderUtils.equals(encodedPassword.toString(), rawPasswordEncoded);
-    }
-
-    private String digest(String salt, CharSequence rawPassword) {
-        String saltedPassword = rawPassword + salt;
-
-        byte[] digest = this.digester.digest(Utf8.encode(saltedPassword));
-        String encoded = encode(digest);
-        return salt + encoded;
-    }
-
-    private String encode(byte[] digest) {
-        if (this.encodeHashAsBase64) {
-            return Utf8.decode(Base64.encodeBase64(digest));
-        } else {
-            return new String(Hex.encode(digest));
-        }
-    }
-
-    public void setIterations(int iterations) {
-        this.digester.setIterations(iterations);
-    }
-
-    private String extractSalt(String prefixEncodedPassword) {
-        int start = prefixEncodedPassword.indexOf(PREFIX);
-        if (start != 0) {
-            return "";
-        }
-        int end = prefixEncodedPassword.indexOf(SUFFIX, start);
-        if (end < 0) {
-            return "";
-        }
-        return prefixEncodedPassword.substring(start, end + 1);
-    }
+    return prefixEncodedPassword.substring(start, end + 1);
+  }
 }

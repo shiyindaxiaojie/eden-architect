@@ -35,19 +35,19 @@ import java.lang.annotation.*;
 @FeignClient
 public @interface AuthorizedFeignClient {
 
-    @AliasFor(annotation = FeignClient.class, attribute = "name")
-    String name() default StringConstants.EMPTY;
+  @AliasFor(annotation = FeignClient.class, attribute = "name")
+  String name() default StringConstants.EMPTY;
 
-    @AliasFor(annotation = FeignClient.class, attribute = "configuration")
-    Class<?>[] configuration() default AuthorizedFeignConfiguration.class;
+  @AliasFor(annotation = FeignClient.class, attribute = "configuration")
+  Class<?>[] configuration() default AuthorizedFeignConfiguration.class;
 
-    String url() default StringConstants.EMPTY;
+  String url() default StringConstants.EMPTY;
 
-	String qualifier() default StringConstants.EMPTY;
+  String qualifier() default StringConstants.EMPTY;
 
-	boolean decode404() default false;
+  boolean decode404() default false;
 
-    Class<?> fallback() default void.class;
+  Class<?> fallback() default void.class;
 
-    String path() default StringConstants.EMPTY;
+  String path() default StringConstants.EMPTY;
 }

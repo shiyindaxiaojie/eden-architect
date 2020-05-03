@@ -27,7 +27,7 @@ import java.net.InetSocketAddress;
  */
 public interface SocketServer<T> {
 
-	T startup(InetSocketAddress address);
+  T startup(InetSocketAddress address);
 
-	void shutdown();
+  void shutdown();
 }

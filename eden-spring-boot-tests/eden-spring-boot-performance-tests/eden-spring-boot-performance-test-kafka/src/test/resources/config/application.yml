@@ -63,8 +63,8 @@ spring:
             group-id: sample # 消费组，消费者多实例的情况下，配置同一个消费组，实例数不能超过 Kafka 的分区数
             enable-auto-commit: false # 建议关闭自动提交 Offset，不然报错很难处理
             auto-offset-reset: earliest # 如果 Offset 找不到时重置的规则
-#            fetch-min-bytes: 1048576
-#            fetch-max-wait-ms: 500
+        #            fetch-min-bytes: 1048576
+        #            fetch-max-wait-ms: 500
         listener:
             concurrency: 50 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
             poll-timeout: 5000 # 单次拉取消息的超时（毫秒）

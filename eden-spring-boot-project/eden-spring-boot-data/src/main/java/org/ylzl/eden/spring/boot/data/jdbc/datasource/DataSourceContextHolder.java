@@ -26,14 +26,13 @@ import lombok.Getter;
  */
 public class DataSourceContextHolder {
 
-    @Getter
-    private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
+  @Getter private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
 
-    public static void set(DataSourceEnum dataSourceEnum) {
-        threadLocal.set(dataSourceEnum);
-    }
+  public static void set(DataSourceEnum dataSourceEnum) {
+    threadLocal.set(dataSourceEnum);
+  }
 
-    public static DataSourceEnum get() {
-       return threadLocal.get();
-    }
+  public static DataSourceEnum get() {
+    return threadLocal.get();
+  }
 }

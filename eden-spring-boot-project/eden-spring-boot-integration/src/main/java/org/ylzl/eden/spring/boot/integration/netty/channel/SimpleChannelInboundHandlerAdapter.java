@@ -29,8 +29,7 @@ import org.apache.poi.ss.formula.functions.T;
  */
 public class SimpleChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<T> {
 
-	@Override
-	protected void channelRead0(ChannelHandlerContext channelHandlerContext, T data) throws Exception {
-
-	}
+  @Override
+  protected void channelRead0(ChannelHandlerContext channelHandlerContext, T data)
+      throws Exception {}
 }

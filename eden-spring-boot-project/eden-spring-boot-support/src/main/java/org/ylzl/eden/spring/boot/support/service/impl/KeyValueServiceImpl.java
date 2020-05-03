@@ -32,10 +32,10 @@ import java.io.Serializable;
 public class KeyValueServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
     implements KeyValueService<T, ID> {
 
-    private final RedisRepository<T, ID> redisRepository;
+  private final RedisRepository<T, ID> redisRepository;
 
-    public KeyValueServiceImpl(RedisRepository<T, ID> redisRepository) {
-        super(redisRepository);
-        this.redisRepository = redisRepository;
-    }
+  public KeyValueServiceImpl(RedisRepository<T, ID> redisRepository) {
+    super(redisRepository);
+    this.redisRepository = redisRepository;
+  }
 }

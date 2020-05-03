@@ -42,12 +42,13 @@ import org.ylzl.eden.spring.boot.cloud.zuul.endpoint.ZuulRouteEndpoint;
 @Configuration
 public class ZuulRouteEndpointAutoConfiguration {
 
-	private static final String MSG_INJECT_ZUUL_ROUTE_ENDPOINT = "Inject Zuul custom actuator";
+  private static final String MSG_INJECT_ZUUL_ROUTE_ENDPOINT = "Inject Zuul custom actuator";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public ZuulRouteEndpoint zuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
-    	log.debug(MSG_INJECT_ZUUL_ROUTE_ENDPOINT);
-    	return new ZuulRouteEndpoint(routeLocator, discoveryClient);
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public ZuulRouteEndpoint zuulRouteEndpoint(
+      RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+    log.debug(MSG_INJECT_ZUUL_ROUTE_ENDPOINT);
+    return new ZuulRouteEndpoint(routeLocator, discoveryClient);
+  }
 }

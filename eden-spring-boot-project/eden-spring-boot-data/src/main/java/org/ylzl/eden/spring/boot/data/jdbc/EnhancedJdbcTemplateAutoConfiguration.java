@@ -43,18 +43,20 @@ import javax.sql.DataSource;
 @Configuration
 public class EnhancedJdbcTemplateAutoConfiguration {
 
-	public static final String MSG_INJECT_NAMED_JDBCTPL = "Inject enhanced NamedParameterJdbcTemplate";
+  public static final String MSG_INJECT_NAMED_JDBCTPL =
+      "Inject enhanced NamedParameterJdbcTemplate";
 
-    /**
-     * Inject EnhancedNamedParameterJdbcTemplate
-     *
-     * @param dataSource 数据源
-     * @return EnhancedNamedParameterJdbcTemplate 实例
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(DataSource dataSource) {
-        log.debug(MSG_INJECT_NAMED_JDBCTPL);
-    	return new EnhancedNamedParameterJdbcTemplate(dataSource);
-    }
+  /**
+   * Inject EnhancedNamedParameterJdbcTemplate
+   *
+   * @param dataSource 数据源
+   * @return EnhancedNamedParameterJdbcTemplate 实例
+   */
+  @ConditionalOnMissingBean
+  @Bean
+  public EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(
+      DataSource dataSource) {
+    log.debug(MSG_INJECT_NAMED_JDBCTPL);
+    return new EnhancedNamedParameterJdbcTemplate(dataSource);
+  }
 }

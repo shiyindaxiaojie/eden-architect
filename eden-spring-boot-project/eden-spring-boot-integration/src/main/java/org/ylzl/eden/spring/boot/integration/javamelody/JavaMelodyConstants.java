@@ -28,5 +28,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JavaMelodyConstants {
 
-	public static final String PROP_PREFIX = "javamelody";
+  public static final String PROP_PREFIX = "javamelody";
 }

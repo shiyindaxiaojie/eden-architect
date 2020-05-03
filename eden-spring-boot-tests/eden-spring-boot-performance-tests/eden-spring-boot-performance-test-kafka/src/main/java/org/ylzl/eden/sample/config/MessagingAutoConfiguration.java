@@ -13,6 +13,4 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableKafka
 @Slf4j
 @Configuration
-public class MessagingAutoConfiguration {
-
-}
+public class MessagingAutoConfiguration {}

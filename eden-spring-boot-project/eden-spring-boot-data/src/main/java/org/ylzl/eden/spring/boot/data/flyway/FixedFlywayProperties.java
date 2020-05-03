@@ -34,5 +34,5 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX)
 public class FixedFlywayProperties extends FlywayProperties {
 
-    private boolean baselineOnMigrate;
+  private boolean baselineOnMigrate;
 }

@@ -25,11 +25,11 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  */
 public class InvalidCredentialsException extends BadRequestAlertException {
 
-    public InvalidCredentialsException() {
-        super(ErrorConstants.ERR_INVALID_CREDENTIALS);
-    }
+  public InvalidCredentialsException() {
+    super(ErrorConstants.ERR_INVALID_CREDENTIALS);
+  }
 
-    public InvalidCredentialsException(String message) {
-        super(message);
-    }
+  public InvalidCredentialsException(String message) {
+    super(message);
+  }
 }

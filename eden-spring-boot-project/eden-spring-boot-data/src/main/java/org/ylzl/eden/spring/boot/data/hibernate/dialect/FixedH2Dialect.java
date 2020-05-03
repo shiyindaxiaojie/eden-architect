@@ -28,8 +28,8 @@ import java.sql.Types;
  */
 public class FixedH2Dialect extends H2Dialect {
 
-    public FixedH2Dialect() {
-        super();
-        registerColumnType(Types.FLOAT, "real");
-    }
+  public FixedH2Dialect() {
+    super();
+    registerColumnType(Types.FLOAT, "real");
+  }
 }

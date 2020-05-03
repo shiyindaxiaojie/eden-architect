@@ -25,24 +25,23 @@ package org.ylzl.eden.spring.boot.commons.algorithms.datastructures.trees;
  */
 public class AVLTree {
 
-	private class Node {
+  private class Node {
 
-		private int key;
+    private int key;
 
-		private int balance;
+    private int balance;
 
-		private int height;
+    private int height;
 
-		private Node left;
+    private Node left;
 
-		private Node right;
+    private Node right;
 
-		private Node parent;
+    private Node parent;
 
-		Node(int k, Node p) {
-			key = k;
-			parent = p;
-		}
-	}
-
+    Node(int k, Node p) {
+      key = k;
+      parent = p;
+    }
+  }
 }

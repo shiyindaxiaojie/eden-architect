@@ -26,6 +26,4 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @since 0.0.1
  */
 @NoRepositoryBean
-public interface Neo4jRepository<T> extends GraphRepository<T> {
-
-}
+public interface Neo4jRepository<T> extends GraphRepository<T> {}

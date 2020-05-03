@@ -31,11 +31,11 @@ import java.io.File;
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
-    public static boolean createDirectory(@NonNull String dirPath) {
-        File file = new File(dirPath);
-        if (file.exists()) {
-            return true;
-        }
-        return file.mkdirs();
+  public static boolean createDirectory(@NonNull String dirPath) {
+    File file = new File(dirPath);
+    if (file.exists()) {
+      return true;
     }
+    return file.mkdirs();
+  }
 }

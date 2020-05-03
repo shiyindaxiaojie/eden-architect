@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 /**
  * 应用构建信息类
  *
- * <p> 获取 Spring Boot Maven 插件生成的 build-info.properties </p>
+ * <p>获取 Spring Boot Maven 插件生成的 build-info.properties
  *
  * @author gyl
  * @since 0.0.1
@@ -32,17 +32,21 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 @Data
 public class InfoContributorProvider {
 
-    private final BuildProperties buildProperties;
+  private final BuildProperties buildProperties;
 
-    public InfoContributorProvider(BuildProperties buildProperties) {
-        this.buildProperties = buildProperties;
-    }
+  public InfoContributorProvider(BuildProperties buildProperties) {
+    this.buildProperties = buildProperties;
+  }
 
-    public String resolvePackage(String suffix) {
-        StringBuilder packagStr = new StringBuilder();
-        packagStr.append(buildProperties.getGroup()).append(StringConstants.DOT)
-            .append(buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT))
-            .append(StringConstants.DOT).append(suffix);
-        return packagStr.toString();
-    }
+  public String resolvePackage(String suffix) {
+    StringBuilder packagStr = new StringBuilder();
+    packagStr
+        .append(buildProperties.getGroup())
+        .append(StringConstants.DOT)
+        .append(
+            buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT))
+        .append(StringConstants.DOT)
+        .append(suffix);
+    return packagStr.toString();
+  }
 }

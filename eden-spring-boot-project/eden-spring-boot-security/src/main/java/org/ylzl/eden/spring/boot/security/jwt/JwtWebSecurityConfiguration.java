@@ -50,60 +50,73 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class JwtWebSecurityConfiguration {
 
-	private static final String INIT_AUTHENTICATION_MANAGER = "Initializing AuthenticationManager (JWT)";
+  private static final String INIT_AUTHENTICATION_MANAGER =
+      "Initializing AuthenticationManager (JWT)";
 
-	private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";
+  private static final String EXP_AUTHENTICATION_MANAGER =
+      "Initialize AuthenticationManager (JWT) caught exception";
 
-	private static final String MSG_INJECT_AUTHENTICATION_MANAGER = "Inject AuthenticationManager (JWT)";
+  private static final String MSG_INJECT_AUTHENTICATION_MANAGER =
+      "Inject AuthenticationManager (JWT)";
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+  private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    private final UserDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
 
-	private final PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
-	public JwtWebSecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-		this.authenticationManagerBuilder = authenticationManagerBuilder;
-		this.userDetailsService = userDetailsService;
-		this.passwordEncoder = passwordEncoder;
-	}
+  public JwtWebSecurityConfiguration(
+      AuthenticationManagerBuilder authenticationManagerBuilder,
+      UserDetailsService userDetailsService,
+      PasswordEncoder passwordEncoder) {
+    this.authenticationManagerBuilder = authenticationManagerBuilder;
+    this.userDetailsService = userDetailsService;
+    this.passwordEncoder = passwordEncoder;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-        return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
+  @ConditionalOnMissingBean
+  @Bean
+  public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(
+      JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+    return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public AuthenticationManager authenticationManager(
+      WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
+    log.debug(MSG_INJECT_AUTHENTICATION_MANAGER);
+    return webSecurityConfigurerAdapter.authenticationManagerBean();
+  }
+
+  @PostConstruct
+  public void init() {
+    log.debug(INIT_AUTHENTICATION_MANAGER);
+    try {
+      authenticationManagerBuilder
+          .userDetailsService(userDetailsService)
+          .passwordEncoder(passwordEncoder);
+    } catch (Exception e) {
+      throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
+    }
+  }
+
+  protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
+
+    public JwtWebSecurityConfigurer(
+        JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+      super(jwtTokenProvider, jwtProperties);
     }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public AuthenticationManager authenticationManager(WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
-		log.debug(MSG_INJECT_AUTHENTICATION_MANAGER);
-        return webSecurityConfigurerAdapter.authenticationManagerBean();
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+      super.configure(http);
+
+      http.authorizeRequests()
+          .antMatchers(JwtConstants.ENDPOINT_TOKEN)
+          .permitAll()
+          .anyRequest()
+          .authenticated();
     }
-
-	@PostConstruct
-	public void init() {
-		log.debug(INIT_AUTHENTICATION_MANAGER);
-		try {
-			authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-		} catch (Exception e) {
-			throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
-		}
-	}
-
-	protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
-
-        public JwtWebSecurityConfigurer(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-            super(jwtTokenProvider, jwtProperties);
-        }
-
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            super.configure(http);
-
-            http.authorizeRequests()
-				.antMatchers(JwtConstants.ENDPOINT_TOKEN).permitAll()
-				.anyRequest().authenticated();
-        }
-    }
+  }
 }
