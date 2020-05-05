@@ -36,5 +36,5 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "spring.cloud.config.server")
 public class ConfigServerProperties {
 
-    private List<Map<String, Object>> composite = new ArrayList<>();
+  private List<Map<String, Object>> composite = new ArrayList<>();
 }

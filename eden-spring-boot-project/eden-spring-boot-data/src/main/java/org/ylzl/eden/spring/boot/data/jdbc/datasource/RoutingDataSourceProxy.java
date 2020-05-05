@@ -31,42 +31,39 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 
-    private static final String MSG_UNKNOWN_DATASOURCE = "Invalid DataSource name in datasource properties";
+  private static final String MSG_UNKNOWN_DATASOURCE =
+      "Invalid DataSource name in datasource properties";
 
-    private AtomicInteger masterCount = new AtomicInteger();
+  private AtomicInteger masterCount = new AtomicInteger();
 
-    private AtomicInteger slaveCount = new AtomicInteger();
+  private AtomicInteger slaveCount = new AtomicInteger();
 
-    @Getter
-    @Setter
-    private List<String> masterDataSources;
+  @Getter @Setter private List<String> masterDataSources;
 
-    @Getter
-    @Setter
-    private List<String> slaveDataSources;
+  @Getter @Setter private List<String> slaveDataSources;
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected Object determineCurrentLookupKey() {
-        DataSourceEnum dataSourceEnum = DataSourceContextHolder.get();
-        switch (dataSourceEnum) {
-            case MANUAL:
-                return dataSourceEnum.getDataSourceName();
-            case MASTER:
-                return this.getDataSourceName(masterDataSources, masterCount);
-            case SLAVE:
-                return this.getDataSourceName(slaveDataSources, slaveCount);
-        }
-        return null;
+  @SuppressWarnings("unchecked")
+  @Override
+  protected Object determineCurrentLookupKey() {
+    DataSourceEnum dataSourceEnum = DataSourceContextHolder.get();
+    switch (dataSourceEnum) {
+      case MANUAL:
+        return dataSourceEnum.getDataSourceName();
+      case MASTER:
+        return this.getDataSourceName(masterDataSources, masterCount);
+      case SLAVE:
+        return this.getDataSourceName(slaveDataSources, slaveCount);
+    }
+    return null;
+  }
+
+  private String getDataSourceName(List<String> dataSources, AtomicInteger count) {
+    if (dataSources == null || dataSources.isEmpty()) {
+      throw new RuntimeException(MSG_UNKNOWN_DATASOURCE);
     }
 
-    private String getDataSourceName(List<String> dataSources, AtomicInteger count) {
-        if (dataSources == null || dataSources.isEmpty()) {
-            throw new RuntimeException(MSG_UNKNOWN_DATASOURCE);
-        }
-
-        int increment = count.getAndAdd(1);
-        int lookupKey = increment % dataSources.size();
-        return dataSources.get(lookupKey);
-    }
+    int increment = count.getAndAdd(1);
+    int lookupKey = increment % dataSources.size();
+    return dataSources.get(lookupKey);
+  }
 }

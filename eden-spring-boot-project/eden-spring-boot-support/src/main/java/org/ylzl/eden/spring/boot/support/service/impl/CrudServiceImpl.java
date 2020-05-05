@@ -31,100 +31,100 @@ import java.util.Optional;
  */
 public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<T, ID> {
 
-    private final CrudRepository<T, ID> crudRepository;
+  private final CrudRepository<T, ID> crudRepository;
 
-    public CrudServiceImpl(CrudRepository<T, ID> crudRepository) {
-        this.crudRepository = crudRepository;
-    }
+  public CrudServiceImpl(CrudRepository<T, ID> crudRepository) {
+    this.crudRepository = crudRepository;
+  }
 
-    @Override
-    public long count() {
-        return crudRepository.count();
-    }
+  @Override
+  public long count() {
+    return crudRepository.count();
+  }
 
-    @Deprecated
-    @Override
-    public void delete(ID id) {
-        crudRepository.deleteById(id);
-    }
+  @Deprecated
+  @Override
+  public void delete(ID id) {
+    crudRepository.deleteById(id);
+  }
 
-    @Override
-    public void delete(T entity) {
-        crudRepository.delete(entity);
-    }
+  @Override
+  public void delete(T entity) {
+    crudRepository.delete(entity);
+  }
 
-    @Deprecated
-    @Override
-    public void delete(Iterable<? extends T> entities) {
-        crudRepository.deleteAll(entities);
-    }
+  @Deprecated
+  @Override
+  public void delete(Iterable<? extends T> entities) {
+    crudRepository.deleteAll(entities);
+  }
 
-    @Override
-    public void deleteAll() {
-        crudRepository.deleteAll();
-    }
+  @Override
+  public void deleteAll() {
+    crudRepository.deleteAll();
+  }
 
-	@Override
-	public void deleteAll(Iterable<? extends T> entities) {
-		crudRepository.deleteAll(entities);
-	}
+  @Override
+  public void deleteAll(Iterable<? extends T> entities) {
+    crudRepository.deleteAll(entities);
+  }
 
-	@Override
-	public void deleteById(ID id) {
-		crudRepository.deleteById(id);
-	}
+  @Override
+  public void deleteById(ID id) {
+    crudRepository.deleteById(id);
+  }
 
-    @Override
-    public boolean exists(ID id) {
-        return crudRepository.existsById(id);
-    }
+  @Override
+  public boolean exists(ID id) {
+    return crudRepository.existsById(id);
+  }
 
-	@Deprecated
-	@Override
-	public boolean existsById(ID id) {
-		return crudRepository.existsById(id);
-	}
+  @Deprecated
+  @Override
+  public boolean existsById(ID id) {
+    return crudRepository.existsById(id);
+  }
 
-    @Override
-    public Iterable<T> findAll() {
-        return crudRepository.findAll();
-    }
+  @Override
+  public Iterable<T> findAll() {
+    return crudRepository.findAll();
+  }
 
-    @Deprecated
-    @Override
-    public Iterable<T> findAll(Iterable<ID> ids) {
-        return crudRepository.findAllById(ids);
-    }
+  @Deprecated
+  @Override
+  public Iterable<T> findAll(Iterable<ID> ids) {
+    return crudRepository.findAllById(ids);
+  }
 
-	@Override
-	public Iterable<T> findAllById(Iterable<ID> ids) {
-		return crudRepository.findAllById(ids);
-	}
+  @Override
+  public Iterable<T> findAllById(Iterable<ID> ids) {
+    return crudRepository.findAllById(ids);
+  }
 
-	@Deprecated
-	@Override
-	public Optional<T> findOne(ID id) {
-		return crudRepository.findById(id);
-	}
+  @Deprecated
+  @Override
+  public Optional<T> findOne(ID id) {
+    return crudRepository.findById(id);
+  }
 
-    @Override
-    public Optional<T> findById(ID id) {
-        return crudRepository.findById(id);
-    }
+  @Override
+  public Optional<T> findById(ID id) {
+    return crudRepository.findById(id);
+  }
 
-    @Override
-    public <S extends T> S save(S entity) {
-        return crudRepository.save(entity);
-    }
+  @Override
+  public <S extends T> S save(S entity) {
+    return crudRepository.save(entity);
+  }
 
-	@Deprecated
-    @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return crudRepository.saveAll(entities);
-    }
+  @Deprecated
+  @Override
+  public <S extends T> Iterable<S> save(Iterable<S> entities) {
+    return crudRepository.saveAll(entities);
+  }
 
-	@Override
-	public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
-		return crudRepository.saveAll(entities);
-	}
+  @Override
+  public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
+    return crudRepository.saveAll(entities);
+  }
 }

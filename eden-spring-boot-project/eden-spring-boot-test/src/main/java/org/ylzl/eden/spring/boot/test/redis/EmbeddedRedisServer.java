@@ -17,10 +17,11 @@
 
 package org.ylzl.eden.spring.boot.test.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.rules.ExternalResource;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import redis.embedded.RedisServer;
+
+import java.io.IOException;
 
 /**
  * 嵌入式的 Redis
@@ -28,55 +29,63 @@ import redis.embedded.RedisServer;
  * @author gyl
  * @since 1.0.0
  */
-@Slf4j
 public class EmbeddedRedisServer extends ExternalResource {
 
-	private static final String MSG_STARTING = "Starting embedded redis server";
+  private static final int DEFAULT_PORT = 6379;
 
-	private static final String MSG_STOPPING = "Stopping embedded redis server";
+  private int port;
 
-	private static final int DEFAULT_PORT = 6379;
+  private boolean suppressExceptions = false;
 
-	private int port;
+  private boolean closed = true;
 
-	private boolean closed = true;
+  private RedisServer redisServer;
 
-	private RedisServer redisServer;
+  public EmbeddedRedisServer() {
+    port = DEFAULT_PORT;
+  }
 
-	public EmbeddedRedisServer() {
-		port = DEFAULT_PORT;
-	}
+  public EmbeddedRedisServer(int port) {
+    this.port = port;
+  }
 
-	public EmbeddedRedisServer(int port) {
-		this.port = port;
-	}
+  public EmbeddedRedisServer(RedisProperties redisProperties) {
+    this.port = redisProperties.getPort();
+  }
 
-	public EmbeddedRedisServer(RedisProperties redisProperties) {
-		this.port = redisProperties.getPort();
-	}
+  public static EmbeddedRedisServer runningAt(Integer port) {
+    return new EmbeddedRedisServer(port != null ? port : DEFAULT_PORT);
+  }
 
-	public static EmbeddedRedisServer runningAt(Integer port) {
-		return new EmbeddedRedisServer(port != null ? port : DEFAULT_PORT);
-	}
+  @Override
+  public void before() throws IOException {
+    try {
+      this.redisServer = new RedisServer(port);
+      this.redisServer.start();
+      closed = false;
+    } catch (Exception e) {
+      if (!suppressExceptions) {
+        throw e;
+      }
+    }
+  }
 
-	@Override
-	public void before() {
-		log.debug(MSG_STARTING);
-		this.redisServer = new RedisServer(port);
-		this.redisServer.start();
-		closed = false;
-	}
+  @Override
+  public void after() {
+    if (!isOpen()) {
+      return;
+    }
+    try {
+      this.redisServer.stop();
+      closed = true;
+    } catch (Exception e) {
+      if (!suppressExceptions) {
+        throw e;
+      }
+    }
+  }
 
-	@Override
-	public void after() {
-		log.debug(MSG_STOPPING);
-		if (!isOpen()) {
-			this.redisServer.stop();
-		}
-		closed = true;
-	}
-
-	public boolean isOpen() {
-		return !closed;
-	}
+  public boolean isOpen() {
+    return !closed;
+  }
 }

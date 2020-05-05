@@ -28,7 +28,7 @@ import java.util.List;
  */
 public interface ExcelReader<T> {
 
-    void read(InputStream inputStream, int batchSize, int... sheetIndexs);
+  void read(InputStream inputStream, int batchSize, int... sheetIndexs);
 
-    void readCallback(List<T> datas);
+  void readCallback(List<T> datas);
 }

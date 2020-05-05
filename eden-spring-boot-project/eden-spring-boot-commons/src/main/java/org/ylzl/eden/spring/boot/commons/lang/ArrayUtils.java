@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.commons.lang;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 数组工具集
@@ -27,5 +26,4 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.0
  */
 @UtilityClass
-public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
-}
+public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {}

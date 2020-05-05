@@ -190,5 +190,5 @@ image:src/docs/staruml/html-docs/diagrams/d5507f74c7649420f3e80c315002ce65.svg[w
 
 == 许可声明
 
-Eden* Spring Boot 为本人在工作之余开发而成，主要用于学习交流，完全开源免费，遵循
+Eden* Spring Boot 为本人在工作之余开发而成，遵循
 https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]

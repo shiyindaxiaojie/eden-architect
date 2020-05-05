@@ -17,10 +17,6 @@
 
 package org.ylzl.eden.spring.boot.support;
 
-import java.net.InetAddress;
-import java.util.Arrays;
-import java.util.Collection;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;
@@ -28,6 +24,11 @@ import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.commons.lang.math.NumberUtils;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 import org.ylzl.eden.spring.boot.framework.core.util.SpringProfileUtils;
+
+import javax.annotation.PostConstruct;
+import java.net.InetAddress;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Spring Boot 应用启动入口适配器
@@ -38,68 +39,79 @@ import org.ylzl.eden.spring.boot.framework.core.util.SpringProfileUtils;
 @Slf4j
 public abstract class SpringBootApplicationAdapter {
 
-	public static final String WARN_RUNNING_IN_DEV_AND_PROD = "You have misconfigured your application! " +
-		"It should not run with both the 'dev' and 'prod' profiles at the same time.";
+  public static final String WARN_RUNNING_IN_DEV_AND_PROD =
+      "You have misconfigured your application! "
+          + "It should not run with both the 'dev' and 'prod' profiles at the same time.";
 
-	public static final String WARN_RUNNING_IN_DEV_AND_CLOUD = "You have misconfigured your application! " +
-		"It should not run with both the 'dev' and 'cloud' profiles at the same time.";
+  public static final String WARN_RUNNING_IN_DEV_AND_CLOUD =
+      "You have misconfigured your application! "
+          + "It should not run with both the 'dev' and 'cloud' profiles at the same time.";
 
-	private final Environment env;
+  private final Environment env;
 
-	public SpringBootApplicationAdapter(Environment env) {
-		this.env = env;
-	}
+  public SpringBootApplicationAdapter(Environment env) {
+    this.env = env;
+  }
 
-	/**
-	 * 初始化
-	 */
-	@PostConstruct
-	public void init() {
-		Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-		if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-			if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
-				log.warn(WARN_RUNNING_IN_DEV_AND_PROD);
-			} else if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
-				log.warn(WARN_RUNNING_IN_DEV_AND_CLOUD);
-			}
-		}
-	}
+  /** 初始化 */
+  @PostConstruct
+  public void init() {
+    Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+    if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+      if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+        log.warn(WARN_RUNNING_IN_DEV_AND_PROD);
+      } else if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+        log.warn(WARN_RUNNING_IN_DEV_AND_CLOUD);
+      }
+    }
+  }
 
-	protected static Environment run(SpringApplication app, String[] args) {
-		SpringProfileUtils.addDefaultProfile(app);
-		return app.run(args).getEnvironment();
-	}
+  protected static Environment run(SpringApplication app, String[] args) {
+    SpringProfileUtils.addDefaultProfile(app);
+    return app.run(args).getEnvironment();
+  }
 
-	protected static void logApplicationServerAfterRunning(Environment env) {
-		String applicationName = StringUtils.trimToEmpty(env.getProperty("spring.application.name"));
-		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
-		int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
-		String protocol = env.containsProperty("server.ssl.key-store")? "https" : "http";
-		String localhostAddress = "localhost";
-		String hostAddress;
-		try {
-			hostAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (Exception e) {
-			hostAddress = localhostAddress;
-			log.warn("The host name could not be determined, using `localhost` as fallback");
-		}
+  protected static void logApplicationServerAfterRunning(Environment env) {
+    String applicationName = StringUtils.trimToEmpty(env.getProperty("spring.application.name"));
+    String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
+    int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
+    String protocol = env.containsProperty("server.ssl.key-store") ? "https" : "http";
+    String localhostAddress = "localhost";
+    String hostAddress;
+    try {
+      hostAddress = InetAddress.getLocalHost().getHostAddress();
+    } catch (Exception e) {
+      hostAddress = localhostAddress;
+      log.warn("The host name could not be determined, using `localhost` as fallback");
+    }
 
-		log.info("\n----------------------------------------------------------\n\t" +
-				"Application '{}' is running! \n\t" +
-				"Profile(s): \t{}\n\t" +
-				"Local Access URL: \t{}://{}:{}{}\n\t" +
-				"External Access URL: \t{}://{}:{}{}" +
-				"\n----------------------------------------------------------",
-			applicationName, env.getActiveProfiles(),
-			protocol, localhostAddress, serverPort, contextPath,
-			protocol, hostAddress, serverPort, contextPath);
-	}
+    log.info(
+        "\n----------------------------------------------------------\n\t"
+            + "Application '{}' is running! \n\t"
+            + "Profile(s): \t{}\n\t"
+            + "Local Access URL: \t{}://{}:{}{}\n\t"
+            + "External Access URL: \t{}://{}:{}{}"
+            + "\n----------------------------------------------------------",
+        applicationName,
+        env.getActiveProfiles(),
+        protocol,
+        localhostAddress,
+        serverPort,
+        contextPath,
+        protocol,
+        hostAddress,
+        serverPort,
+        contextPath);
+  }
 
-	protected static void logConfigServerAfterRunning(Environment env) {
-		String configServerStatus = env.getProperty("configserver.status");
-		log.info("\n----------------------------------------------------------\n\t" +
-				"Config Server: \t{}\n" +
-				"----------------------------------------------------------",
-			configServerStatus == null ? "Not found or not setup for this application" : configServerStatus);
-	}
+  protected static void logConfigServerAfterRunning(Environment env) {
+    String configServerStatus = env.getProperty("configserver.status");
+    log.info(
+        "\n----------------------------------------------------------\n\t"
+            + "Config Server: \t{}\n"
+            + "----------------------------------------------------------",
+        configServerStatus == null
+            ? "Not found or not setup for this application"
+            : configServerStatus);
+  }
 }

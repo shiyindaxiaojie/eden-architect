@@ -31,23 +31,23 @@ import java.sql.SQLException;
  */
 public class FlywaySQLiteDataSource extends SQLiteDataSource {
 
-    private Connection connection;
+  private Connection connection;
 
-    private final DataSource dataSource;
+  private final DataSource dataSource;
 
-    public FlywaySQLiteDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+  public FlywaySQLiteDataSource(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @Override
+  public Connection getConnection() throws SQLException {
+    return getConnectionWithKeepAlive();
+  }
+
+  private Connection getConnectionWithKeepAlive() throws SQLException {
+    if (connection != null && !connection.isClosed()) {
+      connection = dataSource.getConnection();
     }
-
-    @Override
-    public Connection getConnection() throws SQLException {
-       return getConnectionWithKeepAlive();
-    }
-
-    private Connection getConnectionWithKeepAlive() throws SQLException {
-        if (connection != null && !connection.isClosed()) {
-            connection = dataSource.getConnection();
-        }
-        return connection;
-    }
+    return connection;
+  }
 }

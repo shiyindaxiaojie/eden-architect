@@ -33,11 +33,11 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".memcached")
 public class MemcachedProperties {
 
-    private boolean enabled = MemcachedDefaults.enabled;
+  private boolean enabled = MemcachedDefaults.enabled;
 
-    private int expiration = MemcachedDefaults.expiration;
+  private int expiration = MemcachedDefaults.expiration;
 
-    private String servers = MemcachedDefaults.servers;
+  private String servers = MemcachedDefaults.servers;
 
-    private boolean useBinaryProtocol = MemcachedDefaults.useBinaryProtocol;
+  private boolean useBinaryProtocol = MemcachedDefaults.useBinaryProtocol;
 }

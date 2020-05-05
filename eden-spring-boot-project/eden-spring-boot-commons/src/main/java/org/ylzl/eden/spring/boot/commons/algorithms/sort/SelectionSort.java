@@ -28,26 +28,26 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  */
 public class SelectionSort extends AbstractSort implements Sort {
 
-	/**
-	 * 排序数组
-	 *
-	 * @param unsorted - 未排序的数组
-	 * @return 排序后的数组
-	 */
-	@Override
-	public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
-		int n = unsorted.length;
-		for (int i = 0; i < n - 1; i++) {
-			int min = i;
-			for (int j = i + 1; j < n; j++) {
-				if (SortUtils.less(unsorted[j], unsorted[min])) {
-					min = j;
-				}
-			}
-			if (min != i) {
-				SortUtils.swap(unsorted, i, min);
-			}
-		}
-		return unsorted;
-	}
+  /**
+   * 排序数组
+   *
+   * @param unsorted - 未排序的数组
+   * @return 排序后的数组
+   */
+  @Override
+  public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
+    int n = unsorted.length;
+    for (int i = 0; i < n - 1; i++) {
+      int min = i;
+      for (int j = i + 1; j < n; j++) {
+        if (SortUtils.less(unsorted[j], unsorted[min])) {
+          min = j;
+        }
+      }
+      if (min != i) {
+        SortUtils.swap(unsorted, i, min);
+      }
+    }
+    return unsorted;
+  }
 }

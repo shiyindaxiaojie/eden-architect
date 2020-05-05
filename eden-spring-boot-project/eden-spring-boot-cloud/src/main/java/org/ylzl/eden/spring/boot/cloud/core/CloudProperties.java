@@ -29,6 +29,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = CloudConstants.PROP_PREFIX)
-public class CloudProperties {
-
-}
+public class CloudProperties {}

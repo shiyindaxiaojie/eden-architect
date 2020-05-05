@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.lang;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * Class 常量定义
@@ -28,5 +27,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ClassConstants {
 
-    public static final String CLASS_DIR = "classpath:";
+  public static final String CLASS_DIR = "classpath:";
 }

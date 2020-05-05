@@ -29,57 +29,43 @@ import org.ylzl.eden.spring.boot.commons.env.CharsetConstants;
 @UtilityClass
 public final class FrameworkConstants {
 
-    /**
-     * 默认编码
-     */
-    public static final String DEFAULT_ENCODING = CharsetConstants.UTF_8_NAME;
+  /** 默认编码 */
+  public static final String DEFAULT_ENCODING = CharsetConstants.UTF_8_NAME;
 
-    /**
-     * 默认语言
-     */
-    public static final String DEFAULT_LANGUAGE = "zh-cn";
+  /** 默认语言 */
+  public static final String DEFAULT_LANGUAGE = "zh-cn";
 
-	/**
-	 * 默认字体
-	 */
-	public static final String DEFAULT_FONT_NAME = "simsun";
+  /** 默认字体 */
+  public static final String DEFAULT_FONT_NAME = "simsun";
 
-    /**
-     * 系统用户
-     */
-    public static final String SYSTEM = "system";
+  /** 系统用户 */
+  public static final String SYSTEM = "system";
 
-    /**
-     * 匿名用户
-     */
-    public static final String ANONYMOUS_USER = "anonymoususer";
+  /** 匿名用户 */
+  public static final String ANONYMOUS_USER = "anonymoususer";
 
-    /**
-     * Spring Boot 读取应用程序名称
-     *
-     * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
-     */
-    public static final String NAME_PATTERN = "${spring.application.name:${vcap.application.name:${spring.config.name:application}}}";
+  /**
+   * Spring Boot 读取应用程序名称
+   *
+   * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
+   */
+  public static final String NAME_PATTERN =
+      "${spring.application.name:${vcap.application.name:${spring.config.name:application}}}";
 
-    /**
-     * Spring Boot 读取应用程序索引
-     *
-     * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
-     */
-    public static final String INDEX_PATTERN = "${vcap.application.instance_index:${spring.application.index:${server.port:${PORT:null}}}}";
+  /**
+   * Spring Boot 读取应用程序索引
+   *
+   * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
+   */
+  public static final String INDEX_PATTERN =
+      "${vcap.application.instance_index:${spring.application.index:${server.port:${PORT:null}}}}";
 
-    /**
-     * Spring 属性前缀
-     */
-    public static final String PROP_SPRING_PREFIX = "spring";
+  /** Spring 属性前缀 */
+  public static final String PROP_SPRING_PREFIX = "spring";
 
-	/**
-	 * Eden 属性前缀
-	 */
-	public static final String PROP_EDEN_PREFIX = "eden";
+  /** Eden 属性前缀 */
+  public static final String PROP_EDEN_PREFIX = "eden";
 
-    /**
-     * 当前属性前缀
-     */
-    public static final String PROP_PREFIX = PROP_EDEN_PREFIX + ".framework";
+  /** 当前属性前缀 */
+  public static final String PROP_PREFIX = PROP_EDEN_PREFIX + ".framework";
 }

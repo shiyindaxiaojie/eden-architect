@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.integration.memcached;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * Memcached 配置属性默认值
@@ -29,11 +28,11 @@ import lombok.NoArgsConstructor;
 @UtilityClass
 public final class MemcachedDefaults {
 
-    public static final boolean enabled = false;
+  public static final boolean enabled = false;
 
-    public static final String servers = "localhost:11211";
+  public static final String servers = "localhost:11211";
 
-    public static final int expiration = 300;
+  public static final int expiration = 300;
 
-    public static final boolean useBinaryProtocol = true;
+  public static final boolean useBinaryProtocol = true;
 }

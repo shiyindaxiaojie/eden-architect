@@ -18,14 +18,11 @@ package org.ylzl.eden.spring.boot.data.jpa.id;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
-import org.hibernate.dialect.Dialect;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.Configurable;
 import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
-import org.springframework.data.elasticsearch.core.EntityMapper;
 import org.ylzl.eden.spring.boot.commons.id.SnowflakeGenerator;
 
 import java.io.Serializable;
@@ -34,10 +31,13 @@ import java.util.Properties;
 /**
  * JPA 自定义生成器
  *
- * <p>变更日志：Hibernate 从 4.X 升级到 5.X</p>
+ * <p>变更日志：Hibernate 从 4.X 升级到 5.X
+ *
  * <ul>
- *     <li>Configurable 的 {@code configure(Type type, Properties params, Dialect dialect)} 变更为 {@code configure(Type type, Properties properties, ServiceRegistry serviceRegistry)}</li>
- *     <li>IdentifierGenerator 的 {@code generate(SessionImplementor session, Object object)} 变更为 {@code generate(SharedSessionContractImplementor session, Object object)}</li>
+ *   <li>Configurable 的 {@code configure(Type type, Properties params, Dialect dialect)} 变更为 {@code
+ *       configure(Type type, Properties properties, ServiceRegistry serviceRegistry)}
+ *   <li>IdentifierGenerator 的 {@code generate(SessionImplementor session, Object object)} 变更为
+ *       {@code generate(SharedSessionContractImplementor session, Object object)}
  * </ul>
  *
  * @author gyl
@@ -45,23 +45,24 @@ import java.util.Properties;
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {
 
-    public static final String NAME = "JPA_ID";
+  public static final String NAME = "JPA_ID";
 
-    public static final String STRATEGY = "org.ylzl.eden.spring.boot.data.jpa.id.JpaIdentifierGenerator";
+  public static final String STRATEGY =
+      "org.ylzl.eden.spring.boot.data.jpa.id.JpaIdentifierGenerator";
 
-    private SnowflakeGenerator snowflakeGenerator;
+  private SnowflakeGenerator snowflakeGenerator;
 
-    public JpaIdentifierGenerator() {
-        snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).datacenterId(0L).build();
-    }
+  public JpaIdentifierGenerator() {
+    snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).datacenterId(0L).build();
+  }
 
-	@Override
-	public void configure(Type type, Properties properties, ServiceRegistry serviceRegistry) throws MappingException {
+  @Override
+  public void configure(Type type, Properties properties, ServiceRegistry serviceRegistry)
+      throws MappingException {}
 
-	}
-
-	@Override
-	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-		return snowflakeGenerator.nextId();
-	}
+  @Override
+  public Serializable generate(SharedSessionContractImplementor session, Object object)
+      throws HibernateException {
+    return snowflakeGenerator.nextId();
+  }
 }

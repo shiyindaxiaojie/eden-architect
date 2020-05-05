@@ -52,118 +52,129 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.store.ClientCredentialsTo
  */
 @AutoConfigureAfter(RestAutoConfiguration.class)
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration.class)
-@ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
+@ConditionalOnExpression(
+    OAuth2AuthorizationClientAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @Slf4j
 @Configuration
 public class OAuth2AuthorizationClientAutoConfiguration {
 
-	public static final String EXPS_OAUTH2_AUTHORIZATION_CLIENT = "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
+  public static final String EXPS_OAUTH2_AUTHORIZATION_CLIENT =
+      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
-	private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT = "Inject OAuth2AccessTokenClient";
+  private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
+      "Inject OAuth2AccessTokenClient";
 
-	private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "Inject TokenGrantClient";
+  private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "Inject TokenGrantClient";
 
-	private static final String MSG_INJECT_TOKEN_EXTRACTOR = "Inject TokenExtractor (OAuth2CookieTokenExtractor)";
+  private static final String MSG_INJECT_TOKEN_EXTRACTOR =
+      "Inject TokenExtractor (OAuth2CookieTokenExtractor)";
 
-	private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "Inject OAuth2CookieHelper";
+  private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "Inject OAuth2CookieHelper";
 
-	private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "Inject OAuth2TokenEndpoint";
+  private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "Inject OAuth2TokenEndpoint";
 
-	private static final String MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER = "Inject ClientCredentialsTokenHolder";
+  private static final String MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER =
+      "Inject ClientCredentialsTokenHolder";
+
+  private final OAuth2Properties oAuth2Properties;
+
+  public OAuth2AuthorizationClientAutoConfiguration(OAuth2Properties oAuth2Properties) {
+    this.oAuth2Properties = oAuth2Properties;
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
+    log.debug(MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT);
+    return new OAuth2AccessTokenClientAdapter(restTemplate, oAuth2Properties);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public TokenGrantClient tokenGrantClient(OAuth2AccessTokenClient oAuth2AccessTokenClient) {
+    log.debug(MSG_INJECT_TOKEN_GRANT_CLIENT);
+    return new TokenGrantClientAdapter(oAuth2AccessTokenClient, oAuth2Properties);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public TokenExtractor tokenExtractor() {
+    log.debug(MSG_INJECT_TOKEN_EXTRACTOR);
+    return new OAuth2CookieTokenExtractor();
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public OAuth2CookieHelper oAuth2CookieHelper(TokenProcessor tokenProcessor) {
+    log.debug(MSG_INJECT_OAUTH2_COOKIE_HELPER);
+    return new OAuth2CookieHelper(tokenProcessor, oAuth2Properties);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public OAuth2TokenEndpoint oAuth2TokenEndpoint(
+      TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
+    log.debug(MSG_INJECT_OAUTH2_TOKEN_ENDPOINT);
+    return new OAuth2TokenEndpoint(tokenGrantClient, oAuth2CookieHelper);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public ClientCredentialsTokenHolder clientCredentialsTokenHolder(
+      TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
+    log.debug(MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER);
+    return new ClientCredentialsTokenHolder(tokenProcessor, tokenGrantClient);
+  }
+
+  @ConditionalOnClass(Jwt.class)
+  @Configuration
+  public static class OAuth2AuthorizationClientJwtConfiguration {
+
+    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Inject SignatureVerifierClient";
+
+    private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
+        "Inject JwtAccessTokenConverter (OAuth2AuthorizationClient)";
+
+    private static final String MSG_INJECT_TOKEN_STORE =
+        "Inject TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
+
+    private static final String MSG_INJECT_TOKEN_PROCESSOR =
+        "Inject TokenProcessor (JwtTokenProcessor)";
 
     private final OAuth2Properties oAuth2Properties;
 
-    public OAuth2AuthorizationClientAutoConfiguration(OAuth2Properties oAuth2Properties) {
-        this.oAuth2Properties = oAuth2Properties;
+    public OAuth2AuthorizationClientJwtConfiguration(OAuth2Properties oAuth2Properties) {
+      this.oAuth2Properties = oAuth2Properties;
     }
 
     @ConditionalOnMissingBean
     @Bean
-    public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
-		log.debug(MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT);
-    	return new OAuth2AccessTokenClientAdapter(restTemplate, oAuth2Properties);
+    public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
+      log.debug(MSG_INJECT_SIGN_VERIFY_CLIENT);
+      return new SignatureVerifierClientAdapter(restTemplate, oAuth2Properties);
     }
 
     @ConditionalOnMissingBean
     @Bean
-    public TokenGrantClient tokenGrantClient(OAuth2AccessTokenClient oAuth2AccessTokenClient) {
-		log.debug(MSG_INJECT_TOKEN_GRANT_CLIENT);
-    	return new TokenGrantClientAdapter(oAuth2AccessTokenClient, oAuth2Properties);
+    public JwtAccessTokenConverter jwtAccessTokenConverter(
+        SignatureVerifierClient signatureVerifierClient) {
+      log.debug(MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR);
+      return new RemotedJwtAccessTokenConverter(signatureVerifierClient, oAuth2Properties);
     }
 
     @ConditionalOnMissingBean
     @Bean
-    public TokenExtractor tokenExtractor() {
-		log.debug(MSG_INJECT_TOKEN_EXTRACTOR);
-    	return new OAuth2CookieTokenExtractor();
+    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+      log.debug(MSG_INJECT_TOKEN_STORE);
+      return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     @ConditionalOnMissingBean
     @Bean
-    public OAuth2CookieHelper oAuth2CookieHelper(TokenProcessor tokenProcessor) {
-		log.debug(MSG_INJECT_OAUTH2_COOKIE_HELPER);
-    	return new OAuth2CookieHelper(tokenProcessor, oAuth2Properties);
+    public TokenProcessor tokenProcessor() {
+      log.debug(MSG_INJECT_TOKEN_PROCESSOR);
+      return new JwtTokenProcessor();
     }
-
-    @ConditionalOnMissingBean
-    @Bean
-    public OAuth2TokenEndpoint oAuth2TokenEndpoint(TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
-		log.debug(MSG_INJECT_OAUTH2_TOKEN_ENDPOINT);
-    	return new OAuth2TokenEndpoint(tokenGrantClient, oAuth2CookieHelper);
-    }
-
-	@ConditionalOnMissingBean
-	@Bean
-    public ClientCredentialsTokenHolder clientCredentialsTokenHolder(TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
-    	log.debug(MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER);
-    	return new ClientCredentialsTokenHolder(tokenProcessor, tokenGrantClient);
-	}
-
-	@ConditionalOnClass(Jwt.class)
-    @Configuration
-    public static class OAuth2AuthorizationClientJwtConfiguration {
-
-		private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Inject SignatureVerifierClient";
-
-		private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR = "Inject JwtAccessTokenConverter (OAuth2AuthorizationClient)";
-
-		private static final String MSG_INJECT_TOKEN_STORE = "Inject TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
-
-		private static final String MSG_INJECT_TOKEN_PROCESSOR = "Inject TokenProcessor (JwtTokenProcessor)";
-
-        private final OAuth2Properties oAuth2Properties;
-
-        public OAuth2AuthorizationClientJwtConfiguration(OAuth2Properties oAuth2Properties) {
-            this.oAuth2Properties = oAuth2Properties;
-        }
-
-        @ConditionalOnMissingBean
-        @Bean
-        public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
-            log.debug(MSG_INJECT_SIGN_VERIFY_CLIENT);
-        	return new SignatureVerifierClientAdapter(restTemplate, oAuth2Properties);
-        }
-
-        @ConditionalOnMissingBean
-        @Bean
-        public JwtAccessTokenConverter jwtAccessTokenConverter(SignatureVerifierClient signatureVerifierClient) {
-			log.debug(MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR);
-            return new RemotedJwtAccessTokenConverter(signatureVerifierClient, oAuth2Properties);
-        }
-
-		@ConditionalOnMissingBean
-        @Bean
-        public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-			log.debug(MSG_INJECT_TOKEN_STORE);
-        	return new JwtTokenStore(jwtAccessTokenConverter);
-        }
-
-        @ConditionalOnMissingBean
-        @Bean
-        public TokenProcessor tokenProcessor() {
-			log.debug(MSG_INJECT_TOKEN_PROCESSOR);
-        	return new JwtTokenProcessor();
-        }
-    }
+  }
 }

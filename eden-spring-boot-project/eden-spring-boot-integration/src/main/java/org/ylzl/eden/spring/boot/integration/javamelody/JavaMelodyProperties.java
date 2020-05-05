@@ -35,11 +35,11 @@ import java.util.Map;
 @ConfigurationProperties(prefix = JavaMelodyConstants.PROP_PREFIX, ignoreUnknownFields = false)
 public class JavaMelodyProperties {
 
-    private boolean enabled = true;
+  private boolean enabled = true;
 
-    private String excludedDatasources;
+  private String excludedDatasources;
 
-    private boolean managementEndpointMonitoringEnabled;
+  private boolean managementEndpointMonitoringEnabled;
 
-    private Map<String, String> initParameters = new HashMap<>();
+  private Map<String, String> initParameters = new HashMap<>();
 }

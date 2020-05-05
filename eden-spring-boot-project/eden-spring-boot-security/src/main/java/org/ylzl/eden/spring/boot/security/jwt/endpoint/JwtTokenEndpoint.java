@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ylzl.eden.spring.boot.security.core.login.Login;
 import org.ylzl.eden.spring.boot.security.core.enums.AuthenticationTypeEnum;
+import org.ylzl.eden.spring.boot.security.core.login.Login;
 import org.ylzl.eden.spring.boot.security.jwt.JwtConstants;
 import org.ylzl.eden.spring.boot.security.jwt.JwtProperties;
 import org.ylzl.eden.spring.boot.security.jwt.token.JwtToken;
@@ -44,29 +44,32 @@ import javax.validation.Valid;
 @RestController
 public class JwtTokenEndpoint {
 
-	private static final String MSG_AUTHENTICATE_USER = "JWT authenticate user: {}";
+  private static final String MSG_AUTHENTICATE_USER = "JWT authenticate user: {}";
 
-    private final JwtTokenService jwtTokenService;
+  private final JwtTokenService jwtTokenService;
 
-    private final JwtProperties jwtProperties;
+  private final JwtProperties jwtProperties;
 
-    public JwtTokenEndpoint(JwtTokenService jwtTokenService, JwtProperties jwtProperties) {
-        this.jwtTokenService = jwtTokenService;
-        this.jwtProperties = jwtProperties;
-    }
+  public JwtTokenEndpoint(JwtTokenService jwtTokenService, JwtProperties jwtProperties) {
+    this.jwtTokenService = jwtTokenService;
+    this.jwtProperties = jwtProperties;
+  }
 
-    /**
-     * 认证
-     *
-     * @param login 登录数据传输对象
-     * @param response 响应对象
-     * @return JWT 访问令牌
-     */
-    @PostMapping(value = JwtConstants.ENDPOINT_TOKEN)
-    public ResponseEntity<JwtToken> authenticate(@Valid @RequestBody Login login, HttpServletResponse response) {
-        log.info(MSG_AUTHENTICATE_USER, login.getUsername());
-        JwtToken jwtToken = jwtTokenService.authenticate(login);
-        response.addHeader(jwtProperties.getAuthorization().getHeader(), AuthenticationTypeEnum.BEARER_TOKEN.getAuthorization(jwtToken.getValue()));
-        return ResponseEntity.ok(jwtToken);
-    }
+  /**
+   * 认证
+   *
+   * @param login 登录数据传输对象
+   * @param response 响应对象
+   * @return JWT 访问令牌
+   */
+  @PostMapping(value = JwtConstants.ENDPOINT_TOKEN)
+  public ResponseEntity<JwtToken> authenticate(
+      @Valid @RequestBody Login login, HttpServletResponse response) {
+    log.info(MSG_AUTHENTICATE_USER, login.getUsername());
+    JwtToken jwtToken = jwtTokenService.authenticate(login);
+    response.addHeader(
+        jwtProperties.getAuthorization().getHeader(),
+        AuthenticationTypeEnum.BEARER_TOKEN.getAuthorization(jwtToken.getValue()));
+    return ResponseEntity.ok(jwtToken);
+  }
 }

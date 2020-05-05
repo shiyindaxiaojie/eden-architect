@@ -16,9 +16,8 @@
  */
 package org.ylzl.eden.spring.boot.commons.regex;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,28 +33,30 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class RegexUtils {
 
-    public static boolean isMatch(@NonNull String regex, @NonNull CharSequence input) {
-        return Pattern.matches(regex, input);
-    }
+  public static boolean isMatch(@NonNull String regex, @NonNull CharSequence input) {
+    return Pattern.matches(regex, input);
+  }
 
-    public static boolean find(@NonNull String regex, @NonNull CharSequence input) {
-        return Pattern.compile(regex, Pattern.MULTILINE).matcher(input).find();
-    }
+  public static boolean find(@NonNull String regex, @NonNull CharSequence input) {
+    return Pattern.compile(regex, Pattern.MULTILINE).matcher(input).find();
+  }
 
-    public static List<String> addWithGroup(@NonNull String regex, @NonNull CharSequence input) {
-        List<String> matches = new ArrayList<>();
-        Matcher matcher = Pattern.compile(regex).matcher(input);
-        while (matcher.find()) {
-            matches.add(matcher.group());
-        }
-        return matches;
+  public static List<String> addWithGroup(@NonNull String regex, @NonNull CharSequence input) {
+    List<String> matches = new ArrayList<>();
+    Matcher matcher = Pattern.compile(regex).matcher(input);
+    while (matcher.find()) {
+      matches.add(matcher.group());
     }
+    return matches;
+  }
 
-    public static String replaceAll(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
-        return Pattern.compile(regex).matcher(input).replaceAll(replacement);
-    }
+  public static String replaceAll(
+      @NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
+    return Pattern.compile(regex).matcher(input).replaceAll(replacement);
+  }
 
-    public static String replaceFirst(@NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
-        return Pattern.compile(regex).matcher(input).replaceFirst(replacement);
-    }
+  public static String replaceFirst(
+      @NonNull String regex, @NonNull CharSequence input, @NonNull String replacement) {
+    return Pattern.compile(regex).matcher(input).replaceFirst(replacement);
+  }
 }

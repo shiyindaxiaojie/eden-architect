@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.ylzl.eden.spring.boot.data.core.DataConstants;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -17,19 +16,19 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix =  DataConstants.PROP_PREFIX + ".jdbc.routing-data-source")
+@ConfigurationProperties(prefix = DataConstants.PROP_PREFIX + ".jdbc.routing-data-source")
 public class RoutingDataSourceProperties {
 
-	private Boolean enabled;
+  private Boolean enabled;
 
-	private String[] nodes;
+  private String[] nodes;
 
-	private List<EnhancedDataSourceProperties> dataSources;
+  private List<EnhancedDataSourceProperties> dataSources;
 
-	@Getter
-	@Setter
-	public static class EnhancedDataSourceProperties extends DataSourceProperties {
+  @Getter
+  @Setter
+  public static class EnhancedDataSourceProperties extends DataSourceProperties {
 
-		private String enumType;
-	}
+    private String enumType;
+  }
 }

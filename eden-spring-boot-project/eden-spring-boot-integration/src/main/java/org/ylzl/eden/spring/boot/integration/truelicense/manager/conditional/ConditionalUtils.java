@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.integration.truelicense.manager.conditional;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * 动态条件工具集
@@ -28,8 +27,10 @@ import lombok.NoArgsConstructor;
 @UtilityClass
 public final class ConditionalUtils {
 
-    public static boolean validate(Conditional conditional, String value) {
-        ConditionalEnum conditionalEnum = ConditionalEnum.toConditionalEnum(conditional.getCondition());
-        return conditionalEnum.getComparator().compare(value, conditional.getValue(), conditional.getValueType());
-    }
+  public static boolean validate(Conditional conditional, String value) {
+    ConditionalEnum conditionalEnum = ConditionalEnum.toConditionalEnum(conditional.getCondition());
+    return conditionalEnum
+        .getComparator()
+        .compare(value, conditional.getValue(), conditional.getValueType());
+  }
 }

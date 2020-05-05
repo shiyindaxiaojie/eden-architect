@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>eden-mybatis-spring-boot-starter</artifactId>
-    <packaging>jar</packaging>
-    <name>eden-mybatis-spring-boot-starter</name>
-    <description>Eden* Mybatis Spring Boot Starter</description>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>eden-mybatis-spring-boot-starter</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-mybatis-spring-boot-starter</name>
+	<description>Eden* Mybatis Spring Boot Starter</description>
 
-    <parent>
-        <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot-starters</artifactId>
-        <version>2.0.0.RELEASE</version>
-        <relativePath>../</relativePath>
-    </parent>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-spring-boot-starters</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath>../</relativePath>
+	</parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>tomcat-jdbc</artifactId>
-                    <groupId>org.apache.tomcat</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.ylzl</groupId>
-            <artifactId>eden-spring-boot-data</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>persistence-api</artifactId>
-                    <groupId>javax.persistence</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>tomcat-jdbc</artifactId>
+					<groupId>org.apache.tomcat</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>persistence-api</artifactId>
+					<groupId>javax.persistence</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
 </project>

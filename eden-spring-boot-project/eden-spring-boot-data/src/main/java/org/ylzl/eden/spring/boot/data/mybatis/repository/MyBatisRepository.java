@@ -29,6 +29,4 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @NoRepositoryBean
-public interface MyBatisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
-
-}
+public interface MyBatisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {}

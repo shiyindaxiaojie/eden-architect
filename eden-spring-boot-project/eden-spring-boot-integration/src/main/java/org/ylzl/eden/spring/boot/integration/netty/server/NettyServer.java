@@ -28,9 +28,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
  */
 public class NettyServer {
 
-	private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
+  private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
 
-	private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
-
-
+  private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
 }

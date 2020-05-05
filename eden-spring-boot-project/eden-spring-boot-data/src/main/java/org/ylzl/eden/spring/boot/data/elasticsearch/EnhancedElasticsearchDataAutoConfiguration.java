@@ -35,7 +35,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.NodeClientFactoryBean;
 import org.springframework.data.elasticsearch.client.TransportClientFactoryBean;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.EntityMapper;
 import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
 import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMappingContext;
@@ -49,27 +48,31 @@ import org.ylzl.eden.spring.boot.data.elasticsearch.mapper.JacksonEntityMapper;
  */
 @AutoConfigureAfter(ElasticsearchAutoConfiguration.class)
 @AutoConfigureBefore(ElasticsearchDataAutoConfiguration.class)
-@ConditionalOnClass({ Client.class, TransportClientFactoryBean.class, NodeClientFactoryBean.class })
+@ConditionalOnClass({Client.class, TransportClientFactoryBean.class, NodeClientFactoryBean.class})
 @EnableConfigurationProperties(ElasticsearchProperties.class)
 @Slf4j
 @Configuration
 public class EnhancedElasticsearchDataAutoConfiguration {
 
-	public static final String MSG_INJECT_ES_TEMPLATE = "Inject ElasticsearchTemplate (Jest)";
+  public static final String MSG_INJECT_ES_TEMPLATE = "Inject ElasticsearchTemplate (Jest)";
 
-	@ConditionalOnMissingBean
-	@Bean
-	public EntityMapper entityMapper(ObjectMapper objectMapper) {
-		return new JacksonEntityMapper(objectMapper);
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public EntityMapper entityMapper(ObjectMapper objectMapper) {
+    return new JacksonEntityMapper(objectMapper);
+  }
 
-	@ConditionalOnMissingBean
-    @Bean
-    public ElasticsearchOperations elasticsearchOperations(JestClient jestClient, ElasticsearchConverter elasticsearchConverter,
-														 SimpleElasticsearchMappingContext simpleElasticsearchMappingContext,
-														 EntityMapper entityMapper) {
-		log.debug(MSG_INJECT_ES_TEMPLATE);
-        return new JestElasticsearchTemplate(jestClient, elasticsearchConverter,
-			new DefaultJestResultsMapper(simpleElasticsearchMappingContext, entityMapper));
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ElasticsearchOperations elasticsearchOperations(
+      JestClient jestClient,
+      ElasticsearchConverter elasticsearchConverter,
+      SimpleElasticsearchMappingContext simpleElasticsearchMappingContext,
+      EntityMapper entityMapper) {
+    log.debug(MSG_INJECT_ES_TEMPLATE);
+    return new JestElasticsearchTemplate(
+        jestClient,
+        elasticsearchConverter,
+        new DefaultJestResultsMapper(simpleElasticsearchMappingContext, entityMapper));
+  }
 }

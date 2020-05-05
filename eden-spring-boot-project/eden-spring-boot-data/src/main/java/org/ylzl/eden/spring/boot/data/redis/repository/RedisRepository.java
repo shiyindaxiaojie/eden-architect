@@ -29,6 +29,4 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @NoRepositoryBean
-public interface RedisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
-
-}
+public interface RedisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {}

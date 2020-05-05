@@ -26,9 +26,10 @@ import java.lang.annotation.*;
 /**
  * 已认证的 FeignClient 注解
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
- *     <li>org.springframework.cloud.netflix.feign.FeignClient 迁移到 {@link FeignClient}</li>
+ *   <li>org.springframework.cloud.netflix.feign.FeignClient 迁移到 {@link FeignClient}
  * </ul>
  *
  * @author gyl
@@ -40,19 +41,19 @@ import java.lang.annotation.*;
 @FeignClient
 public @interface AuthorizedFeignClient {
 
-    @AliasFor(annotation = FeignClient.class, attribute = "name")
-    String name() default StringConstants.EMPTY;
+  @AliasFor(annotation = FeignClient.class, attribute = "name")
+  String name() default StringConstants.EMPTY;
 
-    @AliasFor(annotation = FeignClient.class, attribute = "configuration")
-    Class<?>[] configuration() default AuthorizedFeignConfiguration.class;
+  @AliasFor(annotation = FeignClient.class, attribute = "configuration")
+  Class<?>[] configuration() default AuthorizedFeignConfiguration.class;
 
-    String url() default StringConstants.EMPTY;
+  String url() default StringConstants.EMPTY;
 
-	String qualifier() default StringConstants.EMPTY;
+  String qualifier() default StringConstants.EMPTY;
 
-	boolean decode404() default false;
+  boolean decode404() default false;
 
-    Class<?> fallback() default void.class;
+  Class<?> fallback() default void.class;
 
-    String path() default StringConstants.EMPTY;
+  String path() default StringConstants.EMPTY;
 }

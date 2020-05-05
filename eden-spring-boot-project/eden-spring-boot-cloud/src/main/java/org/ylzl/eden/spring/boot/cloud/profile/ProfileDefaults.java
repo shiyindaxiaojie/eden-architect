@@ -28,9 +28,9 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 @UtilityClass
 public final class ProfileDefaults {
 
-    public static final String[] displayOnActiveProfiles = {
-        ProfileConstants.SPRING_PROFILE_DEVELOPMENT,
-        ProfileConstants.SPRING_PROFILE_TEST,
-        ProfileConstants.SPRING_PROFILE_DEMO
-    };
+  public static final String[] displayOnActiveProfiles = {
+    ProfileConstants.SPRING_PROFILE_DEVELOPMENT,
+    ProfileConstants.SPRING_PROFILE_TEST,
+    ProfileConstants.SPRING_PROFILE_DEMO
+  };
 }

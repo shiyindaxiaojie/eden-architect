@@ -25,11 +25,11 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  */
 public class EntityNotFoundException extends BadRequestAlertException {
 
-    public EntityNotFoundException() {
-        super(ErrorConstants.ERR_ENTITY_NOT_FOUND);
-    }
+  public EntityNotFoundException() {
+    super(ErrorConstants.ERR_ENTITY_NOT_FOUND);
+  }
 
-    public EntityNotFoundException(String message) {
-        super(message);
-    }
+  public EntityNotFoundException(String message) {
+    super(message);
+  }
 }

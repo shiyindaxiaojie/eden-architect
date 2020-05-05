@@ -42,8 +42,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-//import org.springframework.data.neo4j.config.Neo4jConfiguration;
-//import org.springframework.data.neo4j.template.Neo4jOperations;
+// import org.springframework.data.neo4j.config.Neo4jConfiguration;
+// import org.springframework.data.neo4j.template.Neo4jOperations;
 
 /**
  * Neo4j 集成 JPA 自动配置
@@ -51,64 +51,69 @@ import java.util.List;
  * @author gyl
  * @since 1.0.0
  */
-@AutoConfigureBefore({DataSourceTransactionManagerAutoConfiguration.class, Neo4jDataAutoConfiguration.class})
+@AutoConfigureBefore({
+  DataSourceTransactionManagerAutoConfiguration.class,
+  Neo4jDataAutoConfiguration.class
+})
 @ConditionalOnClass({Neo4jSession.class})
 @EnableConfigurationProperties(Neo4jProperties.class)
 @Slf4j
 @Configuration
 public class FixedNeo4jAutoConfiguration {
 
-	public static final String DEFAULT_TM_BEAN_NAME = "transactionManager";
+  public static final String DEFAULT_TM_BEAN_NAME = "transactionManager";
 
-	public static final String JPA_TM_BEAN_NAME = "jpaTransactionManager";
+  public static final String JPA_TM_BEAN_NAME = "jpaTransactionManager";
 
-	public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
+  public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
 
-	public static final String MSG_INJECT_TM = "Inject default TransactionManager";
+  public static final String MSG_INJECT_TM = "Inject default TransactionManager";
 
-	public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
+  public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
 
-	public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
+  public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
 
-	@Primary
-	@Bean(name = JPA_TM_BEAN_NAME)
-	public JpaTransactionManager jpaTransactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-		log.debug(MSG_INJECT_JPA_TM);
-		return new JpaTransactionManager(entityManagerFactory.getObject());
-	}
+  @Primary
+  @Bean(name = JPA_TM_BEAN_NAME)
+  public JpaTransactionManager jpaTransactionManager(
+      LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+    log.debug(MSG_INJECT_JPA_TM);
+    return new JpaTransactionManager(entityManagerFactory.getObject());
+  }
 
-	@Bean(name = NEO4J_TM_BEAN_NAME)
-	public Neo4jTransactionManager neo4jTransactionManager(SessionFactory sessionFactory) {
-		log.debug(MSG_INJECT_NEO4J_TM);
-		return new Neo4jTransactionManager(sessionFactory);
-	}
+  @Bean(name = NEO4J_TM_BEAN_NAME)
+  public Neo4jTransactionManager neo4jTransactionManager(SessionFactory sessionFactory) {
+    log.debug(MSG_INJECT_NEO4J_TM);
+    return new Neo4jTransactionManager(sessionFactory);
+  }
 
-	@Bean(name = DEFAULT_TM_BEAN_NAME)
-	public PlatformTransactionManager platformTransactionManager(Neo4jTransactionManager neo4jTransactionManager,
-																 JpaTransactionManager jpaTransactionManager) {
-		log.debug(MSG_INJECT_TM);
-		return new ChainedTransactionManager(jpaTransactionManager, neo4jTransactionManager);
-	}
+  @Bean(name = DEFAULT_TM_BEAN_NAME)
+  public PlatformTransactionManager platformTransactionManager(
+      Neo4jTransactionManager neo4jTransactionManager,
+      JpaTransactionManager jpaTransactionManager) {
+    log.debug(MSG_INJECT_TM);
+    return new ChainedTransactionManager(jpaTransactionManager, neo4jTransactionManager);
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public org.neo4j.ogm.config.Configuration configuration(Neo4jProperties properties) {
-		return properties.createConfiguration();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public org.neo4j.ogm.config.Configuration configuration(Neo4jProperties properties) {
+    return properties.createConfiguration();
+  }
 
-/*	@Bean
-	public SessionFactory sessionFactory(org.neo4j.ogm.config.Configuration configuration, BeanFactory beanFactory, ObjectProvider<EventListener> eventListeners) {
-		SessionFactory sessionFactory = new SessionFactory(configuration, this.getPackagesToScan(beanFactory));
-		eventListeners.orderedStream().forEach(sessionFactory::register);
-		return sessionFactory;
-	}*/
+  /*	@Bean
+  public SessionFactory sessionFactory(org.neo4j.ogm.config.Configuration configuration, BeanFactory beanFactory, ObjectProvider<EventListener> eventListeners) {
+  	SessionFactory sessionFactory = new SessionFactory(configuration, this.getPackagesToScan(beanFactory));
+  	eventListeners.orderedStream().forEach(sessionFactory::register);
+  	return sessionFactory;
+  }*/
 
-	private String[] getPackagesToScan(BeanFactory beanFactory) {
-		List<String> packages = EntityScanPackages.get(beanFactory).getPackageNames();
-		if (packages.isEmpty() && AutoConfigurationPackages.has(beanFactory)) {
-			packages = AutoConfigurationPackages.get(beanFactory);
-		}
+  private String[] getPackagesToScan(BeanFactory beanFactory) {
+    List<String> packages = EntityScanPackages.get(beanFactory).getPackageNames();
+    if (packages.isEmpty() && AutoConfigurationPackages.has(beanFactory)) {
+      packages = AutoConfigurationPackages.get(beanFactory);
+    }
 
-		return StringUtils.toStringArray(packages);
-	}
+    return StringUtils.toStringArray(packages);
+  }
 }

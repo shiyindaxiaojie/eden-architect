@@ -28,25 +28,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class OAuth2Cookies {
 
-    private Cookie accessTokenCookie;
+  private Cookie accessTokenCookie;
 
-    private Cookie refreshTokenCookie;
+  private Cookie refreshTokenCookie;
 
-    public Cookie getAccessTokenCookie() {
-        return accessTokenCookie;
-    }
+  public Cookie getAccessTokenCookie() {
+    return accessTokenCookie;
+  }
 
-    public Cookie getRefreshTokenCookie() {
-        return refreshTokenCookie;
-    }
+  public Cookie getRefreshTokenCookie() {
+    return refreshTokenCookie;
+  }
 
-    public void setCookies(Cookie accessTokenCookie, Cookie refreshTokenCookie) {
-        this.accessTokenCookie = accessTokenCookie;
-        this.refreshTokenCookie = refreshTokenCookie;
-    }
+  public void setCookies(Cookie accessTokenCookie, Cookie refreshTokenCookie) {
+    this.accessTokenCookie = accessTokenCookie;
+    this.refreshTokenCookie = refreshTokenCookie;
+  }
 
-    public void addCookiesTo(HttpServletResponse response) {
-        response.addCookie(getAccessTokenCookie());
-        response.addCookie(getRefreshTokenCookie());
-    }
+  public void addCookiesTo(HttpServletResponse response) {
+    response.addCookie(getAccessTokenCookie());
+    response.addCookie(getRefreshTokenCookie());
+  }
 }

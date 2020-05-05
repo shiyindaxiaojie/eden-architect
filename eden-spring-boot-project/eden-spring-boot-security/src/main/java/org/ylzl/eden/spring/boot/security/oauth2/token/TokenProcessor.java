@@ -25,19 +25,19 @@ package org.ylzl.eden.spring.boot.security.oauth2.token;
  */
 public interface TokenProcessor {
 
-    /**
-     * 根据令牌获取签发时间
-     *
-     * @param tokenValue 令牌值
-     * @return 签发时间
-     */
-    int getIat(String tokenValue);
+  /**
+   * 根据令牌获取签发时间
+   *
+   * @param tokenValue 令牌值
+   * @return 签发时间
+   */
+  int getIat(String tokenValue);
 
-    /**
-     * 根据令牌获取过期时间
-     *
-     * @param tokenValue 令牌值
-     * @return 过期时间
-     */
-    int getExp(String tokenValue);
+  /**
+   * 根据令牌获取过期时间
+   *
+   * @param tokenValue 令牌值
+   * @return 过期时间
+   */
+  int getExp(String tokenValue);
 }

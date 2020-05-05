@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.integration.core;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 
 /**
@@ -30,5 +29,5 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @UtilityClass
 public class IntegrationConstants {
 
-    public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".integration";
+  public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".integration";
 }

@@ -55,9 +55,10 @@ import java.util.List;
 /**
  * Flyway 自动配置
  *
- * <p>变更日志：Spring Boot 升级 1.X 到 2.X</p>
+ * <p>变更日志：Spring Boot 升级 1.X 到 2.X
+ *
  * <ul>
- *     <li>FlywayProperties 前缀从 {@code flyway} 变更为 {@code spring.flyway}</li>
+ *   <li>FlywayProperties 前缀从 {@code flyway} 变更为 {@code spring.flyway}
  * </ul>
  *
  * @author gyl
@@ -65,67 +66,82 @@ import java.util.List;
  */
 @AutoConfigureBefore(FlywayAutoConfiguration.class)
 @ConditionalOnClass({Flyway.class})
-@ConditionalOnProperty(prefix = FrameworkConstants.PROP_SPRING_PREFIX + ".flyway", name = "enabled", matchIfMissing = true)
+@ConditionalOnProperty(
+    prefix = FrameworkConstants.PROP_SPRING_PREFIX + ".flyway",
+    name = "enabled",
+    matchIfMissing = true)
 @EnableConfigurationProperties({FlywayProperties.class})
 @Slf4j
 @Configuration
 public class FixedFlywayAutoConfiguration {
 
-    @AutoConfigureBefore(DataSourceAutoConfiguration.class)
-    @ConditionalOnClass({DataSource.class})
-    @Configuration
-    public static class FixedFlywaySQLiteConfiguration {
+  @AutoConfigureBefore(DataSourceAutoConfiguration.class)
+  @ConditionalOnClass({DataSource.class})
+  @Configuration
+  public static class FixedFlywaySQLiteConfiguration {
 
-        @ConditionalOnMissingBean
-        @Bean
-        public DataSource fixedSQLiteDataSource(DataSourceProperties dataSourceProperties) {
-            SQLiteConfig sqLiteConfig = new SQLiteConfig();
-            sqLiteConfig.setJournalMode(SQLiteConfig.JournalMode.WAL);
-            sqLiteConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
-            SQLiteDataSource dataSource = new SQLiteDataSource(sqLiteConfig);
-            dataSource.setUrl(dataSourceProperties.getUrl());
-            return new FlywaySQLiteDataSource(dataSource);
-        }
+    @ConditionalOnMissingBean
+    @Bean
+    public DataSource fixedSQLiteDataSource(DataSourceProperties dataSourceProperties) {
+      SQLiteConfig sqLiteConfig = new SQLiteConfig();
+      sqLiteConfig.setJournalMode(SQLiteConfig.JournalMode.WAL);
+      sqLiteConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
+      SQLiteDataSource dataSource = new SQLiteDataSource(sqLiteConfig);
+      dataSource.setUrl(dataSourceProperties.getUrl());
+      return new FlywaySQLiteDataSource(dataSource);
+    }
+  }
+
+  @AutoConfigureAfter({DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+  @ConditionalOnClass({AsyncTaskExecutor.class})
+  @EnableConfigurationProperties(FlywayProperties.class)
+  @Configuration
+  public static class FlywayConfiguration extends FlywayAutoConfiguration.FlywayConfiguration {
+
+    private static final String MSG_INJECT_FLYWAY = "Inject Flyway";
+
+    public static final String DEFAULT_LOCATIONS = "classpath:config/flyway/db/migration";
+
+    private final AsyncTaskExecutor asyncTaskExecutor;
+
+    private final Environment enviornment;
+
+    private final List<String> locations;
+
+    public FlywayConfiguration(
+        @Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
+            AsyncTaskExecutor asyncTaskExecutor,
+        Environment enviornment,
+        @Value("${flyway.locations:" + DEFAULT_LOCATIONS + "}") List<String> locations) {
+      this.asyncTaskExecutor = asyncTaskExecutor;
+      this.enviornment = enviornment;
+      this.locations = locations;
     }
 
-    @AutoConfigureAfter({
-        DataSourceAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-    })
-	@ConditionalOnClass({AsyncTaskExecutor.class})
-    @EnableConfigurationProperties(FlywayProperties.class)
-    @Configuration
-    public static class FlywayConfiguration extends FlywayAutoConfiguration.FlywayConfiguration {
-
-        private static final String MSG_INJECT_FLYWAY = "Inject Flyway";
-
-        public static final String DEFAULT_LOCATIONS = "classpath:config/flyway/db/migration";
-
-		private final AsyncTaskExecutor asyncTaskExecutor;
-
-        private final Environment enviornment;
-
-        private final List<String> locations;
-
-        public FlywayConfiguration(@Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) AsyncTaskExecutor asyncTaskExecutor,
-								   Environment enviornment, @Value("${flyway.locations:" + DEFAULT_LOCATIONS + "}") List<String> locations) {
-            this.asyncTaskExecutor = asyncTaskExecutor;
-			this.enviornment = enviornment;
-			this.locations = locations;
-		}
-
-		@Override
-		public Flyway flyway(FlywayProperties properties, DataSourceProperties dataSourceProperties,
-							 ResourceLoader resourceLoader, ObjectProvider<DataSource> dataSource,
-							 @FlywayDataSource ObjectProvider<DataSource> flywayDataSource,
-							 ObjectProvider<FlywayConfigurationCustomizer> fluentConfigurationCustomizers,
-							 ObjectProvider<JavaMigration> javaMigrations, ObjectProvider<Callback> callbacks) {
-        	log.debug(MSG_INJECT_FLYWAY);
-        	// 覆盖默认的读取路径
-			properties.setLocations(locations);
-			Flyway flyway = super.flyway(properties, dataSourceProperties, resourceLoader, dataSource, flywayDataSource,
-				fluentConfigurationCustomizers, javaMigrations, callbacks);
-			return new AsyncFlyway(flyway.getConfiguration(), asyncTaskExecutor, enviornment);
-		}
+    @Override
+    public Flyway flyway(
+        FlywayProperties properties,
+        DataSourceProperties dataSourceProperties,
+        ResourceLoader resourceLoader,
+        ObjectProvider<DataSource> dataSource,
+        @FlywayDataSource ObjectProvider<DataSource> flywayDataSource,
+        ObjectProvider<FlywayConfigurationCustomizer> fluentConfigurationCustomizers,
+        ObjectProvider<JavaMigration> javaMigrations,
+        ObjectProvider<Callback> callbacks) {
+      log.debug(MSG_INJECT_FLYWAY);
+      // 覆盖默认的读取路径
+      properties.setLocations(locations);
+      Flyway flyway =
+          super.flyway(
+              properties,
+              dataSourceProperties,
+              resourceLoader,
+              dataSource,
+              flywayDataSource,
+              fluentConfigurationCustomizers,
+              javaMigrations,
+              callbacks);
+      return new AsyncFlyway(flyway.getConfiguration(), asyncTaskExecutor, enviornment);
     }
+  }
 }

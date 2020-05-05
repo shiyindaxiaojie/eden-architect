@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.env;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 运行工具集
@@ -26,6 +25,4 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.0
  */
 @UtilityClass
-public class RuntimeUtils {
-
-}
+public class RuntimeUtils {}

@@ -41,24 +41,25 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 @Configuration
 public class FtpServerAutoConfiguration {
 
-	public static final String EXPS_FTP_SERVER_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".ftp-server.enabled:true}";
+  public static final String EXPS_FTP_SERVER_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".ftp-server.enabled:true}";
 
-    private static final String MSG_INJECT_FTPSERVER = "Inject FtpServer";
+  private static final String MSG_INJECT_FTPSERVER = "Inject FtpServer";
 
-    private static final String MSG_INJECT_FTPSERVER_FACTORY = "Inject FtpServer Factory";
+  private static final String MSG_INJECT_FTPSERVER_FACTORY = "Inject FtpServer Factory";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public FtpServerFactoryBean ftpServerFactoryBean() {
-        log.debug(MSG_INJECT_FTPSERVER_FACTORY);
-        return new FtpServerFactoryBean();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public FtpServerFactoryBean ftpServerFactoryBean() {
+    log.debug(MSG_INJECT_FTPSERVER_FACTORY);
+    return new FtpServerFactoryBean();
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public FtpServer ftpServer(FtpServerFactoryBean ftpServerFactoryBean) {
-        log.debug(MSG_INJECT_FTPSERVER);
-        // TODO
-        return ftpServerFactoryBean.createServer();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public FtpServer ftpServer(FtpServerFactoryBean ftpServerFactoryBean) {
+    log.debug(MSG_INJECT_FTPSERVER);
+    // TODO
+    return ftpServerFactoryBean.createServer();
+  }
 }

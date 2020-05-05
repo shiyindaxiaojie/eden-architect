@@ -31,9 +31,9 @@ import org.ylzl.eden.spring.boot.framework.web.rest.errors.RestErrorAdvice;
 @Configuration
 public class RestErrorAdviceConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public RestErrorAdvice restErrorAdvice() {
-        return new RestErrorAdvice();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public RestErrorAdvice restErrorAdvice() {
+    return new RestErrorAdvice();
+  }
 }

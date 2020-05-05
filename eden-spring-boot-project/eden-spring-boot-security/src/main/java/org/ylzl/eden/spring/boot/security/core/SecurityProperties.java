@@ -29,6 +29,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = SecurityConstants.PROP_PREFIX)
-public class SecurityProperties {
-
-}
+public class SecurityProperties {}

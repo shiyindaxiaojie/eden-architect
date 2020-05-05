@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.integration.caffeine;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * Caffeine 配置属性默认值
@@ -29,7 +28,7 @@ import lombok.NoArgsConstructor;
 @UtilityClass
 public final class CaffeineDefaults {
 
-    public static final int timeToLiveSeconds = 3600;
+  public static final int timeToLiveSeconds = 3600;
 
-    public static final long maxEntries = 100;
+  public static final long maxEntries = 100;
 }

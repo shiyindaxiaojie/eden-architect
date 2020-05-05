@@ -32,42 +32,43 @@ import java.io.Serializable;
  * @author gyl
  * @since 1.0.0
  */
-public class ElasticsearchServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID> implements ElasticsearchService<T, ID> {
+public class ElasticsearchServiceImpl<T, ID extends Serializable>
+    extends PagingAndSortingServiceImpl<T, ID> implements ElasticsearchService<T, ID> {
 
-    private final ElasticsearchRepository<T, ID> elasticsearchRepository;
+  private final ElasticsearchRepository<T, ID> elasticsearchRepository;
 
-    public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
-        super(elasticsearchRepository);
-        this.elasticsearchRepository = elasticsearchRepository;
-    }
+  public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
+    super(elasticsearchRepository);
+    this.elasticsearchRepository = elasticsearchRepository;
+  }
 
-    @Override
-    public <S extends T> S index(S entity) {
-        return elasticsearchRepository.index(entity);
-    }
+  @Override
+  public <S extends T> S index(S entity) {
+    return elasticsearchRepository.index(entity);
+  }
 
-    @Override
-    public Iterable<T> search(QueryBuilder queryBuilder) {
-        return elasticsearchRepository.search(queryBuilder);
-    }
+  @Override
+  public Iterable<T> search(QueryBuilder queryBuilder) {
+    return elasticsearchRepository.search(queryBuilder);
+  }
 
-    @Override
-    public Page<T> search(QueryBuilder queryBuilder, Pageable pageable) {
-        return elasticsearchRepository.search(queryBuilder, pageable);
-    }
+  @Override
+  public Page<T> search(QueryBuilder queryBuilder, Pageable pageable) {
+    return elasticsearchRepository.search(queryBuilder, pageable);
+  }
 
-    @Override
-    public Page<T> search(SearchQuery searchQuery) {
-        return elasticsearchRepository.search(searchQuery);
-    }
+  @Override
+  public Page<T> search(SearchQuery searchQuery) {
+    return elasticsearchRepository.search(searchQuery);
+  }
 
-    @Override
-    public Page<T> searchSimilar(T entity, String[] var, Pageable pageable) {
-        return elasticsearchRepository.searchSimilar(entity, var, pageable);
-    }
+  @Override
+  public Page<T> searchSimilar(T entity, String[] var, Pageable pageable) {
+    return elasticsearchRepository.searchSimilar(entity, var, pageable);
+  }
 
-    @Override
-    public void refresh() {
-        elasticsearchRepository.refresh();
-    }
+  @Override
+  public void refresh() {
+    elasticsearchRepository.refresh();
+  }
 }

@@ -17,13 +17,21 @@
 
 package org.ylzl.eden.spring.boot.data.redis.support;
 
-import com.sun.istack.NotNull;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.core.RedisOperations;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Pipeline;
+import redis.clients.jedis.util.JedisClusterCRC16;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * 增强式 RedisTemplate
@@ -31,18 +39,73 @@ import java.util.Map;
  * @author gyl
  * @since 1.0.0
  */
-public class EnhancedRedisTemplate<K, V> extends RedisTemplate<K, V> {
+@SuppressWarnings("unchecked")
+public class EnhancedRedisTemplate extends RedisTemplate<String, Object> {
 
-    public void execute(@NotNull final Map<K, V> datas) {
-        executePipelined(new SessionCallback<Object>() {
+  @Autowired(required = false)
+  private FixedJedisCluster jedisCluster;
 
-            @Override
-            public <KK, VV> Object execute(RedisOperations<KK, VV> redisOperations) throws DataAccessException {
-                for (Map.Entry<K, V> data: datas.entrySet()) {
-					opsForValue().set(data.getKey(), data.getValue());
-                }
-                return null;
-            }
-        });
+  public EnhancedRedisTemplate() {
+    RedisSerializer<String> stringSerializer = new StringRedisSerializer();
+    setKeySerializer(stringSerializer);
+    setHashKeySerializer(stringSerializer);
+    setHashValueSerializer(stringSerializer);
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+    objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+    Jackson2JsonRedisSerializer jackson2JsonRedisSerializer =
+        new Jackson2JsonRedisSerializer(Object.class);
+    jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+    setValueSerializer(jackson2JsonRedisSerializer);
+  }
+
+  public <T> void executePipelinedCluster(Collection<T> datas, RedisPipelineCallback<T> callback) {
+    Map<JedisPool, List<T>> groupDatas = new HashMap<>();
+
+    if (jedisCluster == null) {
+      throw new UnsupportedOperationException("FixedJedisCluster is not injected");
     }
+
+    jedisCluster.refreshCluster();
+    for (T data : datas) {
+      String key = callback.key(data);
+      int slot = JedisClusterCRC16.getSlot(key);
+      JedisPool jedisPool = jedisCluster.getConnectionHandler().getJedisPoolFromSlot(slot);
+      if (groupDatas.keySet().contains(jedisPool)) {
+        List<T> pooldata = groupDatas.get(jedisPool);
+        pooldata.add(data);
+      } else {
+        List<T> newDatas = new ArrayList<>();
+        newDatas.add(data);
+        groupDatas.put(jedisPool, newDatas);
+      }
+    }
+
+    for (Map.Entry<JedisPool, List<T>> entry : groupDatas.entrySet()) {
+      Jedis jedis = entry.getKey().getResource();
+      Pipeline pipeline;
+      try {
+        pipeline = jedis.pipelined();
+        List<T> groupData = entry.getValue();
+        for (T data : groupData) {
+          pipeline.setex(callback.key(data), callback.expires(data), callback.value(data));
+        }
+        pipeline.sync();
+      } finally {
+        if (jedis != null) {
+          jedis.close();
+        }
+      }
+    }
+  }
+
+  public static interface RedisPipelineCallback<T> {
+
+    String key(T data);
+
+    int expires(T data);
+
+    String value(T data);
+  }
 }

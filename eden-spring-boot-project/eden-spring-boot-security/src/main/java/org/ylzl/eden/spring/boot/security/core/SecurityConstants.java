@@ -29,37 +29,25 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @UtilityClass
 public final class SecurityConstants {
 
-    /**
-     * 自定义属性前缀
-     */
-    public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".security";
+  /** 自定义属性前缀 */
+  public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".security";
 
-    // 角色
+  // 角色
 
-    /**
-     * 管理员
-     */
-    public static final String ADMIN = "ADMIN";
+  /** 管理员 */
+  public static final String ADMIN = "ADMIN";
 
-    /**
-     * 注册用户
-     */
-    public static final String ROLE_USER = "ROLE_USER";
+  /** 注册用户 */
+  public static final String ROLE_USER = "ROLE_USER";
 
-    /**
-     * 匿名用户
-     */
-    public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
+  /** 匿名用户 */
+  public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
 
-    // 认证参数
+  // 认证参数
 
-    /**
-     * Bearer 认证类型
-     */
-    public static final String BEARER_TOKEN = "Bearer ";
+  /** Bearer 认证类型 */
+  public static final String BEARER_TOKEN = "Bearer ";
 
-    /**
-     * Basic 认证类型
-     */
-    public static final String BASIC_AUTH = "Basic ";
+  /** Basic 认证类型 */
+  public static final String BASIC_AUTH = "Basic ";
 }

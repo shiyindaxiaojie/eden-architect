@@ -37,9 +37,9 @@ import java.util.Map;
 @NoArgsConstructor
 public class ProfileDescriptor {
 
-    private String[] activeProfiles;
+  private String[] activeProfiles;
 
-    private String ribbonEnv;
+  private String ribbonEnv;
 
-    private List<Map<String, Object>> configurationSources;
+  private List<Map<String, Object>> configurationSources;
 }

@@ -30,17 +30,16 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  */
 public class DefaultXmlMapper extends XmlMapper {
 
-    private static final long serialVersionUID = 7153509205837786001L;
+  private static final long serialVersionUID = 7153509205837786001L;
 
-    public DefaultXmlMapper() {
-        super();
+  public DefaultXmlMapper() {
+    super();
 
-        // 设置null值不参与序列化
-        this.setSerializationInclusion(Include.NON_NULL);
+    // 设置null值不参与序列化
+    this.setSerializationInclusion(Include.NON_NULL);
 
-        // 禁用空对象转换json校验
-        this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
+    // 禁用空对象转换json校验
+    this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
 }

@@ -20,7 +20,10 @@ package org.ylzl.eden.spring.boot.cloud.zuul;
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
@@ -43,43 +46,46 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @Configuration
 public class ZuulFilterAutoConfiguration {
 
-	public static final String EXPS_ACCESS_CONTROL_ENABLED = "${" + CloudConstants.PROP_PREFIX + ".zuul.access-control.enabled:true}";
+  public static final String EXPS_ACCESS_CONTROL_ENABLED =
+      "${" + CloudConstants.PROP_PREFIX + ".zuul.access-control.enabled:true}";
 
-    public static final String EXPS_RATE_LIMITING_ENABLED = "${" + CloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
+  public static final String EXPS_RATE_LIMITING_ENABLED =
+      "${" + CloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
-    private static final String MSG_INJECT_ACCESS_CONTROL_FILTER = "Inject Zuul AccessControl filter";
+  private static final String MSG_INJECT_ACCESS_CONTROL_FILTER = "Inject Zuul AccessControl filter";
 
-    private static final String MSG_INJECT_RATE_LIMIT_FILTER = "Inject Zuul RateLimit filter";
+  private static final String MSG_INJECT_RATE_LIMIT_FILTER = "Inject Zuul RateLimit filter";
 
-    private static final String MSG_INJECT_ZUUL_FAULT_FILTER = "Inject Zuul Fault filter";
+  private static final String MSG_INJECT_ZUUL_FAULT_FILTER = "Inject Zuul Fault filter";
 
-    private final ZuulProperties zuulProperties;
+  private final ZuulProperties zuulProperties;
 
-    public ZuulFilterAutoConfiguration(ZuulProperties zuulProperties) {
-        this.zuulProperties = zuulProperties;
-    }
+  public ZuulFilterAutoConfiguration(ZuulProperties zuulProperties) {
+    this.zuulProperties = zuulProperties;
+  }
 
-    @ConditionalOnBean(RouteLocator.class)
-	@ConditionalOnExpression(EXPS_ACCESS_CONTROL_ENABLED)
-    @ConditionalOnMissingBean
-    @Bean
-    public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
-        log.debug(MSG_INJECT_ACCESS_CONTROL_FILTER);
-        return new AccessControlFilter(zuulProperties, routeLocator);
-    }
+  @ConditionalOnBean(RouteLocator.class)
+  @ConditionalOnExpression(EXPS_ACCESS_CONTROL_ENABLED)
+  @ConditionalOnMissingBean
+  @Bean
+  public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
+    log.debug(MSG_INJECT_ACCESS_CONTROL_FILTER);
+    return new AccessControlFilter(zuulProperties, routeLocator);
+  }
 
-    @ConditionalOnExpression(EXPS_RATE_LIMITING_ENABLED)
-    @ConditionalOnMissingBean
-    @Bean
-    public RateLimitingFilter rateLimitingFilter(@Value(FrameworkConstants.NAME_PATTERN) String applicationName) {
-        log.debug(MSG_INJECT_RATE_LIMIT_FILTER);
-        return new RateLimitingFilter(zuulProperties, applicationName);
-    }
+  @ConditionalOnExpression(EXPS_RATE_LIMITING_ENABLED)
+  @ConditionalOnMissingBean
+  @Bean
+  public RateLimitingFilter rateLimitingFilter(
+      @Value(FrameworkConstants.NAME_PATTERN) String applicationName) {
+    log.debug(MSG_INJECT_RATE_LIMIT_FILTER);
+    return new RateLimitingFilter(zuulProperties, applicationName);
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public ZuulFaultFilter zuulFaultFilter() {
-        log.debug(MSG_INJECT_ZUUL_FAULT_FILTER);
-        return new ZuulFaultFilter();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ZuulFaultFilter zuulFaultFilter() {
+    log.debug(MSG_INJECT_ZUUL_FAULT_FILTER);
+    return new ZuulFaultFilter();
+  }
 }

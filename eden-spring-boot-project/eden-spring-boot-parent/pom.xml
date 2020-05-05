@@ -17,7 +17,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>eden-spring-boot-parent</artifactId>
@@ -162,7 +162,7 @@
 		<pluginManagement>
 			<!-- 相同的 phase 按引入顺序执行 -->
 			<plugins>
-			    <plugin>
+				<plugin>
 					<groupId>com.github.jeluard</groupId>
 					<artifactId>plantuml-maven-plugin</artifactId>
 					<version>${plantuml-maven-plugin.version}</version>
@@ -906,5 +906,159 @@
 
 		</plugins>
 	</reporting>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-bom</artifactId>
+				<version>${spring-integration.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-dependencies-bom</artifactId>
+				<version>${dubbo.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+				<spring.devtools.restart.enabled>true</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>true</spring.devtools.livereload.enabled>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>sonar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonarsource.scanner.maven</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-juli</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-jasper</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>undertow</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>io.undertow</groupId>
+					<artifactId>undertow-core</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.undertow</groupId>
+					<artifactId>undertow-servlet</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-undertow</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>mysql</id>
+			<properties>
+				<spring.datasource.driver>com.mysql.jdbc.Driver</spring.datasource.driver>
+				<spring.jpa.database>MYSQL</spring.jpa.database>
+				<spring.jpa.database-platform>org.hibernate.dialect.MySQLDialect</spring.jpa.database-platform>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>mysql8</id>
+			<properties>
+				<java.version>1.8</java.version>
+				<spring.datasource.driver>com.mysql.cj.jdbc.Driver</spring.datasource.driver>
+				<spring.jpa.database>MYSQL</spring.jpa.database>
+				<spring.jpa.database-platform>org.hibernate.dialect.MySQLDialect</spring.jpa.database-platform>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>8.0.19</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>oracle</id>
+			<properties>
+				<spring.datasource.driver>oracle.jdbc.driver.OracleDriver</spring.datasource.driver>
+				<spring.jpa.database>ORACLE</spring.jpa.database>
+				<spring.jpa.database-platform>org.hibernate.dialect.Oracle10gDialect</spring.jpa.database-platform>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

@@ -17,13 +17,13 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>eden-spring-boot-integration</artifactId>
-    <packaging>jar</packaging>
-    <name>eden-spring-boot-integration</name>
-    <description>Eden* Spring Boot Integration</description>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>eden-spring-boot-integration</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-spring-boot-integration</name>
+	<description>Eden* Spring Boot Integration</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>
@@ -32,17 +32,17 @@
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <optional>true</optional>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast</artifactId>
@@ -63,21 +63,21 @@
 			<artifactId>metrics-spring</artifactId>
 			<optional>true</optional>
 		</dependency>
-        <dependency>
-            <groupId>de.schlichtherle.truelicense</groupId>
-            <artifactId>truelicense-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>de.schlichtherle.truelicense</groupId>
-            <artifactId>truelicense-xml</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>de.schlichtherle.truelicense</groupId>
-            <artifactId>truelicense-swing</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>de.schlichtherle.truelicense</groupId>
+			<artifactId>truelicense-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>de.schlichtherle.truelicense</groupId>
+			<artifactId>truelicense-xml</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>de.schlichtherle.truelicense</groupId>
+			<artifactId>truelicense-swing</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-core</artifactId>
@@ -157,72 +157,72 @@
 			<artifactId>ehcache</artifactId>
 			<optional>true</optional>
 		</dependency>
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <classifier>jdk15</classifier>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-            </exclusions>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ftpserver</groupId>
-            <artifactId>ftpserver-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-codec</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-svg-dom</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<classifier>jdk15</classifier>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-lang</artifactId>
+					<groupId>commons-lang</groupId>
+				</exclusion>
+			</exclusions>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ftpserver</groupId>
+			<artifactId>ftpserver-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-codec</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-svg-dom</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.flowable</groupId>
 			<artifactId>flowable-spring-boot-starter-basic</artifactId>
 			<optional>true</optional>
 		</dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-integration</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-mongodb</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.ylzl</groupId>
-            <artifactId>eden-spring-boot-framework</artifactId>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-integration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-mongodb</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot-framework</artifactId>
+		</dependency>
+	</dependencies>
 
 </project>

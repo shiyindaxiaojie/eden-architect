@@ -47,73 +47,81 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.jwt.SignatureVerifierClie
  * @author gyl
  * @since 1.0.0
  */
-@AutoConfigureAfter({
-	RestAutoConfiguration.class,
-	LoadBalancerClientAutoConfiguration.class
-})
+@AutoConfigureAfter({RestAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
-@ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
+@ConditionalOnExpression(
+    OAuth2AuthorizationClientAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @Import(OAuth2AuthorizationClientAutoConfiguration.class)
 @Slf4j
 @Configuration
 public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
 
-	@Configuration
-	public static class LoadBalancedOAuth2AuthorizationClientInnerConfiguration {
+  @Configuration
+  public static class LoadBalancedOAuth2AuthorizationClientInnerConfiguration {
 
-		private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT = "Inject loadBalanced OAuth2AccessTokenClient";
+    private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
+        "Inject loadBalanced OAuth2AccessTokenClient";
 
-		private static final String MSG_INJECT_CLIENT_RESOURCE_DETAILS = "Inject loadBalanced ClientCredentialsResourceDetails";
+    private static final String MSG_INJECT_CLIENT_RESOURCE_DETAILS =
+        "Inject loadBalanced ClientCredentialsResourceDetails";
 
-		private final OAuth2Properties oAuth2Properties;
+    private final OAuth2Properties oAuth2Properties;
 
-		private final LoadBalancerClientHelper loadBalancerClientHelper;
+    private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-		public LoadBalancedOAuth2AuthorizationClientInnerConfiguration(OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
-			this.oAuth2Properties = oAuth2Properties;
-			this.loadBalancerClientHelper = loadBalancerClientHelper;
-		}
-
-		@ConditionalOnMissingBean
-		@Bean
-		public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
-			log.debug(MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT);
-			return new CloudOAuth2AccessTokenClient(restTemplate, oAuth2Properties, loadBalancerClientHelper);
-		}
-
-		@ConditionalOnClass({ClientCredentialsResourceDetails.class, LoadBalancerClient.class})
-		@ConditionalOnMissingBean
-		@Bean
-		public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
-			log.debug(MSG_INJECT_CLIENT_RESOURCE_DETAILS);
-			CloudClientCredentialsResourceDetails resourceDetails = new CloudClientCredentialsResourceDetails(oAuth2Properties, loadBalancerClientHelper);
-			resourceDetails.setAccessTokenUri(oAuth2Properties.getAuthorization().getAccessTokenUri());
-			resourceDetails.setClientId(oAuth2Properties.getAuthorization().getClientCredentials().getClientId());
-			resourceDetails.setClientSecret(oAuth2Properties.getAuthorization().getClientCredentials().getClientSecret());
-			return resourceDetails;
-		}
-	}
-
-    @Configuration
-    public static class LoadBalancedOAuth2AuthorizationClientJwtConfiguration {
-
-		private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Inject loadBalanced SignatureVerifierClient";
-
-        private final OAuth2Properties oAuth2Properties;
-
-        private final LoadBalancerClientHelper loadBalancerClientHelper;
-
-        public LoadBalancedOAuth2AuthorizationClientJwtConfiguration(OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
-            this.oAuth2Properties = oAuth2Properties;
-            this.loadBalancerClientHelper = loadBalancerClientHelper;
-        }
-
-        @ConditionalOnMissingBean
-        @Bean
-        public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
-        	log.debug(MSG_INJECT_SIGN_VERIFY_CLIENT);
-            return new CloudSignatureVerifierClient(restTemplate, oAuth2Properties, loadBalancerClientHelper);
-        }
+    public LoadBalancedOAuth2AuthorizationClientInnerConfiguration(
+        OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
+      this.oAuth2Properties = oAuth2Properties;
+      this.loadBalancerClientHelper = loadBalancerClientHelper;
     }
+
+    @ConditionalOnMissingBean
+    @Bean
+    public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
+      log.debug(MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT);
+      return new CloudOAuth2AccessTokenClient(
+          restTemplate, oAuth2Properties, loadBalancerClientHelper);
+    }
+
+    @ConditionalOnClass({ClientCredentialsResourceDetails.class, LoadBalancerClient.class})
+    @ConditionalOnMissingBean
+    @Bean
+    public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
+      log.debug(MSG_INJECT_CLIENT_RESOURCE_DETAILS);
+      CloudClientCredentialsResourceDetails resourceDetails =
+          new CloudClientCredentialsResourceDetails(oAuth2Properties, loadBalancerClientHelper);
+      resourceDetails.setAccessTokenUri(oAuth2Properties.getAuthorization().getAccessTokenUri());
+      resourceDetails.setClientId(
+          oAuth2Properties.getAuthorization().getClientCredentials().getClientId());
+      resourceDetails.setClientSecret(
+          oAuth2Properties.getAuthorization().getClientCredentials().getClientSecret());
+      return resourceDetails;
+    }
+  }
+
+  @Configuration
+  public static class LoadBalancedOAuth2AuthorizationClientJwtConfiguration {
+
+    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT =
+        "Inject loadBalanced SignatureVerifierClient";
+
+    private final OAuth2Properties oAuth2Properties;
+
+    private final LoadBalancerClientHelper loadBalancerClientHelper;
+
+    public LoadBalancedOAuth2AuthorizationClientJwtConfiguration(
+        OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
+      this.oAuth2Properties = oAuth2Properties;
+      this.loadBalancerClientHelper = loadBalancerClientHelper;
+    }
+
+    @ConditionalOnMissingBean
+    @Bean
+    public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
+      log.debug(MSG_INJECT_SIGN_VERIFY_CLIENT);
+      return new CloudSignatureVerifierClient(
+          restTemplate, oAuth2Properties, loadBalancerClientHelper);
+    }
+  }
 }

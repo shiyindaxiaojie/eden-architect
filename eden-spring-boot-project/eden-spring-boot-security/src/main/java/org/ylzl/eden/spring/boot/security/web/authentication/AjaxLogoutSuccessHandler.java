@@ -30,10 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author gyl
  * @since 1.0.0
  */
-public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler implements LogoutSuccessHandler {
+public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler
+    implements LogoutSuccessHandler {
 
-    @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
+  @Override
+  public void onLogoutSuccess(
+      HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    response.setStatus(HttpServletResponse.SC_OK);
+  }
 }

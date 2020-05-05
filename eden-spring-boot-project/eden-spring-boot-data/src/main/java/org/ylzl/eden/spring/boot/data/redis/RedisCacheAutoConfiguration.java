@@ -38,10 +38,11 @@ import java.lang.reflect.Method;
 /**
  * Redis 缓存自动配置
  *
- * <p>变更日志：Spring Boot 升级 1.X 到 2.X</p>
+ * <p>变更日志：Spring Boot 升级 1.X 到 2.X
+ *
  * <ul>
- *     <li>{@link RedisCacheManager} 移除构造器参数 {@link org.springframework.data.redis.core.RedisTemplate}</li>
- *     <li>{@link RedisCacheManager} 使用 {@code create()} 创建实例</li>
+ *   <li>{@link RedisCacheManager} 移除构造器参数 {@link org.springframework.data.redis.core.RedisTemplate}
+ *   <li>{@link RedisCacheManager} 使用 {@code create()} 创建实例
  * </ul>
  *
  * @author gyl
@@ -54,39 +55,39 @@ import java.lang.reflect.Method;
 @Configuration
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
-    private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
+  private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
 
-    private final RedisConnectionFactory redisConnectionFactory;
+  private final RedisConnectionFactory redisConnectionFactory;
 
-    public RedisCacheAutoConfiguration(RedisConnectionFactory redisConnectionFactory) {
-        this.redisConnectionFactory = redisConnectionFactory;
-    }
+  public RedisCacheAutoConfiguration(RedisConnectionFactory redisConnectionFactory) {
+    this.redisConnectionFactory = redisConnectionFactory;
+  }
 
-    @ConditionalOnMissingBean(name = BEAN_REDIS_CACHE_MGR)
-    @Qualifier(BEAN_REDIS_CACHE_MGR)
-    @Bean
+  @ConditionalOnMissingBean(name = BEAN_REDIS_CACHE_MGR)
+  @Qualifier(BEAN_REDIS_CACHE_MGR)
+  @Bean
+  @Override
+  public CacheManager cacheManager() {
+    return RedisCacheManager.create(redisConnectionFactory);
+  }
+
+  @Bean
+  @Override
+  public KeyGenerator keyGenerator() {
+    return new RedisKeyGenerator();
+  }
+
+  private static class RedisKeyGenerator implements KeyGenerator {
+
     @Override
-    public CacheManager cacheManager() {
-        return RedisCacheManager.create(redisConnectionFactory);
+    public Object generate(Object target, Method method, Object... params) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(target.getClass().getName());
+      sb.append(method.getName());
+      for (Object obj : params) {
+        sb.append(obj.toString());
+      }
+      return sb.toString();
     }
-
-    @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return new RedisKeyGenerator();
-    }
-
-    private static class RedisKeyGenerator implements KeyGenerator {
-
-        @Override
-        public Object generate(Object target, Method method, Object... params) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(target.getClass().getName());
-            sb.append(method.getName());
-            for (Object obj : params) {
-                sb.append(obj.toString());
-            }
-            return sb.toString();
-        }
-    }
+  }
 }

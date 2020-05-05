@@ -42,17 +42,18 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 @Configuration
 public class HessianAutoConfiguration {
 
-    public static final String EXPS_HESSIAN_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".hessian.enabled:true}";
+  public static final String EXPS_HESSIAN_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".hessian.enabled:true}";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public HessianProxyFactoryBean hessianProxyFactoryBean() {
-        return new HessianProxyFactoryBean();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public HessianProxyFactoryBean hessianProxyFactoryBean() {
+    return new HessianProxyFactoryBean();
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public HessianProxyFactory hessianProxyFactory() {
-        return new HessianProxyFactory();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public HessianProxyFactory hessianProxyFactory() {
+    return new HessianProxyFactory();
+  }
 }

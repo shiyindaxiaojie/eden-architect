@@ -29,22 +29,24 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".true-license", ignoreUnknownFields = false)
+@ConfigurationProperties(
+    prefix = IntegrationConstants.PROP_PREFIX + ".true-license",
+    ignoreUnknownFields = false)
 public class TrueLicenseProperties {
 
-    private String subject;
+  private String subject;
 
-    private String licensePath;
+  private String licensePath;
 
-    private String storePass;
+  private String storePass;
 
-    private String keyPass;
+  private String keyPass;
 
-    private String privateKeysStorePath;
+  private String privateKeysStorePath;
 
-    private String privateAlias;
+  private String privateAlias;
 
-    private String publicKeysStorePath;
+  private String publicKeysStorePath;
 
-    private String publicAlias;
+  private String publicAlias;
 }

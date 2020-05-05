@@ -11,8 +11,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 public class ApplicationWebXml extends SpringBootServletInitializer {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Application.class);
-    }
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+    return builder.sources(Application.class);
+  }
 }

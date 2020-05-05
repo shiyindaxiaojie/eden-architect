@@ -35,8 +35,6 @@ import lombok.*;
 @ToString
 public class JwtToken {
 
-    /**
-     * 令牌
-     */
-    private String value;
+  /** 令牌 */
+  private String value;
 }

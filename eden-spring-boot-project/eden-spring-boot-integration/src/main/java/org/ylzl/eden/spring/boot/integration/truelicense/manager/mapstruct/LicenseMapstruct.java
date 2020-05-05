@@ -33,9 +33,12 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.EnhancedLicense
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface LicenseMapstruct {
 
-    LicenseMapstruct INSTANCE = Mappers.getMapper(LicenseMapstruct.class);
+  LicenseMapstruct INSTANCE = Mappers.getMapper(LicenseMapstruct.class);
 
-    void updateLicenseStoreFromTrueLicenseProperties(TrueLicenseProperties trueLicenseProperties, @MappingTarget EnhancedLicenseContent enhancedLicenseContent);
+  void updateLicenseStoreFromTrueLicenseProperties(
+      TrueLicenseProperties trueLicenseProperties,
+      @MappingTarget EnhancedLicenseContent enhancedLicenseContent);
 
-    void updateLicenseContentFromLicenseStore(EnhancedLicenseContent enhancedLicenseContent, @MappingTarget LicenseContent licenseContent);
+  void updateLicenseContentFromLicenseStore(
+      EnhancedLicenseContent enhancedLicenseContent, @MappingTarget LicenseContent licenseContent);
 }

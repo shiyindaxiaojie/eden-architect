@@ -30,17 +30,18 @@ import java.io.Serializable;
  * @author gyl
  * @since 1.0.0
  */
-public interface ElasticsearchService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
+public interface ElasticsearchService<T, ID extends Serializable>
+    extends PagingAndSortingService<T, ID> {
 
-    <S extends T> S index(S entity);
+  <S extends T> S index(S entity);
 
-    Iterable<T> search(QueryBuilder queryBuilder);
+  Iterable<T> search(QueryBuilder queryBuilder);
 
-    Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
+  Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
 
-    Page<T> search(SearchQuery searchQuery);
+  Page<T> search(SearchQuery searchQuery);
 
-    Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
+  Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
 
-    void refresh();
+  void refresh();
 }

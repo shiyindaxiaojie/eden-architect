@@ -28,8 +28,6 @@ import org.springframework.context.annotation.Configuration;
  * @author gyl
  * @since 2.0.0
  */
-@AutoConfigureAfter({ DataSourceAutoConfiguration.class })
+@AutoConfigureAfter({DataSourceAutoConfiguration.class})
 @Configuration
-public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {
-
-}
+public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {}

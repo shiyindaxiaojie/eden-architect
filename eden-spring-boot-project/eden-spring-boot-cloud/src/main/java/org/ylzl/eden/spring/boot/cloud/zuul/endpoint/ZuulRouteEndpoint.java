@@ -30,9 +30,10 @@ import java.util.List;
 /**
  * 网关端点
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
- *     <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}</li>
+ *   <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}
  * </ul>
  *
  * @author gyl
@@ -43,28 +44,28 @@ import java.util.List;
 @Endpoint(id = ZuulRouteEndpoint.ENDPOINT_ID)
 public class ZuulRouteEndpoint {
 
-	public static final String ENDPOINT_ID = "zuul-routes";
+  public static final String ENDPOINT_ID = "zuul-routes";
 
-    private final RouteLocator routeLocator;
+  private final RouteLocator routeLocator;
 
-    private final DiscoveryClient discoveryClient;
+  private final DiscoveryClient discoveryClient;
 
-    public ZuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
-        this.routeLocator = routeLocator;
-        this.discoveryClient = discoveryClient;
+  public ZuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+    this.routeLocator = routeLocator;
+    this.discoveryClient = discoveryClient;
+  }
+
+  @ReadOperation
+  public List<ZuulRoute> zuulRoutes() {
+    List<Route> routes = routeLocator.getRoutes();
+    List<ZuulRoute> zuulRoutes = new ArrayList<>();
+    for (Route route : routes) {
+      ZuulRoute zuulRoute = new ZuulRoute();
+      zuulRoute.setPath(route.getFullPath());
+      zuulRoute.setServiceId(route.getId());
+      zuulRoute.setServiceInstances(discoveryClient.getInstances(route.getLocation()));
+      zuulRoutes.add(zuulRoute);
     }
-
-	@ReadOperation
-    public List<ZuulRoute> zuulRoutes() {
-        List<Route> routes = routeLocator.getRoutes();
-        List<ZuulRoute> zuulRoutes = new ArrayList<>();
-        for (Route route : routes) {
-            ZuulRoute zuulRoute = new ZuulRoute();
-            zuulRoute.setPath(route.getFullPath());
-            zuulRoute.setServiceId(route.getId());
-            zuulRoute.setServiceInstances(discoveryClient.getInstances(route.getLocation()));
-            zuulRoutes.add(zuulRoute);
-        }
-        return zuulRoutes;
-    }
+    return zuulRoutes;
+  }
 }

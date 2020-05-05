@@ -18,14 +18,16 @@
 package org.ylzl.eden.spring.boot.test.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 
 /**
  * 嵌入式的 Kafka
  *
- * <p>Spring Kafka 从 1.X 升级到 2.X</p>
+ * <p>Spring Kafka 从 1.X 升级到 2.X
+ *
  * <ul>
- *     <li>org.springframework.kafka.test.rule.KafkaEmbedded 变更为 {@link EmbeddedKafkaRule}</li>
+ *   <li>org.springframework.kafka.test.rule.KafkaEmbedded 变更为 {@link EmbeddedKafkaRule}
  * </ul>
  *
  * @author gyl
@@ -34,41 +36,43 @@ import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 @Slf4j
 public class EmbeddedKafka extends EmbeddedKafkaRule {
 
-	private static final String MSG_STARTING = "Starting embedded kafka";
+  private static final int DEFAULT_PORT = 9092;
 
-	private static final String MSG_STOPPING = "Stopping embedded kafka";
+  private int port;
 
-    private boolean closed = true;
+  private boolean closed = true;
 
-    public EmbeddedKafka(int count) {
-        super(count);
+  public EmbeddedKafka(int count) {
+    super(count);
+  }
+
+  public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
+    super(count, controlledShutdown, topics);
+  }
+
+  public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
+    super(count, controlledShutdown, partitions, topics);
+  }
+
+  public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
+    super(1, true, topics);
+  }
+
+  @Override
+  public void before() {
+    super.before();
+    closed = true;
+  }
+
+  @Override
+  public void after() {
+    if (!isOpen()) {
+      return;
     }
+    this.after();
+  }
 
-    public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
-        super(count, controlledShutdown, topics);
-    }
-
-    public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
-        super(count, controlledShutdown, partitions, topics);
-    }
-
-    @Override
-    public void before() {
-        log.debug(MSG_STARTING);
-		super.before();
-		closed = true;
-    }
-
-    @Override
-    public void after() {
-		log.debug(MSG_STOPPING);
-        if (!isOpen()) {
-			this.after();
-        }
-		closed = false;
-    }
-
-    public boolean isOpen() {
-        return !closed;
-    }
+  public boolean isOpen() {
+    return !closed;
+  }
 }

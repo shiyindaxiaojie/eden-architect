@@ -32,28 +32,41 @@ import java.util.Arrays;
 @Slf4j
 public class LoggingAspectAdapter {
 
-	public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-		log.error("Exception in {}.{}() with cause = '{}' and exception = '{}'",
-			joinPoint.getSignature().getDeclaringTypeName(),
-			joinPoint.getSignature().getName(), e.getCause() != null ? e.getCause() : "NULL", e.getMessage(), e);
-	}
+  public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
+    log.error(
+        "Exception in {}.{}() with cause = '{}' and exception = '{}'",
+        joinPoint.getSignature().getDeclaringTypeName(),
+        joinPoint.getSignature().getName(),
+        e.getCause() != null ? e.getCause() : "NULL",
+        e.getMessage(),
+        e);
+  }
 
-	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-		if (log.isDebugEnabled()) {
-			log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
-				joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
-		}
-		try {
-			Object result = joinPoint.proceed();
-			if (log.isDebugEnabled()) {
-				log.debug("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
-					joinPoint.getSignature().getName(), result);
-			}
-			return result;
-		} catch (IllegalArgumentException e) {
-			log.error("Illegal argument: {} in {}.{}()", joinPoint.getSignature().getDeclaringTypeName(),
-				joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
-			throw e;
-		}
-	}
+  public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    if (log.isDebugEnabled()) {
+      log.debug(
+          "Enter: {}.{}() with argument[s] = {}",
+          joinPoint.getSignature().getDeclaringTypeName(),
+          joinPoint.getSignature().getName(),
+          Arrays.toString(joinPoint.getArgs()));
+    }
+    try {
+      Object result = joinPoint.proceed();
+      if (log.isDebugEnabled()) {
+        log.debug(
+            "Exit: {}.{}() with result = {}",
+            joinPoint.getSignature().getDeclaringTypeName(),
+            joinPoint.getSignature().getName(),
+            result);
+      }
+      return result;
+    } catch (IllegalArgumentException e) {
+      log.error(
+          "Illegal argument: {} in {}.{}()",
+          joinPoint.getSignature().getDeclaringTypeName(),
+          joinPoint.getSignature().getName(),
+          Arrays.toString(joinPoint.getArgs()));
+      throw e;
+    }
+  }
 }

@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.commons.codec.binary;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * Base32 工具集
@@ -27,6 +26,4 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.0
  */
 @UtilityClass
-public class Base32 extends org.apache.commons.codec.binary.Base32 {
-
-}
+public class Base32 extends org.apache.commons.codec.binary.Base32 {}

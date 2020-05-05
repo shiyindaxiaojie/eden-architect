@@ -29,8 +29,6 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @UtilityClass
 public final class CloudConstants {
 
-    /**
-     * 自定义配置属性前缀
-     */
-    public static final String PROP_PREFIX =  FrameworkConstants.PROP_EDEN_PREFIX + ".cloud";
+  /** 自定义配置属性前缀 */
+  public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".cloud";
 }

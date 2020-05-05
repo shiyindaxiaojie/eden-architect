@@ -43,27 +43,27 @@ import org.ylzl.eden.spring.boot.framework.core.bind.BinderHelper;
 @Configuration
 public class FrameworkAutoConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public PathMatcher pathMatcher() {
-        return new AntPathMatcher();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public PathMatcher pathMatcher() {
+    return new AntPathMatcher();
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public UrlPathHelper urlPathHelper() {
-        return new UrlPathHelper();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public UrlPathHelper urlPathHelper() {
+    return new UrlPathHelper();
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
-        return new PathMatchingResourcePatternResolver();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
+    return new PathMatchingResourcePatternResolver();
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public BinderHelper binderHelper(Environment environment) {
-		return new BinderHelper(environment);
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public BinderHelper binderHelper(Environment environment) {
+    return new BinderHelper(environment);
+  }
 }

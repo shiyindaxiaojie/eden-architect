@@ -34,22 +34,22 @@ import java.util.Optional;
  */
 public class AuthorizedAuditorAware implements AuditorAware<String> {
 
-    @Override
-    public Optional<String> getCurrentAuditor() {
-    	String authorizedUsername = null;
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null) {
-                if (authentication.getPrincipal() instanceof UserDetails) {
-                    UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
-					authorizedUsername = springSecurityUser.getUsername();
-                } else if (authentication.getPrincipal() instanceof String) {
-					authorizedUsername = (String) authentication.getPrincipal();
-                }
-            }
-        } else if (RequestContextHolderUtils.getRemoteUser() != null) {
-			authorizedUsername = RequestContextHolderUtils.getRemoteUser();
+  @Override
+  public Optional<String> getCurrentAuditor() {
+    String authorizedUsername = null;
+    if (SecurityContextHolder.getContext().getAuthentication() != null) {
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (authentication != null) {
+        if (authentication.getPrincipal() instanceof UserDetails) {
+          UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+          authorizedUsername = springSecurityUser.getUsername();
+        } else if (authentication.getPrincipal() instanceof String) {
+          authorizedUsername = (String) authentication.getPrincipal();
         }
-		return Optional.of(Optional.of(authorizedUsername).orElse(FrameworkConstants.SYSTEM));
+      }
+    } else if (RequestContextHolderUtils.getRemoteUser() != null) {
+      authorizedUsername = RequestContextHolderUtils.getRemoteUser();
     }
+    return Optional.of(Optional.of(authorizedUsername).orElse(FrameworkConstants.SYSTEM));
+  }
 }

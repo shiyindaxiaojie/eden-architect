@@ -30,11 +30,11 @@ import springfox.documentation.swagger2.web.Swagger2Controller;
 @UtilityClass
 public final class SwaggerConstants {
 
-	public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
+  public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
 
-	public static final String RESOURCES_URL = "/swagger-resources";
+  public static final String RESOURCES_URL = "/swagger-resources";
 
-	public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
+  public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
 
-	public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
+  public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
 }

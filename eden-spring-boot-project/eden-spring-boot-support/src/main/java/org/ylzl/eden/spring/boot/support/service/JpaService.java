@@ -32,39 +32,40 @@ import java.util.Optional;
  * @author gyl
  * @since 2.0.0
  */
-public interface JpaService<T, ID extends Serializable> extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
+public interface JpaService<T, ID extends Serializable>
+    extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
 
-    long count(Specification<T> spec);
+  long count(Specification<T> spec);
 
-    void deleteAllInBatch();
+  void deleteAllInBatch();
 
-    void deleteInBatch(Iterable<T> entities);
+  void deleteInBatch(Iterable<T> entities);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    @Deprecated
-    List<T> findAll(Iterable<ID> ids);
+  @Deprecated
+  List<T> findAll(Iterable<ID> ids);
 
-    List<T> findAll(Specification<T> spec);
+  List<T> findAll(Specification<T> spec);
 
-    Page<T> findAll(Specification<T> spec, Pageable pageable);
+  Page<T> findAll(Specification<T> spec, Pageable pageable);
 
-    List<T> findAll(Specification<T> spec, Sort sort);
+  List<T> findAll(Specification<T> spec, Sort sort);
 
-    List<T> findAll(Sort sort);
+  List<T> findAll(Sort sort);
 
-	List<T> findAllById(Iterable<ID> ids);
+  List<T> findAllById(Iterable<ID> ids);
 
-	Optional<T> findOne(Specification<T> spec);
+  Optional<T> findOne(Specification<T> spec);
 
-    void flush();
+  void flush();
 
-	T getOne(ID id);
+  T getOne(ID id);
 
-	@Deprecated
-    <S extends T> List<S> save(Iterable<S> entities);
+  @Deprecated
+  <S extends T> List<S> save(Iterable<S> entities);
 
-	<S extends T> List<S> saveAll(Iterable<S> entities);
+  <S extends T> List<S> saveAll(Iterable<S> entities);
 
-    <S extends T> S saveAndFlush(S entity);
+  <S extends T> S saveAndFlush(S entity);
 }

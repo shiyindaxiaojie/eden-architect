@@ -38,9 +38,10 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
 @Configuration
 public class AuthorizedFeignConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public RequestInterceptor authorizedRequestInterceptor(OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
-        return new AuthorizedRequestInterceptor(oAuth2Properties, jwtProperties);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public RequestInterceptor authorizedRequestInterceptor(
+      OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
+    return new AuthorizedRequestInterceptor(oAuth2Properties, jwtProperties);
+  }
 }

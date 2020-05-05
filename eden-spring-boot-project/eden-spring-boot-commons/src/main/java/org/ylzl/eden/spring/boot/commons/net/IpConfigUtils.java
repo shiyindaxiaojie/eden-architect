@@ -16,9 +16,8 @@
  */
 package org.ylzl.eden.spring.boot.commons.net;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.ylzl.eden.spring.boot.commons.lang.CharConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 
@@ -37,69 +36,63 @@ import java.net.UnknownHostException;
 @UtilityClass
 public class IpConfigUtils {
 
-    /**
-     * 未知IP
-     */
-    public static final String UNKNOWN_IP = "unknown";
+  /** 未知IP */
+  public static final String UNKNOWN_IP = "unknown";
 
-    /**
-     * 本地IP
-     */
-    public static final String LOCALHOST_IP = "127.0.0.1";
+  /** 本地IP */
+  public static final String LOCALHOST_IP = "127.0.0.1";
 
-    /**
-     * 本地IP
-     */
-    public static final String NATIVE_IP = "0:0:0:0:0:0:0:1";
+  /** 本地IP */
+  public static final String NATIVE_IP = "0:0:0:0:0:0:0:1";
 
-    /**
-     * 获取客户端请求的 IP 地址
-     *
-     * @param request
-     * @return
-     */
-    public static String getIpAddress(@NonNull HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
+  /**
+   * 获取客户端请求的 IP 地址
+   *
+   * @param request
+   * @return
+   */
+  public static String getIpAddress(@NonNull HttpServletRequest request) {
+    String ip = request.getHeader("x-forwarded-for");
+    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+      ip = request.getHeader("Proxy-Client-IP");
     }
-
-    /**
-     * 获取 MAC 地址
-     *
-     * @return
-     * @throws SocketException
-     * @throws UnknownHostException
-     */
-    public static String getMacAddress() throws SocketException, UnknownHostException {
-        return getMacAddress(InetAddress.getLocalHost());
+    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+      ip = request.getHeader("WL-Proxy-Client-IP");
     }
-
-    /**
-     * 获取MAC地址
-     *
-     * @param inetAddress
-     * @return
-     * @throws SocketException
-     */
-    public static String getMacAddress(@NonNull InetAddress inetAddress) throws SocketException {
-        byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < mac.length; i++) {
-            if (i != 0) {
-                sb.append(CharConstants.MINUS);
-            }
-            String s = Integer.toHexString(mac[i] & 0xFF);
-            sb.append(s.length() == 1 ? 0 + s : s);
-        }
-        return sb.toString().toUpperCase();
+    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+      ip = request.getRemoteAddr();
     }
+    return ip;
+  }
+
+  /**
+   * 获取 MAC 地址
+   *
+   * @return
+   * @throws SocketException
+   * @throws UnknownHostException
+   */
+  public static String getMacAddress() throws SocketException, UnknownHostException {
+    return getMacAddress(InetAddress.getLocalHost());
+  }
+
+  /**
+   * 获取MAC地址
+   *
+   * @param inetAddress
+   * @return
+   * @throws SocketException
+   */
+  public static String getMacAddress(@NonNull InetAddress inetAddress) throws SocketException {
+    byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < mac.length; i++) {
+      if (i != 0) {
+        sb.append(CharConstants.MINUS);
+      }
+      String s = Integer.toHexString(mac[i] & 0xFF);
+      sb.append(s.length() == 1 ? 0 + s : s);
+    }
+    return sb.toString().toUpperCase();
+  }
 }

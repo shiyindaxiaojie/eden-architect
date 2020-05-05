@@ -25,11 +25,11 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  */
 public class UnauthorizedException extends BadRequestAlertException {
 
-    public UnauthorizedException() {
-        super(ErrorConstants.ERR_UNAUTHORIZED);
-    }
+  public UnauthorizedException() {
+    super(ErrorConstants.ERR_UNAUTHORIZED);
+  }
 
-    public UnauthorizedException(String message) {
-        super(message);
-    }
+  public UnauthorizedException(String message) {
+    super(message);
+  }
 }

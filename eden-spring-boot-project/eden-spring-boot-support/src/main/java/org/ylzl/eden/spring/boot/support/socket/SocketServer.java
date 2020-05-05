@@ -23,5 +23,4 @@ package org.ylzl.eden.spring.boot.support.socket;
  * @author gyl
  * @since 1.0.0
  */
-public interface SocketServer {
-}
+public interface SocketServer {}

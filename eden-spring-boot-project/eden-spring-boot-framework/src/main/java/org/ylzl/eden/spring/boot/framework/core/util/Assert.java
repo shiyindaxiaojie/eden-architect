@@ -26,6 +26,4 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.0
  */
 @UtilityClass
-public class Assert extends org.springframework.util.Assert {
-
-}
+public class Assert extends org.springframework.util.Assert {}

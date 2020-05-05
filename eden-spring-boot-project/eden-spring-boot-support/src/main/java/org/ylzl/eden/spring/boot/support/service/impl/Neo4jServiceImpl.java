@@ -33,81 +33,82 @@ import java.util.Optional;
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class Neo4jServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID> implements Neo4jService<T, ID> {
+public class Neo4jServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID>
+    implements Neo4jService<T, ID> {
 
-    private final Neo4jRepository<T, ID> neo4jRepository;
+  private final Neo4jRepository<T, ID> neo4jRepository;
 
-    public Neo4jServiceImpl(Neo4jRepository<T, ID> neo4jRepository) {
-        super(neo4jRepository);
-        this.neo4jRepository = neo4jRepository;
-    }
+  public Neo4jServiceImpl(Neo4jRepository<T, ID> neo4jRepository) {
+    super(neo4jRepository);
+    this.neo4jRepository = neo4jRepository;
+  }
 
-    @Override
-    public <S extends T> T save(S entity, int depth) {
-        return neo4jRepository.save(entity, depth);
-    }
+  @Override
+  public <S extends T> T save(S entity, int depth) {
+    return neo4jRepository.save(entity, depth);
+  }
 
-    @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities, int depth) {
-        return neo4jRepository.save(entities, depth);
-    }
+  @Override
+  public <S extends T> Iterable<S> save(Iterable<S> entities, int depth) {
+    return neo4jRepository.save(entities, depth);
+  }
 
-    @Deprecated
-    @Override
-    public Optional<T> findOne(ID id, int depth) {
-        return neo4jRepository.findById(id, depth);
-    }
+  @Deprecated
+  @Override
+  public Optional<T> findOne(ID id, int depth) {
+    return neo4jRepository.findById(id, depth);
+  }
 
-	@Override
-	public Optional<T> findById(ID id, int depth) {
-		return neo4jRepository.findById(id, depth);
-	}
+  @Override
+  public Optional<T> findById(ID id, int depth) {
+    return neo4jRepository.findById(id, depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(int depth) {
-        return neo4jRepository.findAll(depth);
-    }
+  @Override
+  public Iterable<T> findAll(int depth) {
+    return neo4jRepository.findAll(depth);
+  }
 
-    @Override
-    public Iterable<T> findAll(Sort sort, int depth) {
-        return neo4jRepository.findAll(sort, depth);
-    }
+  @Override
+  public Iterable<T> findAll(Sort sort, int depth) {
+    return neo4jRepository.findAll(sort, depth);
+  }
 
-	@Deprecated
-    @Override
-    public Iterable<T> findAll(Iterable<ID> ids, int depth) {
-        return neo4jRepository.findAllById(ids, depth);
-    }
+  @Deprecated
+  @Override
+  public Iterable<T> findAll(Iterable<ID> ids, int depth) {
+    return neo4jRepository.findAllById(ids, depth);
+  }
 
-	@Deprecated
-    @Override
-    public Iterable<T> findAll(Iterable<ID> ids, Sort sort) {
-        return neo4jRepository.findAllById(ids, sort);
-    }
+  @Deprecated
+  @Override
+  public Iterable<T> findAll(Iterable<ID> ids, Sort sort) {
+    return neo4jRepository.findAllById(ids, sort);
+  }
 
-	@Deprecated
-    @Override
-    public Iterable<T> findAll(Iterable<ID> ids, Sort sort, int depth) {
-        return neo4jRepository.findAllById(ids, sort, depth);
-    }
+  @Deprecated
+  @Override
+  public Iterable<T> findAll(Iterable<ID> ids, Sort sort, int depth) {
+    return neo4jRepository.findAllById(ids, sort, depth);
+  }
 
-	@Override
-	public Iterable<T> findAllById(Iterable<ID> ids, int depth) {
-		return neo4jRepository.findAllById(ids, depth);
-	}
+  @Override
+  public Iterable<T> findAllById(Iterable<ID> ids, int depth) {
+    return neo4jRepository.findAllById(ids, depth);
+  }
 
-	@Override
-	public Iterable<T> findAllById(Iterable<ID> ids, Sort sort) {
-		return neo4jRepository.findAllById(ids, sort);
-	}
+  @Override
+  public Iterable<T> findAllById(Iterable<ID> ids, Sort sort) {
+    return neo4jRepository.findAllById(ids, sort);
+  }
 
-	@Override
-	public Iterable<T> findAllById(Iterable<ID> ids, Sort sort, int depth) {
-		return neo4jRepository.findAllById(ids, sort, depth);
-	}
+  @Override
+  public Iterable<T> findAllById(Iterable<ID> ids, Sort sort, int depth) {
+    return neo4jRepository.findAllById(ids, sort, depth);
+  }
 
-    @Override
-    public Page<T> findAll(Pageable pageable, int depth) {
-        return neo4jRepository.findAll(pageable, depth);
-    }
+  @Override
+  public Page<T> findAll(Pageable pageable, int depth) {
+    return neo4jRepository.findAll(pageable, depth);
+  }
 }

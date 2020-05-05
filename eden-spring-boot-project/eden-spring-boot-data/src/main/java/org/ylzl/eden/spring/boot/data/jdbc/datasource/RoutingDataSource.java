@@ -24,7 +24,7 @@ package org.ylzl.eden.spring.boot.data.jdbc.datasource;
  */
 public @interface RoutingDataSource {
 
-    String value();
+  String value();
 
-    DataSourceEnum type() default DataSourceEnum.MASTER;
+  DataSourceEnum type() default DataSourceEnum.MASTER;
 }

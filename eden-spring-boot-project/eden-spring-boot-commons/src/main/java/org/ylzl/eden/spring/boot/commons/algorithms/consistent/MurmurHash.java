@@ -23,7 +23,4 @@ package org.ylzl.eden.spring.boot.commons.algorithms.consistent;
  * @author gyl
  * @since 1.0.0
  */
-public class MurmurHash {
-
-
-}
+public class MurmurHash {}

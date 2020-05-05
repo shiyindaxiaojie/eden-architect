@@ -23,5 +23,4 @@ package org.ylzl.eden.spring.boot.integration.rabbitmq;
  * @author gyl
  * @since 1.0.0
  */
-public class RabbitMQAutoConfiguration {
-}
+public class RabbitMQAutoConfiguration {}

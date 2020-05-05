@@ -32,9 +32,10 @@ import java.util.List;
 /**
  * 运行环境信息端点
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
- *     <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}</li>
+ *   <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}
  * </ul>
  *
  * @author gyl
@@ -44,35 +45,40 @@ import java.util.List;
 @Endpoint(id = ProfileEndpoint.ENDPOINT_ID)
 public class ProfileEndpoint {
 
-    public static final String ENDPOINT_ID = "profiles";
+  public static final String ENDPOINT_ID = "profiles";
 
-    private final Environment env;
+  private final Environment env;
 
-    private final ProfileProperties profileProperties;
+  private final ProfileProperties profileProperties;
 
-    private final ConfigServerProperties configServerProperties;
+  private final ConfigServerProperties configServerProperties;
 
-    public ProfileEndpoint(Environment env, ProfileProperties profileProperties, ConfigServerProperties configServerProperties) {
-        this.env = env;
-        this.profileProperties = profileProperties;
-        this.configServerProperties = configServerProperties;
+  public ProfileEndpoint(
+      Environment env,
+      ProfileProperties profileProperties,
+      ConfigServerProperties configServerProperties) {
+    this.env = env;
+    this.profileProperties = profileProperties;
+    this.configServerProperties = configServerProperties;
+  }
+
+  @ReadOperation
+  public ProfileDescriptor profiles() {
+    String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
+    return new ProfileDescriptor(
+        activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
+  }
+
+  private String getRibbonEnv(String[] activeProfiles) {
+    if (activeProfiles != null) {
+      List<String> ribbonProfiles =
+          new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
+      List<String> springBootProfiles = Arrays.asList(activeProfiles);
+      ribbonProfiles.retainAll(springBootProfiles);
+      if (!ribbonProfiles.isEmpty()) {
+        return ribbonProfiles.get(0);
+      }
     }
-
-    @ReadOperation
-    public ProfileDescriptor profiles() {
-        String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
-        return new ProfileDescriptor(activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
-    }
-
-    private String getRibbonEnv(String[] activeProfiles) {
-        if (activeProfiles != null) {
-            List<String> ribbonProfiles = new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
-            List<String> springBootProfiles = Arrays.asList(activeProfiles);
-            ribbonProfiles.retainAll(springBootProfiles);
-            if (!ribbonProfiles.isEmpty()) {
-                return ribbonProfiles.get(0);
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

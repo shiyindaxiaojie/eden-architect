@@ -28,33 +28,21 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ProfileConstants {
 
-    /**
-     * 开发环境
-     */
-    public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+  /** 开发环境 */
+  public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
 
-    /**
-     * 生产环境
-     */
-    public static final String SPRING_PROFILE_PRODUCTION = "prod";
+  /** 生产环境 */
+  public static final String SPRING_PROFILE_PRODUCTION = "prod";
 
-    /**
-     * 测试环境
-     */
-    public static final String SPRING_PROFILE_TEST = "test";
+  /** 测试环境 */
+  public static final String SPRING_PROFILE_TEST = "test";
 
-    /**
-     * 演示环境
-     */
-    public static final String SPRING_PROFILE_DEMO = "demo";
+  /** 演示环境 */
+  public static final String SPRING_PROFILE_DEMO = "demo";
 
-    /**
-     * 云环境
-     */
-    public static final String SPRING_PROFILE_CLOUD = "cloud";
+  /** 云环境 */
+  public static final String SPRING_PROFILE_CLOUD = "cloud";
 
-	/**
-	 * 本地环境
-	 */
-	public static final String SPRING_PROFILE_NATIVE = "native";
+  /** 本地环境 */
+  public static final String SPRING_PROFILE_NATIVE = "native";
 }

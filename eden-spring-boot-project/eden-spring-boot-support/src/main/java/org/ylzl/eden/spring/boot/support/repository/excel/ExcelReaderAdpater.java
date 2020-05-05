@@ -33,25 +33,28 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public abstract class ExcelReaderAdpater<T> implements ExcelReader<T> {
 
-    private static final String EXP_NONE_IMPL = "未配置 Excel 数据读取器";
+  private static final String EXP_NONE_IMPL = "未配置 Excel 数据读取器";
 
-    @Autowired(required = false)
-    private EasyExcelReader easyExcelReader;
+  @Autowired(required = false)
+  private EasyExcelReader easyExcelReader;
 
-    @Override
-    public void read(InputStream inputStream, int batchSize, int... sheetIndexs) {
-        if (easyExcelReader != null) {
-            final ExcelReaderAdpater adpater = this;
-            easyExcelReader.read(inputStream, new AnalysisEventListenerAdapter<T>(batchSize) {
+  @Override
+  public void read(InputStream inputStream, int batchSize, int... sheetIndexs) {
+    if (easyExcelReader != null) {
+      final ExcelReaderAdpater adpater = this;
+      easyExcelReader.read(
+          inputStream,
+          new AnalysisEventListenerAdapter<T>(batchSize) {
 
-                @Override
-                public void readCallback(List<T> datas) {
-                    adpater.readCallback(datas);
-                }
-            }, sheetIndexs);
-            return;
-        }
-
-        throw new UnsupportedOperationException(EXP_NONE_IMPL);
+            @Override
+            public void readCallback(List<T> datas) {
+              adpater.readCallback(datas);
+            }
+          },
+          sheetIndexs);
+      return;
     }
+
+    throw new UnsupportedOperationException(EXP_NONE_IMPL);
+  }
 }

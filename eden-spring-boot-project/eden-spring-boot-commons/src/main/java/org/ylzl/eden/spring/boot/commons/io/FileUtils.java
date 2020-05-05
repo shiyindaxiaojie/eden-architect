@@ -17,9 +17,8 @@
 
 package org.ylzl.eden.spring.boot.commons.io;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 
@@ -32,11 +31,11 @@ import java.io.File;
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
-    public static boolean createDir(@NonNull String dirPath) {
-        File file = new File(dirPath);
-        if (file.exists()) {
-            return true;
-        }
-        return file.mkdirs();
+  public static boolean createDir(@NonNull String dirPath) {
+    File file = new File(dirPath);
+    if (file.exists()) {
+      return true;
     }
+    return file.mkdirs();
+  }
 }

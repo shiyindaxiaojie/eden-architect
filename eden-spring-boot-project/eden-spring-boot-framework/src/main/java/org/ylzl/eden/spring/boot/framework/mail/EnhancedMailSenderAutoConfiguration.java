@@ -29,5 +29,4 @@ import org.springframework.context.annotation.Configuration;
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)
 @Configuration
-public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {
-}
+public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {}

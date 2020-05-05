@@ -34,10 +34,13 @@ import java.util.List;
 /**
  * 跨域自动配置
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
- *     <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link ManagementServerProperties}</li>
- *     <li>{@code managementServerProperties.getContextPath()} 修改为 {@code managementServerProperties.getServlet().getContextPath()}</li>
+ *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
+ *       ManagementServerProperties}
+ *   <li>{@code managementServerProperties.getContextPath()} 修改为 {@code
+ *       managementServerProperties.getServlet().getContextPath()}
  * </ul>
  *
  * @author gyl
@@ -47,17 +50,22 @@ import java.util.List;
 @Configuration
 public class CorsAutoConfiguration {
 
-	public static final String MSG_INJECT_CORSFILTER = "Inject CorsFilter";
+  public static final String MSG_INJECT_CORSFILTER = "Inject CorsFilter";
 
-	@ConditionalOnMissingBean
-	@Bean
-	public CorsFilter corsFilter(FrameworkProperties frameworkProperties, ManagementServerProperties managementServerProperties) {
-		log.debug(MSG_INJECT_CORSFILTER);
-		CorsConfiguration corsConfiguration = frameworkProperties.getCors();
-		List<String> paths = new ArrayList<>();
-		if (corsConfiguration.getAllowedOrigins() != null && !corsConfiguration.getAllowedOrigins().isEmpty()) {
-			paths.add(managementServerProperties.getServlet().getContextPath() + PathMatcherConstants.ALL_CHILD_PATTERN);
-		}
-		return CorsFilterBuilder.builder().corsConfiguration(corsConfiguration).paths(paths).build();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public CorsFilter corsFilter(
+      FrameworkProperties frameworkProperties,
+      ManagementServerProperties managementServerProperties) {
+    log.debug(MSG_INJECT_CORSFILTER);
+    CorsConfiguration corsConfiguration = frameworkProperties.getCors();
+    List<String> paths = new ArrayList<>();
+    if (corsConfiguration.getAllowedOrigins() != null
+        && !corsConfiguration.getAllowedOrigins().isEmpty()) {
+      paths.add(
+          managementServerProperties.getServlet().getContextPath()
+              + PathMatcherConstants.ALL_CHILD_PATTERN);
+    }
+    return CorsFilterBuilder.builder().corsConfiguration(corsConfiguration).paths(paths).build();
+  }
 }

@@ -48,25 +48,25 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AbstractAuditingEntity implements Serializable {
 
-    private static final long serialVersionUID = 1959121414265638507L;
+  private static final long serialVersionUID = 1959121414265638507L;
 
-    @ApiModelProperty(value = "创建帐号", hidden = true)
-    @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 20, updatable = false)
-    private String createdBy;
+  @ApiModelProperty(value = "创建帐号", hidden = true)
+  @CreatedBy
+  @Column(name = "created_by", nullable = false, length = 20, updatable = false)
+  private String createdBy;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
-    @CreatedDate
-    @Column(name = "created_date", nullable = false)
-    private Date createdDate;
+  @ApiModelProperty(value = "创建时间", hidden = true)
+  @CreatedDate
+  @Column(name = "created_date", nullable = false)
+  private Date createdDate;
 
-    @ApiModelProperty(value = "最后修改帐号", hidden = true)
-    @LastModifiedBy
-    @Column(name = "last_modified_by", length = 20)
-    private String lastModifiedBy;
+  @ApiModelProperty(value = "最后修改帐号", hidden = true)
+  @LastModifiedBy
+  @Column(name = "last_modified_by", length = 20)
+  private String lastModifiedBy;
 
-    @ApiModelProperty(value = "最后修改时间", hidden = true)
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
+  @ApiModelProperty(value = "最后修改时间", hidden = true)
+  @LastModifiedDate
+  @Column(name = "last_modified_date")
+  private Date lastModifiedDate;
 }

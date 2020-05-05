@@ -34,9 +34,10 @@ import java.util.Date;
  */
 public class DateSerializer extends JsonSerializer<Date> {
 
-    @Override
-    public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(DateUtils.toDateString(date, DatePattern.NORM_DATE_PATTERN));
-    }
-
+  @Override
+  public void serialize(
+      Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+      throws IOException {
+    jsonGenerator.writeString(DateUtils.toDateString(date, DatePattern.NORM_DATE_PATTERN));
+  }
 }

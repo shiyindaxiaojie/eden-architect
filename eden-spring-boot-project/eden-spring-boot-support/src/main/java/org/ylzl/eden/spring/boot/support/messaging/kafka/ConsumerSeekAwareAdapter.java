@@ -17,11 +17,12 @@
 
 package org.ylzl.eden.spring.boot.support.messaging.kafka;
 
-import java.util.List;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.kafka.listener.ConsumerSeekAware;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 消费者启动监听适配器
@@ -32,35 +33,34 @@ import org.springframework.kafka.listener.ConsumerSeekAware;
 @Slf4j
 public class ConsumerSeekAwareAdapter implements ConsumerSeekAware {
 
-	public static final String MSG_SEED_TO_END_TOPICS = "Set Kafka topics seed to end on partitions assigned: {}";
+  public static final String MSG_SEED_TO_END_TOPICS =
+      "Set Kafka topics seed to end on partitions assigned: {}";
 
-	private List<String> seedToEndTopics;
+  private List<String> seedToEndTopics;
 
-	public ConsumerSeekAwareAdapter(List<String> seedToEndTopics) {
-		this.seedToEndTopics = seedToEndTopics;
-	}
+  public ConsumerSeekAwareAdapter(List<String> seedToEndTopics) {
+    this.seedToEndTopics = seedToEndTopics;
+  }
 
-	@Override
-	public void registerSeekCallback(ConsumerSeekCallback consumerSeekCallback) {
+  @Override
+  public void registerSeekCallback(ConsumerSeekCallback consumerSeekCallback) {}
 
-	}
+  @Override
+  public void onPartitionsAssigned(
+      Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {
+    for (Map.Entry<TopicPartition, Long> entry : map.entrySet()) {
+      TopicPartition topicPartition = entry.getKey();
+      String topic = topicPartition.topic();
+      if (!seedToEndTopics.contains(topic)) {
+        continue;
+      }
+      int partition = topicPartition.partition();
+      consumerSeekCallback.seek(topic, partition, Long.MAX_VALUE);
+    }
+    log.debug(MSG_SEED_TO_END_TOPICS, seedToEndTopics);
+  }
 
-	@Override
-	public void onPartitionsAssigned(Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {
-		for (Map.Entry<TopicPartition, Long> entry : map.entrySet()) {
-			TopicPartition topicPartition = entry.getKey();
-			String topic = topicPartition.topic();
-			if (!seedToEndTopics.contains(topic)) {
-				continue;
-			}
-			int partition = topicPartition.partition();
-			consumerSeekCallback.seek(topic, partition, Long.MAX_VALUE);
-		}
-		log.debug(MSG_SEED_TO_END_TOPICS, seedToEndTopics);
-	}
-
-	@Override
-	public void onIdleContainer(Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {
-
-	}
+  @Override
+  public void onIdleContainer(
+      Map<TopicPartition, Long> map, ConsumerSeekCallback consumerSeekCallback) {}
 }

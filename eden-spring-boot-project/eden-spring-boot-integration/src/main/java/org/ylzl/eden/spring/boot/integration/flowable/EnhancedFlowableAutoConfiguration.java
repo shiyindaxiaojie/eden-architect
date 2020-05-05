@@ -41,18 +41,20 @@ import javax.sql.DataSource;
 @Configuration
 public class EnhancedFlowableAutoConfiguration implements ProcessEngineConfigurationConfigurer {
 
-	private final DataSource dataSource;
+  private final DataSource dataSource;
 
-	public EnhancedFlowableAutoConfiguration(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+  public EnhancedFlowableAutoConfiguration(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
 
-	@Override
-	public void configure(SpringProcessEngineConfiguration springProcessEngineConfiguration) {
-		springProcessEngineConfiguration.setDataSource(dataSource);
-		springProcessEngineConfiguration.setActivityFontName(FrameworkConstants.DEFAULT_FONT_NAME);
-		springProcessEngineConfiguration.setLabelFontName(FrameworkConstants.DEFAULT_FONT_NAME);
-		springProcessEngineConfiguration.setProcessDiagramGenerator(new DefaultProcessDiagramGenerator());
-		springProcessEngineConfiguration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
-	}
+  @Override
+  public void configure(SpringProcessEngineConfiguration springProcessEngineConfiguration) {
+    springProcessEngineConfiguration.setDataSource(dataSource);
+    springProcessEngineConfiguration.setActivityFontName(FrameworkConstants.DEFAULT_FONT_NAME);
+    springProcessEngineConfiguration.setLabelFontName(FrameworkConstants.DEFAULT_FONT_NAME);
+    springProcessEngineConfiguration.setProcessDiagramGenerator(
+        new DefaultProcessDiagramGenerator());
+    springProcessEngineConfiguration.setDatabaseSchemaUpdate(
+        ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+  }
 }

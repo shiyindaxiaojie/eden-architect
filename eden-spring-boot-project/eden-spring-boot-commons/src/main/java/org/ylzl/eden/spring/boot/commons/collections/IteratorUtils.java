@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.collections;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 迭代器工具集
@@ -26,6 +25,4 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.0
  */
 @UtilityClass
-public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {
-
-}
+public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {}

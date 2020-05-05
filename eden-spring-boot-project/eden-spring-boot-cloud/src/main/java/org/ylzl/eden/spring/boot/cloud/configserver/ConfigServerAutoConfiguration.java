@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.cloud.configserver;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -29,7 +28,6 @@ import org.springframework.cloud.config.server.environment.NativeEnvironmentRepo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 
@@ -47,17 +45,21 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 @Configuration
 public class ConfigServerAutoConfiguration {
 
-	public static final String EXPS_CONFIG_SERVER_ENABLED = "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:true}";
+  public static final String EXPS_CONFIG_SERVER_ENABLED =
+      "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:true}";
 
-	private final NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory;
+  private final NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory;
 
-	public ConfigServerAutoConfiguration(NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory) {
-		this.nativeEnvironmentRepositoryFactory = nativeEnvironmentRepositoryFactory;
-	}
+  public ConfigServerAutoConfiguration(
+      NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory) {
+    this.nativeEnvironmentRepositoryFactory = nativeEnvironmentRepositoryFactory;
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public NativeEnvironmentRepository nativeEnvironmentRepository(NativeEnvironmentRepositoryFactory factory, NativeEnvironmentProperties environmentProperties) {
-		return factory.build(environmentProperties);
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public NativeEnvironmentRepository nativeEnvironmentRepository(
+      NativeEnvironmentRepositoryFactory factory,
+      NativeEnvironmentProperties environmentProperties) {
+    return factory.build(environmentProperties);
+  }
 }

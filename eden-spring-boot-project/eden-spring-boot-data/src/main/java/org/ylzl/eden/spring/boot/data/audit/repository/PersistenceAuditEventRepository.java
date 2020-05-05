@@ -25,7 +25,6 @@ import org.ylzl.eden.spring.boot.data.audit.event.PersistentAuditEvent;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,15 +34,18 @@ import java.util.List;
  * @since 1.0.0
  */
 @NoRepositoryBean
-public interface PersistenceAuditEventRepository<T extends PersistentAuditEvent, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface PersistenceAuditEventRepository<
+        T extends PersistentAuditEvent, ID extends Serializable>
+    extends JpaRepository<T, ID> {
 
-    List<T> findByPrincipal(String principal);
+  List<T> findByPrincipal(String principal);
 
-    List<T> findByEventDateAfter(Instant after);
+  List<T> findByEventDateAfter(Instant after);
 
-    List<T> findByPrincipalAndEventDateAfter(String principal, Instant after);
+  List<T> findByPrincipalAndEventDateAfter(String principal, Instant after);
 
-    List<T> findByPrincipalAndEventDateAfterAndEventType(String principal, Instant after, String type);
+  List<T> findByPrincipalAndEventDateAfterAndEventType(
+      String principal, Instant after, String type);
 
-    Page<T> findAllByEventDateBetween(Instant fromDate, Instant toDate, Pageable pageable);
+  Page<T> findAllByEventDateBetween(Instant fromDate, Instant toDate, Pageable pageable);
 }

@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".ehcache")
 public class EhcacheProperties {
 
-    private long maxEntries = EhcacheDefaults.maxEntries;
+  private long maxEntries = EhcacheDefaults.maxEntries;
 
-    private int timeToLiveSeconds = EhcacheDefaults.timeToLiveSeconds;
+  private int timeToLiveSeconds = EhcacheDefaults.timeToLiveSeconds;
 }

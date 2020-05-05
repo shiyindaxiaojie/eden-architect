@@ -23,5 +23,4 @@ package org.ylzl.eden.spring.boot.integration.netty;
  * @author gyl
  * @since 1.0.0
  */
-public class NettyServerAutoConfiguration {
-}
+public class NettyServerAutoConfiguration {}

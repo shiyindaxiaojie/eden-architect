@@ -33,20 +33,20 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 @ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".hazelcast")
 public class EnhancedHazelcastProperties {
 
-    private int backupCount = EnhancedHazelcastDefaults.backupCount;
+  private int backupCount = EnhancedHazelcastDefaults.backupCount;
 
-    private int timeToLiveSeconds = EnhancedHazelcastDefaults.timeToLiveSeconds;
+  private int timeToLiveSeconds = EnhancedHazelcastDefaults.timeToLiveSeconds;
 
-    private final ManagementCenter managementCenter = new ManagementCenter();
+  private final ManagementCenter managementCenter = new ManagementCenter();
 
-    @Getter
-    @Setter
-    public static class ManagementCenter {
+  @Getter
+  @Setter
+  public static class ManagementCenter {
 
-        private boolean enabled = EnhancedHazelcastDefaults.ManagementCenter.enabled;
+    private boolean enabled = EnhancedHazelcastDefaults.ManagementCenter.enabled;
 
-        private int updateInterval = EnhancedHazelcastDefaults.ManagementCenter.updateInterval;
+    private int updateInterval = EnhancedHazelcastDefaults.ManagementCenter.updateInterval;
 
-        private String url = EnhancedHazelcastDefaults.ManagementCenter.url;
-    }
+    private String url = EnhancedHazelcastDefaults.ManagementCenter.url;
+  }
 }

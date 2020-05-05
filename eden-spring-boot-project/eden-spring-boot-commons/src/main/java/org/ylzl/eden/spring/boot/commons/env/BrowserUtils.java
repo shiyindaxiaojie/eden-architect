@@ -33,25 +33,25 @@ import java.net.URLEncoder;
 @UtilityClass
 public class BrowserUtils {
 
-    public static boolean isIE(@NonNull HttpServletRequest request) {
-        BrowserEnum browserEnum = BrowserEnum.toBrowserEnum(request);
-        switch (browserEnum) {
-            case IE6:
-            case IE7:
-            case IE8:
-            case IE9:
-            case IE10:
-            case IE11:
-                return true;
-        }
-        return false;
+  public static boolean isIE(@NonNull HttpServletRequest request) {
+    BrowserEnum browserEnum = BrowserEnum.toBrowserEnum(request);
+    switch (browserEnum) {
+      case IE6:
+      case IE7:
+      case IE8:
+      case IE9:
+      case IE10:
+      case IE11:
+        return true;
     }
+    return false;
+  }
 
-    public static String getLanguage(@NonNull HttpServletRequest request) {
-        return request.getLocale().getLanguage();
-    }
+  public static String getLanguage(@NonNull HttpServletRequest request) {
+    return request.getLocale().getLanguage();
+  }
 
-    public static String resolveValue(@NonNull String value) throws UnsupportedEncodingException {
-        return URLEncoder.encode(value, String.valueOf(CharsetConstants.UTF_8));
-    }
+  public static String resolveValue(@NonNull String value) throws UnsupportedEncodingException {
+    return URLEncoder.encode(value, String.valueOf(CharsetConstants.UTF_8));
+  }
 }

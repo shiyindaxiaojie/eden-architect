@@ -37,53 +37,54 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class CookieHelper {
 
-    private static final PublicSuffixMatcher suffixMatcher = PublicSuffixMatcherLoader.getDefault();
+  private static final PublicSuffixMatcher suffixMatcher = PublicSuffixMatcherLoader.getDefault();
 
-    public static Cookie create(String cookieName, String cookieValue) {
-        return new Cookie(cookieName, cookieValue);
-    }
+  public static Cookie create(String cookieName, String cookieValue) {
+    return new Cookie(cookieName, cookieValue);
+  }
 
-    public static Cookie get(HttpServletRequest request, String cookieName) {
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals(cookieName)) {
-                    String value = cookie.getValue();
-                    if (StringUtils.isNotBlank(value)) {
-                        return cookie;
-                    }
-                }
-            }
+  public static Cookie get(HttpServletRequest request, String cookieName) {
+    if (request.getCookies() != null) {
+      for (Cookie cookie : request.getCookies()) {
+        if (cookie.getName().equals(cookieName)) {
+          String value = cookie.getValue();
+          if (StringUtils.isNotBlank(value)) {
+            return cookie;
+          }
         }
-        return null;
+      }
     }
+    return null;
+  }
 
-    public static void clear(HttpServletRequest request, HttpServletResponse response, String cookieName, String domain) {
-        Cookie cookie = new Cookie(cookieName, StringConstants.EMPTY);
-        set(cookie, request.isSecure(), domain);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-    }
+  public static void clear(
+      HttpServletRequest request, HttpServletResponse response, String cookieName, String domain) {
+    Cookie cookie = new Cookie(cookieName, StringConstants.EMPTY);
+    set(cookie, request.isSecure(), domain);
+    cookie.setMaxAge(0);
+    response.addCookie(cookie);
+  }
 
-    public static void set(Cookie cookie, boolean isSecure, String domain) {
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setSecure(isSecure);
-        if (domain != null) {
-            cookie.setDomain(domain);
-        }
+  public static void set(Cookie cookie, boolean isSecure, String domain) {
+    cookie.setHttpOnly(true);
+    cookie.setPath("/");
+    cookie.setSecure(isSecure);
+    if (domain != null) {
+      cookie.setDomain(domain);
     }
+  }
 
-    public static String getDomain(HttpServletRequest request) {
-        String domain = request.getServerName().toLowerCase();
-        if (domain.startsWith("www.")) {
-            domain = domain.substring(4);
-        }
-        if (!InetAddressUtils.isIPv4Address(domain) && !InetAddressUtils.isIPv6Address(domain)) {
-            String suffix = suffixMatcher.getDomainRoot(domain);
-            if (suffix != null && !suffix.equals(domain)) {
-                return StringConstants.DOT + suffix;
-            }
-        }
-        return null;
+  public static String getDomain(HttpServletRequest request) {
+    String domain = request.getServerName().toLowerCase();
+    if (domain.startsWith("www.")) {
+      domain = domain.substring(4);
     }
+    if (!InetAddressUtils.isIPv4Address(domain) && !InetAddressUtils.isIPv6Address(domain)) {
+      String suffix = suffixMatcher.getDomainRoot(domain);
+      if (suffix != null && !suffix.equals(domain)) {
+        return StringConstants.DOT + suffix;
+      }
+    }
+    return null;
+  }
 }

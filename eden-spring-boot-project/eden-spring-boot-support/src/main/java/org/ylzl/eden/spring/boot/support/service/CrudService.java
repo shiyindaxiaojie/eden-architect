@@ -28,42 +28,42 @@ import java.util.Optional;
  */
 public interface CrudService<T, ID extends Serializable> {
 
-    long count();
+  long count();
 
-    @Deprecated
-    void delete(ID id);
+  @Deprecated
+  void delete(ID id);
 
-    void delete(T entity);
+  void delete(T entity);
 
-	@Deprecated
-    void delete(Iterable<? extends T> entities);
+  @Deprecated
+  void delete(Iterable<? extends T> entities);
 
-    void deleteAll();
+  void deleteAll();
 
-	void deleteAll(Iterable<? extends T> entities);
+  void deleteAll(Iterable<? extends T> entities);
 
-	void deleteById(ID id);
+  void deleteById(ID id);
 
-    boolean exists(ID id);
+  boolean exists(ID id);
 
-	boolean existsById(ID id);
+  boolean existsById(ID id);
 
-    Iterable<T> findAll();
+  Iterable<T> findAll();
 
-	@Deprecated
-    Iterable<T> findAll(Iterable<ID> ids);
+  @Deprecated
+  Iterable<T> findAll(Iterable<ID> ids);
 
-	Iterable<T> findAllById(Iterable<ID> ids);
+  Iterable<T> findAllById(Iterable<ID> ids);
 
-	@Deprecated
-	Optional<T> findOne(ID id);
+  @Deprecated
+  Optional<T> findOne(ID id);
 
-	Optional<T> findById(ID id);
+  Optional<T> findById(ID id);
 
-    <S extends T> S save(S entity);
+  <S extends T> S save(S entity);
 
-	@Deprecated
-    <S extends T> Iterable<S> save(Iterable<S> entities);
+  @Deprecated
+  <S extends T> Iterable<S> save(Iterable<S> entities);
 
-	<S extends T> Iterable<S> saveAll(Iterable<S> entities);
+  <S extends T> Iterable<S> saveAll(Iterable<S> entities);
 }

@@ -28,8 +28,8 @@ import org.ylzl.eden.spring.boot.data.audit.event.AuditEventConverter;
 /**
  * AuditEvent 自动配置
  *
- * @see org.springframework.boot.actuate.audit.AuditEvent
  * @author gyl
+ * @see org.springframework.boot.actuate.audit.AuditEvent
  * @since 1.0.0
  */
 @ConditionalOnClass(AuditEvent.class)
@@ -37,9 +37,9 @@ import org.ylzl.eden.spring.boot.data.audit.event.AuditEventConverter;
 @Configuration
 public class PersistenceAuditEventConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public AuditEventConverter auditEventConverter() {
-        return new AuditEventConverter();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public AuditEventConverter auditEventConverter() {
+    return new AuditEventConverter();
+  }
 }

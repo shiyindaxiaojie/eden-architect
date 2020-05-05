@@ -26,17 +26,17 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
  */
 public class InvalidPublicKeyException extends InvalidTokenException {
 
-    public static final String ERR_INVALID_PUBLIC_KEY = "无效的公钥";
+  public static final String ERR_INVALID_PUBLIC_KEY = "无效的公钥";
 
-    public InvalidPublicKeyException() {
-        super(ERR_INVALID_PUBLIC_KEY);
-    }
+  public InvalidPublicKeyException() {
+    super(ERR_INVALID_PUBLIC_KEY);
+  }
 
-    public InvalidPublicKeyException(String message) {
-		super(message);
-	}
+  public InvalidPublicKeyException(String message) {
+    super(message);
+  }
 
-	public InvalidPublicKeyException(String message, Throwable e) {
-		super(message, e);
-	}
+  public InvalidPublicKeyException(String message, Throwable e) {
+    super(message, e);
+  }
 }
