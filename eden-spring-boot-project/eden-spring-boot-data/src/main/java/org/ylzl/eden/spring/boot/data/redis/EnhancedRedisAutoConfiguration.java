@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
+import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
 import org.ylzl.eden.spring.boot.data.redis.support.EnhancedRedisTemplate;
 import redis.clients.jedis.HostAndPort;
@@ -38,8 +39,6 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.springframework.util.StringUtils.split;
 
 /**
  * Redis 自动配置
@@ -62,7 +61,7 @@ public class EnhancedRedisAutoConfiguration {
     public FixedJedisCluster jedisCluster(RedisProperties redisProperties) {
       Set<HostAndPort> hostAndPorts = new HashSet<>();
       for (String node : redisProperties.getCluster().getNodes()) {
-        String[] args = split(node, StringConstants.COMMA);
+        String[] args = StringUtils.split(node, StringConstants.COMMA);
         hostAndPorts.add(new HostAndPort(args[0], Integer.valueOf(args[1]).intValue()));
       }
       int maxAttempts = 3;
