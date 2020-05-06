@@ -25,5 +25,4 @@ import java.io.Serializable;
  * @author gyl
  * @since 0.0.1
  */
-public interface DocumentService<T, ID extends Serializable> extends CrudService<T, ID> {
-}
+public interface DocumentService<T, ID extends Serializable> extends CrudService<T, ID> {}

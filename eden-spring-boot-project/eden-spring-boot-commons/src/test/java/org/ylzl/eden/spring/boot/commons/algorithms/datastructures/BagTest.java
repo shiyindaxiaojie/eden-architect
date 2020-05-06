@@ -30,15 +30,15 @@ import static org.junit.Assert.*;
  */
 public class BagTest {
 
-	@Test
-	public void assertThatBag() {
-		Bag<Integer> bag = new Bag<>();
-		int limit = 1000000;
-		for (int i = 1; i <= limit; i++) {
-			bag.add(i);
-		}
-		assertEquals(limit, bag.size());
-		assertFalse(bag.contains(-1));
-		assertTrue(bag.contains(1));
-	}
+  @Test
+  public void assertThatBag() {
+    Bag<Integer> bag = new Bag<>();
+    int limit = 1000000;
+    for (int i = 1; i <= limit; i++) {
+      bag.add(i);
+    }
+    assertEquals(limit, bag.size());
+    assertFalse(bag.contains(-1));
+    assertTrue(bag.contains(1));
+  }
 }

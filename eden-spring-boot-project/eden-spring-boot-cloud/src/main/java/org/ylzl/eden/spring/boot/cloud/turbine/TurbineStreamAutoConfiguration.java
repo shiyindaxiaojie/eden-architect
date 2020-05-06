@@ -47,39 +47,38 @@ import java.util.Map;
 @Configuration
 public class TurbineStreamAutoConfiguration {
 
-    @Autowired
-    private ChannelBindingServiceProperties bindings;
+  @Autowired private ChannelBindingServiceProperties bindings;
 
-    @Autowired
-    private TurbineStreamProperties turbineStreamProperties;
+  @Autowired private TurbineStreamProperties turbineStreamProperties;
 
-    @PostConstruct
-    public void init() {
-        BindingProperties inputBinding = this.bindings.getBindings().get(TurbineStreamClient.INPUT);
-        if (inputBinding == null) {
-            this.bindings.getBindings().put(TurbineStreamClient.INPUT, new BindingProperties());
-        }
-        BindingProperties input = this.bindings.getBindings().get(TurbineStreamClient.INPUT);
-        if (input.getDestination() == null) {
-            input.setDestination(this.turbineStreamProperties.getDestination());
-        }
-        if (input.getContentType() == null) {
-            input.setContentType(this.turbineStreamProperties.getContentType());
-        }
+  @PostConstruct
+  public void init() {
+    BindingProperties inputBinding = this.bindings.getBindings().get(TurbineStreamClient.INPUT);
+    if (inputBinding == null) {
+      this.bindings.getBindings().put(TurbineStreamClient.INPUT, new BindingProperties());
     }
-
-    @Bean
-    public HystrixStreamAggregator hystrixStreamAggregator(ObjectMapper mapper, PublishSubject<Map<String, Object>> publisher) {
-        return new HystrixStreamAggregator(mapper, publisher);
+    BindingProperties input = this.bindings.getBindings().get(TurbineStreamClient.INPUT);
+    if (input.getDestination() == null) {
+      input.setDestination(this.turbineStreamProperties.getDestination());
     }
+    if (input.getContentType() == null) {
+      input.setContentType(this.turbineStreamProperties.getContentType());
+    }
+  }
 
-	@Bean
-	public HasFeatures Feature() {
-		return HasFeatures.namedFeature("Turbine (Stream)", TurbineStreamProperties.class);
-	}
+  @Bean
+  public HystrixStreamAggregator hystrixStreamAggregator(
+      ObjectMapper mapper, PublishSubject<Map<String, Object>> publisher) {
+    return new HystrixStreamAggregator(mapper, publisher);
+  }
 
-	@Bean
-	public PublishSubject<Map<String, Object>> hystrixSubject() {
-		return PublishSubject.create();
-	}
+  @Bean
+  public HasFeatures Feature() {
+    return HasFeatures.namedFeature("Turbine (Stream)", TurbineStreamProperties.class);
+  }
+
+  @Bean
+  public PublishSubject<Map<String, Object>> hystrixSubject() {
+    return PublishSubject.create();
+  }
 }

@@ -40,64 +40,79 @@ import java.util.Objects;
 @UtilityClass
 public class ImmutableMapUtils {
 
-    private static final Function DEFAULT_FUNCTION = new Function() {
+  private static final Function DEFAULT_FUNCTION =
+      new Function() {
 
         @Override
         public Object apply(Object object) {
-            return object;
+          return object;
         }
-    };
+      };
 
-    public static <T, K, V> HashMap<K, V> buildHashMap(@NonNull T[] objects, @NonNull Function<T, K> keyFn) {
-        return buildHashMap(objects, keyFn, DEFAULT_FUNCTION);
-    }
+  public static <T, K, V> HashMap<K, V> buildHashMap(
+      @NonNull T[] objects, @NonNull Function<T, K> keyFn) {
+    return buildHashMap(objects, keyFn, DEFAULT_FUNCTION);
+  }
 
-    public static <T, K, V> HashMap<K, V> buildHashMap(@NonNull T[] objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn) {
-        return buildHashMap(Arrays.asList(objects), keyFn, valueFn);
-    }
+  public static <T, K, V> HashMap<K, V> buildHashMap(
+      @NonNull T[] objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn) {
+    return buildHashMap(Arrays.asList(objects), keyFn, valueFn);
+  }
 
-    public static <T, K, V> HashMap<K, V> buildHashMap(@NonNull List<T> objects, @NonNull Function<T, K> keyFn) {
-        return buildHashMap(objects, keyFn, DEFAULT_FUNCTION);
-    }
+  public static <T, K, V> HashMap<K, V> buildHashMap(
+      @NonNull List<T> objects, @NonNull Function<T, K> keyFn) {
+    return buildHashMap(objects, keyFn, DEFAULT_FUNCTION);
+  }
 
-    public static <T, K, V> HashMap<K, V> buildHashMap(@NonNull List<T> objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn) {
-        HashMap<K, V> hashMap = Maps.newHashMapWithExpectedSize(objects.size());
-        for (T object : objects) {
-            hashMap.put(keyFn.apply(object), valueFn.apply(object));
-        }
-        return hashMap;
+  public static <T, K, V> HashMap<K, V> buildHashMap(
+      @NonNull List<T> objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn) {
+    HashMap<K, V> hashMap = Maps.newHashMapWithExpectedSize(objects.size());
+    for (T object : objects) {
+      hashMap.put(keyFn.apply(object), valueFn.apply(object));
     }
+    return hashMap;
+  }
 
-    public static <T, K, V> ImmutableMap<K, V> build(@NonNull T[] objects, @NonNull Function<T, K> keyFn)
-        throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        return build(objects, keyFn, DEFAULT_FUNCTION);
-    }
+  public static <T, K, V> ImmutableMap<K, V> build(
+      @NonNull T[] objects, @NonNull Function<T, K> keyFn)
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+          InvocationTargetException {
+    return build(objects, keyFn, DEFAULT_FUNCTION);
+  }
 
-    public static <T, K, V> ImmutableMap<K, V> build(@NonNull T[] objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn)
-        throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        return build(Arrays.asList(objects), keyFn, valueFn);
-    }
+  public static <T, K, V> ImmutableMap<K, V> build(
+      @NonNull T[] objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn)
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+          InvocationTargetException {
+    return build(Arrays.asList(objects), keyFn, valueFn);
+  }
 
-    public static <T, K, V> ImmutableMap<K, V> build(@NonNull List<T> objects, @NonNull Function<T, K> keyFn)
-        throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        return build(objects, keyFn, DEFAULT_FUNCTION);
-    }
+  public static <T, K, V> ImmutableMap<K, V> build(
+      @NonNull List<T> objects, @NonNull Function<T, K> keyFn)
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+          InvocationTargetException {
+    return build(objects, keyFn, DEFAULT_FUNCTION);
+  }
 
-    public static <T, K, V> ImmutableMap<K, V> build(@NonNull List<T> objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn)
-        throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        ImmutableMap.Builder<K, V> builder = builderWithExpectedSize(objects.size());
-        for (T object : objects) {
-            K key = Objects.requireNonNull(keyFn.apply(object));
-            V value = Objects.requireNonNull(valueFn.apply(object));
-            builder.put(key, value);
-        }
-        return builder.build();
+  public static <T, K, V> ImmutableMap<K, V> build(
+      @NonNull List<T> objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn)
+      throws InvocationTargetException, NoSuchMethodException, InstantiationException,
+          IllegalAccessException {
+    ImmutableMap.Builder<K, V> builder = builderWithExpectedSize(objects.size());
+    for (T object : objects) {
+      K key = Objects.requireNonNull(keyFn.apply(object));
+      V value = Objects.requireNonNull(valueFn.apply(object));
+      builder.put(key, value);
     }
+    return builder.build();
+  }
 
-    private static <K, V> ImmutableMap.Builder<K, V> builderWithExpectedSize(int size) throws NoSuchMethodException, IllegalAccessException,
-        InvocationTargetException, InstantiationException {
-        Constructor<ImmutableMap.Builder> constructor = ImmutableMap.Builder.class.getDeclaredConstructor(int.class);
-        constructor.setAccessible(true);
-        return constructor.newInstance(size);
-    }
+  private static <K, V> ImmutableMap.Builder<K, V> builderWithExpectedSize(int size)
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+          InstantiationException {
+    Constructor<ImmutableMap.Builder> constructor =
+        ImmutableMap.Builder.class.getDeclaredConstructor(int.class);
+    constructor.setAccessible(true);
+    return constructor.newInstance(size);
+  }
 }

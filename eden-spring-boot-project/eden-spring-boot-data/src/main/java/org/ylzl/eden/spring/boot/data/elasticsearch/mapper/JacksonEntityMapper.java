@@ -31,21 +31,21 @@ import java.io.IOException;
  */
 public class JacksonEntityMapper implements EntityMapper {
 
-    private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
-    public JacksonEntityMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-    }
+  public JacksonEntityMapper(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+  }
 
-    @Override
-    public String mapToString(Object object) throws IOException {
-        return objectMapper.writeValueAsString(object);
-    }
+  @Override
+  public String mapToString(Object object) throws IOException {
+    return objectMapper.writeValueAsString(object);
+  }
 
-    @Override
-    public <T> T mapToObject(String source, Class<T> clazz) throws IOException {
-        return objectMapper.readValue(source, clazz);
-    }
+  @Override
+  public <T> T mapToObject(String source, Class<T> clazz) throws IOException {
+    return objectMapper.readValue(source, clazz);
+  }
 }

@@ -19,19 +19,21 @@ import java.util.Map;
 @Component
 public class JwtTokenEnhancer implements TokenEnhancer {
 
-    @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        addClaims((DefaultOAuth2AccessToken) accessToken);
-        return accessToken;
-    }
+  @Override
+  public OAuth2AccessToken enhance(
+      OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+    addClaims((DefaultOAuth2AccessToken) accessToken);
+    return accessToken;
+  }
 
-    private void addClaims(DefaultOAuth2AccessToken accessToken) {
-        DefaultOAuth2AccessToken token = accessToken;
-        Map<String, Object> additionalInformation = token.getAdditionalInformation();
-        if (additionalInformation.isEmpty()) {
-            additionalInformation = new LinkedHashMap<>();
-        }
-        additionalInformation.put(JwtConstants.ISSUED_AT, new Integer((int)(System.currentTimeMillis()/1000L)));
-        token.setAdditionalInformation(additionalInformation);
+  private void addClaims(DefaultOAuth2AccessToken accessToken) {
+    DefaultOAuth2AccessToken token = accessToken;
+    Map<String, Object> additionalInformation = token.getAdditionalInformation();
+    if (additionalInformation.isEmpty()) {
+      additionalInformation = new LinkedHashMap<>();
     }
+    additionalInformation.put(
+        JwtConstants.ISSUED_AT, new Integer((int) (System.currentTimeMillis() / 1000L)));
+    token.setAdditionalInformation(additionalInformation);
+  }
 }

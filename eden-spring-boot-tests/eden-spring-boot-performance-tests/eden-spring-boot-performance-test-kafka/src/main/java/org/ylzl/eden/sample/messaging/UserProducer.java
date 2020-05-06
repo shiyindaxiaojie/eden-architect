@@ -26,8 +26,6 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.sample.domain.User;
 import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
 
-import java.util.List;
-
 /**
  * 生产者
  *
@@ -37,27 +35,26 @@ import java.util.List;
 @Component
 public class UserProducer {
 
-	private final KafkaTemplate<String, String> kafkaTemplate;
+  private final KafkaTemplate<String, String> kafkaTemplate;
 
-	public UserProducer(KafkaTemplate<String, String> kafkaTemplate) {
-		this.kafkaTemplate = kafkaTemplate;
-	}
+  public UserProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    this.kafkaTemplate = kafkaTemplate;
+  }
 
-	public ListenableFuture<SendResult<String, String>> send(User user) throws JsonProcessingException {
-		String data = JacksonUtils.toJSONString(user);
-		ListenableFuture<SendResult<String, String>> sendResult = kafkaTemplate.send("sample_users", user.getLogin(), data);
-		sendResult.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+  public ListenableFuture<SendResult<String, String>> send(User user)
+      throws JsonProcessingException {
+    String data = JacksonUtils.toJSONString(user);
+    ListenableFuture<SendResult<String, String>> sendResult =
+        kafkaTemplate.send("sample_users", user.getLogin(), data);
+    sendResult.addCallback(
+        new ListenableFutureCallback<SendResult<String, String>>() {
 
-			@Override
-			public void onFailure(Throwable throwable) {
+          @Override
+          public void onFailure(Throwable throwable) {}
 
-			}
-
-			@Override
-			public void onSuccess(SendResult<String, String> sendResult) {
-
-			}
-		});
-		return sendResult;
-	}
+          @Override
+          public void onSuccess(SendResult<String, String> sendResult) {}
+        });
+    return sendResult;
+  }
 }

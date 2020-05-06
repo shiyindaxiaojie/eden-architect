@@ -27,5 +27,5 @@ import springfox.documentation.spring.web.plugins.Docket;
  */
 public interface SwaggerCustomizer {
 
-    void customize(Docket docket);
+  void customize(Docket docket);
 }

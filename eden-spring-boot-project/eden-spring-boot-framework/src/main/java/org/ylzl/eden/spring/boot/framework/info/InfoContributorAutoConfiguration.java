@@ -32,24 +32,26 @@ import org.ylzl.eden.spring.boot.framework.info.contributor.MailEnabledInfoContr
  * @author gyl
  * @since 0.0.1
  */
-@AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration.class)
+@AutoConfigureAfter(
+    org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration.class)
 @Configuration("extendsInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 
-    @ConditionalOnEnabledInfoContributor("management.info.active-profiles.enabled")
-    @Bean
-    public ActiveProfilesInfoContributor activeProfilesInfoContributor(ConfigurableEnvironment environment) {
-        return new ActiveProfilesInfoContributor(environment);
-    }
+  @ConditionalOnEnabledInfoContributor("management.info.active-profiles.enabled")
+  @Bean
+  public ActiveProfilesInfoContributor activeProfilesInfoContributor(
+      ConfigurableEnvironment environment) {
+    return new ActiveProfilesInfoContributor(environment);
+  }
 
-    @ConditionalOnEnabledInfoContributor("management.info.mail-enabled.enabled")
-    @Bean
-    public MailEnabledInfoContributor mailEnabledInfoContributor() {
-        return new MailEnabledInfoContributor();
-    }
+  @ConditionalOnEnabledInfoContributor("management.info.mail-enabled.enabled")
+  @Bean
+  public MailEnabledInfoContributor mailEnabledInfoContributor() {
+    return new MailEnabledInfoContributor();
+  }
 
-    @Bean
-    public InfoContributorProvider infoContributorProvider(BuildProperties buildProperties) {
-        return new InfoContributorProvider(buildProperties);
-    }
+  @Bean
+  public InfoContributorProvider infoContributorProvider(BuildProperties buildProperties) {
+    return new InfoContributorProvider(buildProperties);
+  }
 }

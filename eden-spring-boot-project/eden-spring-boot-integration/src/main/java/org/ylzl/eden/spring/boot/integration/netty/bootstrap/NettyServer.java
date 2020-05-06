@@ -39,46 +39,41 @@ import java.net.InetSocketAddress;
 @Slf4j
 public class NettyServer {
 
-	/**
-	 * 客户端连接处理
-	 */
-	private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
+  /** 客户端连接处理 */
+  private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
 
-	/**
-	 * 客户端 I/O 事件处理
-	 */
-	private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
+  /** 客户端 I/O 事件处理 */
+  private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
 
-	/**
-	 * 网络通道
-	 */
-	private Channel channel;
+  /** 网络通道 */
+  private Channel channel;
 
-	public ChannelFuture channel(InetSocketAddress inetSocketAddress) throws Exception {
-		ChannelFuture channelFuture = null;
-		try {
-			ServerBootstrap bootstrap = new ServerBootstrap();
-			bootstrap.group(bossEventLoopGroup, workerEventLoopGroup)
-				.channel(NioServerSocketChannel.class)
-				.option(ChannelOption.SO_BACKLOG, 1024) // 请求占满时临时存放的队列长度
-				.childOption(ChannelOption.SO_KEEPALIVE, true) // 开启长连接
-				.childHandler(new ChannelInitalizerAdapter());
-			channelFuture = bootstrap.bind(inetSocketAddress).syncUninterruptibly();
-			channel = channelFuture.channel();
-		} finally {
-			if (channel != null) {
-				channel.closeFuture().syncUninterruptibly();
-			}
-		}
-		return channelFuture;
-	}
+  public ChannelFuture channel(InetSocketAddress inetSocketAddress) throws Exception {
+    ChannelFuture channelFuture = null;
+    try {
+      ServerBootstrap bootstrap = new ServerBootstrap();
+      bootstrap
+          .group(bossEventLoopGroup, workerEventLoopGroup)
+          .channel(NioServerSocketChannel.class)
+          .option(ChannelOption.SO_BACKLOG, 1024) // 请求占满时临时存放的队列长度
+          .childOption(ChannelOption.SO_KEEPALIVE, true) // 开启长连接
+          .childHandler(new ChannelInitalizerAdapter());
+      channelFuture = bootstrap.bind(inetSocketAddress).syncUninterruptibly();
+      channel = channelFuture.channel();
+    } finally {
+      if (channel != null) {
+        channel.closeFuture().syncUninterruptibly();
+      }
+    }
+    return channelFuture;
+  }
 
-	@Synchronized
-	public void shutdown() throws Exception {
-		if (channel != null && channel.isOpen()) {
-			channel.close();
-			workerEventLoopGroup.shutdownGracefully();
-			bossEventLoopGroup.shutdownGracefully();
-		}
-	}
+  @Synchronized
+  public void shutdown() throws Exception {
+    if (channel != null && channel.isOpen()) {
+      channel.close();
+      workerEventLoopGroup.shutdownGracefully();
+      bossEventLoopGroup.shutdownGracefully();
+    }
+  }
 }

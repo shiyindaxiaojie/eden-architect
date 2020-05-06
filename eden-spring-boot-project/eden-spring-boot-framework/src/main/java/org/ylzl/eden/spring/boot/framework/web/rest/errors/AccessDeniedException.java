@@ -25,11 +25,11 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  */
 public class AccessDeniedException extends BadRequestAlertException {
 
-    public AccessDeniedException() {
-        super(ErrorConstants.ERR_ACCESS_DENIED);
-    }
+  public AccessDeniedException() {
+    super(ErrorConstants.ERR_ACCESS_DENIED);
+  }
 
-    public AccessDeniedException(String message) {
-        super(message);
-    }
+  public AccessDeniedException(String message) {
+    super(message);
+  }
 }

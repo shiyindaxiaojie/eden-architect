@@ -44,70 +44,68 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.cookie.OAuth2CookieHelper
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class OAuth2ResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
 
-	@Value(FrameworkConstants.NAME_PATTERN)
-	private String applicationName;
+  @Value(FrameworkConstants.NAME_PATTERN)
+  private String applicationName;
 
-	@Autowired(required = false)
-	private AuthenticationEntryPoint authenticationEntryPoint;
+  @Autowired(required = false)
+  private AuthenticationEntryPoint authenticationEntryPoint;
 
-	@Autowired(required = false)
-	private CorsFilter corsFilter;
+  @Autowired(required = false)
+  private CorsFilter corsFilter;
 
-	@Autowired(required = false)
-	private TokenExtractor tokenExtractor;
+  @Autowired(required = false)
+  private TokenExtractor tokenExtractor;
 
-	@Autowired(required = false)
-	private TokenGrantClient tokenGrantClient;
+  @Autowired(required = false)
+  private TokenGrantClient tokenGrantClient;
 
-	@Autowired(required = false)
-	private OAuth2CookieHelper oAuth2CookieHelper;
+  @Autowired(required = false)
+  private OAuth2CookieHelper oAuth2CookieHelper;
 
-	private final TokenStore tokenStore;
+  private final TokenStore tokenStore;
 
-    public OAuth2ResourceServerConfigurerAdapter(TokenStore tokenStore) {
-        this.tokenStore = tokenStore;
+  public OAuth2ResourceServerConfigurerAdapter(TokenStore tokenStore) {
+    this.tokenStore = tokenStore;
+  }
+
+  @Override
+  public void configure(ResourceServerSecurityConfigurer resources) {
+    resources.resourceId(applicationName).tokenStore(tokenStore);
+
+    if (tokenExtractor != null) {
+      resources.tokenExtractor(tokenExtractor);
+    }
+  }
+
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http.csrf()
+        .disable()
+        .headers()
+        .frameOptions()
+        .disable()
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+    if (authenticationEntryPoint != null) {
+      http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
     }
 
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-		resources.resourceId(applicationName).tokenStore(tokenStore);
-
-    	if (tokenExtractor != null) {
-			resources.tokenExtractor(tokenExtractor);
-		}
+    if (corsFilter != null) {
+      if (tokenGrantClient != null) {
+        http.addFilterBefore(corsFilter, CorsFilter.class);
+      } else {
+        http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
+      }
     }
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf()
-			.disable()
-            .headers()
-            .frameOptions()
-            .disable()
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-		if (authenticationEntryPoint != null) {
-			http.exceptionHandling()
-				.authenticationEntryPoint(authenticationEntryPoint);
-		}
-
-        if (corsFilter != null) {
-			if (tokenGrantClient != null) {
-				http.addFilterBefore(corsFilter, CorsFilter.class);
-			} else {
-				http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
-			}
-		}
-
-        if (tokenGrantClient != null) {
-        	http.apply(oAuth2SecurityConfigurer());
-		}
+    if (tokenGrantClient != null) {
+      http.apply(oAuth2SecurityConfigurer());
     }
+  }
 
-	protected OAuth2SecurityConfigurer oAuth2SecurityConfigurer() {
-        return new OAuth2SecurityConfigurer(oAuth2CookieHelper, tokenStore, tokenGrantClient);
-    }
+  protected OAuth2SecurityConfigurer oAuth2SecurityConfigurer() {
+    return new OAuth2SecurityConfigurer(oAuth2CookieHelper, tokenStore, tokenGrantClient);
+  }
 }

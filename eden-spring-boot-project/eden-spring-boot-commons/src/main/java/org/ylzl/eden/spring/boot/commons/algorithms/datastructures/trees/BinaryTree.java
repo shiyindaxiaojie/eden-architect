@@ -28,110 +28,110 @@ import lombok.NonNull;
  */
 public class BinaryTree<T extends Comparable<T>> {
 
-	private Node root;
+  private Node root;
 
-	@Data
-	class Node {
+  @Data
+  class Node {
 
-		private Node left;
+    private Node left;
 
-		private Node right;
+    private Node right;
 
-		private Node parent;
+    private Node parent;
 
-		private T data;
+    private T data;
 
-		public Node(T data) {
-			this.data = data;
-		}
-	}
+    public Node(T data) {
+      this.data = data;
+    }
+  }
 
-	/**
-	 * 树的最大深度
-	 *
-	 * @param root 根节点
-	 * @return 深度
-	 */
-	public int depth(Node root) {
-		if (root == null) {
-			return 0;
-		}
-		return Math.max(depth(root.getLeft()), depth(root.getRight())) + 1;
-	}
+  /**
+   * 树的最大深度
+   *
+   * @param root 根节点
+   * @return 深度
+   */
+  public int depth(Node root) {
+    if (root == null) {
+      return 0;
+    }
+    return Math.max(depth(root.getLeft()), depth(root.getRight())) + 1;
+  }
 
-	/**
-	 * 查找树节点
-	 *
-	 * @param key
-	 * @return
-	 */
-	public Node find(@NonNull T key) {
-		Node current = root;
-		while (current != null) {
-			int temp = key.compareTo(current.getData());
-			if (temp == 0) { // 刚好命中
-				return current;
-			}
-			if (temp < 0) {
-				if (current.getLeft() == null) { // 左边没有节点，表示不存在
-					return null;
-				}
-				current = current.getLeft();
-			} else {
-				if (current.right == null) {  // 右边没有节点，表示不存在
-					return null;
-				}
-				current = current.right;
-			}
-		}
-		return null;
-	}
+  /**
+   * 查找树节点
+   *
+   * @param key
+   * @return
+   */
+  public Node find(@NonNull T key) {
+    Node current = root;
+    while (current != null) {
+      int temp = key.compareTo(current.getData());
+      if (temp == 0) { // 刚好命中
+        return current;
+      }
+      if (temp < 0) {
+        if (current.getLeft() == null) { // 左边没有节点，表示不存在
+          return null;
+        }
+        current = current.getLeft();
+      } else {
+        if (current.right == null) { // 右边没有节点，表示不存在
+          return null;
+        }
+        current = current.right;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * 新增节点
-	 *
-	 * @param value
-	 */
-	public void put(@NonNull T value) {
-		Node newNode = new Node(value);
-		if (root == null) {
-			root = newNode;
-		} else {
-			Node current = root;
-			while (current != null) {
-				int temp = value.compareTo(current.getData());
-				if (temp == 0) { // 刚好命中
-					return;
-				}
-				if (temp < 0) {
-					if (current.getLeft() == null) { // 左边没有节点，往左边新增
-						newNode.setParent(current);
-						current.setLeft(newNode);
-						return;
-					}
-					current = current.getLeft();
-				} else {
-					if (current.right == null) {  // 右边没有节点，往右边新增
-						newNode.setParent(current);
-						current.setRight(newNode);
-						return;
-					}
-					current = current.right;
-				}
-			}
-		}
-	}
+  /**
+   * 新增节点
+   *
+   * @param value
+   */
+  public void put(@NonNull T value) {
+    Node newNode = new Node(value);
+    if (root == null) {
+      root = newNode;
+    } else {
+      Node current = root;
+      while (current != null) {
+        int temp = value.compareTo(current.getData());
+        if (temp == 0) { // 刚好命中
+          return;
+        }
+        if (temp < 0) {
+          if (current.getLeft() == null) { // 左边没有节点，往左边新增
+            newNode.setParent(current);
+            current.setLeft(newNode);
+            return;
+          }
+          current = current.getLeft();
+        } else {
+          if (current.right == null) { // 右边没有节点，往右边新增
+            newNode.setParent(current);
+            current.setRight(newNode);
+            return;
+          }
+          current = current.right;
+        }
+      }
+    }
+  }
 
-	public Node findSuccessor(Node node) {
-		if (node.getRight() == null) {
-			return node;
-		}
-		Node current = node.getRight();
-		Node parent = node.getRight();
-		while (current != null) {
-			parent = current;
-			current = current.getLeft();
-		}
-		return parent;
-	}
+  public Node findSuccessor(Node node) {
+    if (node.getRight() == null) {
+      return node;
+    }
+    Node current = node.getRight();
+    Node parent = node.getRight();
+    while (current != null) {
+      parent = current;
+      current = current.getLeft();
+    }
+    return parent;
+  }
 }

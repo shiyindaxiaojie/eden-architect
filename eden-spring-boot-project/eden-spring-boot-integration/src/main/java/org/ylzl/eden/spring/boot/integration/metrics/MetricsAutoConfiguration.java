@@ -51,69 +51,73 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class MetricsAutoConfiguration extends MetricsConfigurerAdapter {
 
-    public static final String EXPS_METRICS_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".metrics.enabled:true}";
+  public static final String EXPS_METRICS_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".metrics.enabled:true}";
 
-    public static final String LOGGER_NAME = "metrics";
+  public static final String LOGGER_NAME = "metrics";
 
-    private static final String MSG_INJECT_JVM_GAUGE = "Inject Metrics JVM gauge";
+  private static final String MSG_INJECT_JVM_GAUGE = "Inject Metrics JVM gauge";
 
-    private static final String MSG_INJECT_JMX_REPORT = "Inject Metrics JMX reporting";
+  private static final String MSG_INJECT_JMX_REPORT = "Inject Metrics JMX reporting";
 
-    private static final String MSG_INJECT_MSG_REPORT = "Inject Metrics log reporting";
+  private static final String MSG_INJECT_MSG_REPORT = "Inject Metrics log reporting";
 
-    private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
+  private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
 
-    private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
+  private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
 
-    private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
+  private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
 
-    private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
+  private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
 
-    private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
+  private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
 
-    private final MetricRegistry metricRegistry = new MetricRegistry();
+  private final MetricRegistry metricRegistry = new MetricRegistry();
 
-    private final HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
+  private final HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
 
-    private final MetricsProperties metricsProperties;
+  private final MetricsProperties metricsProperties;
 
-    public MetricsAutoConfiguration(MetricsProperties metricsProperties) {
-        this.metricsProperties = metricsProperties;
+  public MetricsAutoConfiguration(MetricsProperties metricsProperties) {
+    this.metricsProperties = metricsProperties;
+  }
+
+  @Override
+  @Bean
+  public MetricRegistry getMetricRegistry() {
+    return metricRegistry;
+  }
+
+  @Override
+  @Bean
+  public HealthCheckRegistry getHealthCheckRegistry() {
+    return healthCheckRegistry;
+  }
+
+  @PostConstruct
+  public void init() {
+    log.debug(MSG_INJECT_JVM_GAUGE);
+    metricRegistry.register(PROP_METRIC_REG_JVM_MEMORY, new MemoryUsageGaugeSet());
+    metricRegistry.register(PROP_METRIC_REG_JVM_GARBAGE, new GarbageCollectorMetricSet());
+    metricRegistry.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
+    metricRegistry.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
+    metricRegistry.register(
+        PROP_METRIC_REG_JVM_BUFFERS,
+        new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
+    if (metricsProperties.getJmx().isEnabled()) {
+      log.debug(MSG_INJECT_JMX_REPORT);
+      JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
+      jmxReporter.start();
     }
-
-    @Override
-    @Bean
-    public MetricRegistry getMetricRegistry() {
-        return metricRegistry;
+    if (metricsProperties.getLogs().isEnabled()) {
+      log.info(MSG_INJECT_MSG_REPORT);
+      final Slf4jReporter reporter =
+          Slf4jReporter.forRegistry(metricRegistry)
+              .outputTo(LoggerFactory.getLogger(LOGGER_NAME))
+              .convertRatesTo(TimeUnit.SECONDS)
+              .convertDurationsTo(TimeUnit.MILLISECONDS)
+              .build();
+      reporter.start(metricsProperties.getLogs().getReportFrequency(), TimeUnit.SECONDS);
     }
-
-    @Override
-    @Bean
-    public HealthCheckRegistry getHealthCheckRegistry() {
-        return healthCheckRegistry;
-    }
-
-    @PostConstruct
-    public void init() {
-        log.debug(MSG_INJECT_JVM_GAUGE);
-        metricRegistry.register(PROP_METRIC_REG_JVM_MEMORY, new MemoryUsageGaugeSet());
-        metricRegistry.register(PROP_METRIC_REG_JVM_GARBAGE, new GarbageCollectorMetricSet());
-        metricRegistry.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
-        metricRegistry.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
-        metricRegistry.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
-        if (metricsProperties.getJmx().isEnabled()) {
-            log.debug(MSG_INJECT_JMX_REPORT);
-            JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
-            jmxReporter.start();
-        }
-        if (metricsProperties.getLogs().isEnabled()) {
-            log.info(MSG_INJECT_MSG_REPORT);
-            final Slf4jReporter reporter = Slf4jReporter.forRegistry(metricRegistry)
-                .outputTo(LoggerFactory.getLogger(LOGGER_NAME))
-                .convertRatesTo(TimeUnit.SECONDS)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .build();
-            reporter.start(metricsProperties.getLogs().getReportFrequency(), TimeUnit.SECONDS);
-        }
-    }
+  }
 }

@@ -28,36 +28,36 @@ import java.security.NoSuchAlgorithmException;
  */
 public final class Digester {
 
-    private final String algorithm;
+  private final String algorithm;
 
-    private int iterations;
+  private int iterations;
 
-    public Digester(String algorithm, int iterations) {
-        createDigest(algorithm);
-        this.algorithm = algorithm;
-        setIterations(iterations);
+  public Digester(String algorithm, int iterations) {
+    createDigest(algorithm);
+    this.algorithm = algorithm;
+    setIterations(iterations);
+  }
+
+  public byte[] digest(byte[] value) {
+    MessageDigest messageDigest = createDigest(algorithm);
+    for (int i = 0; i < iterations; i++) {
+      value = messageDigest.digest(value);
     }
+    return value;
+  }
 
-    public byte[] digest(byte[] value) {
-        MessageDigest messageDigest = createDigest(algorithm);
-        for (int i = 0; i < iterations; i++) {
-            value = messageDigest.digest(value);
-        }
-        return value;
+  final void setIterations(int iterations) {
+    if (iterations <= 0) {
+      throw new IllegalArgumentException("Iterations value must be greater than zero");
     }
+    this.iterations = iterations;
+  }
 
-    final void setIterations(int iterations) {
-        if (iterations <= 0) {
-            throw new IllegalArgumentException("Iterations value must be greater than zero");
-        }
-        this.iterations = iterations;
+  private static MessageDigest createDigest(String algorithm) {
+    try {
+      return MessageDigest.getInstance(algorithm);
+    } catch (NoSuchAlgorithmException e) {
+      throw new IllegalStateException("No such hashing algorithm", e);
     }
-
-    private static MessageDigest createDigest(String algorithm) {
-        try {
-            return MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("No such hashing algorithm", e);
-        }
-    }
+  }
 }

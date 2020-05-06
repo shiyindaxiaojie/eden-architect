@@ -36,46 +36,46 @@ import java.util.Map;
 @CommonsLog
 public class HystrixStreamAggregator {
 
-    private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
-    private PublishSubject<Map<String, Object>> subject;
+  private PublishSubject<Map<String, Object>> subject;
 
-    @Autowired
-    public HystrixStreamAggregator(ObjectMapper objectMapper, PublishSubject<Map<String, Object>> subject) {
-        this.objectMapper = objectMapper;
-        this.subject = subject;
+  @Autowired
+  public HystrixStreamAggregator(
+      ObjectMapper objectMapper, PublishSubject<Map<String, Object>> subject) {
+    this.objectMapper = objectMapper;
+    this.subject = subject;
+  }
+
+  @SuppressWarnings("unchecked")
+  @ServiceActivator(inputChannel = TurbineStreamClient.INPUT)
+  public void sendToSubject(@Payload String payload) {
+    if (payload.startsWith("\"")) {
+      payload = payload.substring(1, payload.length() - 1);
+      payload = payload.replace("\\\"", "\"");
     }
-
-    @SuppressWarnings("unchecked")
-    @ServiceActivator(inputChannel = TurbineStreamClient.INPUT)
-    public void sendToSubject(@Payload String payload) {
-        if (payload.startsWith("\"")) {
-            payload = payload.substring(1, payload.length() - 1);
-            payload = payload.replace("\\\"", "\"");
-        }
-        try {
-            Map<String, Object> map = this.objectMapper.readValue(payload, Map.class);
-            Map<String, Object> data = getPayloadData(map);
-            log.debug("Received hystrix stream payload: " + data);
-            this.subject.onNext(data);
-        } catch (IOException ex) {
-            log.error("Error receiving hystrix stream payload: " + payload, ex);
-        }
+    try {
+      Map<String, Object> map = this.objectMapper.readValue(payload, Map.class);
+      Map<String, Object> data = getPayloadData(map);
+      log.debug("Received hystrix stream payload: " + data);
+      this.subject.onNext(data);
+    } catch (IOException ex) {
+      log.error("Error receiving hystrix stream payload: " + payload, ex);
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    public static Map<String, Object> getPayloadData(Map<String, Object> jsonMap) {
-        Map<String, Object> origin = (Map<String, Object>) jsonMap.get("origin");
-        String instanceId = null;
-        if (origin.containsKey("id")) {
-            instanceId = origin.get("id").toString();
-        }
-        if (!StringUtils.hasText(instanceId)) {
-            instanceId = origin.get("serviceId") + ":" + origin.get("host") + ":"
-                + origin.get("port");
-        }
-        Map<String, Object> data = (Map<String, Object>) jsonMap.get("data");
-        data.put("instanceId", instanceId);
-        return data;
+  @SuppressWarnings("unchecked")
+  public static Map<String, Object> getPayloadData(Map<String, Object> jsonMap) {
+    Map<String, Object> origin = (Map<String, Object>) jsonMap.get("origin");
+    String instanceId = null;
+    if (origin.containsKey("id")) {
+      instanceId = origin.get("id").toString();
     }
+    if (!StringUtils.hasText(instanceId)) {
+      instanceId = origin.get("serviceId") + ":" + origin.get("host") + ":" + origin.get("port");
+    }
+    Map<String, Object> data = (Map<String, Object>) jsonMap.get("data");
+    data.put("instanceId", instanceId);
+    return data;
+  }
 }

@@ -37,9 +37,9 @@ import org.ylzl.eden.spring.boot.data.audit.event.AuditEventConverter;
 @Configuration
 public class PersistenceAuditEventConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public AuditEventConverter auditEventConverter() {
-        return new AuditEventConverter();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public AuditEventConverter auditEventConverter() {
+    return new AuditEventConverter();
+  }
 }

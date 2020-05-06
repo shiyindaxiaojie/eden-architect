@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.commons.lang;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 字符串转义工具集
@@ -27,5 +26,4 @@ import lombok.experimental.UtilityClass;
  * @since 0.0.1
  */
 @UtilityClass
-public class StringEscapeUtils extends org.apache.commons.lang3.StringEscapeUtils {
-}
+public class StringEscapeUtils extends org.apache.commons.lang3.StringEscapeUtils {}

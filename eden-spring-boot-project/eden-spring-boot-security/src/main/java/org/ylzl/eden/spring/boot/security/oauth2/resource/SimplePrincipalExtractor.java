@@ -29,19 +29,19 @@ import java.util.Map;
  */
 public class SimplePrincipalExtractor implements PrincipalExtractor {
 
-    public static final String DEFAULT_VALUE = "unknown";
+  public static final String DEFAULT_VALUE = "unknown";
 
-    private final String oauth2PrincipalAttribute;
+  private final String oauth2PrincipalAttribute;
 
-    public SimplePrincipalExtractor(String oauth2PrincipalAttribute) {
-        this.oauth2PrincipalAttribute = oauth2PrincipalAttribute;
+  public SimplePrincipalExtractor(String oauth2PrincipalAttribute) {
+    this.oauth2PrincipalAttribute = oauth2PrincipalAttribute;
+  }
+
+  @Override
+  public Object extractPrincipal(Map<String, Object> map) {
+    if (map.containsKey(oauth2PrincipalAttribute)) {
+      return map.get(oauth2PrincipalAttribute);
     }
-
-    @Override
-    public Object extractPrincipal(Map<String, Object> map) {
-        if (map.containsKey(oauth2PrincipalAttribute)) {
-            return map.get(oauth2PrincipalAttribute);
-        }
-        return DEFAULT_VALUE;
-    }
+    return DEFAULT_VALUE;
+  }
 }

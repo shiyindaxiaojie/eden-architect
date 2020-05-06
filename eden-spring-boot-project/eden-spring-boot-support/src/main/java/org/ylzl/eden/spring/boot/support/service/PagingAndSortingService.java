@@ -31,7 +31,7 @@ import java.io.Serializable;
  */
 public interface PagingAndSortingService<T, ID extends Serializable> extends CrudService<T, ID> {
 
-    Iterable<T> findAll(Sort sort);
+  Iterable<T> findAll(Sort sort);
 
-    Page<T> findAll(Pageable pageable);
+  Page<T> findAll(Pageable pageable);
 }

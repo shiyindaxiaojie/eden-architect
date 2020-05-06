@@ -36,13 +36,13 @@ import java.util.Map;
 @NoArgsConstructor
 public class MapRowMapper implements RowMapper<Object> {
 
-    @Override
-    public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Map<String, Object> map = new HashMap<String, Object>();
-        ResultSetMetaData rmd = rs.getMetaData();
-        for (int i = 1; i <= rmd.getColumnCount(); i++) {
-            map.put(rmd.getColumnLabel(i), rs.getObject(i));
-        }
-        return map;
+  @Override
+  public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+    Map<String, Object> map = new HashMap<String, Object>();
+    ResultSetMetaData rmd = rs.getMetaData();
+    for (int i = 1; i <= rmd.getColumnCount(); i++) {
+      map.put(rmd.getColumnLabel(i), rs.getObject(i));
     }
+    return map;
+  }
 }

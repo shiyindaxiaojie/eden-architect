@@ -58,26 +58,29 @@ import javax.sql.DataSource;
 @Configuration
 public class EnhancedLiquibaseAutoConfiguration {
 
-    private static final String MSG_INJECT_LIQUIBASE = "Inject Liquibase";
+  private static final String MSG_INJECT_LIQUIBASE = "Inject Liquibase";
 
-    public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
+  public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
 
-    private final LiquibaseProperties liquibaseProperties;
+  private final LiquibaseProperties liquibaseProperties;
 
-    public EnhancedLiquibaseAutoConfiguration(LiquibaseProperties liquibaseProperties) {
-        this.liquibaseProperties = liquibaseProperties;
-    }
+  public EnhancedLiquibaseAutoConfiguration(LiquibaseProperties liquibaseProperties) {
+    this.liquibaseProperties = liquibaseProperties;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource, Environment environment,
-                                     @Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) AsyncTaskExecutor asyncTaskExecutor,
-                                     @Value("${liquibase.change-log:" + DEFAULT_CHANGE_LOG + "}") String changeLog) {
-        log.debug(MSG_INJECT_LIQUIBASE);
-        SpringLiquibase liquibase = new AsyncSpringLiquibase(asyncTaskExecutor, environment);
-		BeanCopier.copy(liquibaseProperties, liquibase);
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog(changeLog);
-        return liquibase;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public SpringLiquibase liquibase(
+      DataSource dataSource,
+      Environment environment,
+      @Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
+          AsyncTaskExecutor asyncTaskExecutor,
+      @Value("${liquibase.change-log:" + DEFAULT_CHANGE_LOG + "}") String changeLog) {
+    log.debug(MSG_INJECT_LIQUIBASE);
+    SpringLiquibase liquibase = new AsyncSpringLiquibase(asyncTaskExecutor, environment);
+    BeanCopier.copy(liquibaseProperties, liquibase);
+    liquibase.setDataSource(dataSource);
+    liquibase.setChangeLog(changeLog);
+    return liquibase;
+  }
 }

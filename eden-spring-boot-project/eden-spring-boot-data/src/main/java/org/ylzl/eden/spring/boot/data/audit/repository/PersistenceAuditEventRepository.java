@@ -34,15 +34,17 @@ import java.util.List;
  * @since 0.0.1
  */
 @NoRepositoryBean
-public interface PersistenceAuditEventRepository<T extends PersistentAuditEvent, String extends Serializable> extends JpaRepository<T, String> {
+public interface PersistenceAuditEventRepository<
+        T extends PersistentAuditEvent, String extends Serializable>
+    extends JpaRepository<T, String> {
 
-    List<T> findByPrincipal(String principal);
+  List<T> findByPrincipal(String principal);
 
-    List<T> findByEventDateAfter(Date after);
+  List<T> findByEventDateAfter(Date after);
 
-    List<T> findByPrincipalAndEventDateAfter(String principal, Date after);
+  List<T> findByPrincipalAndEventDateAfter(String principal, Date after);
 
-    List<T> findByPrincipalAndEventDateAfterAndEventType(String principal, Date after, String type);
+  List<T> findByPrincipalAndEventDateAfterAndEventType(String principal, Date after, String type);
 
-    Page<T> findAllByEventDateBetween(Date fromDate, Date toDate, Pageable pageable);
+  Page<T> findAllByEventDateBetween(Date fromDate, Date toDate, Pageable pageable);
 }

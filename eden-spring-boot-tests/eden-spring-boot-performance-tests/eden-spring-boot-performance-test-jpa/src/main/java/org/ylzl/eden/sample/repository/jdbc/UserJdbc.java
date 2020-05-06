@@ -33,13 +33,13 @@ import java.util.List;
 @Repository
 public class UserJdbc {
 
-	private final EnhancedNamedParameterJdbcTemplate jdbcTemplate;
+  private final EnhancedNamedParameterJdbcTemplate jdbcTemplate;
 
-	public UserJdbc(EnhancedNamedParameterJdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
+  public UserJdbc(EnhancedNamedParameterJdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
 
-	public int[] batchInsert(@NonNull List<User> users, int executeBatchSize) {
-		return jdbcTemplate.batchInsert(users, executeBatchSize);
-	}
+  public int[] batchInsert(@NonNull List<User> users, int executeBatchSize) {
+    return jdbcTemplate.batchInsert(users, executeBatchSize);
+  }
 }

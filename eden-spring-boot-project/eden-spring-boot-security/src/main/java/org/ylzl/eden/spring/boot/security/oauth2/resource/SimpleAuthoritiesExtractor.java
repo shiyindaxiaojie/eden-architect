@@ -35,23 +35,23 @@ import java.util.Map;
  */
 public class SimpleAuthoritiesExtractor implements AuthoritiesExtractor {
 
-    private final String oauth2AuthoritiesAttribute;
+  private final String oauth2AuthoritiesAttribute;
 
-    public SimpleAuthoritiesExtractor(String oauth2AuthoritiesAttribute) {
-        this.oauth2AuthoritiesAttribute = oauth2AuthoritiesAttribute;
-    }
+  public SimpleAuthoritiesExtractor(String oauth2AuthoritiesAttribute) {
+    this.oauth2AuthoritiesAttribute = oauth2AuthoritiesAttribute;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
-        List<String> oauth2Authorities = (List<String>) map.get(oauth2AuthoritiesAttribute);
-        if (oauth2Authorities.isEmpty()) {
-            oauth2Authorities = Collections.singletonList(SecurityConstants.ROLE_USER);
-        }
-        List<GrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for (String oauth2Authority : oauth2Authorities) {
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(oauth2Authority));
-        }
-        return simpleGrantedAuthorities;
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
+    List<String> oauth2Authorities = (List<String>) map.get(oauth2AuthoritiesAttribute);
+    if (oauth2Authorities.isEmpty()) {
+      oauth2Authorities = Collections.singletonList(SecurityConstants.ROLE_USER);
     }
+    List<GrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+    for (String oauth2Authority : oauth2Authorities) {
+      simpleGrantedAuthorities.add(new SimpleGrantedAuthority(oauth2Authority));
+    }
+    return simpleGrantedAuthorities;
+  }
 }

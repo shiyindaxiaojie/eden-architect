@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.boot.test.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
-import org.ylzl.eden.spring.boot.integration.kafka.FixedKafkaProperties;
+import org.ylzl.eden.spring.boot.integration.kafka.KafkaProperties;
 
 /**
  * 嵌入式的 Kafka
@@ -30,50 +30,45 @@ import org.ylzl.eden.spring.boot.integration.kafka.FixedKafkaProperties;
 @Slf4j
 public class EmbeddedKafka extends KafkaEmbedded {
 
-    private boolean closed = true;
+  private static final int DEFAULT_PORT = 9092;
 
-    public EmbeddedKafka(int count) {
-        super(count);
-    }
+  private int port;
 
-    public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
-        super(count, controlledShutdown, topics);
-    }
+  private boolean suppressExceptions = false;
 
-    public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
-        super(count, controlledShutdown, partitions, topics);
-    }
+  private boolean closed = true;
 
-    public EmbeddedKafka(FixedKafkaProperties fixedKafkaProperties, String... topics) {
-        super(1,true,  topics);
-    }
+  public EmbeddedKafka(int count) {
+    super(count);
+  }
 
-    @Override
-    public void before() {
-        log.info("启动嵌入式的 Kakfa");
-        try {
-            String brokers = this.getBrokersAsString();
-            System.setProperty("spring.kafka.bootstrap-servers", brokers);
-            System.setProperty("spring.kafka.group-id", "test");
-            log.info("Kafka Brokers: {}", brokers);
-            super.before();
-            closed = true;
-        } catch (Exception e) {
-            log.error("启动嵌入式的 Kafka 失败，异常：{}", e.getMessage(), e);
-        }
-    }
+  public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
+    super(count, controlledShutdown, topics);
+  }
 
-    @Override
-    public void after() {
-        if (!isOpen()) {
-            log.info("嵌入式的 Kakfa 未启动，无需关闭");
-            return;
-        }
-        log.info("关闭嵌入式的 Kakfa");
-        this.after();
-    }
+  public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
+    super(count, controlledShutdown, partitions, topics);
+  }
 
-    public boolean isOpen() {
-        return !closed;
+  public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
+    super(1, true, topics);
+  }
+
+  @Override
+  public void before() throws Exception {
+    super.before();
+    closed = true;
+  }
+
+  @Override
+  public void after() {
+    if (!isOpen()) {
+      return;
     }
+    this.after();
+  }
+
+  public boolean isOpen() {
+    return !closed;
+  }
 }

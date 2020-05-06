@@ -39,25 +39,27 @@ import org.ylzl.eden.spring.boot.cloud.profile.endpoint.ProfileEndpoint;
 @Configuration
 public class ProfileEndpointAutoConfiguration {
 
-	private static final String MSG_PROFILE_ENDPOINT = "Inject Profile actuator";
+  private static final String MSG_PROFILE_ENDPOINT = "Inject Profile actuator";
 
-    private final Environment env;
+  private final Environment env;
 
-    private final ProfileProperties profileProperties;
+  private final ProfileProperties profileProperties;
 
-    private final ConfigServerProperties configServerProperties;
+  private final ConfigServerProperties configServerProperties;
 
-    public ProfileEndpointAutoConfiguration(Environment env, ProfileProperties profileProperties,
-											ConfigServerProperties configServerProperties) {
-        this.env = env;
-        this.profileProperties = profileProperties;
-        this.configServerProperties = configServerProperties;
-    }
+  public ProfileEndpointAutoConfiguration(
+      Environment env,
+      ProfileProperties profileProperties,
+      ConfigServerProperties configServerProperties) {
+    this.env = env;
+    this.profileProperties = profileProperties;
+    this.configServerProperties = configServerProperties;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public ProfileEndpoint profileEndpoint() {
-        log.debug(MSG_PROFILE_ENDPOINT);
-        return new ProfileEndpoint(env, profileProperties, configServerProperties);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ProfileEndpoint profileEndpoint() {
+    log.debug(MSG_PROFILE_ENDPOINT);
+    return new ProfileEndpoint(env, profileProperties, configServerProperties);
+  }
 }

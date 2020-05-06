@@ -30,64 +30,64 @@ import java.io.Serializable;
  */
 public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<T, ID> {
 
-    private final CrudRepository<T, ID> crudRepository;
+  private final CrudRepository<T, ID> crudRepository;
 
-    public CrudServiceImpl(CrudRepository<T, ID> crudRepository) {
-        this.crudRepository = crudRepository;
-    }
+  public CrudServiceImpl(CrudRepository<T, ID> crudRepository) {
+    this.crudRepository = crudRepository;
+  }
 
-    @Override
-    public long count() {
-        return crudRepository.count();
-    }
+  @Override
+  public long count() {
+    return crudRepository.count();
+  }
 
-    @Override
-    public void delete(ID id) {
-        crudRepository.delete(id);
-    }
+  @Override
+  public void delete(ID id) {
+    crudRepository.delete(id);
+  }
 
-    @Override
-    public void delete(T entity) {
-        crudRepository.delete(entity);
-    }
+  @Override
+  public void delete(T entity) {
+    crudRepository.delete(entity);
+  }
 
-    @Override
-    public void delete(Iterable<? extends T> entities) {
-        crudRepository.delete(entities);
-    }
+  @Override
+  public void delete(Iterable<? extends T> entities) {
+    crudRepository.delete(entities);
+  }
 
-    @Override
-    public void deleteAll() {
-        crudRepository.deleteAll();
-    }
+  @Override
+  public void deleteAll() {
+    crudRepository.deleteAll();
+  }
 
-    @Override
-    public boolean exists(ID id) {
-        return crudRepository.exists(id);
-    }
+  @Override
+  public boolean exists(ID id) {
+    return crudRepository.exists(id);
+  }
 
-    @Override
-    public Iterable<T> findAll() {
-        return crudRepository.findAll();
-    }
+  @Override
+  public Iterable<T> findAll() {
+    return crudRepository.findAll();
+  }
 
-    @Override
-    public Iterable<T> findAll(Iterable<ID> ids) {
-        return crudRepository.findAll(ids);
-    }
+  @Override
+  public Iterable<T> findAll(Iterable<ID> ids) {
+    return crudRepository.findAll(ids);
+  }
 
-    @Override
-    public T findOne(ID id) {
-        return crudRepository.findOne(id);
-    }
+  @Override
+  public T findOne(ID id) {
+    return crudRepository.findOne(id);
+  }
 
-    @Override
-    public <S extends T> S save(S entity) {
-        return crudRepository.save(entity);
-    }
+  @Override
+  public <S extends T> S save(S entity) {
+    return crudRepository.save(entity);
+  }
 
-    @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return crudRepository.save(entities);
-    }
+  @Override
+  public <S extends T> Iterable<S> save(Iterable<S> entities) {
+    return crudRepository.save(entities);
+  }
 }

@@ -39,14 +39,17 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @Configuration
 public class ConfigServerAutoConfiguration {
 
-	public static final String EXPS_CONFIG_SERVER_ENABLED = "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:false}";
+  public static final String EXPS_CONFIG_SERVER_ENABLED =
+      "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:false}";
 
-	/**
-	 * FIXME 修复错误：Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has beencreated too early.
-	 * @return PropertySourcesPlaceholderConfigurer
-	 */
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+  /**
+   * FIXME 修复错误：Cannot enhance @Configuration bean definition 'refreshScope' since its singleton
+   * instance has beencreated too early.
+   *
+   * @return PropertySourcesPlaceholderConfigurer
+   */
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 }

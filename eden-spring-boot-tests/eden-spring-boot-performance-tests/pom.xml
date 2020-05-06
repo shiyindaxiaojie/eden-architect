@@ -39,4 +39,8 @@
 		<module>eden-spring-boot-performance-test-redis</module>
 	</modules>
 
+	<properties>
+		<start-class>org.ylzl.eden.sample.Application</start-class>
+	</properties>
+
 </project>

@@ -42,12 +42,12 @@ import org.ylzl.eden.spring.boot.framework.web.RestAutoConfiguration;
 @Configuration
 public class LoadBalancerClientAutoConfiguration {
 
-	private static final String MSG_INJECT_LB_CLIENT_HELPER = "Inject LoadBalancerClient helper";
+  private static final String MSG_INJECT_LB_CLIENT_HELPER = "Inject LoadBalancerClient helper";
 
-	@ConditionalOnMissingBean
-    @Bean
-    public LoadBalancerClientHelper loadBalancerClientHelper(LoadBalancerClient loadBalancerClient) {
-        log.debug(MSG_INJECT_LB_CLIENT_HELPER);
-        return new LoadBalancerClientHelper(loadBalancerClient);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public LoadBalancerClientHelper loadBalancerClientHelper(LoadBalancerClient loadBalancerClient) {
+    log.debug(MSG_INJECT_LB_CLIENT_HELPER);
+    return new LoadBalancerClientHelper(loadBalancerClient);
+  }
 }

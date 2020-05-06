@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.integration.hazelcast;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 
 /**
@@ -30,16 +29,16 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 @UtilityClass
 public final class EnhancedHazelcastDefaults {
 
-    public static final int backupCount = 1;
+  public static final int backupCount = 1;
 
-    public static final int timeToLiveSeconds = 3600;
+  public static final int timeToLiveSeconds = 3600;
 
-    public static class ManagementCenter {
+  public static class ManagementCenter {
 
-        public static final boolean enabled = false;
+    public static final boolean enabled = false;
 
-        public static final int updateInterval = 3;
+    public static final int updateInterval = 3;
 
-        public static final String url = StringConstants.EMPTY;
-    }
+    public static final String url = StringConstants.EMPTY;
+  }
 }

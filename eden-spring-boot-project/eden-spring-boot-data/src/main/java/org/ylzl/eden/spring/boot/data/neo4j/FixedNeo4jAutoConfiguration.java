@@ -49,7 +49,10 @@ import java.util.List;
  * @author gyl
  * @since 0.0.1
  */
-@AutoConfigureBefore({DataSourceTransactionManagerAutoConfiguration.class,Neo4jDataAutoConfiguration.class})
+@AutoConfigureBefore({
+  DataSourceTransactionManagerAutoConfiguration.class,
+  Neo4jDataAutoConfiguration.class
+})
 @ConditionalOnClass({Neo4jSession.class, Neo4jOperations.class})
 @ConditionalOnMissingBean(Neo4jOperations.class)
 @EnableAutoConfiguration(exclude = {Neo4jDataAutoConfiguration.class})
@@ -58,70 +61,75 @@ import java.util.List;
 @Configuration
 public class FixedNeo4jAutoConfiguration extends Neo4jConfiguration {
 
-	public static final String DEFAULT_TM_BEAN_NAME = "transactionManager";
+  public static final String DEFAULT_TM_BEAN_NAME = "transactionManager";
 
-	public static final String JPA_TM_BEAN_NAME = "jpaTransactionManager";
+  public static final String JPA_TM_BEAN_NAME = "jpaTransactionManager";
 
-	public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
+  public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
 
-	public static final String MSG_INJECT_TM = "Inject default TransactionManager";
+  public static final String MSG_INJECT_TM = "Inject default TransactionManager";
 
-	public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
+  public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
 
-	public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
+  public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
 
-	private final ApplicationContext applicationContext;
+  private final ApplicationContext applicationContext;
 
-	private final Neo4jProperties neo4jProperties;
+  private final Neo4jProperties neo4jProperties;
 
-	public FixedNeo4jAutoConfiguration(ApplicationContext applicationContext, Neo4jProperties neo4jProperties) {
-		this.applicationContext = applicationContext;
-		this.neo4jProperties = neo4jProperties;
-	}
+  public FixedNeo4jAutoConfiguration(
+      ApplicationContext applicationContext, Neo4jProperties neo4jProperties) {
+    this.applicationContext = applicationContext;
+    this.neo4jProperties = neo4jProperties;
+  }
 
-	@Override
-	public SessionFactory getSessionFactory() {
-		return new SessionFactory(configuration(), getPackagesToScan());
-	}
+  @Override
+  public SessionFactory getSessionFactory() {
+    return new SessionFactory(configuration(), getPackagesToScan());
+  }
 
-	@Scope(scopeName = "${spring.data.neo4j.session.scope:singleton}", proxyMode = ScopedProxyMode.TARGET_CLASS)
-	@Bean
-	@Override
-	public Session getSession() throws Exception {
-		return super.getSession();
-	}
+  @Scope(
+      scopeName = "${spring.data.neo4j.session.scope:singleton}",
+      proxyMode = ScopedProxyMode.TARGET_CLASS)
+  @Bean
+  @Override
+  public Session getSession() throws Exception {
+    return super.getSession();
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public org.neo4j.ogm.config.Configuration configuration() {
-		return this.neo4jProperties.createConfiguration();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public org.neo4j.ogm.config.Configuration configuration() {
+    return this.neo4jProperties.createConfiguration();
+  }
 
-	@Primary
-	@Bean(name = JPA_TM_BEAN_NAME)
-	public JpaTransactionManager jpaTransactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-		log.debug(MSG_INJECT_JPA_TM);
-		return new JpaTransactionManager(entityManagerFactory.getObject());
-	}
+  @Primary
+  @Bean(name = JPA_TM_BEAN_NAME)
+  public JpaTransactionManager jpaTransactionManager(
+      LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+    log.debug(MSG_INJECT_JPA_TM);
+    return new JpaTransactionManager(entityManagerFactory.getObject());
+  }
 
-	@Bean(name = NEO4J_TM_BEAN_NAME)
-	public Neo4jTransactionManager neo4jTransactionManager(Session session) {
-		log.debug(MSG_INJECT_NEO4J_TM);
-		return new Neo4jTransactionManager(session);
-	}
+  @Bean(name = NEO4J_TM_BEAN_NAME)
+  public Neo4jTransactionManager neo4jTransactionManager(Session session) {
+    log.debug(MSG_INJECT_NEO4J_TM);
+    return new Neo4jTransactionManager(session);
+  }
 
-	@Bean(name = DEFAULT_TM_BEAN_NAME)
-	public PlatformTransactionManager platformTransactionManager(Neo4jTransactionManager neo4jTransactionManager,
-																 JpaTransactionManager jpaTransactionManager) {
-		log.debug(MSG_INJECT_TM);
-		return new ChainedTransactionManager(jpaTransactionManager, neo4jTransactionManager);
-	}
+  @Bean(name = DEFAULT_TM_BEAN_NAME)
+  public PlatformTransactionManager platformTransactionManager(
+      Neo4jTransactionManager neo4jTransactionManager,
+      JpaTransactionManager jpaTransactionManager) {
+    log.debug(MSG_INJECT_TM);
+    return new ChainedTransactionManager(jpaTransactionManager, neo4jTransactionManager);
+  }
 
-	private String[] getPackagesToScan() {
-		List<String> packages = EntityScanPackages.get(this.applicationContext).getPackageNames();
-		if (packages.isEmpty() && AutoConfigurationPackages.has(this.applicationContext)) {
-			packages = AutoConfigurationPackages.get(this.applicationContext);
-		}
-		return packages.toArray(new String[packages.size()]);
-	}
+  private String[] getPackagesToScan() {
+    List<String> packages = EntityScanPackages.get(this.applicationContext).getPackageNames();
+    if (packages.isEmpty() && AutoConfigurationPackages.has(this.applicationContext)) {
+      packages = AutoConfigurationPackages.get(this.applicationContext);
+    }
+    return packages.toArray(new String[packages.size()]);
+  }
 }

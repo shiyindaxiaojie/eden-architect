@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.framework.scheduling;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * Scheduling 配置属性默认值
@@ -29,12 +28,12 @@ import lombok.NoArgsConstructor;
 @UtilityClass
 public final class SchedulingDefaults {
 
-    public static class TaskExecutor {
+  public static class TaskExecutor {
 
-        public static final int corePoolSize = 2;
+    public static final int corePoolSize = 2;
 
-        public static final int maxPoolSize = 50;
+    public static final int maxPoolSize = 50;
 
-        public static final int queueCapacity = 10000;
-    }
+    public static final int queueCapacity = 10000;
+  }
 }

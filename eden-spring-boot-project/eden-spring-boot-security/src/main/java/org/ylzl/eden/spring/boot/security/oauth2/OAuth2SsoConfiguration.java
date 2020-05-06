@@ -30,7 +30,4 @@ import org.springframework.context.annotation.Configuration;
 @EnableOAuth2Sso
 @Slf4j
 @Configuration("enhanceOAuth2SsoConfiguration")
-public class OAuth2SsoConfiguration {
-
-
-}
+public class OAuth2SsoConfiguration {}

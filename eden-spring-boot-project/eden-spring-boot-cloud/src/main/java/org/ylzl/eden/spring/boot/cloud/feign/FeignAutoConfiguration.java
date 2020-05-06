@@ -36,9 +36,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignAutoConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public Logger.Level feignLoggerLevel() {
-        return Logger.Level.BASIC;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public Logger.Level feignLoggerLevel() {
+    return Logger.Level.BASIC;
+  }
 }

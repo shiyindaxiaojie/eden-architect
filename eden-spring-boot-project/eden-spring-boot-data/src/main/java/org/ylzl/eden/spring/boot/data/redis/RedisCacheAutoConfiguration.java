@@ -53,76 +53,77 @@ import java.lang.reflect.Method;
 @Configuration
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
-    private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
+  private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
 
-    private static final String BEAN_INTEGER_REDIS_CACHE_MGR = "integerRedisCacheManager";
+  private static final String BEAN_INTEGER_REDIS_CACHE_MGR = "integerRedisCacheManager";
 
-    private static final String BEAN_LONG_REDIS_CACHE_MGR = "longRedisCacheManager";
+  private static final String BEAN_LONG_REDIS_CACHE_MGR = "longRedisCacheManager";
 
-    private static final String BEAN_STRING_REDIS_CACHE_MGR = "stringRedisCacheManager";
+  private static final String BEAN_STRING_REDIS_CACHE_MGR = "stringRedisCacheManager";
 
-    private final RedisConnectionFactory redisConnectionFactory;
+  private final RedisConnectionFactory redisConnectionFactory;
 
-    private final RedisTemplate redisTemplate;
+  private final RedisTemplate redisTemplate;
 
-    public RedisCacheAutoConfiguration(RedisConnectionFactory redisConnectionFactory, RedisTemplate redisTemplate) {
-        this.redisConnectionFactory = redisConnectionFactory;
-        this.redisTemplate = redisTemplate;
-    }
+  public RedisCacheAutoConfiguration(
+      RedisConnectionFactory redisConnectionFactory, RedisTemplate redisTemplate) {
+    this.redisConnectionFactory = redisConnectionFactory;
+    this.redisTemplate = redisTemplate;
+  }
 
-    @ConditionalOnMissingBean(name = BEAN_REDIS_CACHE_MGR)
-    @Qualifier(BEAN_REDIS_CACHE_MGR)
-    @Bean
+  @ConditionalOnMissingBean(name = BEAN_REDIS_CACHE_MGR)
+  @Qualifier(BEAN_REDIS_CACHE_MGR)
+  @Bean
+  @Override
+  public CacheManager cacheManager() {
+    return new RedisCacheManager(redisTemplate);
+  }
+
+  @Bean
+  @Override
+  public KeyGenerator keyGenerator() {
+    return new RedisKeyGenerator();
+  }
+
+  @ConditionalOnMissingBean(name = BEAN_STRING_REDIS_CACHE_MGR)
+  @Bean
+  public RedisCacheManager stringRedisCacheManager(StringRedisTemplate stringRedisTemplate) {
+    return new RedisCacheManager(stringRedisTemplate);
+  }
+
+  @SuppressWarnings("unchecked")
+  @ConditionalOnMissingBean(name = BEAN_INTEGER_REDIS_CACHE_MGR)
+  @Bean
+  public RedisCacheManager integerRedisCacheManager() {
+    RedisTemplate redisTemplate = new RedisTemplate();
+    redisTemplate.setConnectionFactory(redisConnectionFactory);
+    redisTemplate.setKeySerializer(IntegerRedisSerializer.INSTANCE);
+    redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+    return new RedisCacheManager(redisTemplate);
+  }
+
+  @SuppressWarnings("unchecked")
+  @ConditionalOnMissingBean(name = BEAN_LONG_REDIS_CACHE_MGR)
+  @Bean
+  public RedisCacheManager longRedisCacheManager() {
+    RedisTemplate redisTemplate = new RedisTemplate();
+    redisTemplate.setConnectionFactory(redisConnectionFactory);
+    redisTemplate.setKeySerializer(LongRedisSerializer.INSTANCE);
+    redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+    return new RedisCacheManager(redisTemplate);
+  }
+
+  private static class RedisKeyGenerator implements KeyGenerator {
+
     @Override
-    public CacheManager cacheManager() {
-        return new RedisCacheManager(redisTemplate);
+    public Object generate(Object target, Method method, Object... params) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(target.getClass().getName());
+      sb.append(method.getName());
+      for (Object obj : params) {
+        sb.append(obj.toString());
+      }
+      return sb.toString();
     }
-
-    @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return new RedisKeyGenerator();
-    }
-
-    @ConditionalOnMissingBean(name = BEAN_STRING_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager stringRedisCacheManager(StringRedisTemplate stringRedisTemplate) {
-        return new RedisCacheManager(stringRedisTemplate);
-    }
-
-    @SuppressWarnings("unchecked")
-    @ConditionalOnMissingBean(name = BEAN_INTEGER_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager integerRedisCacheManager() {
-        RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(IntegerRedisSerializer.INSTANCE);
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        return new RedisCacheManager(redisTemplate);
-    }
-
-    @SuppressWarnings("unchecked")
-    @ConditionalOnMissingBean(name = BEAN_LONG_REDIS_CACHE_MGR)
-    @Bean
-    public RedisCacheManager longRedisCacheManager() {
-        RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(LongRedisSerializer.INSTANCE);
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        return new RedisCacheManager(redisTemplate);
-    }
-
-    private static class RedisKeyGenerator implements KeyGenerator {
-
-        @Override
-        public Object generate(Object target, Method method, Object... params) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(target.getClass().getName());
-            sb.append(method.getName());
-            for (Object obj : params) {
-                sb.append(obj.toString());
-            }
-            return sb.toString();
-        }
-    }
+  }
 }

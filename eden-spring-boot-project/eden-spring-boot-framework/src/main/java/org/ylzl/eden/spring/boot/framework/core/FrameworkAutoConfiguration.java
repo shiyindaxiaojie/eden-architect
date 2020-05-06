@@ -40,22 +40,22 @@ import org.springframework.util.PathMatcher;
 @Configuration
 public class FrameworkAutoConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public PathMatcher pathMatcher() {
-        return new AntPathMatcher();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public PathMatcher pathMatcher() {
+    return new AntPathMatcher();
+  }
 
-/*    @ConditionalOnClass(Servlet.class)
-    @ConditionalOnMissingBean
-    @Bean
-    public UrlPathHelper urlPathHelper() {
-        return new UrlPathHelper();
-    }*/
+  /*    @ConditionalOnClass(Servlet.class)
+  @ConditionalOnMissingBean
+  @Bean
+  public UrlPathHelper urlPathHelper() {
+      return new UrlPathHelper();
+  }*/
 
-    @ConditionalOnMissingBean
-    @Bean
-    public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
-        return new PathMatchingResourcePatternResolver();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
+    return new PathMatchingResourcePatternResolver();
+  }
 }

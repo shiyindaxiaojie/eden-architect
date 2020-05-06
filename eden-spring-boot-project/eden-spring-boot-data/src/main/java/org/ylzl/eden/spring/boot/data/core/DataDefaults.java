@@ -22,6 +22,4 @@ package org.ylzl.eden.spring.boot.data.core;
  * @author gyl
  * @since 0.0.1
  */
-public final class DataDefaults {
-
-}
+public final class DataDefaults {}

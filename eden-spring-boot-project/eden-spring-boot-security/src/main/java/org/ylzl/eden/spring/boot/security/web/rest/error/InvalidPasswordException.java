@@ -26,13 +26,13 @@ import org.ylzl.eden.spring.boot.framework.web.rest.errors.BadRequestAlertExcept
  */
 public class InvalidPasswordException extends BadRequestAlertException {
 
-    public static final String ERR_INVALID_PASSWORD = "无效密码";
+  public static final String ERR_INVALID_PASSWORD = "无效密码";
 
-    public InvalidPasswordException() {
-        super(ERR_INVALID_PASSWORD);
-    }
+  public InvalidPasswordException() {
+    super(ERR_INVALID_PASSWORD);
+  }
 
-    public InvalidPasswordException(String message) {
-        super(message);
-    }
+  public InvalidPasswordException(String message) {
+    super(message);
+  }
 }

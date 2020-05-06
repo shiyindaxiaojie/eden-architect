@@ -27,8 +27,8 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface TurbineStreamClient {
 
-    String INPUT = "turbineStreamInput";
+  String INPUT = "turbineStreamInput";
 
-    @Input(INPUT)
-    SubscribableChannel turbineStreamInput();
+  @Input(INPUT)
+  SubscribableChannel turbineStreamInput();
 }

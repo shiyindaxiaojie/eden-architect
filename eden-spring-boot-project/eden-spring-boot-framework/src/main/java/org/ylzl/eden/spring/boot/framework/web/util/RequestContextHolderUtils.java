@@ -33,65 +33,64 @@ import javax.servlet.http.HttpSession;
  */
 public class RequestContextHolderUtils {
 
-    private RequestContextHolderUtils() {
-    }
+  private RequestContextHolderUtils() {}
 
-    public static ServletRequestAttributes getServletRequestAttributes() {
-        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-    }
+  public static ServletRequestAttributes getServletRequestAttributes() {
+    return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+  }
 
-    public static HttpServletRequest getRequest() {
-        return getServletRequestAttributes().getRequest();
-    }
+  public static HttpServletRequest getRequest() {
+    return getServletRequestAttributes().getRequest();
+  }
 
-    public static HttpServletResponse getResponse() {
-        return getServletRequestAttributes().getResponse();
-    }
+  public static HttpServletResponse getResponse() {
+    return getServletRequestAttributes().getResponse();
+  }
 
-    public static HttpSession getSession() {
-        return getRequest().getSession();
-    }
+  public static HttpSession getSession() {
+    return getRequest().getSession();
+  }
 
-    public static String getRemoteUser() {
-        return StringUtils.trimToEmpty(getRequest().getRemoteUser());
-    }
+  public static String getRemoteUser() {
+    return StringUtils.trimToEmpty(getRequest().getRemoteUser());
+  }
 
-    public static String getRequestURI() {
-        return getRequest().getRequestURI();
-    }
+  public static String getRequestURI() {
+    return getRequest().getRequestURI();
+  }
 
-    public static String getContextPath() {
-        return getRequest().getContextPath();
-    }
+  public static String getContextPath() {
+    return getRequest().getContextPath();
+  }
 
-    public static String getQueryString() {
-        return getRequest().getQueryString();
-    }
+  public static String getQueryString() {
+    return getRequest().getQueryString();
+  }
 
-    public static String getRequestPath() {
-        HttpServletRequest request = getRequest();
-        String queryString = request.getQueryString();
-        String requestURI = request.getRequestURI();
-        if (StringUtils.isNotEmpty(queryString)) {
-            requestURI += "?" + queryString;
-        }
-        int index = requestURI.indexOf("&");
-        if (index > -1) {
-            requestURI = requestURI.substring(0, index);
-        }
-        return requestURI.substring(request.getContextPath().length() + 1);
+  public static String getRequestPath() {
+    HttpServletRequest request = getRequest();
+    String queryString = request.getQueryString();
+    String requestURI = request.getRequestURI();
+    if (StringUtils.isNotEmpty(queryString)) {
+      requestURI += "?" + queryString;
     }
+    int index = requestURI.indexOf("&");
+    if (index > -1) {
+      requestURI = requestURI.substring(0, index);
+    }
+    return requestURI.substring(request.getContextPath().length() + 1);
+  }
 
-    public static boolean isAjaxRequest() {
-        HttpServletRequest request = getRequest();
-        String accept = request.getHeader("accept");
-        if (accept != null && accept.indexOf("application/json") != -1) {
-            return true;
-        }
-        String xRequestedWith = request.getHeader("X-Requested-With");
-        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
-            return true;
-        }
-        return false;
+  public static boolean isAjaxRequest() {
+    HttpServletRequest request = getRequest();
+    String accept = request.getHeader("accept");
+    if (accept != null && accept.indexOf("application/json") != -1) {
+      return true;
     }
+    String xRequestedWith = request.getHeader("X-Requested-With");
+    if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
+      return true;
+    }
+    return false;
+  }
 }

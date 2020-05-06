@@ -42,18 +42,21 @@ import org.ylzl.eden.spring.boot.data.elasticsearch.mapper.JacksonEntityMapper;
  */
 @AutoConfigureAfter(ElasticsearchAutoConfiguration.class)
 @AutoConfigureBefore(ElasticsearchDataAutoConfiguration.class)
-@ConditionalOnClass({ Client.class, TransportClientFactoryBean.class, NodeClientFactoryBean.class })
+@ConditionalOnClass({Client.class, TransportClientFactoryBean.class, NodeClientFactoryBean.class})
 @EnableConfigurationProperties(ElasticsearchProperties.class)
 @Slf4j
 @Configuration
 public class EnhancedElasticsearchDataAutoConfiguration {
 
-	public static final String MSG_INJECT_ES_TEMPLATE = "Inject ElasticsearchTemplate with Jackson";
+  public static final String MSG_INJECT_ES_TEMPLATE = "Inject ElasticsearchTemplate with Jackson";
 
-	@ConditionalOnMissingBean
-    @Bean
-    public ElasticsearchTemplate elasticsearchTemplate(Client client, Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
-		log.debug(MSG_INJECT_ES_TEMPLATE);
-        return new ElasticsearchTemplate(client, new JacksonEntityMapper(jackson2ObjectMapperBuilder.createXmlMapper(false).build()));
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ElasticsearchTemplate elasticsearchTemplate(
+      Client client, Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
+    log.debug(MSG_INJECT_ES_TEMPLATE);
+    return new ElasticsearchTemplate(
+        client,
+        new JacksonEntityMapper(jackson2ObjectMapperBuilder.createXmlMapper(false).build()));
+  }
 }

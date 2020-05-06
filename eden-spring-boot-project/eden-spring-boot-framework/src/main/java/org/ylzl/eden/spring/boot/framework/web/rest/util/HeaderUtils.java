@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.framework.web.rest.util;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
 
 import java.text.MessageFormat;
@@ -31,40 +30,44 @@ import java.text.MessageFormat;
 @UtilityClass
 public final class HeaderUtils {
 
-    private static final String HEADER_NAME_X_MESSAGE = "X-{0}-message";
+  private static final String HEADER_NAME_X_MESSAGE = "X-{0}-message";
 
-    private static final String HEADER_NAME_X_PARAMS = "X-{0}-params";
+  private static final String HEADER_NAME_X_PARAMS = "X-{0}-params";
 
-    private static final String HEADER_NAME_X_ERROR = "X-{0}-error";
+  private static final String HEADER_NAME_X_ERROR = "X-{0}-error";
 
-    private static final String HEADER_NAME_X_ENTITY_CREATION = "{0}.{1}.created";
+  private static final String HEADER_NAME_X_ENTITY_CREATION = "{0}.{1}.created";
 
-    private static final String HEADER_NAME_X_ENTITY_UPDATE = "{0}.{1}.updated";
+  private static final String HEADER_NAME_X_ENTITY_UPDATE = "{0}.{1}.updated";
 
-    private static final String HEADER_NAME_X_ENTITY_DELETION = "{0}.{1}.deleted";
+  private static final String HEADER_NAME_X_ENTITY_DELETION = "{0}.{1}.deleted";
 
-    public static HttpHeaders create(String appName, String message, String param) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(MessageFormat.format(HEADER_NAME_X_MESSAGE, appName), message);
-        headers.add(MessageFormat.format(HEADER_NAME_X_PARAMS, appName), param);
-        return headers;
-    }
+  public static HttpHeaders create(String appName, String message, String param) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(MessageFormat.format(HEADER_NAME_X_MESSAGE, appName), message);
+    headers.add(MessageFormat.format(HEADER_NAME_X_PARAMS, appName), param);
+    return headers;
+  }
 
-    public static HttpHeaders createEntityCreation(String appName, String entityName, String param) {
-        return create(appName, MessageFormat.format(HEADER_NAME_X_ENTITY_CREATION, appName, entityName), param);
-    }
+  public static HttpHeaders createEntityCreation(String appName, String entityName, String param) {
+    return create(
+        appName, MessageFormat.format(HEADER_NAME_X_ENTITY_CREATION, appName, entityName), param);
+  }
 
-    public static HttpHeaders createEntityUpdate(String appName, String entityName, String param) {
-        return create(appName, MessageFormat.format(HEADER_NAME_X_ENTITY_UPDATE, appName, entityName), param);
-    }
+  public static HttpHeaders createEntityUpdate(String appName, String entityName, String param) {
+    return create(
+        appName, MessageFormat.format(HEADER_NAME_X_ENTITY_UPDATE, appName, entityName), param);
+  }
 
-    public static HttpHeaders createEntityDeletion(String appName, String entityName, String param) {
-        return create(appName, MessageFormat.format(HEADER_NAME_X_ENTITY_DELETION, appName, entityName), param);
-    }
+  public static HttpHeaders createEntityDeletion(String appName, String entityName, String param) {
+    return create(
+        appName, MessageFormat.format(HEADER_NAME_X_ENTITY_DELETION, appName, entityName), param);
+  }
 
-    public static HttpHeaders createFailure(String appName, String message, String param, String error) {
-        HttpHeaders headers = create(appName, message, param);
-        headers.add(MessageFormat.format(HEADER_NAME_X_ERROR, appName), error);
-        return headers;
-    }
+  public static HttpHeaders createFailure(
+      String appName, String message, String param, String error) {
+    HttpHeaders headers = create(appName, message, param);
+    headers.add(MessageFormat.format(HEADER_NAME_X_ERROR, appName), error);
+    return headers;
+  }
 }

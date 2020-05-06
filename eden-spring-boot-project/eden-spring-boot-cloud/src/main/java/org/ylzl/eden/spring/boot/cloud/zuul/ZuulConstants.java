@@ -28,11 +28,11 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ZuulConstants {
 
-    public static final String FILTER_TYPE_PRE = "pre";
+  public static final String FILTER_TYPE_PRE = "pre";
 
-    public static final String FILTER_TYPE_ROUTING = "routing";
+  public static final String FILTER_TYPE_ROUTING = "routing";
 
-    public static final String FILTER_TYPE_POST = "post";
+  public static final String FILTER_TYPE_POST = "post";
 
-    public static final String FILTER_TYPE_ERROR = "error";
+  public static final String FILTER_TYPE_ERROR = "error";
 }

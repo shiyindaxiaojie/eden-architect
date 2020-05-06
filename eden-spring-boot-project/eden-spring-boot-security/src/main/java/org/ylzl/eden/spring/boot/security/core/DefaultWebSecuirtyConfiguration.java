@@ -44,34 +44,37 @@ import java.util.List;
 @Configuration
 public class DefaultWebSecuirtyConfiguration {
 
-	private static final String MSG_INJECT_PASSWORD_ENCODER = "Inject PasswordEncoder (BCryptPasswordEncoder)";
+  private static final String MSG_INJECT_PASSWORD_ENCODER =
+      "Inject PasswordEncoder (BCryptPasswordEncoder)";
 
-	private static final String MSG_INJECT_USER_DETAILS_SERVICE = "Inject UserDetailsService (InMemoryUserDetailsManager)";
+  private static final String MSG_INJECT_USER_DETAILS_SERVICE =
+      "Inject UserDetailsService (InMemoryUserDetailsManager)";
 
-	private final SecurityProperties securityProperties;
+  private final SecurityProperties securityProperties;
 
-	public DefaultWebSecuirtyConfiguration(SecurityProperties securityProperties) {
-		this.securityProperties = securityProperties;
-	}
+  public DefaultWebSecuirtyConfiguration(SecurityProperties securityProperties) {
+    this.securityProperties = securityProperties;
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		log.debug(MSG_INJECT_PASSWORD_ENCODER);
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    log.debug(MSG_INJECT_PASSWORD_ENCODER);
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-		log.debug(MSG_INJECT_USER_DETAILS_SERVICE);
-		SecurityProperties.User user = securityProperties.getUser();
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		List<String> roles = user.getRole();
-		for (String role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}
-		UserDetails userDetails = new User(user.getName(), passwordEncoder.encode(user.getPassword()), authorities);
-		return new InMemoryUserDetailsManager(Collections.singletonList(userDetails));
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+    log.debug(MSG_INJECT_USER_DETAILS_SERVICE);
+    SecurityProperties.User user = securityProperties.getUser();
+    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    List<String> roles = user.getRole();
+    for (String role : roles) {
+      authorities.add(new SimpleGrantedAuthority(role));
+    }
+    UserDetails userDetails =
+        new User(user.getName(), passwordEncoder.encode(user.getPassword()), authorities);
+    return new InMemoryUserDetailsManager(Collections.singletonList(userDetails));
+  }
 }

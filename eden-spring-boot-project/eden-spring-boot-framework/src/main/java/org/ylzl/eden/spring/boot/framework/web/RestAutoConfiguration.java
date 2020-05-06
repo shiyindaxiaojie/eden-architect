@@ -41,34 +41,35 @@ import java.util.List;
 @Configuration
 public class RestAutoConfiguration {
 
-    private static final String MSG_INJECT_REST_TEMPLATE = "Inject RestTemplate";
+  private static final String MSG_INJECT_REST_TEMPLATE = "Inject RestTemplate";
 
-    private static final String MSG_INJECT_ASYNC_REST_TEMPLATE = "Inject AsyncRestTemplate";
+  private static final String MSG_INJECT_ASYNC_REST_TEMPLATE = "Inject AsyncRestTemplate";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        log.debug(MSG_INJECT_REST_TEMPLATE);
-        RestTemplate restTemplate = new RestTemplate(factory);
-        this.setDefaultCharset(restTemplate.getMessageConverters());
-        return restTemplate;
+  @ConditionalOnMissingBean
+  @Bean
+  public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
+    log.debug(MSG_INJECT_REST_TEMPLATE);
+    RestTemplate restTemplate = new RestTemplate(factory);
+    this.setDefaultCharset(restTemplate.getMessageConverters());
+    return restTemplate;
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public AsyncRestTemplate asyncRestTemplate(AsyncClientHttpRequestFactory factory) {
+    log.debug(MSG_INJECT_ASYNC_REST_TEMPLATE);
+    AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate(factory);
+    this.setDefaultCharset(asyncRestTemplate.getMessageConverters());
+    return asyncRestTemplate;
+  }
+
+  private void setDefaultCharset(List<HttpMessageConverter<?>> httpMessageConverters) {
+    for (HttpMessageConverter<?> httpMessageConverter : httpMessageConverters) {
+      if (httpMessageConverter instanceof StringHttpMessageConverter) {
+        ((StringHttpMessageConverter) httpMessageConverter)
+            .setDefaultCharset(CharsetConstants.UTF_8);
+        break;
+      }
     }
-
-    @ConditionalOnMissingBean
-    @Bean
-    public AsyncRestTemplate asyncRestTemplate(AsyncClientHttpRequestFactory factory) {
-        log.debug(MSG_INJECT_ASYNC_REST_TEMPLATE);
-        AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate(factory);
-        this.setDefaultCharset(asyncRestTemplate.getMessageConverters());
-        return asyncRestTemplate;
-    }
-
-    private void setDefaultCharset(List<HttpMessageConverter<?>> httpMessageConverters) {
-        for (HttpMessageConverter<?> httpMessageConverter : httpMessageConverters) {
-            if(httpMessageConverter instanceof StringHttpMessageConverter) {
-                ((StringHttpMessageConverter) httpMessageConverter).setDefaultCharset(CharsetConstants.UTF_8);
-                break;
-            }
-        }
-    }
+  }
 }

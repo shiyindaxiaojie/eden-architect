@@ -17,9 +17,8 @@
 
 package org.ylzl.eden.spring.boot.commons.xml;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -38,51 +37,56 @@ import java.io.IOException;
 @UtilityClass
 public class JaxbUtils {
 
-    public static final String JAXB_DEFAULT_ENCODING = "UTF-8";
+  public static final String JAXB_DEFAULT_ENCODING = "UTF-8";
 
-    @SuppressWarnings("unchecked")
-    public static <T> String toXMLString(@NonNull Object object, @NonNull Class<T> cls, @NonNull String jaxbEncoding)
-        throws JAXBException, IOException {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        Marshaller marshaller = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(cls);
-            marshaller = jaxbContext.createMarshaller();
-            marshaller.marshal(object, os);
-            return os.toString(jaxbEncoding);
-        } finally {
-            marshaller = null;
-            if (os != null) {
-                os.close();
-            }
-            os = null;
-        }
+  @SuppressWarnings("unchecked")
+  public static <T> String toXMLString(
+      @NonNull Object object, @NonNull Class<T> cls, @NonNull String jaxbEncoding)
+      throws JAXBException, IOException {
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    Marshaller marshaller = null;
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(cls);
+      marshaller = jaxbContext.createMarshaller();
+      marshaller.marshal(object, os);
+      return os.toString(jaxbEncoding);
+    } finally {
+      marshaller = null;
+      if (os != null) {
+        os.close();
+      }
+      os = null;
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <T> String toXMLString(@NonNull Object object, @NonNull Class<T> cls) throws JAXBException, IOException {
-        return toXMLString(object, cls, JAXB_DEFAULT_ENCODING);
-    }
+  @SuppressWarnings("unchecked")
+  public static <T> String toXMLString(@NonNull Object object, @NonNull Class<T> cls)
+      throws JAXBException, IOException {
+    return toXMLString(object, cls, JAXB_DEFAULT_ENCODING);
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T toObject(@NonNull String xmlString, @NonNull Class<T> cls, @NonNull String jaxbEncoding) throws JAXBException, IOException {
-        ByteArrayInputStream stream = new ByteArrayInputStream(xmlString.getBytes(jaxbEncoding));
-        Unmarshaller unmarshaller = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(cls);
-            unmarshaller = jaxbContext.createUnmarshaller();
-            return (T) unmarshaller.unmarshal(stream);
-        } finally {
-            unmarshaller = null;
-            if (stream != null) {
-                stream.close();
-            }
-            stream = null;
-        }
+  @SuppressWarnings("unchecked")
+  public static <T> T toObject(
+      @NonNull String xmlString, @NonNull Class<T> cls, @NonNull String jaxbEncoding)
+      throws JAXBException, IOException {
+    ByteArrayInputStream stream = new ByteArrayInputStream(xmlString.getBytes(jaxbEncoding));
+    Unmarshaller unmarshaller = null;
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(cls);
+      unmarshaller = jaxbContext.createUnmarshaller();
+      return (T) unmarshaller.unmarshal(stream);
+    } finally {
+      unmarshaller = null;
+      if (stream != null) {
+        stream.close();
+      }
+      stream = null;
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T toObject(@NonNull String xmlString, @NonNull Class<T> cls) throws JAXBException, IOException {
-        return toObject(xmlString, cls, JAXB_DEFAULT_ENCODING);
-    }
+  @SuppressWarnings("unchecked")
+  public static <T> T toObject(@NonNull String xmlString, @NonNull Class<T> cls)
+      throws JAXBException, IOException {
+    return toObject(xmlString, cls, JAXB_DEFAULT_ENCODING);
+  }
 }

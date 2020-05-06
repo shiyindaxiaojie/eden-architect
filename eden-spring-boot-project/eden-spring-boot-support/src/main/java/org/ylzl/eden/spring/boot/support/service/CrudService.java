@@ -27,25 +27,25 @@ import java.io.Serializable;
  */
 public interface CrudService<T, ID extends Serializable> {
 
-    long count();
+  long count();
 
-    void delete(ID id);
+  void delete(ID id);
 
-    void delete(T entity);
+  void delete(T entity);
 
-    void delete(Iterable<? extends T> entities);
+  void delete(Iterable<? extends T> entities);
 
-    void deleteAll();
+  void deleteAll();
 
-    boolean exists(ID id);
+  boolean exists(ID id);
 
-    Iterable<T> findAll();
+  Iterable<T> findAll();
 
-    Iterable<T> findAll(Iterable<ID> ids);
+  Iterable<T> findAll(Iterable<ID> ids);
 
-    T findOne(ID id);
+  T findOne(ID id);
 
-    <S extends T> S save(S entity);
+  <S extends T> S save(S entity);
 
-    <S extends T> Iterable<S> save(Iterable<S> entities);
+  <S extends T> Iterable<S> save(Iterable<S> entities);
 }

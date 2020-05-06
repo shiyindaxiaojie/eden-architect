@@ -21,7 +21,7 @@ import lombok.Setter;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.listener.config.ContainerProperties;
-import org.ylzl.eden.spring.boot.integration.kafka.FixedKafkaProperties;
+import org.ylzl.eden.spring.boot.integration.kafka.KafkaProperties;
 
 /**
  * Kafka 并发监听容器配置
@@ -31,29 +31,29 @@ import org.ylzl.eden.spring.boot.integration.kafka.FixedKafkaProperties;
  */
 public class ConcurrentKafkaListenerContainerFactoryConfigurer {
 
-	@Setter
-	private FixedKafkaProperties fixedKafkaProperties;
+  @Setter private KafkaProperties kafkaProperties;
 
-	public void configure(ConcurrentKafkaListenerContainerFactory<Object, Object> listenerContainerFactory,
-						  ConsumerFactory<Object, Object> consumerFactory) {
-		listenerContainerFactory.setConsumerFactory(consumerFactory);
-		ContainerProperties containerProperties = listenerContainerFactory.getContainerProperties();
-		FixedKafkaProperties.Listener properties = this.fixedKafkaProperties.getListener();
-		if (properties.getAckMode() != null) {
-			containerProperties.setAckMode(properties.getAckMode());
-		}
-		if (properties.getAckCount() != null) {
-			containerProperties.setAckCount(properties.getAckCount());
-		}
-		if (properties.getAckTime() != null) {
-			containerProperties.setAckTime(properties.getAckTime());
-		}
-		if (properties.getPollTimeout() != null) {
-			containerProperties.setPollTimeout(properties.getPollTimeout());
-		}
-		if (properties.getConcurrency() != null) {
-			listenerContainerFactory.setConcurrency(properties.getConcurrency());
-			listenerContainerFactory.setBatchListener(true);
-		}
-	}
+  public void configure(
+      ConcurrentKafkaListenerContainerFactory<Object, Object> listenerContainerFactory,
+      ConsumerFactory<Object, Object> consumerFactory) {
+    listenerContainerFactory.setConsumerFactory(consumerFactory);
+    ContainerProperties containerProperties = listenerContainerFactory.getContainerProperties();
+    KafkaProperties.Listener properties = this.kafkaProperties.getListener();
+    if (properties.getAckMode() != null) {
+      containerProperties.setAckMode(properties.getAckMode());
+    }
+    if (properties.getAckCount() != null) {
+      containerProperties.setAckCount(properties.getAckCount());
+    }
+    if (properties.getAckTime() != null) {
+      containerProperties.setAckTime(properties.getAckTime());
+    }
+    if (properties.getPollTimeout() != null) {
+      containerProperties.setPollTimeout(properties.getPollTimeout());
+    }
+    if (properties.getConcurrency() != null) {
+      listenerContainerFactory.setConcurrency(properties.getConcurrency());
+      listenerContainerFactory.setBatchListener(true);
+    }
+  }
 }

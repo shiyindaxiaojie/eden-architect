@@ -28,17 +28,18 @@ import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
  */
 public class KafkaUtils {
 
-    public static final String MSG_WARN_CREATE_TOPIC = "Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. " +
-		"To avoid issues it is best to use either, but not both.";
+  public static final String MSG_WARN_CREATE_TOPIC =
+      "Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. "
+          + "To avoid issues it is best to use either, but not both.";
 
-    /**
-     * 判断主题是否包含碰撞字符
-     *
-     * @param topic Kafka 主题
-     * @return 是否包含碰撞字符
-     */
-    public static boolean hasCollisionChars(String topic) {
-		return StringUtils.contains(topic, CharConstants.DOT) &&
-			StringUtils.contains(topic, CharConstants.UNDERLINE);
-	}
+  /**
+   * 判断主题是否包含碰撞字符
+   *
+   * @param topic Kafka 主题
+   * @return 是否包含碰撞字符
+   */
+  public static boolean hasCollisionChars(String topic) {
+    return StringUtils.contains(topic, CharConstants.DOT)
+        && StringUtils.contains(topic, CharConstants.UNDERLINE);
+  }
 }

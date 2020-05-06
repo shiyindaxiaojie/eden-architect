@@ -36,22 +36,23 @@ import java.util.Properties;
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {
 
-    public static final String NAME = "JPA_ID";
+  public static final String NAME = "JPA_ID";
 
-    public static final String STRATEGY = "org.ylzl.eden.spring.boot.data.jpa.id.JpaIdentifierGenerator";
+  public static final String STRATEGY =
+      "org.ylzl.eden.spring.boot.data.jpa.id.JpaIdentifierGenerator";
 
-    private SnowflakeGenerator snowflakeGenerator;
+  private SnowflakeGenerator snowflakeGenerator;
 
-    public JpaIdentifierGenerator() {
-        snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).datacenterId(0L).build();
-    }
+  public JpaIdentifierGenerator() {
+    snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).datacenterId(0L).build();
+  }
 
-    @Override
-    public void configure(Type type, Properties params, Dialect d) throws MappingException {
-    }
+  @Override
+  public void configure(Type type, Properties params, Dialect d) throws MappingException {}
 
-    @Override
-    public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-        return snowflakeGenerator.nextId();
-    }
+  @Override
+  public Serializable generate(SessionImplementor session, Object object)
+      throws HibernateException {
+    return snowflakeGenerator.nextId();
+  }
 }

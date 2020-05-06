@@ -35,21 +35,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HystrixMetricsAutoConfiguration {
 
-	private static final String MSG_INJECT_HYSTRIX_METRICS = "Inject Hystrix Metrics";
+  private static final String MSG_INJECT_HYSTRIX_METRICS = "Inject Hystrix Metrics";
 
-    private static final String HYSTRIX_BEAN_URL_MAPPINGS = "/hystrix.stream";
+  private static final String HYSTRIX_BEAN_URL_MAPPINGS = "/hystrix.stream";
 
-	private static final String HYSTRIX_BEAN_NAME = "HystrixMetricsStreamServlet";
+  private static final String HYSTRIX_BEAN_NAME = "HystrixMetricsStreamServlet";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public ServletRegistrationBean hystrixMetricsStreamServlet() {
-    	log.debug(MSG_INJECT_HYSTRIX_METRICS);
-        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
-        registrationBean.setLoadOnStartup(1);
-        registrationBean.addUrlMappings(HYSTRIX_BEAN_URL_MAPPINGS);
-        registrationBean.setName(HYSTRIX_BEAN_NAME);
-        return registrationBean;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ServletRegistrationBean hystrixMetricsStreamServlet() {
+    log.debug(MSG_INJECT_HYSTRIX_METRICS);
+    HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+    ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+    registrationBean.setLoadOnStartup(1);
+    registrationBean.addUrlMappings(HYSTRIX_BEAN_URL_MAPPINGS);
+    registrationBean.setName(HYSTRIX_BEAN_NAME);
+    return registrationBean;
+  }
 }

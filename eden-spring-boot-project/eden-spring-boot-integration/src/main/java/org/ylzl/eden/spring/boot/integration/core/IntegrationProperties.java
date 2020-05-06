@@ -30,6 +30,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX)
-public class IntegrationProperties {
-
-}
+public class IntegrationProperties {}

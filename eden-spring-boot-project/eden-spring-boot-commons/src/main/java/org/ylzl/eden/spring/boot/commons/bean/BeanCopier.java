@@ -30,14 +30,15 @@ import org.springframework.cglib.core.Converter;
 @UtilityClass
 public class BeanCopier {
 
-    public static <S, T> T copy(@NonNull S source, @NonNull T target) {
-        return copy(source, target, null);
-    }
+  public static <S, T> T copy(@NonNull S source, @NonNull T target) {
+    return copy(source, target, null);
+  }
 
-    public static <S, T> T copy(@NonNull S source, @NonNull T target, Converter converter) {
-        org.springframework.cglib.beans.BeanCopier copier = org.springframework.cglib.beans.BeanCopier.create(
+  public static <S, T> T copy(@NonNull S source, @NonNull T target, Converter converter) {
+    org.springframework.cglib.beans.BeanCopier copier =
+        org.springframework.cglib.beans.BeanCopier.create(
             source.getClass(), target.getClass(), converter != null);
-        copier.copy(source, target, converter);
-        return target;
-    }
+    copier.copy(source, target, converter);
+    return target;
+  }
 }

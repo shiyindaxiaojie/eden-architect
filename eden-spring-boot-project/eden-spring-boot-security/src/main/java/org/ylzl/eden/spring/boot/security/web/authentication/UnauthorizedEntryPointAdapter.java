@@ -35,8 +35,10 @@ import java.io.IOException;
 @Slf4j
 public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorConstants.ERR_UNAUTHORIZED);
-    }
+  @Override
+  public void commence(
+      HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+      throws IOException {
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorConstants.ERR_UNAUTHORIZED);
+  }
 }

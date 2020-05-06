@@ -52,72 +52,75 @@ import java.util.List;
 @Slf4j
 public class JwtTokenFilter extends GenericFilterBean {
 
-    private static final String MSG_INVALID_JWT_EXCEPTION = "JWT Token doFilter throws exception: {}";
+  private static final String MSG_INVALID_JWT_EXCEPTION = "JWT Token doFilter throws exception: {}";
 
-    private final JwtTokenProvider jwtTokenProvider;
+  private final JwtTokenProvider jwtTokenProvider;
 
-    private final JwtProperties.Authorization properties;
+  private final JwtProperties.Authorization properties;
 
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.properties = jwtProperties.getAuthorization();
+  public JwtTokenFilter(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+    this.jwtTokenProvider = jwtTokenProvider;
+    this.properties = jwtProperties.getAuthorization();
+  }
+
+  /**
+   * 过滤请求
+   *
+   * @param servletRequest 请求对象
+   * @param servletResponse 响应对象
+   * @param filterChain 过滤链
+   */
+  @Override
+  public void doFilter(
+      ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+      throws IOException, ServletException {
+    HttpServletRequest request = (HttpServletRequest) servletRequest;
+    try {
+      String token = this.resolveToken(request);
+      if (StringUtils.isNotBlank(token)) {
+        setAuthentication(token);
+      }
+    } catch (Exception e) {
+      log.error(MSG_INVALID_JWT_EXCEPTION, e.getMessage(), e);
+      ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
+    filterChain.doFilter(servletRequest, servletResponse);
+  }
 
-    /**
-     * 过滤请求
-     *
-     * @param servletRequest 请求对象
-     * @param servletResponse 响应对象
-     * @param filterChain 过滤链
-     */
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-        throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        try {
-            String token = this.resolveToken(request);
-            if (StringUtils.isNotBlank(token)) {
-                setAuthentication(token);
-            }
-        } catch (Exception e) {
-            log.error(MSG_INVALID_JWT_EXCEPTION, e.getMessage(), e);
-            ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        }
-        filterChain.doFilter(servletRequest, servletResponse);
+  /**
+   * 尝试获取令牌
+   *
+   * @param request 请求
+   * @return 令牌
+   */
+  private String resolveToken(HttpServletRequest request) {
+    String authorization = request.getHeader(properties.getHeader());
+    if (StringUtils.isNotBlank(authorization)
+        && authorization.startsWith(SecurityConstants.BEARER_TOKEN)) {
+      return StringUtils.substringAfter(authorization, SecurityConstants.BEARER_TOKEN);
     }
+    return null;
+  }
 
-    /**
-     * 尝试获取令牌
-     *
-     * @param request 请求
-     * @return 令牌
-     */
-    private String resolveToken(HttpServletRequest request) {
-        String authorization = request.getHeader(properties.getHeader());
-        if (StringUtils.isNotBlank(authorization) && authorization.startsWith(SecurityConstants.BEARER_TOKEN)) {
-            return StringUtils.substringAfter(authorization, SecurityConstants.BEARER_TOKEN);
-        }
-        return null;
+  /**
+   * 通过尝试解析令牌设置认证信息
+   *
+   * @param token 令牌
+   */
+  private void setAuthentication(String token) {
+    Claims claims = jwtTokenProvider.parse(token);
+    String claim = ObjectUtils.trimToString(claims.get(JwtConstants.CLAIM_KEY));
+    List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+    if (StringUtils.isNotEmpty(claim)) {
+      String[] claimArr = claim.split(StringConstants.COMMA);
+      for (String claimStr : claimArr) {
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(claimStr);
+        simpleGrantedAuthorities.add(simpleGrantedAuthority);
+      }
     }
-
-    /**
-     * 通过尝试解析令牌设置认证信息
-     *
-     * @param token 令牌
-     */
-    private void setAuthentication(String token) {
-        Claims claims = jwtTokenProvider.parse(token);
-        String claim = ObjectUtils.trimToString(claims.get(JwtConstants.CLAIM_KEY));
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        if (StringUtils.isNotEmpty(claim)) {
-            String[] claimArr = claim.split(StringConstants.COMMA);
-            for (String claimStr : claimArr) {
-                SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(claimStr);
-                simpleGrantedAuthorities.add(simpleGrantedAuthority);
-            }
-        }
-        User user = new User(claims.getSubject(), StringConstants.EMPTY, simpleGrantedAuthorities);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, token, simpleGrantedAuthorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+    User user = new User(claims.getSubject(), StringConstants.EMPTY, simpleGrantedAuthorities);
+    Authentication authentication =
+        new UsernamePasswordAuthenticationToken(user, token, simpleGrantedAuthorities);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+  }
 }

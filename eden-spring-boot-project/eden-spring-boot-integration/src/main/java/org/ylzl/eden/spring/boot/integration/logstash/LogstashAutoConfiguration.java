@@ -72,223 +72,236 @@ import java.util.Map;
 @Configuration
 public class LogstashAutoConfiguration {
 
-    public static final String EXPS_LOGSTASH_ENABLED = "${" +  IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
+  public static final String EXPS_LOGSTASH_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
 
-    private static final String MSG_INJECT_LOGSTASH_APPENDER = "Inject Logstash Appender";
+  private static final String MSG_INJECT_LOGSTASH_APPENDER = "Inject Logstash Appender";
 
-    private static final String MSG_INJECT_CONSOLE_APPENDER = "Inject Console Appender";
+  private static final String MSG_INJECT_CONSOLE_APPENDER = "Inject Console Appender";
 
-    private static final String CONSOLE_APPENDER_NAME = "CONSOLE";
+  private static final String CONSOLE_APPENDER_NAME = "CONSOLE";
 
-    private static final String LOGSTASH_APPENDER_NAME = "LOGSTASH";
+  private static final String LOGSTASH_APPENDER_NAME = "LOGSTASH";
 
-    private static final String ASYNC_LOGSTASH_APPENDER_NAME = "ASYNC_LOGSTASH";
+  private static final String ASYNC_LOGSTASH_APPENDER_NAME = "ASYNC_LOGSTASH";
 
-    private static final String KEY_APP_NAME = "app_name";
+  private static final String KEY_APP_NAME = "app_name";
 
-    private static final String KEY_SERVER_PORT = "server_port";
+  private static final String KEY_SERVER_PORT = "server_port";
 
-    private static final String KEY_VERSION = "verison";
+  private static final String KEY_VERSION = "verison";
 
-    private static final String KEY_TIMESTAMP = "timestamp";
+  private static final String KEY_TIMESTAMP = "timestamp";
 
-    @Value(FrameworkConstants.NAME_PATTERN)
-    private String applicationName;
+  @Value(FrameworkConstants.NAME_PATTERN)
+  private String applicationName;
 
-    private final LogstashProperties logstashProperties;
+  private final LogstashProperties logstashProperties;
 
-    public LogstashAutoConfiguration(LogstashProperties logstashProperties, ServerProperties serverProperties,
-                                     BuildProperties buildProperties, ObjectMapper objectMapper,
-                                     @Autowired(required = false) MetricsProperties metricsProperties) throws JsonProcessingException {
-        this.logstashProperties = logstashProperties;
-        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+  public LogstashAutoConfiguration(
+      LogstashProperties logstashProperties,
+      ServerProperties serverProperties,
+      BuildProperties buildProperties,
+      ObjectMapper objectMapper,
+      @Autowired(required = false) MetricsProperties metricsProperties)
+      throws JsonProcessingException {
+    this.logstashProperties = logstashProperties;
+    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(KEY_APP_NAME, applicationName);
-        map.put(KEY_SERVER_PORT, serverProperties.getPort());
-        map.put(KEY_VERSION, buildProperties.getVersion());
-        String customFields = objectMapper.writeValueAsString(map);
+    Map<String, Object> map = new HashMap<>();
+    map.put(KEY_APP_NAME, applicationName);
+    map.put(KEY_SERVER_PORT, serverProperties.getPort());
+    map.put(KEY_VERSION, buildProperties.getVersion());
+    String customFields = objectMapper.writeValueAsString(map);
 
-        if (logstashProperties.isUseJsonFormat()) {
-            addConsoleAppender(context, customFields);
+    if (logstashProperties.isUseJsonFormat()) {
+      addConsoleAppender(context, customFields);
+    }
+
+    if (logstashProperties.isEnabled()) {
+      addLogstashAppender(context, customFields);
+    }
+
+    if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
+      addContextListener(context, customFields);
+    }
+
+    if (metricsProperties != null && metricsProperties.getLogs().isEnabled()) {
+      setMetricsMarkerLogbackFilter(context, logstashProperties.isUseJsonFormat());
+    }
+  }
+
+  private void addConsoleAppender(LoggerContext context, String customFields) {
+    log.info(MSG_INJECT_LOGSTASH_APPENDER);
+
+    ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
+    consoleAppender.setContext(context);
+    consoleAppender.setEncoder(compositeJsonEncoder(context, customFields));
+    consoleAppender.setName(CONSOLE_APPENDER_NAME);
+    consoleAppender.start();
+
+    context.getLogger(Logger.ROOT_LOGGER_NAME).detachAppender(CONSOLE_APPENDER_NAME);
+    context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
+  }
+
+  private void addLogstashAppender(LoggerContext context, String customFields) {
+    log.info(MSG_INJECT_CONSOLE_APPENDER);
+
+    LogstashTcpSocketAppender logstashAppender = new LogstashTcpSocketAppender();
+    logstashAppender.addDestinations(
+        new InetSocketAddress(logstashProperties.getHost(), logstashProperties.getPort()));
+    logstashAppender.setContext(context);
+    logstashAppender.setEncoder(logstashEncoder(customFields));
+    logstashAppender.setName(LOGSTASH_APPENDER_NAME);
+    logstashAppender.start();
+
+    AsyncAppender asyncLogstashAppender = new AsyncAppender();
+    asyncLogstashAppender.setContext(context);
+    asyncLogstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
+    asyncLogstashAppender.setQueueSize(logstashProperties.getQueueSize());
+    asyncLogstashAppender.addAppender(logstashAppender);
+    asyncLogstashAppender.start();
+
+    context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(asyncLogstashAppender);
+  }
+
+  private void addContextListener(LoggerContext context, String customFields) {
+    LogbackLoggerContextListener loggerContextListener =
+        new LogbackLoggerContextListener(customFields);
+    loggerContextListener.setContext(context);
+    context.addListener(loggerContextListener);
+  }
+
+  private void setMetricsMarkerLogbackFilter(LoggerContext context, boolean useJsonFormat) {
+    OnMarkerEvaluator onMarkerEvaluator = new OnMarkerEvaluator();
+    onMarkerEvaluator.setContext(context);
+    onMarkerEvaluator.addMarker(MetricsAutoConfiguration.LOGGER_NAME);
+    onMarkerEvaluator.start();
+    EvaluatorFilter<ILoggingEvent> metricsFilter = new EvaluatorFilter<>();
+    metricsFilter.setContext(context);
+    metricsFilter.setEvaluator(onMarkerEvaluator);
+    metricsFilter.setOnMatch(FilterReply.DENY);
+    metricsFilter.start();
+
+    for (Logger logger : context.getLoggerList()) {
+      for (Iterator<Appender<ILoggingEvent>> it = logger.iteratorForAppenders(); it.hasNext(); ) {
+        Appender<ILoggingEvent> appender = it.next();
+        if (!appender.getName().equals(ASYNC_LOGSTASH_APPENDER_NAME)
+            && !(appender.getName().equals(CONSOLE_APPENDER_NAME) && useJsonFormat)) {
+          appender.setContext(context);
+          appender.addFilter(metricsFilter);
+          appender.start();
         }
+      }
+    }
+  }
 
-        if (logstashProperties.isEnabled()) {
-            addLogstashAppender(context, customFields);
-        }
+  private LoggingEventCompositeJsonEncoder compositeJsonEncoder(
+      LoggerContext context, String customFields) {
+    final LoggingEventCompositeJsonEncoder compositeJsonEncoder =
+        new LoggingEventCompositeJsonEncoder();
+    compositeJsonEncoder.setContext(context);
+    compositeJsonEncoder.setProviders(jsonProviders(context, customFields));
+    compositeJsonEncoder.start();
+    return compositeJsonEncoder;
+  }
 
-        if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
-            addContextListener(context, customFields);
-        }
+  private LogstashEncoder logstashEncoder(String customFields) {
+    final LogstashEncoder logstashEncoder = new LogstashEncoder();
+    logstashEncoder.setThrowableConverter(throwableConverter());
+    logstashEncoder.setCustomFields(customFields);
+    return logstashEncoder;
+  }
 
-        if (metricsProperties != null && metricsProperties.getLogs().isEnabled()) {
-            setMetricsMarkerLogbackFilter(context, logstashProperties.isUseJsonFormat());
-        }
+  private LoggingEventJsonProviders jsonProviders(LoggerContext context, String customFields) {
+    final LoggingEventJsonProviders jsonProviders = new LoggingEventJsonProviders();
+    jsonProviders.addArguments(new ArgumentsJsonProvider());
+    jsonProviders.addContext(new ContextJsonProvider<ILoggingEvent>());
+    jsonProviders.addGlobalCustomFields(customFieldsJsonProvider(customFields));
+    jsonProviders.addLogLevel(new LogLevelJsonProvider());
+    jsonProviders.addLoggerName(loggerNameJsonProvider());
+    jsonProviders.addMdc(new MdcJsonProvider());
+    jsonProviders.addMessage(new MessageJsonProvider());
+    jsonProviders.addPattern(new LoggingEventPatternJsonProvider());
+    jsonProviders.addStackTrace(stackTraceJsonProvider());
+    jsonProviders.addThreadName(new ThreadNameJsonProvider());
+    jsonProviders.addTimestamp(timestampJsonProvider());
+    jsonProviders.setContext(context);
+    return jsonProviders;
+  }
+
+  private GlobalCustomFieldsJsonProvider<ILoggingEvent> customFieldsJsonProvider(
+      String customFields) {
+    final GlobalCustomFieldsJsonProvider<ILoggingEvent> customFieldsJsonProvider =
+        new GlobalCustomFieldsJsonProvider<>();
+    customFieldsJsonProvider.setCustomFields(customFields);
+    return customFieldsJsonProvider;
+  }
+
+  private LoggerNameJsonProvider loggerNameJsonProvider() {
+    final LoggerNameJsonProvider loggerNameJsonProvider = new LoggerNameJsonProvider();
+    loggerNameJsonProvider.setShortenedLoggerNameLength(20);
+    return loggerNameJsonProvider;
+  }
+
+  private StackTraceJsonProvider stackTraceJsonProvider() {
+    StackTraceJsonProvider stackTraceJsonProvider = new StackTraceJsonProvider();
+    stackTraceJsonProvider.setThrowableConverter(throwableConverter());
+    return stackTraceJsonProvider;
+  }
+
+  private ShortenedThrowableConverter throwableConverter() {
+    final ShortenedThrowableConverter throwableConverter = new ShortenedThrowableConverter();
+    throwableConverter.setRootCauseFirst(true);
+    return throwableConverter;
+  }
+
+  private LoggingEventFormattedTimestampJsonProvider timestampJsonProvider() {
+    final LoggingEventFormattedTimestampJsonProvider timestampJsonProvider =
+        new LoggingEventFormattedTimestampJsonProvider();
+    timestampJsonProvider.setTimeZone(DatePattern.DEFAULT_TIME_ZONE);
+    timestampJsonProvider.setFieldName(KEY_TIMESTAMP);
+    return timestampJsonProvider;
+  }
+
+  private class LogbackLoggerContextListener extends ContextAwareBase
+      implements LoggerContextListener {
+
+    private final String customFields;
+
+    private LogbackLoggerContextListener(String customFields) {
+      this.customFields = customFields;
     }
 
-    private void addConsoleAppender(LoggerContext context, String customFields) {
-        log.info(MSG_INJECT_LOGSTASH_APPENDER);
-
-        ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
-        consoleAppender.setContext(context);
-        consoleAppender.setEncoder(compositeJsonEncoder(context, customFields));
-        consoleAppender.setName(CONSOLE_APPENDER_NAME);
-        consoleAppender.start();
-
-        context.getLogger(Logger.ROOT_LOGGER_NAME).detachAppender(CONSOLE_APPENDER_NAME);
-        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
+    @Override
+    public boolean isResetResistant() {
+      return true;
     }
 
-   private void addLogstashAppender(LoggerContext context, String customFields) {
-        log.info(MSG_INJECT_CONSOLE_APPENDER);
-
-        LogstashTcpSocketAppender logstashAppender = new LogstashTcpSocketAppender();
-        logstashAppender.addDestinations(new InetSocketAddress(logstashProperties.getHost(), logstashProperties.getPort()));
-        logstashAppender.setContext(context);
-        logstashAppender.setEncoder(logstashEncoder(customFields));
-        logstashAppender.setName(LOGSTASH_APPENDER_NAME);
-        logstashAppender.start();
-
-        AsyncAppender asyncLogstashAppender = new AsyncAppender();
-        asyncLogstashAppender.setContext(context);
-        asyncLogstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
-        asyncLogstashAppender.setQueueSize(logstashProperties.getQueueSize());
-        asyncLogstashAppender.addAppender(logstashAppender);
-        asyncLogstashAppender.start();
-
-        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(asyncLogstashAppender);
+    @Override
+    public void onStart(LoggerContext context) {
+      if (logstashProperties.isUseJsonFormat()) {
+        addConsoleAppender(context, customFields);
+      }
+      if (logstashProperties.isEnabled()) {
+        addLogstashAppender(context, customFields);
+      }
     }
 
-    private void addContextListener(LoggerContext context, String customFields) {
-        LogbackLoggerContextListener loggerContextListener = new LogbackLoggerContextListener(customFields);
-        loggerContextListener.setContext(context);
-        context.addListener(loggerContextListener);
+    @Override
+    public void onReset(LoggerContext context) {
+      if (logstashProperties.isUseJsonFormat()) {
+        addConsoleAppender(context, customFields);
+      }
+      if (logstashProperties.isEnabled()) {
+        addLogstashAppender(context, customFields);
+      }
     }
 
-    private void setMetricsMarkerLogbackFilter(LoggerContext context, boolean useJsonFormat) {
-        OnMarkerEvaluator onMarkerEvaluator = new OnMarkerEvaluator();
-        onMarkerEvaluator.setContext(context);
-        onMarkerEvaluator.addMarker(MetricsAutoConfiguration.LOGGER_NAME);
-        onMarkerEvaluator.start();
-        EvaluatorFilter<ILoggingEvent> metricsFilter = new EvaluatorFilter<>();
-        metricsFilter.setContext(context);
-        metricsFilter.setEvaluator(onMarkerEvaluator);
-        metricsFilter.setOnMatch(FilterReply.DENY);
-        metricsFilter.start();
+    @Override
+    public void onStop(LoggerContext context) {}
 
-        for (Logger logger : context.getLoggerList()) {
-            for (Iterator<Appender<ILoggingEvent>> it = logger.iteratorForAppenders(); it.hasNext();) {
-                Appender<ILoggingEvent> appender = it.next();
-                if (!appender.getName().equals(ASYNC_LOGSTASH_APPENDER_NAME)
-                    && !(appender.getName().equals(CONSOLE_APPENDER_NAME) && useJsonFormat)) {
-                    appender.setContext(context);
-                    appender.addFilter(metricsFilter);
-                    appender.start();
-                }
-            }
-        }
-    }
-
-    private LoggingEventCompositeJsonEncoder compositeJsonEncoder(LoggerContext context, String customFields) {
-        final LoggingEventCompositeJsonEncoder compositeJsonEncoder = new LoggingEventCompositeJsonEncoder();
-        compositeJsonEncoder.setContext(context);
-        compositeJsonEncoder.setProviders(jsonProviders(context, customFields));
-        compositeJsonEncoder.start();
-        return compositeJsonEncoder;
-    }
-
-    private LogstashEncoder logstashEncoder(String customFields) {
-        final LogstashEncoder logstashEncoder = new LogstashEncoder();
-        logstashEncoder.setThrowableConverter(throwableConverter());
-        logstashEncoder.setCustomFields(customFields);
-        return logstashEncoder;
-    }
-
-    private LoggingEventJsonProviders jsonProviders(LoggerContext context, String customFields) {
-        final LoggingEventJsonProviders jsonProviders = new LoggingEventJsonProviders();
-        jsonProviders.addArguments(new ArgumentsJsonProvider());
-        jsonProviders.addContext(new ContextJsonProvider<ILoggingEvent>());
-        jsonProviders.addGlobalCustomFields(customFieldsJsonProvider(customFields));
-        jsonProviders.addLogLevel(new LogLevelJsonProvider());
-        jsonProviders.addLoggerName(loggerNameJsonProvider());
-        jsonProviders.addMdc(new MdcJsonProvider());
-        jsonProviders.addMessage(new MessageJsonProvider());
-        jsonProviders.addPattern(new LoggingEventPatternJsonProvider());
-        jsonProviders.addStackTrace(stackTraceJsonProvider());
-        jsonProviders.addThreadName(new ThreadNameJsonProvider());
-        jsonProviders.addTimestamp(timestampJsonProvider());
-        jsonProviders.setContext(context);
-        return jsonProviders;
-    }
-
-    private GlobalCustomFieldsJsonProvider<ILoggingEvent> customFieldsJsonProvider(String customFields) {
-        final GlobalCustomFieldsJsonProvider<ILoggingEvent> customFieldsJsonProvider = new GlobalCustomFieldsJsonProvider<>();
-        customFieldsJsonProvider.setCustomFields(customFields);
-        return customFieldsJsonProvider;
-    }
-
-    private LoggerNameJsonProvider loggerNameJsonProvider() {
-        final LoggerNameJsonProvider loggerNameJsonProvider = new LoggerNameJsonProvider();
-        loggerNameJsonProvider.setShortenedLoggerNameLength(20);
-        return loggerNameJsonProvider;
-    }
-
-    private StackTraceJsonProvider stackTraceJsonProvider() {
-        StackTraceJsonProvider stackTraceJsonProvider = new StackTraceJsonProvider();
-        stackTraceJsonProvider.setThrowableConverter(throwableConverter());
-        return stackTraceJsonProvider;
-    }
-
-    private ShortenedThrowableConverter throwableConverter() {
-        final ShortenedThrowableConverter throwableConverter = new ShortenedThrowableConverter();
-        throwableConverter.setRootCauseFirst(true);
-        return throwableConverter;
-    }
-
-    private LoggingEventFormattedTimestampJsonProvider timestampJsonProvider() {
-        final LoggingEventFormattedTimestampJsonProvider timestampJsonProvider = new LoggingEventFormattedTimestampJsonProvider();
-        timestampJsonProvider.setTimeZone(DatePattern.DEFAULT_TIME_ZONE);
-        timestampJsonProvider.setFieldName(KEY_TIMESTAMP);
-        return timestampJsonProvider;
-    }
-
-    private class LogbackLoggerContextListener extends ContextAwareBase implements LoggerContextListener {
-
-        private final String customFields;
-
-        private LogbackLoggerContextListener(String customFields) {
-            this.customFields = customFields;
-        }
-
-        @Override
-        public boolean isResetResistant() {
-            return true;
-        }
-
-        @Override
-        public void onStart(LoggerContext context) {
-            if (logstashProperties.isUseJsonFormat()) {
-                addConsoleAppender(context, customFields);
-            }
-            if (logstashProperties.isEnabled()) {
-                addLogstashAppender(context, customFields);
-            }
-        }
-
-        @Override
-        public void onReset(LoggerContext context) {
-            if (logstashProperties.isUseJsonFormat()) {
-                addConsoleAppender(context, customFields);
-            }
-            if (logstashProperties.isEnabled()) {
-                addLogstashAppender(context, customFields);
-            }
-        }
-
-        @Override
-        public void onStop(LoggerContext context) {}
-
-        @Override
-        public void onLevelChange(Logger logger, Level level) {}
-    }
+    @Override
+    public void onLevelChange(Logger logger, Level level) {}
+  }
 }

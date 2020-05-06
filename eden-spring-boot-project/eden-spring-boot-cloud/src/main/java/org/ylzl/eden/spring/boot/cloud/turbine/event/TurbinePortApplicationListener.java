@@ -29,27 +29,28 @@ import java.util.Map;
  * @author sion
  * @since 0.0.1
  */
-public class TurbinePortApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+public class TurbinePortApplicationListener
+    implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-    @Override
-    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        Integer serverPort = event.getEnvironment().getProperty("server.port", Integer.class);
-        Integer managementPort = event.getEnvironment().getProperty("management.port", Integer.class);
-        Integer turbinePort = event.getEnvironment().getProperty("turbine.stream.port", Integer.class);
-        if (serverPort == null && managementPort == null) {
-            return;
-        }
-        if (serverPort != Integer.valueOf(-1)) {
-            Map<String, Object> ports = new HashMap<String, Object>();
-            if (turbinePort == null) {
-                ports.put("server.port", -1);
-                if (serverPort != null) {
-                    ports.put("turbine.stream.port", serverPort);
-                }
-            } else if (managementPort != null && managementPort != -1 && serverPort == null) {
-                ports.put("server.port", managementPort);
-            }
-            event.getEnvironment().getPropertySources().addFirst(new MapPropertySource("ports", ports));
-        }
+  @Override
+  public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+    Integer serverPort = event.getEnvironment().getProperty("server.port", Integer.class);
+    Integer managementPort = event.getEnvironment().getProperty("management.port", Integer.class);
+    Integer turbinePort = event.getEnvironment().getProperty("turbine.stream.port", Integer.class);
+    if (serverPort == null && managementPort == null) {
+      return;
     }
+    if (serverPort != Integer.valueOf(-1)) {
+      Map<String, Object> ports = new HashMap<String, Object>();
+      if (turbinePort == null) {
+        ports.put("server.port", -1);
+        if (serverPort != null) {
+          ports.put("turbine.stream.port", serverPort);
+        }
+      } else if (managementPort != null && managementPort != -1 && serverPort == null) {
+        ports.put("server.port", managementPort);
+      }
+      event.getEnvironment().getPropertySources().addFirst(new MapPropertySource("ports", ports));
+    }
+  }
 }

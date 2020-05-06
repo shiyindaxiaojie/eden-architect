@@ -31,20 +31,21 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenProvider;
  * @author gyl
  * @since 0.0.1
  */
-public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class JwtSecurityConfigurer
+    extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private final JwtTokenProvider jwtTokenProvider;
+  private final JwtTokenProvider jwtTokenProvider;
 
-    private final JwtProperties jwtProperties;
+  private final JwtProperties jwtProperties;
 
-    public JwtSecurityConfigurer(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.jwtProperties = jwtProperties;
-    }
+  public JwtSecurityConfigurer(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+    this.jwtTokenProvider = jwtTokenProvider;
+    this.jwtProperties = jwtProperties;
+  }
 
-    @Override
-    public void configure(HttpSecurity http) {
-        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider, jwtProperties);
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+  @Override
+  public void configure(HttpSecurity http) {
+    JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider, jwtProperties);
+    http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+  }
 }

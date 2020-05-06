@@ -31,9 +31,9 @@ import java.util.List;
 @Data
 public class ZuulRoute {
 
-    private String path;
+  private String path;
 
-    private String serviceId;
+  private String serviceId;
 
-    private List<ServiceInstance> serviceInstances;
+  private List<ServiceInstance> serviceInstances;
 }

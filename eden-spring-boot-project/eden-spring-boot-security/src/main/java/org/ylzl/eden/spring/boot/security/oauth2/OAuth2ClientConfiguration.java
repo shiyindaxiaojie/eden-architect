@@ -30,7 +30,4 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableOAuth2Client
 @Slf4j
 @Configuration("enhanceOAuth2ClientConfiguration")
-public class OAuth2ClientConfiguration {
-
-
-}
+public class OAuth2ClientConfiguration {}

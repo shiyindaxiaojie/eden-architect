@@ -11,8 +11,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ApplicationConstants {
 
-    /**
-     * 根目录包路径
-     */
-    public final String BASE_PACKAGE = "org.ylzl.eden.sample";
+  /** 根目录包路径 */
+  public final String BASE_PACKAGE = "org.ylzl.eden.sample";
 }

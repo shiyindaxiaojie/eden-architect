@@ -32,15 +32,15 @@ import java.io.Serializable;
  */
 public interface SearchService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
 
-    <S extends T> S index(S entity);
+  <S extends T> S index(S entity);
 
-    Iterable<T> search(QueryBuilder queryBuilder);
+  Iterable<T> search(QueryBuilder queryBuilder);
 
-    Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
+  Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
 
-    Page<T> search(SearchQuery searchQuery);
+  Page<T> search(SearchQuery searchQuery);
 
-    Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
+  Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
 
-    void refresh();
+  void refresh();
 }

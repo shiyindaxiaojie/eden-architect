@@ -28,13 +28,14 @@ import java.io.Serializable;
  * @author gyl
  * @since 0.0.1
  */
-public class DocumentServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID> implements DocumentService<T, ID> {
+public class DocumentServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
+    implements DocumentService<T, ID> {
 
-    private final MongoRepository<T, ID> mongoRepository;
+  private final MongoRepository<T, ID> mongoRepository;
 
-    @SuppressWarnings("unchecked")
-    public DocumentServiceImpl(MongoRepository mongoRepository) {
-        super(mongoRepository);
-        this.mongoRepository = mongoRepository;
-    }
+  @SuppressWarnings("unchecked")
+  public DocumentServiceImpl(MongoRepository mongoRepository) {
+    super(mongoRepository);
+    this.mongoRepository = mongoRepository;
+  }
 }

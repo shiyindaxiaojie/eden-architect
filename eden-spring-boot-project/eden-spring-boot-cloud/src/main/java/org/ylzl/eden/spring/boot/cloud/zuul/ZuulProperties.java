@@ -35,29 +35,30 @@ import java.util.Map;
 @ConfigurationProperties(prefix = CloudConstants.PROP_PREFIX + ".zuul")
 public class ZuulProperties {
 
-    private final AccessControl accessControl = new AccessControl();
+  private final AccessControl accessControl = new AccessControl();
 
-    private final RateLimiting rateLimiting = new RateLimiting();
+  private final RateLimiting rateLimiting = new RateLimiting();
 
-	@Getter
-	@Setter
-	public static class AccessControl {
+  @Getter
+  @Setter
+  public static class AccessControl {
 
-		private Map<String, List<String>> authorizedMicroservicesEndpoints = ZuulDefaults.AccessControl.authorizedMicroservicesEndpoints;
+    private Map<String, List<String>> authorizedMicroservicesEndpoints =
+        ZuulDefaults.AccessControl.authorizedMicroservicesEndpoints;
 
-		private boolean enabled = ZuulDefaults.AccessControl.enabled;
-	}
+    private boolean enabled = ZuulDefaults.AccessControl.enabled;
+  }
 
-    @Getter
-    @Setter
-    public static class RateLimiting {
+  @Getter
+  @Setter
+  public static class RateLimiting {
 
-        private String defaultIncludePattern = ZuulDefaults.RateLimiting.defaultIncludePattern;
+    private String defaultIncludePattern = ZuulDefaults.RateLimiting.defaultIncludePattern;
 
-        private int durationInSeconds = ZuulDefaults.RateLimiting.durationInSeconds;
+    private int durationInSeconds = ZuulDefaults.RateLimiting.durationInSeconds;
 
-        private boolean enabled = ZuulDefaults.RateLimiting.enabled;
+    private boolean enabled = ZuulDefaults.RateLimiting.enabled;
 
-        private long limit = ZuulDefaults.RateLimiting.limit;
-    }
+    private long limit = ZuulDefaults.RateLimiting.limit;
+  }
 }

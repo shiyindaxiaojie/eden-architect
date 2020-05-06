@@ -18,15 +18,15 @@ import java.util.List;
 @Repository
 public interface UserRepository extends RedisRepository<User, Long> {
 
-    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Date dateTime);
+  List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Date dateTime);
 
-    Page<User> findAllByLoginNot(Pageable pageable, String login);
+  Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-    User findOneByActivationKey(String activationKey);
+  User findOneByActivationKey(String activationKey);
 
-    User findOneByEmailIgnoreCase(String email);
+  User findOneByEmailIgnoreCase(String email);
 
-    User findOneByLogin(String login);
+  User findOneByLogin(String login);
 
-    User findOneByResetKey(String resetKey);
+  User findOneByResetKey(String resetKey);
 }
