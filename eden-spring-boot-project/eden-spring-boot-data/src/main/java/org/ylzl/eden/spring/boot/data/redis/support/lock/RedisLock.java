@@ -15,31 +15,33 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.audit;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.boot.data.audit.event.AuditEventConverter;
+package org.ylzl.eden.spring.boot.data.redis.support.lock;
 
 /**
- * AuditEvent 自动配置
+ * Redis 锁接口
  *
  * @author gyl
- * @see org.springframework.boot.actuate.audit.AuditEvent
- * @since 0.0.1
+ * @since 1.0.0
  */
-@ConditionalOnClass(AuditEvent.class)
-@Slf4j
-@Configuration
-public class PersistenceAuditEventConfiguration {
+public interface RedisLock {
 
-  @ConditionalOnMissingBean
-  @Bean
-  public AuditEventConverter auditEventConverter() {
-    return new AuditEventConverter();
-  }
+  long TIMEOUT_MILLIS = 3000;
+
+  long SLEEP_MILLIS = 500;
+
+  int RETRY_TIMES = Integer.MAX_VALUE;
+
+  boolean lock(String key);
+
+  boolean lock(String key, int retryTimes);
+
+  boolean lock(String key, int retryTimes, long sleepMillis);
+
+  boolean lock(String key, long expire);
+
+  boolean lock(String key, long expire, int retryTimes);
+
+  boolean lock(String key, long expire, int retryTimes, long sleepMillis);
+
+  boolean unlock(String key);
 }

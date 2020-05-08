@@ -30,7 +30,6 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
   MURMUR128_MITZ_32() {
-
     @Override
     public <T> boolean put(
         RedisTemplate<String, T> redisTemplate,
@@ -80,7 +79,6 @@ enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
     }
   },
   MURMUR128_MITZ_64() {
-
     @Override
     public <T> boolean put(
         RedisTemplate<String, T> redisTemplate,

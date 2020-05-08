@@ -34,7 +34,7 @@ import redis.clients.util.JedisClusterCRC16;
 import java.util.*;
 
 /**
- * 增强 RedisTemplate
+ * RedisTemplate 集群支持
  *
  * <p>支持 Redis Cluster 多槽位操作
  *
@@ -42,12 +42,12 @@ import java.util.*;
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class EnhancedRedisTemplate extends RedisTemplate<String, Object> {
+public class RedisClusterTemplate extends RedisTemplate<String, Object> {
 
   @Autowired(required = false)
   private FixedJedisCluster jedisCluster;
 
-  public EnhancedRedisTemplate() {
+  public RedisClusterTemplate() {
     RedisSerializer<String> stringSerializer = new StringRedisSerializer();
     setKeySerializer(stringSerializer);
     setHashKeySerializer(stringSerializer);

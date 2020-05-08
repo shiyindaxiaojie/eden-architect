@@ -33,7 +33,7 @@ import org.ylzl.eden.sample.domain.User;
 import org.ylzl.eden.spring.boot.commons.id.SnowflakeGenerator;
 import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
-import org.ylzl.eden.spring.boot.data.redis.support.EnhancedRedisTemplate;
+import org.ylzl.eden.spring.boot.data.redis.support.RedisClusterTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +56,7 @@ public class UserRepositoryTest {
 
   @Autowired private StringRedisTemplate redisTemplate;
 
-  @Autowired private EnhancedRedisTemplate enhancedRedisTemplate;
+  @Autowired private RedisClusterTemplate redisClusterTemplate;
 
   @Autowired(required = false)
   private FixedJedisCluster jedisCluster;
@@ -120,9 +120,9 @@ public class UserRepositoryTest {
     StopWatch stopWatch = new StopWatch();
     stopWatch.start();
     if (jedisCluster != null) {
-      enhancedRedisTemplate.executePipelinedCluster(
+      redisClusterTemplate.executePipelinedCluster(
           users,
-          new EnhancedRedisTemplate.RedisPipelineCallback<User>() {
+          new RedisClusterTemplate.RedisPipelineCallback<User>() {
 
             @Override
             public String key(User data) {
