@@ -85,6 +85,7 @@
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<commons-net.version>3.3</commons-net.version>
 		<cucumber.version>3.0.2</cucumber.version>
+		<curator-framework.version>4.1.0</curator-framework.version>
 		<dbunit.version>2.4.8</dbunit.version>
 		<embedded-mongo.version>2.2.0</embedded-mongo.version>
 		<easyexcel.version>2.1.6</easyexcel.version>
@@ -907,6 +908,11 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+				<version>${curator-framework.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.ftpserver</groupId>

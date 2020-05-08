@@ -92,8 +92,9 @@ public class RedisClusterAutoConfiguration {
     return redisTemplate;
   }
 
-  @Bean
   @ConditionalOnBean(RedisTemplate.class)
+  @ConditionalOnMissingBean
+  @Bean
   public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
     return new DistributedRedisLock(redisTemplate);
   }

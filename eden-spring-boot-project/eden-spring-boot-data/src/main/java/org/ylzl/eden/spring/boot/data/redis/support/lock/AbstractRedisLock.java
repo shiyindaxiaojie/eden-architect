@@ -27,26 +27,26 @@ public abstract class AbstractRedisLock implements RedisLock {
 
   @Override
   public boolean lock(String key) {
-    return lock(key, TIMEOUT_MILLIS, RETRY_TIMES, SLEEP_MILLIS);
+    return lock(key, DEFAULT_MILLIS_SECONDS_TO_EXPIRE, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
   }
 
   @Override
   public boolean lock(String key, int retryTimes) {
-    return lock(key, TIMEOUT_MILLIS, retryTimes, SLEEP_MILLIS);
+    return lock(key, DEFAULT_MILLIS_SECONDS_TO_EXPIRE, retryTimes, DEFAULT_SLEEP_MILLIS);
   }
 
   @Override
   public boolean lock(String key, int retryTimes, long sleepMillis) {
-    return lock(key, TIMEOUT_MILLIS, retryTimes, sleepMillis);
+    return lock(key, DEFAULT_MILLIS_SECONDS_TO_EXPIRE, retryTimes, sleepMillis);
   }
 
   @Override
-  public boolean lock(String key, long expire) {
-    return lock(key, expire, RETRY_TIMES, SLEEP_MILLIS);
+  public boolean lock(String key, long millisecondsToExpire) {
+    return lock(key, millisecondsToExpire, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
   }
 
   @Override
-  public boolean lock(String key, long expire, int retryTimes) {
-    return lock(key, expire, retryTimes, SLEEP_MILLIS);
+  public boolean lock(String key, long millisecondsToExpire, int retryTimes) {
+    return lock(key, millisecondsToExpire, retryTimes, DEFAULT_SLEEP_MILLIS);
   }
 }

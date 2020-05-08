@@ -52,15 +52,15 @@ public class DistributedRedisLock extends AbstractRedisLock {
   }
 
   @Override
-  public boolean lock(String key, long expire, int retryTimes, long sleepMillis) {
-    boolean result = set(key, expire);
+  public boolean lock(String key, long millisecondsToExpire, int retryTimes, long sleepMillis) {
+    boolean result = set(key, millisecondsToExpire);
     while ((!result) && retryTimes-- > 0) {
       try {
         Thread.sleep(sleepMillis);
       } catch (InterruptedException e) {
         return false;
       }
-      result = set(key, expire);
+      result = set(key, millisecondsToExpire);
     }
     return result;
   }
@@ -88,7 +88,7 @@ public class DistributedRedisLock extends AbstractRedisLock {
     return result != null && result > 0L;
   }
 
-  private boolean set(final String key, final long expire) {
+  private boolean set(final String key, final long millisecondsToExpire) {
     String result =
         redisTemplate.execute(
             new RedisCallback<String>() {
@@ -98,7 +98,7 @@ public class DistributedRedisLock extends AbstractRedisLock {
                 JedisCommands commands = (JedisCommands) connection.getNativeConnection();
                 String uuid = UUID.randomUUID().toString();
                 lock.set(uuid);
-                return commands.set(key, uuid, "NX", "PX", expire);
+                return commands.set(key, uuid, "NX", "PX", millisecondsToExpire);
               }
             });
     return StringUtils.isNotEmpty(result);
