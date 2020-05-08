@@ -20,6 +20,7 @@ package org.ylzl.eden.spring.boot.data.redis;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,10 +30,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
-import org.ylzl.eden.spring.boot.data.redis.support.EnhancedRedisTemplate;
+import org.ylzl.eden.spring.boot.data.redis.support.RedisClusterTemplate;
+import org.ylzl.eden.spring.boot.data.redis.support.lock.DistributedRedisLock;
+import org.ylzl.eden.spring.boot.data.redis.support.lock.RedisLock;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -50,7 +54,7 @@ import java.util.Set;
 @ConditionalOnClass({RedisOperations.class})
 @Slf4j
 @Configuration
-public class EnhancedRedisAutoConfiguration {
+public class RedisClusterAutoConfiguration {
 
   @ConditionalOnClass({Jedis.class})
   public static class FixedJedisAutoConfiguration {
@@ -82,9 +86,16 @@ public class EnhancedRedisAutoConfiguration {
 
   @ConditionalOnMissingBean
   @Bean
-  public EnhancedRedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-    EnhancedRedisTemplate redisTemplate = new EnhancedRedisTemplate();
+  public RedisClusterTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    RedisClusterTemplate redisTemplate = new RedisClusterTemplate();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
     return redisTemplate;
+  }
+
+  @ConditionalOnBean(RedisTemplate.class)
+  @ConditionalOnMissingBean
+  @Bean
+  public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
+    return new DistributedRedisLock(redisTemplate);
   }
 }

@@ -11,6 +11,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.data.mybatis.MybatisMapperAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatis.MybatisPageHelperAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.neo4j.FixedNeo4jAutoConfiguration,\
-  org.ylzl.eden.spring.boot.data.redis.EnhancedRedisAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.redis.RedisClusterAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.redis.RedisCacheAutoConfiguration
 

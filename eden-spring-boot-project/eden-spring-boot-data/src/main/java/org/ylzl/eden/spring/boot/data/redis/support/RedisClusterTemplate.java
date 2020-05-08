@@ -40,12 +40,12 @@ import java.util.*;
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class EnhancedRedisTemplate extends RedisTemplate<String, Object> {
+public class RedisClusterTemplate extends RedisTemplate<String, Object> {
 
   @Autowired(required = false)
   private FixedJedisCluster jedisCluster;
 
-  public EnhancedRedisTemplate() {
+  public RedisClusterTemplate() {
     RedisSerializer<String> stringSerializer = new StringRedisSerializer();
     setKeySerializer(stringSerializer);
     setHashKeySerializer(stringSerializer);
