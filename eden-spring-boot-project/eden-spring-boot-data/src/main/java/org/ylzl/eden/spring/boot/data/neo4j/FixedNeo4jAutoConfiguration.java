@@ -67,11 +67,11 @@ public class FixedNeo4jAutoConfiguration extends Neo4jConfiguration {
 
   public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
 
-  public static final String MSG_INJECT_TM = "Inject default TransactionManager";
+  public static final String MSG_INJECT_TM = "装配 default TransactionManager";
 
-  public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
+  public static final String MSG_INJECT_JPA_TM = "装配 JpaTransactionManager";
 
-  public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
+  public static final String MSG_INJECT_NEO4J_TM = "装配 Neo4jTransactionManager";
 
   private final ApplicationContext applicationContext;
 

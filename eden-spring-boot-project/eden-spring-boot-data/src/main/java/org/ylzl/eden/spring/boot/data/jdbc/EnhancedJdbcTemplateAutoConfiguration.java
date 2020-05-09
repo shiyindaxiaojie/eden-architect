@@ -44,7 +44,7 @@ import javax.sql.DataSource;
 public class EnhancedJdbcTemplateAutoConfiguration {
 
   public static final String MSG_INJECT_NAMED_JDBCTPL =
-      "Inject enhanced NamedParameterJdbcTemplate";
+      "装配 enhanced NamedParameterJdbcTemplate";
 
   /**
    * Inject EnhancedNamedParameterJdbcTemplate

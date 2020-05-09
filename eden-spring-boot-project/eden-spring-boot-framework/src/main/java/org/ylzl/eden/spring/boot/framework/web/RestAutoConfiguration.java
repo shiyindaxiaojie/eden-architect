@@ -41,9 +41,9 @@ import java.util.List;
 @Configuration
 public class RestAutoConfiguration {
 
-  private static final String MSG_INJECT_REST_TEMPLATE = "Inject RestTemplate";
+  private static final String MSG_INJECT_REST_TEMPLATE = "装配 RestTemplate";
 
-  private static final String MSG_INJECT_ASYNC_REST_TEMPLATE = "Inject AsyncRestTemplate";
+  private static final String MSG_INJECT_ASYNC_REST_TEMPLATE = "装配 AsyncRestTemplate";
 
   @ConditionalOnMissingBean
   @Bean

@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HystrixMetricsAutoConfiguration {
 
-  private static final String MSG_INJECT_HYSTRIX_METRICS = "Inject Hystrix Metrics";
+  private static final String MSG_INJECT_HYSTRIX_METRICS = "装配 Hystrix Metrics";
 
   private static final String HYSTRIX_BEAN_URL_MAPPINGS = "/hystrix.stream";
 

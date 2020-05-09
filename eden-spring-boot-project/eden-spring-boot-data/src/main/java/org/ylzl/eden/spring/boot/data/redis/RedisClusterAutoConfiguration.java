@@ -34,7 +34,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
-import org.ylzl.eden.spring.boot.data.redis.support.RedisClusterTemplate;
+import org.ylzl.eden.spring.boot.data.redis.core.RedisClusterTemplate;
 import org.ylzl.eden.spring.boot.data.redis.support.lock.DistributedRedisLock;
 import org.ylzl.eden.spring.boot.data.redis.support.lock.RedisLock;
 import redis.clients.jedis.HostAndPort;

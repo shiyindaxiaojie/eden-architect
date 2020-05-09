@@ -56,11 +56,11 @@ public class MetricsAutoConfiguration extends MetricsConfigurerAdapter {
 
   public static final String LOGGER_NAME = "metrics";
 
-  private static final String MSG_INJECT_JVM_GAUGE = "Inject Metrics JVM gauge";
+  private static final String MSG_INJECT_JVM_GAUGE = "装配 Metrics JVM gauge";
 
-  private static final String MSG_INJECT_JMX_REPORT = "Inject Metrics JMX reporting";
+  private static final String MSG_INJECT_JMX_REPORT = "装配 Metrics JMX reporting";
 
-  private static final String MSG_INJECT_MSG_REPORT = "Inject Metrics log reporting";
+  private static final String MSG_INJECT_MSG_REPORT = "装配 Metrics log reporting";
 
   private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
 

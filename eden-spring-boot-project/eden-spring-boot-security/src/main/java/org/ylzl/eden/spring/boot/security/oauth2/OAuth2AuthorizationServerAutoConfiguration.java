@@ -84,13 +84,13 @@ public class OAuth2AuthorizationServerAutoConfiguration {
   public static class JwtOAuth2AuthorizationServerConfiguration {
 
     private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
-        "Inject JwtAccessTokenConverter (OAuth2AuthorizationServer)";
+        "装配 JwtAccessTokenConverter (OAuth2AuthorizationServer)";
 
     private static final String MSG_INJECT_TOKEN_STORE =
-        "Inject TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
+        "装配 TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
 
     private static final String MSG_INJECT_TOKEN_ENHANCER =
-        "Inject TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
+        "装配 TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
 
     private static final String BEAN_JWT_TOKEN_ENHANCER = "jwtTokenEnhancer";
 

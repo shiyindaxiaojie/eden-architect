@@ -44,9 +44,9 @@ public class FtpServerAutoConfiguration {
   public static final String EXPS_FTP_SERVER_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".ftp-server.enabled:true}";
 
-  private static final String MSG_INJECT_FTPSERVER = "Inject FtpServer";
+  private static final String MSG_INJECT_FTPSERVER = "装配 FtpServer";
 
-  private static final String MSG_INJECT_FTPSERVER_FACTORY = "Inject FtpServer Factory";
+  private static final String MSG_INJECT_FTPSERVER_FACTORY = "装配 FtpServer Factory";
 
   @ConditionalOnMissingBean
   @Bean

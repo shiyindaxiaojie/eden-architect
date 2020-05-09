@@ -102,7 +102,7 @@ public class RoutingDataSourceAutoConfiguration {
 
     private static final String PROP_DATASOURCE_ENUM = "enum";
 
-    private static final String MSG_INJECT_ROUTING_DS = "Inject routing Datasource";
+    private static final String MSG_INJECT_ROUTING_DS = "装配 routing Datasource";
 
     private static final String MSG_INVALID_TYPE_EXCEPTION = "Invalid Datasource";
 

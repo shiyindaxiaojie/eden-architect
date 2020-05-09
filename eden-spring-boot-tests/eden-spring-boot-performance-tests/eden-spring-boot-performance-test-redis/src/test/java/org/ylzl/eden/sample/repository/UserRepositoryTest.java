@@ -33,7 +33,7 @@ import org.ylzl.eden.sample.domain.User;
 import org.ylzl.eden.spring.boot.commons.id.SnowflakeGenerator;
 import org.ylzl.eden.spring.boot.commons.json.JacksonUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
-import org.ylzl.eden.spring.boot.data.redis.support.RedisClusterTemplate;
+import org.ylzl.eden.spring.boot.data.redis.core.RedisClusterTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;

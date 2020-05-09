@@ -60,13 +60,13 @@ public class WebConfigurerAdapter
     implements EmbeddedServletContainerCustomizer, ServletContextInitializer {
 
   private static final String MSG_INJECT_CACHE_HTTP_HEADER_FILTER =
-      "Inject cached HttpHeaders filter";
+      "装配 cached HttpHeaders filter";
 
-  private static final String MSG_INJECT_METRICSR_REGISTRY = "Inject Metrics Registry";
+  private static final String MSG_INJECT_METRICSR_REGISTRY = "装配 Metrics Registry";
 
-  private static final String MSG_INJECT_METRICSR_FILTER = "Inject Metrics Filter";
+  private static final String MSG_INJECT_METRICSR_FILTER = "装配 Metrics Filter";
 
-  private static final String MSG_INJECT_METRICS_SERVLET = "Inject Metrics Servlet";
+  private static final String MSG_INJECT_METRICS_SERVLET = "装配 Metrics Servlet";
 
   private static final String MSG_UNSUPPORTED_CONTAINER = "Unsupported container";
 

@@ -44,7 +44,7 @@ import java.util.List;
 @Configuration
 public class CorsAutoConfiguration {
 
-  public static final String MSG_INJECT_CORSFILTER = "Inject CorsFilter";
+  public static final String MSG_INJECT_CORSFILTER = "装配 CorsFilter";
 
   @ConditionalOnMissingBean
   @Bean

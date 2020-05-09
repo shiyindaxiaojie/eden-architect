@@ -47,7 +47,7 @@ import java.util.Properties;
 @Configuration
 public class MybatisPageHelperAutoConfiguration {
 
-  private static final String MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR = "Inject Mybatis PageHelper";
+  private static final String MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR = "装配 Mybatis PageHelper";
 
   @ConditionalOnMissingBean
   @Bean

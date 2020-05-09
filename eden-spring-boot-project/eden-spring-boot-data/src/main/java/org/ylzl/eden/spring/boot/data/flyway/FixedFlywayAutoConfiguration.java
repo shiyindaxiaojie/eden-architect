@@ -92,7 +92,7 @@ public class FixedFlywayAutoConfiguration {
   @Configuration
   public static class FlywayConfiguration {
 
-    private static final String MSG_INJECT_FLYWAY = "Inject Flyway";
+    private static final String MSG_INJECT_FLYWAY = "装配 Flyway";
 
     public static final String DEFAULT_LOCATIONS = "classpath:config/flyway/db/migration";
 

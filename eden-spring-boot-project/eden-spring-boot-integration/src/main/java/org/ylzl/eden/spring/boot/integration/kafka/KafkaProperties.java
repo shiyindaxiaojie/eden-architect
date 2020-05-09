@@ -43,7 +43,7 @@ import java.util.*;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_SPRING_PREFIX + ".kafka")
-public class FixedKafkaProperties {
+public class KafkaProperties {
 
   private Boolean enabled;
 

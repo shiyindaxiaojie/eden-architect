@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.boot.data.redis.support.lock;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -36,6 +37,7 @@ import java.util.UUID;
  * @author gyl
  * @since 1.0.0
  */
+@Slf4j
 public class DistributedRedisLock extends AbstractRedisLock {
 
   private static final String UNLOCK_LUA =
@@ -43,7 +45,7 @@ public class DistributedRedisLock extends AbstractRedisLock {
           + "then return redis.call(\"del\",KEYS[1])"
           + "else return 0 end";
 
-  private ThreadLocal<String> lock = new ThreadLocal<String>();
+  private static ThreadLocal<String> lock = new ThreadLocal<String>();
 
   private final RedisTemplate<String, Object> redisTemplate;
 
@@ -53,39 +55,50 @@ public class DistributedRedisLock extends AbstractRedisLock {
 
   @Override
   public boolean lock(String key, long millisecondsToExpire, int retryTimes, long sleepMillis) {
-    boolean result = set(key, millisecondsToExpire);
-    while ((!result) && retryTimes-- > 0) {
+    log.debug("创建 Redis 键值锁：{}，失效时间：{}", key, millisecondsToExpire);
+    boolean isSuccess = this.set(key, millisecondsToExpire);
+    while ((!isSuccess) && retryTimes-- > 0) {
       try {
         Thread.sleep(sleepMillis);
       } catch (InterruptedException e) {
+        log.error("创建 Redis 键值锁：{}，发生线程中断异常：{}", key, e.getMessage(), e);
         return false;
       }
-      result = set(key, millisecondsToExpire);
+      isSuccess = set(key, millisecondsToExpire);
     }
-    return result;
+    log.debug("创建 Redis 键值锁：{}，执行{}", key, isSuccess ? "成功" : "失败");
+    return isSuccess;
   }
 
   @Override
   public boolean unlock(final String key) {
+    log.debug("释放 Redis 键值锁：{}", key);
+    boolean isSuccess = false;
     final List<String> keys = Collections.singletonList(key);
     final List<String> args = Collections.singletonList(lock.get());
-    Long result =
-        redisTemplate.execute(
-            new RedisCallback<Long>() {
-              public Long doInRedis(RedisConnection connection)
-                  throws DataAccessException { // 集群模式不支持执行 LUA 脚本
-                Object nativeConnection = connection.getNativeConnection();
-                if (nativeConnection instanceof JedisCluster) { // 集群模式
-                  return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
+    Long result = 0L;
+    try {
+      result =
+          redisTemplate.execute(
+              new RedisCallback<Long>() {
+                public Long doInRedis(RedisConnection connection)
+                    throws DataAccessException { // 集群模式不支持执行 LUA 脚本
+                  Object nativeConnection = connection.getNativeConnection();
+                  if (nativeConnection instanceof JedisCluster) { // 集群模式
+                    return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
+                  }
+                  if (nativeConnection instanceof Jedis) {
+                    return (Long) ((Jedis) nativeConnection).eval(UNLOCK_LUA, keys, args);
+                  }
+                  return 0L;
                 }
-                if (nativeConnection instanceof Jedis) {
-                  return (Long) ((Jedis) nativeConnection).eval(UNLOCK_LUA, keys, args);
-                }
-                return 0L;
-              }
-            });
-
-    return result != null && result > 0L;
+              });
+      isSuccess = result != null && result > 0L;
+    } catch (Exception e) {
+      log.error("释放 Redis 键值锁：{}，抛出异常：{}", key, e.getMessage(), e);
+    }
+    log.debug("释放 Redis 键值锁：{}，执行{}", key, isSuccess ? "成功" : "失败");
+    return isSuccess;
   }
 
   private boolean set(final String key, final long millisecondsToExpire) {

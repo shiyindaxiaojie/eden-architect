@@ -39,7 +39,7 @@ import org.ylzl.eden.spring.boot.cloud.profile.endpoint.ProfileEndpoint;
 @Configuration
 public class ProfileEndpointAutoConfiguration {
 
-  private static final String MSG_PROFILE_ENDPOINT = "Inject Profile actuator";
+  private static final String MSG_PROFILE_ENDPOINT = "装配 Profile actuator";
 
   private final Environment env;
 

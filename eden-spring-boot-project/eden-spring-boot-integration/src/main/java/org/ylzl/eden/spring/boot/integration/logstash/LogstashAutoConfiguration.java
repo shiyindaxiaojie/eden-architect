@@ -75,9 +75,9 @@ public class LogstashAutoConfiguration {
   public static final String EXPS_LOGSTASH_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
 
-  private static final String MSG_INJECT_LOGSTASH_APPENDER = "Inject Logstash Appender";
+  private static final String MSG_INJECT_LOGSTASH_APPENDER = "装配 Logstash Appender";
 
-  private static final String MSG_INJECT_CONSOLE_APPENDER = "Inject Console Appender";
+  private static final String MSG_INJECT_CONSOLE_APPENDER = "装配 Console Appender";
 
   private static final String CONSOLE_APPENDER_NAME = "CONSOLE";
 

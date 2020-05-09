@@ -48,7 +48,7 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
 
   public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
-  private static final String MSG_INJECT_EXECUTOR = "Inject AsyncTaskExecutor";
+  private static final String MSG_INJECT_EXECUTOR = "装配 AsyncTaskExecutor";
 
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;

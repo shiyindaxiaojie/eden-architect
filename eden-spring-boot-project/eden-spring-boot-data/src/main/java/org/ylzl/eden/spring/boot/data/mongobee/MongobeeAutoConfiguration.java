@@ -55,7 +55,7 @@ public class MongobeeAutoConfiguration {
 
   private static final String DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX = "config.dbmigrations";
 
-  private static final String MSG_INJECT_MONGOBEE = "Inject Mongobee";
+  private static final String MSG_INJECT_MONGOBEE = "装配 Mongobee";
 
   private final Environment environment;
 

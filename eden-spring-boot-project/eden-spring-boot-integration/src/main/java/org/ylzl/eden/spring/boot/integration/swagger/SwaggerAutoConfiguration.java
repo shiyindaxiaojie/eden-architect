@@ -77,7 +77,7 @@ public class SwaggerAutoConfiguration {
 
   public static final String DEFAULT_GROUP_NAME = "management";
 
-  private static final String MSG_INJECT_SWAGGER = "Inject Swagger";
+  private static final String MSG_INJECT_SWAGGER = "装配 Swagger";
 
   private static final String MSG_STARTD_SWAGGER = "Startded Swagger in {} ms";
 

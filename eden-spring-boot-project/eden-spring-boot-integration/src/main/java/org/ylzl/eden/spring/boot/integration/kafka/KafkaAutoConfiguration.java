@@ -50,7 +50,7 @@ public class KafkaAutoConfiguration {
   public static final String EXPS_KEFKA_ENABLED =
       "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".kafka.enabled:true}";
 
-  public static final String MSG_INJECT_KAFKA_TEMPLATE = "Inject KafkaTemplate";
+  public static final String MSG_INJECT_KAFKA_TEMPLATE = "装配 KafkaTemplate";
 
   private final KafkaProperties properties;
 

@@ -61,10 +61,10 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
   public static class LoadBalancedOAuth2AuthorizationClientInnerConfiguration {
 
     private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
-        "Inject loadBalanced OAuth2AccessTokenClient";
+        "装配 loadBalanced OAuth2AccessTokenClient";
 
     private static final String MSG_INJECT_CLIENT_RESOURCE_DETAILS =
-        "Inject loadBalanced ClientCredentialsResourceDetails";
+        "装配 loadBalanced ClientCredentialsResourceDetails";
 
     private final OAuth2Properties oAuth2Properties;
 
@@ -104,7 +104,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
   public static class LoadBalancedOAuth2AuthorizationClientJwtConfiguration {
 
     private static final String MSG_INJECT_SIGN_VERIFY_CLIENT =
-        "Inject loadBalanced SignatureVerifierClient";
+        "装配 loadBalanced SignatureVerifierClient";
 
     private final OAuth2Properties oAuth2Properties;
 
