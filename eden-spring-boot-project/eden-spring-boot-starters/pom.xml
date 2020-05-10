@@ -35,6 +35,7 @@
 	<modules>
 		<module>eden-activemq-spring-boot-starter</module>
 		<module>eden-annotation-processer-spring-boot-starter</module>
+		<module>eden-apollo-spring-boot-starter</module>
 		<module>eden-caffeine-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
 		<module>eden-cloud-admin-client-spring-boot-starter</module>
@@ -79,6 +80,7 @@
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-mycat-spring-boot-starter</module>
 		<module>eden-mysql-spring-boot-starter</module>
+		<module>eden-mysql8-spring-boot-starter</module>
 		<module>eden-nacos-spring-boot-starter</module>
 		<module>eden-neo4j-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
@@ -89,8 +91,9 @@
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
 		<module>eden-ribbon-spring-boot-starter</module>
-		<module>eden-rockmq-spring-boot-starter</module>
-		<module>eden-shardingjdbc-spring-boot-starter</module>
+		<module>eden-rocketmq-spring-boot-starter</module>
+		<module>eden-shardingsphere-spring-boot-starter</module>
+		<module>eden-shiro-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-test-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>

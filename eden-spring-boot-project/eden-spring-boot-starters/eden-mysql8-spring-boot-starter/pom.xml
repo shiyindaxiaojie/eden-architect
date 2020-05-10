@@ -3,10 +3,10 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-mysql-spring-boot-starter</artifactId>
+	<artifactId>eden-mysql8-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-mysql-spring-boot-starter</name>
-	<description>Eden* MySQL Spring Boot Starter</description>
+	<name>eden-mysql8-spring-boot-starter</name>
+	<description>Eden* MySQL8 Spring Boot Starter</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>
@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.49</version>
 		</dependency>
 	</dependencies>
 

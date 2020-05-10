@@ -3,10 +3,10 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-rockmq-spring-boot-starter</artifactId>
+	<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-rockmq-spring-boot-starter</name>
-	<description>Eden* RockMQ Spring Boot Starter</description>
+	<description>Eden* RocketMQ Spring Boot Starter</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>
