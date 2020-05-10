@@ -63,19 +63,19 @@ public class OAuth2AuthorizationClientAutoConfiguration {
       "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
   private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
-      "装配 OAuth2AccessTokenClient";
+      "Autowired OAuth2AccessTokenClient";
 
-  private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "装配 TokenGrantClient";
+  private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "Autowired TokenGrantClient";
 
   private static final String MSG_INJECT_TOKEN_EXTRACTOR =
-      "装配 TokenExtractor (OAuth2CookieTokenExtractor)";
+      "Autowired TokenExtractor (OAuth2CookieTokenExtractor)";
 
-  private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "装配 OAuth2CookieHelper";
+  private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "Autowired OAuth2CookieHelper";
 
-  private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "装配 OAuth2TokenEndpoint";
+  private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "Autowired OAuth2TokenEndpoint";
 
   private static final String MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER =
-      "装配 ClientCredentialsTokenHolder";
+      "Autowired ClientCredentialsTokenHolder";
 
   private final OAuth2Properties oAuth2Properties;
 
@@ -131,16 +131,16 @@ public class OAuth2AuthorizationClientAutoConfiguration {
   @Configuration
   public static class OAuth2AuthorizationClientJwtConfiguration {
 
-    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "装配 SignatureVerifierClient";
+    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Autowired SignatureVerifierClient";
 
     private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
-        "装配 JwtAccessTokenConverter (OAuth2AuthorizationClient)";
+        "Autowired JwtAccessTokenConverter (OAuth2AuthorizationClient)";
 
     private static final String MSG_INJECT_TOKEN_STORE =
-        "装配 TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
+        "Autowired TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
 
     private static final String MSG_INJECT_TOKEN_PROCESSOR =
-        "装配 TokenProcessor (JwtTokenProcessor)";
+        "Autowired TokenProcessor (JwtTokenProcessor)";
 
     private final OAuth2Properties oAuth2Properties;
 

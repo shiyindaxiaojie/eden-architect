@@ -65,9 +65,9 @@ public class EnhancedHazelcastAutoConfiguration implements DisposableBean {
 
   private static final String DEFAULT_DOMAIN_PATTERN = "domain.*";
 
-  private static final String MSG_INJECT_HAZELCAST = "装配 Hazelcast";
+  private static final String MSG_INJECT_HAZELCAST = "Autowired Hazelcast";
 
-  private static final String MSG_INJECT_HAZELCAST_MGR = "装配 Hazelcast CacheManager";
+  private static final String MSG_INJECT_HAZELCAST_MGR = "Autowired Hazelcast CacheManager";
 
   private static final String MSG_STOPING_HAZELCAST = "Shutdown Hazelcast";
 

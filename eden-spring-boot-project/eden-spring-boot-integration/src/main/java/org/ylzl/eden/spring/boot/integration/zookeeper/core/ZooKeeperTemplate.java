@@ -23,9 +23,9 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
-import org.ylzl.eden.spring.boot.integration.zookeeper.support.ZooKeeperAccessor;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ public class ZooKeeperTemplate extends ZooKeeperAccessor {
     super(connectString, sessionTimeout);
   }
 
-  public String create(String path, byte[] data, List<ACL> acl, CreateMode createMode) throws KeeperException, InterruptedException {
+  public String create(String path, byte[] data, ArrayList<ACL> acl, CreateMode createMode) throws KeeperException, InterruptedException {
   	return getZookeeper().create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
   }
 

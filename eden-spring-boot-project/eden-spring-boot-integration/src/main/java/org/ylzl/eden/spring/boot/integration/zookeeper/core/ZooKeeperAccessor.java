@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.zookeeper.support;
+package org.ylzl.eden.spring.boot.integration.zookeeper.core;
 
 import lombok.Getter;
 import lombok.Setter;

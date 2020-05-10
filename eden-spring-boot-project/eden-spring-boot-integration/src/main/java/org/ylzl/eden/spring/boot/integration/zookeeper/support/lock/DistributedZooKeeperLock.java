@@ -42,32 +42,32 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 
   @Override
   public boolean lock(String path, int retryTimes, long sleepMillis) {
-    log.debug("创建 ZooKeeper 节点锁：{}", path);
+	  log.debug("Curator client create zooKeeper node lock \"{}\"", path);
     boolean isSuccess = this.create(path);
     while ((!isSuccess) && retryTimes-- > 0) {
       try {
         Thread.sleep(sleepMillis);
       } catch (InterruptedException e) {
-        log.error("创建 ZooKeeper 节点锁：{}，发生线程中断异常：{}", path, e.getMessage(), e);
+      	log.error("Curator client create zooKeeper node lock \"{}\", catch InterruptedException: {}", path, e.getMessage(), e);
         return false;
       }
       isSuccess = this.create(path);
     }
-    log.debug("创建 ZooKeeper 节点锁：{}，执行{}", path, isSuccess ? "成功" : "失败");
+    log.debug("Curator client create zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
     return isSuccess;
   }
 
   @Override
   public boolean unlock(final String path) {
-    log.debug("释放 ZooKeeper 节点锁：{}", path);
+    log.debug("Curator client remove zooKeeper node lock \"{}\"", path);
     boolean isSuccess = false;
     try {
       zooKeeperTemplate.delete(path);
       isSuccess = true;
     } catch (KeeperException | InterruptedException e) {
-      log.error("释放 ZooKeeper 节点锁：{}，抛出异常：{}", path, e.getMessage(), e);
+      log.error("Curator client remove zooKeeper node lock \"{}\", catch Exception: {}", path, e.getMessage(), e);
     }
-    log.debug("释放 ZooKeeper 节点锁：{}，执行{}", path, isSuccess ? "成功" : "失败");
+    log.debug("Curator client remove zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
     return isSuccess;
   }
 

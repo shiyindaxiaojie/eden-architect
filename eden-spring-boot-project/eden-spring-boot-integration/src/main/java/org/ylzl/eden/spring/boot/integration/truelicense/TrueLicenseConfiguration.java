@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.EnhancedLicense
 @Configuration
 public class TrueLicenseConfiguration {
 
-  private static final String MSG_INJECT_TRUE_LICENSE_MANAGER = "装配 TureLicense manager";
+  private static final String MSG_INJECT_TRUE_LICENSE_MANAGER = "Autowired TureLicense manager";
 
   private final TrueLicenseProperties trueLicenseProperties;
 

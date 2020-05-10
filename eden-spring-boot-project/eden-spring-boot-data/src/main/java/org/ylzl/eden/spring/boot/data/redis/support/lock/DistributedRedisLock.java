@@ -55,24 +55,24 @@ public class DistributedRedisLock extends AbstractRedisLock {
 
   @Override
   public boolean lock(String key, long millisecondsToExpire, int retryTimes, long sleepMillis) {
-    log.debug("创建 Redis 键值锁：{}，失效时间：{}", key, millisecondsToExpire);
+    log.debug("Set redis lock \"{}\", expire at {}", key, millisecondsToExpire);
     boolean isSuccess = this.set(key, millisecondsToExpire);
     while ((!isSuccess) && retryTimes-- > 0) {
       try {
         Thread.sleep(sleepMillis);
       } catch (InterruptedException e) {
-        log.error("创建 Redis 键值锁：{}，发生线程中断异常：{}", key, e.getMessage(), e);
+        log.error("Set redis lock \"{}\", catch exception: {}", key, e.getMessage(), e);
         return false;
       }
       isSuccess = set(key, millisecondsToExpire);
     }
-    log.debug("创建 Redis 键值锁：{}，执行{}", key, isSuccess ? "成功" : "失败");
+    log.debug("Set redis lock \"{}\" ", key, isSuccess ? "success" : "failed");
     return isSuccess;
   }
 
   @Override
   public boolean unlock(final String key) {
-    log.debug("释放 Redis 键值锁：{}", key);
+    log.debug("Release redis lock \"{}\"", key);
     boolean isSuccess = false;
     final List<String> keys = Collections.singletonList(key);
     final List<String> args = Collections.singletonList(lock.get());
@@ -95,9 +95,9 @@ public class DistributedRedisLock extends AbstractRedisLock {
               });
       isSuccess = result != null && result > 0L;
     } catch (Exception e) {
-      log.error("释放 Redis 键值锁：{}，抛出异常：{}", key, e.getMessage(), e);
+      log.error("Release redis lock \"{}\", catch exception: {}", key, e.getMessage(), e);
     }
-    log.debug("释放 Redis 键值锁：{}，执行{}", key, isSuccess ? "成功" : "失败");
+    log.debug("Release redis lock \"{}\" ", key, isSuccess ? "success" : "failed");
     return isSuccess;
   }
 

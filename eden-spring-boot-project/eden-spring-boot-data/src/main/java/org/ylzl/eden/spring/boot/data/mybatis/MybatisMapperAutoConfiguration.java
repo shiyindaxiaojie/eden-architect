@@ -66,7 +66,7 @@ import java.util.Arrays;
 public class MybatisMapperAutoConfiguration
     extends MapperAutoConfiguration.AutoConfiguredMapperScannerRegistrar {
 
-  private static final String MSG_INJECT_MYBATIS_MAPPER = "装配 Mybatis Mapper";
+  private static final String MSG_INJECT_MYBATIS_MAPPER = "Autowired Mybatis Mapper";
 
   private static final String EXP_AUTO_SCAN_DISABLED =
       "Mybatis Mapper auto scan package disabled: {}";

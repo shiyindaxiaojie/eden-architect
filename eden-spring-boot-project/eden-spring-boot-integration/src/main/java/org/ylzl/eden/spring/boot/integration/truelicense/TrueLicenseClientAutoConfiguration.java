@@ -44,9 +44,9 @@ public class TrueLicenseClientAutoConfiguration {
       "${" + IntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
 
   private static final String MSG_INJECT_TRUE_LICENSE_INSTALL =
-      "装配 TureLicense install service";
+      "Autowired TureLicense install service";
 
-  private static final String MSG_INJECT_TRUE_LICENSE_VERIFY = "装配 TureLicense verify service";
+  private static final String MSG_INJECT_TRUE_LICENSE_VERIFY = "Autowired TureLicense verify service";
 
   private final LicenseManager licenseManager;
 

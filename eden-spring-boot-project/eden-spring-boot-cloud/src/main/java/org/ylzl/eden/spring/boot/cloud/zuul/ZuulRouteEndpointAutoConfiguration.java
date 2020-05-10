@@ -42,7 +42,7 @@ import org.ylzl.eden.spring.boot.cloud.zuul.endpoint.ZuulRouteEndpoint;
 @Configuration
 public class ZuulRouteEndpointAutoConfiguration {
 
-  private static final String MSG_INJECT_ZUUL_ROUTE_ENDPOINT = "装配 Zuul custom actuator";
+  private static final String MSG_INJECT_ZUUL_ROUTE_ENDPOINT = "Autowired Zuul custom actuator";
 
   @ConditionalOnMissingBean
   @Bean

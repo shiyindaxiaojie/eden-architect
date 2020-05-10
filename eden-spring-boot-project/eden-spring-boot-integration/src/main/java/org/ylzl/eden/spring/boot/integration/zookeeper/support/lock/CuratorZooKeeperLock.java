@@ -49,7 +49,7 @@ public class CuratorZooKeeperLock extends AbstractZooKeeperLock {
 
 	@Override
 	public boolean lock(String path, int retryTimes, long sleepMillis) {
-		log.debug("Curator 客户端创建 ZooKeeper 节点锁：{}", path);
+		log.debug("Curator client create zooKeeper node lock \"{}\"", path);
 		boolean isSuccess = false;
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, path);
 		interProcessMutexs.set(interProcessMutex);
@@ -57,15 +57,16 @@ public class CuratorZooKeeperLock extends AbstractZooKeeperLock {
 		try {
 			isSuccess = interProcessMutex.acquire(waitTime, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			log.error("Curator 客户端创建 ZooKeeper 节点锁：{}，发生异常：{}", path, e.getMessage(), e);
+      log.error(
+          "Curator client create zooKeeper node lock \"{}\", catch exception: {}", path, e.getMessage(), e);
 		}
-		log.debug("Curator 客户端创建 ZooKeeper 节点锁：{}，执行{}", path, isSuccess ? "成功" : "失败");
+		log.debug("Curator client create zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
 		return isSuccess;
 	}
 
 	@Override
 	public boolean unlock(String path) {
-		log.debug("Curator 客户端释放 ZooKeeper 节点锁：{}", path);
+		log.debug("Curator client release zooKeeper node lock：{}", path);
 		boolean isSuccess = false;
 		InterProcessMutex interProcessMutex = interProcessMutexs.get();
 		if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
@@ -73,10 +74,11 @@ public class CuratorZooKeeperLock extends AbstractZooKeeperLock {
 				interProcessMutex.release();
 				interProcessMutexs.remove();
 			} catch (Exception e) {
-				log.error("Curator 客户端释放 ZooKeeper 节点锁：{}，抛出异常：{}", path, e.getMessage(), e);
+				log.error("Curator client release zooKeeper node lock \"{}\", catch exception: {}", path, e.getMessage(), e);
 			}
 		}
-		log.debug("Curator 客户端释放 ZooKeeper 节点锁：{}，执行{}", path, isSuccess ? "成功" : "失败");
+    log.debug(
+        "Curator client release zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
 		return isSuccess;
 	}
 }
