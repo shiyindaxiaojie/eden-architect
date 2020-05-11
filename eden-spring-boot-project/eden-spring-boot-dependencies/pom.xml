@@ -529,6 +529,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-sqlite-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-swagger2-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
