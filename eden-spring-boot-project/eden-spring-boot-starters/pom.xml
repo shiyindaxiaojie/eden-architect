@@ -80,7 +80,7 @@
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-mycat-spring-boot-starter</module>
 		<module>eden-mysql-spring-boot-starter</module>
-		<module>eden-mysql8-spring-boot-starter</module>
+		<module>eden-mysql-spring-boot-starter</module>
 		<module>eden-nacos-spring-boot-starter</module>
 		<module>eden-neo4j-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
@@ -102,6 +102,7 @@
 		<module>eden-undertow-spring-boot-starter</module>
 		<module>eden-zipkin-server-spring-boot-starter</module>
 		<module>eden-zipkin-spring-boot-starter</module>
+		<module>eden-zookeeper-spring-boot-starter</module>
 		<module>eden-zuul-spring-boot-starter</module>
 	</modules>
 

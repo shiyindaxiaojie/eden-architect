@@ -459,7 +459,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-mysql8-spring-boot-starter</artifactId>
+				<artifactId>eden-mysql-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
 			<dependency>
@@ -565,6 +565,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-zipkin-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-zookeeper-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
 			<dependency>
