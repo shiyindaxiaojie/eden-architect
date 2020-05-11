@@ -49,8 +49,8 @@
 		<module>eden-easyexcel-spring-boot-starter</module>
 		<module>eden-ehcache-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
+		<module>eden-eureka-client-spring-boot-starter</module>
 		<module>eden-eureka-server-spring-boot-starter</module>
-		<module>eden-eureka-spring-boot-starter</module>
 		<module>eden-feign-spring-boot-starter</module>
 		<module>eden-flowable-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
@@ -91,7 +91,8 @@
 		<module>eden-redis-spring-boot-starter</module>
 		<module>eden-ribbon-spring-boot-starter</module>
 		<module>eden-rockmq-spring-boot-starter</module>
-		<module>eden-shardingjdbc-spring-boot-starter</module>
+		<module>eden-shardingsphere-spring-boot-starter</module>
+		<module>eden-sqlite-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-test-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>

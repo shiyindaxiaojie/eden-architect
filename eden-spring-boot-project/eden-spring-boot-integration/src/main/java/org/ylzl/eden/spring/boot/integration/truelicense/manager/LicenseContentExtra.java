@@ -17,7 +17,7 @@
 package org.ylzl.eden.spring.boot.integration.truelicense.manager;
 
 import lombok.*;
-import org.ylzl.eden.spring.boot.integration.truelicense.manager.conditional.Conditional;
+import org.ylzl.eden.spring.boot.integration.truelicense.manager.customizer.Conditional;
 import org.ylzl.eden.spring.boot.integration.truelicense.manager.env.LicenseOS;
 
 import java.io.Serializable;

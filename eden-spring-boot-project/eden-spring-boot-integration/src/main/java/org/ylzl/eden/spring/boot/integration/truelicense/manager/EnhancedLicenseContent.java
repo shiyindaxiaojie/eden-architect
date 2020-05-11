@@ -33,6 +33,7 @@ import java.util.Date;
  * @since 0.0.1
  */
 @AllArgsConstructor
+@Builder
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor

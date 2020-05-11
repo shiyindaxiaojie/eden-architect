@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.integration.truelicense.manager.mapstruct;
+package org.ylzl.eden.spring.boot.integration.truelicense.manager.mapper;
 
 import de.schlichtherle.license.LicenseContent;
 import org.mapstruct.Mapper;
@@ -31,9 +31,9 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.EnhancedLicense
  * @since 0.0.1
  */
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-public interface LicenseMapstruct {
+public interface LicenseMapper {
 
-  LicenseMapstruct INSTANCE = Mappers.getMapper(LicenseMapstruct.class);
+  LicenseMapper INSTANCE = Mappers.getMapper(LicenseMapper.class);
 
   void updateLicenseStoreFromTrueLicenseProperties(
       TrueLicenseProperties trueLicenseProperties,

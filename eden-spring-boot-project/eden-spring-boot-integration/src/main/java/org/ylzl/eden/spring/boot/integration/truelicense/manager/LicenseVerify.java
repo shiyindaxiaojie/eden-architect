@@ -20,8 +20,8 @@ package org.ylzl.eden.spring.boot.integration.truelicense.manager;
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.spring.boot.integration.truelicense.manager.conditional.Conditional;
-import org.ylzl.eden.spring.boot.integration.truelicense.manager.conditional.ConditionalUtils;
+import org.ylzl.eden.spring.boot.integration.truelicense.manager.customizer.Conditional;
+import org.ylzl.eden.spring.boot.integration.truelicense.manager.customizer.ConditionalUtils;
 
 import java.util.List;
 

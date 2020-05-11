@@ -48,12 +48,12 @@ public class LicenseInstall implements InitializingBean {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    log.debug("开始安装证书");
+    log.debug("Starting install license");
     StopWatch watch = new StopWatch();
     watch.start();
     install();
     watch.stop();
-    log.debug("证书安装耗时 {} 毫秒", watch.getTotalTimeMillis());
+    log.debug("Finished install license in {} secondmillis", watch.getTotalTimeMillis());
   }
 
   public LicenseContent install() throws Exception {
@@ -63,11 +63,11 @@ public class LicenseInstall implements InitializingBean {
       licenseManager.uninstall();
       licenseContent = licenseManager.install(file);
     } catch (Exception e) {
-      log.error("证书安装失败！异常：{}", e.getMessage(), e);
+      log.error("Install license failed, catch exception: {}", e.getMessage(), e);
       throw e;
     }
     log.info(
-        "证书安装成功，有效期：{} ～ {}",
+        "Install license success, the license is valid from {} to {}",
         DateUtils.toDateTimeString(licenseContent.getNotBefore()),
         DateUtils.toDateTimeString(licenseContent.getNotAfter()));
     return licenseContent;

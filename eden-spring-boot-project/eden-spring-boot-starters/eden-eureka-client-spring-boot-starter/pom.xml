@@ -3,10 +3,10 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-swagger2-spring-boot-starter</artifactId>
+	<artifactId>eden-eureka-client-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-swagger2-spring-boot-starter</name>
-	<description>Eden* Swagger2 Spring Boot Starter</description>
+	<name>eden-eureka-client-spring-boot-starter</name>
+	<description>Eden* Eureka Client Spring Boot Starter</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>
@@ -17,30 +17,22 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-bean-validators</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
 			<exclusions>
 				<exclusion>
-					<groupId>org.mapstruct</groupId>
-					<artifactId>mapstruct</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>guava</artifactId>
-					<groupId>com.google.guava</groupId>
+					<artifactId>woodstox-core-asl</artifactId>
+					<groupId>org.codehaus.woodstox</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-framework</artifactId>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
+			<artifactId>eden-spring-boot-cloud</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>

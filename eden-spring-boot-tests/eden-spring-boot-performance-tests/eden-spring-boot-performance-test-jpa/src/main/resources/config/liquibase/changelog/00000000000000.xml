@@ -42,7 +42,7 @@
 			<column name="last_modified_date" type="timestamp" remarks="最后修改的时间"/>
 		</createTable>
 
-		<loadData file="config/liquibase/data/users.csv" separator=";" tableName="sample_user">
+		<loadData file="config/liquibase/data/licenses.csv" separator=";" tableName="sample_user">
 			<column name="activated" type="boolean"/>
 			<column name="locked" type="boolean"/>
 			<column name="created_date" type="timestamp"/>

@@ -3,10 +3,10 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-shardingjdbc-spring-boot-starter</artifactId>
+	<artifactId>eden-sqlite-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-shardingjdbc-spring-boot-starter</name>
-	<description>Eden* Shardingjdbc Spring Boot Starter</description>
+	<name>eden-sqlite-spring-boot-starter</name>
+	<description>Eden* SQLite Spring Boot Starter</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>
@@ -16,6 +16,10 @@
 	</parent>
 
 	<dependencies>
+	    <dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-data</artifactId>
