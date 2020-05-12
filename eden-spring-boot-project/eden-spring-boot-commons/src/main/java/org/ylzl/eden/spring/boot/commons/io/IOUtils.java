@@ -49,7 +49,8 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
     }
   }
 
-  public static void allocate(@NonNull FileChannel inChannel, @NonNull OutputStream out, boolean isDirect)
+  public static void allocate(
+      @NonNull FileChannel inChannel, @NonNull OutputStream out, boolean isDirect)
       throws IOException {
     int bufferSize = 4096;
     byte[] datas = new byte[bufferSize];
@@ -77,7 +78,26 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
     }
   }
 
-  public static void seek(@NonNull RandomAccessFile raf, @NonNull OutputStream out, long startByte, long endByte)
+  @Deprecated
+  public static void map(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
+      throws IOException {
+    long size = inChannel.size();
+    long pos = 0L;
+    MappedByteBuffer mbb = inChannel.map(FileChannel.MapMode.READ_ONLY, pos, size);
+    outChannel.write(mbb);
+  }
+
+  @Deprecated
+  public static void write(@NonNull InputStream is, @NonNull OutputStream os) throws IOException {
+    byte[] buffer = new byte[1024];
+    int len;
+    while ((len = is.read(buffer)) > 0) {
+      os.write(buffer, 0, len);
+    }
+  }
+
+  public static void seek(
+      @NonNull RandomAccessFile raf, @NonNull OutputStream out, long startByte, long endByte)
       throws IOException {
     long transmitted = 0;
     int bufferSize = 4096;
@@ -98,24 +118,8 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
     }
   }
 
-  @Deprecated
-  public static void map(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel) throws IOException {
-    long size = inChannel.size();
-    long pos = 0L;
-    MappedByteBuffer mbb = inChannel.map(FileChannel.MapMode.READ_ONLY, pos, size);
-    outChannel.write(mbb);
-  }
-
-  @Deprecated
-  public static void write(@NonNull InputStream is, @NonNull OutputStream os) throws IOException {
-    byte[] buffer = new byte[1024];
-    int len;
-    while ((len = is.read(buffer)) > 0) {
-      os.write(buffer, 0, len);
-    }
-  }
-
-  public static long slice(@NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf, long begin, long end)
+  public static long slice(
+      @NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf, long begin, long end)
       throws IOException {
     byte[] b = new byte[4096];
     int n = 0;
@@ -124,5 +128,14 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
       outRaf.write(b, 0, n);
     }
     return inRaf.getFilePointer();
+  }
+
+  public static void slice(@NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf)
+      throws IOException {
+    byte[] b = new byte[4096];
+    int n = 0;
+    while ((n = inRaf.read(b)) != -1) {
+      outRaf.write(b, 0, n);
+    }
   }
 }

@@ -43,7 +43,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     return file.mkdirs();
   }
 
-  public static void transferFrom(@NonNull FileInputStream in, @NonNull String destPath) throws IOException {
+  public static void transferFrom(@NonNull FileInputStream in, @NonNull String destPath)
+      throws IOException {
     try (FileChannel inChannel = in.getChannel();
         FileChannel outChannel =
             FileChannel.open(
@@ -56,7 +57,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void transferFrom(@NonNull String srcPath, @NonNull FileOutputStream out) throws IOException {
+  public static void transferFrom(@NonNull String srcPath, @NonNull FileOutputStream out)
+      throws IOException {
     try (FileChannel inChannel =
             FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
         FileChannel outChannel = out.getChannel()) {
@@ -64,7 +66,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void transferFrom(@NonNull String srcPath, @NonNull String destPath) throws IOException {
+  public static void transferFrom(@NonNull String srcPath, @NonNull String destPath)
+      throws IOException {
     try (FileChannel inChannel =
             FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
         FileChannel outChannel =
@@ -78,14 +81,16 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void allocate(@NonNull String srcPath, @NonNull OutputStream out) throws IOException {
+  public static void allocate(@NonNull String srcPath, @NonNull OutputStream out)
+      throws IOException {
     try (FileChannel inChannel =
         FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ))) {
       IOUtils.allocate(inChannel, out, false);
     }
   }
 
-  public static void allocateDirect(@NonNull String srcPath, @NonNull OutputStream out) throws IOException {
+  public static void allocateDirect(@NonNull String srcPath, @NonNull OutputStream out)
+      throws IOException {
     try (FileChannel inChannel =
         FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ))) {
       IOUtils.allocate(inChannel, out, true);
@@ -108,7 +113,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void seek(@NonNull File file, @NonNull OutputStream out, long startByte, long endByte)
+  public static void seek(
+      @NonNull File file, @NonNull OutputStream out, long startByte, long endByte)
       throws IOException {
     try (RandomAccessFile randomAccessFile =
         new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
@@ -116,13 +122,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void seek(@NonNull File file, @NonNull OutputStream out, long startByte) throws IOException {
-     seek(file, out, startByte, file.length());
+  public static void seek(@NonNull File file, @NonNull OutputStream out, long startByte)
+      throws IOException {
+    seek(file, out, startByte, file.length());
   }
 
-  public static void slice(@NonNull File file, @NonNull String suffix, @NonNull File... chunkFiles) throws IOException {
+  public static void slice(@NonNull File file, int chunks, @NonNull String suffix)
+      throws IOException {
     try (RandomAccessFile inRaf = new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
-      int chunks = chunkFiles.length;
       long length = inRaf.length();
       long sliceSize = length / chunks;
       long offSet = 0L;
@@ -137,8 +144,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  private static RandomAccessFile getTempRandomAccessFile(@NonNull File file, @NonNull String suffix, int index)
-      throws FileNotFoundException {
+  private static RandomAccessFile getTempRandomAccessFile(
+      @NonNull File file, @NonNull String suffix, int index) throws FileNotFoundException {
     String sourcePath = file.getAbsolutePath();
     File tempFile =
         new File(
@@ -149,8 +156,10 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
   }
 
   public static void merge(
-      @NonNull File mergeFile, @NonNull File tempDir, @NonNull final String matchPrefix,
-	  @NonNull final String matchSuffix)
+      @NonNull File mergeFile,
+      @NonNull File tempDir,
+      @NonNull final String matchPrefix,
+      @NonNull final String matchSuffix)
       throws IOException {
     if (!tempDir.isDirectory()) {
       throw new IOException("the tempDir must be given directory");
@@ -175,20 +184,17 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
       for (File tempFile : tempFiles) {
         try (RandomAccessFile chunkRaf =
             new RandomAccessFile(tempFile, IOConstants.RAF_MODE_READ); ) {
-          byte[] b = new byte[4096];
-          int n = 0;
-          while ((n = chunkRaf.read(b)) != -1) {
-            mergeRaf.write(b, 0, n);
-          }
+          IOUtils.slice(chunkRaf, mergeRaf);
         }
       }
     }
   }
 
-  public static void merge(RandomAccessFile mergeRaf, RandomAccessFile chunkRaf) {}
-
   public static void main(String[] args) throws IOException {
-    File mergeFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB.pdf");
+    File sliceFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB存储引擎.pdf");
+    FileUtils.slice(sliceFile, 3, ".tmp");
+
+    File mergeFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB233.pdf");
     String tempDir = "C:\\Users\\sion1\\Downloads\\test\\";
     FileUtils.merge(mergeFile, new File(tempDir), "MySQL技术内幕InnoDB", ".tmp");
   }
