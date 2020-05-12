@@ -20,10 +20,11 @@ package org.ylzl.eden.spring.boot.commons.io;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.EnumSet;
 
 /**
  * 文件工具集
@@ -42,72 +43,153 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     return file.mkdirs();
   }
 
-  public static void slice(File file, int chunks) throws IOException {
-    try (RandomAccessFile raf = new RandomAccessFile(file, "r"); ) {
-      long length = raf.length();
+  public static void transferFrom(@NonNull FileInputStream in, @NonNull String destPath) throws IOException {
+    try (FileChannel inChannel = in.getChannel();
+        FileChannel outChannel =
+            FileChannel.open(
+                Paths.get(destPath),
+                EnumSet.of(
+                    StandardOpenOption.CREATE_NEW,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE))) {
+      IOUtils.transferFrom(inChannel, outChannel);
+    }
+  }
+
+  public static void transferFrom(@NonNull String srcPath, @NonNull FileOutputStream out) throws IOException {
+    try (FileChannel inChannel =
+            FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
+        FileChannel outChannel = out.getChannel()) {
+      IOUtils.transferFrom(inChannel, outChannel);
+    }
+  }
+
+  public static void transferFrom(@NonNull String srcPath, @NonNull String destPath) throws IOException {
+    try (FileChannel inChannel =
+            FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
+        FileChannel outChannel =
+            FileChannel.open(
+                Paths.get(destPath),
+                EnumSet.of(
+                    StandardOpenOption.CREATE_NEW,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE))) {
+      IOUtils.transferFrom(inChannel, outChannel);
+    }
+  }
+
+  public static void allocate(@NonNull String srcPath, @NonNull OutputStream out) throws IOException {
+    try (FileChannel inChannel =
+        FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ))) {
+      IOUtils.allocate(inChannel, out, false);
+    }
+  }
+
+  public static void allocateDirect(@NonNull String srcPath, @NonNull OutputStream out) throws IOException {
+    try (FileChannel inChannel =
+        FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ))) {
+      IOUtils.allocate(inChannel, out, true);
+    }
+  }
+
+  @Deprecated
+  public static void write(@NonNull String srcFile, @NonNull String destFile) throws IOException {
+    try (InputStream is = new FileInputStream(srcFile);
+        OutputStream os = new FileOutputStream(destFile)) {
+      IOUtils.write(is, os);
+    }
+  }
+
+  @Deprecated
+  public static void write(@NonNull File srcFile, @NonNull File destFile) throws IOException {
+    try (InputStream is = new FileInputStream(srcFile);
+        OutputStream os = new FileOutputStream(destFile)) {
+      IOUtils.write(is, os);
+    }
+  }
+
+  public static void seek(@NonNull File file, @NonNull OutputStream out, long startByte, long endByte)
+      throws IOException {
+    try (RandomAccessFile randomAccessFile =
+        new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
+      IOUtils.seek(randomAccessFile, out, startByte, endByte);
+    }
+  }
+
+  public static void seek(@NonNull File file, @NonNull OutputStream out, long startByte) throws IOException {
+     seek(file, out, startByte, file.length());
+  }
+
+  public static void slice(@NonNull File file, @NonNull String suffix, @NonNull File... chunkFiles) throws IOException {
+    try (RandomAccessFile inRaf = new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
+      int chunks = chunkFiles.length;
+      long length = inRaf.length();
       long sliceSize = length / chunks;
       long offSet = 0L;
       for (int i = 0; i < chunks - 1; i++) {
         long begin = offSet;
         long end = (i + 1) * sliceSize;
-        offSet = write(file, i, begin, end);
+        offSet = IOUtils.slice(inRaf, getTempRandomAccessFile(file, suffix, i), begin, end);
       }
       if (length - offSet > 0) {
-        write(file, chunks - 1, offSet, length);
+        IOUtils.slice(inRaf, getTempRandomAccessFile(file, suffix, chunks - 1), offSet, length);
       }
     }
   }
 
-  private static long write(File file, int index, long begin, long end) throws IOException {
+  private static RandomAccessFile getTempRandomAccessFile(@NonNull File file, @NonNull String suffix, int index)
+      throws FileNotFoundException {
     String sourcePath = file.getAbsolutePath();
     File tempFile =
-        new File(sourcePath.substring(0, sourcePath.indexOf(".")) + "_" + index + ".tmp");
-    try (RandomAccessFile inRaf = new RandomAccessFile(file, "r");
-        RandomAccessFile outRaf = new RandomAccessFile(tempFile, "rw"); ) {
-      byte[] b = new byte[4096];
-      int n = 0;
-      inRaf.seek(begin);
-      while (inRaf.getFilePointer() <= end && (n = inRaf.read(b)) != -1) {
-        outRaf.write(b, 0, n);
-      }
-      return inRaf.getFilePointer();
-    }
+        new File(
+            sourcePath.substring(0, sourcePath.indexOf(FileConstants.FILE_SEPARATOR))
+                + index
+                + suffix);
+    return new RandomAccessFile(tempFile, IOConstants.RAF_MODE_READ_WRTIE);
   }
 
-  public static void merge(String mergeFileName, File... tempFiles) throws IOException {
-    String sourcePath = tempFiles[0].getAbsolutePath();
-    String mergeFilePath = sourcePath.substring(0, sourcePath.indexOf(".")) + mergeFileName;
-    try (RandomAccessFile outRaf = new RandomAccessFile(mergeFilePath, "rw"); ) {
+  public static void merge(
+      @NonNull File mergeFile, @NonNull File tempDir, @NonNull final String matchPrefix,
+	  @NonNull final String matchSuffix)
+      throws IOException {
+    if (!tempDir.isDirectory()) {
+      throw new IOException("the tempDir must be given directory");
+    }
+    final String mergeFileNamePrefix =
+        mergeFile.getName().substring(0, mergeFile.getName().indexOf(FileConstants.FILE_SEPARATOR));
+    File[] tempFiles =
+        tempDir.listFiles(
+            new FilenameFilter() {
+
+              @Override
+              public boolean accept(File dir, String name) {
+                return name.startsWith(matchPrefix) && name.endsWith(matchSuffix);
+              }
+            });
+    merge(mergeFile, tempFiles);
+  }
+
+  public static void merge(@NonNull File mergeFile, @NonNull File... tempFiles) throws IOException {
+    try (RandomAccessFile mergeRaf =
+        new RandomAccessFile(mergeFile, IOConstants.RAF_MODE_READ_WRTIE); ) {
       for (File tempFile : tempFiles) {
-        try (RandomAccessFile reader = new RandomAccessFile(tempFile, "r"); ) {
+        try (RandomAccessFile chunkRaf =
+            new RandomAccessFile(tempFile, IOConstants.RAF_MODE_READ); ) {
           byte[] b = new byte[4096];
           int n = 0;
-          while ((n = reader.read(b)) != -1) {
-            outRaf.write(b, 0, n);
+          while ((n = chunkRaf.read(b)) != -1) {
+            mergeRaf.write(b, 0, n);
           }
         }
       }
     }
   }
 
-  public static void merge(File file, File tempPath) throws IOException {
-    final String mergeFileName = file.getName();
-    final String mergeFileNamePrefix = mergeFileName.substring(0, mergeFileName.indexOf("."));
-    File[] tempFiles =
-        tempPath.listFiles(
-            new FilenameFilter() {
-
-              @Override
-              public boolean accept(File dir, String name) {
-                return name.startsWith(mergeFileNamePrefix) && name.endsWith(".tmp");
-              }
-            });
-    merge(mergeFileName, tempFiles);
-  }
+  public static void merge(RandomAccessFile mergeRaf, RandomAccessFile chunkRaf) {}
 
   public static void main(String[] args) throws IOException {
-    File file = new File("C:\\Users\\sion1\\Documents\\Workspaces\\MySQL技术内幕InnoDB存储引擎.pdf");
-    File tempPath = new File("C:\\Users\\sion1\\Documents\\Workspaces\\");
-    FileUtils.merge(file, tempPath);
+    File mergeFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB.pdf");
+    String tempDir = "C:\\Users\\sion1\\Downloads\\test\\";
+    FileUtils.merge(mergeFile, new File(tempDir), "MySQL技术内幕InnoDB", ".tmp");
   }
 }

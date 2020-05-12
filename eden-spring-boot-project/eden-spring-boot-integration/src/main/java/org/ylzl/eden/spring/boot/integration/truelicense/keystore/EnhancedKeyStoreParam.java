@@ -17,7 +17,7 @@
 package org.ylzl.eden.spring.boot.integration.truelicense.keystore;
 
 import de.schlichtherle.license.AbstractKeyStoreParam;
-import org.ylzl.eden.spring.boot.commons.io.FileConstants;
+import org.ylzl.eden.spring.boot.commons.io.IOConstants;
 import org.ylzl.eden.spring.boot.commons.lang.ClassConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 
@@ -68,7 +68,7 @@ public class EnhancedKeyStoreParam extends AbstractKeyStoreParam {
     InputStream inputStream;
     if (storePath.startsWith(ClassConstants.CLASS_DIR)) {
       String path = storePath.substring(ClassConstants.CLASS_DIR.length());
-      if (!path.startsWith(FileConstants.DIR_SEPARATOR)) {
+      if (!path.startsWith(IOConstants.DIR_SEPARATOR_STR)) {
         path = StringConstants.SLASH + path;
       }
       inputStream = this.getClass().getResourceAsStream(path);
