@@ -24,12 +24,9 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.EnumSet;
 
 /**
- * 输入输出工具集
+ * IO 工具集
  *
  * @author gyl
  * @since 0.0.1
@@ -43,56 +40,18 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
     }
   }
 
-  public static long transferFrom(FileChannel inChannel, FileChannel outChannel)
+  public static void transferFrom(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
       throws IOException {
-    long start = System.currentTimeMillis();
     long size = inChannel.size();
     long pos = 0L;
     for (long count; pos < size; pos += outChannel.transferFrom(inChannel, pos, count)) {
       count = Math.min(size - pos, 31457280L); // 30M
     }
-    long end = System.currentTimeMillis();
-    return end - start;
   }
 
-  public static long transferFrom(FileInputStream in, String destPath) throws IOException {
-    try (FileChannel inChannel = in.getChannel();
-        FileChannel outChannel =
-            FileChannel.open(
-                Paths.get(destPath),
-                EnumSet.of(
-                    StandardOpenOption.CREATE_NEW,
-                    StandardOpenOption.TRUNCATE_EXISTING,
-                    StandardOpenOption.WRITE))) {
-      return transferFrom(inChannel, outChannel);
-    }
-  }
-
-  public static long transferFrom(String srcPath, FileOutputStream out) throws IOException {
-    try (FileChannel inChannel =
-            FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
-        FileChannel outChannel = out.getChannel()) {
-      return transferFrom(inChannel, outChannel);
-    }
-  }
-
-  public static long transferFrom(String srcPath, String destPath) throws IOException {
-    try (FileChannel inChannel =
-            FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
-        FileChannel outChannel =
-            FileChannel.open(
-                Paths.get(destPath),
-                EnumSet.of(
-                    StandardOpenOption.CREATE_NEW,
-                    StandardOpenOption.TRUNCATE_EXISTING,
-                    StandardOpenOption.WRITE))) {
-      return transferFrom(inChannel, outChannel);
-    }
-  }
-
-  public static long allocate(String srcPath, OutputStream out, boolean isDirect)
+  public static void allocate(
+      @NonNull FileChannel inChannel, @NonNull OutputStream out, boolean isDirect)
       throws IOException {
-    long start = System.currentTimeMillis();
     int bufferSize = 4096;
     byte[] datas = new byte[bufferSize];
     int capacity = bufferSize * 10;
@@ -100,8 +59,7 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
         isDirect ? ByteBuffer.allocateDirect(capacity) : ByteBuffer.allocate(capacity);
     int read;
     int len;
-    try (FileChannel inChannel =
-        FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ))) {
+    try {
       while ((read = inChannel.read(bytebuffer)) != -1) {
         if (read == 0) {
           continue;
@@ -118,72 +76,66 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
     } finally {
       bytebuffer.clear();
     }
-    long end = System.currentTimeMillis();
-    return end - start;
   }
 
-  public static long allocate(String srcPath, OutputStream out) throws IOException {
-    return allocate(srcPath, out, false);
-  }
-
-  public static long allocateDirect(String srcPath, OutputStream out) throws IOException {
-    return allocate(srcPath, out, true);
-  }
-
-  public static long seek(String srcPath, OutputStream out, long startByte, long endByte)
+  @Deprecated
+  public static void map(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
       throws IOException {
-    File srcFile = new File(srcPath);
+    long size = inChannel.size();
+    long pos = 0L;
+    MappedByteBuffer mbb = inChannel.map(FileChannel.MapMode.READ_ONLY, pos, size);
+    outChannel.write(mbb);
+  }
+
+  @Deprecated
+  public static void write(@NonNull InputStream is, @NonNull OutputStream os) throws IOException {
+    byte[] buffer = new byte[1024];
+    int len;
+    while ((len = is.read(buffer)) > 0) {
+      os.write(buffer, 0, len);
+    }
+  }
+
+  public static void seek(
+      @NonNull RandomAccessFile raf, @NonNull OutputStream out, long startByte, long endByte)
+      throws IOException {
     long transmitted = 0;
     int bufferSize = 4096;
     byte[] datas = new byte[bufferSize];
     int len = 0;
-    long start = System.currentTimeMillis();
-    try (RandomAccessFile randomAccessFile = new RandomAccessFile(srcFile, "r");
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out)) {
-      randomAccessFile.seek(startByte);
+    try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out)) {
+      raf.seek(startByte);
       while ((transmitted + len) <= endByte // 防止读取的 len 小于 bufferSize， transmitted 加上 len 时跳过不足的部分
-          && (len = randomAccessFile.read(datas)) != -1) {
+          && (len = raf.read(datas)) != -1) {
         bufferedOutputStream.write(datas, 0, len);
         transmitted += len;
       }
       if (transmitted < endByte) { // 处理不足 bufferSize 的部分
-        len = randomAccessFile.read(datas, 0, (int) (endByte - transmitted));
+        len = raf.read(datas, 0, (int) (endByte - transmitted));
         bufferedOutputStream.write(datas, 0, len);
       }
       bufferedOutputStream.flush();
     }
-    long end = System.currentTimeMillis();
-    return end - start;
   }
 
-  public static long seek(String srcPath, OutputStream out, long startByte) throws IOException {
-    File srcFile = new File(srcPath);
-    return seek(srcPath, out, startByte, srcFile.length());
-  }
-
-  @Deprecated
-  public static long map(FileChannel inChannel, FileChannel outChannel) throws IOException {
-    long size = inChannel.size();
-    long pos = 0L;
-    long start = System.currentTimeMillis();
-    MappedByteBuffer mbb = inChannel.map(FileChannel.MapMode.READ_ONLY, pos, size);
-    outChannel.write(mbb);
-    long end = System.currentTimeMillis();
-    return end - start;
-  }
-
-  @Deprecated
-  public static long write(String srcPath, String destPath) throws IOException {
-    long start = System.currentTimeMillis();
-    byte[] buffer = new byte[1024];
-    int len;
-    try (InputStream is = new FileInputStream(new File(srcPath));
-        OutputStream os = new FileOutputStream(new File(destPath))) {
-      while ((len = is.read(buffer)) > 0) {
-        os.write(buffer, 0, len);
-      }
+  public static long slice(
+      @NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf, long begin, long end)
+      throws IOException {
+    byte[] b = new byte[4096];
+    int n = 0;
+    inRaf.seek(begin);
+    while (inRaf.getFilePointer() <= end && (n = inRaf.read(b)) != -1) {
+      outRaf.write(b, 0, n);
     }
-    long end = System.currentTimeMillis();
-    return end - start;
+    return inRaf.getFilePointer();
+  }
+
+  public static void slice(@NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf)
+      throws IOException {
+    byte[] b = new byte[4096];
+    int n = 0;
+    while ((n = inRaf.read(b)) != -1) {
+      outRaf.write(b, 0, n);
+    }
   }
 }
