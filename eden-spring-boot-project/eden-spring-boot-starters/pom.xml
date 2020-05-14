@@ -94,6 +94,7 @@
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
 		<module>eden-shiro-spring-boot-starter</module>
+		<module>eden-sqlite-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-test-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>

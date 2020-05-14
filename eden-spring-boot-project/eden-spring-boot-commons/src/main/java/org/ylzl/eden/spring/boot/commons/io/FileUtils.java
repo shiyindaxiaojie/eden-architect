@@ -22,6 +22,7 @@ import lombok.experimental.UtilityClass;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
@@ -43,7 +44,15 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     return file.mkdirs();
   }
 
-  public static void transferFrom(@NonNull FileInputStream in, @NonNull String destPath)
+  public static void delete(File file) throws IOException {
+    Files.delete(Paths.get(file.getAbsolutePath()));
+  }
+
+  public static void deleteIfExists(File file) throws IOException {
+    Files.deleteIfExists(Paths.get(file.getAbsolutePath()));
+  }
+
+  public static void transferTo(@NonNull FileInputStream in, @NonNull String destPath)
       throws IOException {
     try (FileChannel inChannel = in.getChannel();
         FileChannel outChannel =
@@ -53,20 +62,20 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
                     StandardOpenOption.CREATE_NEW,
                     StandardOpenOption.TRUNCATE_EXISTING,
                     StandardOpenOption.WRITE))) {
-      IOUtils.transferFrom(inChannel, outChannel);
+      IOUtils.transferTo(inChannel, outChannel);
     }
   }
 
-  public static void transferFrom(@NonNull String srcPath, @NonNull FileOutputStream out)
+  public static void transferTo(@NonNull String srcPath, @NonNull FileOutputStream out)
       throws IOException {
     try (FileChannel inChannel =
             FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
         FileChannel outChannel = out.getChannel()) {
-      IOUtils.transferFrom(inChannel, outChannel);
+      IOUtils.transferTo(inChannel, outChannel);
     }
   }
 
-  public static void transferFrom(@NonNull String srcPath, @NonNull String destPath)
+  public static void transferTo(@NonNull String srcPath, @NonNull String destPath)
       throws IOException {
     try (FileChannel inChannel =
             FileChannel.open(Paths.get(srcPath), EnumSet.of(StandardOpenOption.READ));
@@ -77,7 +86,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
                     StandardOpenOption.CREATE_NEW,
                     StandardOpenOption.TRUNCATE_EXISTING,
                     StandardOpenOption.WRITE))) {
-      IOUtils.transferFrom(inChannel, outChannel);
+      IOUtils.transferTo(inChannel, outChannel);
     }
   }
 
@@ -129,30 +138,39 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 
   public static void slice(@NonNull File file, int chunks, @NonNull String suffix)
       throws IOException {
-    try (RandomAccessFile inRaf = new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
-      long length = inRaf.length();
+    String filePath = file.getAbsolutePath();
+    try (FileInputStream fis = new FileInputStream(filePath);
+        FileChannel inChannel = fis.getChannel(); ) {
+      long length = inChannel.size();
       long sliceSize = length / chunks;
-      long offSet = 0L;
-      for (int i = 0; i < chunks - 1; i++) {
-        long begin = offSet;
-        long end = (i + 1) * sliceSize;
-        offSet = IOUtils.slice(inRaf, getTempRandomAccessFile(file, suffix, i), begin, end);
-      }
-      if (length - offSet > 0) {
-        IOUtils.slice(inRaf, getTempRandomAccessFile(file, suffix, chunks - 1), offSet, length);
+      slice(file, sliceSize, suffix, inChannel, length, chunks);
+    }
+  }
+
+  private static void slice(
+      @NonNull File file,
+      long sliceSize,
+      @NonNull String suffix,
+      FileChannel inChannel,
+      long length,
+      int chunks)
+      throws IOException {
+
+    for (int i = 0; i < chunks; i++) {
+      long pos = i * sliceSize;
+      long count = i == chunks - 1 ? length - pos : sliceSize;
+      try (FileOutputStream fos = getTempFileOutputStream(file, suffix, i);
+          FileChannel outChannel = fos.getChannel(); ) {
+        inChannel.transferTo(pos, count, outChannel);
       }
     }
   }
 
-  private static RandomAccessFile getTempRandomAccessFile(
+  private static FileOutputStream getTempFileOutputStream(
       @NonNull File file, @NonNull String suffix, int index) throws FileNotFoundException {
     String sourcePath = file.getAbsolutePath();
-    File tempFile =
-        new File(
-            sourcePath.substring(0, sourcePath.indexOf(FileConstants.FILE_SEPARATOR))
-                + index
-                + suffix);
-    return new RandomAccessFile(tempFile, IOConstants.RAF_MODE_READ_WRTIE);
+    return new FileOutputStream(
+        sourcePath.substring(0, sourcePath.indexOf(FileConstants.FILE_SEPARATOR)) + index + suffix);
   }
 
   public static void merge(
@@ -161,41 +179,50 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
       @NonNull final String matchPrefix,
       @NonNull final String matchSuffix)
       throws IOException {
+    merge(mergeFile, tempDir, matchPrefix, matchSuffix, true);
+  }
+
+  public static void merge(
+      @NonNull File mergeFile,
+      @NonNull File tempDir,
+      @NonNull final String matchPrefix,
+      @NonNull final String matchSuffix,
+      boolean cleanTemp)
+      throws IOException {
     if (!tempDir.isDirectory()) {
       throw new IOException("the tempDir must be given directory");
     }
-    final String mergeFileNamePrefix =
-        mergeFile.getName().substring(0, mergeFile.getName().indexOf(FileConstants.FILE_SEPARATOR));
     File[] tempFiles =
         tempDir.listFiles(
-            new FilenameFilter() {
-
-              @Override
-              public boolean accept(File dir, String name) {
-                return name.startsWith(matchPrefix) && name.endsWith(matchSuffix);
-              }
-            });
-    merge(mergeFile, tempFiles);
+            (dir, name) -> name.startsWith(matchPrefix) && name.endsWith(matchSuffix));
+    merge(mergeFile, cleanTemp, tempFiles);
   }
 
-  public static void merge(@NonNull File mergeFile, @NonNull File... tempFiles) throws IOException {
-    try (RandomAccessFile mergeRaf =
-        new RandomAccessFile(mergeFile, IOConstants.RAF_MODE_READ_WRTIE); ) {
+  public static void merge(@NonNull File mergeFile, boolean cleanTemp, @NonNull File... tempFiles)
+      throws IOException {
+    if (mergeFile.exists()) {
+      delete(mergeFile);
+    }
+    try (FileChannel outChannel =
+        FileChannel.open(
+            Paths.get(mergeFile.getAbsolutePath()),
+            EnumSet.of(
+                StandardOpenOption.CREATE_NEW,
+                StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.WRITE))) {
       for (File tempFile : tempFiles) {
-        try (RandomAccessFile chunkRaf =
-            new RandomAccessFile(tempFile, IOConstants.RAF_MODE_READ); ) {
-          IOUtils.slice(chunkRaf, mergeRaf);
+        try (FileChannel inChannel =
+            FileChannel.open(
+                Paths.get(tempFile.getAbsolutePath()), EnumSet.of(StandardOpenOption.READ)); ) {
+          IOUtils.transferTo(inChannel, outChannel);
+        }
+      }
+    } finally {
+      if (cleanTemp) {
+        for (File tempFile : tempFiles) {
+          delete(tempFile);
         }
       }
     }
-  }
-
-  public static void main(String[] args) throws IOException {
-    File sliceFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB存储引擎.pdf");
-    FileUtils.slice(sliceFile, 3, ".tmp");
-
-    File mergeFile = new File("C:\\Users\\sion1\\Downloads\\test\\MySQL技术内幕InnoDB233.pdf");
-    String tempDir = "C:\\Users\\sion1\\Downloads\\test\\";
-    FileUtils.merge(mergeFile, new File(tempDir), "MySQL技术内幕InnoDB", ".tmp");
   }
 }
