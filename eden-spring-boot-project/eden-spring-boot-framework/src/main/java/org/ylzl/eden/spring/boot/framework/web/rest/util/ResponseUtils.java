@@ -20,6 +20,7 @@ import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.ylzl.eden.spring.boot.commons.io.FileUtils;
 import org.ylzl.eden.spring.boot.commons.io.IOUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
@@ -67,15 +68,13 @@ public final class ResponseUtils {
    *
    * @param request
    * @param response
-   * @param srcPath
+   * @param file
    * @return
    * @throws IOException
    */
-  public static long download(
-      HttpServletRequest request, HttpServletResponse response, String srcPath) throws IOException {
-    File srcFile = new File(srcPath);
-
-    String fileName = srcFile.getName();
+  public static void download(
+      HttpServletRequest request, HttpServletResponse response, File file) throws IOException {
+    String fileName = file.getName();
     response.setHeader(
         HttpHeaders.CONTENT_DISPOSITION,
         MessageFormat.format(
@@ -86,7 +85,7 @@ public final class ResponseUtils {
     response.setContentType(contentType);
     response.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
 
-    long fileLength = srcFile.length();
+    long fileLength = file.length();
     if (StringUtils.isNotBlank(resolveRange(request))) {
       long startByte = resolveStartBytesFromRange(request); // 开始下载位置
       long endByte = resolveEndBytesFromRange(request); // 结束下载位置
@@ -107,12 +106,11 @@ public final class ResponseUtils {
               endByte,
               StringConstants.SLASH,
               fileLength));
-      long cost = IOUtils.seek(srcPath, response.getOutputStream(), startByte, endByte);
+      FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
       response.flushBuffer();
-      return cost;
     }
     response.setHeader(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileLength));
-    return IOUtils.allocateDirect(srcPath, response.getOutputStream());
+    FileUtils.allocateDirect(file.getAbsolutePath(), response.getOutputStream());
   }
 
   public static String resolveRange(HttpServletRequest request) {

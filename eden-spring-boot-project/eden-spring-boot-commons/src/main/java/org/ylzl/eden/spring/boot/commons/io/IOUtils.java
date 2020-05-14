@@ -42,18 +42,19 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
 
   public static void transferFrom(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
       throws IOException {
-    long size = inChannel.size();
-    long pos = 0L;
-    for (long count; pos < size; pos += outChannel.transferFrom(inChannel, pos, count)) {
-      count = Math.min(size - pos, 31457280L); // 30M
-    }
+    outChannel.transferFrom(inChannel, 0L, inChannel.size());
+  }
+
+  public static void transferTo(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
+      throws IOException {
+    inChannel.transferTo(0L, inChannel.size(), outChannel);
   }
 
   public static void allocate(
       @NonNull FileChannel inChannel, @NonNull OutputStream out, boolean isDirect)
       throws IOException {
     int bufferSize = 4096;
-    byte[] datas = new byte[bufferSize];
+    byte[] data = new byte[bufferSize];
     int capacity = bufferSize * 10;
     ByteBuffer bytebuffer =
         isDirect ? ByteBuffer.allocateDirect(capacity) : ByteBuffer.allocate(capacity);
@@ -68,8 +69,8 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
         bytebuffer.limit(read);
         while (bytebuffer.hasRemaining()) {
           len = Math.min(bytebuffer.remaining(), bufferSize);
-          bytebuffer.get(datas, 0, len);
-          out.write(datas);
+          bytebuffer.get(data, 0, len);
+          out.write(data);
         }
         bytebuffer.clear();
       }
@@ -101,41 +102,41 @@ public class IOUtils extends org.apache.commons.io.IOUtils {
       throws IOException {
     long transmitted = 0;
     int bufferSize = 4096;
-    byte[] datas = new byte[bufferSize];
+    byte[] data = new byte[bufferSize];
     int len = 0;
     try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out)) {
       raf.seek(startByte);
       while ((transmitted + len) <= endByte // 防止读取的 len 小于 bufferSize， transmitted 加上 len 时跳过不足的部分
-          && (len = raf.read(datas)) != -1) {
-        bufferedOutputStream.write(datas, 0, len);
+          && (len = raf.read(data)) != -1) {
+        bufferedOutputStream.write(data, 0, len);
         transmitted += len;
       }
       if (transmitted < endByte) { // 处理不足 bufferSize 的部分
-        len = raf.read(datas, 0, (int) (endByte - transmitted));
-        bufferedOutputStream.write(datas, 0, len);
+        len = raf.read(data, 0, (int) (endByte - transmitted));
+        bufferedOutputStream.write(data, 0, len);
       }
       bufferedOutputStream.flush();
     }
   }
 
-  public static long slice(
+  public static long seek(
       @NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf, long begin, long end)
       throws IOException {
-    byte[] b = new byte[4096];
+    byte[] data = new byte[4096];
     int n = 0;
     inRaf.seek(begin);
-    while (inRaf.getFilePointer() <= end && (n = inRaf.read(b)) != -1) {
-      outRaf.write(b, 0, n);
+    while (inRaf.getFilePointer() <= end && (n = inRaf.read(data)) != -1) {
+      outRaf.write(data, 0, n);
     }
     return inRaf.getFilePointer();
   }
 
-  public static void slice(@NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf)
+  public static void seek(@NonNull RandomAccessFile inRaf, @NonNull RandomAccessFile outRaf)
       throws IOException {
-    byte[] b = new byte[4096];
+    byte[] data = new byte[4096];
     int n = 0;
-    while ((n = inRaf.read(b)) != -1) {
-      outRaf.write(b, 0, n);
+    while ((n = inRaf.read(data)) != -1) {
+      outRaf.write(data, 0, n);
     }
   }
 }
