@@ -80,7 +80,6 @@
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-mycat-spring-boot-starter</module>
 		<module>eden-mysql-spring-boot-starter</module>
-		<module>eden-mysql-spring-boot-starter</module>
 		<module>eden-nacos-spring-boot-starter</module>
 		<module>eden-neo4j-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
