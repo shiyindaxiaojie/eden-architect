@@ -106,7 +106,8 @@ public final class ResponseUtils {
               endByte,
               StringConstants.SLASH,
               fileLength));
-      FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
+
+		FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
       response.flushBuffer();
     }
     response.setHeader(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileLength));
