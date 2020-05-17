@@ -12,6 +12,7 @@ Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各
 WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上，如果需要支持 JDK 1.7，请切换为 1.X.X 分支。
 
 == 基本介绍
+
 1. 自动化配置优先，组件的集成配置只需要引入指定的 starter 即可，你也可以按自己的需求去覆盖默认的配置；
 2. 统一的依赖和插件管理，解决了大量的依赖冲突，简化 POM 文件的配置工作；
 3. 完善的微服务体系框架，基于服务发现覆盖单机配置，增强网关的认证口令传输；
@@ -19,6 +20,35 @@ WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上�
 5. 常用组件的自动化配置，如 Swagger、Metrics、Logstash、HazelCast 等等；
 6. 通用的工具库积累，并对 Apache Commons 和 Google Guava 等工具类进行适配封装；
 7. 丰富的组件测试框架，允许在测试的生命周期启动嵌入式的 Redis、Kafka、MongoDB 等中间件执行测试。
+
+== 技术要点
+
+|===
+
+| 技术 | 源代码
+
+| 雪花算法
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-commons/src/main/java/org/ylzl/eden/spring/boot/commons/id/SnowflakeGenerator.java[SnowflakeGenerator.java]
+
+| 哈希一致性
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-commons/src/main/java/org/ylzl/eden/spring/boot/commons/algorithms/consistent/ConsistentHash.java[ConsistentHash.java]
+
+| Redis 布隆过滤器
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/redis/support/RedisBloomFilter.java[RedisBloomFilter.java]
+
+| Redis 分布式锁
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/redis/support/lock/DistributedRedisLock.java[DistributedRedisLock.java]
+
+| Zookeeper 分布式锁
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-integration/src/main/java/org/ylzl/eden/spring/boot/integration/zookeeper/support/lock/DistributedZooKeeperLock.java[DistributedZooKeeperLock.java]
+
+| Zuul 限流过滤器
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-cloud/src/main/java/org/ylzl/eden/spring/boot/cloud/zuul/filter/RateLimitingFilter.java
+
+| 动态数据源自动配置
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/jdbc/RoutingDataSourceAutoConfiguration.java
+
+|===
 
 == 安装入门
 
@@ -117,6 +147,7 @@ public class Example {
 === 模块清单
 
 |===
+
 | 应用名称 | 描述 | 技术栈
 
 | eden-spring-boot-project
@@ -182,6 +213,7 @@ public class Example {
 | eden-spring-boot-smoke-tests
 | 冒烟测试集
 | -
+
 |===
 
 === 开发视图
@@ -190,5 +222,4 @@ image:src/docs/staruml/html-docs/diagrams/d5507f74c7649420f3e80c315002ce65.svg[w
 
 == 许可声明
 
-Eden* Spring Boot 为本人在工作之余开发而成，遵循
-https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]
+遵循 https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]
