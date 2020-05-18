@@ -86,6 +86,7 @@
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-net.version>3.6</commons-net.version>
 		<cucumber.version>3.0.2</cucumber.version>
+		<curator.version>4.1.0</curator.version>
 		<dbunit.version>2.4.8</dbunit.version>
 		<dom4j.version>2.1.1</dom4j.version>
 		<dubbo.version>2.7.5</dubbo.version>
@@ -940,6 +941,16 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+				<version>${curator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+				<version>${curator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>

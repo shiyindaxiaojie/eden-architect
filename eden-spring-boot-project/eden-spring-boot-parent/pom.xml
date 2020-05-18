@@ -406,9 +406,9 @@
 						<target>${java.version}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<showWarnings>false</showWarnings>
-						<compilerArgs>
+						<!--<compilerArgs>
 							<arg>-Xlint</arg>
-						</compilerArgs>
+						</compilerArgs>-->
 					</configuration>
 				</plugin>
 				<plugin>
