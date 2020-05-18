@@ -43,10 +43,10 @@ WARNING: 为了兼容 JDK 1.7 的版本，Eden* Spring Boot 使用的 Spring Boo
 | https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-integration/src/main/java/org/ylzl/eden/spring/boot/integration/zookeeper/support/lock/DistributedZooKeeperLock.java[DistributedZooKeeperLock.java]
 
 | Zuul 限流过滤器
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-cloud/src/main/java/org/ylzl/eden/spring/boot/cloud/zuul/filter/RateLimitingFilter.java
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-cloud/src/main/java/org/ylzl/eden/spring/boot/cloud/zuul/filter/RateLimitingFilter.java[RateLimitingFilter.java]
 
 | 动态数据源自动配置
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/jdbc/RoutingDataSourceAutoConfiguration.java
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/jdbc/RoutingDataSourceAutoConfiguration.java[RoutingDataSourceAutoConfiguration.java]
 
 |===
 
