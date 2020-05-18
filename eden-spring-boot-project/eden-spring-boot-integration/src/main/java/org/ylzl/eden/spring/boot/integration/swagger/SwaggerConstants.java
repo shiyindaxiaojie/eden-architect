@@ -25,16 +25,16 @@ import springfox.documentation.swagger2.web.Swagger2Controller;
  * Swagger 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class SwaggerConstants {
 
-	public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
+  public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
 
-	public static final String RESOURCES_URL = "/swagger-resources";
+  public static final String RESOURCES_URL = "/swagger-resources";
 
-	public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
+  public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
 
-	public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
+  public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
 }

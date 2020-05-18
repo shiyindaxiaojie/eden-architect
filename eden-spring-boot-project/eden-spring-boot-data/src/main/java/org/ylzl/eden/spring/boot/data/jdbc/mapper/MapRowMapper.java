@@ -30,19 +30,19 @@ import java.util.Map;
  * Map 行记录映射
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder
 @NoArgsConstructor
 public class MapRowMapper implements RowMapper<Object> {
 
-    @Override
-    public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Map<String, Object> map = new HashMap<String, Object>();
-        ResultSetMetaData rmd = rs.getMetaData();
-        for (int i = 1; i <= rmd.getColumnCount(); i++) {
-            map.put(rmd.getColumnLabel(i), rs.getObject(i));
-        }
-        return map;
+  @Override
+  public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+    Map<String, Object> map = new HashMap<String, Object>();
+    ResultSetMetaData rmd = rs.getMetaData();
+    for (int i = 1; i <= rmd.getColumnCount(); i++) {
+      map.put(rmd.getColumnLabel(i), rs.getObject(i));
     }
+    return map;
+  }
 }

@@ -25,12 +25,12 @@ import org.ylzl.eden.spring.boot.cloud.core.CloudConstants;
  * Profile 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = CloudConstants.PROP_PREFIX + ".profile")
 public class ProfileProperties {
 
-    private String[] displayOnActiveProfiles = ProfileDefaults.displayOnActiveProfiles;
+  private String[] displayOnActiveProfiles = ProfileDefaults.displayOnActiveProfiles;
 }

@@ -24,7 +24,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -35,22 +34,22 @@ import org.ylzl.eden.spring.boot.security.oauth2.configurer.OAuth2ResourceServer
  * OAuth2 资源服务器配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EnableResourceServer.class)
 @ConditionalOnExpression(OAuth2ResourceServerAutoConfiguration.EXPS_OAUTH2_RESOURCE_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableResourceServer
 @Slf4j
 @Configuration
 public class OAuth2ResourceServerAutoConfiguration {
 
-	public static final String EXPS_OAUTH2_RESOURCE_SERVER = "${" + SecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
+  public static final String EXPS_OAUTH2_RESOURCE_SERVER =
+      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
 
-	@ConditionalOnMissingBean
-    @Bean
-    public ResourceServerConfigurer resourceServerConfigurer(TokenStore tokenStore) {
-        return new OAuth2ResourceServerConfigurerAdapter(tokenStore);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public ResourceServerConfigurer resourceServerConfigurer(TokenStore tokenStore) {
+    return new OAuth2ResourceServerConfigurerAdapter(tokenStore);
+  }
 }

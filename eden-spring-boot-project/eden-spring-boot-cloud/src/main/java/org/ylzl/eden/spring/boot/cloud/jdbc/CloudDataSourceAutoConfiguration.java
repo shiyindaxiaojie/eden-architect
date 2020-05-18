@@ -33,24 +33,23 @@ import javax.sql.DataSource;
  * 云服务数据库自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@AutoConfigureBefore(name = {
-    "org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceConfiguration"
-}, value = {
-    DataSourceAutoConfiguration.class
-})
+@AutoConfigureBefore(
+    name = {"org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceConfiguration"},
+    value = {DataSourceAutoConfiguration.class})
 @Profile(ProfileConstants.SPRING_PROFILE_CLOUD)
 @Slf4j
 @Configuration
 public class CloudDataSourceAutoConfiguration extends AbstractCloudConfig {
 
-	private static final String MSG_CLOUD_JDBC_DATA_SOURCE = "Inject JDBC datasource from a cloud provider";
+  private static final String MSG_CLOUD_JDBC_DATA_SOURCE =
+      "Inject JDBC datasource from a cloud provider";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public DataSource dataSource() {
-        log.info(MSG_CLOUD_JDBC_DATA_SOURCE);
-        return connectionFactory().dataSource();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public DataSource dataSource() {
+    log.info(MSG_CLOUD_JDBC_DATA_SOURCE);
+    return connectionFactory().dataSource();
+  }
 }

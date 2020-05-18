@@ -21,6 +21,7 @@ import com.github.mongobee.Mongobee;
 import com.mongodb.MongoClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
@@ -29,64 +30,67 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
  * 异步 Mongobee
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Slf4j
 public class AsyncMongobee extends Mongobee {
 
-	private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
+  private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
 
-	private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
+  private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
 
-	private static final String MSG_EXCEPTION = "Mongobee could not start correctly, your database is not ready：{}";
+  private static final String MSG_EXCEPTION =
+      "Mongobee could not start correctly, your database is not ready：{}";
 
-	private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
+  private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
 
-	private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
+  private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
 
-    private static final String STOP_WATCH_ID = "mongobee";
+  private static final String STOP_WATCH_ID = "mongobee";
 
-    public static final long SLOWNESS_THRESHOLD = 5;
+  public static final long SLOWNESS_THRESHOLD = 5;
 
-    private final TaskExecutor taskExecutor;
+  private final TaskExecutor taskExecutor;
 
-    private final Environment environment;
+  private final Environment environment;
 
-    public AsyncMongobee(MongoClient mongoClient, Environment environment, TaskExecutor taskExecutor) {
-        super(mongoClient);
-        this.environment = environment;
-        this.taskExecutor = taskExecutor;
+  public AsyncMongobee(
+      MongoClient mongoClient, Environment environment, TaskExecutor taskExecutor) {
+    super(mongoClient);
+    this.environment = environment;
+    this.taskExecutor = taskExecutor;
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+      taskExecutor.execute(
+          new Runnable() {
+
+            @Override
+            public void run() {
+              try {
+                log.debug(MSG_STARTING_ASYNC);
+                initDb();
+              } catch (Exception e) {
+                log.error(MSG_EXCEPTION, e.getMessage(), e);
+              }
+            }
+          });
+    } else {
+      log.debug(MSG_STARTING_SYNC);
+      initDb();
     }
+  }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (environment.acceptsProfiles(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            taskExecutor.execute(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        log.debug(MSG_STARTING_ASYNC);
-                        initDb();
-                    } catch (Exception e) {
-                        log.error(MSG_EXCEPTION, e.getMessage(), e);
-                    }
-                }
-            });
-        } else {
-            log.debug(MSG_STARTING_SYNC);
-            initDb();
-        }
+  protected void initDb() throws Exception {
+    StopWatch watch = new StopWatch();
+    watch.start(STOP_WATCH_ID);
+    super.afterPropertiesSet();
+    watch.stop();
+    log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+    if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
+      log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
     }
-
-    protected void initDb() throws Exception {
-        StopWatch watch = new StopWatch();
-        watch.start(STOP_WATCH_ID);
-        super.afterPropertiesSet();
-        watch.stop();
-        log.debug(MSG_STARTED, watch.getTotalTimeMillis());
-        if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-            log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
-        }
-    }
+  }
 }

@@ -33,53 +33,58 @@ import org.ylzl.eden.spring.boot.security.core.login.Login;
  * JWT 身份验证服务
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class JwtTokenService {
 
-    private static final String EXP_AUTHENTICATE_BAD_CREDENTIALS = "JWT authenticated failed due to bad credentials：{}";
+  private static final String EXP_AUTHENTICATE_BAD_CREDENTIALS =
+      "JWT authenticated failed due to bad credentials：{}";
 
-    private static final String EXP_AUTHENTICATE_EXCEPTION = "JWT authenticated failed, caught exception: {}";
+  private static final String EXP_AUTHENTICATE_EXCEPTION =
+      "JWT authenticated failed, caught exception: {}";
 
-    private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
-    private final JwtTokenProvider jwtTokenProvider;
+  private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtTokenService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+  public JwtTokenService(
+      AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    this.authenticationManager = authenticationManager;
+    this.jwtTokenProvider = jwtTokenProvider;
+  }
 
-    /**
-     * 认证
-     *
-     * @param login 登录数据传输对象
-     * @return JWT 访问令牌
-     */
-    public JwtToken authenticate(Login login) {
-        try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                login.getUsername(), login.getPassword());
-            Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+  /**
+   * 认证
+   *
+   * @param login 登录数据传输对象
+   * @return JWT 访问令牌
+   */
+  public JwtToken authenticate(Login login) {
+    try {
+      UsernamePasswordAuthenticationToken authenticationToken =
+          new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+      Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
+      SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            StringBuilder claim = new StringBuilder();
-            if (authentication.getAuthorities() != null) {
-                for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-                    claim.append(grantedAuthority.getAuthority()).append(StringConstants.COMMA);
-                }
-                claim.deleteCharAt(claim.length() - 1);
-            }
-            boolean rememberMe = (login.getRememberMe() == null) ? false : login.getRememberMe();
-            String token = jwtTokenProvider.build(login.getUsername(), FrameworkConstants.SYSTEM, claim.toString(), rememberMe);
-            return JwtToken.builder().value(token).build();
-        } catch (BadCredentialsException ex) {
-            log.error(EXP_AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);
-            throw new InvalidCredentialsException();
-        } catch (Exception ex) {
-            log.error(EXP_AUTHENTICATE_EXCEPTION, ex.getMessage(), ex);
-            throw ex;
+      StringBuilder claim = new StringBuilder();
+      if (authentication.getAuthorities() != null) {
+        for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+          claim.append(grantedAuthority.getAuthority()).append(StringConstants.COMMA);
         }
+        claim.deleteCharAt(claim.length() - 1);
+      }
+      boolean rememberMe = (login.getRememberMe() == null) ? false : login.getRememberMe();
+      String token =
+          jwtTokenProvider.build(
+              login.getUsername(), FrameworkConstants.SYSTEM, claim.toString(), rememberMe);
+      return JwtToken.builder().value(token).build();
+    } catch (BadCredentialsException ex) {
+      log.error(EXP_AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);
+      throw new InvalidCredentialsException();
+    } catch (Exception ex) {
+      log.error(EXP_AUTHENTICATE_EXCEPTION, ex.getMessage(), ex);
+      throw ex;
     }
+  }
 }

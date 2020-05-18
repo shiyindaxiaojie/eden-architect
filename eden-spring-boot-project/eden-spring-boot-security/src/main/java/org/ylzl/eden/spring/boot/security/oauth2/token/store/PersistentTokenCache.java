@@ -25,78 +25,78 @@ import java.util.Map;
  * 持久化令牌缓存
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class PersistentTokenCache<T> {
 
-    private final long expireMillis;
+  private final long expireMillis;
 
-    private final Map<String, Value> map;
+  private final Map<String, Value> map;
 
-    private long latestWriteTime;
+  private long latestWriteTime;
 
-    public PersistentTokenCache(long expireMillis) {
-        if (expireMillis <= 0l) {
-            throw new IllegalArgumentException();
-        }
-        this.expireMillis = expireMillis;
-
-        map = new LinkedHashMap<>(64, 0.75f);
-        latestWriteTime = System.currentTimeMillis();
+  public PersistentTokenCache(long expireMillis) {
+    if (expireMillis <= 0l) {
+      throw new IllegalArgumentException();
     }
+    this.expireMillis = expireMillis;
 
-    public T get(String key) {
-        purge();
-        final Value val = map.get(key);
-        final long time = System.currentTimeMillis();
-        return val != null && time < val.expire ? val.token : null;
+    map = new LinkedHashMap<>(64, 0.75f);
+    latestWriteTime = System.currentTimeMillis();
+  }
+
+  public T get(String key) {
+    purge();
+    final Value val = map.get(key);
+    final long time = System.currentTimeMillis();
+    return val != null && time < val.expire ? val.token : null;
+  }
+
+  public void put(String key, T token) {
+    purge();
+    if (map.containsKey(key)) {
+      map.remove(key);
     }
+    final long time = System.currentTimeMillis();
+    map.put(key, new Value(token, time + expireMillis));
+    latestWriteTime = time;
+  }
 
-    public void put(String key, T token) {
-        purge();
-        if (map.containsKey(key)) {
-            map.remove(key);
-        }
-        final long time = System.currentTimeMillis();
-        map.put(key, new Value(token, time + expireMillis));
-        latestWriteTime = time;
-    }
+  public int size() {
+    return map.size();
+  }
 
-    public int size() {
-        return map.size();
-    }
-
-    public void purge() {
-        long time = System.currentTimeMillis();
-        if (time - latestWriteTime > expireMillis) {
-            map.clear();
+  public void purge() {
+    long time = System.currentTimeMillis();
+    if (time - latestWriteTime > expireMillis) {
+      map.clear();
+    } else {
+      Iterator<Value> values = map.values().iterator();
+      while (values.hasNext()) {
+        if (time >= values.next().expire) {
+          values.remove();
         } else {
-            Iterator<Value> values = map.values().iterator();
-            while (values.hasNext()) {
-                if (time >= values.next().expire) {
-                    values.remove();
-                } else {
-                    break;
-                }
-            }
+          break;
         }
+      }
     }
+  }
 
-    /**
-     * 令牌值对象
-     *
-     * @author gyl
-     * @since 0.0.1
-     */
-    private class Value {
+  /**
+   * 令牌值对象
+   *
+   * @author gyl
+   * @since 1.0.0
+   */
+  private class Value {
 
-        private final T token;
+    private final T token;
 
-        private final long expire;
+    private final long expire;
 
-        Value(T token, long expire) {
-            this.token = token;
-            this.expire = expire;
-        }
+    Value(T token, long expire) {
+      this.token = token;
+      this.expire = expire;
     }
+  }
 }

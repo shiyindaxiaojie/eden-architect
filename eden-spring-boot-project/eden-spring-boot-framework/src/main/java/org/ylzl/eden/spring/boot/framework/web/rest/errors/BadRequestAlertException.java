@@ -23,25 +23,25 @@ import org.ylzl.eden.spring.boot.framework.web.rest.vm.ErrorVM;
  * 错误请求
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class BadRequestAlertException extends RuntimeException {
 
-    private static final long serialVersionUID = 6566767201109655608L;
+  private static final long serialVersionUID = 6566767201109655608L;
 
-    private final String message;
+  private final String message;
 
-    public BadRequestAlertException() {
-        super(ErrorConstants.ERR_BAD_REQUEST_ALERT);
-        this.message = ErrorConstants.ERR_BAD_REQUEST_ALERT;
-    }
+  public BadRequestAlertException() {
+    super(ErrorConstants.ERR_BAD_REQUEST_ALERT);
+    this.message = ErrorConstants.ERR_BAD_REQUEST_ALERT;
+  }
 
-    public BadRequestAlertException(String message) {
-        super(message);
-        this.message = message;
-    }
+  public BadRequestAlertException(String message) {
+    super(message);
+    this.message = message;
+  }
 
-    public ErrorVM getErrorVM() {
-        return ErrorVM.builder().message(message).build();
-    }
+  public ErrorVM getErrorVM() {
+    return ErrorVM.builder().message(message).build();
+  }
 }

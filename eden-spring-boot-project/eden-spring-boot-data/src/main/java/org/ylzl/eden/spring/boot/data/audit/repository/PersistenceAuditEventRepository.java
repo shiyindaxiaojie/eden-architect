@@ -24,25 +24,28 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.ylzl.eden.spring.boot.data.audit.event.PersistentAuditEvent;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
  * 持久化审计事件数据仓库接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @NoRepositoryBean
-public interface PersistenceAuditEventRepository<T extends PersistentAuditEvent, String extends Serializable> extends JpaRepository<T, String> {
+public interface PersistenceAuditEventRepository<
+        T extends PersistentAuditEvent, ID extends Serializable>
+    extends JpaRepository<T, ID> {
 
-    List<T> findByPrincipal(String principal);
+  List<T> findByPrincipal(String principal);
 
-    List<T> findByEventDateAfter(Date after);
+  List<T> findByEventDateAfter(Instant after);
 
-    List<T> findByPrincipalAndEventDateAfter(String principal, Date after);
+  List<T> findByPrincipalAndEventDateAfter(String principal, Instant after);
 
-    List<T> findByPrincipalAndEventDateAfterAndEventType(String principal, Date after, String type);
+  List<T> findByPrincipalAndEventDateAfterAndEventType(
+      String principal, Instant after, String type);
 
-    Page<T> findAllByEventDateBetween(Date fromDate, Date toDate, Pageable pageable);
+  Page<T> findAllByEventDateBetween(Instant fromDate, Instant toDate, Pageable pageable);
 }

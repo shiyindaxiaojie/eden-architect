@@ -33,52 +33,58 @@ import java.util.Map;
  * 对象实体工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 
-    @SuppressWarnings("unchecked")
-    public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject)
-        throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
-        if (targetObject == null) {
-            targetObject = (T) clazz.newInstance();
+  @SuppressWarnings("unchecked")
+  public static <T> T toBean(
+      @NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject)
+      throws InstantiationException, IllegalArgumentException, IllegalAccessException,
+          ParseException {
+    if (targetObject == null) {
+      targetObject = (T) clazz.newInstance();
+    }
+
+    List<Field> fields = ReflectionUtils.getDeclaredFields(clazz);
+    for (Field field : fields) {
+      Object value;
+      if (sourceMap.containsKey(field.getName())) {
+        value = sourceMap.get(field.getName());
+      } else if (field.isAnnotationPresent(BeanAlias.class)) {
+        BeanAlias beanAlias = field.getAnnotation(BeanAlias.class);
+        if (ObjectUtils.isEmpty(beanAlias) || !sourceMap.containsKey(beanAlias.value())) {
+          continue;
         }
-
-        List<Field> fields = ReflectionUtils.getDeclaredFields(clazz);
-        for (Field field : fields) {
-            Object value;
-            if (sourceMap.containsKey(field.getName())) {
-                value = sourceMap.get(field.getName());
-            } else if (field.isAnnotationPresent(BeanAlias.class)) {
-                BeanAlias beanAlias = field.getAnnotation(BeanAlias.class);
-                if (ObjectUtils.isEmpty(beanAlias) || !sourceMap.containsKey(beanAlias.value())) {
-                    continue;
-                }
-                value = sourceMap.get(beanAlias.value());
-            } else {
-                continue;
-            }
-            ReflectionUtils.setAccessible(field);
-            try {
-                field.set(targetObject, ObjectUtils.cast(value, field));
-            } catch (Exception e) {
-                throw new ParseException(MessageFormat.format("字段 {0} 无法转换为类型 {1}，当前值为 {2}",
-                    field.getName(), field.getType(), value), 0);
-            }
-        }
-        return targetObject;
+        value = sourceMap.get(beanAlias.value());
+      } else {
+        continue;
+      }
+      ReflectionUtils.setAccessible(field);
+      try {
+        field.set(targetObject, ObjectUtils.cast(value, field));
+      } catch (Exception e) {
+        throw new ParseException(
+            MessageFormat.format(
+                "字段 {0} 无法转换为类型 {1}，当前值为 {2}", field.getName(), field.getType(), value),
+            0);
+      }
     }
+    return targetObject;
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<T> targetClass) throws InstantiationException,
-        IllegalArgumentException, IllegalAccessException, ParseException {
-        return toBean(sourceMap, targetClass, targetClass.newInstance());
-    }
+  @SuppressWarnings("unchecked")
+  public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<T> targetClass)
+      throws InstantiationException, IllegalArgumentException, IllegalAccessException,
+          ParseException {
+    return toBean(sourceMap, targetClass, targetClass.newInstance());
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull T targetObject) throws InstantiationException,
-        IllegalArgumentException, IllegalAccessException, ParseException {
-        return toBean(sourceMap, targetObject.getClass(), targetObject);
-    }
+  @SuppressWarnings("unchecked")
+  public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull T targetObject)
+      throws InstantiationException, IllegalArgumentException, IllegalAccessException,
+          ParseException {
+    return toBean(sourceMap, targetObject.getClass(), targetObject);
+  }
 }

@@ -31,69 +31,67 @@ import java.util.Map;
  * 存储过程实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class ListStoredProcedure extends StoredProcedure {
 
-    @Getter
-    @Setter
-    private boolean hasOutParameter;
+  @Getter @Setter private boolean hasOutParameter;
 
-    public ListStoredProcedure(DataSource dataSource, String sql) {
-        setDataSource(dataSource);
-        setSql(sql);
-    }
+  public ListStoredProcedure(DataSource dataSource, String sql) {
+    setDataSource(dataSource);
+    setSql(sql);
+  }
 
-    public ListStoredProcedure(JdbcTemplate jdbcTemplate, String sql) {
-        setJdbcTemplate(jdbcTemplate);
-        setSql(sql);
-    }
+  public ListStoredProcedure(JdbcTemplate jdbcTemplate, String sql) {
+    setJdbcTemplate(jdbcTemplate);
+    setSql(sql);
+  }
 
-    @Override
-    public Map<String, Object> execute(String param) {
-        if (!isHasOutParameter()) {
-            return execute();
-        }
-        declareParameter(new SqlOutParameter(param, TYPES_RESULT));
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(param, new ListCallableStatementCallback());
-        return execute(map);
+  @Override
+  public Map<String, Object> execute(String param) {
+    if (!isHasOutParameter()) {
+      return execute();
     }
+    declareParameter(new SqlOutParameter(param, TYPES_RESULT));
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(param, new ListCallableStatementCallback());
+    return execute(map);
+  }
 
-    @Override
-    public List<SqlParameter> getDeclaredParameters() {
-        return super.getDeclaredParameters();
-    }
+  @Override
+  public List<SqlParameter> getDeclaredParameters() {
+    return super.getDeclaredParameters();
+  }
 
-    public void setSqlParameter(String param, String value) {
-        declareParameter(new SqlParameter(param, Types.VARCHAR));
-    }
+  public void setSqlParameter(String param, String value) {
+    declareParameter(new SqlParameter(param, Types.VARCHAR));
+  }
 
-    public void setSqlParameter(String param, Double value) {
-        declareParameter(new SqlParameter(param, Types.DOUBLE));
-    }
+  public void setSqlParameter(String param, Double value) {
+    declareParameter(new SqlParameter(param, Types.DOUBLE));
+  }
 
-    public void setSqlParameter(String param, Integer value) {
-        declareParameter(new SqlParameter(param, Types.INTEGER));
-    }
+  public void setSqlParameter(String param, Integer value) {
+    declareParameter(new SqlParameter(param, Types.INTEGER));
+  }
 
-    public void setSqlOutParameter(String param, String value) {
-        declareParameter(new SqlOutParameter(param, Types.VARCHAR));
-    }
+  public void setSqlOutParameter(String param, String value) {
+    declareParameter(new SqlOutParameter(param, Types.VARCHAR));
+  }
 
-    public void setSqlOutParameter(String param, Double value) {
-        declareParameter(new SqlOutParameter(param, Types.DOUBLE));
-    }
+  public void setSqlOutParameter(String param, Double value) {
+    declareParameter(new SqlOutParameter(param, Types.DOUBLE));
+  }
 
-    public void setSqlOutParameter(String param, Integer value) {
-        declareParameter(new SqlOutParameter(param, Types.INTEGER));
-    }
+  public void setSqlOutParameter(String param, Integer value) {
+    declareParameter(new SqlOutParameter(param, Types.INTEGER));
+  }
 
-    public void setResultsetOutParam(String param, RowMapper<?> rowMap) {
-        declareParameter(new SqlReturnResultSet(param, rowMap));
-    }
+  public void setResultsetOutParam(String param, RowMapper<?> rowMap) {
+    declareParameter(new SqlReturnResultSet(param, rowMap));
+  }
 
-    public void setResultsetOutParam(String param) {
-        declareParameter(new SqlReturnResultSet(param, new MapRowMapper()));
-    }
+  public void setResultsetOutParam(String param) {
+    declareParameter(new SqlReturnResultSet(param, new MapRowMapper()));
+  }
 }

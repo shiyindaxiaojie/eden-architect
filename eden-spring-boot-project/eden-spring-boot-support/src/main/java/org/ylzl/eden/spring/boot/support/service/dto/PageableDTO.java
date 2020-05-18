@@ -27,21 +27,21 @@ import java.io.Serializable;
  * 分页器数据传输对象
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ApiModel(description = "分页器数据传输对象")
 @Data
 public class PageableDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "当前页码", required = true, example = "1")
-    private Integer pageNumber = 1;
+  @ApiModelProperty(value = "当前页码", required = true, example = "1")
+  private Integer pageNumber = 1;
 
-    @ApiModelProperty(value = "每页记录数", required = true, example = "10")
-    private Integer pageSize = 10;
+  @ApiModelProperty(value = "每页记录数", required = true, example = "10")
+  private Integer pageSize = 10;
 
-    public Integer getOffset() {
-        return (this.pageNumber - 1) * pageSize;
-    }
+  public Integer getOffset() {
+    return (this.pageNumber - 1) * pageSize;
+  }
 }

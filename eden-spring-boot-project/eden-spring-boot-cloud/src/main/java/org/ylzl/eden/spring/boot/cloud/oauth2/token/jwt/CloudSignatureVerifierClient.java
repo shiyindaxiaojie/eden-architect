@@ -27,26 +27,30 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.jwt.SignatureVerifierClie
  * 签名验证客户端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CloudSignatureVerifierClient extends SignatureVerifierClientAdapter {
 
-    private final LoadBalancerClientHelper loadBalancerClientHelper;
+  private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-    private final String publicKeyUriServiceId;
+  private final String publicKeyUriServiceId;
 
-    public CloudSignatureVerifierClient(RestTemplate restTemplate, OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
-        super(restTemplate, oAuth2Properties);
-        this.loadBalancerClientHelper = loadBalancerClientHelper;
-        this.publicKeyUriServiceId = oAuth2Properties.getAuthorization().getPublicTokenKeyUriServiceId();
+  public CloudSignatureVerifierClient(
+      RestTemplate restTemplate,
+      OAuth2Properties oAuth2Properties,
+      LoadBalancerClientHelper loadBalancerClientHelper) {
+    super(restTemplate, oAuth2Properties);
+    this.loadBalancerClientHelper = loadBalancerClientHelper;
+    this.publicKeyUriServiceId =
+        oAuth2Properties.getAuthorization().getPublicTokenKeyUriServiceId();
+  }
+
+  @Override
+  protected String getPublicKeyEndpointUri() {
+    String publicKeyEndpointUri = super.getPublicKeyEndpointUri();
+    if (StringUtils.isNotBlank(publicKeyUriServiceId)) {
+      return loadBalancerClientHelper.reconstructURI(publicKeyUriServiceId, publicKeyEndpointUri);
     }
-
-    @Override
-    protected String getPublicKeyEndpointUri() {
-        String publicKeyEndpointUri = super.getPublicKeyEndpointUri();
-        if (StringUtils.isNotBlank(publicKeyUriServiceId)) {
-            return loadBalancerClientHelper.reconstructURI(publicKeyUriServiceId, publicKeyEndpointUri);
-        }
-        return publicKeyEndpointUri;
-    }
+    return publicKeyEndpointUri;
+  }
 }

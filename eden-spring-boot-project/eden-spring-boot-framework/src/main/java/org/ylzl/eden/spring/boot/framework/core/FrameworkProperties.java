@@ -20,43 +20,44 @@ package org.ylzl.eden.spring.boot.framework.core;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.cors.CorsConfiguration;
-
-import java.util.List;
 
 /**
  * 框架配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX)
 public class FrameworkProperties {
 
-    private final CorsConfiguration cors = new CorsConfiguration();
+  private final CorsConfiguration cors = new CorsConfiguration();
 
-    private final Http http = new Http();
+  private final Http http = new Http();
+
+  @Getter
+  @Setter
+  public static class Http {
+
+    public Version version = FrameworkDefaults.Http.version;
+
+    private boolean useUndertowUserCipherSuitesOrder =
+        FrameworkDefaults.Http.useUndertowUserCipherSuitesOrder;
+
+    private final Cache cache = new Cache();
+
+    public enum Version {
+      V_1_1,
+      V_2_0;
+    }
 
     @Getter
     @Setter
-    public static class Http {
+    public static class Cache {
 
-        public Version version = FrameworkDefaults.Http.version;
-
-        private boolean useUndertowUserCipherSuitesOrder = FrameworkDefaults.Http.useUndertowUserCipherSuitesOrder;
-
-        private final Cache cache = new Cache();
-
-        public enum Version {V_1_1, V_2_0;}
-
-        @Getter
-        @Setter
-        public static class Cache {
-
-            private int timeToLiveInDays = FrameworkDefaults.Http.Cache.timeToLiveInDays;
-        }
+      private int timeToLiveInDays = FrameworkDefaults.Http.Cache.timeToLiveInDays;
     }
+  }
 }

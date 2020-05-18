@@ -18,7 +18,8 @@
 package org.ylzl.eden.spring.boot.cloud.profile.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.endpoint.AbstractEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.cloud.configserver.ConfigServerProperties;
 import org.ylzl.eden.spring.boot.cloud.profile.ProfileProperties;
@@ -31,42 +32,53 @@ import java.util.List;
 /**
  * 运行环境信息端点
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
+ * <ul>
+ *   <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 @Slf4j
-public class ProfileEndpoint extends AbstractEndpoint<Profile> {
+@Endpoint(id = ProfileEndpoint.ENDPOINT_ID)
+public class ProfileEndpoint {
 
-    public static final String ENDPOINT_ID = "profiles";
+  public static final String ENDPOINT_ID = "profiles";
 
-    private final Environment env;
+  private final Environment env;
 
-    private final ProfileProperties profileProperties;
+  private final ProfileProperties profileProperties;
 
-    private final ConfigServerProperties configServerProperties;
+  private final ConfigServerProperties configServerProperties;
 
-    public ProfileEndpoint(Environment env, ProfileProperties profileProperties, ConfigServerProperties configServerProperties) {
-        super(ENDPOINT_ID);
-        this.env = env;
-        this.profileProperties = profileProperties;
-        this.configServerProperties = configServerProperties;
+  public ProfileEndpoint(
+      Environment env,
+      ProfileProperties profileProperties,
+      ConfigServerProperties configServerProperties) {
+    this.env = env;
+    this.profileProperties = profileProperties;
+    this.configServerProperties = configServerProperties;
+  }
+
+  @ReadOperation
+  public ProfileDescriptor profiles() {
+    String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
+    return new ProfileDescriptor(
+        activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
+  }
+
+  private String getRibbonEnv(String[] activeProfiles) {
+    if (activeProfiles != null) {
+      List<String> ribbonProfiles =
+          new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
+      List<String> springBootProfiles = Arrays.asList(activeProfiles);
+      ribbonProfiles.retainAll(springBootProfiles);
+      if (!ribbonProfiles.isEmpty()) {
+        return ribbonProfiles.get(0);
+      }
     }
-
-    @Override
-    public Profile invoke() {
-        String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
-        return new Profile(activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
-    }
-
-    private String getRibbonEnv(String[] activeProfiles) {
-        if (activeProfiles != null) {
-            List<String> ribbonProfiles = new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
-            List<String> springBootProfiles = Arrays.asList(activeProfiles);
-            ribbonProfiles.retainAll(springBootProfiles);
-            if (!ribbonProfiles.isEmpty()) {
-                return ribbonProfiles.get(0);
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

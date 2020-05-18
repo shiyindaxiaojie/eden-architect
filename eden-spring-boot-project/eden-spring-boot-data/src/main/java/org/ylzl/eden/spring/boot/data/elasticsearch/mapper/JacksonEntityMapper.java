@@ -19,33 +19,68 @@ package org.ylzl.eden.spring.boot.data.elasticsearch.mapper;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.data.elasticsearch.core.EntityMapper;
+import org.springframework.data.mapping.MappingException;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Jackson 实体映射器
  *
+ * <p>变更日志：Spring Data Elastcisearch 升级到 3.X
+ *
+ * <ul>
+ *   <li>{@link EntityMapper} 新增 {@code mapObject(Object source)}
+ *   <li>{@link EntityMapper} 新增 {@code readObject(Map<String, Object> source, Class<T> targetType)}
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public class JacksonEntityMapper implements EntityMapper {
 
-    private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
-    public JacksonEntityMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-    }
+  public JacksonEntityMapper(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+    objectMapper.configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, true);
+    objectMapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, true);
+    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+  }
 
-    @Override
-    public String mapToString(Object object) throws IOException {
-        return objectMapper.writeValueAsString(object);
-    }
+  @Override
+  public String mapToString(Object object) throws IOException {
+    return objectMapper.writeValueAsString(object);
+  }
 
-    @Override
-    public <T> T mapToObject(String source, Class<T> clazz) throws IOException {
-        return objectMapper.readValue(source, clazz);
+  @Override
+  public <T> T mapToObject(String source, Class<T> clazz) throws IOException {
+    return objectMapper.readValue(source, clazz);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public Map<String, Object> mapObject(Object source) {
+    try {
+      return Collections.unmodifiableMap(
+          objectMapper.readValue(mapToString(source), HashMap.class));
+    } catch (IOException e) {
+      throw new MappingException(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public <T> T readObject(Map<String, Object> source, Class<T> targetType) {
+    try {
+      return mapToObject(mapToString(source), targetType);
+    } catch (IOException e) {
+      throw new MappingException(e.getMessage(), e);
+    }
+  }
 }

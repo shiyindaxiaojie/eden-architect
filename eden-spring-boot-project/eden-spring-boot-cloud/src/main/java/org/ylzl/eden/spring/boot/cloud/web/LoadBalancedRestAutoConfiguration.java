@@ -39,7 +39,7 @@ import java.util.List;
  * 基于负载均衡的 REST 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(RestAutoConfiguration.class)
 @ConditionalOnClass({RestTemplate.class, LoadBalanced.class})
@@ -47,21 +47,23 @@ import java.util.List;
 @Configuration
 public class LoadBalancedRestAutoConfiguration {
 
-	public static final String BEAN_LB_REST_TEMPLATE = "loadBalancedRestTemplate";
+  public static final String BEAN_LB_REST_TEMPLATE = "loadBalancedRestTemplate";
 
-    private static final String MSG_INJECT_REST_TEMPLATE = "Inject loadBalanced RestTemplate";
+  private static final String MSG_INJECT_REST_TEMPLATE = "Inject loadBalanced RestTemplate";
 
-    @ConditionalOnMissingBean(name = BEAN_LB_REST_TEMPLATE)
-    @LoadBalanced
-    @Bean
-    public RestTemplate loadBalancedRestTemplate(ClientHttpRequestFactory clientHttpRequestFactory,
-												 @Autowired(required = false) OAuth2Properties oAuth2Properties,
-												 @Autowired(required = false) JwtProperties jwtProperties) {
-        log.debug(MSG_INJECT_REST_TEMPLATE);
-        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-        ClientHttpRequestInterceptor authorizedInterceptor = new AuthorizedClientHttpRequestInterceptor(oAuth2Properties, jwtProperties);
-        interceptors.add(authorizedInterceptor);
-        return restTemplate;
-    }
+  @ConditionalOnMissingBean(name = BEAN_LB_REST_TEMPLATE)
+  @LoadBalanced
+  @Bean
+  public RestTemplate loadBalancedRestTemplate(
+      ClientHttpRequestFactory clientHttpRequestFactory,
+      @Autowired(required = false) OAuth2Properties oAuth2Properties,
+      @Autowired(required = false) JwtProperties jwtProperties) {
+    log.debug(MSG_INJECT_REST_TEMPLATE);
+    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+    List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+    ClientHttpRequestInterceptor authorizedInterceptor =
+        new AuthorizedClientHttpRequestInterceptor(oAuth2Properties, jwtProperties);
+    interceptors.add(authorizedInterceptor);
+    return restTemplate;
+  }
 }

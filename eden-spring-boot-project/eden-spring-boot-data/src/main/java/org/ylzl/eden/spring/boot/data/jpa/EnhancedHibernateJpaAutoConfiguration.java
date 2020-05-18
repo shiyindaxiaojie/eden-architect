@@ -17,29 +17,17 @@
 
 package org.ylzl.eden.spring.boot.data.jpa;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.jta.JtaTransactionManager;
-
-import javax.sql.DataSource;
 
 /**
  * Hibernate JPA 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
-@AutoConfigureAfter({ DataSourceAutoConfiguration.class })
+@AutoConfigureAfter({DataSourceAutoConfiguration.class})
 @Configuration
-public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {
-
-    public EnhancedHibernateJpaAutoConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
-        super(dataSource, properties, jtaTransactionManagerProvider);
-    }
-
-
-}
+public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {}

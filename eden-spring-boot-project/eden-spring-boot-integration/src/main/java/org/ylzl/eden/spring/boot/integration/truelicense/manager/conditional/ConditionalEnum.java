@@ -22,254 +22,293 @@ import org.ylzl.eden.spring.boot.commons.lang.type.PrimitiveTypeEnum;
  * 动态条件枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum ConditionalEnum {
-
-    EQ(new Comparator() {
-
-        @Override
-        public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                if (primitiveTypeEnum.getHandler().cast(source) == primitiveTypeEnum.getHandler().cast(target)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }),
-    NE(new Comparator() {
+  EQ(
+      new Comparator() {
 
         @Override
         public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                if (primitiveTypeEnum.getHandler().cast(source) != primitiveTypeEnum.getHandler().cast(target)) {
-                    return true;
-                }
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            if (primitiveTypeEnum.getHandler().cast(source)
+                == primitiveTypeEnum.getHandler().cast(target)) {
+              return true;
             }
-            return false;
+          }
+          return false;
         }
-    }),
-    GT(new Comparator() {
+      }),
+  NE(
+      new Comparator() {
 
         @Override
         public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                switch (primitiveTypeEnum) {
-                    case BOOLEAN:
-                        break;
-                    case BYTE:
-                        if ((Byte)primitiveTypeEnum.getHandler().cast(source) > (Byte)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case CHAR:
-                        if (((Character)primitiveTypeEnum.getHandler().cast(source)).compareTo((Character)primitiveTypeEnum.getHandler().cast(target)) > 0) {
-                            return true;
-                        }
-                        break;
-                    case DOUBLE:
-                        if ((Double)primitiveTypeEnum.getHandler().cast(source) > (Double)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case FLOAT:
-                        if ((Float)primitiveTypeEnum.getHandler().cast(source) > (Float)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case INTEGER:
-                        if ((Integer)primitiveTypeEnum.getHandler().cast(source) > (Integer)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case LONG:
-                        if ((Long)primitiveTypeEnum.getHandler().cast(source) > (Long)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case SHORT:
-                        if ((Short)primitiveTypeEnum.getHandler().cast(source) > (Short)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                }
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            if (primitiveTypeEnum.getHandler().cast(source)
+                != primitiveTypeEnum.getHandler().cast(target)) {
+              return true;
             }
-            return false;
+          }
+          return false;
         }
-    }),
-    LT(new Comparator() {
+      }),
+  GT(
+      new Comparator() {
 
         @Override
         public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                switch (primitiveTypeEnum) {
-                    case BOOLEAN:
-                        break;
-                    case BYTE:
-                        if ((Byte)primitiveTypeEnum.getHandler().cast(source) < (Byte)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case CHAR:
-                        if (((Character)primitiveTypeEnum.getHandler().cast(source)).compareTo((Character)primitiveTypeEnum.getHandler().cast(target)) < 0) {
-                            return true;
-                        }
-                        break;
-                    case DOUBLE:
-                        if ((Double)primitiveTypeEnum.getHandler().cast(source) < (Double)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case FLOAT:
-                        if ((Float)primitiveTypeEnum.getHandler().cast(source) < (Float)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case INTEGER:
-                        if ((Integer)primitiveTypeEnum.getHandler().cast(source) < (Integer)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case LONG:
-                        if ((Long)primitiveTypeEnum.getHandler().cast(source) < (Long)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case SHORT:
-                        if ((Short)primitiveTypeEnum.getHandler().cast(source) < (Short)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            switch (primitiveTypeEnum) {
+              case BOOLEAN:
+                break;
+              case BYTE:
+                if ((Byte) primitiveTypeEnum.getHandler().cast(source)
+                    > (Byte) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
                 }
+                break;
+              case CHAR:
+                if (((Character) primitiveTypeEnum.getHandler().cast(source))
+                        .compareTo((Character) primitiveTypeEnum.getHandler().cast(target))
+                    > 0) {
+                  return true;
+                }
+                break;
+              case DOUBLE:
+                if ((Double) primitiveTypeEnum.getHandler().cast(source)
+                    > (Double) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case FLOAT:
+                if ((Float) primitiveTypeEnum.getHandler().cast(source)
+                    > (Float) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case INTEGER:
+                if ((Integer) primitiveTypeEnum.getHandler().cast(source)
+                    > (Integer) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case LONG:
+                if ((Long) primitiveTypeEnum.getHandler().cast(source)
+                    > (Long) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case SHORT:
+                if ((Short) primitiveTypeEnum.getHandler().cast(source)
+                    > (Short) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
             }
-            return false;
+          }
+          return false;
         }
-    }),
-    GE(new Comparator() {
+      }),
+  LT(
+      new Comparator() {
 
         @Override
         public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                switch (primitiveTypeEnum) {
-                    case BOOLEAN:
-                        break;
-                    case BYTE:
-                        if ((Byte)primitiveTypeEnum.getHandler().cast(source) >= (Byte)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case CHAR:
-                        if (((Character)primitiveTypeEnum.getHandler().cast(source)).compareTo((Character)primitiveTypeEnum.getHandler().cast(target)) >= 0) {
-                            return true;
-                        }
-                        break;
-                    case DOUBLE:
-                        if ((Double)primitiveTypeEnum.getHandler().cast(source) >= (Double)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case FLOAT:
-                        if ((Float)primitiveTypeEnum.getHandler().cast(source) >= (Float)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case INTEGER:
-                        if ((Integer)primitiveTypeEnum.getHandler().cast(source) >= (Integer)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case LONG:
-                        if ((Long)primitiveTypeEnum.getHandler().cast(source) >= (Long)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case SHORT:
-                        if ((Short)primitiveTypeEnum.getHandler().cast(source) >= (Short)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            switch (primitiveTypeEnum) {
+              case BOOLEAN:
+                break;
+              case BYTE:
+                if ((Byte) primitiveTypeEnum.getHandler().cast(source)
+                    < (Byte) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
                 }
+                break;
+              case CHAR:
+                if (((Character) primitiveTypeEnum.getHandler().cast(source))
+                        .compareTo((Character) primitiveTypeEnum.getHandler().cast(target))
+                    < 0) {
+                  return true;
+                }
+                break;
+              case DOUBLE:
+                if ((Double) primitiveTypeEnum.getHandler().cast(source)
+                    < (Double) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case FLOAT:
+                if ((Float) primitiveTypeEnum.getHandler().cast(source)
+                    < (Float) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case INTEGER:
+                if ((Integer) primitiveTypeEnum.getHandler().cast(source)
+                    < (Integer) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case LONG:
+                if ((Long) primitiveTypeEnum.getHandler().cast(source)
+                    < (Long) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case SHORT:
+                if ((Short) primitiveTypeEnum.getHandler().cast(source)
+                    < (Short) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
             }
-            return false;
+          }
+          return false;
         }
-    }),
-    LE(new Comparator() {
+      }),
+  GE(
+      new Comparator() {
 
         @Override
         public boolean compare(String source, String target, String type) {
-            PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
-            if (primitiveTypeEnum != null) {
-                switch (primitiveTypeEnum) {
-                    case BOOLEAN:
-                        break;
-                    case BYTE:
-                        if ((Byte)primitiveTypeEnum.getHandler().cast(source) <= (Byte)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case CHAR:
-                        if (((Character)primitiveTypeEnum.getHandler().cast(source)).compareTo((Character)primitiveTypeEnum.getHandler().cast(target)) <= 0) {
-                            return true;
-                        }
-                        break;
-                    case DOUBLE:
-                        if ((Double)primitiveTypeEnum.getHandler().cast(source) <= (Double)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case FLOAT:
-                        if ((Float)primitiveTypeEnum.getHandler().cast(source) <= (Float)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case INTEGER:
-                        if ((Integer)primitiveTypeEnum.getHandler().cast(source) <= (Integer)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case LONG:
-                        if ((Long)primitiveTypeEnum.getHandler().cast(source) <= (Long)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
-                    case SHORT:
-                        if ((Short)primitiveTypeEnum.getHandler().cast(source) <= (Short)primitiveTypeEnum.getHandler().cast(target)) {
-                            return true;
-                        }
-                        break;
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            switch (primitiveTypeEnum) {
+              case BOOLEAN:
+                break;
+              case BYTE:
+                if ((Byte) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Byte) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
                 }
+                break;
+              case CHAR:
+                if (((Character) primitiveTypeEnum.getHandler().cast(source))
+                        .compareTo((Character) primitiveTypeEnum.getHandler().cast(target))
+                    >= 0) {
+                  return true;
+                }
+                break;
+              case DOUBLE:
+                if ((Double) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Double) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case FLOAT:
+                if ((Float) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Float) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case INTEGER:
+                if ((Integer) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Integer) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case LONG:
+                if ((Long) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Long) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case SHORT:
+                if ((Short) primitiveTypeEnum.getHandler().cast(source)
+                    >= (Short) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
             }
-            return false;
+          }
+          return false;
         }
-    });
+      }),
+  LE(
+      new Comparator() {
 
-    private final Comparator comparator;
+        @Override
+        public boolean compare(String source, String target, String type) {
+          PrimitiveTypeEnum primitiveTypeEnum = PrimitiveTypeEnum.toPrimitiveTypeEnum(type);
+          if (primitiveTypeEnum != null) {
+            switch (primitiveTypeEnum) {
+              case BOOLEAN:
+                break;
+              case BYTE:
+                if ((Byte) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Byte) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case CHAR:
+                if (((Character) primitiveTypeEnum.getHandler().cast(source))
+                        .compareTo((Character) primitiveTypeEnum.getHandler().cast(target))
+                    <= 0) {
+                  return true;
+                }
+                break;
+              case DOUBLE:
+                if ((Double) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Double) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case FLOAT:
+                if ((Float) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Float) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case INTEGER:
+                if ((Integer) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Integer) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case LONG:
+                if ((Long) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Long) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+              case SHORT:
+                if ((Short) primitiveTypeEnum.getHandler().cast(source)
+                    <= (Short) primitiveTypeEnum.getHandler().cast(target)) {
+                  return true;
+                }
+                break;
+            }
+          }
+          return false;
+        }
+      });
 
-    ConditionalEnum(Comparator comparator) {
-        this.comparator = comparator;
+  private final Comparator comparator;
+
+  ConditionalEnum(Comparator comparator) {
+    this.comparator = comparator;
+  }
+
+  public static ConditionalEnum toConditionalEnum(String name) {
+    for (ConditionalEnum conditionalEnum : ConditionalEnum.values()) {
+      if (conditionalEnum.name().equalsIgnoreCase(name)) {
+        return conditionalEnum;
+      }
     }
+    return null;
+  }
 
-    public static ConditionalEnum toConditionalEnum(String name) {
-        for (ConditionalEnum conditionalEnum: ConditionalEnum.values()) {
-            if (conditionalEnum.name().equalsIgnoreCase(name)) {
-                return conditionalEnum;
-            }
-        }
-        return null;
-    }
+  public Comparator getComparator() {
+    return comparator;
+  }
 
-    public Comparator getComparator() {
-        return comparator;
-    }
+  public interface Comparator {
 
-    public interface Comparator {
-
-        boolean compare(String source, String target, String type);
-    }
+    boolean compare(String source, String target, String type);
+  }
 }

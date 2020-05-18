@@ -25,13 +25,12 @@ import io.netty.channel.ChannelPipeline;
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class ChannelInitalizerAdapter extends ChannelInitializer<Channel> {
 
-	@Override
-	protected void initChannel(Channel channel) throws Exception {
-		ChannelPipeline pipeline = channel.pipeline();
-
-	}
+  @Override
+  protected void initChannel(Channel channel) throws Exception {
+    ChannelPipeline pipeline = channel.pipeline();
+  }
 }

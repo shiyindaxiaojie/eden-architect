@@ -24,18 +24,14 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Spring Data 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class DataConstants {
 
-	/**
-	 * 当前属性类前缀
-	 */
-	public static final String PROP_PREFIX =  FrameworkConstants.PROP_EDEN_PREFIX + ".data";
+  /** 当前配置属性前缀 */
+  public static final String PROP_PREFIX = FrameworkConstants.PROP_EDEN_PREFIX + ".data";
 
-    /**
-     * Spring 数据源属性类前缀
-     */
-    public static final String PROP_DATASOURCE_PREFIX = "spring.datasource";
+  /** Spring 数据源配置属性前缀 */
+  public static final String PROP_DATASOURCE_PREFIX = "spring.datasource";
 }

@@ -23,16 +23,16 @@ import lombok.experimental.UtilityClass;
  * Zuul 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ZuulConstants {
 
-    public static final String FILTER_TYPE_PRE = "pre";
+  public static final String FILTER_TYPE_PRE = "pre";
 
-    public static final String FILTER_TYPE_ROUTING = "routing";
+  public static final String FILTER_TYPE_ROUTING = "routing";
 
-    public static final String FILTER_TYPE_POST = "post";
+  public static final String FILTER_TYPE_POST = "post";
 
-    public static final String FILTER_TYPE_ERROR = "error";
+  public static final String FILTER_TYPE_ERROR = "error";
 }

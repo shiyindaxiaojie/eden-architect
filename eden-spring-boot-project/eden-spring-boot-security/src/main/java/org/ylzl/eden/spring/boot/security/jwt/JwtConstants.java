@@ -19,32 +19,31 @@ package org.ylzl.eden.spring.boot.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * JWT 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class JwtConstants {
 
-    public static final String AUDIENCE = Claims.AUDIENCE;
+  public static final String AUDIENCE = Claims.AUDIENCE;
 
-    public static final String EXPIRATION = Claims.EXPIRATION;
+  public static final String EXPIRATION = Claims.EXPIRATION;
 
-    public static final String ID = Claims.ID;
+  public static final String ID = Claims.ID;
 
-    public static final String ISSUED_AT = Claims.ISSUED_AT;
+  public static final String ISSUED_AT = Claims.ISSUED_AT;
 
-    public static final String ISSUER = Claims.ISSUER;
+  public static final String ISSUER = Claims.ISSUER;
 
-    public static final String NOT_BEFORE = Claims.NOT_BEFORE;
+  public static final String NOT_BEFORE = Claims.NOT_BEFORE;
 
-    public static final String SUBJECT = Claims.SUBJECT;
+  public static final String SUBJECT = Claims.SUBJECT;
 
-    public static final String CLAIM_KEY = "auth";
+  public static final String CLAIM_KEY = "auth";
 
-    public static final String ENDPOINT_TOKEN = "/jwt/token";
+  public static final String ENDPOINT_TOKEN = "/jwt/token";
 }

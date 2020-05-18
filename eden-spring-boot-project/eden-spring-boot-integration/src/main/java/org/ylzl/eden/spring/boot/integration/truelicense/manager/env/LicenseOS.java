@@ -25,7 +25,7 @@ import java.util.List;
  * 许可证操作系统
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Builder
@@ -35,25 +35,17 @@ import java.util.List;
 @ToString
 public class LicenseOS implements Serializable {
 
-    private static final long serialVersionUID = 666760616367846885L;
+  private static final long serialVersionUID = 666760616367846885L;
 
-    /**
-     * CPU 序列号
-     */
-    private List<String> cpuSerial;
+  /** CPU 序列号 */
+  private List<String> cpuSerial;
 
-    /**
-     * 主板序列号
-     */
-    private List<String> mainBoardSerial;
+  /** 主板序列号 */
+  private List<String> mainBoardSerial;
 
-    /**
-     * IP 地址
-     */
-    private List<String> ipAddress;
+  /** IP 地址 */
+  private List<String> ipAddress;
 
-    /**
-     * MAC 地址
-     */
-    private List<String> macAddress;
+  /** MAC 地址 */
+  private List<String> macAddress;
 }

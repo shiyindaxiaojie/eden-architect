@@ -23,10 +23,10 @@ import lombok.experimental.UtilityClass;
  * Flowable 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class EnhancedFlowableDefaults {
 
-    public static final String fontName = "simsun";
+  public static final String fontName = "simsun";
 }

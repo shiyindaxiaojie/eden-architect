@@ -24,11 +24,8 @@ import org.springframework.context.annotation.Configuration;
  * MongoDB 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration
-public class MongoDBAutoConfiguration {
-
-
-}
+public class MongoDBAutoConfiguration {}

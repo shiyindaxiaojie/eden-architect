@@ -24,46 +24,46 @@ import lombok.experimental.UtilityClass;
  * 排序工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class SortUtils {
 
-	/**
-	 * 交换数据元素
-	 *
-	 * @param array 交换数组
-	 * @param idx   第一个元素的索引
-	 * @param idy   第二个元素的索引
-	 */
-	public static <T> boolean swap(@NonNull T[] array, int idx, int idy) {
-		T swap = array[idx];
-		array[idx] = array[idy];
-		array[idy] = swap;
-		return true;
-	}
+  /**
+   * 交换数据元素
+   *
+   * @param array 交换数组
+   * @param idx 第一个元素的索引
+   * @param idy 第二个元素的索引
+   */
+  public static <T> boolean swap(@NonNull T[] array, int idx, int idy) {
+    T swap = array[idx];
+    array[idx] = array[idy];
+    array[idy] = swap;
+    return true;
+  }
 
-	/**
-	 * 检查第一个元素是否小于另一个元素
-	 *
-	 * @param v 第一个元素
-	 * @param w 第二个元素
-	 * @return 如果第一个元素小于第二个元素，则为 true
-	 */
-	public static <T extends Comparable<T>> boolean less(@NonNull T v, @NonNull T w) {
-		return v.compareTo(w) < 0;
-	}
+  /**
+   * 检查第一个元素是否小于另一个元素
+   *
+   * @param v 第一个元素
+   * @param w 第二个元素
+   * @return 如果第一个元素小于第二个元素，则为 true
+   */
+  public static <T extends Comparable<T>> boolean less(@NonNull T v, @NonNull T w) {
+    return v.compareTo(w) < 0;
+  }
 
-	/**
-	 * 对调数据元素
-	 *
-	 * @param array 对调数组
-	 * @param left  数组左侧索引
-	 * @param right 数组右侧索引
-	 */
-	public static <T extends Comparable<T>> void flip(@NonNull T[] array, int left, int right) {
-		while (left <= right) {
-			swap(array, left++, right--);
-		}
-	}
+  /**
+   * 对调数据元素
+   *
+   * @param array 对调数组
+   * @param left 数组左侧索引
+   * @param right 数组右侧索引
+   */
+  public static <T extends Comparable<T>> void flip(@NonNull T[] array, int left, int right) {
+    while (left <= right) {
+      swap(array, left++, right--);
+    }
+  }
 }

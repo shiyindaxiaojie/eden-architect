@@ -26,9 +26,7 @@ import java.io.Serializable;
  * Mybatis 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @NoRepositoryBean
-public interface MyBatisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
-
-}
+public interface MyBatisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {}

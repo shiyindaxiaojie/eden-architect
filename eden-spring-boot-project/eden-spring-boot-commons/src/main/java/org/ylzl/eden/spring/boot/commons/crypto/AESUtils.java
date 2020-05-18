@@ -16,65 +16,66 @@
  */
 package org.ylzl.eden.spring.boot.commons.crypto;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.ylzl.eden.spring.boot.commons.codec.binary.Base64;
 
 /**
  * AES 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class AESUtils {
 
-    private static final String ALGORITHM = "AES";
+  private static final String ALGORITHM = "AES";
 
-    private static final String CIPHER_RROVIDER = "BC";
+  private static final String CIPHER_RROVIDER = "BC";
 
-    private static final String DEFAULT_TRANSFORMATION = "AES/ECB/PKCS5Padding";
+  private static final String DEFAULT_TRANSFORMATION = "AES/ECB/PKCS5Padding";
 
-    public static byte[] encrypt(@NonNull byte[] data, @NonNull byte[] secretKey) throws Exception {
-        return CryptoUtils.encrypt(data, secretKey, ALGORITHM, DEFAULT_TRANSFORMATION, CIPHER_RROVIDER);
+  public static byte[] encrypt(@NonNull byte[] data, @NonNull byte[] secretKey) throws Exception {
+    return CryptoUtils.encrypt(data, secretKey, ALGORITHM, DEFAULT_TRANSFORMATION, CIPHER_RROVIDER);
+  }
+
+  public static byte[] encrypt(@NonNull String data, @NonNull byte[] secretKey) throws Exception {
+    return encrypt(data.getBytes(), secretKey);
+  }
+
+  public static byte[] encrypt(@NonNull String data, @NonNull String secretKey) throws Exception {
+    return encrypt(data.getBytes(), Base64.decodeBase64(secretKey));
+  }
+
+  public static String encryptToBase64String(@NonNull String data, @NonNull String secretKey)
+      throws Exception {
+    return Base64.encodeBase64String(encrypt(data, secretKey));
+  }
+
+  public static byte[] decrypt(@NonNull byte[] data, @NonNull byte[] secretKey) throws Exception {
+    return CryptoUtils.decrypt(data, secretKey, ALGORITHM, DEFAULT_TRANSFORMATION, CIPHER_RROVIDER);
+  }
+
+  public static byte[] decrypt(@NonNull String data, @NonNull String secretKey) throws Exception {
+    byte[] byteData;
+    if (Base64.isBase64(data)) {
+      byteData = Base64.decodeBase64(data);
+    } else {
+      byteData = data.getBytes();
     }
+    return decrypt(byteData, Base64.decodeBase64(secretKey));
+  }
 
-    public static byte[] encrypt(@NonNull String data, @NonNull byte[] secretKey) throws Exception {
-        return encrypt(data.getBytes(), secretKey);
-    }
+  public static String decryptToString(@NonNull String data, @NonNull String secretKey)
+      throws Exception {
+    return new String(decrypt(data, secretKey));
+  }
 
-    public static byte[] encrypt(@NonNull String data, @NonNull String secretKey) throws Exception {
-        return encrypt(data.getBytes(), Base64.decodeBase64(secretKey));
-    }
+  public static String generatorSecretKey(int length) throws Exception {
+    return Base64.encodeBase64String(CryptoUtils.generatorSecretKey(ALGORITHM, length));
+  }
 
-    public static String encryptToBase64String(@NonNull String data, @NonNull String secretKey) throws Exception {
-        return Base64.encodeBase64String(encrypt(data, secretKey));
-    }
-
-    public static byte[] decrypt(@NonNull byte[] data, @NonNull byte[] secretKey) throws Exception {
-        return CryptoUtils.decrypt(data, secretKey, ALGORITHM, DEFAULT_TRANSFORMATION, CIPHER_RROVIDER);
-    }
-
-    public static byte[] decrypt(@NonNull String data, @NonNull String secretKey) throws Exception {
-        byte[] byteData;
-        if (Base64.isBase64(data)) {
-            byteData = Base64.decodeBase64(data);
-        } else {
-            byteData = data.getBytes();
-        }
-        return decrypt(byteData, Base64.decodeBase64(secretKey));
-    }
-
-    public static String decryptToString(@NonNull String data, @NonNull String secretKey) throws Exception {
-        return new String(decrypt(data, secretKey));
-    }
-
-    public static String generatorSecretKey(int length) throws Exception {
-        return Base64.encodeBase64String(CryptoUtils.generatorSecretKey(ALGORITHM, length));
-    }
-
-    public static String generatorSecretKey() throws Exception {
-        return generatorSecretKey(256);
-    }
+  public static String generatorSecretKey() throws Exception {
+    return generatorSecretKey(256);
+  }
 }

@@ -24,40 +24,48 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * 关系数据库业务接口
+ * JPA 业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
-public interface JpaService<T, ID extends Serializable> extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
+public interface JpaService<T, ID extends Serializable>
+    extends CrudService<T, ID>, PagingAndSortingService<T, ID> {
 
-    long count(Specification<T> spec);
+  long count(Specification<T> spec);
 
-    void deleteAllInBatch();
+  void deleteAllInBatch();
 
-    void deleteInBatch(Iterable<T> entities);
+  void deleteInBatch(Iterable<T> entities);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    List<T> findAll(Iterable<ID> ids);
+  @Deprecated
+  List<T> findAll(Iterable<ID> ids);
 
-    List<T> findAll(Specification<T> spec);
+  List<T> findAll(Specification<T> spec);
 
-    Page<T> findAll(Specification<T> spec, Pageable pageable);
+  Page<T> findAll(Specification<T> spec, Pageable pageable);
 
-    List<T> findAll(Specification<T> spec, Sort sort);
+  List<T> findAll(Specification<T> spec, Sort sort);
 
-    List<T> findAll(Sort sort);
+  List<T> findAll(Sort sort);
 
-    T findOne(Specification<T> spec);
+  List<T> findAllById(Iterable<ID> ids);
 
-    void flush();
+  Optional<T> findOne(Specification<T> spec);
 
-    T getOne(ID id);
+  void flush();
 
-    <S extends T> List<S> save(Iterable<S> entities);
+  T getOne(ID id);
 
-    <S extends T> S saveAndFlush(S entity);
+  @Deprecated
+  <S extends T> List<S> save(Iterable<S> entities);
+
+  <S extends T> List<S> saveAll(Iterable<S> entities);
+
+  <S extends T> S saveAndFlush(S entity);
 }

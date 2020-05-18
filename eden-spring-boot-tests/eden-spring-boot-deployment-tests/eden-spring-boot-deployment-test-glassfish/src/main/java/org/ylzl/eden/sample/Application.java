@@ -29,35 +29,35 @@ import org.ylzl.eden.spring.boot.support.SpringBootApplicationAdapter;
  * Spring Boot 引导类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @RestController
 @Slf4j
 @SpringBootApplication
 public class Application extends SpringBootApplicationAdapter {
 
-	public Application(Environment env) {
-		super(env);
-	}
+  public Application(Environment env) {
+    super(env);
+  }
 
-	/**
-	 * 测试入口
-	 *
-	 * @return 测试信息
-	 */
-	@GetMapping("/")
-	public String hello() {
-		return "Hello World";
-	}
+  /**
+   * 测试入口
+   *
+   * @return 测试信息
+   */
+  @GetMapping("/")
+  public String hello() {
+    return "Hello World";
+  }
 
-	/**
-	 * 启动入口
-	 *
-	 * @param args 命令行参数
-	 */
-	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(Application.class);
-		Environment env = run(app, args);
-		logApplicationServerAfterRunning(env);
-	}
+  /**
+   * 启动入口
+   *
+   * @param args 命令行参数
+   */
+  public static void main(String[] args) {
+    SpringApplication app = new SpringApplication(Application.class);
+    Environment env = run(app, args);
+    logApplicationServerAfterRunning(env);
+  }
 }

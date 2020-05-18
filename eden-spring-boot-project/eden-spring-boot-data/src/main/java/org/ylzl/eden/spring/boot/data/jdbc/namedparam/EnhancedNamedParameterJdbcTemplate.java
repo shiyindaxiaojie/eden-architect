@@ -44,180 +44,201 @@ import java.util.List;
  * 增强式命名参数 Jdbc 模板
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EnhancedNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
 
-    private static final int[] EMPTY_EFFECTIVE_ROWS = {};
+  private static final int[] EMPTY_EFFECTIVE_ROWS = {};
 
-	private static final String BPS_INSERT_PATTERN = "INSERT INTO {0} ({1}) VALUES ({2})";
+  private static final String BPS_INSERT_PATTERN = "INSERT INTO {0} ({1}) VALUES ({2})";
 
-	private static final String BPS_UPDATE_PATTERN = "UPDATE {0} SET {1} WHERE {2} = {3}";
+  private static final String BPS_UPDATE_PATTERN = "UPDATE {0} SET {1} WHERE {2} = {3}";
 
-	private static final String BPS_DELETE_PATTERN = "DELETE FROM {0} WHERE {1} = {2}";
+  private static final String BPS_DELETE_PATTERN = "DELETE FROM {0} WHERE {1} = {2}";
 
-    public EnhancedNamedParameterJdbcTemplate(DataSource dataSource) {
-        super(dataSource);
+  public EnhancedNamedParameterJdbcTemplate(DataSource dataSource) {
+    super(dataSource);
+  }
+
+  public <T> int[] batchInsert(@NonNull final Collection<T> datas, final int executeBatchSize) {
+    if (datas.isEmpty()) {
+      return EMPTY_EFFECTIVE_ROWS;
     }
 
-	public <T> int[] batchInsert(@NonNull final Collection<T> datas, final int executeBatchSize) {
-		if (datas.isEmpty()) {
-			return EMPTY_EFFECTIVE_ROWS;
-		}
+    T data = getClass(datas);
+    String tableName = this.getTableName(data.getClass());
 
-		T data = getClass(datas);
-		String tableName = this.getTableName(data.getClass());
+    final List<String> columns = new ArrayList<>();
+    final List<String> namedColumns = new ArrayList<>();
 
-		final List<String> columns = new ArrayList<>();
-		final List<String> namedColumns = new ArrayList<>();
+    List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
+    for (Field field : fields) {
+      if (field.isAnnotationPresent(Column.class)) {
+        Column column = field.getAnnotation(Column.class);
+        if (ObjectUtils.isNull(column) || !column.insertable()) {
+          continue;
+        }
 
-		List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
-		for (Field field : fields) {
-			if (field.isAnnotationPresent(Column.class)) {
-				Column column = field.getAnnotation(Column.class);
-				if (ObjectUtils.isNull(column) || !column.insertable()) {
-					continue;
-				}
+        columns.add(column.name());
+        namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
+      }
+    }
 
-				columns.add(column.name());
-				namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
-			}
-		}
+    String sql =
+        MessageFormat.format(
+            BPS_INSERT_PATTERN,
+            tableName,
+            StringUtils.join(columns, StringConstants.COMMA),
+            StringUtils.join(namedColumns, StringConstants.COMMA));
+    return this.batchUpdate(sql, datas, executeBatchSize);
+  }
 
-		String sql = MessageFormat.format(BPS_INSERT_PATTERN, tableName, StringUtils.join(columns, StringConstants.COMMA),
-			StringUtils.join(namedColumns, StringConstants.COMMA));
-		return this.batchUpdate(sql, datas, executeBatchSize);
-	}
+  public <T> int[] batchUpdate(@NonNull final Collection<T> datas, final int executeBatchSize) {
+    if (datas.isEmpty()) {
+      return EMPTY_EFFECTIVE_ROWS;
+    }
 
+    T data = getClass(datas);
+    String tableName = this.getTableName(data.getClass());
 
-	public <T> int[] batchUpdate(@NonNull final Collection<T> datas, final int executeBatchSize) {
-		if (datas.isEmpty()) {
-			return EMPTY_EFFECTIVE_ROWS;
-		}
+    final List<String> columnAndNamedColumns = new ArrayList<>();
+    String pkColumnName = null;
+    String pkNamedColumn = null;
 
-		T data = getClass(datas);
-        String tableName = this.getTableName(data.getClass());
+    List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
+    for (Field field : fields) {
+      if (field.isAnnotationPresent(Column.class)) {
+        Column column = field.getAnnotation(Column.class);
+        if (ObjectUtils.isNull(column)) {
+          continue;
+        }
 
-        final List<String> columnAndNamedColumns = new ArrayList<>();
-        String pkColumnName = null;
-        String pkNamedColumn = null;
+        if (field.isAnnotationPresent(Id.class)) {
+          pkColumnName = column.name();
+          pkNamedColumn = field.getName();
+          continue;
+        }
 
-        List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(Column.class)) {
-                Column column = field.getAnnotation(Column.class);
-                if (ObjectUtils.isNull(column)) {
-                    continue;
+        if (!column.updatable()) {
+          continue;
+        }
+        columnAndNamedColumns.add(
+            StringUtils.join(
+                column.name(), StringConstants.EQ, StringConstants.COLON, field.getName()));
+      }
+    }
+
+    String sql =
+        MessageFormat.format(
+            BPS_UPDATE_PATTERN,
+            tableName,
+            StringUtils.join(columnAndNamedColumns, StringConstants.COMMA),
+            pkColumnName,
+            StringUtils.join(StringConstants.COLON, pkNamedColumn));
+    return this.batchUpdate(sql, datas, executeBatchSize);
+  }
+
+  public <T> int[] batchDelete(@NonNull final Collection<T> datas, final int executeBatchSize) {
+    if (datas.isEmpty()) {
+      return EMPTY_EFFECTIVE_ROWS;
+    }
+
+    T data = getClass(datas);
+    String tableName = this.getTableName(data.getClass());
+
+    String pkColumnName = null;
+    String pkNamedColumn = null;
+
+    List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
+    for (Field field : fields) {
+      if (field.isAnnotationPresent(Column.class)) {
+        Column column = field.getAnnotation(Column.class);
+        if (ObjectUtils.isNull(column)) {
+          continue;
+        }
+
+        if (field.isAnnotationPresent(Id.class)) {
+          pkColumnName = column.name();
+          pkNamedColumn = field.getName();
+          break;
+        }
+      }
+    }
+
+    String sql =
+        MessageFormat.format(
+            BPS_DELETE_PATTERN,
+            tableName,
+            pkColumnName,
+            StringUtils.join(StringConstants.COLON, pkNamedColumn));
+    return this.batchUpdate(sql, datas, executeBatchSize);
+  }
+
+  public <T> int[] batchUpdate(
+      @NonNull final String sql, @NonNull final Collection<T> datas, final int executeBatchSize) {
+    if (datas.isEmpty()) {
+      return EMPTY_EFFECTIVE_ROWS;
+    }
+
+    final ParsedSql parsedSql = getParsedSql(sql);
+    final SqlParameterSource[] batchArgs = SqlParameterSourceUtils.createBatch(datas.toArray());
+    final String sqlToUse = NamedParameterUtils.substituteNamedParameters(parsedSql, batchArgs[0]);
+    return getJdbcOperations()
+        .batchUpdate(
+            sqlToUse,
+            new BatchPreparedStatementSetter() {
+
+              @Override
+              public void setValues(PreparedStatement ps, int i) throws SQLException {
+                Object[] values =
+                    NamedParameterUtils.buildValueArray(parsedSql, batchArgs[i], null);
+                int[] columnTypes = NamedParameterUtils.buildSqlTypeArray(parsedSql, batchArgs[i]);
+                setStatementParameters(values, ps, columnTypes);
+                if (executeBatchSize != 0 && i % executeBatchSize == 0) {
+                  ps.executeBatch();
                 }
+              }
 
-				if (field.isAnnotationPresent(Id.class)) {
-					pkColumnName = column.name();
-					pkNamedColumn = field.getName();
-					continue;
-				}
+              @Override
+              public int getBatchSize() {
+                return batchArgs.length;
+              }
+            });
+  }
 
-				if (!column.updatable()) {
-					continue;
-				}
-				columnAndNamedColumns.add(StringUtils.join(column.name(), StringConstants.EQ, StringConstants.COLON, field.getName()));
-            }
-        }
+  private <T> T getClass(@NonNull Collection<T> datas) {
+    return datas.iterator().next();
+  }
 
-        String sql = MessageFormat.format(BPS_UPDATE_PATTERN, tableName, StringUtils.join(columnAndNamedColumns, StringConstants.COMMA),
-			pkColumnName, StringUtils.join(StringConstants.COLON, pkNamedColumn));
-        return this.batchUpdate(sql, datas, executeBatchSize);
+  private <T> String getTableName(Class<T> clazz) {
+    if (!clazz.isAnnotationPresent(Table.class)) {
+      throw new RuntimeException("java.persistence.Table 注解未找到");
     }
 
-	public <T> int[] batchDelete(@NonNull final Collection<T> datas, final int executeBatchSize) {
-		if (datas.isEmpty()) {
-			return EMPTY_EFFECTIVE_ROWS;
-		}
-
-		T data = getClass(datas);
-		String tableName = this.getTableName(data.getClass());
-
-		String pkColumnName = null;
-		String pkNamedColumn = null;
-
-		List<Field> fields = ReflectionUtils.getDeclaredFields(data.getClass());
-		for (Field field : fields) {
-			if (field.isAnnotationPresent(Column.class)) {
-				Column column = field.getAnnotation(Column.class);
-				if (ObjectUtils.isNull(column)) {
-					continue;
-				}
-
-				if (field.isAnnotationPresent(Id.class)) {
-					pkColumnName = column.name();
-					pkNamedColumn = field.getName();
-					break;
-				}
-			}
-		}
-
-		String sql = MessageFormat.format(BPS_DELETE_PATTERN, tableName, pkColumnName, StringUtils.join(StringConstants.COLON, pkNamedColumn));
-		return this.batchUpdate(sql, datas, executeBatchSize);
-	}
-
-	public <T> int[] batchUpdate(@NonNull final String sql, @NonNull final Collection<T> datas, final int executeBatchSize) {
-		if (datas.isEmpty()) {
-			return EMPTY_EFFECTIVE_ROWS;
-		}
-
-		final ParsedSql parsedSql = getParsedSql(sql);
-		final SqlParameterSource[] batchArgs = SqlParameterSourceUtils.createBatch(datas.toArray());
-		final String sqlToUse = NamedParameterUtils.substituteNamedParameters(parsedSql, batchArgs[0]);
-		return getJdbcOperations().batchUpdate(sqlToUse, new BatchPreparedStatementSetter() {
-
-			@Override
-			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				Object[] values = NamedParameterUtils.buildValueArray(parsedSql, batchArgs[i], null);
-				int[] columnTypes = NamedParameterUtils.buildSqlTypeArray(parsedSql, batchArgs[i]);
-				setStatementParameters(values, ps, columnTypes);
-				if (executeBatchSize != 0 && i % executeBatchSize == 0) {
-					ps.executeBatch();
-				}
-			}
-
-			@Override
-			public int getBatchSize() {
-				return batchArgs.length;
-			}
-		});
-	}
-
-	private <T> T getClass(@NonNull Collection<T> datas) {
-		return datas.iterator().next();
-	}
-
-    private <T> String getTableName(Class<T> clazz) {
-        if (!clazz.isAnnotationPresent(Table.class)) {
-            throw new RuntimeException("java.persistence.Table 注解未找到");
-        }
-
-        Table table = clazz.getAnnotation(Table.class);
-        if (ObjectUtils.isNull(table)) {
-            throw new RuntimeException("java.persistence.Table 注解为空");
-        }
-        return table.name();
+    Table table = clazz.getAnnotation(Table.class);
+    if (ObjectUtils.isNull(table)) {
+      throw new RuntimeException("java.persistence.Table 注解为空");
     }
+    return table.name();
+  }
 
-    private void setStatementParameters(Object[] values, PreparedStatement ps, int[] columnTypes) throws SQLException {
-        int paramIndex = 0;
-        for (Object value : values) {
-            paramIndex++;
-            if (value instanceof SqlParameterValue) {
-                SqlParameterValue paramValue = (SqlParameterValue) value;
-                StatementCreatorUtils.setParameterValue(ps, paramIndex, paramValue, paramValue.getValue());
-            } else {
-                int colType;
-                if (columnTypes == null || columnTypes.length < paramIndex) {
-                    colType = SqlTypeValue.TYPE_UNKNOWN;
-                } else {
-                    colType = columnTypes[paramIndex - 1];
-                }
-                StatementCreatorUtils.setParameterValue(ps, paramIndex, colType, value);
-            }
+  private void setStatementParameters(Object[] values, PreparedStatement ps, int[] columnTypes)
+      throws SQLException {
+    int paramIndex = 0;
+    for (Object value : values) {
+      paramIndex++;
+      if (value instanceof SqlParameterValue) {
+        SqlParameterValue paramValue = (SqlParameterValue) value;
+        StatementCreatorUtils.setParameterValue(ps, paramIndex, paramValue, paramValue.getValue());
+      } else {
+        int colType;
+        if (columnTypes == null || columnTypes.length < paramIndex) {
+          colType = SqlTypeValue.TYPE_UNKNOWN;
+        } else {
+          colType = columnTypes[paramIndex - 1];
         }
+        StatementCreatorUtils.setParameterValue(ps, paramIndex, colType, value);
+      }
     }
+  }
 }

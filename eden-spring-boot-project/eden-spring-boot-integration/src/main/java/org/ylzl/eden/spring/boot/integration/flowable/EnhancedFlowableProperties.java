@@ -26,12 +26,12 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  * Flowable 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".flowable")
 public class EnhancedFlowableProperties {
 
-	private String fontName = EnhancedFlowableDefaults.fontName;
+  private String fontName = EnhancedFlowableDefaults.fontName;
 }

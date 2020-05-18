@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.cloud.swagger.filter.SwaggerBasePathRewritingFi
  * 基于 Zuul 的 Swagger 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({ZuulFilter.class, Swagger.class})
 @ConditionalOnWebApplication
@@ -39,12 +39,12 @@ import org.ylzl.eden.spring.boot.cloud.swagger.filter.SwaggerBasePathRewritingFi
 @Configuration
 public class DiscoverySwaggerAutoConfiguration {
 
-    private static final String MSG_INJECT_BASE_PATH_FILTER = "Inject Zuul Swagger filter";
+  private static final String MSG_INJECT_BASE_PATH_FILTER = "Inject Zuul Swagger filter";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter() {
-        log.debug(MSG_INJECT_BASE_PATH_FILTER);
-        return new SwaggerBasePathRewritingFilter();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter() {
+    log.debug(MSG_INJECT_BASE_PATH_FILTER);
+    return new SwaggerBasePathRewritingFilter();
+  }
 }

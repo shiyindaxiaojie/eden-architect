@@ -29,48 +29,50 @@ import org.ylzl.eden.spring.boot.cloud.zuul.ZuulConstants;
  * Zuul 故障过滤器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Component
 public class ZuulFaultFilter extends ZuulFilter {
 
-    private static final String MSG_ZUUL_FAULT = "Zuul doFilter caught exception: {}";
+  private static final String MSG_ZUUL_FAULT = "Zuul doFilter caught exception: {}";
 
-    private static final String RESP_ERROR_BODY = "Zuul doFilter: %s, cause: %s";
+  private static final String RESP_ERROR_BODY = "Zuul doFilter: %s, cause: %s";
 
-    private static final String MSG_ZUUL_FILTER_EXCEPTION = "Zuul filter response failed, caught exception: {}";
+  private static final String MSG_ZUUL_FILTER_EXCEPTION =
+      "Zuul filter response failed, caught exception: {}";
 
-    @Override
-    public String filterType() {
-        return ZuulConstants.FILTER_TYPE_ERROR;
+  @Override
+  public String filterType() {
+    return ZuulConstants.FILTER_TYPE_ERROR;
+  }
+
+  @Override
+  public int filterOrder() {
+    return -1;
+  }
+
+  @Override
+  public boolean shouldFilter() {
+    return RequestContext.getCurrentContext().getThrowable() != null;
+  }
+
+  @Override
+  public Object run() {
+    RequestContext ctx = RequestContext.getCurrentContext();
+    try {
+      Throwable throwable = ctx.getThrowable();
+      if (throwable != null) {
+        log.error(MSG_ZUUL_FAULT, throwable.getMessage(), throwable);
+        ctx.setResponseBody(
+            String.format(RESP_ERROR_BODY, throwable.getMessage(), throwable.getCause()));
+        ctx.getResponse().setContentType(MediaType.APPLICATION_JSON_VALUE);
+        ctx.setResponseStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      }
+    } catch (Exception ex) {
+      log.error(MSG_ZUUL_FILTER_EXCEPTION, ex.getMessage(), ex);
+      ReflectionUtils.rethrowRuntimeException(ex);
     }
-
-    @Override
-    public int filterOrder() {
-        return -1;
-    }
-
-    @Override
-    public boolean shouldFilter() {
-        return RequestContext.getCurrentContext().getThrowable() != null;
-    }
-
-    @Override
-    public Object run() {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        try {
-            Throwable throwable = ctx.getThrowable();
-            if (throwable != null) {
-                log.error(MSG_ZUUL_FAULT, throwable.getMessage(), throwable);
-                ctx.setResponseBody(String.format(RESP_ERROR_BODY, throwable.getMessage(), throwable.getCause()));
-                ctx.getResponse().setContentType(MediaType.APPLICATION_JSON_VALUE);
-                ctx.setResponseStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            }
-        } catch (Exception ex) {
-            log.error(MSG_ZUUL_FILTER_EXCEPTION, ex.getMessage(), ex);
-            ReflectionUtils.rethrowRuntimeException(ex);
-        }
-        return null;
-    }
+    return null;
+  }
 }

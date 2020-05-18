@@ -17,24 +17,16 @@
 
 package org.ylzl.eden.spring.boot.framework.mail;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import javax.mail.Session;
 
 /**
  * 邮件发送自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)
 @Configuration
-public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {
-
-	public EnhancedMailSenderAutoConfiguration(EnhancedMailProperties properties, ObjectProvider<Session> sessionProvider) {
-		super(properties, sessionProvider);
-	}
-}
+public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {}

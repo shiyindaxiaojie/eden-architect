@@ -18,30 +18,30 @@
 package org.ylzl.eden.spring.boot.data.audit.event;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Map;
 
 /**
  * 持久化审计事件接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
 public interface PersistentAuditEvent extends Serializable {
 
-    String getPrincipal();
+  String getPrincipal();
 
-    void setPrincipal(String principal);
+  void setPrincipal(String principal);
 
-    Date getEventDate();
+  Instant getEventDate();
 
-    void setEventDate(Date eventDate);
+  void setEventDate(Instant eventDate);
 
-    String getEventType();
+  String getEventType();
 
-    void setEventType(String eventType);
+  void setEventType(String eventType);
 
-    Map<String, String> getData();
+  Map<String, String> getData();
 
-    void setData(Map<String, String> data);
+  void setData(Map<String, String> data);
 }

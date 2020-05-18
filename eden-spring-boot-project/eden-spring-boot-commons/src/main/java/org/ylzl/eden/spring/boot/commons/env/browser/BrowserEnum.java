@@ -28,42 +28,39 @@ import javax.servlet.http.HttpServletRequest;
  * 浏览器枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum BrowserEnum {
+  CHROME("Chrome"),
+  FIREFOX("Firefox"),
+  OPERA("Opera"),
+  SAFARI("Safari"),
+  IE6("MSIE 6.0"),
+  IE7("MSIE 7.0"),
+  IE8("MSIE 8.0"),
+  IE9("MSIE 9.0"),
+  IE10("MSIE 10.0"),
+  IE11("rv:11.0"),
 
-    CHROME("Chrome"),
-    FIREFOX("Firefox"),
-    OPERA("Opera"),
-    SAFARI("Safari"),
-    IE6("MSIE 6.0"),
-    IE7("MSIE 7.0"),
-    IE8("MSIE 8.0"),
-    IE9("MSIE 9.0"),
-    IE10("MSIE 10.0"),
-    IE11("rv:11.0"),
+  GREEN("GreenBrowser"),
+  MAXTHON("Maxthon"),
+  QQ("QQBrowser"),
+  SE360("360SE"),
+  OTHER("其它");
 
-    GREEN("GreenBrowser"),
-    MAXTHON("Maxthon"),
-    QQ("QQBrowser"),
-    SE360("360SE"),
-    OTHER("其它");
+  @Getter @Setter private String userAgent;
 
-    @Getter
-    @Setter
-    private String userAgent;
+  BrowserEnum(String userAgent) {
+    this.userAgent = userAgent;
+  }
 
-    BrowserEnum(String userAgent) {
-        this.userAgent = userAgent;
+  public static BrowserEnum toBrowserEnum(@NonNull HttpServletRequest request) {
+    final String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+    for (BrowserEnum browserEnum : BrowserEnum.values()) {
+      if (RegexUtils.find(browserEnum.getUserAgent(), userAgent)) {
+        return browserEnum;
+      }
     }
-
-    public static BrowserEnum toBrowserEnum(@NonNull HttpServletRequest request) {
-        final String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
-        for (BrowserEnum browserEnum : BrowserEnum.values()) {
-            if (RegexUtils.find(browserEnum.getUserAgent(), userAgent)) {
-                return browserEnum;
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

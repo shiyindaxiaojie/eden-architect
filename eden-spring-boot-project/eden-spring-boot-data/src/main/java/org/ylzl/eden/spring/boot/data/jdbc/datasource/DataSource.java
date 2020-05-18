@@ -22,9 +22,9 @@ import javax.naming.NamingException;
  * 自定义数据源接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface DataSource extends javax.sql.DataSource {
 
-    javax.sql.DataSource getDataSource(String datasourceName) throws NamingException;
+  javax.sql.DataSource getDataSource(String datasourceName) throws NamingException;
 }

@@ -37,57 +37,66 @@ import java.util.List;
  * 修复 SqlSessionFactoryBean
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class FixedSqlSessionFactoryBean extends SqlSessionFactoryBean {
 
-    private static final String TYPE_ALIASES_PKG_SUFFIX = "/**/*.class";
+  private static final String TYPE_ALIASES_PKG_SUFFIX = "/**/*.class";
 
-    private static final String MSG_IO_EXCEPTION = "setTypeAliasesPackage caught IO exception: {}";
+  private static final String MSG_IO_EXCEPTION = "setTypeAliasesPackage caught IO exception: {}";
 
-    private static final String MSG_CLASS_NOT_FOUND_EXCEPTION = "class not found, caught exception: {}";
+  private static final String MSG_CLASS_NOT_FOUND_EXCEPTION =
+      "class not found, caught exception: {}";
 
-    @Override
-    protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
-        try {
-            return super.buildSqlSessionFactory();
-        } catch (Exception e) {
-            // 解决 Mybatis 找不到 Mapper 时不打印错误信息的问题
-            log.error(e.getMessage(), e);
-        } finally {
-            ErrorContext.instance().reset();
-        }
-        return null;
+  @Override
+  protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
+    try {
+      return super.buildSqlSessionFactory();
+    } catch (Exception e) {
+      // 解决 Mybatis 找不到 Mapper 时不打印错误信息的问题
+      log.error(e.getMessage(), e);
+    } finally {
+      ErrorContext.instance().reset();
     }
+    return null;
+  }
 
-    @Override
-    public void setTypeAliasesPackage(String typeAliasesPackage) {
-        ResourcePatternResolver resolver = (ResourcePatternResolver) new PathMatchingResourcePatternResolver();
-        MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
-        String resourcePath = ClassUtils.convertClassNameToResourcePath(typeAliasesPackage);
+  @Override
+  public void setTypeAliasesPackage(String typeAliasesPackage) {
+    ResourcePatternResolver resolver =
+        (ResourcePatternResolver) new PathMatchingResourcePatternResolver();
+    MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
+    String resourcePath = ClassUtils.convertClassNameToResourcePath(typeAliasesPackage);
 
-        // 低版本不支持多个包路径扫描
-        typeAliasesPackage = StringUtils.join(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX, resourcePath, TYPE_ALIASES_PKG_SUFFIX);
-        List<String> result = new ArrayList<String>();
-        try {
-            Resource[] resources = resolver.getResources(typeAliasesPackage);
-            if (resources != null && resources.length > 0) {
-                MetadataReader metadataReader = null;
-                for (Resource resource : resources) {
-                    if (resource.isReadable()) {
-                        metadataReader = metadataReaderFactory.getMetadataReader(resource);
-                        result.add(Class.forName(metadataReader.getClassMetadata().getClassName()).getPackage().getName());
-                    }
-                }
-            }
-        } catch (IOException e) {
-            log.error(MSG_IO_EXCEPTION, e.getMessage(), e);
-        } catch (ClassNotFoundException e) {
-            log.error(MSG_CLASS_NOT_FOUND_EXCEPTION, e.getMessage(), e);
+    // 低版本不支持多个包路径扫描
+    typeAliasesPackage =
+        StringUtils.join(
+            ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX,
+            resourcePath,
+            TYPE_ALIASES_PKG_SUFFIX);
+    List<String> result = new ArrayList<String>();
+    try {
+      Resource[] resources = resolver.getResources(typeAliasesPackage);
+      if (resources != null && resources.length > 0) {
+        MetadataReader metadataReader = null;
+        for (Resource resource : resources) {
+          if (resource.isReadable()) {
+            metadataReader = metadataReaderFactory.getMetadataReader(resource);
+            result.add(
+                Class.forName(metadataReader.getClassMetadata().getClassName())
+                    .getPackage()
+                    .getName());
+          }
         }
-        if (result.size() > 0) {
-            super.setTypeAliasesPackage(StringUtils.join(result.toArray(), ","));
-        }
+      }
+    } catch (IOException e) {
+      log.error(MSG_IO_EXCEPTION, e.getMessage(), e);
+    } catch (ClassNotFoundException e) {
+      log.error(MSG_CLASS_NOT_FOUND_EXCEPTION, e.getMessage(), e);
     }
+    if (result.size() > 0) {
+      super.setTypeAliasesPackage(StringUtils.join(result.toArray(), ","));
+    }
+  }
 }

@@ -22,18 +22,17 @@ import lombok.Getter;
  * 数据源上下文容器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DataSourceContextHolder {
 
-    @Getter
-    private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
+  @Getter private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
 
-    public static void set(DataSourceEnum dataSourceEnum) {
-        threadLocal.set(dataSourceEnum);
-    }
+  public static void set(DataSourceEnum dataSourceEnum) {
+    threadLocal.set(dataSourceEnum);
+  }
 
-    public static DataSourceEnum get() {
-       return threadLocal.get();
-    }
+  public static DataSourceEnum get() {
+    return threadLocal.get();
+  }
 }

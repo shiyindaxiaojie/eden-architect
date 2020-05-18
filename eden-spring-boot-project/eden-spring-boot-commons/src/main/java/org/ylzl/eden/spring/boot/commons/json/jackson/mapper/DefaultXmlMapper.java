@@ -26,21 +26,20 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  * Jackson 默认 XML 映射器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DefaultXmlMapper extends XmlMapper {
 
-    private static final long serialVersionUID = 7153509205837786001L;
+  private static final long serialVersionUID = 7153509205837786001L;
 
-    public DefaultXmlMapper() {
-        super();
+  public DefaultXmlMapper() {
+    super();
 
-        // 设置null值不参与序列化
-        this.setSerializationInclusion(Include.NON_NULL);
+    // 设置null值不参与序列化
+    this.setSerializationInclusion(Include.NON_NULL);
 
-        // 禁用空对象转换json校验
-        this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
+    // 禁用空对象转换json校验
+    this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
 }

@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.commons.crypto;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -29,33 +28,41 @@ import java.security.Key;
  * 加密解密工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class CryptoUtils {
 
-    public static byte[] cipher(byte[] data, byte[] secretKey, String algorithm, String transformation,
-                                String provider, int decryptMode) throws Exception {
-        Cipher cipher = Cipher.getInstance(transformation, provider);
-        Key key = new SecretKeySpec(secretKey, algorithm);
-        cipher.init(decryptMode, key);
-        return cipher.doFinal(data);
-    }
+  public static byte[] cipher(
+      byte[] data,
+      byte[] secretKey,
+      String algorithm,
+      String transformation,
+      String provider,
+      int decryptMode)
+      throws Exception {
+    Cipher cipher = Cipher.getInstance(transformation, provider);
+    Key key = new SecretKeySpec(secretKey, algorithm);
+    cipher.init(decryptMode, key);
+    return cipher.doFinal(data);
+  }
 
-    public static byte[] encrypt(byte[] data, byte[] secretKey, String algorithm, String transformation,
-                                 String provider) throws Exception {
-        return cipher(data, secretKey, algorithm, transformation, provider, Cipher.ENCRYPT_MODE);
-    }
+  public static byte[] encrypt(
+      byte[] data, byte[] secretKey, String algorithm, String transformation, String provider)
+      throws Exception {
+    return cipher(data, secretKey, algorithm, transformation, provider, Cipher.ENCRYPT_MODE);
+  }
 
-    public static byte[] decrypt(byte[] data, byte[] secretKey, String algorithm, String transformation,
-                                 String provider) throws Exception {
-        return cipher(data, secretKey, algorithm, transformation, provider, Cipher.DECRYPT_MODE);
-    }
+  public static byte[] decrypt(
+      byte[] data, byte[] secretKey, String algorithm, String transformation, String provider)
+      throws Exception {
+    return cipher(data, secretKey, algorithm, transformation, provider, Cipher.DECRYPT_MODE);
+  }
 
-    public static byte[] generatorSecretKey(String algorithm, int length) throws Exception {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
-        keyGenerator.init(length);
-        SecretKey secretKey = keyGenerator.generateKey();
-        return secretKey.getEncoded();
-    }
+  public static byte[] generatorSecretKey(String algorithm, int length) throws Exception {
+    KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+    keyGenerator.init(length);
+    SecretKey secretKey = keyGenerator.generateKey();
+    return secretKey.getEncoded();
+  }
 }

@@ -23,29 +23,29 @@ import lombok.experimental.UtilityClass;
  * JWT 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class JwtDefaults {
 
-    public static class Authentication {
+  public static class Authentication {
 
-        public static final String base64Secret = null;
+    public static final String base64Secret = null;
 
-        public static final String secret = null;
+    public static final String secret = null;
 
-        public static final long tokenValidityInSeconds = 1800;
+    public static final long tokenValidityInSeconds = 1800;
 
-        public static final long tokenValidityInSecondsForRememberMe = 2592000;
+    public static final long tokenValidityInSecondsForRememberMe = 2592000;
+  }
+
+  public static class Authorization {
+
+    public static final String header = "Authorization";
+
+    public static class Server {
+
+      public static final Boolean enabled = false;
     }
-
-    public static class Authorization {
-
-        public static final String header = "Authorization";
-
-		public static class Server {
-
-			public static final Boolean enabled = false;
-		}
-    }
+  }
 }

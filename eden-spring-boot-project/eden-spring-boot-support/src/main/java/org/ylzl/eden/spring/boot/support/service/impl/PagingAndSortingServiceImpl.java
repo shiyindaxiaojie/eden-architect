@@ -29,25 +29,25 @@ import java.io.Serializable;
  * 查询分页排序业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class PagingAndSortingServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
     implements PagingAndSortingService<T, ID> {
 
-    private final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
+  private final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
 
-    public PagingAndSortingServiceImpl(PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
-        super(pagingAndSortingRepository);
-        this.pagingAndSortingRepository = pagingAndSortingRepository;
-    }
+  public PagingAndSortingServiceImpl(PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
+    super(pagingAndSortingRepository);
+    this.pagingAndSortingRepository = pagingAndSortingRepository;
+  }
 
-    @Override
-    public Iterable<T> findAll(Sort sort) {
-        return pagingAndSortingRepository.findAll(sort);
-    }
+  @Override
+  public Iterable<T> findAll(Sort sort) {
+    return pagingAndSortingRepository.findAll(sort);
+  }
 
-    @Override
-    public Page<T> findAll(Pageable pageable) {
-        return pagingAndSortingRepository.findAll(pageable);
-    }
+  @Override
+  public Page<T> findAll(Pageable pageable) {
+    return pagingAndSortingRepository.findAll(pageable);
+  }
 }

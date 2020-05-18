@@ -18,15 +18,12 @@
 package org.ylzl.eden.spring.boot.commons.lang;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 布尔类型工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
-public class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
-
-}
+public class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {}

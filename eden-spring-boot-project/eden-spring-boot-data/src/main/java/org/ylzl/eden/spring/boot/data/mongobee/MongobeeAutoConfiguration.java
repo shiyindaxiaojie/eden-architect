@@ -43,7 +43,7 @@ import org.ylzl.eden.spring.boot.framework.scheduling.AsyncTaskExecutorAutoConfi
  * MongoDB 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({Mongobee.class})
 @ConditionalOnProperty(prefix = "mongobee", name = "enabled", matchIfMissing = true)
@@ -53,43 +53,47 @@ import org.ylzl.eden.spring.boot.framework.scheduling.AsyncTaskExecutorAutoConfi
 @Configuration
 public class MongobeeAutoConfiguration {
 
-    private static final String DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX = "config.dbmigrations";
+  private static final String DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX = "config.dbmigrations";
 
-    private static final String MSG_INJECT_MONGOBEE = "Inject Mongobee";
+  private static final String MSG_INJECT_MONGOBEE = "Inject Mongobee";
 
-    private final Environment environment;
+  private final Environment environment;
 
-    private final MongobeeProperties mongobeeProperties;
+  private final MongobeeProperties mongobeeProperties;
 
-    public MongobeeAutoConfiguration(Environment environment, MongobeeProperties mongobeeProperties) {
-        this.environment = environment;
-        this.mongobeeProperties = mongobeeProperties;
+  public MongobeeAutoConfiguration(Environment environment, MongobeeProperties mongobeeProperties) {
+    this.environment = environment;
+    this.mongobeeProperties = mongobeeProperties;
+  }
+
+  @Bean
+  public LocalValidatorFactoryBean localValidator() {
+    return new LocalValidatorFactoryBean();
+  }
+
+  @Bean
+  public ValidatingMongoEventListener validatingMongoEventListener() {
+    return new ValidatingMongoEventListener(localValidator());
+  }
+
+  @Bean
+  public Mongobee mongobee(
+      @Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) TaskExecutor taskExecutor,
+      InfoContributorProvider infoContributorProvider,
+      MongoClient mongoClient,
+      MongoTemplate mongoTemplate,
+      MongoProperties mongoProperties) {
+    log.debug(MSG_INJECT_MONGOBEE);
+    Mongobee mongobee = new AsyncMongobee(mongoClient, environment, taskExecutor);
+    mongobee.setDbName(mongoProperties.getMongoClientDatabase());
+    mongobee.setMongoTemplate(mongoTemplate);
+    if (StringUtils.isNotBlank(mongobeeProperties.getChangeLogsScanPackage())) {
+      mongobee.setChangeLogsScanPackage(mongobeeProperties.getChangeLogsScanPackage());
+    } else {
+      mongobee.setChangeLogsScanPackage(
+          infoContributorProvider.resolvePackage(DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX));
     }
-
-    @Bean
-    public LocalValidatorFactoryBean localValidator() {
-        return new LocalValidatorFactoryBean();
-    }
-
-    @Bean
-    public ValidatingMongoEventListener validatingMongoEventListener() {
-        return new ValidatingMongoEventListener(localValidator());
-    }
-
-    @Bean
-    public Mongobee mongobee(@Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) TaskExecutor taskExecutor,
-                             InfoContributorProvider infoContributorProvider, MongoClient mongoClient, MongoTemplate mongoTemplate,
-                             MongoProperties mongoProperties) {
-        log.debug(MSG_INJECT_MONGOBEE);
-        Mongobee mongobee = new AsyncMongobee(mongoClient, environment, taskExecutor);
-        mongobee.setDbName(mongoProperties.getMongoClientDatabase());
-        mongobee.setMongoTemplate(mongoTemplate);
-        if (StringUtils.isNotBlank(mongobeeProperties.getChangeLogsScanPackage())) {
-            mongobee.setChangeLogsScanPackage(mongobeeProperties.getChangeLogsScanPackage());
-        } else {
-            mongobee.setChangeLogsScanPackage(infoContributorProvider.resolvePackage(DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX));
-        }
-        mongobee.setEnabled(mongobeeProperties.getEnabled());
-        return mongobee;
-    }
+    mongobee.setEnabled(mongobeeProperties.getEnabled());
+    return mongobee;
+  }
 }

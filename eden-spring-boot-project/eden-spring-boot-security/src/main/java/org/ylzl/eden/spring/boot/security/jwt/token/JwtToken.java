@@ -24,7 +24,7 @@ import lombok.*;
  * JWT 令牌
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ApiModel(description = "JWT 令牌")
 @AllArgsConstructor
@@ -35,8 +35,6 @@ import lombok.*;
 @ToString
 public class JwtToken {
 
-    /**
-     * 令牌
-     */
-    private String value;
+  /** 令牌 */
+  private String value;
 }

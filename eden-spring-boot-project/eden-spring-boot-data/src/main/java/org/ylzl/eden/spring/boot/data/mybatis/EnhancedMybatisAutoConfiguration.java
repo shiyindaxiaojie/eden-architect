@@ -47,7 +47,7 @@ import java.util.List;
  * Mybatis 自定义配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore({MybatisAutoConfiguration.class})
@@ -57,49 +57,56 @@ import java.util.List;
 @Configuration
 public class EnhancedMybatisAutoConfiguration {
 
-    private static final String MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY = "Inject Mybatis SqlSessionFactory";
+  private static final String MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY =
+      "Inject Mybatis SqlSessionFactory";
 
-    private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
+  private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
 
-    private static final String[] DEFAULT_MAPPER_LOCATIONS = new String[]{
-        ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "config/mybatis/mappers/**.xml"};
+  private static final String[] DEFAULT_MAPPER_LOCATIONS =
+      new String[] {
+        ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "config/mybatis/mappers/**.xml"
+      };
 
-    private static final String DEFAULT_DOMAIN = "domain";
+  private static final String DEFAULT_DOMAIN = "domain";
 
-    private final MybatisProperties mybatisProperties;
+  private final MybatisProperties mybatisProperties;
 
-    public EnhancedMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
-        this.mybatisProperties = mybatisProperties;
+  public EnhancedMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
+    this.mybatisProperties = mybatisProperties;
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public SqlSessionFactoryBean sqlSessionFactoryBean(
+      DataSource dataSource,
+      InfoContributorProvider infoContributorProvider,
+      PathMatchingResourcePatternResolver resolver,
+      @Autowired(required = false) List<Interceptor> interceptors) {
+    log.debug(MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY);
+    SqlSessionFactoryBean sqlSessionFactoryBean = new FixedSqlSessionFactoryBean();
+    BeanCopier.copy(mybatisProperties, sqlSessionFactoryBean);
+    sqlSessionFactoryBean.setDataSource(dataSource);
+
+    if (StringUtils.isBlank(mybatisProperties.getConfigLocation())) {
+      mybatisProperties.setConfigLocation(DEFAULT_CONFIG_LOCATION);
     }
+    sqlSessionFactoryBean.setConfigLocation(
+        resolver.getResource(mybatisProperties.getConfigLocation()));
 
-    @ConditionalOnMissingBean
-    @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource, InfoContributorProvider infoContributorProvider,
-                                                       PathMatchingResourcePatternResolver resolver,
-                                                       @Autowired(required = false) List<Interceptor> interceptors) {
-        log.debug(MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY);
-        SqlSessionFactoryBean sqlSessionFactoryBean = new FixedSqlSessionFactoryBean();
-        BeanCopier.copy(mybatisProperties, sqlSessionFactoryBean);
-        sqlSessionFactoryBean.setDataSource(dataSource);
-
-        if (StringUtils.isBlank(mybatisProperties.getConfigLocation())) {
-            mybatisProperties.setConfigLocation(DEFAULT_CONFIG_LOCATION);
-        }
-        sqlSessionFactoryBean.setConfigLocation(resolver.getResource(mybatisProperties.getConfigLocation()));
-
-        if (ObjectUtils.isNull(mybatisProperties.getMapperLocations())) {
-            mybatisProperties.setMapperLocations(DEFAULT_MAPPER_LOCATIONS);
-        }
-        sqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
-
-        if (StringUtils.isBlank((mybatisProperties.getTypeAliasesPackage()))) {
-            mybatisProperties.setTypeAliasesPackage(infoContributorProvider.resolvePackage(DEFAULT_DOMAIN));
-        }
-        sqlSessionFactoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
-
-        if (interceptors != null && !interceptors.isEmpty()) {
-            sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[interceptors.size()]));
-        }
-        return sqlSessionFactoryBean;
+    if (ObjectUtils.isNull(mybatisProperties.getMapperLocations())) {
+      mybatisProperties.setMapperLocations(DEFAULT_MAPPER_LOCATIONS);
     }
+    sqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+
+    if (StringUtils.isBlank((mybatisProperties.getTypeAliasesPackage()))) {
+      mybatisProperties.setTypeAliasesPackage(
+          infoContributorProvider.resolvePackage(DEFAULT_DOMAIN));
+    }
+    sqlSessionFactoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
+
+    if (interceptors != null && !interceptors.isEmpty()) {
+      sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[interceptors.size()]));
+    }
+    return sqlSessionFactoryBean;
+  }
 }

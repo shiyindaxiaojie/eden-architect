@@ -26,43 +26,44 @@ import org.ylzl.eden.spring.boot.security.core.SecurityConstants;
  * JWT 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = SecurityConstants.PROP_PREFIX + ".jwt")
 public class JwtProperties {
 
-    private final Authentication authentication = new Authentication();
+  private final Authentication authentication = new Authentication();
 
-    private final Authorization authorization = new Authorization();
+  private final Authorization authorization = new Authorization();
+
+  @Getter
+  @Setter
+  public static class Authentication {
+
+    private String base64Secret = JwtDefaults.Authentication.base64Secret;
+
+    private String secret = JwtDefaults.Authentication.secret;
+
+    private long tokenValidityInSeconds = JwtDefaults.Authentication.tokenValidityInSeconds;
+
+    private long tokenValidityInSecondsForRememberMe =
+        JwtDefaults.Authentication.tokenValidityInSecondsForRememberMe;
+  }
+
+  @Getter
+  @Setter
+  public static class Authorization {
+
+    private String header = JwtDefaults.Authorization.header;
+
+    private final Server server = new Server();
 
     @Getter
     @Setter
-    public static class Authentication {
+    public static class Server {
 
-        private String base64Secret = JwtDefaults.Authentication.base64Secret;
-
-        private String secret = JwtDefaults.Authentication.secret;
-
-        private long tokenValidityInSeconds = JwtDefaults.Authentication.tokenValidityInSeconds;
-
-        private long tokenValidityInSecondsForRememberMe = JwtDefaults.Authentication.tokenValidityInSecondsForRememberMe;
+      private Boolean enabled = JwtDefaults.Authorization.Server.enabled;
     }
-
-    @Getter
-    @Setter
-    public static class Authorization {
-
-        private String header = JwtDefaults.Authorization.header;
-
-		private final Server server = new Server();
-
-		@Getter
-		@Setter
-		public static class Server {
-
-			private Boolean enabled = JwtDefaults.Authorization.Server.enabled;
-		}
-    }
+  }
 }

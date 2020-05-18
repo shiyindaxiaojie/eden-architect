@@ -27,51 +27,51 @@ import java.util.concurrent.TimeUnit;
  * Redis 序列提供类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class RedisSequenceProvider {
 
-    private final RedisTemplate<String, Serializable> redisTemplate;
+  private final RedisTemplate<String, Serializable> redisTemplate;
 
-    public RedisSequenceProvider(RedisTemplate<String, Serializable> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+  public RedisSequenceProvider(RedisTemplate<String, Serializable> redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
 
-    public void set(String key, int value, Date expireTime) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        redisAtomicLong.set(value);
-        redisAtomicLong.expireAt(expireTime);
-    }
+  public void set(String key, int value, Date expireTime) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    redisAtomicLong.set(value);
+    redisAtomicLong.expireAt(expireTime);
+  }
 
-    public void set(String key, int value, long timeout, TimeUnit unit) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        redisAtomicLong.set(value);
-        redisAtomicLong.expire(timeout, unit);
-    }
+  public void set(String key, int value, long timeout, TimeUnit unit) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    redisAtomicLong.set(value);
+    redisAtomicLong.expire(timeout, unit);
+  }
 
-    public long incrementAndGet(String key) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        return redisAtomicLong.incrementAndGet();
-    }
+  public long incrementAndGet(String key) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    return redisAtomicLong.incrementAndGet();
+  }
 
-    public long incrementAndGet(String key, Date expireTime) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        redisAtomicLong.expireAt(expireTime);
-        return redisAtomicLong.incrementAndGet();
-    }
+  public long incrementAndGet(String key, Date expireTime) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    redisAtomicLong.expireAt(expireTime);
+    return redisAtomicLong.incrementAndGet();
+  }
 
-    public long addAndGet(String key, int increment) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        return redisAtomicLong.addAndGet(increment);
-    }
+  public long addAndGet(String key, int increment) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    return redisAtomicLong.addAndGet(increment);
+  }
 
-    public long addAndGet(String key, int increment, Date expireTime) {
-        RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
-        redisAtomicLong.expireAt(expireTime);
-        return redisAtomicLong.addAndGet(increment);
-    }
+  public long addAndGet(String key, int increment, Date expireTime) {
+    RedisAtomicLong redisAtomicLong = getRedisAtomicLong(key);
+    redisAtomicLong.expireAt(expireTime);
+    return redisAtomicLong.addAndGet(increment);
+  }
 
-    private RedisAtomicLong getRedisAtomicLong(String key) {
-        return new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
-    }
+  private RedisAtomicLong getRedisAtomicLong(String key) {
+    return new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+  }
 }

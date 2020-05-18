@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseStore;
  * TrueLicense 服务端配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnExpression(TrueLicenseServerAutoConfiguration.EXPS_TRUE_LICENSE_ENABLED)
 @Import(TrueLicenseConfiguration.class)
@@ -39,20 +39,21 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseStore;
 @Configuration
 public class TrueLicenseServerAutoConfiguration {
 
-	public static final String EXPS_TRUE_LICENSE_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
+  public static final String EXPS_TRUE_LICENSE_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
 
-    private static final String MSG_INJECT_TRUE_LICENSE_STORE = "Inject TureLicense storing service";
+  private static final String MSG_INJECT_TRUE_LICENSE_STORE = "Inject TureLicense storing service";
 
-    private final LicenseManager licenseManager;
+  private final LicenseManager licenseManager;
 
-    public TrueLicenseServerAutoConfiguration(LicenseManager licenseManager) {
-        this.licenseManager = licenseManager;
-    }
+  public TrueLicenseServerAutoConfiguration(LicenseManager licenseManager) {
+    this.licenseManager = licenseManager;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public LicenseStore licenseStore() {
-        log.debug(MSG_INJECT_TRUE_LICENSE_STORE);
-        return new LicenseStore(licenseManager);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public LicenseStore licenseStore() {
+    log.debug(MSG_INJECT_TRUE_LICENSE_STORE);
+    return new LicenseStore(licenseManager);
+  }
 }

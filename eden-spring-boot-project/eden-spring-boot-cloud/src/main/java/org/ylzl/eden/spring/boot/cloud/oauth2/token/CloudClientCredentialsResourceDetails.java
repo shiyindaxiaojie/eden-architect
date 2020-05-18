@@ -29,28 +29,27 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
  * 客户端凭据资源详情
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class CloudClientCredentialsResourceDetails extends ClientCredentialsResourceDetails {
 
-    private final LoadBalancerClientHelper loadBalancerClientHelper;
+  private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-    @Getter
-    @Setter
-    private final String accessTokenUriServiceId;
+  @Getter @Setter private final String accessTokenUriServiceId;
 
-    public CloudClientCredentialsResourceDetails(OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
-        this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
-        this.loadBalancerClientHelper = loadBalancerClientHelper;
+  public CloudClientCredentialsResourceDetails(
+      OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
+    this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
+    this.loadBalancerClientHelper = loadBalancerClientHelper;
+  }
+
+  @Override
+  public String getAccessTokenUri() {
+    String accessTokenUri = super.getAccessTokenUri();
+    if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
+      return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
     }
-
-    @Override
-    public String getAccessTokenUri() {
-        String accessTokenUri = super.getAccessTokenUri();
-        if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
-            return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
-        }
-        return accessTokenUri;
-    }
+    return accessTokenUri;
+  }
 }

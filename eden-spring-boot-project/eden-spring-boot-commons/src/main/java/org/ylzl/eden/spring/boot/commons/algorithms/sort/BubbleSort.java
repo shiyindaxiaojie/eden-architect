@@ -24,29 +24,29 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  * 冒泡排序
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class BubbleSort extends AbstractSort implements Sort {
 
-	/**
-	 * 排序数组
-	 *
-	 * @param unsorted - 未排序的数组
-	 * @return 排序后的数组
-	 */
-	@Override
-	public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
-		int last = unsorted.length;
-		boolean swap;
-		do {
-			swap = false;
-			for (int count = 0; count < last - 1; count++) {
-				if (SortUtils.less(unsorted[count], unsorted[count + 1])) {
-					swap = SortUtils.swap(unsorted, count, count + 1);
-				}
-			}
-			last--;
-		} while (swap);
-		return unsorted;
-	}
+  /**
+   * 排序数组
+   *
+   * @param unsorted - 未排序的数组
+   * @return 排序后的数组
+   */
+  @Override
+  public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
+    int last = unsorted.length;
+    boolean swap;
+    do {
+      swap = false;
+      for (int count = 0; count < last - 1; count++) {
+        if (SortUtils.less(unsorted[count], unsorted[count + 1])) {
+          swap = SortUtils.swap(unsorted, count, count + 1);
+        }
+      }
+      last--;
+    } while (swap);
+    return unsorted;
+  }
 }

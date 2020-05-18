@@ -19,22 +19,21 @@ package org.ylzl.eden.spring.boot.security.oauth2.token;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.util.MultiValueMap;
 
 /**
  * OAuth2 访问令牌客户端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface OAuth2AccessTokenClient {
 
-    /**
-     * 获取 OAuth2 访问令牌
-     *
-     * @param entity 请求实体
-     * @return OAuth2 访问令牌
-     */
-    OAuth2AccessToken getOAuth2AccessToken(HttpEntity<MultiValueMap<String, String>> entity);
+  /**
+   * 获取 OAuth2 访问令牌
+   *
+   * @param entity 请求实体
+   * @return OAuth2 访问令牌
+   */
+  OAuth2AccessToken getOAuth2AccessToken(HttpEntity<MultiValueMap<String, String>> entity);
 }

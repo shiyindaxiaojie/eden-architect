@@ -31,63 +31,67 @@ import java.util.Map;
  * 角色访问决策适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class RoleAccessDecisionVoter implements AccessDecisionVoter<Object> {
 
-    // 这里的需要从DB加载
-    private final Map<String,String> urlRoleMap = new HashMap<String,String>(){{
-        put("/open/**","ROLE_ANONYMOUS");
-        put("/health","ROLE_ANONYMOUS");
-        put("/restart","ROLE_ADMIN");
-        put("/demo","ROLE_USER");
-    }};
-
-    @Override
-    public boolean supports(ConfigAttribute attribute) {
-        return true;
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return true;
-    }
-
-    @Override
-    public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
-        if (authentication == null) {
-            return ACCESS_DENIED;
+  // 这里的需要从DB加载
+  private final Map<String, String> urlRoleMap =
+      new HashMap<String, String>() {
+        {
+          put("/open/**", "ROLE_ANONYMOUS");
+          put("/health", "ROLE_ANONYMOUS");
+          put("/restart", "ADMIN");
+          put("/demo", "ROLE_USER");
         }
+      };
 
-        FilterInvocation fi = (FilterInvocation) object;
-        String url = fi.getRequestUrl();
-        /*for(Map.Entry<String,String> entry:urlRoleMap.entrySet()){
-            if(antPathMatcher.match(entry.getKey(), url)){
-                return SecurityConfig.createList(entry.getValue());
-            }
-        }*/
+  @Override
+  public boolean supports(ConfigAttribute attribute) {
+    return true;
+  }
 
-        int result = ACCESS_ABSTAIN;
-        Collection<? extends GrantedAuthority> authorities = extractAuthorities(authentication);
+  @Override
+  public boolean supports(Class<?> clazz) {
+    return true;
+  }
 
-        for (ConfigAttribute attribute : attributes) {
-            if (attribute.getAttribute() == null) {
-                continue;
-            }
-            if (this.supports(attribute)) {
-                result = ACCESS_DENIED;
-                for (GrantedAuthority authority : authorities) {
-                    if (attribute.getAttribute().equals(authority.getAuthority())) {
-                        return ACCESS_GRANTED;
-                    }
-                }
-            }
+  @Override
+  public int vote(
+      Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
+    if (authentication == null) {
+      return ACCESS_DENIED;
+    }
+
+    FilterInvocation fi = (FilterInvocation) object;
+    String url = fi.getRequestUrl();
+    /*for(Map.Entry<String,String> entry:urlRoleMap.entrySet()){
+        if(antPathMatcher.match(entry.getKey(), url)){
+            return SecurityConfig.createList(entry.getValue());
         }
+    }*/
 
-        return result;
+    int result = ACCESS_ABSTAIN;
+    Collection<? extends GrantedAuthority> authorities = extractAuthorities(authentication);
+
+    for (ConfigAttribute attribute : attributes) {
+      if (attribute.getAttribute() == null) {
+        continue;
+      }
+      if (this.supports(attribute)) {
+        result = ACCESS_DENIED;
+        for (GrantedAuthority authority : authorities) {
+          if (attribute.getAttribute().equals(authority.getAuthority())) {
+            return ACCESS_GRANTED;
+          }
+        }
+      }
     }
 
-    private Collection<? extends GrantedAuthority> extractAuthorities(Authentication authentication) {
-        return authentication.getAuthorities();
-    }
+    return result;
+  }
+
+  private Collection<? extends GrantedAuthority> extractAuthorities(Authentication authentication) {
+    return authentication.getAuthorities();
+  }
 }

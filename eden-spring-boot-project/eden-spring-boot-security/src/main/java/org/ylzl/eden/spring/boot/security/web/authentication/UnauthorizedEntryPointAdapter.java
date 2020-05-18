@@ -30,13 +30,15 @@ import java.io.IOException;
  * 未认证处理适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorConstants.ERR_UNAUTHORIZED);
-    }
+  @Override
+  public void commence(
+      HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+      throws IOException {
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorConstants.ERR_UNAUTHORIZED);
+  }
 }

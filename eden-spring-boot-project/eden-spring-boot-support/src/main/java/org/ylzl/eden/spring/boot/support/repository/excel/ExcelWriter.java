@@ -25,11 +25,12 @@ import java.util.Set;
  * Excel 数据读取接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ExcelWriter<T> {
 
-    void write(OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns);
+  void write(
+      OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns);
 
-    void write(OutputStream outputStream, List<T> datas, String sheetName);
+  void write(OutputStream outputStream, List<T> datas, String sheetName);
 }

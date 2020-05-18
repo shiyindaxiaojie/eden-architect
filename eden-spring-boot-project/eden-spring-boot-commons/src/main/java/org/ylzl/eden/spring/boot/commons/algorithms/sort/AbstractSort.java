@@ -17,27 +17,28 @@
 
 package org.ylzl.eden.spring.boot.commons.algorithms.sort;
 
+import lombok.NonNull;
+
 import java.util.Arrays;
 import java.util.List;
-import lombok.NonNull;
 
 /**
  * 排序算法抽象类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public abstract class AbstractSort implements Sort {
 
-	/**
-	 * 排序列表
-	 *
-	 * @param unsorted - 未排序的列表
-	 * @return 排序后的列表
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
-		return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
-	}
+  /**
+   * 排序列表
+   *
+   * @param unsorted - 未排序的列表
+   * @return 排序后的列表
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
+    return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
+  }
 }

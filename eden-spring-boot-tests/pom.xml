@@ -17,7 +17,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>eden-spring-boot-tests</artifactId>
@@ -28,13 +28,14 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
-		<version>1.0.0.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 		<relativePath>../eden-spring-boot-project/eden-spring-boot-parent</relativePath>
 	</parent>
 
 	<modules>
 		<module>eden-spring-boot-deployment-tests</module>
 		<module>eden-spring-boot-integration-tests</module>
+		<module>eden-spring-boot-performance-tests</module>
 		<module>eden-spring-boot-smoke-tests</module>
 	</modules>
 

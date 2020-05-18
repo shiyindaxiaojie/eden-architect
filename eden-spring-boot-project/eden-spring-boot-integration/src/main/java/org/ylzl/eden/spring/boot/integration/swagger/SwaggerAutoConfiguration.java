@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.boot.integration.swagger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -54,14 +54,23 @@ import java.util.List;
 /**
  * Swagger 自动配置
  *
+ * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ *
+ * <ul>
+ *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
+ *       ManagementServerProperties}
+ *   <li>{@code managementServerProperties.getContextPath()} 修改为 {@code
+ *       managementServerProperties.getServlet().getContextPath()}
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({
-    ApiInfo.class,
-    BeanValidatorPluginsConfiguration.class,
-    Servlet.class,
-    DispatcherServlet.class
+  ApiInfo.class,
+  BeanValidatorPluginsConfiguration.class,
+  Servlet.class,
+  DispatcherServlet.class
 })
 @ConditionalOnExpression(SwaggerAutoConfiguration.EXPS_SWAGGER_ENABLED)
 @ConditionalOnWebApplication
@@ -72,57 +81,62 @@ import java.util.List;
 @Configuration
 public class SwaggerAutoConfiguration {
 
-	public static final String EXPS_SWAGGER_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".swagger.enabled:true}";
+  public static final String EXPS_SWAGGER_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".swagger.enabled:true}";
 
-    public static final String DEFAULT_GROUP_NAME = "management";
+  public static final String DEFAULT_GROUP_NAME = "management";
 
-    private static final String MSG_INJECT_SWAGGER = "Inject Swagger";
+  private static final String MSG_INJECT_SWAGGER = "Inject Swagger";
 
-    private static final String MSG_STARTD_SWAGGER = "Startded Swagger in {} ms";
+  private static final String MSG_STARTD_SWAGGER = "Startded Swagger in {} ms";
 
-    @Value(FrameworkConstants.NAME_PATTERN)
-    private String applicationName;
+  @Value(FrameworkConstants.NAME_PATTERN)
+  private String applicationName;
 
-    private final SwaggerProperties properties;
+  private final SwaggerProperties properties;
 
-    private final ManagementServerProperties managementServerProperties;
+  private final ManagementServerProperties managementServerProperties;
 
-    public SwaggerAutoConfiguration(SwaggerProperties properties, ManagementServerProperties managementServerProperties) {
-        this.properties = properties;
-        this.managementServerProperties = managementServerProperties;
+  public SwaggerAutoConfiguration(
+      SwaggerProperties properties, ManagementServerProperties managementServerProperties) {
+    this.properties = properties;
+    this.managementServerProperties = managementServerProperties;
+  }
+
+  @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
+  @Bean
+  public Docket swaggerSpringfoxApiDocket(
+      List<SwaggerCustomizer> swaggerCustomizers,
+      ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
+    log.debug(MSG_INJECT_SWAGGER);
+    StopWatch watch = new StopWatch();
+    watch.start();
+    Docket docket = createDocket();
+    for (SwaggerCustomizer customizer : swaggerCustomizers) {
+      customizer.customize(docket);
     }
-
-    @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
-    @Bean
-    public Docket swaggerSpringfoxApiDocket(List<SwaggerCustomizer> swaggerCustomizers, ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
-        log.debug(MSG_INJECT_SWAGGER);
-        StopWatch watch = new StopWatch();
-        watch.start();
-        Docket docket = createDocket();
-        for (SwaggerCustomizer customizer : swaggerCustomizers) {
-            customizer.customize(docket);
-        }
-        if (alternateTypeRules.getIfAvailable() != null) {
-            docket.alternateTypeRules();
-        }
-        watch.stop();
-        log.debug(MSG_STARTD_SWAGGER, watch.getTotalTimeMillis());
-        return docket;
+    if (alternateTypeRules.getIfAvailable() != null) {
+      docket.alternateTypeRules();
     }
+    watch.stop();
+    log.debug(MSG_STARTD_SWAGGER, watch.getTotalTimeMillis());
+    return docket;
+  }
 
-    @Bean
-    public DefaultSwaggerCustomizer swaggerCustomizer() {
-        return new DefaultSwaggerCustomizer(properties);
-    }
+  @Bean
+  public DefaultSwaggerCustomizer swaggerCustomizer() {
+    return new DefaultSwaggerCustomizer(properties);
+  }
 
-    @Bean
-    @ConditionalOnClass(ManagementServerProperties.class)
-    @ConditionalOnProperty("management.context-path")
-    @ConditionalOnExpression("'${management.context-path}'.length() > 0")
-    @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
-    public Docket swaggerSpringfoxManagementDocket() {
+  @Bean
+  @ConditionalOnClass(ManagementServerProperties.class)
+  @ConditionalOnProperty("management.endpoints.web.base-path")
+  @ConditionalOnExpression("'${management.endpoints.web.base-path}'.length() > 0")
+  @ConditionalOnMissingBean(name = "swaggerSpringfoxManagementDocket")
+  public Docket swaggerSpringfoxManagementDocket() {
 
-        ApiInfo apiInfo = new ApiInfo(
+    ApiInfo apiInfo =
+        new ApiInfo(
             StringUtils.capitalize(applicationName),
             StringConstants.EMPTY,
             properties.getVersion(),
@@ -130,25 +144,25 @@ public class SwaggerAutoConfiguration {
             ApiInfo.DEFAULT_CONTACT,
             StringConstants.EMPTY,
             StringConstants.EMPTY,
-            new ArrayList<VendorExtension>()
-        );
+            new ArrayList<VendorExtension>());
 
-        return createDocket()
-            .apiInfo(apiInfo)
-            .useDefaultResponseMessages(properties.getUseDefaultResponseMessages())
-            .groupName(DEFAULT_GROUP_NAME)
-            .host(properties.getHost())
-            .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
-            .forCodeGeneration(true)
-            .directModelSubstitute(ByteBuffer.class, String.class)
-            .genericModelSubstitutes(ResponseEntity.class)
-            .select()
-            .paths(PathSelectors.regex(StringUtils.join(managementServerProperties.getContextPath(), ".*")))
-            .build();
-    }
+    return createDocket()
+        .apiInfo(apiInfo)
+        .useDefaultResponseMessages(properties.getUseDefaultResponseMessages())
+        .groupName(DEFAULT_GROUP_NAME)
+        .host(properties.getHost())
+        .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
+        .forCodeGeneration(true)
+        .directModelSubstitute(ByteBuffer.class, String.class)
+        .genericModelSubstitutes(ResponseEntity.class)
+        .select()
+        .paths(
+            PathSelectors.regex(
+                StringUtils.join(managementServerProperties.getServlet().getContextPath(), ".*")))
+        .build();
+  }
 
-    protected Docket createDocket() {
-        return new Docket(DocumentationType.SWAGGER_2);
-    }
+  protected Docket createDocket() {
+    return new Docket(DocumentationType.SWAGGER_2);
+  }
 }
-

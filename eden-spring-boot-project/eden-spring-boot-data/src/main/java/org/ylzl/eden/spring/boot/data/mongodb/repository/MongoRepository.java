@@ -22,8 +22,7 @@ import java.io.Serializable;
  * MongoDB 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public interface MongoRepository<T, ID extends Serializable> extends org.springframework.data.mongodb.repository.MongoRepository<T, ID> {
-
-}
+public interface MongoRepository<T, ID extends Serializable>
+    extends org.springframework.data.mongodb.repository.MongoRepository<T, ID> {}

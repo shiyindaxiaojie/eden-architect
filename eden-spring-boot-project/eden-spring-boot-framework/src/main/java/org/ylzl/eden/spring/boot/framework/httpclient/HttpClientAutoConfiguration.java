@@ -30,7 +30,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
  * HttpClient 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(HttpClient.class)
 @EnableConfigurationProperties(HttpClientProperties.class)
@@ -38,18 +38,18 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 @Configuration
 public class HttpClientAutoConfiguration {
 
-    private final HttpClientProperties httpClientProperties;
+  private final HttpClientProperties httpClientProperties;
 
-    public HttpClientAutoConfiguration(HttpClientProperties httpClientProperties) {
-        this.httpClientProperties = httpClientProperties;
-    }
+  public HttpClientAutoConfiguration(HttpClientProperties httpClientProperties) {
+    this.httpClientProperties = httpClientProperties;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public SimpleClientHttpRequestFactory simpleClientHttpRequestFactory() {
-        SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        clientHttpRequestFactory.setReadTimeout(httpClientProperties.getReadTimeout());
-        clientHttpRequestFactory.setConnectTimeout(httpClientProperties.getConnectTimeout());
-        return clientHttpRequestFactory;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public SimpleClientHttpRequestFactory simpleClientHttpRequestFactory() {
+    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+    clientHttpRequestFactory.setReadTimeout(httpClientProperties.getReadTimeout());
+    clientHttpRequestFactory.setConnectTimeout(httpClientProperties.getConnectTimeout());
+    return clientHttpRequestFactory;
+  }
 }

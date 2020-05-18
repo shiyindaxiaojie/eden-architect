@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * SQL 注入安全注解
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Constraint(validatedBy = SQLInjectionSafeValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
@@ -33,9 +33,9 @@ import java.lang.annotation.*;
 @Documented
 public @interface SQLInjectionSafe {
 
-    String message() default "{SQLInjectionSafe}";
+  String message() default "{SQLInjectionSafe}";
 
-    Class<?>[] groups() default {};
+  Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+  Class<? extends Payload>[] payload() default {};
 }

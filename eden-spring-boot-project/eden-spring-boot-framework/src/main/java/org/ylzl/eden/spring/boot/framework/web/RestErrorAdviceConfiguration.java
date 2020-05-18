@@ -26,14 +26,14 @@ import org.ylzl.eden.spring.boot.framework.web.rest.errors.RestErrorAdvice;
  * REST 错误自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Configuration
 public class RestErrorAdviceConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public RestErrorAdvice restErrorAdvice() {
-        return new RestErrorAdvice();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public RestErrorAdvice restErrorAdvice() {
+    return new RestErrorAdvice();
+  }
 }

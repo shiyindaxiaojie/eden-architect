@@ -31,25 +31,27 @@ import javax.sql.DataSource;
  * Jdbc 模板自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})
 @Slf4j
 @Configuration
 public class EnhancedJdbcTemplateAutoConfiguration {
 
-	public static final String MSG_INJECT_NAMED_JDBCTPL = "Inject enhanced NamedParameterJdbcTemplate";
+  public static final String MSG_INJECT_NAMED_JDBCTPL =
+      "Inject enhanced NamedParameterJdbcTemplate";
 
-    /**
-     * Inject EnhancedNamedParameterJdbcTemplate
-     *
-     * @param dataSource 数据源
-     * @return EnhancedNamedParameterJdbcTemplate 实例
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(DataSource dataSource) {
-        log.debug(MSG_INJECT_NAMED_JDBCTPL);
-    	return new EnhancedNamedParameterJdbcTemplate(dataSource);
-    }
+  /**
+   * Inject EnhancedNamedParameterJdbcTemplate
+   *
+   * @param dataSource 数据源
+   * @return EnhancedNamedParameterJdbcTemplate 实例
+   */
+  @ConditionalOnMissingBean
+  @Bean
+  public EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(
+      DataSource dataSource) {
+    log.debug(MSG_INJECT_NAMED_JDBCTPL);
+    return new EnhancedNamedParameterJdbcTemplate(dataSource);
+  }
 }

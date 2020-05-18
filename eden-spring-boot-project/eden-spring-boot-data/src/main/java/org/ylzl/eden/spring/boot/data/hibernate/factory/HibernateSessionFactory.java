@@ -28,64 +28,65 @@ import org.ylzl.eden.spring.boot.data.hibernate.cfg.HibernateConfiguration;
  * Hibernate Session 工厂类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class HibernateSessionFactory {
 
-    private final ThreadLocal<Session> sessionThreadLocal = new ThreadLocal<Session>();
+  private final ThreadLocal<Session> sessionThreadLocal = new ThreadLocal<Session>();
 
-    private SessionFactory sessionFactory;
+  private SessionFactory sessionFactory;
 
-    private Configuration configuration;
+  private Configuration configuration;
 
-    public HibernateSessionFactory() {
-        this.configuration = new HibernateConfiguration();
-        configuration.configure();
-        this.sessionFactory = this.buildSessionFactory(configuration);
+  public HibernateSessionFactory() {
+    this.configuration = new HibernateConfiguration();
+    configuration.configure();
+    this.sessionFactory = this.buildSessionFactory(configuration);
+  }
+
+  public HibernateSessionFactory(Configuration configuration) {
+    this.configuration = configuration;
+    configuration.configure();
+    this.sessionFactory = this.buildSessionFactory(configuration);
+  }
+
+  public SessionFactory getSessionFactory() {
+    return this.sessionFactory;
+  }
+
+  public void rebuildSessionFactory() {
+    if (configuration instanceof HibernateConfiguration) {
+      HibernateConfiguration hibernateConfiguration = (HibernateConfiguration) this.configuration;
+      this.configuration.configure(hibernateConfiguration.getHibernateConfigFile());
+    } else {
+      this.configuration.configure();
     }
+    this.sessionFactory = this.buildSessionFactory(configuration);
+  }
 
-    public HibernateSessionFactory(Configuration configuration) {
-        this.configuration = configuration;
-        configuration.configure();
-        this.sessionFactory = this.buildSessionFactory(configuration);
+  public Session getSession() {
+    Session session = this.sessionThreadLocal.get();
+    if (session == null || (!session.isOpen())) {
+      if (this.sessionFactory == null) {
+        rebuildSessionFactory();
+      }
+      session = this.sessionFactory.openSession();
+      this.sessionThreadLocal.set(session);
     }
+    return session;
+  }
 
-    public SessionFactory getSessionFactory() {
-        return this.sessionFactory;
+  public void closeSession() throws HibernateException {
+    Session session = this.sessionThreadLocal.get();
+    if (session != null) {
+      session.close();
     }
+    this.sessionThreadLocal.set(null);
+  }
 
-    public void rebuildSessionFactory() {
-        if (configuration instanceof HibernateConfiguration) {
-            HibernateConfiguration hibernateConfiguration = (HibernateConfiguration) this.configuration;
-            this.configuration.configure(hibernateConfiguration.getHibernateConfigFile());
-        } else {
-            this.configuration.configure();
-        }
-        this.sessionFactory = this.buildSessionFactory(configuration);
-    }
-
-    public Session getSession() {
-        Session session = this.sessionThreadLocal.get();
-        if (session == null || (!session.isOpen())) {
-            if (this.sessionFactory == null) {
-                rebuildSessionFactory();
-            }
-            session = this.sessionFactory.openSession();
-            this.sessionThreadLocal.set(session);
-        }
-        return session;
-    }
-
-    public void closeSession() throws HibernateException {
-        Session session = this.sessionThreadLocal.get();
-        if (session != null) {
-            session.close();
-        }
-        this.sessionThreadLocal.set(null);
-    }
-
-    private SessionFactory buildSessionFactory(Configuration configuration) {
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
+  private SessionFactory buildSessionFactory(Configuration configuration) {
+    ServiceRegistry serviceRegistry =
+        new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+    return configuration.buildSessionFactory(serviceRegistry);
+  }
 }

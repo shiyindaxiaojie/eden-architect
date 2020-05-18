@@ -25,9 +25,8 @@ import java.io.Serializable;
  * Elasticsearch 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @NoRepositoryBean
-public interface ElasticsearchRepository<T, ID extends Serializable> extends
-    org.springframework.data.elasticsearch.repository.ElasticsearchRepository<T, ID> {
-}
+public interface ElasticsearchRepository<T, ID extends Serializable>
+    extends org.springframework.data.elasticsearch.repository.ElasticsearchRepository<T, ID> {}

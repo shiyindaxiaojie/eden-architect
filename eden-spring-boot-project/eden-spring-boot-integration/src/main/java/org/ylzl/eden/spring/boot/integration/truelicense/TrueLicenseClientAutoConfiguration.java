@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseVerify;
  * TrueLicense 客户端配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnExpression(TrueLicenseClientAutoConfiguration.EXPS_TRUE_LICENSE_ENABLED)
 @Import(TrueLicenseConfiguration.class)
@@ -40,29 +40,31 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseVerify;
 @Configuration
 public class TrueLicenseClientAutoConfiguration {
 
-	public static final String EXPS_TRUE_LICENSE_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
+  public static final String EXPS_TRUE_LICENSE_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
 
-    private static final String MSG_INJECT_TRUE_LICENSE_INSTALL = "Inject TureLicense install service";
+  private static final String MSG_INJECT_TRUE_LICENSE_INSTALL =
+      "Inject TureLicense install service";
 
-    private static final String MSG_INJECT_TRUE_LICENSE_VERIFY = "Inject TureLicense verify service";
+  private static final String MSG_INJECT_TRUE_LICENSE_VERIFY = "Inject TureLicense verify service";
 
-    private final LicenseManager licenseManager;
+  private final LicenseManager licenseManager;
 
-    public TrueLicenseClientAutoConfiguration(LicenseManager licenseManager) {
-        this.licenseManager = licenseManager;
-    }
+  public TrueLicenseClientAutoConfiguration(LicenseManager licenseManager) {
+    this.licenseManager = licenseManager;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public LicenseInstall licenseInstall(TrueLicenseProperties trueLicenseProperties) {
-        log.debug(MSG_INJECT_TRUE_LICENSE_INSTALL);
-        return new LicenseInstall(trueLicenseProperties, licenseManager);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public LicenseInstall licenseInstall(TrueLicenseProperties trueLicenseProperties) {
+    log.debug(MSG_INJECT_TRUE_LICENSE_INSTALL);
+    return new LicenseInstall(trueLicenseProperties, licenseManager);
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public LicenseVerify licenseVerify() {
-        log.debug(MSG_INJECT_TRUE_LICENSE_VERIFY);
-        return new LicenseVerify(licenseManager);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public LicenseVerify licenseVerify() {
+    log.debug(MSG_INJECT_TRUE_LICENSE_VERIFY);
+    return new LicenseVerify(licenseManager);
+  }
 }

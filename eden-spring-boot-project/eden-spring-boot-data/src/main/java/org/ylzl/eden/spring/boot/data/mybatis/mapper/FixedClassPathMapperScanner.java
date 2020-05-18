@@ -33,42 +33,41 @@ import java.util.Set;
  * 修复 FixedClassPathMapperScanner
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class FixedClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {
 
-    @Getter
-    private MapperHelper mapperHelper = new MapperHelper();
+  @Getter private MapperHelper mapperHelper = new MapperHelper();
 
-    public FixedClassPathMapperScanner(BeanDefinitionRegistry registry) {
-        super(registry);
-    }
+  public FixedClassPathMapperScanner(BeanDefinitionRegistry registry) {
+    super(registry);
+  }
 
-    @Override
-    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
-        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
-        doAfterScan(beanDefinitions);
-        return beanDefinitions;
-    }
+  @Override
+  public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+    Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+    doAfterScan(beanDefinitions);
+    return beanDefinitions;
+  }
 
-    protected void doAfterScan(Set<BeanDefinitionHolder> beanDefinitions) {
-        //如果没有注册过接口，就注册默认的Mapper接口
-        this.mapperHelper.ifEmptyRegisterDefaultInterface();
-        GenericBeanDefinition definition;
-        for (BeanDefinitionHolder holder : beanDefinitions) {
-            definition = (GenericBeanDefinition) holder.getBeanDefinition();
-            if (StringUtil.isNotEmpty(definition.getBeanClassName())
-                && definition.getBeanClassName().equals("org.mybatis.spring.mapper.MapperFactoryBean")) {
-                definition.setBeanClass(MapperFactoryBean.class);
-                definition.getPropertyValues().add("mapperHelper", this.mapperHelper);
-            }
-        }
+  protected void doAfterScan(Set<BeanDefinitionHolder> beanDefinitions) {
+    // 如果没有注册过接口，就注册默认的Mapper接口
+    this.mapperHelper.ifEmptyRegisterDefaultInterface();
+    GenericBeanDefinition definition;
+    for (BeanDefinitionHolder holder : beanDefinitions) {
+      definition = (GenericBeanDefinition) holder.getBeanDefinition();
+      if (StringUtil.isNotEmpty(definition.getBeanClassName())
+          && definition.getBeanClassName().equals("org.mybatis.spring.mapper.MapperFactoryBean")) {
+        definition.setBeanClass(MapperFactoryBean.class);
+        definition.getPropertyValues().add("mapperHelper", this.mapperHelper);
+      }
     }
+  }
 
-    public void setMapperProperties(MapperProperties mapperProperties) {
-        if (mapperProperties != null) {
-            mapperHelper.setConfig(mapperProperties);
-        }
+  public void setMapperProperties(MapperProperties mapperProperties) {
+    if (mapperProperties != null) {
+      mapperHelper.setConfig(mapperProperties);
     }
+  }
 }

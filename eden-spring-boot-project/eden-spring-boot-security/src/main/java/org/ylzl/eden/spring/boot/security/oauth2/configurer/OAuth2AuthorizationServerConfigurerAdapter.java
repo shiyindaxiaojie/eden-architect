@@ -36,63 +36,70 @@ import java.util.List;
  * OAuth2 授权服务器配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(OAuth2WebSecurityConfiguration.class)
-public class OAuth2AuthorizationServerConfigurerAdapter extends AuthorizationServerConfigurerAdapter {
+public class OAuth2AuthorizationServerConfigurerAdapter
+    extends AuthorizationServerConfigurerAdapter {
 
-    private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
-    private final TokenStore tokenStore;
+  private final TokenStore tokenStore;
 
-	private final List<TokenEnhancer> tokenEnhancers;
+  private final List<TokenEnhancer> tokenEnhancers;
 
-	private final OAuth2Properties.Authorization oAuth2Properties;
+  private final OAuth2Properties.Authorization oAuth2Properties;
 
-    public OAuth2AuthorizationServerConfigurerAdapter(AuthenticationManager authenticationManager, TokenStore tokenStore,
-													  List<TokenEnhancer> tokenEnhancers, OAuth2Properties oAuth2Properties) {
-        this.authenticationManager = authenticationManager;
-        this.tokenStore = tokenStore;
-        this.tokenEnhancers = tokenEnhancers;
-        this.oAuth2Properties = oAuth2Properties.getAuthorization();
-    }
+  public OAuth2AuthorizationServerConfigurerAdapter(
+      AuthenticationManager authenticationManager,
+      TokenStore tokenStore,
+      List<TokenEnhancer> tokenEnhancers,
+      OAuth2Properties oAuth2Properties) {
+    this.authenticationManager = authenticationManager;
+    this.tokenStore = tokenStore;
+    this.tokenEnhancers = tokenEnhancers;
+    this.oAuth2Properties = oAuth2Properties.getAuthorization();
+  }
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
-        endpoints
-            .authenticationManager(authenticationManager)
-            .tokenStore(tokenStore)
-            .tokenEnhancer(tokenEnhancerChain)
-            .reuseRefreshTokens(false);
-    }
+  @Override
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+    TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+    tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
+    endpoints
+        .authenticationManager(authenticationManager)
+        .tokenStore(tokenStore)
+        .tokenEnhancer(tokenEnhancerChain)
+        .reuseRefreshTokens(false);
+  }
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
-        oauthServer.tokenKeyAccess(OAuth2Constants.ACCESS_PERMIT_ALL)
-            .checkTokenAccess(OAuth2Constants.ACCESS_IS_AUTHENTICATED)
-            .allowFormAuthenticationForClients();
-    }
+  @Override
+  public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
+    oauthServer
+        .tokenKeyAccess(OAuth2Constants.ACCESS_PERMIT_ALL)
+        .checkTokenAccess(OAuth2Constants.ACCESS_IS_AUTHENTICATED)
+        .allowFormAuthenticationForClients();
+  }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		OAuth2Properties.Authorization.Password password = oAuth2Properties.getPassword();
-		OAuth2Properties.Authorization.ClientCredentials clientCredentials = oAuth2Properties.getClientCredentials();
-		clients.inMemory()
-			.withClient(password.getClientId())
-			.secret(password.getClientSecret())
-			.scopes(password.getScopes())
-			.autoApprove(true)
-			.authorizedGrantTypes(OAuth2Constants.GRANT_TYPE_PASSWORD, OAuth2Constants.REFRESH_TOKEN)
-			.accessTokenValiditySeconds(password.getAccessTokenValiditySeconds())
-			.refreshTokenValiditySeconds(password.getRefreshTokenValiditySeconds())
-			.and()
-			.withClient(clientCredentials.getClientId())
-			.secret(clientCredentials.getClientSecret())
-			.scopes(clientCredentials.getScopes())
-			.autoApprove(true)
-			.authorizedGrantTypes(OAuth2Constants.GRANT_TYPE_CLIENT_CREDENTIALS)
-			.accessTokenValiditySeconds(clientCredentials.getAccessTokenValiditySeconds());
-	}
+  @Override
+  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    OAuth2Properties.Authorization.Password password = oAuth2Properties.getPassword();
+    OAuth2Properties.Authorization.ClientCredentials clientCredentials =
+        oAuth2Properties.getClientCredentials();
+    clients
+        .inMemory()
+        .withClient(password.getClientId())
+        .secret(password.getClientSecret())
+        .scopes(password.getScopes())
+        .autoApprove(true)
+        .authorizedGrantTypes(OAuth2Constants.GRANT_TYPE_PASSWORD, OAuth2Constants.REFRESH_TOKEN)
+        .accessTokenValiditySeconds(password.getAccessTokenValiditySeconds())
+        .refreshTokenValiditySeconds(password.getRefreshTokenValiditySeconds())
+        .and()
+        .withClient(clientCredentials.getClientId())
+        .secret(clientCredentials.getClientSecret())
+        .scopes(clientCredentials.getScopes())
+        .autoApprove(true)
+        .authorizedGrantTypes(OAuth2Constants.GRANT_TYPE_CLIENT_CREDENTIALS)
+        .accessTokenValiditySeconds(clientCredentials.getAccessTokenValiditySeconds());
+  }
 }

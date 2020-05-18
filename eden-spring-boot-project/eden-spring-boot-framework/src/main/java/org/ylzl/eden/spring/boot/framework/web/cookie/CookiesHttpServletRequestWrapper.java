@@ -25,19 +25,19 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * Cookies Http Servlet 请求包装类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CookiesHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    private Cookie[] cookies;
+  private Cookie[] cookies;
 
-    public CookiesHttpServletRequestWrapper(HttpServletRequest request, Cookie[] cookies) {
-        super(request);
-        this.cookies = cookies;
-    }
+  public CookiesHttpServletRequestWrapper(HttpServletRequest request, Cookie[] cookies) {
+    super(request);
+    this.cookies = cookies;
+  }
 
-    @Override
-    public Cookie[] getCookies() {
-        return cookies;
-    }
+  @Override
+  public Cookie[] getCookies() {
+    return cookies;
+  }
 }

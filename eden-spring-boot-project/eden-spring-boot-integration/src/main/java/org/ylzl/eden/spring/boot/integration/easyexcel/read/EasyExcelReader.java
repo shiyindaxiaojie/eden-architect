@@ -32,30 +32,34 @@ import java.util.List;
  * EasyExcel 读取器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EasyExcelReader {
 
-    public <T> ExcelReader excelReader(@NonNull InputStream inputStream, @NonNull AnalysisEventListener<T> listener) {
-        Class<T> head = ReflectionUtils.getActualTypeArgument(listener.getClass());
-        return EasyExcel.read(inputStream, head, listener).build();
-    }
+  public <T> ExcelReader excelReader(
+      @NonNull InputStream inputStream, @NonNull AnalysisEventListener<T> listener) {
+    Class<T> head = ReflectionUtils.getActualTypeArgument(listener.getClass());
+    return EasyExcel.read(inputStream, head, listener).build();
+  }
 
-    public <T> void read(@NonNull InputStream inputStream, @NonNull AnalysisEventListener<T> listener, int... sheetIndexs) {
-        ExcelReader excelReader = excelReader(inputStream, listener);
+  public <T> void read(
+      @NonNull InputStream inputStream,
+      @NonNull AnalysisEventListener<T> listener,
+      int... sheetIndexs) {
+    ExcelReader excelReader = excelReader(inputStream, listener);
 
-        try {
-            if (sheetIndexs == null) {
-                excelReader.readAll();
-            } else {
-                List<ReadSheet> readSheets = new ArrayList<>();
-                for (int sheetIndex : sheetIndexs) {
-                    readSheets.add(EasyExcel.readSheet(sheetIndex).build());
-                }
-                excelReader.read(readSheets);
-            }
-        } finally {
-            excelReader.finish();
+    try {
+      if (sheetIndexs == null) {
+        excelReader.readAll();
+      } else {
+        List<ReadSheet> readSheets = new ArrayList<>();
+        for (int sheetIndex : sheetIndexs) {
+          readSheets.add(EasyExcel.readSheet(sheetIndex).build());
         }
+        excelReader.read(readSheets);
+      }
+    } finally {
+      excelReader.finish();
     }
+  }
 }

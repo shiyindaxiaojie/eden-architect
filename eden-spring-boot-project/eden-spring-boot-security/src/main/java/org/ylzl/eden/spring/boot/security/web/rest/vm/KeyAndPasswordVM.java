@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 重置密码视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Builder
@@ -35,9 +35,9 @@ import java.io.Serializable;
 @ToString
 public class KeyAndPasswordVM implements Serializable {
 
-    private static final long serialVersionUID = -8506730736743587063L;
+  private static final long serialVersionUID = -8506730736743587063L;
 
-    private String key;
+  private String key;
 
-    private String newPassword;
+  private String newPassword;
 }

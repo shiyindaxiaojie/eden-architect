@@ -28,18 +28,19 @@ import org.ylzl.eden.spring.boot.security.web.authentication.UnauthorizedEntryPo
  * Web 安全自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration
 public class WebSecurityAutoConfiguration {
 
-	public static final String MSG_INJECT_AUTH_ENTRY_POINT = "Inject AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
+  public static final String MSG_INJECT_AUTH_ENTRY_POINT =
+      "Inject AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
 
-	@ConditionalOnMissingBean
-	@Bean
-	public AuthenticationEntryPoint authenticationEntryPoint() {
-		log.debug(MSG_INJECT_AUTH_ENTRY_POINT);
-		return new UnauthorizedEntryPointAdapter();
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    log.debug(MSG_INJECT_AUTH_ENTRY_POINT);
+    return new UnauthorizedEntryPointAdapter();
+  }
 }

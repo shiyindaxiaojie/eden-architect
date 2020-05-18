@@ -26,14 +26,14 @@ import java.util.List;
  * 网关路由视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Data
 public class ZuulRoute {
 
-    private String path;
+  private String path;
 
-    private String serviceId;
+  private String serviceId;
 
-    private List<ServiceInstance> serviceInstances;
+  private List<ServiceInstance> serviceInstances;
 }

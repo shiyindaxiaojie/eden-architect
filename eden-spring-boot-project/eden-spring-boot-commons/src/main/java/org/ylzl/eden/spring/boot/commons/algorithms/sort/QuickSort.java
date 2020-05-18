@@ -24,52 +24,52 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  * 快速排序
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class QuickSort extends AbstractSort implements Sort {
 
-	/**
-	 * 排序数组
-	 *
-	 * @param unsorted - 未排序的数组
-	 * @return 排序后的数组
-	 */
-	@Override
-	public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
-		doSort(unsorted, 0, unsorted.length - 1);
-		return unsorted;
-	}
+  /**
+   * 排序数组
+   *
+   * @param unsorted - 未排序的数组
+   * @return 排序后的数组
+   */
+  @Override
+  public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
+    doSort(unsorted, 0, unsorted.length - 1);
+    return unsorted;
+  }
 
-	private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {
-		if (left < right) {
-			int pivot = randomPartition(array, left, right);
-			doSort(array, left, pivot - 1);
-			doSort(array, pivot, right);
-		}
-	}
+  private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {
+    if (left < right) {
+      int pivot = randomPartition(array, left, right);
+      doSort(array, left, pivot - 1);
+      doSort(array, pivot, right);
+    }
+  }
 
-	private static <T extends Comparable<T>> int randomPartition(T[] array, int left, int right) {
-		int randomIndex = left + (int) (Math.random() * (right - left + 1));
-		SortUtils.swap(array, randomIndex, right);
-		return partition(array, left, right);
-	}
+  private static <T extends Comparable<T>> int randomPartition(T[] array, int left, int right) {
+    int randomIndex = left + (int) (Math.random() * (right - left + 1));
+    SortUtils.swap(array, randomIndex, right);
+    return partition(array, left, right);
+  }
 
-	private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
-		int mid = (left + right) / 2;
-		T pivot = array[mid];
-		while (left <= right) {
-			while (SortUtils.less(array[left], pivot)) {
-				++left;
-			}
-			while (SortUtils.less(pivot, array[right])) {
-				--right;
-			}
-			if (left <= right) {
-				SortUtils.swap(array, left, right);
-				++left;
-				--right;
-			}
-		}
-		return left;
-	}
+  private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
+    int mid = (left + right) / 2;
+    T pivot = array[mid];
+    while (left <= right) {
+      while (SortUtils.less(array[left], pivot)) {
+        ++left;
+      }
+      while (SortUtils.less(pivot, array[right])) {
+        --right;
+      }
+      if (left <= right) {
+        SortUtils.swap(array, left, right);
+        ++left;
+        --right;
+      }
+    }
+    return left;
+  }
 }

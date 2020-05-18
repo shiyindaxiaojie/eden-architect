@@ -25,12 +25,11 @@ import org.apache.poi.ss.formula.functions.T;
  * Netty Channel 入站处理适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SimpleChannelInboundHandlerAdapter extends SimpleChannelInboundHandler<T> {
 
-	@Override
-	protected void channelRead0(ChannelHandlerContext channelHandlerContext, T data) throws Exception {
-
-	}
+  @Override
+  protected void channelRead0(ChannelHandlerContext channelHandlerContext, T data)
+      throws Exception {}
 }

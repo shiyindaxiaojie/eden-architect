@@ -23,28 +23,28 @@ import lombok.experimental.UtilityClass;
  * 错误常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ErrorConstants {
 
-    public static final String ERR_INTERNAL_SERVER_ERROR = "服务器内部错误";
+  public static final String ERR_INTERNAL_SERVER_ERROR = "服务器内部错误";
 
-    public static final String ERR_CONCURRENCY_FAILURE = "并发失败";
+  public static final String ERR_CONCURRENCY_FAILURE = "并发失败";
 
-    public static final String ERR_INVALID_CREDENTIALS = "无效凭据";
+  public static final String ERR_INVALID_CREDENTIALS = "无效凭据";
 
-    public static final String ERR_BAD_REQUEST_ALERT = "错误请求";
+  public static final String ERR_BAD_REQUEST_ALERT = "错误请求";
 
-    public static final String ERR_ACCESS_DENIED = "非法访问";
+  public static final String ERR_ACCESS_DENIED = "非法访问";
 
-    public static final String ERR_UNAUTHORIZED = "请求未认证或者认证失败";
+  public static final String ERR_UNAUTHORIZED = "请求未认证或者认证失败";
 
-    public static final String ERR_METHOD_NOT_SUPPORTED = "不支持的方法";
+  public static final String ERR_METHOD_NOT_SUPPORTED = "不支持的方法";
 
-    public static final String ERR_VALIDATION = "校验失败";
+  public static final String ERR_VALIDATION = "校验失败";
 
-    public static final String ERR_ENTITY_NOT_FOUND = "实体获取为空";
+  public static final String ERR_ENTITY_NOT_FOUND = "实体获取为空";
 
-    public static final String ERR_INVALID_PRIMARY_KEY = "无效主键";
+  public static final String ERR_INVALID_PRIMARY_KEY = "无效主键";
 }

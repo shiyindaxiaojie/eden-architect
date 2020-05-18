@@ -26,21 +26,20 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * Jackson 默认对象映射器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DefaultObjectMapper extends ObjectMapper {
 
-    private static final long serialVersionUID = 8090216975101285238L;
+  private static final long serialVersionUID = 8090216975101285238L;
 
-    public DefaultObjectMapper() {
-        super();
+  public DefaultObjectMapper() {
+    super();
 
-        // 设置null值不参与序列化
-        this.setSerializationInclusion(Include.NON_NULL);
+    // 设置null值不参与序列化
+    this.setSerializationInclusion(Include.NON_NULL);
 
-        // 禁用空对象转换json校验
-        this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
+    // 禁用空对象转换json校验
+    this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
 }

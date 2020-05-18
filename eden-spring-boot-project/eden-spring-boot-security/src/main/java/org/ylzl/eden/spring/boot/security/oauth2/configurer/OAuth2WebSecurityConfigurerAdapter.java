@@ -27,18 +27,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * OAuth2 WebSecurity 配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class OAuth2WebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-	@Override
-	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-	}
+  @Override
+  public void configure(WebSecurity web) {
+    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+  }
 
-	@Bean
-	@Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }

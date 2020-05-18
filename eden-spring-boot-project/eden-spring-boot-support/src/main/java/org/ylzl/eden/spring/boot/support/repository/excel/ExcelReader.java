@@ -24,11 +24,11 @@ import java.util.List;
  * Excel 数据读取接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ExcelReader<T> {
 
-    void read(InputStream inputStream, int batchSize, int... sheetIndexs);
+  void read(InputStream inputStream, int batchSize, int... sheetIndexs);
 
-    void readCallback(List<T> datas);
+  void readCallback(List<T> datas);
 }

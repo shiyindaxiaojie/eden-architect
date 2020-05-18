@@ -25,15 +25,15 @@ import javax.sql.DataSource;
  * JdbcTemplate 工厂类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JdbcTemplateFactory {
 
-    public static JdbcTemplate getJdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
+  public static JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+    return new JdbcTemplate(dataSource);
+  }
 
-    public static JdbcTemplate getJdbcTemplate(String datasourceName) {
-        return new JdbcTemplate(new JndiDataSource(datasourceName));
-    }
+  public static JdbcTemplate getJdbcTemplate(String datasourceName) {
+    return new JdbcTemplate(new JndiDataSource(datasourceName));
+  }
 }

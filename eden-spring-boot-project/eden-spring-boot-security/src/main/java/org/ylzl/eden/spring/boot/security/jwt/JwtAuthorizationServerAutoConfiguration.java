@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.security.jwt;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -36,9 +35,8 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenService;
  * JWT 授权服务端自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@AutoConfigureAfter(JwtWebSecurityConfiguration.class)
 @EnableConfigurationProperties(JwtProperties.class)
 @ConditionalOnExpression(JwtAuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
 @Import({DefaultWebSecuirtyConfiguration.class, JwtWebSecurityConfiguration.class})
@@ -46,47 +44,49 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenService;
 @Configuration
 public class JwtAuthorizationServerAutoConfiguration {
 
-	public static final String EXPS_OAUTH2_AUTHORIZATION_CLIENT = "${" + SecurityConstants.PROP_PREFIX + ".jwt.authorization.server.enabled:false}";
+  public static final String EXPS_OAUTH2_AUTHORIZATION_CLIENT =
+      "${" + SecurityConstants.PROP_PREFIX + ".jwt.authorization.server.enabled:false}";
 
-    private final JwtProperties jwtProperties;
+  private final JwtProperties jwtProperties;
 
-    public JwtAuthorizationServerAutoConfiguration(JwtProperties jwtProperties) {
-        this.jwtProperties = jwtProperties;
-    }
+  public JwtAuthorizationServerAutoConfiguration(JwtProperties jwtProperties) {
+    this.jwtProperties = jwtProperties;
+  }
 
-    /**
-     * Inject JWT 令牌提供器
-     *
-     * @return 单例对象
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public JwtTokenProvider jwtTokenProvider() {
-        return new JwtTokenProvider(jwtProperties);
-    }
+  /**
+   * Inject JWT 令牌提供器
+   *
+   * @return 单例对象
+   */
+  @ConditionalOnMissingBean
+  @Bean
+  public JwtTokenProvider jwtTokenProvider() {
+    return new JwtTokenProvider(jwtProperties);
+  }
 
-    /**
-     * Inject JWT 令牌服务
-     *
-     * @param authenticationManager 认证管理器
-     * @param jwtTokenProvider JWT 令牌提供器
-     * @return 单例对象
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public JwtTokenService jwtTokenService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-        return new JwtTokenService(authenticationManager, jwtTokenProvider);
-    }
+  /**
+   * Inject JWT 令牌服务
+   *
+   * @param authenticationManager 认证管理器
+   * @param jwtTokenProvider JWT 令牌提供器
+   * @return 单例对象
+   */
+  @ConditionalOnMissingBean
+  @Bean
+  public JwtTokenService jwtTokenService(
+      AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    return new JwtTokenService(authenticationManager, jwtTokenProvider);
+  }
 
-    /**
-     * Inject JWT 令牌端点
-     *
-     * @param jwtTokenService JWT 令牌服务
-     * @return 单例对象
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public JwtTokenEndpoint jwtTokenEndpoint(JwtTokenService jwtTokenService) {
-        return new JwtTokenEndpoint(jwtTokenService, jwtProperties);
-    }
+  /**
+   * Inject JWT 令牌端点
+   *
+   * @param jwtTokenService JWT 令牌服务
+   * @return 单例对象
+   */
+  @ConditionalOnMissingBean
+  @Bean
+  public JwtTokenEndpoint jwtTokenEndpoint(JwtTokenService jwtTokenService) {
+    return new JwtTokenEndpoint(jwtTokenService, jwtProperties);
+  }
 }

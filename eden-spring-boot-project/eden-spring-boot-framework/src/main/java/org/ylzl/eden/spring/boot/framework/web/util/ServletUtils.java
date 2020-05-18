@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.boot.framework.web.util;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 import org.ylzl.eden.spring.boot.commons.lang.ObjectUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 
@@ -31,32 +30,32 @@ import java.util.Map.Entry;
  * Servlet 工具类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ServletUtils {
 
-    public static Map<String, String> toMap(ServletRequest request) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        Map<String, String> returnMap = new HashMap<String, String>();
-        for (Entry<String, String[]> entry : parameterMap.entrySet()) {
-            Object valueObj = entry.getValue();
-            if (ObjectUtils.isEmpty(valueObj)) {
-                returnMap.put(entry.getKey(), StringConstants.EMPTY);
-            } else if (valueObj instanceof String[]) {
-                String[] values = (String[]) valueObj;
-                StringBuilder sb = new StringBuilder();
-                for (String val : values) {
-                    sb.append(val).append(StringConstants.DOT);
-                }
-                if (sb.indexOf(StringConstants.DOT) >= 0) {
-                    sb.delete(sb.length() - 1, sb.length());
-                }
-                returnMap.put(entry.getKey(), sb.toString());
-            } else {
-                returnMap.put(entry.getKey(), ObjectUtils.trimToString(valueObj));
-            }
+  public static Map<String, String> toMap(ServletRequest request) {
+    Map<String, String[]> parameterMap = request.getParameterMap();
+    Map<String, String> returnMap = new HashMap<String, String>();
+    for (Entry<String, String[]> entry : parameterMap.entrySet()) {
+      Object valueObj = entry.getValue();
+      if (ObjectUtils.isEmpty(valueObj)) {
+        returnMap.put(entry.getKey(), StringConstants.EMPTY);
+      } else if (valueObj instanceof String[]) {
+        String[] values = (String[]) valueObj;
+        StringBuilder sb = new StringBuilder();
+        for (String val : values) {
+          sb.append(val).append(StringConstants.DOT);
         }
-        return returnMap;
+        if (sb.indexOf(StringConstants.DOT) >= 0) {
+          sb.delete(sb.length() - 1, sb.length());
+        }
+        returnMap.put(entry.getKey(), sb.toString());
+      } else {
+        returnMap.put(entry.getKey(), ObjectUtils.trimToString(valueObj));
+      }
     }
+    return returnMap;
+  }
 }

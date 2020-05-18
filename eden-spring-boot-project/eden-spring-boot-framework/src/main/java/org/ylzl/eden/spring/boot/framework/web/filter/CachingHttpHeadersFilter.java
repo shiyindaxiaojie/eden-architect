@@ -28,35 +28,34 @@ import java.util.concurrent.TimeUnit;
  * 缓存 HTTP 头部信息过滤器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CachingHttpHeadersFilter implements Filter {
 
-    private final static long LAST_MODIFIED = System.currentTimeMillis();
+  private static final long LAST_MODIFIED = System.currentTimeMillis();
 
-    private long cacheTimeToLive = TimeUnit.DAYS.toMillis(365L);
+  private long cacheTimeToLive = TimeUnit.DAYS.toMillis(365L);
 
-    private final FrameworkProperties.Http properties;
+  private final FrameworkProperties.Http properties;
 
-    public CachingHttpHeadersFilter(FrameworkProperties frameworkProperties) {
-        this.properties = frameworkProperties.getHttp();
-    }
+  public CachingHttpHeadersFilter(FrameworkProperties frameworkProperties) {
+    this.properties = frameworkProperties.getHttp();
+  }
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-        cacheTimeToLive = TimeUnit.DAYS.toMillis(properties.getCache().getTimeToLiveInDays());
-    }
+  @Override
+  public void init(FilterConfig filterConfig) {
+    cacheTimeToLive = TimeUnit.DAYS.toMillis(properties.getCache().getTimeToLiveInDays());
+  }
 
-    @Override
-    public void destroy() {
-    }
+  @Override
+  public void destroy() {}
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=" + cacheTimeToLive + ", public");
-        httpResponse.setHeader(HttpHeaders.PRAGMA, "cache");
-        httpResponse.setDateHeader(HttpHeaders.EXPIRES, cacheTimeToLive + System.currentTimeMillis());
-        httpResponse.setDateHeader(HttpHeaders.LAST_MODIFIED, LAST_MODIFIED);
-    }
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
+    httpResponse.setHeader(HttpHeaders.CACHE_CONTROL, "max-age=" + cacheTimeToLive + ", public");
+    httpResponse.setHeader(HttpHeaders.PRAGMA, "cache");
+    httpResponse.setDateHeader(HttpHeaders.EXPIRES, cacheTimeToLive + System.currentTimeMillis());
+    httpResponse.setDateHeader(HttpHeaders.LAST_MODIFIED, LAST_MODIFIED);
+  }
 }

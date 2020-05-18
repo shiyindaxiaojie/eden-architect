@@ -26,17 +26,16 @@ import org.ylzl.eden.spring.boot.framework.mail.EnhancedMailProperties;
  * 邮件开关信息装饰器
  *
  * @author sion
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class MailEnabledInfoContributor implements InfoContributor {
 
-    private static final String MAIL_ENABLED = "mailEnabled";
+  private static final String MAIL_ENABLED = "mailEnabled";
 
-    @Autowired
-    private EnhancedMailProperties enhancedMailProperties;
+  @Autowired private EnhancedMailProperties enhancedMailProperties;
 
-    @Override
-    public void contribute(Info.Builder builder) {
-        builder.withDetail(MAIL_ENABLED, enhancedMailProperties.isEnabled());
-    }
+  @Override
+  public void contribute(Info.Builder builder) {
+    builder.withDetail(MAIL_ENABLED, enhancedMailProperties.isEnabled());
+  }
 }

@@ -23,28 +23,27 @@ import lombok.experimental.UtilityClass;
  * Metrics 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class MetricsDefaults {
 
-    public static class Jmx {
+  public static class Jmx {
 
-        public static final boolean enabled = true;
-    }
+    public static final boolean enabled = true;
+  }
 
-    public static class Logs {
+  public static class Logs {
 
-        public static final boolean enabled = false;
+    public static final boolean enabled = false;
 
-        public static final long reportFrequency = 60;
+    public static final long reportFrequency = 60;
+  }
 
-    }
+  public static class Prometheus {
 
-    public static class Prometheus {
+    public static final boolean enabled = false;
 
-        public static final boolean enabled = false;
-
-        public static final String endpoint = "/prometheusMetrics";
-    }
+    public static final String endpoint = "/prometheusMetrics";
+  }
 }

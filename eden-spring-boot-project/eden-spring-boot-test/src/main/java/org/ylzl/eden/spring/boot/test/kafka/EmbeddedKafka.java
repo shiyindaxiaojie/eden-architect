@@ -18,62 +18,61 @@
 package org.ylzl.eden.spring.boot.test.kafka;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.test.rule.KafkaEmbedded;
-import org.ylzl.eden.spring.boot.integration.kafka.KafkaProperties;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 
 /**
  * 嵌入式的 Kafka
  *
+ * <p>Spring Kafka 从 1.X 升级到 2.X
+ *
+ * <ul>
+ *   <li>org.springframework.kafka.test.rule.KafkaEmbedded 变更为 {@link EmbeddedKafkaRule}
+ * </ul>
+ *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
-public class EmbeddedKafka extends KafkaEmbedded {
+public class EmbeddedKafka extends EmbeddedKafkaRule {
 
-    private boolean closed = true;
+  private static final int DEFAULT_PORT = 9092;
 
-    public EmbeddedKafka(int count) {
-        super(count);
+  private int port;
+
+  private boolean closed = true;
+
+  public EmbeddedKafka(int count) {
+    super(count);
+  }
+
+  public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
+    super(count, controlledShutdown, topics);
+  }
+
+  public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
+    super(count, controlledShutdown, partitions, topics);
+  }
+
+  public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
+    super(1, true, topics);
+  }
+
+  @Override
+  public void before() {
+    super.before();
+    closed = true;
+  }
+
+  @Override
+  public void after() {
+    if (!isOpen()) {
+      return;
     }
+    this.after();
+  }
 
-    public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
-        super(count, controlledShutdown, topics);
-    }
-
-    public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
-        super(count, controlledShutdown, partitions, topics);
-    }
-
-    public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
-        super(1,true,  topics);
-    }
-
-    @Override
-    public void before() {
-        log.info("启动嵌入式的 Kakfa");
-        try {
-            String brokers = this.getBrokersAsString();
-            System.setProperty("spring.kafka.bootstrap-servers", brokers);
-            System.setProperty("spring.kafka.group-id", "test");
-            log.info("Kafka Brokers: {}", brokers);
-            super.before();
-            closed = true;
-        } catch (Exception e) {
-            log.error("启动嵌入式的 Kafka 失败，异常：{}", e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public void after() {
-        if (!isOpen()) {
-            log.info("嵌入式的 Kakfa 未启动，无需关闭");
-            return;
-        }
-        log.info("关闭嵌入式的 Kakfa");
-        this.after();
-    }
-
-    public boolean isOpen() {
-        return !closed;
-    }
+  public boolean isOpen() {
+    return !closed;
+  }
 }

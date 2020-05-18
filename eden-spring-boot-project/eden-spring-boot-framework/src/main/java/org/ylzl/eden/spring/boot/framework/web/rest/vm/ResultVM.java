@@ -27,7 +27,7 @@ import java.io.Serializable;
  * 业务处理视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -38,23 +38,17 @@ import java.io.Serializable;
 @ApiModel(description = "处理结果视图模型")
 public class ResultVM<T> implements Serializable {
 
-    private static final long serialVersionUID = -6062447811540513140L;
+  private static final long serialVersionUID = -6062447811540513140L;
 
-    /**
-     * 消息
-     */
-    @ApiModelProperty(value = "消息")
-    private String message;
+  /** 消息 */
+  @ApiModelProperty(value = "消息")
+  private String message;
 
-    /**
-     * 数据
-     */
-    @ApiModelProperty(value = "数据")
-    private T data;
+  /** 数据 */
+  @ApiModelProperty(value = "数据")
+  private T data;
 
-    /**
-     * 统计
-     */
-    @ApiModelProperty(value = "统计")
-    private Long count;
+  /** 统计 */
+  @ApiModelProperty(value = "统计")
+  private Long count;
 }

@@ -17,15 +17,12 @@
 package org.ylzl.eden.spring.boot.cloud.core;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * Spring Cloud 默认属性值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
-public final class CloudDefaults {
-
-}
+public final class CloudDefaults {}

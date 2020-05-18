@@ -26,11 +26,11 @@ import java.lang.annotation.Target;
  * 别名注解
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.FIELD})
 public @interface BeanAlias {
 
-    String value() default "";
+  String value() default "";
 }

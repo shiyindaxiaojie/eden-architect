@@ -16,9 +16,8 @@
  */
 package org.ylzl.eden.spring.boot.commons.imaging;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
@@ -29,32 +28,38 @@ import java.io.IOException;
  * Thumbnailator 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class ThumbnailatorUtils {
 
-    public static void compress(@NonNull File srcFile, @NonNull File destFile, long limitSize, double scale) throws IOException {
-        Thumbnails.of(srcFile).scale(scale).toFile(destFile);
-        if (destFile.length() > limitSize) {
-            compress(destFile, destFile, limitSize);
-        }
+  public static void compress(
+      @NonNull File srcFile, @NonNull File destFile, long limitSize, double scale)
+      throws IOException {
+    Thumbnails.of(srcFile).scale(scale).toFile(destFile);
+    if (destFile.length() > limitSize) {
+      compress(destFile, destFile, limitSize);
     }
+  }
 
-    public static void compress(@NonNull File srcFile, @NonNull File destFile, long limitSize) throws IOException {
-        compress(srcFile, destFile, limitSize, 0.9);
-    }
+  public static void compress(@NonNull File srcFile, @NonNull File destFile, long limitSize)
+      throws IOException {
+    compress(srcFile, destFile, limitSize, 0.9);
+  }
 
-    public static void zoom(@NonNull File srcFile, @NonNull File destFile, int width, int height) throws IOException {
-        Thumbnails.of(srcFile).size(width, height).keepAspectRatio(false).toFile(destFile);
-    }
+  public static void zoom(@NonNull File srcFile, @NonNull File destFile, int width, int height)
+      throws IOException {
+    Thumbnails.of(srcFile).size(width, height).keepAspectRatio(false).toFile(destFile);
+  }
 
-    public static void zoom(@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename)
-        throws IOException {
-        Thumbnails.of(fileNameArr).size(width, height).keepAspectRatio(false).toFiles(destFile, rename);
-    }
+  public static void zoom(
+      @NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename)
+      throws IOException {
+    Thumbnails.of(fileNameArr).size(width, height).keepAspectRatio(false).toFiles(destFile, rename);
+  }
 
-    public static void zoom(@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height) {
-        zoom(fileNameArr, destFile, width, height);
-    }
+  public static void zoom(
+      @NonNull String[] fileNameArr, @NonNull File destFile, int width, int height) {
+    zoom(fileNameArr, destFile, width, height);
+  }
 }

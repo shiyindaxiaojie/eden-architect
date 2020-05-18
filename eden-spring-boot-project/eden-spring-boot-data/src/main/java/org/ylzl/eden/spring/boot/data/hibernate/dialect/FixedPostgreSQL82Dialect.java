@@ -26,20 +26,20 @@ import java.sql.Types;
  * PostgreSQL82 方言类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class FixedPostgreSQL82Dialect extends PostgreSQL82Dialect {
 
-    public FixedPostgreSQL82Dialect() {
-        super();
-        registerColumnType(Types.BLOB, "bytea");
-    }
+  public FixedPostgreSQL82Dialect() {
+    super();
+    registerColumnType(Types.BLOB, "bytea");
+  }
 
-    @Override
-    public SqlTypeDescriptor remapSqlTypeDescriptor(SqlTypeDescriptor sqlTypeDescriptor) {
-        if (sqlTypeDescriptor.getSqlType() == java.sql.Types.BLOB) {
-            return BinaryTypeDescriptor.INSTANCE;
-        }
-        return super.remapSqlTypeDescriptor(sqlTypeDescriptor);
+  @Override
+  public SqlTypeDescriptor remapSqlTypeDescriptor(SqlTypeDescriptor sqlTypeDescriptor) {
+    if (sqlTypeDescriptor.getSqlType() == java.sql.Types.BLOB) {
+      return BinaryTypeDescriptor.INSTANCE;
     }
+    return super.remapSqlTypeDescriptor(sqlTypeDescriptor);
+  }
 }

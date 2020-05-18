@@ -18,92 +18,88 @@
 package org.ylzl.eden.spring.boot.security.jwt;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.ylzl.eden.spring.boot.security.core.DefaultWebSecuirtyConfiguration;
 import org.ylzl.eden.spring.boot.security.jwt.configurer.JwtWebSecurityConfigurerAdapter;
 import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenProvider;
-
-import javax.annotation.PostConstruct;
 
 /**
  * JWT WebSecurity 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@EnableWebSecurity
 @Slf4j
 @Configuration
 public class JwtWebSecurityConfiguration {
 
-	private static final String INIT_AUTHENTICATION_MANAGER = "Initializing AuthenticationManager (JWT)";
+  /*	private static final String INIT_AUTHENTICATION_MANAGER = "Initializing AuthenticationManager (JWT)";
 
-	private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";
+  private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";*/
 
-	private static final String MSG_INJECT_AUTHENTICATION_MANAGER = "Inject AuthenticationManager (JWT)";
+  private static final String MSG_INJECT_AUTHENTICATION_MANAGER =
+      "Inject AuthenticationManager (JWT)";
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+  /*    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    private final UserDetailsService userDetailsService;
+     private final UserDetailsService userDetailsService;
 
-	private final PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
-	public JwtWebSecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-		this.authenticationManagerBuilder = authenticationManagerBuilder;
-		this.userDetailsService = userDetailsService;
-		this.passwordEncoder = passwordEncoder;
-	}
+  public JwtWebSecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+  	this.authenticationManagerBuilder = authenticationManagerBuilder;
+  	this.userDetailsService = userDetailsService;
+  	this.passwordEncoder = passwordEncoder;
+  }*/
 
-    @ConditionalOnMissingBean
-    @Bean
-    public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-        return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
+  @ConditionalOnMissingBean
+  @Bean
+  public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(
+      JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+    return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public AuthenticationManager authenticationManager(
+      WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
+    log.debug(MSG_INJECT_AUTHENTICATION_MANAGER);
+    return webSecurityConfigurerAdapter.authenticationManagerBean();
+  }
+
+  /*@PostConstruct
+  public void init() {
+  	log.debug(INIT_AUTHENTICATION_MANAGER);
+  	try {
+  		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+  	} catch (Exception e) {
+  		throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
+  	}
+  }*/
+
+  protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
+
+    public JwtWebSecurityConfigurer(
+        JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+      super(jwtTokenProvider, jwtProperties);
     }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public AuthenticationManager authenticationManager(WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
-		log.debug(MSG_INJECT_AUTHENTICATION_MANAGER);
-        return webSecurityConfigurerAdapter.authenticationManagerBean();
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+      super.configure(http);
+
+      http.authorizeRequests()
+          .antMatchers(JwtConstants.ENDPOINT_TOKEN)
+          .permitAll()
+          .anyRequest()
+          .authenticated();
     }
-
-	@PostConstruct
-	public void init() {
-		log.debug(INIT_AUTHENTICATION_MANAGER);
-		try {
-			authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-		} catch (Exception e) {
-			throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
-		}
-	}
-
-	protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
-
-        public JwtWebSecurityConfigurer(JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-            super(jwtTokenProvider, jwtProperties);
-        }
-
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            super.configure(http);
-
-            http.authorizeRequests()
-				.antMatchers(JwtConstants.ENDPOINT_TOKEN).permitAll()
-				.anyRequest().authenticated();
-        }
-    }
+  }
 }

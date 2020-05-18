@@ -17,15 +17,12 @@
 package org.ylzl.eden.spring.boot.commons.env;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 运行工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
-public class RuntimeUtils {
-
-}
+public class RuntimeUtils {}

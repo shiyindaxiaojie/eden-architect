@@ -24,14 +24,14 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
  * Mail 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class EnhancedMailDefaults {
 
-    public static final boolean enabled = false;
+  public static final boolean enabled = false;
 
-    public static final String from = StringConstants.EMPTY;
+  public static final String from = StringConstants.EMPTY;
 
-    public static final String baseUrl = StringConstants.EMPTY;
+  public static final String baseUrl = StringConstants.EMPTY;
 }

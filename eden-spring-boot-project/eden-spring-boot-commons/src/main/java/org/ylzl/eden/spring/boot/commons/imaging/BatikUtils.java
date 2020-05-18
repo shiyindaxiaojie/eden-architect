@@ -16,9 +16,8 @@
  */
 package org.ylzl.eden.spring.boot.commons.imaging;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -31,46 +30,48 @@ import java.io.*;
  * Batik 工具类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class BatikUtils {
 
-    public static void toPng(@NonNull String svgCode, @NonNull String destPath) throws IOException, TranscoderException {
-        FileOutputStream outputStream = null;
+  public static void toPng(@NonNull String svgCode, @NonNull String destPath)
+      throws IOException, TranscoderException {
+    FileOutputStream outputStream = null;
+    try {
+      File file = new File(destPath);
+      file.createNewFile();
+      outputStream = new FileOutputStream(file);
+      toPng(svgCode, outputStream);
+    } finally {
+      if (outputStream != null) {
         try {
-            File file = new File(destPath);
-            file.createNewFile();
-            outputStream = new FileOutputStream(file);
-            toPng(svgCode, outputStream);
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    throw e;
-                }
-            }
+          outputStream.close();
+        } catch (IOException e) {
+          throw e;
         }
+      }
     }
+  }
 
-    public static void toPng(@NonNull String svgCode, @NonNull OutputStream outputStream) throws IOException, TranscoderException {
+  public static void toPng(@NonNull String svgCode, @NonNull OutputStream outputStream)
+      throws IOException, TranscoderException {
+    try {
+      byte[] bytes = svgCode.getBytes(CharsetConstants.UTF_8);
+      PNGTranscoder transcoder = new PNGTranscoder();
+      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+      TranscoderInput input = new TranscoderInput(byteArrayInputStream);
+      TranscoderOutput output = new TranscoderOutput(outputStream);
+      transcoder.transcode(input, output);
+      outputStream.flush();
+    } finally {
+      if (outputStream != null) {
         try {
-            byte[] bytes = svgCode.getBytes(CharsetConstants.UTF_8);
-            PNGTranscoder transcoder = new PNGTranscoder();
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-            TranscoderInput input = new TranscoderInput(byteArrayInputStream);
-            TranscoderOutput output = new TranscoderOutput(outputStream);
-            transcoder.transcode(input, output);
-            outputStream.flush();
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    throw e;
-                }
-            }
+          outputStream.close();
+        } catch (IOException e) {
+          throw e;
         }
+      }
     }
+  }
 }

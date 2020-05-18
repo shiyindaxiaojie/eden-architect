@@ -26,23 +26,23 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Scheduling 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".scheduling")
 public class SchedulingProperties {
 
-    private final TaskExecutor taskExecutor = new TaskExecutor();
+  private final TaskExecutor taskExecutor = new TaskExecutor();
 
-    @Getter
-    @Setter
-    public static class TaskExecutor {
+  @Getter
+  @Setter
+  public static class TaskExecutor {
 
-        private int corePoolSize = SchedulingDefaults.TaskExecutor.corePoolSize;
+    private int corePoolSize = SchedulingDefaults.TaskExecutor.corePoolSize;
 
-        private int maxPoolSize = SchedulingDefaults.TaskExecutor.maxPoolSize;
+    private int maxPoolSize = SchedulingDefaults.TaskExecutor.maxPoolSize;
 
-        private int queueCapacity = SchedulingDefaults.TaskExecutor.queueCapacity;
-    }
+    private int queueCapacity = SchedulingDefaults.TaskExecutor.queueCapacity;
+  }
 }

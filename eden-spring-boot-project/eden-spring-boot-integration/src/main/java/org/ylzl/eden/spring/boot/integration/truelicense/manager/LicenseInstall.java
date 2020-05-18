@@ -31,42 +31,45 @@ import java.io.File;
  * 许可证安装服务
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class LicenseInstall implements InitializingBean {
 
-    private final TrueLicenseProperties trueLicenseProperties;
+  private final TrueLicenseProperties trueLicenseProperties;
 
-    private final LicenseManager licenseManager;
+  private final LicenseManager licenseManager;
 
-    public LicenseInstall(TrueLicenseProperties trueLicenseProperties, LicenseManager licenseManager) {
-        this.trueLicenseProperties = trueLicenseProperties;
-        this.licenseManager = licenseManager;
+  public LicenseInstall(
+      TrueLicenseProperties trueLicenseProperties, LicenseManager licenseManager) {
+    this.trueLicenseProperties = trueLicenseProperties;
+    this.licenseManager = licenseManager;
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    log.debug("开始安装证书");
+    StopWatch watch = new StopWatch();
+    watch.start();
+    install();
+    watch.stop();
+    log.debug("证书安装耗时 {} 毫秒", watch.getTotalTimeMillis());
+  }
+
+  public LicenseContent install() throws Exception {
+    File file = new File(trueLicenseProperties.getLicensePath());
+    LicenseContent licenseContent;
+    try {
+      licenseManager.uninstall();
+      licenseContent = licenseManager.install(file);
+    } catch (Exception e) {
+      log.error("证书安装失败！异常：{}", e.getMessage(), e);
+      throw e;
     }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        log.debug("开始安装证书");
-        StopWatch watch = new StopWatch();
-        watch.start();
-        install();
-        watch.stop();
-        log.debug("证书安装耗时 {} 毫秒", watch.getTotalTimeMillis());
-    }
-
-    public LicenseContent install() throws Exception {
-        File file = new File(trueLicenseProperties.getLicensePath());
-        LicenseContent licenseContent;
-        try {
-            licenseManager.uninstall();
-            licenseContent = licenseManager.install(file);
-        } catch (Exception e) {
-            log.error("证书安装失败！异常：{}", e.getMessage(), e);
-            throw e;
-        }
-        log.info("证书安装成功，有效期：{} ～ {}", DateUtils.toDateTimeString(licenseContent.getNotBefore()),
-            DateUtils.toDateTimeString(licenseContent.getNotAfter()));
-        return licenseContent;
-    }
+    log.info(
+        "证书安装成功，有效期：{} ～ {}",
+        DateUtils.toDateTimeString(licenseContent.getNotBefore()),
+        DateUtils.toDateTimeString(licenseContent.getNotAfter()));
+    return licenseContent;
+  }
 }

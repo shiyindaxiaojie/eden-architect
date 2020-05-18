@@ -24,88 +24,101 @@ import lombok.NonNull;
  * 基本类型枚举
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public enum PrimitiveTypeEnum {
-
-    BOOLEAN(new Handler() {
-
-        @Override
-        public Object cast(String value) {
-            return value == null ? false : Boolean.parseBoolean(value);
-        }
-    }, Boolean.class),
-    BYTE(new Handler() {
+  BOOLEAN(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? (byte) 0 : Byte.parseByte(value);
+          return value == null ? false : Boolean.parseBoolean(value);
         }
-    }, Byte.class),
-    CHAR(new Handler() {
+      },
+      Boolean.class),
+  BYTE(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? '\u0000' : value.charAt(0);
+          return value == null ? (byte) 0 : Byte.parseByte(value);
         }
-    }, Character.class),
-    DOUBLE(new Handler() {
+      },
+      Byte.class),
+  CHAR(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? 0.0d : Double.parseDouble(value);
+          return value == null ? '\u0000' : value.charAt(0);
         }
-    }, Double.class),
-    FLOAT(new Handler() {
+      },
+      Character.class),
+  DOUBLE(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? 0.0f : Float.parseFloat(value);
+          return value == null ? 0.0d : Double.parseDouble(value);
         }
-    }, Float.class),
-    INTEGER(new Handler() {
+      },
+      Double.class),
+  FLOAT(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? 0 : Integer.parseInt(value);
+          return value == null ? 0.0f : Float.parseFloat(value);
         }
-    }, Integer.class),
-    LONG(new Handler() {
+      },
+      Float.class),
+  INTEGER(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? 0L : Long.parseLong(value);
+          return value == null ? 0 : Integer.parseInt(value);
         }
-    }, Long.class),
-    SHORT(new Handler() {
+      },
+      Integer.class),
+  LONG(
+      new Handler() {
 
         @Override
         public Object cast(String value) {
-            return value == null ? (short) 0 : Short.parseShort(value);
+          return value == null ? 0L : Long.parseLong(value);
         }
-    }, Short.class);
+      },
+      Long.class),
+  SHORT(
+      new Handler() {
 
-    @Getter
-    private final Handler handler;
+        @Override
+        public Object cast(String value) {
+          return value == null ? (short) 0 : Short.parseShort(value);
+        }
+      },
+      Short.class);
 
-    @Getter
-    private final Class<?> wrapperClass;
+  @Getter private final Handler handler;
 
-    PrimitiveTypeEnum(Handler handler, Class<?> wrapperClass) {
-        this.handler = handler;
-        this.wrapperClass = wrapperClass;
+  @Getter private final Class<?> wrapperClass;
+
+  PrimitiveTypeEnum(Handler handler, Class<?> wrapperClass) {
+    this.handler = handler;
+    this.wrapperClass = wrapperClass;
+  }
+
+  public static PrimitiveTypeEnum toPrimitiveTypeEnum(@NonNull String type) {
+    for (PrimitiveTypeEnum primitiveTypeEnum : PrimitiveTypeEnum.values()) {
+      if (primitiveTypeEnum.name().equalsIgnoreCase(type)) {
+        return primitiveTypeEnum;
+      }
     }
+    return null;
+  }
 
-    public static PrimitiveTypeEnum toPrimitiveTypeEnum(@NonNull String type) {
-        for (PrimitiveTypeEnum primitiveTypeEnum : PrimitiveTypeEnum.values()) {
-            if (primitiveTypeEnum.name().equalsIgnoreCase(type)) {
-                return primitiveTypeEnum;
-            }
-        }
-        return null;
-    }
-
-    public interface Handler {
-        Object cast(String value);
-    }
+  public interface Handler {
+    Object cast(String value);
+  }
 }

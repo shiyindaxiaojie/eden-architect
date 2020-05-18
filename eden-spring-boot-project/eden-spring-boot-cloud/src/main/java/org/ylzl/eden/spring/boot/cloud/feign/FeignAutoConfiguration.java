@@ -29,16 +29,16 @@ import org.springframework.context.annotation.Configuration;
  * 已认证的 Feign 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({Feign.class})
 @Slf4j
 @Configuration
 public class FeignAutoConfiguration {
 
-    @ConditionalOnMissingBean
-    @Bean
-    public Logger.Level feignLoggerLevel() {
-        return Logger.Level.BASIC;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public Logger.Level feignLoggerLevel() {
+    return Logger.Level.BASIC;
+  }
 }

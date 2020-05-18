@@ -30,51 +30,51 @@ import java.util.Map;
  * Jwt 令牌处理器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JwtTokenProcessor implements TokenProcessor {
 
-    private final JsonParser jsonParser = JsonParserFactory.getJsonParser();
+  private final JsonParser jsonParser = JsonParserFactory.getJsonParser();
 
-    /**
-     * 根据令牌获取签发时间
-     *
-     * @param tokenValue 令牌值
-     * @return 签发时间
-     */
-    @Override
-    public int getIat(String tokenValue) {
-        return getClaim(tokenValue, JwtConstants.ISSUED_AT);
-    }
+  /**
+   * 根据令牌获取签发时间
+   *
+   * @param tokenValue 令牌值
+   * @return 签发时间
+   */
+  @Override
+  public int getIat(String tokenValue) {
+    return getClaim(tokenValue, JwtConstants.ISSUED_AT);
+  }
 
-    /**
-     * 根据令牌获取过期时间
-     *
-     * @param tokenValue 令牌值
-     * @return 过期时间
-     */
-    @Override
-    public int getExp(String tokenValue) {
-        return getClaim(tokenValue, JwtConstants.EXPIRATION);
-    }
+  /**
+   * 根据令牌获取过期时间
+   *
+   * @param tokenValue 令牌值
+   * @return 过期时间
+   */
+  @Override
+  public int getExp(String tokenValue) {
+    return getClaim(tokenValue, JwtConstants.EXPIRATION);
+  }
 
-	/**
-	 * 根据令牌获取 Claim 值
-	 *
-	 * @param tokenValue
-	 * @param claimName
-	 * @param <T>
-	 * @return
-	 */
-    @SuppressWarnings("unchecked")
-    private <T> T getClaim(String tokenValue, String claimName) {
-        Jwt jwt = JwtHelper.decode(tokenValue);
-        String claims = jwt.getClaims();
-        Map<String, Object> claimsMap = jsonParser.parseMap(claims);
-        Object claimValue = claimsMap.get(claimName);
-        if (claimValue == null) {
-            return null;
-        }
-        return (T) claimValue;
+  /**
+   * 根据令牌获取 Claim 值
+   *
+   * @param tokenValue
+   * @param claimName
+   * @param <T>
+   * @return
+   */
+  @SuppressWarnings("unchecked")
+  private <T> T getClaim(String tokenValue, String claimName) {
+    Jwt jwt = JwtHelper.decode(tokenValue);
+    String claims = jwt.getClaims();
+    Map<String, Object> claimsMap = jsonParser.parseMap(claims);
+    Object claimValue = claimsMap.get(claimName);
+    if (claimValue == null) {
+      return null;
     }
+    return (T) claimValue;
+  }
 }

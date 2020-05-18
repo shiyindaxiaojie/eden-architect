@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.boot.integration.easyexcel.write.EasyExcelWriter;
  * EasyExcel 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EasyExcel.class)
 @ConditionalOnExpression(EasyExcelAutoConfiguration.EXPS_EASY_EXCEL_ENABLED)
@@ -40,17 +40,18 @@ import org.ylzl.eden.spring.boot.integration.easyexcel.write.EasyExcelWriter;
 @Configuration
 public class EasyExcelAutoConfiguration {
 
-	public static final String EXPS_EASY_EXCEL_ENABLED = "${" + IntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
+  public static final String EXPS_EASY_EXCEL_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public EasyExcelReader easyExcelReader() {
-        return new EasyExcelReader();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public EasyExcelReader easyExcelReader() {
+    return new EasyExcelReader();
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public EasyExcelWriter easyExcelWriter() {
-        return new EasyExcelWriter();
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public EasyExcelWriter easyExcelWriter() {
+    return new EasyExcelWriter();
+  }
 }

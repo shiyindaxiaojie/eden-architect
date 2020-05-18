@@ -26,14 +26,14 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * Caffeine 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".caffeine")
 public class CaffeineProperties {
 
-    private int timeToLiveSeconds = CaffeineDefaults.timeToLiveSeconds;
+  private int timeToLiveSeconds = CaffeineDefaults.timeToLiveSeconds;
 
-    private long maxEntries = CaffeineDefaults.maxEntries;
+  private long maxEntries = CaffeineDefaults.maxEntries;
 }

@@ -28,15 +28,16 @@ import java.io.IOException;
  * Ajax 认证失败处理类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    private static final String MSG_UNAUTHORIZED = "Ajax authenticated failed";
+  private static final String MSG_UNAUTHORIZED = "Ajax authenticated failed";
 
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, MSG_UNAUTHORIZED);
-    }
+  @Override
+  public void onAuthenticationFailure(
+      HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+      throws IOException {
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, MSG_UNAUTHORIZED);
+  }
 }

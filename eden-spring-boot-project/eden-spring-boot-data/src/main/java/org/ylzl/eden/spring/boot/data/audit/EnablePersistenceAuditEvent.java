@@ -25,12 +25,10 @@ import java.lang.annotation.*;
  * 开启审计事件持久化配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Import(PersistenceAuditEventConfiguration.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnablePersistenceAuditEvent {
-
-}
+public @interface EnablePersistenceAuditEvent {}

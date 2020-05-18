@@ -30,13 +30,14 @@ import java.util.Date;
  * Jackson 日期序列化
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DateSerializer extends JsonSerializer<Date> {
 
-    @Override
-    public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(DateUtils.toDateString(date, DatePattern.NORM_DATE_PATTERN));
-    }
-
+  @Override
+  public void serialize(
+      Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+      throws IOException {
+    jsonGenerator.writeString(DateUtils.toDateString(date, DatePattern.NORM_DATE_PATTERN));
+  }
 }

@@ -17,7 +17,6 @@
 
 package org.ylzl.eden.spring.boot.test.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.rules.ExternalResource;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import redis.embedded.RedisServer;
@@ -28,69 +27,65 @@ import java.io.IOException;
  * 嵌入式的 Redis
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-@Slf4j
 public class EmbeddedRedisServer extends ExternalResource {
 
-    private static final int DEFAULT_PORT = 6379;
+  private static final int DEFAULT_PORT = 6379;
 
-    private int port;
+  private int port;
 
-    private boolean suppressExceptions = false;
+  private boolean suppressExceptions = false;
 
-    private boolean closed = true;
+  private boolean closed = true;
 
-    private RedisServer redisServer;
+  private RedisServer redisServer;
 
-    public EmbeddedRedisServer() {
-        port = DEFAULT_PORT;
+  public EmbeddedRedisServer() {
+    port = DEFAULT_PORT;
+  }
+
+  public EmbeddedRedisServer(int port) {
+    this.port = port;
+  }
+
+  public EmbeddedRedisServer(RedisProperties redisProperties) {
+    this.port = redisProperties.getPort();
+  }
+
+  public static EmbeddedRedisServer runningAt(Integer port) {
+    return new EmbeddedRedisServer(port != null ? port : DEFAULT_PORT);
+  }
+
+  @Override
+  public void before() throws IOException {
+    try {
+      this.redisServer = new RedisServer(port);
+      this.redisServer.start();
+      closed = false;
+    } catch (Exception e) {
+      if (!suppressExceptions) {
+        throw e;
+      }
     }
+  }
 
-    public EmbeddedRedisServer(int port) {
-        this.port = port;
+  @Override
+  public void after() {
+    if (!isOpen()) {
+      return;
     }
+    try {
+      this.redisServer.stop();
+      closed = true;
+    } catch (Exception e) {
+      if (!suppressExceptions) {
+        throw e;
+      }
+    }
+  }
 
-    public EmbeddedRedisServer(RedisProperties redisProperties) {
-        this.port = redisProperties.getPort();
-    }
-
-    public static EmbeddedRedisServer runningAt(Integer port) {
-        return new EmbeddedRedisServer(port != null ? port : DEFAULT_PORT);
-    }
-
-    @Override
-    public void before() throws IOException {
-        log.info("启动嵌入式的 Redis");
-        try {
-            this.redisServer = new RedisServer(port);
-            this.redisServer.start();
-            closed = false;
-        } catch (Exception e) {
-            if (!suppressExceptions) {
-                throw e;
-            }
-        }
-    }
-
-    @Override
-    public void after() {
-        if (!isOpen()) {
-            log.info("嵌入式的 Redis 未启动，无需关闭");
-            return;
-        }
-        log.info("关闭嵌入式的 Redis");
-        try {
-            this.redisServer.stop();
-            closed = true;
-        } catch (Exception e) {
-            if (!suppressExceptions) {
-                throw e;
-            }
-        }
-    }
-
-    public boolean isOpen() {
-        return !closed;
-    }
+  public boolean isOpen() {
+    return !closed;
+  }
 }

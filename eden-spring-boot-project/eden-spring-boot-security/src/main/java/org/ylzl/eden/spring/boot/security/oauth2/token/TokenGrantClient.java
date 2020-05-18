@@ -24,34 +24,35 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
  * 令牌授权客户端接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface TokenGrantClient {
 
-    /**
-     * 发送密码授权
-     *
-     * @param username 用户
-     * @param password 密码
-     * @return OAuth2 访问令牌
-	 * @throws InvalidGrantException
-     */
-    OAuth2AccessToken sendPasswordGrant(String username, String password) throws InvalidGrantException;
+  /**
+   * 发送密码授权
+   *
+   * @param username 用户
+   * @param password 密码
+   * @return OAuth2 访问令牌
+   * @throws InvalidGrantException
+   */
+  OAuth2AccessToken sendPasswordGrant(String username, String password)
+      throws InvalidGrantException;
 
-    /**
-     * 发送刷新授权
-     *
-     * @param refreshTokenValue 刷新令牌
-     * @return OAuth2 访问令牌
-	 * @throws InvalidGrantException
-     */
-    OAuth2AccessToken sendRefreshGrant(String refreshTokenValue) throws InvalidGrantException;
+  /**
+   * 发送刷新授权
+   *
+   * @param refreshTokenValue 刷新令牌
+   * @return OAuth2 访问令牌
+   * @throws InvalidGrantException
+   */
+  OAuth2AccessToken sendRefreshGrant(String refreshTokenValue) throws InvalidGrantException;
 
-    /**
-     * 发送客户端授权
-     *
-     * @return OAuth2 访问令牌
-	 * @throws InvalidGrantException
-     */
-    OAuth2AccessToken sendClientCredentialsGrant() throws InvalidGrantException;
+  /**
+   * 发送客户端授权
+   *
+   * @return OAuth2 访问令牌
+   * @throws InvalidGrantException
+   */
+  OAuth2AccessToken sendClientCredentialsGrant() throws InvalidGrantException;
 }

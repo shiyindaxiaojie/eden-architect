@@ -26,35 +26,35 @@ import java.util.Map;
  * 自定义参数异常
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CustomParameterizedException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private static final String PARAM = "param";
+  private static final String PARAM = "param";
 
-    private final String message;
+  private final String message;
 
-    private final Map<String, String> paramMap = new HashMap<>();
+  private final Map<String, String> paramMap = new HashMap<>();
 
-    public CustomParameterizedException(String message, String... params) {
-        super(message);
-        this.message = message;
-        if (params != null && params.length > 0) {
-            for (int i = 0; i < params.length; i++) {
-                paramMap.put(PARAM + i, params[i]);
-            }
-        }
+  public CustomParameterizedException(String message, String... params) {
+    super(message);
+    this.message = message;
+    if (params != null && params.length > 0) {
+      for (int i = 0; i < params.length; i++) {
+        paramMap.put(PARAM + i, params[i]);
+      }
     }
+  }
 
-    public CustomParameterizedException(String message, Map<String, String> paramMap) {
-        super(message);
-        this.message = message;
-        this.paramMap.putAll(paramMap);
-    }
+  public CustomParameterizedException(String message, Map<String, String> paramMap) {
+    super(message);
+    this.message = message;
+    this.paramMap.putAll(paramMap);
+  }
 
-    public ParameterizedErrorVM getErrorVM() {
-        return ParameterizedErrorVM.builder().message(message).paramMap(paramMap).build();
-    }
+  public ParameterizedErrorVM getErrorVM() {
+    return ParameterizedErrorVM.builder().message(message).paramMap(paramMap).build();
+  }
 }

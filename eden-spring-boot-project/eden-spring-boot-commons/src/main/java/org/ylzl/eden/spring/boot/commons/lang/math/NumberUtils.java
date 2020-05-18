@@ -18,15 +18,12 @@
 package org.ylzl.eden.spring.boot.commons.lang.math;
 
 import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 
 /**
  * 数值工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
-public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
-
-}
+public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {}

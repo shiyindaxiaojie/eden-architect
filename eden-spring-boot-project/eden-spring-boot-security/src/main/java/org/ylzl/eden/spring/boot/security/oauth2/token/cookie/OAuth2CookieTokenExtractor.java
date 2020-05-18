@@ -26,19 +26,19 @@ import javax.servlet.http.HttpServletRequest;
  * Cookies 令牌提取器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class OAuth2CookieTokenExtractor extends BearerTokenExtractor {
 
-    @Override
-    protected String extractToken(HttpServletRequest request) {
-        String result;
-        Cookie accessTokenCookie = OAuth2CookieHelper.getAccessTokenCookie(request);
-        if (accessTokenCookie != null) {
-            result = accessTokenCookie.getValue();
-        } else {
-            result = super.extractToken(request);
-        }
-        return result;
+  @Override
+  protected String extractToken(HttpServletRequest request) {
+    String result;
+    Cookie accessTokenCookie = OAuth2CookieHelper.getAccessTokenCookie(request);
+    if (accessTokenCookie != null) {
+      result = accessTokenCookie.getValue();
+    } else {
+      result = super.extractToken(request);
     }
+    return result;
+  }
 }

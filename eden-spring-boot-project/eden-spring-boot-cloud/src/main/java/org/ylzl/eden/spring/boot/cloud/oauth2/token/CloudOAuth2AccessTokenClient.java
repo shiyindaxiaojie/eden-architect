@@ -27,32 +27,34 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.OAuth2AccessTokenClientAd
  * OAuth2 访问令牌客户端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CloudOAuth2AccessTokenClient extends OAuth2AccessTokenClientAdapter {
 
-    private final LoadBalancerClientHelper loadBalancerClientHelper;
+  private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-    private final String accessTokenUriServiceId;
+  private final String accessTokenUriServiceId;
 
-    public CloudOAuth2AccessTokenClient(RestTemplate restTemplate, OAuth2Properties oAuth2Properties,
-                                        LoadBalancerClientHelper loadBalancerClientHelper) {
-        super(restTemplate, oAuth2Properties);
-        this.loadBalancerClientHelper = loadBalancerClientHelper;
-        this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
+  public CloudOAuth2AccessTokenClient(
+      RestTemplate restTemplate,
+      OAuth2Properties oAuth2Properties,
+      LoadBalancerClientHelper loadBalancerClientHelper) {
+    super(restTemplate, oAuth2Properties);
+    this.loadBalancerClientHelper = loadBalancerClientHelper;
+    this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
+  }
+
+  /**
+   * 获取 OAuth2 访问令牌端点
+   *
+   * @return OAuth2 访问令牌端点
+   */
+  @Override
+  protected String getAccessTokenUri() {
+    String accessTokenUri = super.getAccessTokenUri();
+    if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
+      return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
     }
-
-    /**
-     * 获取 OAuth2 访问令牌端点
-     *
-     * @return OAuth2 访问令牌端点
-     */
-    @Override
-    protected String getAccessTokenUri() {
-        String accessTokenUri = super.getAccessTokenUri();
-        if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
-            return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
-        }
-        return accessTokenUri;
-    }
+    return accessTokenUri;
+  }
 }

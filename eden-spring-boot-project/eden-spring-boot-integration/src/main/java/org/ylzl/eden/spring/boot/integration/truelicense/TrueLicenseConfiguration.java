@@ -29,25 +29,25 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.EnhancedLicense
  * TrueLicense 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableConfigurationProperties(TrueLicenseProperties.class)
 @Slf4j
 @Configuration
 public class TrueLicenseConfiguration {
 
-    private static final String MSG_INJECT_TRUE_LICENSE_MANAGER = "Inject TureLicense manager";
+  private static final String MSG_INJECT_TRUE_LICENSE_MANAGER = "Inject TureLicense manager";
 
-    private final TrueLicenseProperties trueLicenseProperties;
+  private final TrueLicenseProperties trueLicenseProperties;
 
-    public TrueLicenseConfiguration(TrueLicenseProperties trueLicenseProperties) {
-        this.trueLicenseProperties = trueLicenseProperties;
-    }
+  public TrueLicenseConfiguration(TrueLicenseProperties trueLicenseProperties) {
+    this.trueLicenseProperties = trueLicenseProperties;
+  }
 
-    @ConditionalOnMissingBean
-    @Bean
-    public LicenseManager licenseManager() {
-        log.debug(MSG_INJECT_TRUE_LICENSE_MANAGER);
-        return new EnhancedLicenseManager(trueLicenseProperties);
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public LicenseManager licenseManager() {
+    log.debug(MSG_INJECT_TRUE_LICENSE_MANAGER);
+    return new EnhancedLicenseManager(trueLicenseProperties);
+  }
 }

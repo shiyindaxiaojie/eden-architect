@@ -36,7 +36,7 @@ import java.util.Properties;
  * Mybatis 分页插件自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore({EnhancedMybatisAutoConfiguration.class})
@@ -47,17 +47,17 @@ import java.util.Properties;
 @Configuration
 public class MybatisPageHelperAutoConfiguration {
 
-    private static final String MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR = "Inject Mybatis PageHelper";
+  private static final String MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR = "Inject Mybatis PageHelper";
 
-    @ConditionalOnMissingBean
-    @Bean
-    public PageInterceptor pageInterceptor() {
-        log.debug(MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR);
-        PageInterceptor pageInterceptor = new PageInterceptor();
-        Properties properties = new Properties();
-        properties.setProperty("supportMethodsArguments", "true");
-        properties.setProperty("params", "count=countSql");
-        pageInterceptor.setProperties(properties);
-        return pageInterceptor;
-    }
+  @ConditionalOnMissingBean
+  @Bean
+  public PageInterceptor pageInterceptor() {
+    log.debug(MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR);
+    PageInterceptor pageInterceptor = new PageInterceptor();
+    Properties properties = new Properties();
+    properties.setProperty("supportMethodsArguments", "true");
+    properties.setProperty("params", "count=countSql");
+    pageInterceptor.setProperties(properties);
+    return pageInterceptor;
+  }
 }

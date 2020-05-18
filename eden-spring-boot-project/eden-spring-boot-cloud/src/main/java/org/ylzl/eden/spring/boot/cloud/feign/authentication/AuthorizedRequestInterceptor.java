@@ -29,30 +29,36 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
  * Feign 认证请求拦截器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AuthorizedRequestInterceptor implements RequestInterceptor {
 
-    private final OAuth2Properties oAuth2Properties;
+  private final OAuth2Properties oAuth2Properties;
 
-    private final JwtProperties jwtProperties;
+  private final JwtProperties jwtProperties;
 
-    public AuthorizedRequestInterceptor(OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
-        this.oAuth2Properties = oAuth2Properties;
-        this.jwtProperties = jwtProperties;
+  public AuthorizedRequestInterceptor(
+      OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
+    this.oAuth2Properties = oAuth2Properties;
+    this.jwtProperties = jwtProperties;
+  }
+
+  @Override
+  public void apply(RequestTemplate requestTemplate) {
+    Authentication authentication = SpringSecurityUtils.getAuthentication();
+    if (authentication != null) {
+      if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+        OAuth2AuthenticationDetails details =
+            (OAuth2AuthenticationDetails) authentication.getDetails();
+        requestTemplate.header(
+            oAuth2Properties.getAuthorization().getHeader(),
+            SpringSecurityUtils.getAuthorizationHeader(details));
+      } else if (authentication.getCredentials() instanceof String) {
+        String credentials = (String) authentication.getCredentials();
+        requestTemplate.header(
+            jwtProperties.getAuthorization().getHeader(),
+            SpringSecurityUtils.getAuthorizationHeader(credentials));
+      }
     }
-
-    @Override
-    public void apply(RequestTemplate requestTemplate) {
-        Authentication authentication = SpringSecurityUtils.getAuthentication();
-        if (authentication != null) {
-            if (authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
-                OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
-                requestTemplate.header(oAuth2Properties.getAuthorization().getHeader(), SpringSecurityUtils.getAuthorizationHeader(details));
-            } else if (authentication.getCredentials() instanceof String) {
-                String credentials = (String) authentication.getCredentials();
-                requestTemplate.header(jwtProperties.getAuthorization().getHeader(), SpringSecurityUtils.getAuthorizationHeader(credentials));
-            }
-        }
-    }
+  }
 }

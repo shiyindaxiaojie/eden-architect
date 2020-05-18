@@ -18,24 +18,23 @@
 package org.ylzl.eden.spring.boot.framework.info;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * InfoContributor 常量定义
  *
  * @author sion
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class InfoContributorConstants {
 
-    public static final String PROP_BUILD_ARTIFACT = "build.artifact";
+  public static final String PROP_BUILD_ARTIFACT = "build.artifact";
 
-    public static final String PROP_BUILD_GROUP = "build.group";
+  public static final String PROP_BUILD_GROUP = "build.group";
 
-    public static final String PROP_BUILD_NAME = "build.name";
+  public static final String PROP_BUILD_NAME = "build.name";
 
-    public static final String PROP_BUILD_TIME = "build.time";
+  public static final String PROP_BUILD_TIME = "build.time";
 
-    public static final String PROP_BUILD_VERSION = "build.version";
+  public static final String PROP_BUILD_VERSION = "build.version";
 }

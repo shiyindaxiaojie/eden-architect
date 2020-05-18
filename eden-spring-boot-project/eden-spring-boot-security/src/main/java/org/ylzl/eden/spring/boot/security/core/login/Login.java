@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 登录视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @Builder
@@ -36,13 +36,11 @@ import java.io.Serializable;
 @ToString
 public class Login implements Serializable {
 
-    private static final long serialVersionUID = -4828891329390986045L;
+  private static final long serialVersionUID = -4828891329390986045L;
 
-    @NotBlank
-    private String username;
+  @NotBlank private String username;
 
-    @NotBlank
-    private String password;
+  @NotBlank private String password;
 
-    private Boolean rememberMe;
+  private Boolean rememberMe;
 }

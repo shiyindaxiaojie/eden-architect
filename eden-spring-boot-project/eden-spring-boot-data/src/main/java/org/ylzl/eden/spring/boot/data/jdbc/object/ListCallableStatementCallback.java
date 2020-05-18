@@ -31,30 +31,31 @@ import java.util.Map;
  * 存储据过程回调
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class ListCallableStatementCallback implements CallableStatementCallback<Object> {
 
-    @Override
-    public Object doInCallableStatement(CallableStatement callableStatement) throws SQLException, DataAccessException {
-        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
-        ResultSet resultSet = null;
-        try {
-            callableStatement.execute();
-            resultSet = (ResultSet) callableStatement.getObject(1);
-            int rowNum = 1;
-            while (resultSet.next()) {
-                resultList.add(MapRowMapper.builder().build().mapRow(resultSet, rowNum));
-                rowNum++;
-            }
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (callableStatement != null) {
-                callableStatement.close();
-            }
-        }
-        return resultList;
+  @Override
+  public Object doInCallableStatement(CallableStatement callableStatement)
+      throws SQLException, DataAccessException {
+    List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+    ResultSet resultSet = null;
+    try {
+      callableStatement.execute();
+      resultSet = (ResultSet) callableStatement.getObject(1);
+      int rowNum = 1;
+      while (resultSet.next()) {
+        resultList.add(MapRowMapper.builder().build().mapRow(resultSet, rowNum));
+        rowNum++;
+      }
+    } finally {
+      if (resultSet != null) {
+        resultSet.close();
+      }
+      if (callableStatement != null) {
+        callableStatement.close();
+      }
     }
+    return resultList;
+  }
 }

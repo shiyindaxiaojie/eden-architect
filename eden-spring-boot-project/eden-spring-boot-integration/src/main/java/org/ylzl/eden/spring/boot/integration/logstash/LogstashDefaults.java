@@ -18,24 +18,23 @@
 package org.ylzl.eden.spring.boot.integration.logstash;
 
 import lombok.experimental.UtilityClass;
-import lombok.NoArgsConstructor;
 
 /**
  * Logstash 配置属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class LogstashDefaults {
 
-    public static final boolean useJsonFormat = false;
+  public static final boolean useJsonFormat = false;
 
-    public static final boolean enabled = false;
+  public static final boolean enabled = false;
 
-    public static final String host = "localhost";
+  public static final String host = "localhost";
 
-    public static final int port = 5000;
+  public static final int port = 5000;
 
-    public static final int queueSize = 512;
+  public static final int queueSize = 512;
 }

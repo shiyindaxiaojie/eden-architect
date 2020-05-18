@@ -24,13 +24,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class NettyServer {
 
-	private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
+  private final EventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
 
-	private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
-
-
+  private final EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
 }

@@ -17,9 +17,8 @@
 
 package org.ylzl.eden.spring.boot.commons.xml;
 
-import lombok.experimental.UtilityClass;
-import lombok.experimental.UtilityClass;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
@@ -31,62 +30,63 @@ import java.util.List;
  * Dom4j 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class Dom4jUtils {
 
-    public static Document createDocument() {
-        return DocumentHelper.createDocument();
-    }
+  public static Document createDocument() {
+    return DocumentHelper.createDocument();
+  }
 
-    public static Document toDocument(@NonNull String xmlString) throws DocumentException {
-        return DocumentHelper.parseText(xmlString);
-    }
+  public static Document toDocument(@NonNull String xmlString) throws DocumentException {
+    return DocumentHelper.parseText(xmlString);
+  }
 
-    public static Document getDocument(@NonNull InputStream inputStream, boolean validation) throws Exception {
-        return getSAXReader(validation).read(inputStream);
-    }
+  public static Document getDocument(@NonNull InputStream inputStream, boolean validation)
+      throws Exception {
+    return getSAXReader(validation).read(inputStream);
+  }
 
-    public static Document getDocument(@NonNull File file, boolean validation) throws Exception {
-        return getSAXReader(validation).read(file);
-    }
+  public static Document getDocument(@NonNull File file, boolean validation) throws Exception {
+    return getSAXReader(validation).read(file);
+  }
 
-    public static SAXReader getSAXReader(boolean validation) {
-        SAXReader saxReader = new SAXReader();
-        saxReader.setValidation(validation);
-        return saxReader;
-    }
+  public static SAXReader getSAXReader(boolean validation) {
+    SAXReader saxReader = new SAXReader();
+    saxReader.setValidation(validation);
+    return saxReader;
+  }
 
-    public static Node selectSingleNode(@NonNull Object obj, @NonNull String expression) {
-        if (obj instanceof Document) {
-            Document document = (Document) obj;
-            return document.selectSingleNode(expression);
-        }
-        if (obj instanceof Node) {
-            Node node = (Node) obj;
-            return node.selectSingleNode(expression);
-        }
-        if (obj instanceof Element) {
-            Element element = (Element) obj;
-            return element.selectSingleNode(expression);
-        }
-        return null;
+  public static Node selectSingleNode(@NonNull Object obj, @NonNull String expression) {
+    if (obj instanceof Document) {
+      Document document = (Document) obj;
+      return document.selectSingleNode(expression);
     }
+    if (obj instanceof Node) {
+      Node node = (Node) obj;
+      return node.selectSingleNode(expression);
+    }
+    if (obj instanceof Element) {
+      Element element = (Element) obj;
+      return element.selectSingleNode(expression);
+    }
+    return null;
+  }
 
-    public static List selectNodes(@NonNull Object obj, @NonNull String expression) {
-        if (obj instanceof Document) {
-            Document document = (Document) obj;
-            return document.selectNodes(expression);
-        }
-        if (obj instanceof Node) {
-            Node node = (Node) obj;
-            return node.selectNodes(expression);
-        }
-        if (obj instanceof Element) {
-            Element element = (Element) obj;
-            return element.selectNodes(expression);
-        }
-        return null;
+  public static List selectNodes(@NonNull Object obj, @NonNull String expression) {
+    if (obj instanceof Document) {
+      Document document = (Document) obj;
+      return document.selectNodes(expression);
     }
+    if (obj instanceof Node) {
+      Node node = (Node) obj;
+      return node.selectNodes(expression);
+    }
+    if (obj instanceof Element) {
+      Element element = (Element) obj;
+      return element.selectNodes(expression);
+    }
+    return null;
+  }
 }

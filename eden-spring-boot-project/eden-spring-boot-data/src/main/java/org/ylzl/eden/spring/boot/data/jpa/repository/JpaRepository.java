@@ -26,10 +26,9 @@ import java.io.Serializable;
  * JPA 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @NoRepositoryBean
-public interface JpaRepository<T, ID extends Serializable> extends
-    org.springframework.data.jpa.repository.JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
-
-}
+public interface JpaRepository<T, ID extends Serializable>
+    extends org.springframework.data.jpa.repository.JpaRepository<T, ID>,
+        JpaSpecificationExecutor<T> {}

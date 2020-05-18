@@ -29,12 +29,12 @@ import java.util.Map;
  * 配置中心属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "spring.cloud.config.server")
 public class ConfigServerProperties {
 
-    private List<Map<String, Object>> composite = new ArrayList<>();
+  private List<Map<String, Object>> composite = new ArrayList<>();
 }

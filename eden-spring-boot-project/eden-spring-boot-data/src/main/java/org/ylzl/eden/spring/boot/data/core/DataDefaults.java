@@ -20,8 +20,6 @@ package org.ylzl.eden.spring.boot.data.core;
  * Data 默认属性值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
-public final class DataDefaults {
-
-}
+public final class DataDefaults {}

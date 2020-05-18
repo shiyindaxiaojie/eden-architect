@@ -17,33 +17,33 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>eden-spring-boot-project</artifactId>
-    <packaging>pom</packaging>
-    <name>eden-spring-boot-project</name>
-    <description>Eden* Spring Boot Project</description>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>eden-spring-boot-project</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-spring-boot-project</name>
+	<description>Eden* Spring Boot Project</description>
 
-    <parent>
-        <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot</artifactId>
-        <version>1.0.0.RELEASE</version>
-        <relativePath>../</relativePath>
-    </parent>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-spring-boot</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath>../</relativePath>
+	</parent>
 
-    <modules>
-        <module>eden-spring-boot-cloud</module>
-        <module>eden-spring-boot-commons</module>
-        <module>eden-spring-boot-data</module>
-        <module>eden-spring-boot-dependencies</module>
-        <module>eden-spring-boot-framework</module>
-        <module>eden-spring-boot-integration</module>
+	<modules>
+		<module>eden-spring-boot-cloud</module>
+		<module>eden-spring-boot-commons</module>
+		<module>eden-spring-boot-data</module>
+		<module>eden-spring-boot-dependencies</module>
+		<module>eden-spring-boot-framework</module>
+		<module>eden-spring-boot-integration</module>
 		<module>eden-spring-boot-parent</module>
-        <module>eden-spring-boot-security</module>
-        <module>eden-spring-boot-starters</module>
-        <module>eden-spring-boot-support</module>
-        <module>eden-spring-boot-test</module>
-    </modules>
+		<module>eden-spring-boot-security</module>
+		<module>eden-spring-boot-starters</module>
+		<module>eden-spring-boot-support</module>
+		<module>eden-spring-boot-test</module>
+	</modules>
 
 </project>

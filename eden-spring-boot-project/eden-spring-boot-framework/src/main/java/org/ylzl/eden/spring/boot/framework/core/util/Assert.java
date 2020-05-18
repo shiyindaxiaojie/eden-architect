@@ -23,9 +23,7 @@ import lombok.experimental.UtilityClass;
  * 断言工具
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
-public class Assert extends org.springframework.util.Assert {
-
-}
+public class Assert extends org.springframework.util.Assert {}

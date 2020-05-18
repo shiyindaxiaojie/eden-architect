@@ -29,28 +29,29 @@ import java.util.Set;
  * Excel 数据读取适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class ExcelWriterAdpater<T> implements ExcelWriter<T> {
 
-    private static final String EXP_NONE_IMPL = "未配置 Excel 数据写入器";
+  private static final String EXP_NONE_IMPL = "未配置 Excel 数据写入器";
 
-    @Autowired(required = false)
-    private EasyExcelWriter easyExcelWriter;
+  @Autowired(required = false)
+  private EasyExcelWriter easyExcelWriter;
 
-    @Override
-    public void write(OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns) {
-        if (easyExcelWriter != null) {
-            easyExcelWriter.write(outputStream, datas, sheetName, includeColumns);
-            return;
-        }
-
-        throw new UnsupportedOperationException(EXP_NONE_IMPL);
+  @Override
+  public void write(
+      OutputStream outputStream, List<T> datas, String sheetName, Set<String> includeColumns) {
+    if (easyExcelWriter != null) {
+      easyExcelWriter.write(outputStream, datas, sheetName, includeColumns);
+      return;
     }
 
-    @Override
-    public void write(OutputStream outputStream, List<T> datas, String sheetName) {
-        this.write(outputStream, datas, sheetName, Collections.EMPTY_SET);
-    }
+    throw new UnsupportedOperationException(EXP_NONE_IMPL);
+  }
+
+  @Override
+  public void write(OutputStream outputStream, List<T> datas, String sheetName) {
+    this.write(outputStream, datas, sheetName, Collections.EMPTY_SET);
+  }
 }

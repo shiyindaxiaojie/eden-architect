@@ -26,89 +26,103 @@ import org.ylzl.eden.spring.boot.support.service.JpaService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * 关系数据库业务实现
+ * JPA 业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.0.0
  */
-public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID> implements JpaService<T, ID> {
+public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID>
+    implements JpaService<T, ID> {
 
-    private final JpaRepository<T, ID> jpaRepository;
+  private final JpaRepository<T, ID> jpaRepository;
 
-    public JpaServiceImpl(JpaRepository<T, ID> jpaRepository) {
-        super(jpaRepository);
-        this.jpaRepository = jpaRepository;
-    }
+  public JpaServiceImpl(JpaRepository<T, ID> jpaRepository) {
+    super(jpaRepository);
+    this.jpaRepository = jpaRepository;
+  }
 
-    @Override
-    public long count(Specification<T> spec) {
-        return jpaRepository.count(spec);
-    }
+  @Override
+  public long count(Specification<T> spec) {
+    return jpaRepository.count(spec);
+  }
 
-    @Override
-    public void deleteAllInBatch() {
-        jpaRepository.deleteAllInBatch();
-    }
+  @Override
+  public void deleteAllInBatch() {
+    jpaRepository.deleteAllInBatch();
+  }
 
-    @Override
-    public void deleteInBatch(Iterable<T> entities) {
-        jpaRepository.deleteInBatch(entities);
-    }
+  @Override
+  public void deleteInBatch(Iterable<T> entities) {
+    jpaRepository.deleteInBatch(entities);
+  }
 
-    @Override
-    public List<T> findAll() {
-        return jpaRepository.findAll();
-    }
+  @Override
+  public List<T> findAll() {
+    return jpaRepository.findAll();
+  }
 
-    @Override
-    public List<T> findAll(Iterable<ID> ids) {
-        return jpaRepository.findAll(ids);
-    }
+  @Deprecated
+  @Override
+  public List<T> findAll(Iterable<ID> ids) {
+    return jpaRepository.findAllById(ids);
+  }
 
-    @Override
-    public List<T> findAll(Specification<T> spec) {
-        return jpaRepository.findAll(spec);
-    }
+  @Override
+  public List<T> findAll(Specification<T> spec) {
+    return jpaRepository.findAll(spec);
+  }
 
-    @Override
-    public Page<T> findAll(Specification<T> spec, Pageable pageable) {
-        return jpaRepository.findAll(spec, pageable);
-    }
+  @Override
+  public Page<T> findAll(Specification<T> spec, Pageable pageable) {
+    return jpaRepository.findAll(spec, pageable);
+  }
 
-    @Override
-    public List<T> findAll(Specification<T> spec, Sort sort) {
-        return jpaRepository.findAll(spec, sort);
-    }
+  @Override
+  public List<T> findAll(Specification<T> spec, Sort sort) {
+    return jpaRepository.findAll(spec, sort);
+  }
 
-    @Override
-    public List<T> findAll(Sort sort) {
-        return jpaRepository.findAll(sort);
-    }
+  @Override
+  public List<T> findAll(Sort sort) {
+    return jpaRepository.findAll(sort);
+  }
 
-    @Override
-    public T findOne(Specification<T> spec) {
-        return jpaRepository.findOne(spec);
-    }
+  @Override
+  public List<T> findAllById(Iterable<ID> ids) {
+    return jpaRepository.findAllById(ids);
+  }
 
-    @Override
-    public void flush() {
-        jpaRepository.flush();
-    }
+  @Override
+  public Optional<T> findOne(Specification<T> spec) {
+    return jpaRepository.findOne(spec);
+  }
 
-    @Override
-    public T getOne(ID id) {
-        return jpaRepository.getOne(id);
-    }
+  @Override
+  public void flush() {
+    jpaRepository.flush();
+  }
 
-    @Override
-    public <S extends T> List<S> save(Iterable<S> entities) {
-        return jpaRepository.save(entities);
-    }
+  @Override
+  public T getOne(ID id) {
+    return jpaRepository.getOne(id);
+  }
 
-    @Override
-    public <S extends T> S saveAndFlush(S entity) {
-        return jpaRepository.saveAndFlush(entity);
-    }
+  @Deprecated
+  @Override
+  public <S extends T> List<S> save(Iterable<S> entities) {
+    return jpaRepository.saveAll(entities);
+  }
+
+  @Override
+  public <S extends T> List<S> saveAll(Iterable<S> entities) {
+    return jpaRepository.saveAll(entities);
+  }
+
+  @Override
+  public <S extends T> S saveAndFlush(S entity) {
+    return jpaRepository.saveAndFlush(entity);
+  }
 }

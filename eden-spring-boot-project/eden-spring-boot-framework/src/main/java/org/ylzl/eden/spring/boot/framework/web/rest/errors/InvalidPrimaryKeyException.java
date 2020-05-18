@@ -21,15 +21,15 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  * 无效主键
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class InvalidPrimaryKeyException extends BadRequestAlertException {
 
-    public InvalidPrimaryKeyException() {
-        super(ErrorConstants.ERR_INVALID_PRIMARY_KEY);
-    }
+  public InvalidPrimaryKeyException() {
+    super(ErrorConstants.ERR_INVALID_PRIMARY_KEY);
+  }
 
-    public InvalidPrimaryKeyException(String message) {
-        super(message);
-    }
+  public InvalidPrimaryKeyException(String message) {
+    super(message);
+  }
 }

@@ -25,21 +25,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 监控配置属性类
+ * 监控配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = JavaMelodyConstants.PROP_PREFIX, ignoreUnknownFields = false)
 public class JavaMelodyProperties {
 
-    private boolean enabled = true;
+  private boolean enabled = true;
 
-    private String excludedDatasources;
+  private String excludedDatasources;
 
-    private boolean managementEndpointMonitoringEnabled;
+  private boolean managementEndpointMonitoringEnabled;
 
-    private Map<String, String> initParameters = new HashMap<>();
+  private Map<String, String> initParameters = new HashMap<>();
 }
