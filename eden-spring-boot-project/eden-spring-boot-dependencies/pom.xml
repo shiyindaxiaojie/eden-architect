@@ -86,6 +86,7 @@
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-net.version>3.6</commons-net.version>
 		<cucumber.version>3.0.2</cucumber.version>
+		<curator.version>4.1.0</curator.version>
 		<dbunit.version>2.4.8</dbunit.version>
 		<dom4j.version>2.1.1</dom4j.version>
 		<dubbo.version>2.7.5</dubbo.version>
@@ -710,46 +711,6 @@
 				<version>${truelicense.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.gatling</groupId>
-				<artifactId>gatling-app</artifactId>
-				<version>${gatling.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.gatling</groupId>
-				<artifactId>gatling-recorder</artifactId>
-				<version>${gatling.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.gatling.highcharts</groupId>
-				<artifactId>gatling-charts-highcharts</artifactId>
-				<version>${gatling.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-				<version>${sharding-sphere.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-transaction-xa-core</artifactId>
-				<version>${sharding-sphere.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-transaction-base-seata-at</artifactId>
-				<version>${sharding-sphere.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.bull.javamelody</groupId>
-				<artifactId>javamelody-core</artifactId>
-				<version>${javamelody.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.bull.javamelody</groupId>
-				<artifactId>javamelody-dark-theme</artifactId>
-				<version>${javamelody-theme.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>io.cucumber</groupId>
 				<artifactId>cucumber-junit</artifactId>
 				<version>${cucumber.version}</version>
@@ -783,6 +744,21 @@
 				<groupId>io.dropwizard.metrics</groupId>
 				<artifactId>metrics-servlets</artifactId>
 				<version>${dropwizard-metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.gatling</groupId>
+				<artifactId>gatling-app</artifactId>
+				<version>${gatling.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.gatling</groupId>
+				<artifactId>gatling-recorder</artifactId>
+				<version>${gatling.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.gatling.highcharts</groupId>
+				<artifactId>gatling-charts-highcharts</artifactId>
+				<version>${gatling.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.jsonwebtoken</groupId>
@@ -897,6 +873,16 @@
 				<version>${mysql8.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>net.bull.javamelody</groupId>
+				<artifactId>javamelody-core</artifactId>
+				<version>${javamelody.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.bull.javamelody</groupId>
+				<artifactId>javamelody-dark-theme</artifactId>
+				<version>${javamelody-theme.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>net.coobird</groupId>
 				<artifactId>thumbnailator</artifactId>
 				<version>${thumbnailator.version}</version>
@@ -942,6 +928,16 @@
 				<version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+				<version>${curator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+				<version>${curator.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-dependencies-bom</artifactId>
 				<version>${dubbo.version}</version>
@@ -972,6 +968,21 @@
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi-ooxml-schemas</artifactId>
 				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+				<version>${sharding-sphere.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-transaction-xa-core</artifactId>
+				<version>${sharding-sphere.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-transaction-base-seata-at</artifactId>
+				<version>${sharding-sphere.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.tomcat</groupId>
