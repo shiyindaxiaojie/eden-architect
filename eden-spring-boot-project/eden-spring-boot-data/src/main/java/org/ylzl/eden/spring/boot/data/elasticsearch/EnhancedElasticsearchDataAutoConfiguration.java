@@ -54,7 +54,7 @@ import org.ylzl.eden.spring.boot.data.elasticsearch.mapper.JacksonEntityMapper;
 @Configuration
 public class EnhancedElasticsearchDataAutoConfiguration {
 
-  public static final String MSG_INJECT_ES_TEMPLATE = "Inject ElasticsearchTemplate (Jest)";
+  public static final String MSG_INJECT_ES_TEMPLATE = "Autowired ElasticsearchTemplate (Jest)";
 
   @ConditionalOnMissingBean
   @Bean

@@ -45,10 +45,10 @@ import java.util.List;
 public class DefaultWebSecuirtyConfiguration {
 
   private static final String MSG_INJECT_PASSWORD_ENCODER =
-      "Inject PasswordEncoder (BCryptPasswordEncoder)";
+      "Autowired PasswordEncoder (BCryptPasswordEncoder)";
 
   private static final String MSG_INJECT_USER_DETAILS_SERVICE =
-      "Inject UserDetailsService (InMemoryUserDetailsManager)";
+      "Autowired UserDetailsService (InMemoryUserDetailsManager)";
 
   private final SecurityProperties securityProperties;
 

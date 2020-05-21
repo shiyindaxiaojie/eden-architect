@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.boot.security.web.authentication.UnauthorizedEntryPo
 public class WebSecurityAutoConfiguration {
 
   public static final String MSG_INJECT_AUTH_ENTRY_POINT =
-      "Inject AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
+      "Autowired AuthenticationEntryPoint (UnauthorizedEntryPointAdapter)";
 
   @ConditionalOnMissingBean
   @Bean

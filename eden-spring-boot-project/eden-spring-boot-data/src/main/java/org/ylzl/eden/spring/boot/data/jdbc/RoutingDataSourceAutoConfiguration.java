@@ -97,7 +97,7 @@ public class RoutingDataSourceAutoConfiguration {
 
 		private static final String PROP_DATASOURCE_PASSWORD = "password";
 
-		private static final String MSG_INJECT_ROUTING_DS = "Inject routing Datasource";
+		private static final String MSG_INJECT_ROUTING_DS = "Autowired routing Datasource";
 
 		private static final String MSG_INVALID_TYPE_EXCEPTION = "Invalid Datasource";
 

@@ -58,7 +58,7 @@ import javax.sql.DataSource;
 @Configuration
 public class EnhancedLiquibaseAutoConfiguration {
 
-  private static final String MSG_INJECT_LIQUIBASE = "Inject Liquibase";
+  private static final String MSG_INJECT_LIQUIBASE = "Autowired Liquibase";
 
   public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
 

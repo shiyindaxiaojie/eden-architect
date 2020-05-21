@@ -52,11 +52,11 @@ public class ZuulFilterAutoConfiguration {
   public static final String EXPS_RATE_LIMITING_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
-  private static final String MSG_INJECT_ACCESS_CONTROL_FILTER = "Inject Zuul AccessControl filter";
+  private static final String MSG_INJECT_ACCESS_CONTROL_FILTER = "Autowired Zuul AccessControl filter";
 
-  private static final String MSG_INJECT_RATE_LIMIT_FILTER = "Inject Zuul RateLimit filter";
+  private static final String MSG_INJECT_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit filter";
 
-  private static final String MSG_INJECT_ZUUL_FAULT_FILTER = "Inject Zuul Fault filter";
+  private static final String MSG_INJECT_ZUUL_FAULT_FILTER = "Autowired Zuul Fault filter";
 
   private final ZuulProperties zuulProperties;
 

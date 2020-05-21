@@ -67,11 +67,11 @@ public class FixedNeo4jAutoConfiguration {
 
   public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
 
-  public static final String MSG_INJECT_TM = "Inject default TransactionManager";
+  public static final String MSG_INJECT_TM = "Autowired default TransactionManager";
 
-  public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
+  public static final String MSG_INJECT_JPA_TM = "Autowired JpaTransactionManager";
 
-  public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
+  public static final String MSG_INJECT_NEO4J_TM = "Autowired Neo4jTransactionManager";
 
   @Primary
   @Bean(name = JPA_TM_BEAN_NAME)

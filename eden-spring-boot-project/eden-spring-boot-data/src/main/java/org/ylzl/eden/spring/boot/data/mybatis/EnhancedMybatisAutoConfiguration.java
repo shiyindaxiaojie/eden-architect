@@ -58,7 +58,7 @@ import java.util.List;
 public class EnhancedMybatisAutoConfiguration {
 
   private static final String MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY =
-      "Inject Mybatis SqlSessionFactory";
+      "Autowired Mybatis SqlSessionFactory";
 
   private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
 

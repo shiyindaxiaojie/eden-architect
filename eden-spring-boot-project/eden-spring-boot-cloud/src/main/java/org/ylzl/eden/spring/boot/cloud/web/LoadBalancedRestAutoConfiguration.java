@@ -49,7 +49,7 @@ public class LoadBalancedRestAutoConfiguration {
 
   public static final String BEAN_LB_REST_TEMPLATE = "loadBalancedRestTemplate";
 
-  private static final String MSG_INJECT_REST_TEMPLATE = "Inject loadBalanced RestTemplate";
+  private static final String MSG_INJECT_REST_TEMPLATE = "Autowired loadBalanced RestTemplate";
 
   @ConditionalOnMissingBean(name = BEAN_LB_REST_TEMPLATE)
   @LoadBalanced

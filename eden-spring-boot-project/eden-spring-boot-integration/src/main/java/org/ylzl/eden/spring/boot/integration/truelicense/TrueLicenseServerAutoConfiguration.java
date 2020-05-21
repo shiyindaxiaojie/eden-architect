@@ -42,7 +42,7 @@ public class TrueLicenseServerAutoConfiguration {
   public static final String EXPS_TRUE_LICENSE_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
 
-  private static final String MSG_INJECT_TRUE_LICENSE_STORE = "Inject TureLicense storing service";
+  private static final String MSG_INJECT_TRUE_LICENSE_STORE = "Autowired TureLicense storing service";
 
   private final LicenseManager licenseManager;
 

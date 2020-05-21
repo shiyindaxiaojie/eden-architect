@@ -45,7 +45,7 @@ public class JwtWebSecurityConfiguration {
   private static final String EXP_AUTHENTICATION_MANAGER = "Initialize AuthenticationManager (JWT) caught exception";*/
 
   private static final String MSG_INJECT_AUTHENTICATION_MANAGER =
-      "Inject AuthenticationManager (JWT)";
+      "Autowired AuthenticationManager (JWT)";
 
   /*    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 

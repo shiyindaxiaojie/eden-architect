@@ -44,7 +44,7 @@ import javax.sql.DataSource;
 public class CloudDataSourceAutoConfiguration extends AbstractCloudConfig {
 
   private static final String MSG_CLOUD_JDBC_DATA_SOURCE =
-      "Inject JDBC datasource from a cloud provider";
+      "Autowired JDBC datasource from a cloud provider";
 
   @ConditionalOnMissingBean
   @Bean

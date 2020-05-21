@@ -15,22 +15,42 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.netty.channel;
+package org.ylzl.eden.spring.boot.integration.netty;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
+import lombok.experimental.UtilityClass;
 
 /**
- * TODO
+ * Netty 配置属性默认值
  *
  * @author gyl
  * @since 1.0.0
  */
-public class ChannelInitalizerAdapter extends ChannelInitializer<Channel> {
+@UtilityClass
+public final class NettyDefaults {
 
-  @Override
-  protected void initChannel(Channel channel) throws Exception {
-    ChannelPipeline pipeline = channel.pipeline();
+  @UtilityClass
+  public static class Client {
+
+    public static final Boolean enabled = false;
+
+    public static final String host = "127.0.0.1";
+
+    public static final Integer port = 8848;
+
+    public static final Integer channelThreads = Runtime.getRuntime().availableProcessors();
+  }
+
+  @UtilityClass
+  public static class Server {
+
+    public static final Boolean enabled = false;
+
+    public static final String host = "127.0.0.1";
+
+    public static final Integer port = 8848;
+
+    public static final Integer bossThreads = Runtime.getRuntime().availableProcessors();
+
+    public static final Integer workerThreads = Runtime.getRuntime().availableProcessors();
   }
 }

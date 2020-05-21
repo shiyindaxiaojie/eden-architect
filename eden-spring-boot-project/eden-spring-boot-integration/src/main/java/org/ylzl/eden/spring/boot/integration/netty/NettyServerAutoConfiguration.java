@@ -17,10 +17,34 @@
 
 package org.ylzl.eden.spring.boot.integration.netty;
 
+import io.netty.bootstrap.ServerBootstrap;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
+
 /**
- * TODO
+ * Netty 客户端自动配置
  *
  * @author gyl
  * @since 1.0.0
  */
-public class NettyServerAutoConfiguration {}
+@ConditionalOnClass(ServerBootstrap.class)
+@ConditionalOnExpression(NettyServerAutoConfiguration.EXPS_NETTY_CLIENT_ENABLED)
+@EnableConfigurationProperties(NettyProperties.class)
+@Slf4j
+@Configuration
+public class NettyServerAutoConfiguration {
+
+  public static final String EXPS_NETTY_CLIENT_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".netty.server.enabled:true}";
+
+  private final NettyProperties.Server properties;
+
+  public NettyServerAutoConfiguration(NettyProperties properties) {
+    this.properties = properties.getServer();
+  }
+
+}

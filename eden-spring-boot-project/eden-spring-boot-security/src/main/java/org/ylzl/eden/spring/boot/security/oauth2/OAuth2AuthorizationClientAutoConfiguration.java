@@ -63,19 +63,19 @@ public class OAuth2AuthorizationClientAutoConfiguration {
       "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
   private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
-      "Inject OAuth2AccessTokenClient";
+      "Autowired OAuth2AccessTokenClient";
 
-  private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "Inject TokenGrantClient";
+  private static final String MSG_INJECT_TOKEN_GRANT_CLIENT = "Autowired TokenGrantClient";
 
   private static final String MSG_INJECT_TOKEN_EXTRACTOR =
-      "Inject TokenExtractor (OAuth2CookieTokenExtractor)";
+      "Autowired TokenExtractor (OAuth2CookieTokenExtractor)";
 
-  private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "Inject OAuth2CookieHelper";
+  private static final String MSG_INJECT_OAUTH2_COOKIE_HELPER = "Autowired OAuth2CookieHelper";
 
-  private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "Inject OAuth2TokenEndpoint";
+  private static final String MSG_INJECT_OAUTH2_TOKEN_ENDPOINT = "Autowired OAuth2TokenEndpoint";
 
   private static final String MSG_INJECT_CLIENT_CREDENTIALS_TOKEN_HOLDER =
-      "Inject ClientCredentialsTokenHolder";
+      "Autowired ClientCredentialsTokenHolder";
 
   private final OAuth2Properties oAuth2Properties;
 
@@ -131,16 +131,16 @@ public class OAuth2AuthorizationClientAutoConfiguration {
   @Configuration
   public static class OAuth2AuthorizationClientJwtConfiguration {
 
-    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Inject SignatureVerifierClient";
+    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT = "Autowired SignatureVerifierClient";
 
     private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
-        "Inject JwtAccessTokenConverter (OAuth2AuthorizationClient)";
+        "Autowired JwtAccessTokenConverter (OAuth2AuthorizationClient)";
 
     private static final String MSG_INJECT_TOKEN_STORE =
-        "Inject TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
+        "Autowired TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
 
     private static final String MSG_INJECT_TOKEN_PROCESSOR =
-        "Inject TokenProcessor (JwtTokenProcessor)";
+        "Autowired TokenProcessor (JwtTokenProcessor)";
 
     private final OAuth2Properties oAuth2Properties;
 

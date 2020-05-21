@@ -59,7 +59,7 @@ public class OAuth2WebSecurityConfiguration {
       "Initialize AuthenticationManager (OAuth2) caught exception";
 
   private static final String MSG_INJECT_AUTHENTICATION_MANAGER =
-      "Inject AuthenticationManager (OAuth2)";
+      "Autowired AuthenticationManager (OAuth2)";
 
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
