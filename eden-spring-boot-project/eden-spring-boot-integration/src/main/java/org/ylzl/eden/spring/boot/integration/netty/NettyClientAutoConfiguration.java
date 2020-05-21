@@ -30,54 +30,52 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
+import org.ylzl.eden.spring.boot.integration.netty.client.NettyClient;
 import org.ylzl.eden.spring.boot.integration.netty.server.NettyServer;
 
 import java.util.List;
 
 /**
- * Netty 服务端自动配置
+ * Netty 客户端自动配置
  *
  * @author gyl
  * @since 1.0.0
  */
 @ConditionalOnClass(ServerBootstrap.class)
-@ConditionalOnExpression(NettyServerAutoConfiguration.EXPS_NETTY_SERVER_ENABLED)
+@ConditionalOnExpression(NettyClientAutoConfiguration.EXPS_NETTY_CLIENT_ENABLED)
 @EnableConfigurationProperties(NettyProperties.class)
 @Slf4j
 @Configuration
-public class NettyServerAutoConfiguration {
+public class NettyClientAutoConfiguration {
 
-  public static final String EXPS_NETTY_SERVER_ENABLED =
-      "${" + IntegrationConstants.PROP_PREFIX + ".netty.server.enabled:false}";
+  public static final String EXPS_NETTY_CLIENT_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".netty.client.enabled:false}";
 
-  private final NettyProperties.Server properties;
+  private final NettyProperties.Client properties;
 
-  public NettyServerAutoConfiguration(NettyProperties properties) {
-    this.properties = properties.getServer();
+  public NettyClientAutoConfiguration(NettyProperties properties) {
+    this.properties = properties.getClient();
   }
 
   @ConditionalOnMissingBean
   @Bean
-  public NettyServer nettyServer(
+  public NettyClient nettyClient(
       @Autowired(required = false) List<ChannelHandler> channelHandlers,
       @Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
-    NettyServer nettyServer =
-        new NettyServer(properties.getName(), properties.getHost(), properties.getPort());
-    if (properties.getBossThreads() != null) {
-      nettyServer.setBossThreads(properties.getBossThreads());
-    }
-    if (properties.getWorkerThreads() != null) {
-      nettyServer.setWorkerThreads(properties.getWorkerThreads());
+	  NettyClient nettyClient =
+        new NettyClient(properties.getName(), properties.getHost(), properties.getPort());
+    if (properties.getChannelThreads() != null) {
+		nettyClient.setChannelThreads(properties.getChannelThreads());
     }
     if (CollectionUtils.isNotEmpty(channelHandlers)) {
-      nettyServer.addAllChannelHandlers(channelHandlers);
+		nettyClient.addAllChannelHandlers(channelHandlers);
     }
     if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
-      nettyServer.addAllChannelFutureListeners(channelFutureListeners);
+		nettyClient.addAllChannelFutureListeners(channelFutureListeners);
     }
     if (properties.getAutoStartup()) {
-    	nettyServer.setAutoStartup(properties.getAutoStartup());
+		nettyClient.setAutoStartup(properties.getAutoStartup());
 	}
-    return nettyServer;
+    return nettyClient;
   }
 }

@@ -20,10 +20,9 @@ package org.ylzl.eden.spring.boot.integration.netty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.ylzl.eden.spring.boot.integration.netty.channel.ChannelOptions;
 
 /**
  * Metrics 配置属性
@@ -34,7 +33,7 @@ import java.util.Map;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".netty")
-public class NettyProperties {
+public final class NettyProperties {
 
   private final Client client = new Client();
 
@@ -42,9 +41,13 @@ public class NettyProperties {
 
   @Getter
   @Setter
-  public static class Client {
+  public static final class Client {
 
     private Boolean enabled = NettyDefaults.Client.enabled;
+
+    private Boolean autoStartup = NettyDefaults.Client.autoStartup;
+
+    private String name;
 
     private String host = NettyDefaults.Client.host;
 
@@ -55,9 +58,13 @@ public class NettyProperties {
 
   @Getter
   @Setter
-  public static class Server {
+  public static final class Server {
 
     private Boolean enabled = NettyDefaults.Server.enabled;
+
+    private Boolean autoStartup = NettyDefaults.Server.autoStartup;
+
+    private String name;
 
     private String host = NettyDefaults.Server.host;
 
@@ -67,8 +74,8 @@ public class NettyProperties {
 
     private Integer workerThreads = NettyDefaults.Server.workerThreads;
 
-    private Map<String, Object> channelOptions = new HashMap<String, Object>();
+    @NestedConfigurationProperty private ChannelOptions channelOptions;
 
-    private Map<String, Object> childChannelOptions = new HashMap<String, Object>();
+    @NestedConfigurationProperty private ChannelOptions childChannelOptions;
   }
 }

@@ -17,9 +17,7 @@
 
 package org.ylzl.eden.spring.boot.integration.netty.server;
 
-import com.google.common.base.Supplier;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import io.netty.bootstrap.ServerBootstrap;
@@ -27,7 +25,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.ylzl.eden.spring.boot.integration.netty.channel.ChannelOptions;
 
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -41,7 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 1.0.0
  */
 @Slf4j
-public class NettyServer {
+public class NettyServer implements InitializingBean, DisposableBean {
 
   private final AtomicBoolean initialized = new AtomicBoolean(false);
 
@@ -50,6 +52,9 @@ public class NettyServer {
   private final String host;
 
   private final Integer port;
+
+  @Setter
+  private Boolean autoStartup = false;
 
   private int bossThreads;
 
@@ -63,22 +68,32 @@ public class NettyServer {
   /** 一组 IO 工作线程池 */
   private EventLoopGroup workerEventLoopGroup;
 
-  private final Map<String, Supplier<ChannelHandler>> channelHandlers = Maps.newLinkedHashMap();
+  private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
 
-  private final List<Supplier<ChannelHandler>> activeChannelHandlers = Lists.newArrayList();
+  private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
 
-  private final List<Supplier<ChannelFutureListener>> closeFutureListeners = Lists.newArrayList();
+  private ChannelOptions channelOptions = new ChannelOptions();
 
-  private final Map<String, Object> channelOptions = Maps.newHashMap();
+  private ChannelOptions childChannelOptions = new ChannelOptions();
 
-  private final Map<String, Object> childChannelOptions = Maps.newHashMap();
-
-  public NettyServer(String name, String host, Integer port) {
+  public NettyServer(String name, String host, int port) {
     this.name = name;
     this.host = host;
     this.port = port;
     this.bossThreads = Runtime.getRuntime().availableProcessors();
     this.workerThreads = Runtime.getRuntime().availableProcessors();
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+  	if (autoStartup) {
+  		checkState().startup();
+	}
+  }
+
+  @Override
+  public void destroy() throws Exception {
+	  shutdown();
   }
 
   public ListenableFuture<Void> startup() {
@@ -87,13 +102,6 @@ public class NettyServer {
         name,
         bossThreads,
         workerThreads);
-
-    if (!activeChannelHandlers.isEmpty()) {
-      int i = 1;
-      for (final Supplier<ChannelHandler> handler : activeChannelHandlers) {
-        addChannelHandler("ActiveChannel" + i++, handler);
-      }
-    }
 
     final SettableFuture<Void> result = SettableFuture.create(); // 锁住返回结果
     final ServerBootstrap bootstrap = checkState().createServerBootstrap();
@@ -126,15 +134,28 @@ public class NettyServer {
     bossEventLoopGroup.terminationFuture().syncUninterruptibly();
   }
 
-  public void addChannelHandler(final String name, final Supplier<ChannelHandler> channelHandler) {
-    checkState().channelHandlers.put(name, channelHandler);
+  public void addChannelHandler(final ChannelHandler channelHandler) {
+    checkState().channelHandlers.add(channelHandler);
   }
 
-  public void setBossThreads(final Integer bossThreads) {
+  public void addAllChannelHandlers(final List<ChannelHandler> channelHandlers) {
+    checkState().channelHandlers.addAll(channelHandlers);
+  }
+
+  public void addChannelFutureListener(final ChannelFutureListener channelFutureListener) {
+    checkState().channelFutureListeners.add(channelFutureListener);
+  }
+
+  public void addAllChannelFutureListeners(
+      final List<ChannelFutureListener> channelFutureListeners) {
+    checkState().channelFutureListeners.addAll(channelFutureListeners);
+  }
+
+  public void setBossThreads(final int bossThreads) {
     checkState().bossThreads = bossThreads > this.bossThreads ? this.bossThreads : bossThreads;
   }
 
-  public void setWorkerThreads(final Integer workerThreads) {
+  public void setWorkerThreads(final int workerThreads) {
     checkState().workerThreads =
         workerThreads > this.workerThreads ? this.workerThreads : workerThreads;
   }
@@ -166,33 +187,27 @@ public class NettyServer {
   }
 
   private void initChildChannel(final SocketChannel channel) {
-    final ChannelPipeline pipeline = channel.pipeline();
-    for (final Map.Entry<String, Supplier<ChannelHandler>> entry : channelHandlers.entrySet()) {
-      final ChannelHandler channelHandler = entry.getValue().get();
-      final String key = entry.getKey();
-      pipeline.addLast(key, channelHandler);
+    if (!channelHandlers.isEmpty()) {
+      final ChannelPipeline pipeline = channel.pipeline();
+      for (final ChannelHandler handler : channelHandlers) {
+        pipeline.addLast(handler);
+      }
     }
 
-    if (!closeFutureListeners.isEmpty()) {
-      for (final Supplier<ChannelFutureListener> supplier : closeFutureListeners) {
-        final ChannelFutureListener listener = supplier.get();
+    if (!channelFutureListeners.isEmpty()) {
+      for (final ChannelFutureListener listener : channelFutureListeners) {
         channel.closeFuture().addListener(listener);
       }
     }
   }
 
   private void setOptions(final ServerBootstrap bootstrap) {
-    for (final Map.Entry<String, Object> entry : channelOptions.entrySet()) {
-      ChannelOption channelOption = ChannelOption.valueOf(entry.getKey());
-      if (channelOption != null) {
-        bootstrap.option(channelOption, entry.getValue());
-      }
+    for (final Map.Entry<ChannelOption, Object> entry : channelOptions.get().entrySet()) {
+      bootstrap.option(entry.getKey(), entry.getValue());
     }
-    for (final Map.Entry<String, Object> entry : childChannelOptions.entrySet()) {
-      ChannelOption channelOption = ChannelOption.valueOf(entry.getKey());
-      if (channelOption != null) {
-        bootstrap.childOption(channelOption, entry.getValue());
-      }
+
+    for (final Map.Entry<ChannelOption, Object> entry : childChannelOptions.get().entrySet()) {
+      bootstrap.childOption(entry.getKey(), entry.getValue());
     }
   }
 

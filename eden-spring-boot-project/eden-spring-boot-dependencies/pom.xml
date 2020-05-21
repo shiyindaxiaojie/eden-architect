@@ -80,6 +80,7 @@
 		<classmate.version>1.5.1</classmate.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-collections.version>3.1</commons-collections.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
@@ -921,6 +922,11 @@
 				<groupId>oracle</groupId>
 				<artifactId>ojdbc6</artifactId>
 				<version>${oracle.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons-collections4.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>

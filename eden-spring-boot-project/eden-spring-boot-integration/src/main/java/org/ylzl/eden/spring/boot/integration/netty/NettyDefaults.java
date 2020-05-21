@@ -29,9 +29,11 @@ import lombok.experimental.UtilityClass;
 public final class NettyDefaults {
 
   @UtilityClass
-  public static class Client {
+  public static final class Client {
 
     public static final Boolean enabled = false;
+
+    public static final Boolean autoStartup = false;
 
     public static final String host = "127.0.0.1";
 
@@ -41,9 +43,11 @@ public final class NettyDefaults {
   }
 
   @UtilityClass
-  public static class Server {
+  public static final class Server {
 
     public static final Boolean enabled = false;
+
+    public static final Boolean autoStartup = false;
 
     public static final String host = "127.0.0.1";
 

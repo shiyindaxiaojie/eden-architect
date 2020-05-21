@@ -20,6 +20,7 @@ package org.ylzl.eden.spring.boot.integration.truelicense.manager;
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.commons.lang.time.DateUtils;
@@ -34,7 +35,7 @@ import java.io.File;
  * @since 1.0.0
  */
 @Slf4j
-public class LicenseInstall implements InitializingBean {
+public class LicenseInstall implements InitializingBean, DisposableBean {
 
   private final TrueLicenseProperties trueLicenseProperties;
 
@@ -48,12 +49,18 @@ public class LicenseInstall implements InitializingBean {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    log.debug("开始安装证书");
+    log.debug("Starting install license");
     StopWatch watch = new StopWatch();
     watch.start();
     install();
     watch.stop();
-    log.debug("证书安装耗时 {} 毫秒", watch.getTotalTimeMillis());
+    log.debug("Finished install license cost {} milliseconds", watch.getTotalTimeMillis());
+  }
+
+  @Override
+  public void destroy() throws Exception {
+    log.debug("Starting uninstall license");
+    licenseManager.uninstall();
   }
 
   public LicenseContent install() throws Exception {
@@ -63,11 +70,11 @@ public class LicenseInstall implements InitializingBean {
       licenseManager.uninstall();
       licenseContent = licenseManager.install(file);
     } catch (Exception e) {
-      log.error("证书安装失败！异常：{}", e.getMessage(), e);
+      log.error("Install license failed, caught exception: {}", e.getMessage(), e);
       throw e;
     }
     log.info(
-        "证书安装成功，有效期：{} ～ {}",
+        "Install license successed, valid from {} to {}",
         DateUtils.toDateTimeString(licenseContent.getNotBefore()),
         DateUtils.toDateTimeString(licenseContent.getNotAfter()));
     return licenseContent;
