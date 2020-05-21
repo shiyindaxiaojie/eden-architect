@@ -17,7 +17,7 @@
 
 package org.ylzl.eden.spring.boot.integration.netty;
 
-import io.netty.bootstrap.ServerBootstrap;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,6 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 import org.ylzl.eden.spring.boot.integration.netty.client.NettyClient;
-import org.ylzl.eden.spring.boot.integration.netty.server.NettyServer;
 
 import java.util.List;
 
@@ -41,7 +40,7 @@ import java.util.List;
  * @author gyl
  * @since 1.0.0
  */
-@ConditionalOnClass(ServerBootstrap.class)
+@ConditionalOnClass(Bootstrap.class)
 @ConditionalOnExpression(NettyClientAutoConfiguration.EXPS_NETTY_CLIENT_ENABLED)
 @EnableConfigurationProperties(NettyProperties.class)
 @Slf4j
