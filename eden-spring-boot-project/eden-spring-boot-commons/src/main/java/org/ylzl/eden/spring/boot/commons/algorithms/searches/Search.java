@@ -15,12 +15,23 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.consistent;
+package org.ylzl.eden.spring.boot.commons.algorithms.searches;
 
 /**
- * Murmur 哈希
+ * 查找接口
  *
  * @author gyl
  * @since 0.0.1
  */
-public class MurmurHash {}
+public interface Search {
+
+  /**
+   * 查找
+   *
+   * @param array 数组
+   * @param key 查找关键字
+   * @param <T> 泛型
+   * @return 匹配值
+   */
+  <T extends Comparable<T>> int search(T[] array, T key);
+}

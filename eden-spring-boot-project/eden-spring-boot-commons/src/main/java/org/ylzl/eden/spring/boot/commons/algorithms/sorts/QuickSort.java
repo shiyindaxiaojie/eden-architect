@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
+package org.ylzl.eden.spring.boot.commons.algorithms.sorts;
 
 import lombok.NonNull;
 import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
@@ -24,20 +24,20 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  * 快速排序
  *
  * @author gyl
- * @since 1.0.0
+ * @since 0.0.1
  */
 public class QuickSort extends AbstractSort implements Sort {
 
   /**
    * 排序数组
    *
-   * @param unsorted - 未排序的数组
+   * @param array - 未排序的数组
    * @return 排序后的数组
    */
   @Override
-  public <T extends Comparable<T>> T[] sort(@NonNull T[] unsorted) {
-    doSort(unsorted, 0, unsorted.length - 1);
-    return unsorted;
+  public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
+    doSort(array, 0, array.length - 1);
+    return array;
   }
 
   private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {

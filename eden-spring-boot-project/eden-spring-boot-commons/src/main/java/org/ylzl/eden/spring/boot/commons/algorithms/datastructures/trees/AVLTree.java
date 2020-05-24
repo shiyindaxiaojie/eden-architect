@@ -15,30 +15,33 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
-
-import lombok.NonNull;
-
-import java.util.Arrays;
-import java.util.List;
+package org.ylzl.eden.spring.boot.commons.algorithms.datastructures.trees;
 
 /**
- * 排序算法抽象类
+ * 自平衡二叉查找树
  *
  * @author gyl
- * @since 1.0.0
+ * @since 0.0.1
  */
-public abstract class AbstractSort implements Sort {
+public class AVLTree {
 
-  /**
-   * 排序列表
-   *
-   * @param unsorted - 未排序的列表
-   * @return 排序后的列表
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
-    return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
+  private class Node {
+
+    private int key;
+
+    private int balance;
+
+    private int height;
+
+    private Node left;
+
+    private Node right;
+
+    private Node parent;
+
+    Node(int k, Node p) {
+      key = k;
+      parent = p;
+    }
   }
 }

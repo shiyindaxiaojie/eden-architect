@@ -59,7 +59,7 @@ import java.util.List;
  * <ul>
  *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
  *       ManagementServerProperties}
- *   <li>{@code managementServerProperties.getContextPath()} 修改为 {@code
+ *   <li>{@code managementServerProperties.getServlet().getContextPath()} 修改为 {@code
  *       managementServerProperties.getServlet().getContextPath()}
  * </ul>
  *

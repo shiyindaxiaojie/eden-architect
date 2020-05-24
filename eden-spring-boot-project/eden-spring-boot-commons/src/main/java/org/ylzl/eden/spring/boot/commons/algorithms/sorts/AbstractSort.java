@@ -15,25 +15,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.commons.algorithms.sort;
+package org.ylzl.eden.spring.boot.commons.algorithms.sorts;
 
+import lombok.NonNull;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * 排序接口
+ * 排序算法抽象类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 0.0.1
  */
-public interface Sort {
-
-  /**
-   * 排序数组
-   *
-   * @param unsorted - 未排序的数组
-   * @return 排序后的数组
-   */
-  <T extends Comparable<T>> T[] sort(T[] unsorted);
+public abstract class AbstractSort implements Sort {
 
   /**
    * 排序列表
@@ -41,5 +36,9 @@ public interface Sort {
    * @param unsorted - 未排序的列表
    * @return 排序后的列表
    */
-  <T extends Comparable<T>> List<T> sort(List<T> unsorted);
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
+    return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
+  }
 }
