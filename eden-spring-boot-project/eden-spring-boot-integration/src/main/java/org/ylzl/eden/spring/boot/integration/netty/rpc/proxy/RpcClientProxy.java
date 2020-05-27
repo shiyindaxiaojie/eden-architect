@@ -17,8 +17,8 @@
 
 package org.ylzl.eden.spring.boot.integration.netty.rpc.proxy;
 
-import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
+import org.ylzl.eden.spring.boot.commons.bytecode.CglibProxy;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.RpcClient;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.RpcRequest;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.RpcResponse;
@@ -33,28 +33,27 @@ import java.util.UUID;
  */
 public class RpcClientProxy {
 
-	private final RpcClient rpcClient;
+  private final RpcClient rpcClient;
 
-	public RpcClientProxy(RpcClient rpcClient) {
-		this.rpcClient = rpcClient;
-	}
+  public RpcClientProxy(RpcClient rpcClient) {
+    this.rpcClient = rpcClient;
+  }
 
-	public <T> T newProxyInstance(Class<T> clazz, int timeout) {
-		Enhancer enhancer = new Enhancer();
-		enhancer.setSuperclass(clazz);
-		enhancer.setCallback((InvocationHandler) (obj, method, args) -> {
-			RpcRequest request = new RpcRequest();
-			request.setRequestId(UUID.randomUUID().toString());
-			request.setClassName(method.getDeclaringClass().getName());
-			request.setMethodName(method.getName());
-			request.setParameterTypes(method.getParameterTypes());
-			request.setParameters(args);
-			RpcResponse rpcResponse = rpcClient.invoke(request, timeout);
-			if (rpcResponse.getThrowable() != null) {
-				throw rpcResponse.getThrowable();
-			}
-			return rpcResponse.getResult();
-		});
-		return (T) enhancer.create();
-	}
+  public <T> T newProxyInstance(Class<T> clazz, int timeout) {
+    return CglibProxy.newProxyInstance(clazz,
+        (InvocationHandler)
+            (obj, method, args) -> {
+              RpcRequest request = new RpcRequest();
+              request.setRequestId(UUID.randomUUID().toString());
+              request.setClassName(method.getDeclaringClass().getName());
+              request.setMethodName(method.getName());
+              request.setParameterTypes(method.getParameterTypes());
+              request.setParameters(args);
+              RpcResponse rpcResponse = rpcClient.invoke(request, timeout);
+              if (rpcResponse.getThrowable() != null) {
+                throw rpcResponse.getThrowable();
+              }
+              return rpcResponse.getResult();
+            });
+  }
 }

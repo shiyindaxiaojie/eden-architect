@@ -21,7 +21,7 @@ WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上�
 6. 通用的工具库积累，并对 Apache Commons 和 Google Guava 等工具类进行适配封装；
 7. 丰富的组件测试框架，允许在测试的生命周期启动嵌入式的 Redis、Kafka、MongoDB 等中间件执行测试。
 
-== 技术要点
+== 关键技术
 
 |===
 
@@ -45,8 +45,8 @@ WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上�
 | Zuul 限流过滤器
 | https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-cloud/src/main/java/org/ylzl/eden/spring/boot/cloud/zuul/filter/RateLimitingFilter.java[RateLimitingFilter.java]
 
-| 动态数据源自动配置
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/jdbc/RoutingDataSourceAutoConfiguration.java[RoutingDataSourceAutoConfiguration.java]
+| 动态数据源
+| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/jdbc/datasource/RoutingDataSourceProxy[RoutingDataSourceProxy.java]
 
 |===
 

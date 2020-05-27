@@ -35,6 +35,14 @@ import java.util.List;
 @UtilityClass
 public class ReflectionUtils {
 
+	public static <T> T newProxyInstance(Class<T> clazz, InvocationHandler handler) {
+		return (T)
+			Proxy.newProxyInstance(
+				clazz.getClassLoader(),
+				clazz.getInterfaces(),
+				handler);
+	}
+
   public static void setField(@NonNull Object destObj, @NonNull Field field, Object... argument)
       throws IllegalArgumentException, IllegalAccessException {
     setAccessible(field);
