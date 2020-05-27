@@ -25,6 +25,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -53,28 +54,25 @@ public class NettyServer implements InitializingBean, DisposableBean {
 
   private final Integer port;
 
-  @Setter
-  private Boolean autoStartup = false;
-
   private int bossThreads;
 
   private int workerThreads;
 
   private int boundToPort = -1;
 
-  /** 一组接收客户端请求的线程池 */
   private EventLoopGroup bossEventLoopGroup;
 
-  /** 一组 IO 工作线程池 */
   private EventLoopGroup workerEventLoopGroup;
 
   private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
 
   private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
 
-  private ChannelOptions channelOptions = new ChannelOptions();
+  @Setter private Boolean autoStartup = false;
 
-  private ChannelOptions childChannelOptions = new ChannelOptions();
+  @Getter private final ChannelOptions channelOptions = new ChannelOptions();
+
+  @Getter private final ChannelOptions childChannelOptions = new ChannelOptions();
 
   public NettyServer(String name, String host, int port) {
     this.name = name;
@@ -86,14 +84,14 @@ public class NettyServer implements InitializingBean, DisposableBean {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-  	if (autoStartup) {
-  		checkState().startup();
-	}
+    if (autoStartup) {
+      checkState().startup();
+    }
   }
 
   @Override
   public void destroy() throws Exception {
-	  shutdown();
+    shutdown();
   }
 
   public ListenableFuture<Void> startup() {
@@ -110,10 +108,10 @@ public class NettyServer implements InitializingBean, DisposableBean {
     new Thread(
             () -> {
               final InetSocketAddress boundTo = (InetSocketAddress) channel.localAddress();
-              final String hostName = boundTo.getAddress().getHostName();
+              final String hostAddress = boundTo.getAddress().getHostAddress();
 
               boundToPort = boundTo.getPort();
-              log.info("Started Netty server `{}` @{}:{}", name, hostName, boundToPort);
+              log.info("Started Netty server `{}` @{}:{}", name, hostAddress, boundToPort);
 
               result.set(null);
               channel.closeFuture().syncUninterruptibly();
@@ -160,6 +158,10 @@ public class NettyServer implements InitializingBean, DisposableBean {
         workerThreads > this.workerThreads ? this.workerThreads : workerThreads;
   }
 
+  public boolean isInitialized() {
+    return initialized.get();
+  }
+
   private ServerBootstrap createServerBootstrap() {
     bossEventLoopGroup = new NioEventLoopGroup(bossThreads);
     workerEventLoopGroup = new NioEventLoopGroup(workerThreads);
@@ -180,20 +182,23 @@ public class NettyServer implements InitializingBean, DisposableBean {
             new ChannelInitializer<SocketChannel>() {
               @Override
               protected void initChannel(final SocketChannel socketChannel) {
-                initChildChannel(socketChannel);
+                initChannelHandlers(socketChannel);
+                initChannelFutureListeners(socketChannel);
               }
             })
         .validate();
   }
 
-  private void initChildChannel(final SocketChannel channel) {
+  private void initChannelHandlers(final SocketChannel channel) {
     if (!channelHandlers.isEmpty()) {
       final ChannelPipeline pipeline = channel.pipeline();
       for (final ChannelHandler handler : channelHandlers) {
         pipeline.addLast(handler);
       }
     }
+  }
 
+  private void initChannelFutureListeners(final SocketChannel channel) {
     if (!channelFutureListeners.isEmpty()) {
       for (final ChannelFutureListener listener : channelFutureListeners) {
         channel.closeFuture().addListener(listener);
