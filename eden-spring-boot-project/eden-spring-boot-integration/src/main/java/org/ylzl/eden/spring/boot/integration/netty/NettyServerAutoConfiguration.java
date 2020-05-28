@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
-import org.ylzl.eden.spring.boot.integration.netty.server.NettyServer;
+import org.ylzl.eden.spring.boot.integration.netty.bootstrap.NettyServer;
 
 import java.util.List;
 

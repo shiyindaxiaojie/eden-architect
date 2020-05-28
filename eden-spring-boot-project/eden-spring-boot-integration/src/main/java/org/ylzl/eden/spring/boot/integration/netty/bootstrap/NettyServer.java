@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.netty.server;
+package org.ylzl.eden.spring.boot.integration.netty.bootstrap;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;

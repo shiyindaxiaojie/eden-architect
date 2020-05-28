@@ -8,7 +8,7 @@ import org.ylzl.eden.spring.boot.integration.netty.rpc.*;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.codec.RpcReadDecoder;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.codec.RpcWriteEncoder;
 import org.ylzl.eden.spring.boot.integration.netty.rpc.serializer.Serializer;
-import org.ylzl.eden.spring.boot.integration.netty.server.NettyServer;
+import org.ylzl.eden.spring.boot.integration.netty.bootstrap.NettyServer;
 
 /**
  * Netty RPC 服务端
