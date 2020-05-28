@@ -39,7 +39,7 @@ import java.util.concurrent.Executor;
  * @author gyl
  * @since 1.0.0
  */
-@ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
+//@ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
 @EnableAsync
 @EnableConfigurationProperties(SchedulingProperties.class)
 @Slf4j

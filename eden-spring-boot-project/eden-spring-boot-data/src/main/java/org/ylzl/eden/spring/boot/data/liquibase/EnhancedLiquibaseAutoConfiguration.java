@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -48,8 +49,8 @@ import javax.sql.DataSource;
  * @author gyl
  * @since 1.0.0
  */
-@AutoConfigureAfter({DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-@AutoConfigureBefore(LiquibaseAutoConfiguration.class)
+@AutoConfigureAfter({DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class, AsyncTaskExecutorAutoConfiguration.class})
+@AutoConfigureBefore({LiquibaseAutoConfiguration.class})
 @ConditionalOnBean({DataSource.class, AsyncTaskExecutor.class})
 @ConditionalOnClass({SpringLiquibase.class})
 @ConditionalOnProperty(prefix = "liquibase", name = "enabled", matchIfMissing = true)
