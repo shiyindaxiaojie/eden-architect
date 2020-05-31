@@ -144,6 +144,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcpkix-jdk15on</artifactId>
+					<groupId>org.bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -169,6 +175,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>HdrHistogram</artifactId>
+					<groupId>org.hdrhistogram</groupId>
+				</exclusion>
+			</exclusions>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -213,6 +225,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xstream</artifactId>
+					<groupId>com.thoughtworks.xstream</groupId>
+				</exclusion>
+			</exclusions>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -256,6 +274,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-framework</artifactId>
 		</dependency>
 		<dependency>
@@ -266,6 +288,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-security</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 </project>

@@ -42,7 +42,7 @@ public class TrueLicenseServerAutoConfiguration {
   public static final String EXPS_TRUE_LICENSE_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
 
-  private static final String MSG_INJECT_TRUE_LICENSE_STORE = "Autowired TureLicense storing service";
+  private static final String MSG_AUTOWIRED_TRUE_LICENSE_STORE = "Autowired TureLicense storing service";
 
   private final LicenseManager licenseManager;
 
@@ -53,7 +53,7 @@ public class TrueLicenseServerAutoConfiguration {
   @ConditionalOnMissingBean
   @Bean
   public LicenseStore licenseStore() {
-    log.debug(MSG_INJECT_TRUE_LICENSE_STORE);
+    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_STORE);
     return new LicenseStore(licenseManager);
   }
 }

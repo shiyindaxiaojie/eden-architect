@@ -44,6 +44,6 @@ public final class MetricsDefaults {
 
     public static final boolean enabled = false;
 
-    public static final String endpoint = "/prometheusMetrics";
+    public static final String endpoint = "/prometheus-metrics";
   }
 }

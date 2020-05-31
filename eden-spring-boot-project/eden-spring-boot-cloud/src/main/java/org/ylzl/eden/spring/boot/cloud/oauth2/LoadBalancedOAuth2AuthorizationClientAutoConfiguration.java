@@ -60,10 +60,10 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
   @Configuration
   public static class LoadBalancedOAuth2AuthorizationClientInnerConfiguration {
 
-    private static final String MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT =
+    private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
         "Autowired loadBalanced OAuth2AccessTokenClient";
 
-    private static final String MSG_INJECT_CLIENT_RESOURCE_DETAILS =
+    private static final String MSG_AUTOWIRED_CLIENT_RESOURCE_DETAILS =
         "Autowired loadBalanced ClientCredentialsResourceDetails";
 
     private final OAuth2Properties oAuth2Properties;
@@ -79,7 +79,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
-      log.debug(MSG_INJECT_OAUTH2_ACCESS_TOKEN_CLIENT);
+      log.debug(MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT);
       return new CloudOAuth2AccessTokenClient(
           restTemplate, oAuth2Properties, loadBalancerClientHelper);
     }
@@ -88,7 +88,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
-      log.debug(MSG_INJECT_CLIENT_RESOURCE_DETAILS);
+      log.debug(MSG_AUTOWIRED_CLIENT_RESOURCE_DETAILS);
       CloudClientCredentialsResourceDetails resourceDetails =
           new CloudClientCredentialsResourceDetails(oAuth2Properties, loadBalancerClientHelper);
       resourceDetails.setAccessTokenUri(oAuth2Properties.getAuthorization().getAccessTokenUri());
@@ -103,7 +103,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
   @Configuration
   public static class LoadBalancedOAuth2AuthorizationClientJwtConfiguration {
 
-    private static final String MSG_INJECT_SIGN_VERIFY_CLIENT =
+    private static final String MSG_AUTOWIRED_SIGN_VERIFY_CLIENT =
         "Autowired loadBalanced SignatureVerifierClient";
 
     private final OAuth2Properties oAuth2Properties;
@@ -119,7 +119,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
-      log.debug(MSG_INJECT_SIGN_VERIFY_CLIENT);
+      log.debug(MSG_AUTOWIRED_SIGN_VERIFY_CLIENT);
       return new CloudSignatureVerifierClient(
           restTemplate, oAuth2Properties, loadBalancerClientHelper);
     }

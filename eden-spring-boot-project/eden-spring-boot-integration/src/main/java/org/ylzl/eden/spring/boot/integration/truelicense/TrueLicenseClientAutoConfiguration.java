@@ -43,10 +43,10 @@ public class TrueLicenseClientAutoConfiguration {
   public static final String EXPS_TRUE_LICENSE_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
 
-  private static final String MSG_INJECT_TRUE_LICENSE_INSTALL =
+  private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =
       "Autowired TureLicense install service";
 
-  private static final String MSG_INJECT_TRUE_LICENSE_VERIFY = "Autowired TureLicense verify service";
+  private static final String MSG_AUTOWIRED_TRUE_LICENSE_VERIFY = "Autowired TureLicense verify service";
 
   private final LicenseManager licenseManager;
 
@@ -57,14 +57,14 @@ public class TrueLicenseClientAutoConfiguration {
   @ConditionalOnMissingBean
   @Bean
   public LicenseInstall licenseInstall(TrueLicenseProperties trueLicenseProperties) {
-    log.debug(MSG_INJECT_TRUE_LICENSE_INSTALL);
+    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_INSTALL);
     return new LicenseInstall(trueLicenseProperties, licenseManager);
   }
 
   @ConditionalOnMissingBean
   @Bean
   public LicenseVerify licenseVerify() {
-    log.debug(MSG_INJECT_TRUE_LICENSE_VERIFY);
+    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_VERIFY);
     return new LicenseVerify(licenseManager);
   }
 }

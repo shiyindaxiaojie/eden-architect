@@ -39,7 +39,7 @@ import java.util.concurrent.Executor;
  * @author gyl
  * @since 1.0.0
  */
-//@ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
+@ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
 @EnableAsync
 @EnableConfigurationProperties(SchedulingProperties.class)
 @Slf4j
@@ -48,7 +48,7 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
 
   public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
-  private static final String MSG_INJECT_EXECUTOR = "Autowired AsyncTaskExecutor";
+  private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
 
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
@@ -62,7 +62,7 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
   @Bean(name = BEAN_TASK_EXECUTOR)
   @Override
   public Executor getAsyncExecutor() {
-    log.debug(MSG_INJECT_EXECUTOR);
+    log.debug(MSG_AUTOWIRED_EXECUTOR);
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
     executor.setCorePoolSize(properties.getCorePoolSize());
     executor.setMaxPoolSize(properties.getMaxPoolSize());

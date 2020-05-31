@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.framework.info.contributor.MailEnabledInfoContr
 /**
  * InfoContributor 自动配置
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ * <p>从 Spring Boot 1.X 升级到 2.X</p>
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration 迁移到 {@link

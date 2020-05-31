@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.boot.cloud.zuul.filter.ZuulFaultFilter;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 
 /**
- * 网关自动配置
+ * Zuul 过滤器自动配置
  *
  * @author gyl
  * @since 1.0.0
@@ -52,11 +52,11 @@ public class ZuulFilterAutoConfiguration {
   public static final String EXPS_RATE_LIMITING_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
-  private static final String MSG_INJECT_ACCESS_CONTROL_FILTER = "Autowired Zuul AccessControl filter";
+  private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER = "Autowired Zuul AccessControl filter";
 
-  private static final String MSG_INJECT_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit filter";
+  private static final String MSG_AUTOWIRED_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit filter";
 
-  private static final String MSG_INJECT_ZUUL_FAULT_FILTER = "Autowired Zuul Fault filter";
+  private static final String MSG_AUTOWIRED_ZUUL_FAULT_FILTER = "Autowired Zuul Fault filter";
 
   private final ZuulProperties zuulProperties;
 
@@ -69,7 +69,7 @@ public class ZuulFilterAutoConfiguration {
   @ConditionalOnMissingBean
   @Bean
   public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
-    log.debug(MSG_INJECT_ACCESS_CONTROL_FILTER);
+    log.debug(MSG_AUTOWIRED_ACCESS_CONTROL_FILTER);
     return new AccessControlFilter(zuulProperties, routeLocator);
   }
 
@@ -78,14 +78,14 @@ public class ZuulFilterAutoConfiguration {
   @Bean
   public RateLimitingFilter rateLimitingFilter(
       @Value(FrameworkConstants.NAME_PATTERN) String applicationName) {
-    log.debug(MSG_INJECT_RATE_LIMIT_FILTER);
+    log.debug(MSG_AUTOWIRED_RATE_LIMIT_FILTER);
     return new RateLimitingFilter(zuulProperties, applicationName);
   }
 
   @ConditionalOnMissingBean
   @Bean
   public ZuulFaultFilter zuulFaultFilter() {
-    log.debug(MSG_INJECT_ZUUL_FAULT_FILTER);
+    log.debug(MSG_AUTOWIRED_ZUUL_FAULT_FILTER);
     return new ZuulFaultFilter();
   }
 }

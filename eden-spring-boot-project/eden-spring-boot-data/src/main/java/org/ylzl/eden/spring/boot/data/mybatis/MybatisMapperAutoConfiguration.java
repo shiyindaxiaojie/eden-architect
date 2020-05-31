@@ -66,7 +66,7 @@ import java.util.Arrays;
 public class MybatisMapperAutoConfiguration
     extends MapperAutoConfiguration.AutoConfiguredMapperScannerRegistrar {
 
-  private static final String MSG_INJECT_MYBATIS_MAPPER = "Autowired Mybatis Mapper";
+  private static final String MSG_AUTOWIRED_MYBATIS_MAPPER = "Autowired Mybatis Mapper";
 
   private static final String EXP_AUTO_SCAN_DISABLED =
       "Mybatis Mapper auto scan package disabled: {}";
@@ -84,7 +84,7 @@ public class MybatisMapperAutoConfiguration
   @Override
   public void registerBeanDefinitions(
       AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-    log.debug(MSG_INJECT_MYBATIS_MAPPER);
+    log.debug(MSG_AUTOWIRED_MYBATIS_MAPPER);
 
     FixedClassPathMapperScanner scanner = new FixedClassPathMapperScanner(registry);
 

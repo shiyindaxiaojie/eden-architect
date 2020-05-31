@@ -17,46 +17,27 @@
 
 package org.ylzl.eden.spring.boot.framework.web;
 
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.servlet.InstrumentedFilter;
-import com.codahale.metrics.servlets.MetricsServlet;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
-import org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.MimeMappings;
-import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
-import org.springframework.http.MediaType;
-import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
-import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
-import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
+import org.springframework.http.CacheControl;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkProperties;
-import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
-import org.ylzl.eden.spring.boot.framework.web.filter.CachingHttpHeadersFilter;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Web 配置适配器
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X
- *
+ * <p>从 Spring Boot 1.X 升级到 2.X</p>
  * <ul>
  *   <li>org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer 变更为 {@link
  *       WebServerFactoryCustomizer}
@@ -74,146 +55,38 @@ import java.util.EnumSet;
  */
 @EnableRestErrorAdvice
 @Slf4j
-public class WebConfigurerAdapter
-    implements WebServerFactoryCustomizer<WebServerFactory>, ServletContextInitializer {
+public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextInitializer {
 
-  private static final String MSG_INJECT_CACHE_HTTP_HEADER_FILTER =
-      "Autowired cached HttpHeaders filter";
+  protected static final String[] RESOURCE_LOCATIONS = {
+    "classpath:/static/app/", "classpath:/static/content/", "classpath:/static/i18n/"
+  };
+  protected static final String[] RESOURCE_PATHS = {"/app/*", "/content/*", "/i18n/*"};
 
-  private static final String MSG_INJECT_METRICSR_REGISTRY = "Autowired Metrics Registry";
+  private final FrameworkProperties properties;
 
-  private static final String MSG_INJECT_METRICSR_FILTER = "Autowired Metrics Filter";
+  private final Environment env;
 
-  private static final String MSG_INJECT_METRICS_SERVLET = "Autowired Metrics Servlet";
-
-  private static final String MSG_UNSUPPORTED_CONTAINER = "Unsupported container";
-
-  private static final String DEFAULT_OUTPUT_DIR = "target/classes/static";
-
-  @Setter
-  @Autowired(required = false)
-  private MetricRegistry metricRegistry;
-
-  private final FrameworkProperties frameworkProperties;
-
-  private final Environment environment;
-
-  public WebConfigurerAdapter(FrameworkProperties frameworkProperties, Environment environment) {
-    this.frameworkProperties = frameworkProperties;
-    this.environment = environment;
+  public WebConfigurerAdapter(FrameworkProperties properties, Environment env) {
+    this.properties = properties;
+	  this.env = env;
   }
 
   @Override
-  public void customize(WebServerFactory webServerFactory) {
-    this.setMimeMappings(webServerFactory);
-    this.setLocationForStaticAssets(webServerFactory);
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    ResourceHandlerRegistration resourceHandlerRegistration =
+        registry.addResourceHandler(RESOURCE_PATHS);
+    resourceHandlerRegistration
+        .addResourceLocations(RESOURCE_LOCATIONS)
+        .setCacheControl(getCacheControl());
   }
 
   @Override
   public void onStartup(ServletContext servletContext) {
-    EnumSet<DispatcherType> disps =
-        EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
-    if (environment.acceptsProfiles(Profiles.of(ProfileConstants.SPRING_PROFILE_PRODUCTION))) {
-      this.initCachingHttpHeadersFilter(servletContext, disps, "/i18n/*", "/content/*", "/app/*");
-    }
-    if (metricRegistry != null) {
-      this.initMetrics(servletContext, disps);
-    }
+    // TODO
   }
 
-  protected void initCachingHttpHeadersFilter(
-      ServletContext servletContext, EnumSet<DispatcherType> disps, String... urlPatterns) {
-    log.debug(MSG_INJECT_CACHE_HTTP_HEADER_FILTER);
-    FilterRegistration.Dynamic cachingHttpHeadersFilter =
-        servletContext.addFilter(
-            "cachingHttpHeadersFilter", new CachingHttpHeadersFilter(frameworkProperties));
-    for (String urlPattern : urlPatterns) {
-      cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, urlPattern);
-    }
-    cachingHttpHeadersFilter.setAsyncSupported(true);
-  }
-
-  protected void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-    log.debug(MSG_INJECT_METRICSR_REGISTRY);
-    servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE, metricRegistry);
-    servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY, metricRegistry);
-
-    log.debug(MSG_INJECT_METRICSR_FILTER);
-    FilterRegistration.Dynamic metricsFilter =
-        servletContext.addFilter("webappMetricsFilter", new InstrumentedFilter());
-    metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
-    metricsFilter.setAsyncSupported(true);
-
-    log.debug(MSG_INJECT_METRICS_SERVLET);
-    ServletRegistration.Dynamic metricsServlet =
-        servletContext.addServlet("metricsServlet", new MetricsServlet());
-    metricsServlet.addMapping("/metrics/*");
-    metricsServlet.setAsyncSupported(true);
-    metricsServlet.setLoadOnStartup(2);
-  }
-
-  protected void setMimeMappings(WebServerFactory webServerFactory) {
-    if (webServerFactory instanceof UndertowServletWebServerFactory) {
-      MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-      mappings.add(
-          "html", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
-      mappings.add(
-          "json", MediaType.TEXT_HTML_VALUE + ";charset=" + FrameworkConstants.DEFAULT_ENCODING);
-
-      UndertowServletWebServerFactory undertow = (UndertowServletWebServerFactory) webServerFactory;
-      undertow.setMimeMappings(mappings);
-    }
-  }
-
-  protected void setLocationForStaticAssets(WebServerFactory webServerFactory) {
-    String pathPrefix = resolvePathPrefix();
-    String webappPath = StringUtils.join(pathPrefix, DEFAULT_OUTPUT_DIR, "classes/static/");
-    File root = new File(webappPath);
-    if (root.exists() || root.isDirectory()) {
-      this.setDocumentRoot(webServerFactory, root);
-    }
-  }
-
-  private void setDocumentRoot(WebServerFactory webServerFactory, File root) {
-    if (webServerFactory instanceof UndertowServletWebServerFactory) {
-      ((UndertowServletWebServerFactory) webServerFactory).setDocumentRoot(root);
-      return;
-    }
-
-    if (webServerFactory instanceof TomcatServletWebServerFactory) {
-      ((TomcatServletWebServerFactory) webServerFactory).setDocumentRoot(root);
-      return;
-    }
-
-    if (webServerFactory instanceof JettyServletWebServerFactory) {
-      ((JettyServletWebServerFactory) webServerFactory).setDocumentRoot(root);
-      return;
-    }
-
-    if (webServerFactory instanceof NettyReactiveWebServerFactory) {
-      return;
-    }
-
-    throw new UnsupportedOperationException(MSG_UNSUPPORTED_CONTAINER);
-  }
-
-  private String resolvePathPrefix() {
-    String fullExecutablePath;
-    try {
-      fullExecutablePath =
-          URLDecoder.decode(
-              this.getClass().getResource(StringConstants.EMPTY).getPath(),
-              StandardCharsets.UTF_8.name());
-    } catch (UnsupportedEncodingException e) {
-      fullExecutablePath = this.getClass().getResource(StringConstants.EMPTY).getPath();
-    }
-
-    String rootPath = Paths.get(StringConstants.DOT).toUri().normalize().getPath();
-    String extractedPath = fullExecutablePath.replace(rootPath, StringConstants.EMPTY);
-    int extractionEndIndex = extractedPath.indexOf(DEFAULT_OUTPUT_DIR);
-    if (extractionEndIndex <= 0) {
-      return StringConstants.EMPTY;
-    }
-    return extractedPath.substring(0, extractionEndIndex);
+  protected CacheControl getCacheControl() {
+    return CacheControl.maxAge(properties.getHttp().getCache().getTimeToLiveInDays(), TimeUnit.DAYS)
+        .cachePublic();
   }
 }

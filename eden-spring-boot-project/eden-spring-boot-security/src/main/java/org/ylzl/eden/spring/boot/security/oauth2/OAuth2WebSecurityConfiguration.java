@@ -58,7 +58,7 @@ public class OAuth2WebSecurityConfiguration {
   private static final String EXP_AUTHENTICATION_MANAGER =
       "Initialize AuthenticationManager (OAuth2) caught exception";
 
-  private static final String MSG_INJECT_AUTHENTICATION_MANAGER =
+  private static final String MSG_AUTOWIRED_AUTHENTICATION_MANAGER =
       "Autowired AuthenticationManager (OAuth2)";
 
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -86,7 +86,7 @@ public class OAuth2WebSecurityConfiguration {
   @Bean
   public AuthenticationManager authenticationManager(
       WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
-    log.debug(MSG_INJECT_AUTHENTICATION_MANAGER);
+    log.debug(MSG_AUTOWIRED_AUTHENTICATION_MANAGER);
     return webSecurityConfigurerAdapter.authenticationManagerBean();
   }
 

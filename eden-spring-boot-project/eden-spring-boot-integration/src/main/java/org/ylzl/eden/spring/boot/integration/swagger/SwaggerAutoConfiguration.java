@@ -54,7 +54,7 @@ import java.util.List;
 /**
  * Swagger 自动配置
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ * <p>从 Spring Boot 1.X 升级到 2.X</p>
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
@@ -86,7 +86,7 @@ public class SwaggerAutoConfiguration {
 
   public static final String DEFAULT_GROUP_NAME = "management";
 
-  private static final String MSG_INJECT_SWAGGER = "Autowired Swagger";
+  private static final String MSG_AUTOWIRED_SWAGGER = "Autowired Swagger";
 
   private static final String MSG_STARTD_SWAGGER = "Startded Swagger in {} ms";
 
@@ -108,7 +108,7 @@ public class SwaggerAutoConfiguration {
   public Docket swaggerSpringfoxApiDocket(
       List<SwaggerCustomizer> swaggerCustomizers,
       ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
-    log.debug(MSG_INJECT_SWAGGER);
+    log.debug(MSG_AUTOWIRED_SWAGGER);
     StopWatch watch = new StopWatch();
     watch.start();
     Docket docket = createDocket();

@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.spring.boot.commons.lang.ObjectUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.commons.lang.time.DateUtils;
-import org.ylzl.eden.spring.boot.integration.truelicense.manager.mapstruct.LicenseMapstruct;
+import org.ylzl.eden.spring.boot.integration.truelicense.manager.mapper.LicenseMapper;
 
 import javax.security.auth.x500.X500Principal;
 import java.io.File;
@@ -73,7 +73,7 @@ public class LicenseStore {
     LicenseContent licenseContent = new LicenseContent();
     licenseContent.setHolder(DEFAULT_HOLDER_AND_ISSUER);
     licenseContent.setIssuer(DEFAULT_HOLDER_AND_ISSUER);
-    LicenseMapstruct.INSTANCE.updateLicenseContentFromLicenseStore(
+    LicenseMapper.INSTANCE.updateLicenseContentFromLicenseStore(
         enhancedLicenseContent, licenseContent);
     File file = new File(enhancedLicenseContent.getLicensePath());
 

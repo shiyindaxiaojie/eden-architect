@@ -44,21 +44,21 @@ public class FtpServerAutoConfiguration {
   public static final String EXPS_FTP_SERVER_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".ftp-server.enabled:true}";
 
-  private static final String MSG_INJECT_FTPSERVER = "Autowired FtpServer";
+  private static final String MSG_AUTOWIRED_FTPSERVER = "Autowired FtpServer";
 
-  private static final String MSG_INJECT_FTPSERVER_FACTORY = "Autowired FtpServer Factory";
+  private static final String MSG_AUTOWIRED_FTPSERVER_FACTORY = "Autowired FtpServer Factory";
 
   @ConditionalOnMissingBean
   @Bean
   public FtpServerFactoryBean ftpServerFactoryBean() {
-    log.debug(MSG_INJECT_FTPSERVER_FACTORY);
+    log.debug(MSG_AUTOWIRED_FTPSERVER_FACTORY);
     return new FtpServerFactoryBean();
   }
 
   @ConditionalOnMissingBean
   @Bean
   public FtpServer ftpServer(FtpServerFactoryBean ftpServerFactoryBean) {
-    log.debug(MSG_INJECT_FTPSERVER);
+    log.debug(MSG_AUTOWIRED_FTPSERVER);
     // TODO
     return ftpServerFactoryBean.createServer();
   }

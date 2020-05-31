@@ -57,7 +57,7 @@ import java.util.List;
 @Configuration
 public class EnhancedMybatisAutoConfiguration {
 
-  private static final String MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY =
+  private static final String MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY =
       "Autowired Mybatis SqlSessionFactory";
 
   private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
@@ -82,7 +82,7 @@ public class EnhancedMybatisAutoConfiguration {
       InfoContributorProvider infoContributorProvider,
       PathMatchingResourcePatternResolver resolver,
       @Autowired(required = false) List<Interceptor> interceptors) {
-    log.debug(MSG_INJECT_MYBATIS_SQL_SESSION_FACTORY);
+    log.debug(MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY);
     SqlSessionFactoryBean sqlSessionFactoryBean = new FixedSqlSessionFactoryBean();
     BeanCopier.copy(mybatisProperties, sqlSessionFactoryBean);
     sqlSessionFactoryBean.setDataSource(dataSource);

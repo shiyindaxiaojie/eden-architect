@@ -1,10 +1,11 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.data.elasticsearch.EnhancedElasticsearchDataAutoConfiguration,\
-  org.ylzl.eden.spring.boot.data.flyway.FixedFlywayAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.flyway.AsyncFlywayAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.jdbc.EnhancedJdbcTemplateAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceAutoConfiguration,\
-  org.ylzl.eden.spring.boot.data.liquibase.EnhancedLiquibaseAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.liquibase.AsyncLiquibaseAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mongobee.MongobeeAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mongodb.MongoDBAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatis.EnhancedMybatisAutoConfiguration,\

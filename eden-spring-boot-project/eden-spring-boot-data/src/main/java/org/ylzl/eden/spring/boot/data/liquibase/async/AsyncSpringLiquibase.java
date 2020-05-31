@@ -18,16 +18,16 @@
 package org.ylzl.eden.spring.boot.data.liquibase.async;
 
 import liquibase.exception.LiquibaseException;
-import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.concurrent.Executor;
 
 /**
  * 异步 Spring Liquibase
@@ -36,7 +36,7 @@ import java.sql.SQLException;
  * @since 2.0.0
  */
 @Slf4j
-public class AsyncSpringLiquibase extends SpringLiquibase {
+public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 
   private static final String MSG_STARTING_ASYNC = "Starting Liquibase asynchronously";
 
@@ -53,11 +53,11 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
   public static final long SLOWNESS_THRESHOLD = 5;
 
-  private final AsyncTaskExecutor asyncTaskExecutor;
+  private final Executor asyncTaskExecutor;
 
   private final Environment environment;
 
-  public AsyncSpringLiquibase(AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
+  public AsyncSpringLiquibase(Executor asyncTaskExecutor, Environment environment) {
     this.asyncTaskExecutor = asyncTaskExecutor;
     this.environment = environment;
   }

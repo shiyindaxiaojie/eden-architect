@@ -44,10 +44,10 @@ import java.util.List;
 @Configuration
 public class DefaultWebSecuirtyConfiguration {
 
-  private static final String MSG_INJECT_PASSWORD_ENCODER =
+  private static final String MSG_AUTOWIRED_PASSWORD_ENCODER =
       "Autowired PasswordEncoder (BCryptPasswordEncoder)";
 
-  private static final String MSG_INJECT_USER_DETAILS_SERVICE =
+  private static final String MSG_AUTOWIRED_USER_DETAILS_SERVICE =
       "Autowired UserDetailsService (InMemoryUserDetailsManager)";
 
   private final SecurityProperties securityProperties;
@@ -59,14 +59,14 @@ public class DefaultWebSecuirtyConfiguration {
   @ConditionalOnMissingBean
   @Bean
   public PasswordEncoder passwordEncoder() {
-    log.debug(MSG_INJECT_PASSWORD_ENCODER);
+    log.debug(MSG_AUTOWIRED_PASSWORD_ENCODER);
     return new BCryptPasswordEncoder();
   }
 
   @ConditionalOnMissingBean
   @Bean
   public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-    log.debug(MSG_INJECT_USER_DETAILS_SERVICE);
+    log.debug(MSG_AUTOWIRED_USER_DETAILS_SERVICE);
     SecurityProperties.User user = securityProperties.getUser();
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
     List<String> roles = user.getRoles();

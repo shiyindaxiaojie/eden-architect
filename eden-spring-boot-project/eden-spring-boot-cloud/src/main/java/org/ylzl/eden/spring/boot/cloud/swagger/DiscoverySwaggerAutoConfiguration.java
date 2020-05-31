@@ -39,12 +39,12 @@ import org.ylzl.eden.spring.boot.cloud.swagger.filter.SwaggerBasePathRewritingFi
 @Configuration
 public class DiscoverySwaggerAutoConfiguration {
 
-  private static final String MSG_INJECT_BASE_PATH_FILTER = "Autowired Zuul Swagger filter";
+  private static final String MSG_AUTOWIRED_BASE_PATH_FILTER = "Autowired Zuul Swagger filter";
 
   @ConditionalOnMissingBean
   @Bean
   public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter() {
-    log.debug(MSG_INJECT_BASE_PATH_FILTER);
+    log.debug(MSG_AUTOWIRED_BASE_PATH_FILTER);
     return new SwaggerBasePathRewritingFilter();
   }
 }

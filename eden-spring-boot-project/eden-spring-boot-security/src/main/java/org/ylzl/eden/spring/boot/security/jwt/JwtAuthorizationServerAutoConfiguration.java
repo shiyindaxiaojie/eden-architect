@@ -37,6 +37,7 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenService;
  * @author gyl
  * @since 1.0.0
  */
+
 @EnableConfigurationProperties(JwtProperties.class)
 @ConditionalOnExpression(JwtAuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
 @Import({DefaultWebSecuirtyConfiguration.class, JwtWebSecurityConfiguration.class})

@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.data.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -33,8 +32,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
@@ -43,7 +40,7 @@ import org.ylzl.eden.spring.boot.data.core.DataConstants;
 import org.ylzl.eden.spring.boot.data.core.DataProperties;
 import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceEnum;
 import org.ylzl.eden.spring.boot.data.jdbc.datasource.RoutingDataSourceProxy;
-import org.ylzl.eden.spring.boot.data.liquibase.EnhancedLiquibaseAutoConfiguration;
+import org.ylzl.eden.spring.boot.data.liquibase.AsyncLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.boot.data.mybatis.MybatisPageHelperAutoConfiguration;
 import org.ylzl.eden.spring.boot.framework.core.bind.BinderHelper;
 
@@ -53,7 +50,7 @@ import java.util.*;
 /**
  * 动态路由数据源配置
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X</p>
+ * <p>从 Spring Boot 1.X 升级到 2.X</p>
  * <ul>
  *     <li>org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder 迁移到 {@link DataSourceBuilder}</li>
  *     <li>org.springframework.boot.bind.RelaxedPropertyResolver</li>
@@ -67,7 +64,7 @@ import java.util.*;
 	DataSourceTransactionManagerAutoConfiguration.class,
 	HibernateJpaAutoConfiguration.class,
 	EnhancedJdbcTemplateAutoConfiguration.class,
-	EnhancedLiquibaseAutoConfiguration.class,
+	AsyncLiquibaseAutoConfiguration.class,
 	MybatisPageHelperAutoConfiguration.class
 })
 @ConditionalOnExpression(RoutingDataSourceAutoConfiguration.EXPS_ROUTING_DATASOURCE_ENABLED)
@@ -97,7 +94,7 @@ public class RoutingDataSourceAutoConfiguration {
 
 		private static final String PROP_DATASOURCE_PASSWORD = "password";
 
-		private static final String MSG_INJECT_ROUTING_DS = "Autowired routing Datasource";
+		private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
 
 		private static final String MSG_INVALID_TYPE_EXCEPTION = "Invalid Datasource";
 
@@ -122,7 +119,7 @@ public class RoutingDataSourceAutoConfiguration {
 
 		@Override
 		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-			log.debug(MSG_INJECT_ROUTING_DS);
+			log.debug(MSG_AUTOWIRED_ROUTING_DS);
 			GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 			beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
 			beanDefinition.setSynthetic(true);

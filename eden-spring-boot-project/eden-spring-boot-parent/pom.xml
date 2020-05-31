@@ -48,7 +48,7 @@
 		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}</infinispan-protocol-parser-generator-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
-		<jib-maven-plugin.version>0.9.11</jib-maven-plugin.version>
+		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
 		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
 		<jooq-codegen-maven.version>${jooq.version}</jooq-codegen-maven.version>
 		<kotlin-maven-plugin.version>${kotlin.version}</kotlin-maven-plugin.version>
@@ -79,7 +79,7 @@
 		<properties-maven-plugin>1.0.0</properties-maven-plugin>
 		<scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
 		<sonar-maven-plugin.version>3.4.1.1168</sonar-maven-plugin.version>
-		<spring-boot-maven-plugin>${spring-boot.version}</spring-boot-maven-plugin>
+		<spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
 		<swagger2markup-maven-plugin.version>1.3.7</swagger2markup-maven-plugin.version>
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 		<wrapper-maven-plugin.version>0.0.5</wrapper-maven-plugin.version>
@@ -102,7 +102,7 @@
 		<junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
 		<junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
 		<liquibase.domain/>
-		<liquibase-hibernate4.version>3.6</liquibase-hibernate4.version>
+		<liquibase-hibernate5.version>3.8</liquibase-hibernate5.version>
 		<maven.version>3.0.0</maven.version>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 		<node.version>v8.11.3</node.version>
@@ -198,26 +198,35 @@
 					<version>${jib-maven-plugin.version}</version>
 					<configuration>
 						<from>
-							<image>openjdk:7-jre-alpine</image>
+							<image>openjdk:8-jdk-alpine</image>
 						</from>
 						<to>
-							<image>${project.name}:latest</image>
+							<image>${project.name}:${project.version}</image>
+							<tags>
+								<tag>${project.version}</tag>
+							</tags>
 						</to>
 						<container>
 							<entrypoint>
-								<shell>sh</shell>
+								<shell>/bin/sh</shell>
 								<option>-c</option>
-								<arg>chmod +x /entrypoint.sh &amp;&amp; sync &amp;&amp; /entrypoint.sh</arg>
+								<arg>/entrypoint.sh</arg>
 							</entrypoint>
-							<ports>
-								<port>8080</port>
-							</ports>
 							<environment>
 								<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
 								<RUN_SLEEP>0</RUN_SLEEP>
 							</environment>
-							<useCurrentTimestamp>true</useCurrentTimestamp>
+							<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						</container>
+						<extraDirectories>
+							<paths>src/main/jib</paths>
+							<permissions>
+								<permission>
+									<file>/entrypoint.sh</file>
+									<mode>755</mode>
+								</permission>
+							</permissions>
+						</extraDirectories>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -839,9 +848,14 @@
 							<version>${javassist.version}</version>
 						</dependency>
 						<dependency>
+							<groupId>org.liquibase</groupId>
+							<artifactId>liquibase-core</artifactId>
+							<version>${liquibase.version}</version>
+						</dependency>
+						<dependency>
 							<groupId>org.liquibase.ext</groupId>
-							<artifactId>liquibase-hibernate4</artifactId>
-							<version>${liquibase-hibernate4.version}</version>
+							<artifactId>liquibase-hibernate5</artifactId>
+							<version>${liquibase-hibernate5.version}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.springframework.boot</groupId>
@@ -877,6 +891,7 @@
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-maven-plugin.version}</version>
 					<configuration>
 						<executable>true</executable>
 						<fork>true</fork>
@@ -958,6 +973,10 @@
 					<plugin>
 						<groupId>com.spotify</groupId>
 						<artifactId>dockerfile-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>

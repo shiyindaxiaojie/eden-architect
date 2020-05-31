@@ -33,8 +33,8 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.cloud.core.CloudConstants;
-import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastAutoConfiguration;
-import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperties;
+import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastAutoConfiguration;
+import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastProperties;
 
 /**
  * 基于 Spring Cloud 的 Hazelcast 自动配置
