@@ -115,6 +115,10 @@
 			<artifactId>joda-time</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<optional>true</optional>
@@ -163,6 +167,6 @@
 			<artifactId>spring-web</artifactId>
 			<optional>true</optional>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
 </project>
