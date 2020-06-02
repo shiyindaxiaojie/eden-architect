@@ -27,5 +27,5 @@ public interface Serializer {
 
   <T> byte[] serialize(T obj) throws Exception;
 
-  <T> T deserialize(byte[] data, Class<T> clz)  throws Exception;
+  <T> T deserialize(byte[] data, Class<T> clz) throws Exception;
 }

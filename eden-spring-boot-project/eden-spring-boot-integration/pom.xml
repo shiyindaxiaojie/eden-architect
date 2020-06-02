@@ -166,6 +166,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-codec</artifactId>
 			<optional>true</optional>
@@ -219,6 +224,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-framework</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 </project>

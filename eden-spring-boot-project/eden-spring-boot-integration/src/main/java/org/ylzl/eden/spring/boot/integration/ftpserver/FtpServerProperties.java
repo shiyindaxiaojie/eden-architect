@@ -34,16 +34,4 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 public class FtpServerProperties {
 
   private Boolean enabled;
-
-  private Client client = new Client();
-
-  private Server server = new Server();
-
-  @Getter
-  @Setter
-  public static class Client {}
-
-  @Getter
-  @Setter
-  public static class Server {}
 }

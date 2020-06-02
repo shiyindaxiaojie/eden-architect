@@ -50,7 +50,7 @@ import org.ylzl.eden.spring.boot.framework.info.InfoContributorProvider;
 @AutoConfigureAfter({FrameworkAutoConfiguration.class, InfoContributorAutoConfiguration.class})
 @AutoConfigureBefore(HazelcastAutoConfiguration.class)
 @ConditionalOnClass({HazelcastInstance.class})
-@ConditionalOnExpression(EnhancedHazelcastAutoConfiguration.EXPS_HAZELCAST_ENABLED)
+@ConditionalOnExpression(EnhancedHazelcastAutoConfiguration.EXP_HAZELCAST_ENABLED)
 @ConditionalOnMissingBean({HazelcastInstance.class})
 @EnableCaching
 @EnableConfigurationProperties({HazelcastProperties.class, EnhancedHazelcastProperties.class})
@@ -58,7 +58,7 @@ import org.ylzl.eden.spring.boot.framework.info.InfoContributorProvider;
 @Configuration
 public class EnhancedHazelcastAutoConfiguration implements DisposableBean {
 
-  public static final String EXPS_HAZELCAST_ENABLED =
+  public static final String EXP_HAZELCAST_ENABLED =
       "${" + FrameworkConstants.PROP_PREFIX + ".hazelcast.enabled:true}";
 
   private static final String DEFAULT_MAP_CONFIGS_KEY = "default";

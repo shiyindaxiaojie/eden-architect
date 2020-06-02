@@ -42,7 +42,8 @@ import org.ylzl.eden.spring.boot.framework.web.RestAutoConfiguration;
 @Configuration
 public class LoadBalancerClientAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_LB_CLIENT_HELPER = "Autowired LoadBalancerClient helper";
+  private static final String MSG_AUTOWIRED_LB_CLIENT_HELPER =
+      "Autowired LoadBalancerClient helper";
 
   @ConditionalOnMissingBean
   @Bean

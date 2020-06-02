@@ -26,7 +26,7 @@ import java.lang.annotation.*;
 /**
  * 已认证的 FeignClient 注解
  *
- * <p>从 Spring Boot 1.X 升级到 2.X</p>
+ * <p>从 Spring Boot 1.X 升级到 2.X
  *
  * <ul>
  *   <li>org.springframework.cloud.netflix.feign.FeignClient 迁移到 {@link FeignClient}

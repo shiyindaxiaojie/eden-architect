@@ -51,13 +51,13 @@ import java.util.concurrent.TimeUnit;
  * @see com.ryantenney.metrics.spring.config.annotation.DelegatingMetricsConfiguration
  * @since 1.0.0
  */
-@ConditionalOnExpression(MetricsLoggingAutoConfiguration.EXPS_METRICS_LOGS_ENABLED)
+@ConditionalOnExpression(MetricsLoggingAutoConfiguration.EXP_METRICS_LOGS_ENABLED)
 @EnableConfigurationProperties(MetricsProperties.class)
 @Slf4j
 @Configuration
 public class MetricsLoggingAutoConfiguration {
 
-  public static final String EXPS_METRICS_LOGS_ENABLED =
+  public static final String EXP_METRICS_LOGS_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".metrics.logs.enabled:false}";
 
   public static final String LOGGER_NAME = "metrics";

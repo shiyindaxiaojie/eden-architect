@@ -41,13 +41,13 @@ import java.util.List;
  * @since 1.0.0
  */
 @ConditionalOnClass(Bootstrap.class)
-@ConditionalOnExpression(NettyClientAutoConfiguration.EXPS_NETTY_CLIENT_ENABLED)
+@ConditionalOnExpression(NettyClientAutoConfiguration.EXP_NETTY_CLIENT_ENABLED)
 @EnableConfigurationProperties(NettyProperties.class)
 @Slf4j
 @Configuration
 public class NettyClientAutoConfiguration {
 
-  public static final String EXPS_NETTY_CLIENT_ENABLED =
+  public static final String EXP_NETTY_CLIENT_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".netty.client.enabled:false}";
 
   private final NettyProperties.Client properties;
@@ -61,20 +61,20 @@ public class NettyClientAutoConfiguration {
   public NettyClient nettyClient(
       @Autowired(required = false) List<ChannelHandler> channelHandlers,
       @Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
-	  NettyClient nettyClient =
+    NettyClient nettyClient =
         new NettyClient(properties.getName(), properties.getHost(), properties.getPort());
     if (properties.getChannelThreads() != null) {
-		nettyClient.setChannelThreads(properties.getChannelThreads());
+      nettyClient.setChannelThreads(properties.getChannelThreads());
     }
     if (CollectionUtils.isNotEmpty(channelHandlers)) {
-		nettyClient.addAllChannelHandlers(channelHandlers);
+      nettyClient.addAllChannelHandlers(channelHandlers);
     }
     if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
-		nettyClient.addAllChannelFutureListeners(channelFutureListeners);
+      nettyClient.addAllChannelFutureListeners(channelFutureListeners);
     }
     if (properties.getAutoStartup()) {
-		nettyClient.setAutoStartup(properties.getAutoStartup());
-	}
+      nettyClient.setAutoStartup(properties.getAutoStartup());
+    }
     return nettyClient;
   }
 }

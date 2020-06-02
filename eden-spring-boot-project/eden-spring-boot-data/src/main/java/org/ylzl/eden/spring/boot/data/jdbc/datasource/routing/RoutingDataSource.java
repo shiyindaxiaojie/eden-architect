@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.data.jdbc.datasource;
+package org.ylzl.eden.spring.boot.data.jdbc.datasource.routing;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.lang.annotation.*;
 
 /**
- * 数据源枚举
+ * 动态路由数据源
  *
  * @author gyl
  * @since 1.0.0
  */
-public enum DataSourceEnum {
-  MANUAL,
-  MASTER,
-  SLAVE;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Inherited
+public @interface RoutingDataSource {
 
-  @Getter @Setter private String dataSourceName;
+  String value();
 }

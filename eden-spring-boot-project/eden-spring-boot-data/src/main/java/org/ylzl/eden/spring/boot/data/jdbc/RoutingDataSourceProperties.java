@@ -16,19 +16,12 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = DataConstants.PROP_PREFIX + ".jdbc.routing-data-source")
+@ConfigurationProperties(prefix = DataConstants.PROP_PREFIX + ".routing-datasource")
 public class RoutingDataSourceProperties {
 
   private Boolean enabled;
 
   private String[] nodes;
 
-  private List<EnhancedDataSourceProperties> dataSources;
-
-  @Getter
-  @Setter
-  public static class EnhancedDataSourceProperties extends DataSourceProperties {
-
-    private String enumType;
-  }
+  private List<DataSourceProperties> metadata;
 }

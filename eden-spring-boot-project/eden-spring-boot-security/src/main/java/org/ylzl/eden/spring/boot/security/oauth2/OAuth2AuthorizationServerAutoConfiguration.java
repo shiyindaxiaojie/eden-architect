@@ -51,7 +51,7 @@ import java.util.List;
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
 @ConditionalOnExpression(
-    OAuth2AuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_SERVER)
+    OAuth2AuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @EnableAuthorizationServer
 @Import({DefaultWebSecuirtyConfiguration.class, OAuth2WebSecurityConfiguration.class})
@@ -59,7 +59,7 @@ import java.util.List;
 @Configuration
 public class OAuth2AuthorizationServerAutoConfiguration {
 
-  public static final String EXPS_OAUTH2_AUTHORIZATION_SERVER =
+  public static final String EXP_OAUTH2_AUTHORIZATION_SERVER =
       "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
 
   @ConditionalOnMissingBean

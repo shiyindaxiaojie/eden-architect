@@ -55,7 +55,8 @@ public class RestErrorAdvice {
   public ErrorVM processValidationException(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     List<FieldError> fieldErrors = result.getFieldErrors();
-    ErrorVM errorVM = ErrorVM.builder().message(ErrorConstants.ERR_METHOD_ARGUMENT_NOT_VALID).build();
+    ErrorVM errorVM =
+        ErrorVM.builder().message(ErrorConstants.ERR_METHOD_ARGUMENT_NOT_VALID).build();
     for (FieldError fieldError : fieldErrors) {
       errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
     }

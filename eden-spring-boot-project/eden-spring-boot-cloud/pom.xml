@@ -288,6 +288,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-security</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
 </project>

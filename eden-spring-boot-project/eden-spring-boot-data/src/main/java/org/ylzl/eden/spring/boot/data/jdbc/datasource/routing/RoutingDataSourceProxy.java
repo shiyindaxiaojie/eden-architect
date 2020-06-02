@@ -14,25 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.data.jdbc.datasource;
+package org.ylzl.eden.spring.boot.data.jdbc.datasource.routing;
 
-import lombok.Getter;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
- * 数据源上下文容器
+ * 动态数据源代理
  *
  * @author gyl
  * @since 1.0.0
  */
-public class DataSourceContextHolder {
+public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 
-  @Getter private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
-
-  public static void set(DataSourceEnum dataSourceEnum) {
-    threadLocal.set(dataSourceEnum);
-  }
-
-  public static DataSourceEnum get() {
-    return threadLocal.get();
+  @SuppressWarnings("unchecked")
+  @Override
+  protected Object determineCurrentLookupKey() {
+    return DataSourceNameContextHolder.get();
   }
 }

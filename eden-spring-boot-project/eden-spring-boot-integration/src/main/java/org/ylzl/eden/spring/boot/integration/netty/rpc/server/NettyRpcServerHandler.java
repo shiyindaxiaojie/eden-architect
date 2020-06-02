@@ -37,7 +37,7 @@ import java.util.ServiceLoader;
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
   @Override
-	public void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
+  public void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
     RpcResponse rpcResponse = new RpcResponse();
     rpcResponse.setRequestId(msg.getRequestId());
     try {
@@ -50,7 +50,7 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcReques
     ctx.writeAndFlush(rpcResponse);
   }
 
-	private Object invoke(RpcRequest request) throws Throwable {
+  private Object invoke(RpcRequest request) throws Throwable {
     Class<?> clazz = Class.forName(request.getClassName());
     ServiceLoader<?> serviceProviders = ServiceLoader.load(clazz); // 这里用 SPI 实现，也可以切换为 Spring 管理
     Object serviceImplBean = serviceProviders.iterator().next();

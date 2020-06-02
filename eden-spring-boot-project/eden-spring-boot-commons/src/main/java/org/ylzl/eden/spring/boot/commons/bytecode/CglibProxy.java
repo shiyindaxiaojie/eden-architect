@@ -19,8 +19,6 @@ package org.ylzl.eden.spring.boot.commons.bytecode;
 
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
 /**
  * Cglib 代理
@@ -30,10 +28,10 @@ import net.sf.cglib.proxy.MethodProxy;
  */
 public class CglibProxy {
 
-	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
-		Enhancer enhancer = new Enhancer();
-		enhancer.setSuperclass(clazz);
-		enhancer.setCallback(callback);
-		return (T) enhancer.create();
-	}
+  public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
+    Enhancer enhancer = new Enhancer();
+    enhancer.setSuperclass(clazz);
+    enhancer.setCallback(callback);
+    return (T) enhancer.create();
+  }
 }

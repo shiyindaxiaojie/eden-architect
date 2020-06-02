@@ -36,41 +36,42 @@ import java.util.Objects;
  */
 public class PrefixedKeyGenerator implements KeyGenerator {
 
-	private final String prefix;
+  private final String prefix;
 
-	public PrefixedKeyGenerator(GitProperties gitProperties, BuildProperties buildProperties) {
+  public PrefixedKeyGenerator(GitProperties gitProperties, BuildProperties buildProperties) {
 
-		this.prefix = generatePrefix(gitProperties, buildProperties);
-	}
+    this.prefix = generatePrefix(gitProperties, buildProperties);
+  }
 
-	String getPrefix() {
-		return this.prefix;
-	}
+  String getPrefix() {
+    return this.prefix;
+  }
 
-	private String generatePrefix(GitProperties gitProperties, BuildProperties buildProperties) {
+  private String generatePrefix(GitProperties gitProperties, BuildProperties buildProperties) {
 
-		String shortCommitId = null;
-		if (Objects.nonNull(gitProperties)) {
-			shortCommitId = gitProperties.getShortCommitId();
-		}
+    String shortCommitId = null;
+    if (Objects.nonNull(gitProperties)) {
+      shortCommitId = gitProperties.getShortCommitId();
+    }
 
-		Instant time = null;
-		String version = null;
-		if (Objects.nonNull(buildProperties)) {
-			time = buildProperties.getTime();
-			version = buildProperties.getVersion();
-		}
-		Object p = ObjectUtils.firstNonNull(shortCommitId, time, version, RandomStringUtils.randomAlphanumeric(12));
+    Instant time = null;
+    String version = null;
+    if (Objects.nonNull(buildProperties)) {
+      time = buildProperties.getTime();
+      version = buildProperties.getVersion();
+    }
+    Object p =
+        ObjectUtils.firstNonNull(
+            shortCommitId, time, version, RandomStringUtils.randomAlphanumeric(12));
 
-		if (p instanceof Instant) {
-			return DateTimeFormatter.ISO_INSTANT.format((Instant) p);
-		}
-		return p.toString();
-	}
+    if (p instanceof Instant) {
+      return DateTimeFormatter.ISO_INSTANT.format((Instant) p);
+    }
+    return p.toString();
+  }
 
-
-	@Override
-	public Object generate(Object target, Method method, Object... params) {
-		return new PrefixedSimpleKey(prefix, method.getName(), params);
-	}
+  @Override
+  public Object generate(Object target, Method method, Object... params) {
+    return new PrefixedSimpleKey(prefix, method.getName(), params);
+  }
 }

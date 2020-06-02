@@ -40,7 +40,8 @@ public class RpcClientProxy {
   }
 
   public <T> T newProxyInstance(Class<T> clazz, int timeout) {
-    return CglibProxy.newProxyInstance(clazz,
+    return CglibProxy.newProxyInstance(
+        clazz,
         (InvocationHandler)
             (obj, method, args) -> {
               RpcRequest request = new RpcRequest();

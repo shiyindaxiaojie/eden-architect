@@ -53,13 +53,13 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.store.ClientCredentialsTo
 @AutoConfigureAfter(RestAutoConfiguration.class)
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration.class)
 @ConditionalOnExpression(
-    OAuth2AuthorizationClientAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_CLIENT)
+    OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @Slf4j
 @Configuration
 public class OAuth2AuthorizationClientAutoConfiguration {
 
-  public static final String EXPS_OAUTH2_AUTHORIZATION_CLIENT =
+  public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
       "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
   private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
@@ -131,7 +131,8 @@ public class OAuth2AuthorizationClientAutoConfiguration {
   @Configuration
   public static class OAuth2AuthorizationClientJwtConfiguration {
 
-    private static final String MSG_AUTOWIRED_SIGN_VERIFY_CLIENT = "Autowired SignatureVerifierClient";
+    private static final String MSG_AUTOWIRED_SIGN_VERIFY_CLIENT =
+        "Autowired SignatureVerifierClient";
 
     private static final String MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR =
         "Autowired JwtAccessTokenConverter (OAuth2AuthorizationClient)";

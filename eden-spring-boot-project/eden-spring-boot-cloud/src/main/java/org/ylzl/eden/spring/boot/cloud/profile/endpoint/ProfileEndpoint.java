@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 运行环境信息端点
  *
- * <p>从 Spring Boot 1.X 升级到 2.X</p>
+ * <p>从 Spring Boot 1.X 升级到 2.X
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}

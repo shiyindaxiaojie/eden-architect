@@ -46,13 +46,14 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @Configuration
 public class ZuulFilterAutoConfiguration {
 
-  public static final String EXPS_ACCESS_CONTROL_ENABLED =
+  public static final String EXP_ACCESS_CONTROL_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".zuul.access-control.enabled:true}";
 
-  public static final String EXPS_RATE_LIMITING_ENABLED =
+  public static final String EXP_RATE_LIMITING_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
-  private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER = "Autowired Zuul AccessControl filter";
+  private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER =
+      "Autowired Zuul AccessControl filter";
 
   private static final String MSG_AUTOWIRED_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit filter";
 
@@ -65,7 +66,7 @@ public class ZuulFilterAutoConfiguration {
   }
 
   @ConditionalOnBean(RouteLocator.class)
-  @ConditionalOnExpression(EXPS_ACCESS_CONTROL_ENABLED)
+  @ConditionalOnExpression(EXP_ACCESS_CONTROL_ENABLED)
   @ConditionalOnMissingBean
   @Bean
   public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
@@ -73,7 +74,7 @@ public class ZuulFilterAutoConfiguration {
     return new AccessControlFilter(zuulProperties, routeLocator);
   }
 
-  @ConditionalOnExpression(EXPS_RATE_LIMITING_ENABLED)
+  @ConditionalOnExpression(EXP_RATE_LIMITING_ENABLED)
   @ConditionalOnMissingBean
   @Bean
   public RateLimitingFilter rateLimitingFilter(

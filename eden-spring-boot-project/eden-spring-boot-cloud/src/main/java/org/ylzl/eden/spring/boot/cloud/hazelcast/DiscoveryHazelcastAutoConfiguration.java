@@ -44,7 +44,7 @@ import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastProperties;
  */
 @AutoConfigureBefore({HazelcastAutoConfiguration.class, EnhancedHazelcastAutoConfiguration.class})
 @ConditionalOnClass({HazelcastInstance.class})
-@ConditionalOnExpression(DiscoveryHazelcastAutoConfiguration.EXPS_CLOUD_HAZELCAST_ENABLED)
+@ConditionalOnExpression(DiscoveryHazelcastAutoConfiguration.EXP_CLOUD_HAZELCAST_ENABLED)
 @ConditionalOnBean({DiscoveryClient.class})
 @ConditionalOnMissingBean({HazelcastInstance.class})
 @EnableCaching
@@ -53,7 +53,7 @@ import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastProperties;
 @Configuration
 public class DiscoveryHazelcastAutoConfiguration extends EnhancedHazelcastAutoConfiguration {
 
-  public static final String EXPS_CLOUD_HAZELCAST_ENABLED =
+  public static final String EXP_CLOUD_HAZELCAST_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".hazelcast.enabled:true}";
 
   private static final String MSG_DICOVERY_HAZELCAST_IN_DEV =

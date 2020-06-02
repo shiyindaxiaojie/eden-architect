@@ -17,11 +17,7 @@
 
 package org.ylzl.eden.spring.boot.integration.zookeeper;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.UtilityClass;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 
 /**
  * ZooKeeper 配置属性
@@ -32,9 +28,9 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @UtilityClass
 public class ZooKeeperDefaults {
 
-	public static final Boolean enabled = true;
+  public static final Boolean enabled = true;
 
-	public static final String connectString = "localhost:2181";
+  public static final String connectString = "localhost:2181";
 
-	public static final Integer sessionTimeout = 5000;
+  public static final Integer sessionTimeout = 5000;
 }

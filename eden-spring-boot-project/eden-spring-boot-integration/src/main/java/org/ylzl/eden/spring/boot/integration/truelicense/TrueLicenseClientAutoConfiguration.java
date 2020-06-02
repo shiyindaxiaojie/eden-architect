@@ -34,19 +34,20 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.LicenseVerify;
  * @author gyl
  * @since 1.0.0
  */
-@ConditionalOnExpression(TrueLicenseClientAutoConfiguration.EXPS_TRUE_LICENSE_ENABLED)
+@ConditionalOnExpression(TrueLicenseClientAutoConfiguration.EXP_TRUE_LICENSE_ENABLED)
 @Import(TrueLicenseConfiguration.class)
 @Slf4j
 @Configuration
 public class TrueLicenseClientAutoConfiguration {
 
-  public static final String EXPS_TRUE_LICENSE_ENABLED =
+  public static final String EXP_TRUE_LICENSE_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
 
   private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =
       "Autowired TureLicense install service";
 
-  private static final String MSG_AUTOWIRED_TRUE_LICENSE_VERIFY = "Autowired TureLicense verify service";
+  private static final String MSG_AUTOWIRED_TRUE_LICENSE_VERIFY =
+      "Autowired TureLicense verify service";
 
   private final LicenseManager licenseManager;
 

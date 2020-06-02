@@ -37,7 +37,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Web 配置适配器
  *
- * <p>从 Spring Boot 1.X 升级到 2.X</p>
+ * <p>从 Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
  *   <li>org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer 变更为 {@link
  *       WebServerFactoryCustomizer}
@@ -68,7 +69,7 @@ public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextIni
 
   public WebConfigurerAdapter(FrameworkProperties properties, Environment env) {
     this.properties = properties;
-	  this.env = env;
+    this.env = env;
   }
 
   @Override

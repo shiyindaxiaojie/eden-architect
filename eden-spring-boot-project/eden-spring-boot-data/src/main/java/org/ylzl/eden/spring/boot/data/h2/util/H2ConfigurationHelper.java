@@ -71,10 +71,10 @@ public class H2ConfigurationHelper {
       h2ConsoleServlet.addMapping("/h2-console/*");
       h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
       h2ConsoleServlet.setLoadOnStartup(1);
-	} catch (ClassNotFoundException | LinkageError e) {
-		throw new RuntimeException("Failed to load and initialize org.h2.server.web.WebServlet", e);
-	} catch (IllegalAccessException | InstantiationException e) {
-		throw new RuntimeException("Failed to instantiate org.h2.server.web.WebServlet", e);
-	}
+    } catch (ClassNotFoundException | LinkageError e) {
+      throw new RuntimeException("Failed to load and initialize org.h2.server.web.WebServlet", e);
+    } catch (IllegalAccessException | InstantiationException e) {
+      throw new RuntimeException("Failed to instantiate org.h2.server.web.WebServlet", e);
+    }
   }
 }

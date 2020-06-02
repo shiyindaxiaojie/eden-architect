@@ -8,7 +8,7 @@ package org.ylzl.eden.spring.boot.integration.netty.rpc;
  */
 public interface RpcServer {
 
-	void startup();
+  void startup();
 
-	void shutdown();
+  void shutdown();
 }

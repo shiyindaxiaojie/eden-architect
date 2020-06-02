@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.boot.integration.truelicense.keystore;
 
 import de.schlichtherle.license.AbstractKeyStoreParam;
-import org.ylzl.eden.spring.boot.commons.io.FileConstants;
 import org.ylzl.eden.spring.boot.commons.io.IOConstants;
 import org.ylzl.eden.spring.boot.commons.lang.ClassConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;

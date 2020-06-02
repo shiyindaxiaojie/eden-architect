@@ -30,11 +30,11 @@ import java.util.Collection;
 @UtilityClass
 public class CollectionUtils {
 
-	public static boolean isEmpty(final Collection<?> coll) {
-		return org.apache.commons.collections4.CollectionUtils.isEmpty(coll);
-	}
+  public static boolean isEmpty(final Collection<?> coll) {
+    return org.apache.commons.collections4.CollectionUtils.isEmpty(coll);
+  }
 
-	public static boolean isNotEmpty(final Collection<?> coll) {
-		return !isEmpty(coll);
-	}
+  public static boolean isNotEmpty(final Collection<?> coll) {
+    return !isEmpty(coll);
+  }
 }

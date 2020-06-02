@@ -21,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.ylzl.eden.spring.boot.commons.io.FileUtils;
-import org.ylzl.eden.spring.boot.commons.io.IOUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
@@ -72,8 +71,8 @@ public final class ResponseUtils {
    * @return
    * @throws IOException
    */
-  public static void download(
-      HttpServletRequest request, HttpServletResponse response, File file) throws IOException {
+  public static void download(HttpServletRequest request, HttpServletResponse response, File file)
+      throws IOException {
     String fileName = file.getName();
     response.setHeader(
         HttpHeaders.CONTENT_DISPOSITION,
@@ -107,7 +106,7 @@ public final class ResponseUtils {
               StringConstants.SLASH,
               fileLength));
 
-		FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
+      FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
       response.flushBuffer();
     }
     response.setHeader(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileLength));

@@ -19,11 +19,7 @@ package org.ylzl.eden.spring.boot.integration.zookeeper.support.lock;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooDefs;
-import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -37,48 +33,60 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class CuratorZooKeeperLock extends AbstractZooKeeperLock {
 
-	private CountDownLatch countDownLatch = new CountDownLatch(1);
+  private CountDownLatch countDownLatch = new CountDownLatch(1);
 
-	private final CuratorFramework curatorFramework;
+  private final CuratorFramework curatorFramework;
 
-	private static ThreadLocal<InterProcessMutex> interProcessMutexs = new ThreadLocal();
+  private static ThreadLocal<InterProcessMutex> interProcessMutexs = new ThreadLocal();
 
-	public CuratorZooKeeperLock(CuratorFramework curatorFramework) {
-		this.curatorFramework = curatorFramework;
-	}
+  public CuratorZooKeeperLock(CuratorFramework curatorFramework) {
+    this.curatorFramework = curatorFramework;
+  }
 
-	@Override
-	public boolean lock(String path, int retryTimes, long sleepMillis) {
-		log.debug("Curator client create zooKeeper node lock \"{}\"", path);
-		boolean isSuccess = false;
-		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, path);
-		interProcessMutexs.set(interProcessMutex);
-		Long waitTime = sleepMillis * retryTimes;
-		try {
-			isSuccess = interProcessMutex.acquire(waitTime, TimeUnit.MILLISECONDS);
-		} catch (Exception e) {
+  @Override
+  public boolean lock(String path, int retryTimes, long sleepMillis) {
+    log.debug("Curator client create zooKeeper node lock \"{}\"", path);
+    boolean isSuccess = false;
+    InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, path);
+    interProcessMutexs.set(interProcessMutex);
+    Long waitTime = sleepMillis * retryTimes;
+    try {
+      isSuccess = interProcessMutex.acquire(waitTime, TimeUnit.MILLISECONDS);
+    } catch (Exception e) {
       log.error(
-          "Curator client create zooKeeper node lock \"{}\", catch exception: {}", path, e.getMessage(), e);
-		}
-		log.debug("Curator client create zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
-		return isSuccess;
-	}
-
-	@Override
-	public boolean unlock(String path) {
-		log.debug("Curator client release zooKeeper node lock：{}", path);
-		boolean isSuccess = false;
-		InterProcessMutex interProcessMutex = interProcessMutexs.get();
-		if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
-			try {
-				interProcessMutex.release();
-				interProcessMutexs.remove();
-			} catch (Exception e) {
-				log.error("Curator client release zooKeeper node lock \"{}\", catch exception: {}", path, e.getMessage(), e);
-			}
-		}
+          "Curator client create zooKeeper node lock \"{}\", catch exception: {}",
+          path,
+          e.getMessage(),
+          e);
+    }
     log.debug(
-        "Curator client release zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
-		return isSuccess;
-	}
+        "Curator client create zooKeeper node lock \"{}\" {}",
+        path,
+        isSuccess ? "success" : "failed");
+    return isSuccess;
+  }
+
+  @Override
+  public boolean unlock(String path) {
+    log.debug("Curator client release zooKeeper node lock：{}", path);
+    boolean isSuccess = false;
+    InterProcessMutex interProcessMutex = interProcessMutexs.get();
+    if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
+      try {
+        interProcessMutex.release();
+        interProcessMutexs.remove();
+      } catch (Exception e) {
+        log.error(
+            "Curator client release zooKeeper node lock \"{}\", catch exception: {}",
+            path,
+            e.getMessage(),
+            e);
+      }
+    }
+    log.debug(
+        "Curator client release zooKeeper node lock \"{}\" {}",
+        path,
+        isSuccess ? "success" : "failed");
+    return isSuccess;
+  }
 }

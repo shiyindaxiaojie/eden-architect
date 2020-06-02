@@ -14,17 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.data.jdbc.datasource;
+package org.ylzl.eden.spring.boot.data.jdbc.datasource.routing;
+
+import lombok.Getter;
 
 /**
- * 动态路由数据源
+ * 数据源名称上下文容器
  *
  * @author gyl
  * @since 1.0.0
  */
-public @interface RoutingDataSource {
+public class DataSourceNameContextHolder {
 
-  String value();
+  @Getter private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
-  DataSourceEnum type() default DataSourceEnum.MASTER;
+  public static void set(String dataSourceName) {
+    threadLocal.set(dataSourceName);
+  }
+
+  public static String get() {
+    return threadLocal.get();
+  }
 }

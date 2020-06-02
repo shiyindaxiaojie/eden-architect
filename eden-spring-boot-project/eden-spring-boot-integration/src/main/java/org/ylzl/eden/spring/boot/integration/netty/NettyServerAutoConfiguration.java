@@ -41,13 +41,13 @@ import java.util.List;
  * @since 1.0.0
  */
 @ConditionalOnClass(ServerBootstrap.class)
-@ConditionalOnExpression(NettyServerAutoConfiguration.EXPS_NETTY_SERVER_ENABLED)
+@ConditionalOnExpression(NettyServerAutoConfiguration.EXP_NETTY_SERVER_ENABLED)
 @EnableConfigurationProperties(NettyProperties.class)
 @Slf4j
 @Configuration
 public class NettyServerAutoConfiguration {
 
-  public static final String EXPS_NETTY_SERVER_ENABLED =
+  public static final String EXP_NETTY_SERVER_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".netty.server.enabled:false}";
 
   private final NettyProperties.Server properties;
@@ -76,8 +76,8 @@ public class NettyServerAutoConfiguration {
       nettyServer.addAllChannelFutureListeners(channelFutureListeners);
     }
     if (properties.getAutoStartup()) {
-    	nettyServer.setAutoStartup(properties.getAutoStartup());
-	}
+      nettyServer.setAutoStartup(properties.getAutoStartup());
+    }
     return nettyServer;
   }
 }

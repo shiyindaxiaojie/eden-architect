@@ -63,13 +63,13 @@ import java.util.Map;
  * @since 1.0.0
  */
 @ConditionalOnClass(LogstashEncoder.class)
-@ConditionalOnExpression(LogstashAutoConfiguration.EXPS_LOGSTASH_ENABLED)
+@ConditionalOnExpression(LogstashAutoConfiguration.EXP_LOGSTASH_ENABLED)
 @EnableConfigurationProperties(LogstashProperties.class)
 @Slf4j
 @Configuration
 public class LogstashAutoConfiguration {
 
-  public static final String EXPS_LOGSTASH_ENABLED =
+  public static final String EXP_LOGSTASH_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
 
   private static final String CONSOLE_APPENDER_NAME = "CONSOLE";

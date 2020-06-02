@@ -54,7 +54,7 @@ import java.util.List;
 /**
  * Swagger 自动配置
  *
- * <p>从 Spring Boot 1.X 升级到 2.X</p>
+ * <p>从 Spring Boot 1.X 升级到 2.X
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
@@ -72,7 +72,7 @@ import java.util.List;
   Servlet.class,
   DispatcherServlet.class
 })
-@ConditionalOnExpression(SwaggerAutoConfiguration.EXPS_SWAGGER_ENABLED)
+@ConditionalOnExpression(SwaggerAutoConfiguration.EXP_SWAGGER_ENABLED)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(SwaggerProperties.class)
 @EnableSwagger2
@@ -81,7 +81,7 @@ import java.util.List;
 @Configuration
 public class SwaggerAutoConfiguration {
 
-  public static final String EXPS_SWAGGER_ENABLED =
+  public static final String EXP_SWAGGER_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".swagger.enabled:true}";
 
   public static final String DEFAULT_GROUP_NAME = "management";

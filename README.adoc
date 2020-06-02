@@ -3,7 +3,7 @@
 image:src/docs/asciidoc/language-java-blue.svg[]
 image:src/docs/asciidoc/license-apache 2.0-red.svg["License",link="https://www.apache.org/licenses/LICENSE-2.0.html"]
 image:https://github.com/eden-lab/eden-spring-boot/workflows/build/badge.svg["Github Actions",link="https://github.com/eden-lab/eden-spring-boot/actions"]
-image:https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-spring-boot&metric=alert_status["SonarCloud", link="https://sonarcloud.io/dashboard?id=eden-lab_eden-spring-boot"]
+image:https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-spring-boot&metric=alert_status["SonarCloud",link="https://sonarcloud.io/dashboard?id=eden-lab_eden-spring-boot"]
 
 Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
 

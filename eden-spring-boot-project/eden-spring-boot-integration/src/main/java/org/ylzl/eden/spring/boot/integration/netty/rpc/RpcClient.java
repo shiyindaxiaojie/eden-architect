@@ -8,9 +8,9 @@ package org.ylzl.eden.spring.boot.integration.netty.rpc;
  */
 public interface RpcClient {
 
-	void startup();
+  void startup();
 
-	void shutdown();
+  void shutdown();
 
-	RpcResponse invoke(RpcRequest request, int timeout);
+  RpcResponse invoke(RpcRequest request, int timeout);
 }
