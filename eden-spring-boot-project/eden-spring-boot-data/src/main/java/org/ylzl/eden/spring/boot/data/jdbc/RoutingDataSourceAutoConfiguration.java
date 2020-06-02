@@ -16,14 +16,15 @@
  */
 package org.ylzl.eden.spring.boot.data.jdbc;
 
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -33,25 +34,29 @@ import org.springframework.boot.bind.RelaxedDataBinder;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
+import org.ylzl.eden.spring.boot.commons.lang.ObjectUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.data.core.DataConstants;
 import org.ylzl.eden.spring.boot.data.core.DataProperties;
-import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceEnum;
-import org.ylzl.eden.spring.boot.data.jdbc.datasource.RoutingDataSourceProxy;
+import org.ylzl.eden.spring.boot.data.jdbc.datasource.routing.DynamicRoutingDataSource;
+import org.ylzl.eden.spring.boot.data.jdbc.datasource.routing.RoutingDataSourceAspect;
+import org.ylzl.eden.spring.boot.data.jdbc.datasource.routing.RoutingDataSourceDefault;
 import org.ylzl.eden.spring.boot.data.liquibase.EnhancedLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.boot.data.mybatis.MybatisPageHelperAutoConfiguration;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,12 +66,12 @@ import java.util.Map;
  * @since 0.0.1
  */
 @AutoConfigureBefore({
-  DataSourceAutoConfiguration.class,
-  DataSourceTransactionManagerAutoConfiguration.class,
-  HibernateJpaAutoConfiguration.class,
-  EnhancedJdbcTemplateAutoConfiguration.class,
-  EnhancedLiquibaseAutoConfiguration.class,
-  MybatisPageHelperAutoConfiguration.class
+	DataSourceAutoConfiguration.class,
+	DataSourceTransactionManagerAutoConfiguration.class,
+	HibernateJpaAutoConfiguration.class,
+	EnhancedJdbcTemplateAutoConfiguration.class,
+	EnhancedLiquibaseAutoConfiguration.class,
+	MybatisPageHelperAutoConfiguration.class
 })
 @ConditionalOnExpression(RoutingDataSourceAutoConfiguration.EXPS_ROUTING_DATASOURCE_ENABLED)
 @EnableConfigurationProperties({DataSourceProperties.class, DataProperties.class})
@@ -74,162 +79,152 @@ import java.util.Map;
 @Configuration
 public class RoutingDataSourceAutoConfiguration {
 
-  public static final String EXPS_ROUTING_DATASOURCE_ENABLED =
-      "${" + DataConstants.PROP_PREFIX + ".routing-datasource.enabled:false}";
+	public static final String EXPS_ROUTING_DATASOURCE_ENABLED =
+		"${" + RoutingDataSourceDefault.PROP_SPRING_DATA_PROPS_DS_PREFIX + ".enabled:false}";
 
-  @Configuration
-  public static class InternalRoutingDataSourceAutoConfiguration
-      implements ImportBeanDefinitionRegistrar, EnvironmentAware {
+	@ConditionalOnMissingBean
+	@Bean
+	public RoutingDataSourceAspect routingDataSourceAspect() {
+		return new RoutingDataSourceAspect();
+	}
 
-    private static final Object DEFAULT_DATASOURCE_TYPE = "com.zaxxer.hikari.HikariDataSource";
+	@Configuration
+	public static class InternalRoutingDataSourceAutoConfiguration
+		implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
-    private static final String DEFAULT_BEAN_NAME = "dataSource";
+		private static final String MSG_INJECT_ROUTING_DS = "Autowired routing Datasource";
 
-    private static final String PROP_SPRING_DATA_PROPERTIES_DS_PREFIX =
-        DataConstants.PROP_PREFIX + ".data-source";
+		private static final String DEFAULT_BEAN_NAME = "dataSource";
 
-    private static final String PROP_DATASOURCE_NODES = "nodes";
+		private static final String DEFAULT_KEY = "default";
 
-    private static final String PROP_DATASOURCE_TYPE = "type";
+		private static final String SETTER_TARGET_DS = "targetDataSources";
 
-    private static final String PROP_DATASOURCE_DRIVEE_CLASS_NAME = "driver-class-name";
+		private static final String SETTER_DEFAULT_TARGET_DS = "defaultTargetDataSource";
 
-    private static final String PROP_DATASOURCE_URL = "url";
+		private ConversionService conversionService = new DefaultConversionService();
 
-    private static final String PROP_DATASOURCE_USERNAME = "username";
+		private PropertyValues propertyValues;
 
-    private static final String PROP_DATASOURCE_PASSWORD = "password";
+		private Environment env;
 
-    private static final String PROP_DATASOURCE_ENUM = "enum";
+		@Override
+		public void setEnvironment(Environment env) {
+			this.env = env;
+		}
 
-    private static final String MSG_INJECT_ROUTING_DS = "Autowired routing Datasource";
+		@Override
+		public void registerBeanDefinitions(
+			AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+			log.debug(MSG_INJECT_ROUTING_DS);
+			GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+			beanDefinition.setBeanClass(DynamicRoutingDataSource.class);
+			beanDefinition.setSynthetic(true);
+			MutablePropertyValues mpv = beanDefinition.getPropertyValues();
 
-    private static final String MSG_INVALID_TYPE_EXCEPTION = "Invalid Datasource";
+			Map<String, DataSource> targetDataSources = this.getTargetDataSources();
+			mpv.addPropertyValue(SETTER_TARGET_DS, targetDataSources);
 
-    private ConversionService conversionService = new DefaultConversionService();
+			DataSource defaultTargetDataSource = this.getDefaultTargetDataSource();
+			mpv.addPropertyValue(SETTER_DEFAULT_TARGET_DS, defaultTargetDataSource);
+			targetDataSources.put(DEFAULT_KEY, defaultTargetDataSource);
 
-    private DataSource defaultTargetDataSource;
+			registry.registerBeanDefinition(DEFAULT_BEAN_NAME, beanDefinition);
+		}
 
-    private Map<String, DataSource> targetDataSources = new HashMap<>();
+		private DataSource getDefaultTargetDataSource() {
+			RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(env);
+			String keyPrefix =
+				StringUtils.join(DataConstants.PROP_DATASOURCE_PREFIX, StringConstants.DOT);
+			DataSource dataSource = this.buildDataSource(resolver.getSubProperties(keyPrefix));
+			this.dataBinder(dataSource);
+			return dataSource;
+		}
 
-    private List<String> masterDataSources = new ArrayList<>();
+		private Map<String, DataSource> getTargetDataSources() {
+			String keyPrefix =
+				StringUtils.join(
+					RoutingDataSourceDefault.PROP_SPRING_DATA_PROPS_DS_PREFIX, StringConstants.DOT);
+			RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(env, keyPrefix);
 
-    private List<String> slaveDataSources = new ArrayList<>();
+			String nodes = resolver.getProperty(RoutingDataSourceDefault.Properties.NODES);
+			if (nodes == null) {
+				return Collections.EMPTY_MAP;
+			}
 
-    private PropertyValues propertyValues;
+			String[] keys = nodes.split(StringConstants.COMMA);
+			Map<String, DataSource> targetDataSources = Maps.newHashMapWithExpectedSize(keys.length + 1);
+			for (String key : keys) {
+				if (StringUtils.isBlank(key)) {
+					continue;
+				}
 
-    @Override
-    public void setEnvironment(Environment env) {
-      this.setDefaultTargetDataSource(env);
-      this.setTargetDataSources(env);
-    }
+				Map<String, Object> properties =
+					resolver.getSubProperties(StringUtils.join(key, StringConstants.DOT));
+				targetDataSources.put(key, this.dataBinder(this.buildDataSource(properties)));
+			}
+			return targetDataSources;
+		}
 
-    @Override
-    public void registerBeanDefinitions(
-        AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-      log.debug(MSG_INJECT_ROUTING_DS);
-      GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-      beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
-      beanDefinition.setSynthetic(true);
-      MutablePropertyValues mpv = beanDefinition.getPropertyValues();
-      mpv.addPropertyValue("defaultTargetDataSource", defaultTargetDataSource);
-      mpv.addPropertyValue("targetDataSources", targetDataSources);
-      mpv.addPropertyValue("masterDataSources", masterDataSources);
-      mpv.addPropertyValue("slaveDataSources", slaveDataSources);
-      registry.registerBeanDefinition(DEFAULT_BEAN_NAME, beanDefinition);
-    }
+		@SuppressWarnings("unchecked")
+		private DataSource buildDataSource(Map<String, Object> properties) {
+			if (properties.containsKey(RoutingDataSourceDefault.Properties.JNDI_NAME)) {
+				String jndiName = ObjectUtils.trimToString(
+					properties.get(RoutingDataSourceDefault.Properties.JNDI_NAME));
+				try {
+					InitialContext initialContext = new InitialContext();
+					return (DataSource) initialContext.lookup(jndiName);
+				} catch(NamingException e) {
+					throw new RuntimeException(e);
+				}
+			}
 
-    private void setDefaultTargetDataSource(Environment env) {
-      RelaxedPropertyResolver resolver =
-          new RelaxedPropertyResolver(
-              env, StringUtils.join(DataConstants.PROP_PREFIX, StringConstants.DOT));
-      Map<String, Object> properties = new HashMap<>();
-      properties.put(PROP_DATASOURCE_TYPE, resolver.getProperty(PROP_DATASOURCE_TYPE));
-      properties.put(
-          PROP_DATASOURCE_DRIVEE_CLASS_NAME,
-          resolver.getProperty(PROP_DATASOURCE_DRIVEE_CLASS_NAME));
-      properties.put(PROP_DATASOURCE_URL, resolver.getProperty(PROP_DATASOURCE_URL));
-      properties.put(PROP_DATASOURCE_USERNAME, resolver.getProperty(PROP_DATASOURCE_USERNAME));
-      properties.put(PROP_DATASOURCE_PASSWORD, resolver.getProperty(PROP_DATASOURCE_PASSWORD));
-      DataSource dataSource = this.buildDataSource(properties);
-      dataBinder(dataSource, env);
-      defaultTargetDataSource = dataSource;
-      String key = StringConstants.COMMA;
-      masterDataSources.add(key);
-      targetDataSources.put(key, dataSource);
-    }
+			Object type = properties.get(RoutingDataSourceDefault.Properties.TYPE);
+			if (type == null) {
+				type = RoutingDataSourceDefault.TYPE;
+			}
+			Class<? extends DataSource> dataSourceType;
+			try {
+				dataSourceType = (Class<? extends DataSource>) Class.forName((String) type);
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
 
-    private void setTargetDataSources(Environment env) {
-      RelaxedPropertyResolver resolver =
-          new RelaxedPropertyResolver(
-              env, StringUtils.join(PROP_SPRING_DATA_PROPERTIES_DS_PREFIX, StringConstants.DOT));
-      String nodes = resolver.getProperty(PROP_DATASOURCE_NODES);
-      if (nodes == null) {
-        return;
-      }
-      String[] keys = nodes.split(StringConstants.COMMA);
-      for (String key : keys) {
-        if (StringUtils.isBlank(key)) {
-          continue;
-        }
-        Map<String, Object> properties =
-            resolver.getSubProperties(StringUtils.join(key, StringConstants.DOT));
-        String enumName =
-            ObjectUtils.toString(properties.get(PROP_DATASOURCE_ENUM), DataSourceEnum.SLAVE.name());
-        if (DataSourceEnum.SLAVE.name().equalsIgnoreCase(enumName)) {
-          slaveDataSources.add(key);
-        } else if (DataSourceEnum.MASTER.name().equalsIgnoreCase(enumName)) {
-          masterDataSources.add(key);
-        }
-        DataSource dataSource = this.buildDataSource(properties);
-        dataBinder(dataSource, env);
-        targetDataSources.put(key, dataSource);
-      }
-    }
+			return DataSourceBuilder.create()
+				.type(dataSourceType)
+				.driverClassName(
+					ObjectUtils.trimToString(
+						properties.get(RoutingDataSourceDefault.Properties.DRIVE_CLASS_NAME)))
+				.url(ObjectUtils.trimToString(properties.get(RoutingDataSourceDefault.Properties.URL)))
+				.username(
+					ObjectUtils.trimToString(properties.get(RoutingDataSourceDefault.Properties.USERNAME)))
+				.password(
+					ObjectUtils.trimToString(properties.get(RoutingDataSourceDefault.Properties.PASSWORD)))
+				.build();
+		}
 
-    @SuppressWarnings("unchecked")
-    private DataSource buildDataSource(Map<String, Object> properties) {
-      Object type = properties.get(PROP_DATASOURCE_TYPE);
-      if (type == null) {
-        type = DEFAULT_DATASOURCE_TYPE;
-      }
-      Class<? extends DataSource> dataSourceType;
-      try {
-        dataSourceType = (Class<? extends DataSource>) Class.forName((String) type);
-      } catch (ClassNotFoundException e) {
-        throw new RuntimeException(MSG_INVALID_TYPE_EXCEPTION);
-      }
-
-      return DataSourceBuilder.create()
-          .type(dataSourceType)
-          .driverClassName(ObjectUtils.toString(properties.get(PROP_DATASOURCE_DRIVEE_CLASS_NAME)))
-          .url(ObjectUtils.toString(properties.get(PROP_DATASOURCE_URL)))
-          .username(ObjectUtils.toString(properties.get(PROP_DATASOURCE_USERNAME)))
-          .password(ObjectUtils.toString(properties.get(PROP_DATASOURCE_PASSWORD)))
-          .build();
-    }
-
-    private void dataBinder(DataSource dataSource, Environment env) {
-      RelaxedDataBinder dataBinder = new RelaxedDataBinder(dataSource);
-      dataBinder.setConversionService(conversionService);
-      dataBinder.setIgnoreNestedProperties(false);
-      dataBinder.setIgnoreInvalidFields(false);
-      dataBinder.setIgnoreUnknownFields(true);
-      if (propertyValues == null) {
-        Map<String, Object> subProperties =
-            new RelaxedPropertyResolver(env, DataConstants.PROP_PREFIX)
-                .getSubProperties(StringConstants.DOT);
-        HashMap<String, Object> properties = new HashMap<>();
-        properties.putAll(subProperties);
-        // 排除已经设置的属性
-        properties.remove(PROP_DATASOURCE_TYPE);
-        properties.remove(PROP_DATASOURCE_DRIVEE_CLASS_NAME);
-        properties.remove(PROP_DATASOURCE_URL);
-        properties.remove(PROP_DATASOURCE_USERNAME);
-        properties.remove(PROP_DATASOURCE_PASSWORD);
-        propertyValues = new MutablePropertyValues(properties);
-      }
-      dataBinder.bind(propertyValues);
-    }
-  }
+		private DataSource dataBinder(DataSource dataSource) {
+			RelaxedDataBinder dataBinder = new RelaxedDataBinder(dataSource);
+			dataBinder.setConversionService(conversionService);
+			dataBinder.setIgnoreNestedProperties(false);
+			dataBinder.setIgnoreInvalidFields(false);
+			dataBinder.setIgnoreUnknownFields(true);
+			if (propertyValues == null) {
+				Map<String, Object> subProperties =
+					new RelaxedPropertyResolver(env, DataConstants.PROP_DATASOURCE_PREFIX)
+						.getSubProperties(StringConstants.DOT);
+				HashMap<String, Object> properties = new HashMap<>();
+				properties.putAll(subProperties);
+				// 排除已经设置的属性
+				properties.remove(RoutingDataSourceDefault.Properties.TYPE);
+				properties.remove(RoutingDataSourceDefault.Properties.DRIVE_CLASS_NAME);
+				properties.remove(RoutingDataSourceDefault.Properties.URL);
+				properties.remove(RoutingDataSourceDefault.Properties.USERNAME);
+				properties.remove(RoutingDataSourceDefault.Properties.PASSWORD);
+				propertyValues = new MutablePropertyValues(properties);
+			}
+			dataBinder.bind(propertyValues);
+			return dataSource;
+		}
+	}
 }

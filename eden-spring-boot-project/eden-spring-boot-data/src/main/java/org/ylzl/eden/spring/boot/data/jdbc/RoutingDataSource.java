@@ -16,7 +16,7 @@
  */
 package org.ylzl.eden.spring.boot.data.jdbc;
 
-import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceEnum;
+import java.lang.annotation.*;
 
 /**
  * 动态路由数据源
@@ -24,9 +24,11 @@ import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceEnum;
  * @author gyl
  * @since 0.0.1
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Inherited
 public @interface RoutingDataSource {
 
   String value();
-
-  DataSourceEnum type() default DataSourceEnum.MASTER;
 }

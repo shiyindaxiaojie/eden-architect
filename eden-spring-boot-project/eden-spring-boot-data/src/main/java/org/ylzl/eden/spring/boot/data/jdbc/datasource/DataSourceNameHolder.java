@@ -16,23 +16,21 @@
  */
 package org.ylzl.eden.spring.boot.data.jdbc.datasource;
 
-import lombok.Getter;
-
 /**
- * 数据源上下文容器
+ * 数据源名称容器
  *
  * @author gyl
  * @since 0.0.1
  */
-public class DataSourceContextHolder {
+public class DataSourceNameHolder {
 
-  @Getter private static final ThreadLocal<DataSourceEnum> threadLocal = new ThreadLocal<>();
+  private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
-  public static void set(DataSourceEnum dataSourceEnum) {
-    threadLocal.set(dataSourceEnum);
+  public static void set(String dataSourceName) {
+    threadLocal.set(dataSourceName);
   }
 
-  public static DataSourceEnum get() {
+  public static String get() {
     return threadLocal.get();
   }
 }

@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.boot.data.jdbc.datasource;
+package org.ylzl.eden.spring.boot.data.jdbc.datasource.routing;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceNameHolder;
 
 /**
- * 数据源枚举
+ * 动态数据源代理
  *
  * @author gyl
  * @since 0.0.1
  */
-public enum DataSourceEnum {
-  MANUAL,
-  MASTER,
-  SLAVE;
+public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
 
-  @Getter @Setter private String dataSourceName;
+  @Override
+  protected Object determineCurrentLookupKey() {
+    return DataSourceNameHolder.get();
+  }
 }
