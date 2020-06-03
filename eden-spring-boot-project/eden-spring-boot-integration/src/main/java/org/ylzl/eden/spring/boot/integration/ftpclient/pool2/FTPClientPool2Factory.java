@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.boot.integration.ftpclient.pool;
+package org.ylzl.eden.spring.boot.integration.ftpclient.pool2;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
+import org.ylzl.eden.spring.boot.integration.ftpclient.core.FTPClientConfig;
 
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
  * @since 2.0.0
  */
 @Slf4j
-public class FTPClientFactory extends BasePooledObjectFactory<FTPClient> {
+public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
 
   private static final String MSG_CONNECTING = "FTPClient connect to {}:{}";
 
@@ -33,73 +34,71 @@ public class FTPClientFactory extends BasePooledObjectFactory<FTPClient> {
 
   private static final String MSG_VALIDATE_FAILED = "Validate FTPClient sendNoOp return false";
 
-  @Getter
-  private final FTPClientPoolConfig ftpClientPoolConfig;
+  @Getter private final FTPClientConfig config;
 
-  public FTPClientFactory(FTPClientPoolConfig ftpClientPoolConfig) {
-    this.ftpClientPoolConfig = ftpClientPoolConfig;
+  public FTPClientPool2Factory(FTPClientConfig config) {
+    this.config = config;
   }
 
   @Override
   public FTPClient create() throws Exception {
-    FTPClient ftpClient = new FTPClient();
+    FTPClient client = new FTPClient();
 
-    String host = ftpClientPoolConfig.getHost();
-    int port = ftpClientPoolConfig.getPort();
+    String host = config.getHost();
+    int port = config.getPort();
     log.debug(MSG_CONNECTING, host, port);
-    ftpClient.setConnectTimeout(ftpClientPoolConfig.getConnectTimeOut());
+    client.setConnectTimeout(config.getConnectTimeOut());
     try {
-      ftpClient.connect(host, port);
+      client.connect(host, port);
     } catch (IOException e) {
       log.error(MSG_CONNECT_ERROR, host, port, e.getMessage(), e);
       throw e;
     }
 
-    int reply = ftpClient.getReplyCode();
+    int reply = client.getReplyCode();
     if (!FTPReply.isPositiveCompletion(reply)) {
-      ftpClient.disconnect();
+      client.disconnect();
       log.error(MSG_CONDITIONING, host, port, reply);
       return null;
     }
 
-    String username = ftpClientPoolConfig.getUsername();
-    boolean isSuccess =
-        ftpClient.login(ftpClientPoolConfig.getUsername(), ftpClientPoolConfig.getPassword());
+    String username = config.getUsername();
+    boolean isSuccess = client.login(config.getUsername(), config.getPassword());
     if (!isSuccess) {
       log.error(MSG_LOGIN_FAILED, username, host, port);
       return null;
     }
 
-    ftpClient.setControlEncoding(ftpClientPoolConfig.getControlEncoding());
-    ftpClient.setBufferSize(ftpClientPoolConfig.getBufferSize());
-    ftpClient.setFileType(ftpClientPoolConfig.getFileType());
-    ftpClient.setDataTimeout(ftpClientPoolConfig.getDataTimeout());
-    ftpClient.setUseEPSVwithIPv4(ftpClientPoolConfig.isUseEPSVwithIPv4());
-    if (ftpClientPoolConfig.isPassiveMode()) {
+    client.setControlEncoding(config.getControlEncoding());
+    client.setBufferSize(config.getBufferSize());
+    client.setFileType(config.getFileType());
+    client.setDataTimeout(config.getDataTimeout());
+    client.setUseEPSVwithIPv4(config.isUseEPSVwithIPv4());
+    if (config.isPassiveMode()) {
       log.info(MSG_ENTER_PASSIVE_MODE, username);
-      ftpClient.enterLocalPassiveMode(); // 进入被动模式
+      client.enterLocalPassiveMode(); // 进入被动模式
     }
-    return ftpClient;
+    return client;
   }
 
   @Override
-  public PooledObject<FTPClient> wrap(FTPClient ftpClient) {
-    return new DefaultPooledObject<>(ftpClient);
+  public void destroyObject(PooledObject<FTPClient> pooledObject) throws Exception {
+    FTPClient client = pooledObject.getObject();
+    client.logout();
+    super.destroyObject(pooledObject);
   }
 
   @Override
-  public void destroyObject(PooledObject<FTPClient> p) throws Exception {
-    FTPClient ftpClient = p.getObject();
-    ftpClient.logout();
-    super.destroyObject(p);
+  public PooledObject<FTPClient> wrap(FTPClient client) {
+    return new DefaultPooledObject<>(client);
   }
 
   @Override
-  public boolean validateObject(PooledObject<FTPClient> p) {
-    FTPClient ftpClient = p.getObject();
+  public boolean validateObject(PooledObject<FTPClient> pooledObject) {
+    FTPClient client = pooledObject.getObject();
     boolean connect = false;
     try {
-      connect = ftpClient.sendNoOp();
+      connect = client.sendNoOp();
     } catch (IOException e) {
       log.error(MSG_VALIDATE_FAILED);
     }

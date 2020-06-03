@@ -55,6 +55,7 @@
 		<module>eden-feign-spring-boot-starter</module>
 		<module>eden-flowable-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
+		<module>eden-ftpclient-spring-boot-starter</module>
 		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hazelcast-spring-boot-starter</module>
 		<module>eden-hbase-spring-boot-starter</module>

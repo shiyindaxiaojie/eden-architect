@@ -334,6 +334,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-ftpclient-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-ftpserver-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>

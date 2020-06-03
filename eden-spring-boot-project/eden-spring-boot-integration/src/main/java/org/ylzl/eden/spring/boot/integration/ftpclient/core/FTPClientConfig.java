@@ -1,17 +1,16 @@
-package org.ylzl.eden.spring.boot.integration.ftpclient.pool;
+package org.ylzl.eden.spring.boot.integration.ftpclient.core;
 
 import lombok.Data;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.ylzl.eden.spring.boot.commons.env.CharsetConstants;
 
 /**
- * FTP 客户端连接池配置
+ * FTP 客户端配置
  *
  * @author gyl
  * @since 2.0.0
  */
 @Data
-public class FTPClientPoolConfig extends GenericObjectPoolConfig {
+public class FTPClientConfig {
 
   private String host;
 
