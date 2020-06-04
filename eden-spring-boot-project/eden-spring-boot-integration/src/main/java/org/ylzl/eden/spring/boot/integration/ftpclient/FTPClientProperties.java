@@ -59,5 +59,5 @@ public class FTPClientProperties {
 
   private Boolean passiveMode = FTPClientDefaults.passiveMode;
 
-  private FTPClientPool2Config pool2;
+  private FTPClientPool2Config pool;
 }

@@ -23,6 +23,7 @@ import lombok.experimental.UtilityClass;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
@@ -224,5 +225,10 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
       }
     }
+  }
+
+  public static void write(@NonNull byte[] datas, @NonNull String destPath) throws IOException {
+	  Path path = Paths.get(destPath);
+	  Files.write(path, datas);
   }
 }

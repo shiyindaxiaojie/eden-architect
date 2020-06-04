@@ -52,9 +52,9 @@ public class FTPClientAutoConfiguration {
     return template;
   }
 
-  @ConditionalOnProperty(IntegrationConstants.PROP_PREFIX + ".ftpclient.pool2")
+  @ConditionalOnProperty(IntegrationConstants.PROP_PREFIX + ".ftpclient.pool")
   @ConditionalOnExpression(
-      "'${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.pool2}'.length() > 0")
+      "'${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.pool}'.length() > 0")
   @ConditionalOnClass(GenericObjectPool.class)
   @Configuration
   public static class FTPClientPool2AutoConfiguration {
@@ -94,10 +94,10 @@ public class FTPClientAutoConfiguration {
     public FTPClientPool ftpClientPool(FTPClientPool2Factory ftpClientPool2Factory) {
       log.debug(MSG_AUTOWIRED_FTP_CLIENT_POOL2);
       FTPClientPool2Config config = new FTPClientPool2Config();
-      config.setMinIdle(properties.getPool2().getMinIdle());
-      config.setMaxIdle(properties.getPool2().getMaxIdle());
-      config.setMaxTotal(properties.getPool2().getMaxTotal());
-      config.setMaxWaitMillis(properties.getPool2().getMaxWaitMillis());
+      config.setMinIdle(properties.getPool().getMinIdle());
+      config.setMaxIdle(properties.getPool().getMaxIdle());
+      config.setMaxTotal(properties.getPool().getMaxTotal());
+      config.setMaxWaitMillis(properties.getPool().getMaxWaitMillis());
       return new FTPClientPool2(ftpClientPool2Factory, config);
     }
   }
