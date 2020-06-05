@@ -16,7 +16,7 @@ import java.util.Map;
 public class MvelUtils {
 
   public static <T> T executeExpression(String expression, Class<T> clazz) {
-    return executeExpression(expression, clazz);
+    return executeExpression(expression, clazz, null);
   }
 
   public static <T> T executeExpression(
