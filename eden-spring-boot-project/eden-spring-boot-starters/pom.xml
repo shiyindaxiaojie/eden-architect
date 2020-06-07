@@ -58,6 +58,7 @@
 		<module>eden-ftpclient-spring-boot-starter</module>
 		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hazelcast-spring-boot-starter</module>
+		<module>eden-h2-spring-boot-starter</module>
 		<module>eden-hbase-spring-boot-starter</module>
 		<module>eden-hessian-spring-boot-starter</module>
 		<module>eden-hibernate-spring-boot-starter</module>

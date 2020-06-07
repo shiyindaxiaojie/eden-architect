@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.integration.ftpclient.pool2.FTPClientPool2Facto
 public class FTPClientAutoConfiguration {
 
   public static final String EXP_FTP_CLIENT_ENABLED =
-      "${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.enabled:true}";
+      "${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.enabled:false}";
 
   private static final String MSG_AUTOWIRED_FTP_CLIENT = "Autowired FTPClient";
 

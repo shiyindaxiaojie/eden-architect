@@ -198,7 +198,7 @@
 					<version>${jib-maven-plugin.version}</version>
 					<configuration>
 						<from>
-							<image>openjdk:8-jdk-alpine</image>
+							<image>openjdk:8-jre-alpine</image>
 						</from>
 						<to>
 							<image>${project.name}:${project.version}</image>
@@ -212,6 +212,10 @@
 								<option>-c</option>
 								<arg>/entrypoint.sh</arg>
 							</entrypoint>
+							<ports>
+								<port>8081</port>
+								<port>5701/udp</port>
+							</ports>
 							<environment>
 								<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
 								<RUN_SLEEP>0</RUN_SLEEP>
@@ -219,7 +223,7 @@
 							<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						</container>
 						<extraDirectories>
-							<paths>src/main/jib</paths>
+							<paths>src/main/docker</paths>
 							<permissions>
 								<permission>
 									<file>/entrypoint.sh</file>
@@ -370,6 +374,7 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>${maven-assembly-plugin.version}</version>
 					<configuration>
+						<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
 						<descriptors>
 							<descriptor>src/main/assembly/assembly.xml</descriptor>
 						</descriptors>
@@ -967,6 +972,22 @@
 		</profile>
 
 		<profile>
+			<id>assembly</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
 			<id>docker</id>
 			<build>
 				<plugins>
@@ -977,6 +998,18 @@
 					<plugin>
 						<groupId>com.google.cloud.tools</groupId>
 						<artifactId>jib-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>jacoco</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>

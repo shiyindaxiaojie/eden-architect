@@ -55,6 +55,8 @@ import java.lang.reflect.Method;
 @Configuration
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
+  private static final String MSG_AUTOWIRED_REDIS_CACHE_MANAGER = "Autowired RedisCacheManager";
+
   private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
 
   private final RedisConnectionFactory redisConnectionFactory;
@@ -68,6 +70,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
   @Bean
   @Override
   public CacheManager cacheManager() {
+    log.debug(MSG_AUTOWIRED_REDIS_CACHE_MANAGER);
     return RedisCacheManager.create(redisConnectionFactory);
   }
 
