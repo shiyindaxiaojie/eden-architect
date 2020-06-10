@@ -1,7 +1,10 @@
 package org.ylzl.eden.spring.boot.integration.ftpclient.core;
 
+import lombok.NonNull;
 import lombok.Setter;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.ftp.FTPFileFilter;
 import org.ylzl.eden.spring.boot.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -74,6 +77,39 @@ public class FTPClientTemplate {
     }.exec();
   }
 
+  public boolean isExists(@NonNull String pathname) throws Exception {
+    return new Template<Boolean>() {
+
+      @Override
+      Boolean exec(FTPClient client) throws IOException {
+        return client.list(pathname) > 0;
+      }
+    }.exec();
+  }
+
+  public boolean isExists(@NonNull String pathname, @NonNull String fileName) throws Exception {
+    return new Template<Boolean>() {
+
+      @Override
+      Boolean exec(FTPClient client) throws IOException {
+        return client.listFiles(
+                    pathname,
+                    new FTPFileFilter() {
+
+                      @Override
+                      public boolean accept(FTPFile ftpFile) {
+                        if (!ftpFile.isFile()) {
+                          return false;
+                        }
+                        return ftpFile.getName().equals(fileName);
+                      }
+                    })
+                .length
+            > 0;
+      }
+    }.exec();
+  }
+
   private abstract class Template<T> {
 
     private static final String MSG_REQUIRE_SETTER =
@@ -109,7 +145,7 @@ public class FTPClientTemplate {
         pool.returnObject(client);
       }
       if (client != null && client.isConnected()) {
-		  client.disconnect();
+        client.disconnect();
       }
     }
 

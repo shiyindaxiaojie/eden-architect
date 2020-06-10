@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,22 +38,15 @@ public class FTPClientAutoConfiguration {
 
   @ConditionalOnMissingBean
   @Bean
-  public FTPClientTemplate ftpClientTemplate(
-      @Autowired(required = false) FTPClientPool ftpClientPool,
-      @Autowired(required = false) FTPClient ftpClient) {
+  public FTPClientTemplate ftpClientTemplate(@Autowired(required = false) FTPClientPool ftpClientPool) {
     log.debug(MSG_AUTOWIRED_FTP_CLIENT);
     FTPClientTemplate template = new FTPClientTemplate();
     if (ftpClientPool != null) {
       template.setPool(ftpClientPool);
-    } else if (ftpClient != null) {
-      template.setClient(ftpClient);
     }
     return template;
   }
 
-  @ConditionalOnProperty(IntegrationConstants.PROP_PREFIX + ".ftpclient.pool")
-  @ConditionalOnExpression(
-      "'${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.pool}'.length() > 0")
   @ConditionalOnClass(GenericObjectPool.class)
   @Configuration
   public static class FTPClientPool2AutoConfiguration {
