@@ -20,7 +20,6 @@ package org.ylzl.eden.spring.boot.integration.ftpclient;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.boot.commons.env.CharsetConstants;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 import org.ylzl.eden.spring.boot.integration.ftpclient.pool2.FTPClientPool2Config;
 
@@ -49,7 +48,9 @@ public class FTPClientProperties {
 
   private Integer dataTimeout = FTPClientDefaults.dataTimeout;
 
-  private String controlEncoding = CharsetConstants.UTF_8_NAME;
+  private String controlEncoding = FTPClientDefaults.controlEncoding;
+
+  private Integer controlKeepAliveReplyTimeout = FTPClientDefaults.controlKeepAliveReplyTimeout;
 
   private Integer bufferSize = FTPClientDefaults.bufferSize;
 
@@ -59,5 +60,5 @@ public class FTPClientProperties {
 
   private Boolean passiveMode = FTPClientDefaults.passiveMode;
 
-  private FTPClientPool2Config pool;
+  private FTPClientPool2Config pool = new FTPClientPool2Config();
 }

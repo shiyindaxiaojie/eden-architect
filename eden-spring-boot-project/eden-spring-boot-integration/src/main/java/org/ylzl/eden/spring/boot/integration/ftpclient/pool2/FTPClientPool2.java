@@ -1,8 +1,10 @@
 package org.ylzl.eden.spring.boot.integration.ftpclient.pool2;
 
-import lombok.NonNull;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.pool2.PooledObjectFactory;
+import org.apache.commons.pool2.impl.AbandonedConfig;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.ylzl.eden.spring.boot.integration.ftpclient.core.FTPClientPool;
 
 /**
@@ -11,21 +13,17 @@ import org.ylzl.eden.spring.boot.integration.ftpclient.core.FTPClientPool;
  * @author gyl
  * @since 2.0.0
  */
-public class FTPClientPool2 implements FTPClientPool {
+public class FTPClientPool2 extends GenericObjectPool<FTPClient> implements FTPClientPool {
 
-  private final GenericObjectPool<FTPClient> pool;
+	public FTPClientPool2(PooledObjectFactory<FTPClient> factory) {
+		super(factory);
+	}
 
-  public FTPClientPool2(FTPClientPool2Factory factory, FTPClientPool2Config config) {
-    this.pool = new GenericObjectPool<FTPClient>(factory, config);
-  }
+	public FTPClientPool2(PooledObjectFactory<FTPClient> factory, GenericObjectPoolConfig<FTPClient> config) {
+		super(factory, config);
+	}
 
-  @Override
-  public FTPClient borrowObject() throws Exception {
-    return pool.borrowObject();
-  }
-
-  @Override
-  public void returnObject(@NonNull FTPClient ftpClient) {
-    pool.returnObject(ftpClient);
-  }
+	public FTPClientPool2(PooledObjectFactory<FTPClient> factory, GenericObjectPoolConfig<FTPClient> config, AbandonedConfig abandonedConfig) {
+		super(factory, config, abandonedConfig);
+	}
 }

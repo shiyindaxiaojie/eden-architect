@@ -30,6 +30,12 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
 
   private static final String MSG_LOGIN_FAILED = "FTPClient login {} to {}:{} failed";
 
+	private static final String MSG_LOGOUT_ERROR =
+		"FTPClient logout failed, caught exception: {}";
+
+	private static final String MSG_DISCONNECT_ERROR =
+		"FTPClient disconnect failed, caught exception: {}";
+
   private static final String MSG_ENTER_PASSIVE_MODE = "FTPClient username {} enter passive mode";
 
   private static final String MSG_VALIDATE_FAILED = "Validate FTPClient sendNoOp return false";
@@ -43,6 +49,11 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
   @Override
   public FTPClient create() throws Exception {
     FTPClient client = new FTPClient();
+		client.setConnectTimeout(config.getConnectTimeOut());
+		client.setDataTimeout(config.getDataTimeout());
+		client.setControlEncoding(config.getControlEncoding());
+		client.setControlKeepAliveReplyTimeout(config.getControlKeepAliveReplyTimeout());
+		client.setUseEPSVwithIPv4(config.isUseEPSVwithIPv4());
 
     String host = config.getHost();
     int port = config.getPort();
@@ -69,11 +80,8 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
       return null;
     }
 
-    client.setControlEncoding(config.getControlEncoding());
-    client.setBufferSize(config.getBufferSize());
-    client.setFileType(config.getFileType());
-    client.setDataTimeout(config.getDataTimeout());
-    client.setUseEPSVwithIPv4(config.isUseEPSVwithIPv4());
+		client.setBufferSize(config.getBufferSize());
+		client.setFileType(config.getFileType());
     if (config.isPassiveMode()) {
       log.info(MSG_ENTER_PASSIVE_MODE, username);
       client.enterLocalPassiveMode(); // 进入被动模式
@@ -83,9 +91,24 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
 
   @Override
   public void destroyObject(PooledObject<FTPClient> pooledObject) throws Exception {
+    if (pooledObject == null) {
+      return;
+    }
+
     FTPClient client = pooledObject.getObject();
-    client.logout();
-    super.destroyObject(pooledObject);
+    try {
+      if (client.isConnected()) {
+        client.logout();
+      }
+    } catch (Exception e) {
+    	log.error(MSG_LOGOUT_ERROR, e.getMessage(), e);
+		} finally {
+			try {
+				client.disconnect();
+			} catch (IOException e) {
+				log.error(MSG_DISCONNECT_ERROR, e.getMessage(), e);
+			}
+		}
   }
 
   @Override

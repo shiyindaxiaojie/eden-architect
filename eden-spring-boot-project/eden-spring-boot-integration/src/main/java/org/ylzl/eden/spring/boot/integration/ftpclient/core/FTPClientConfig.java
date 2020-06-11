@@ -26,6 +26,8 @@ public class FTPClientConfig {
 
   private String controlEncoding = CharsetConstants.UTF_8_NAME;
 
+  private int controlKeepAliveReplyTimeout = 1000;
+
   private int bufferSize = 2 << 10;
 
   private int fileType = 2;

@@ -1,14 +1,14 @@
 package org.ylzl.eden.spring.boot.integration.ftpclient.core;
 
-import lombok.NonNull;
-import lombok.Setter;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPFileFilter;
+import org.apache.commons.net.ftp.FTPReply;
 import org.ylzl.eden.spring.boot.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 
 /**
  * FTPClient 模板
@@ -18,15 +18,22 @@ import java.io.InputStream;
  */
 public class FTPClientTemplate {
 
-  @Setter private FTPClientPool pool;
+  private static final String MSG_CHANGE_DIR_FAILED =
+      "FTPClient changeWorkingDirectory to `{0}` failed";
 
-  @Setter private FTPClient client;
+	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
+
+  private FTPClientPool pool;
+
+  public FTPClientTemplate(FTPClientPool pool) {
+    this.pool = pool;
+  }
 
   public boolean makeDirectory(final String pathname) throws Exception {
     return new Template<Boolean>() {
 
       @Override
-      Boolean exec(FTPClient client) throws IOException {
+      Boolean run(FTPClient client) throws IOException {
         return client.makeDirectory(pathname);
       }
     }.exec();
@@ -36,62 +43,72 @@ public class FTPClientTemplate {
     return new Template<Boolean>() {
 
       @Override
-      Boolean exec(FTPClient client) throws IOException {
+      Boolean run(FTPClient client) throws IOException {
         return client.removeDirectory(pathname);
       }
     }.exec();
   }
 
-  public boolean deleteFile(final String pathname) throws Exception {
+  public boolean deleteFile(final String pathname, final String remote) throws Exception {
     return new Template<Boolean>() {
 
       @Override
-      Boolean exec(FTPClient client) throws IOException {
-        return client.deleteFile(pathname);
+      Boolean run(FTPClient client) throws IOException {
+        if (!client.changeWorkingDirectory(pathname)) {
+          throw new RuntimeException(MessageFormat.format(MSG_CHANGE_DIR_FAILED, pathname));
+        }
+
+        return client.deleteFile(remote);
       }
     }.exec();
   }
 
-  public boolean storeFile(final String remote, final InputStream local) throws Exception {
+  public boolean storeFile(final String pathname, final String remote, final InputStream local)
+      throws Exception {
     return new Template<Boolean>() {
 
       @Override
-      Boolean exec(FTPClient client) throws IOException {
-        return client.storeFile(remote, local);
-      }
+      Boolean run(FTPClient client) throws IOException {
+        if (!client.changeWorkingDirectory(pathname)) {
+          throw new RuntimeException(MessageFormat.format(MSG_CHANGE_DIR_FAILED, pathname));
+        }
+
+				try {
+					return client.storeFile(remote, local);
+				} finally {
+					client.completePendingCommand();
+				}
+			}
     }.exec();
   }
 
-  public byte[] retrieveFileStream(final String remote) throws Exception {
+  public byte[] retrieveFileStream(final String pathname, final String remote) throws Exception {
     return new Template<byte[]>() {
 
       @Override
-      byte[] exec(FTPClient client) throws IOException {
-        try (InputStream in = client.retrieveFileStream(remote); ) {
-          if (in != null) {
-            return IOUtils.toByteArray(in);
-          }
+      byte[] run(FTPClient client) throws IOException {
+        if (!client.changeWorkingDirectory(pathname)) {
+          throw new RuntimeException(MessageFormat.format(MSG_CHANGE_DIR_FAILED, pathname));
         }
-        return null;
+
+        try (InputStream in = client.retrieveFileStream(remote); ) {
+          if (in == null || client.getReplyCode() == FTPReply.FILE_UNAVAILABLE) {
+						throw new RuntimeException(MessageFormat.format(MSG_FILE_UNAVAILABLE, client.getReplyCode()));
+					}
+
+          return IOUtils.toByteArray(in);
+        } finally {
+        	client.completePendingCommand();
+        }
       }
     }.exec();
   }
 
-  public boolean isExists(@NonNull String pathname) throws Exception {
+  public boolean isExists(final String pathname, final String remote) throws Exception {
     return new Template<Boolean>() {
 
       @Override
-      Boolean exec(FTPClient client) throws IOException {
-        return client.list(pathname) > 0;
-      }
-    }.exec();
-  }
-
-  public boolean isExists(@NonNull String pathname, @NonNull String fileName) throws Exception {
-    return new Template<Boolean>() {
-
-      @Override
-      Boolean exec(FTPClient client) throws IOException {
+      Boolean run(FTPClient client) throws IOException {
         return client.listFiles(
                     pathname,
                     new FTPFileFilter() {
@@ -101,7 +118,7 @@ public class FTPClientTemplate {
                         if (!ftpFile.isFile()) {
                           return false;
                         }
-                        return ftpFile.getName().equals(fileName);
+                        return ftpFile.getName().equals(remote);
                       }
                     })
                 .length
@@ -112,43 +129,26 @@ public class FTPClientTemplate {
 
   private abstract class Template<T> {
 
-    private static final String MSG_REQUIRE_SETTER =
-        "FTPClientPool and FTPClient must provide at least one";
-
-    private static final String MSG_REQUIRE_CONNECTED = "FTPClient must be connected";
-
     public T exec() throws Exception {
       FTPClient client = null;
       try {
         client = get();
-        return exec(client);
+        return run(client);
       } finally {
         close(client);
       }
     }
 
     private FTPClient get() throws Exception {
-      if (pool != null) {
-        return pool.borrowObject();
-      }
-      if (client == null) {
-        throw new RuntimeException(MSG_REQUIRE_SETTER);
-      }
-      if (!client.isConnected()) {
-        throw new RuntimeException(MSG_REQUIRE_CONNECTED);
-      }
-      return client;
+      return pool.borrowObject();
     }
 
-    private void close(FTPClient client) throws Exception {
+    private void close(FTPClient client) {
       if (pool != null) {
         pool.returnObject(client);
       }
-      if (client != null && client.isConnected()) {
-        client.disconnect();
-      }
     }
 
-    abstract T exec(FTPClient client) throws IOException;
+    abstract T run(FTPClient client) throws IOException;
   }
 }

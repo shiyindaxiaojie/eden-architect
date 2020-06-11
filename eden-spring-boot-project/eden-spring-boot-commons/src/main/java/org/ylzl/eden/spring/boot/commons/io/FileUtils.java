@@ -23,7 +23,6 @@ import lombok.experimental.UtilityClass;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
@@ -37,13 +36,25 @@ import java.util.EnumSet;
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
-  public static boolean createDirectory(@NonNull String dirPath) {
-    File file = new File(dirPath);
+  public static boolean mkdirs(@NonNull String dirPath) {
+    return mkdirs(new File(dirPath));
+  }
+
+  public static boolean mkdirs(@NonNull File file) {
     if (file.exists()) {
       return true;
     }
+
     return file.mkdirs();
   }
+
+  public static boolean checkAndMkdirs(@NonNull File file) {
+		File parentFile = file.getParentFile();
+		if (!parentFile.exists()) {
+			return parentFile.mkdirs();
+		}
+		return true;
+	}
 
   public static void delete(File file) throws IOException {
     Files.delete(Paths.get(file.getAbsolutePath()));
@@ -227,8 +238,25 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
   }
 
-  public static void write(@NonNull byte[] datas, @NonNull String destPath) throws IOException {
-	  Path path = Paths.get(destPath);
-	  Files.write(path, datas);
+  public static byte[] toBytes(@NonNull File file) throws IOException {
+    int bufferSize = 1024;
+    try (FileInputStream fis = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(bufferSize); ) {
+      byte[] b = new byte[bufferSize];
+      int n;
+      while ((n = fis.read(b)) != -1) {
+        bos.write(b, 0, n);
+      }
+      return bos.toByteArray();
+    }
+  }
+
+  public static File toFile(@NonNull byte[] bytes, @NonNull File file) throws IOException {
+		checkAndMkdirs(file);
+    try (FileOutputStream fos = new FileOutputStream(file);
+        BufferedOutputStream bos = new BufferedOutputStream(fos); ) {
+      bos.write(bytes);
+    }
+    return file;
   }
 }

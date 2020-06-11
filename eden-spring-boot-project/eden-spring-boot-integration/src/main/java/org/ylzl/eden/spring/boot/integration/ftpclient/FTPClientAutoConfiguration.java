@@ -3,7 +3,6 @@ package org.ylzl.eden.spring.boot.integration.ftpclient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -34,17 +33,13 @@ public class FTPClientAutoConfiguration {
   public static final String EXP_FTP_CLIENT_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".ftpclient.enabled:false}";
 
-  private static final String MSG_AUTOWIRED_FTP_CLIENT = "Autowired FTPClient";
+  private static final String MSG_AUTOWIRED_FTP_CLIENT = "Autowired FTPClientTemplate";
 
   @ConditionalOnMissingBean
   @Bean
-  public FTPClientTemplate ftpClientTemplate(@Autowired(required = false) FTPClientPool ftpClientPool) {
+  public FTPClientTemplate ftpClientTemplate(FTPClientPool pool) {
     log.debug(MSG_AUTOWIRED_FTP_CLIENT);
-    FTPClientTemplate template = new FTPClientTemplate();
-    if (ftpClientPool != null) {
-      template.setPool(ftpClientPool);
-    }
-    return template;
+    return new FTPClientTemplate(pool);
   }
 
   @ConditionalOnClass(GenericObjectPool.class)
@@ -64,7 +59,7 @@ public class FTPClientAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    public FTPClientPool2Factory ftpClientPool2Factory() {
+    public FTPClientPool2Factory ftpClientFactory() {
       log.debug(MSG_AUTOWIRED_FTP_CLIENT_POOL2_FACTORY);
       FTPClientConfig config = new FTPClientConfig();
       config.setHost(properties.getHost());
@@ -83,14 +78,14 @@ public class FTPClientAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    public FTPClientPool ftpClientPool(FTPClientPool2Factory ftpClientPool2Factory) {
+    public FTPClientPool ftpClientPool2(FTPClientPool2Factory factory) {
       log.debug(MSG_AUTOWIRED_FTP_CLIENT_POOL2);
       FTPClientPool2Config config = new FTPClientPool2Config();
       config.setMinIdle(properties.getPool().getMinIdle());
       config.setMaxIdle(properties.getPool().getMaxIdle());
       config.setMaxTotal(properties.getPool().getMaxTotal());
       config.setMaxWaitMillis(properties.getPool().getMaxWaitMillis());
-      return new FTPClientPool2(ftpClientPool2Factory, config);
+      return new FTPClientPool2(factory, config);
     }
   }
 }

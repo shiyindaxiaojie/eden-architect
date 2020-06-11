@@ -43,6 +43,8 @@ public class FTPClientDefaults {
 
   public static final String controlEncoding = CharsetConstants.UTF_8_NAME;
 
+  public static final int controlKeepAliveReplyTimeout = 1000;
+
   public static final int bufferSize = 2 << 10;
 
   public static final int fileType = 2;
