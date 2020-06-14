@@ -76,7 +76,8 @@ import java.util.Map;
 })
 @Slf4j
 @Configuration
-public class RoutingDataSourceAutoConfiguration {
+public class RoutingDataSourceAutoConfiguration
+    implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
   private static final String PROP_ROUTING_DATA_SOURCE_PREFIX =
       DataConstants.PROP_PREFIX + ".routing-datasource";
@@ -84,90 +85,85 @@ public class RoutingDataSourceAutoConfiguration {
   public static final String EXP_ROUTING_DATASOURCE_ENABLED =
       "${" + PROP_ROUTING_DATA_SOURCE_PREFIX + ".enabled:false}";
 
-  @Configuration
-  public static class InternalRoutingDataSourceAutoConfiguration
-      implements ImportBeanDefinitionRegistrar, EnvironmentAware {
+  private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
 
-    private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
+  private static final Object DEFAULT_DATASOURCE_TYPE = "com.zaxxer.hikari.HikariDataSource";
 
-    private static final Object DEFAULT_DATASOURCE_TYPE = "com.zaxxer.hikari.HikariDataSource";
+  private static final String DEFAULT_BEAN_NAME = "dataSource";
 
-    private static final String DEFAULT_BEAN_NAME = "dataSource";
+  private static final String DEFAULT_DATASOURCE_NAME = "default";
 
-    private static final String DEFAULT_DATASOURCE_NAME = "default";
+  private BinderHelper binderHelper;
 
-    private BinderHelper binderHelper;
+  @Override
+  public void setEnvironment(Environment env) {
+    binderHelper = new BinderHelper(env);
+  }
 
-    @Override
-    public void setEnvironment(Environment env) {
-      binderHelper = new BinderHelper(env);
+  @Override
+  public void registerBeanDefinitions(
+      AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    log.debug(MSG_AUTOWIRED_ROUTING_DS);
+    GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+    beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
+    beanDefinition.setSynthetic(true);
+
+    MutablePropertyValues mpv = beanDefinition.getPropertyValues();
+
+    Map<String, DataSource> targetDataSources = getTargetDataSources();
+    mpv.addPropertyValue("targetDataSources", targetDataSources);
+
+    DataSource defaultTargetDataSource = getDefaultTargetDataSource();
+    mpv.addPropertyValue("defaultTargetDataSource", defaultTargetDataSource);
+    targetDataSources.put(DEFAULT_DATASOURCE_NAME, defaultTargetDataSource);
+
+    registry.registerBeanDefinition(DEFAULT_BEAN_NAME, beanDefinition);
+  }
+
+  private DataSource getDefaultTargetDataSource() {
+    DataSourceProperties dataSourceProperties =
+        binderHelper.bind(
+            StringUtils.join(DataConstants.PROP_DATASOURCE_PREFIX, StringConstants.DOT),
+            DataSourceProperties.class);
+    return this.buildDataSource(dataSourceProperties);
+  }
+
+  private Map<String, DataSource> getTargetDataSources() {
+    RoutingDataSourceProperties properties =
+        binderHelper.bind(
+            StringUtils.join(PROP_ROUTING_DATA_SOURCE_PREFIX, StringConstants.DOT),
+            RoutingDataSourceProperties.class);
+    if (properties.getNodes() == null) {
+      return Collections.EMPTY_MAP;
     }
 
-    @Override
-    public void registerBeanDefinitions(
-        AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-      log.debug(MSG_AUTOWIRED_ROUTING_DS);
-      GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-      beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
-      beanDefinition.setSynthetic(true);
+    Map<String, DataSource> targetDataSources = Maps.newHashMap();
+    for (DataSourceProperties dataSourceProperties : properties.getMetadata()) {
+      DataSource dataSource = this.buildDataSource(dataSourceProperties);
+      targetDataSources.put(dataSourceProperties.getName(), dataSource);
+    }
+    return targetDataSources;
+  }
 
-      MutablePropertyValues mpv = beanDefinition.getPropertyValues();
-
-      Map<String, DataSource> targetDataSources = getTargetDataSources();
-      mpv.addPropertyValue("targetDataSources", targetDataSources);
-
-      DataSource defaultTargetDataSource = getDefaultTargetDataSource();
-      mpv.addPropertyValue("defaultTargetDataSource", defaultTargetDataSource);
-      targetDataSources.put(DEFAULT_DATASOURCE_NAME, defaultTargetDataSource);
-
-      registry.registerBeanDefinition(DEFAULT_BEAN_NAME, beanDefinition);
+  @SuppressWarnings("unchecked")
+  private DataSource buildDataSource(DataSourceProperties properties) {
+    Object type = properties.getType();
+    if (type == null) {
+      type = DEFAULT_DATASOURCE_TYPE;
+    }
+    Class<? extends DataSource> dataSourceType;
+    try {
+      dataSourceType = (Class<? extends DataSource>) Class.forName((String) type);
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e.getMessage());
     }
 
-    private DataSource getDefaultTargetDataSource() {
-      DataSourceProperties dataSourceProperties =
-          binderHelper.bind(
-              StringUtils.join(DataConstants.PROP_DATASOURCE_PREFIX, StringConstants.DOT),
-              DataSourceProperties.class);
-      return this.buildDataSource(dataSourceProperties);
-    }
-
-    private Map<String, DataSource> getTargetDataSources() {
-      RoutingDataSourceProperties properties =
-          binderHelper.bind(
-              StringUtils.join(PROP_ROUTING_DATA_SOURCE_PREFIX, StringConstants.DOT),
-              RoutingDataSourceProperties.class);
-      if (properties.getNodes() == null) {
-        return Collections.EMPTY_MAP;
-      }
-
-      Map<String, DataSource> targetDataSources = Maps.newHashMap();
-      for (DataSourceProperties dataSourceProperties : properties.getMetadata()) {
-        DataSource dataSource = this.buildDataSource(dataSourceProperties);
-        targetDataSources.put(dataSourceProperties.getName(), dataSource);
-      }
-      return targetDataSources;
-    }
-
-    @SuppressWarnings("unchecked")
-    private DataSource buildDataSource(DataSourceProperties properties) {
-      Object type = properties.getType();
-      if (type == null) {
-        type = DEFAULT_DATASOURCE_TYPE;
-      }
-      Class<? extends DataSource> dataSourceType;
-      try {
-        dataSourceType = (Class<? extends DataSource>) Class.forName((String) type);
-      } catch (ClassNotFoundException e) {
-        throw new RuntimeException(e.getMessage());
-      }
-
-      return DataSourceBuilder.create()
-          .type(dataSourceType)
-          .driverClassName(properties.getDriverClassName())
-          .url(properties.getUrl())
-          .username(properties.getUsername())
-          .password(properties.getPassword())
-          .build();
-    }
+    return DataSourceBuilder.create()
+        .type(dataSourceType)
+        .driverClassName(properties.getDriverClassName())
+        .url(properties.getUrl())
+        .username(properties.getUsername())
+        .password(properties.getPassword())
+        .build();
   }
 }

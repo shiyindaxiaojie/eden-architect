@@ -61,7 +61,7 @@ public class SnowflakeGenerator {
   private long workerId;
 
   /** 数据中心 ID (0~31) */
-  private long datacenterId;
+  private long dataCenterId;
 
   /** 毫秒内序列 (0~4095) */
   private long sequence = 0L;
@@ -73,18 +73,18 @@ public class SnowflakeGenerator {
    * 构造函数
    *
    * @param workerId 工作 ID
-   * @param datacenterId 数据中心 ID
+   * @param dataCenterId 数据中心 ID
    */
   @Builder
-  public SnowflakeGenerator(long workerId, long datacenterId) {
+  public SnowflakeGenerator(long workerId, long dataCenterId) {
     if (workerId > maxWorkerId || workerId < 0) {
       throw new IllegalArgumentException(String.format("工作 ID 不能大于 %d 或者小于 0", maxWorkerId));
     }
-    if (datacenterId > maxDatacenterId || datacenterId < 0) {
+    if (dataCenterId > maxDatacenterId || dataCenterId < 0) {
       throw new IllegalArgumentException(String.format("数据中心 ID 不能大于 %d 或者小于 0", maxDatacenterId));
     }
     this.workerId = workerId;
-    this.datacenterId = datacenterId;
+    this.dataCenterId = dataCenterId;
   }
 
   /**
@@ -118,7 +118,7 @@ public class SnowflakeGenerator {
 
     // 移位并通过或运算拼到一起组成 64 位的 ID
     return ((timestamp - twepoch) << timestampLeftShift)
-        | (datacenterId << datacenterIdShift)
+        | (dataCenterId << datacenterIdShift)
         | (workerId << workerIdShift)
         | sequence;
   }
