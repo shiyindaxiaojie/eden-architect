@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.integration.truelicense.manager.EnhancedLicense
  * TrueLicense 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableConfigurationProperties(TrueLicenseProperties.class)
 @Slf4j

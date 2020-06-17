@@ -30,7 +30,7 @@ import java.io.Serializable;
  * 全文检索业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SearchServiceImpl<T, ID extends Serializable>
     extends PagingAndSortingServiceImpl<T, ID> implements SearchService<T, ID> {

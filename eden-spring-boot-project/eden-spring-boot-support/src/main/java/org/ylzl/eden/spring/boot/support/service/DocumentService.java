@@ -23,6 +23,6 @@ import java.io.Serializable;
  * 文档数据库业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface DocumentService<T, ID extends Serializable> extends CrudService<T, ID> {}

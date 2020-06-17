@@ -26,7 +26,7 @@ import java.util.List;
  * 网关路由视图模型
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Data
 public class ZuulRoute {

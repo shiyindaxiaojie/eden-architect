@@ -32,7 +32,7 @@ import java.util.List;
  * 运行环境信息端点
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class ProfileEndpoint extends AbstractEndpoint<Profile> {

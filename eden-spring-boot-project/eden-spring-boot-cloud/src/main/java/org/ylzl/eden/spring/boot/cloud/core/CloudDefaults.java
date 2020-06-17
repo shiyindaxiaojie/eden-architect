@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * Spring Cloud 默认属性值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class CloudDefaults {}

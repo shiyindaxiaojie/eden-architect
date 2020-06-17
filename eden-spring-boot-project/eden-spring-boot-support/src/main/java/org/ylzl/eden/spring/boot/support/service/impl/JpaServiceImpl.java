@@ -31,7 +31,7 @@ import java.util.List;
  * 关系数据库业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID>
     implements JpaService<T, ID> {

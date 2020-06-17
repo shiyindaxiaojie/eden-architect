@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.data.audit.domain.AuthorizedAuditorAware;
  * AuditorAware 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableJpaAuditing(auditorAwareRef = AuditorAwareConfiguration.BEAN_NAME)
 @Configuration

@@ -59,7 +59,7 @@ import javax.sql.DataSource;
  * Flyway 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore(FlywayAutoConfiguration.class)
 @ConditionalOnClass({Flyway.class})

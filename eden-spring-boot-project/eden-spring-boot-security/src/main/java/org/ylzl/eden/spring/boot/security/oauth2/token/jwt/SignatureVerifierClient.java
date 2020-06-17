@@ -23,7 +23,7 @@ import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
  * 签名验证客户端接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface SignatureVerifierClient {
 

@@ -28,7 +28,7 @@ import java.util.Map;
  * 消费者启动监听适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class ConsumerSeekAwareAdapter implements ConsumerSeekAware {

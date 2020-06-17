@@ -58,7 +58,7 @@ import java.util.Map.Entry;
  * 监控自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(Main.class)
 @ConditionalOnWebApplication

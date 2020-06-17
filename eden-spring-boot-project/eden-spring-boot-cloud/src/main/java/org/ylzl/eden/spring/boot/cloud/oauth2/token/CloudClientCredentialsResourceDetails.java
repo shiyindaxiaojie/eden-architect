@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
  * 客户端凭据资源详情
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class CloudClientCredentialsResourceDetails extends ClientCredentialsResourceDetails {

@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * Jackson 默认对象映射器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DefaultObjectMapper extends ObjectMapper {
 

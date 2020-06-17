@@ -27,7 +27,7 @@ import java.io.*;
  * 增强式密钥库参数
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EnhancedKeyStoreParam extends AbstractKeyStoreParam {
 

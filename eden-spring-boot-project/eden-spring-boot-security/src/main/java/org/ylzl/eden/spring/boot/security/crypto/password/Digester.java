@@ -24,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
  * 摘要器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public final class Digester {
 

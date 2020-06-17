@@ -25,7 +25,7 @@ import java.util.Map;
  * 持久化令牌缓存
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class PersistentTokenCache<T> {
 
@@ -86,7 +86,7 @@ public class PersistentTokenCache<T> {
    * 令牌值对象
    *
    * @author gyl
-   * @since 0.0.1
+   * @since 1.0.0
    */
   private class Value {
 

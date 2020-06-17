@@ -32,7 +32,7 @@ import java.util.Properties;
  * JPA 自定义生成器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {
 

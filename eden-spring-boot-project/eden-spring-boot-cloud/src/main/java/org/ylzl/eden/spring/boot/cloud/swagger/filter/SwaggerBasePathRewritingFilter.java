@@ -37,7 +37,7 @@ import java.util.zip.GZIPInputStream;
  * Swagger Base Path 过滤器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class SwaggerBasePathRewritingFilter extends SendResponseFilter {

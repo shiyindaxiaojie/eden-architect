@@ -23,7 +23,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * Neo4j 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @NoRepositoryBean
 public interface Neo4jRepository<T> extends GraphRepository<T> {}

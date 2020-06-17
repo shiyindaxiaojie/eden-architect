@@ -34,7 +34,7 @@ import javax.sql.DataSource;
  * Jdbc 模板自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({DataSource.class, JdbcTemplate.class})
 @ConditionalOnSingleCandidate(DataSource.class)

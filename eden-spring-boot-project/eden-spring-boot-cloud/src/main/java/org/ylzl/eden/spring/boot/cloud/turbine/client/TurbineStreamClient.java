@@ -23,7 +23,7 @@ import org.springframework.messaging.SubscribableChannel;
  * Turbine Stream 客户端接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface TurbineStreamClient {
 

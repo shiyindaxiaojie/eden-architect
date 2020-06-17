@@ -26,7 +26,7 @@ import java.util.Map;
  * Zuul 属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ZuulDefaults {

@@ -33,7 +33,7 @@ import javax.sql.DataSource;
  * 云服务数据库自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore(
     name = {"org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceConfiguration"},

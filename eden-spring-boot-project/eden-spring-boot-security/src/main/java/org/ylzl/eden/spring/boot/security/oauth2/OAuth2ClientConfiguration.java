@@ -25,7 +25,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableOAuth2Client
 @Slf4j

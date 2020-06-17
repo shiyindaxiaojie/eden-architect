@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * 正则表达式
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class RegexPattern {

@@ -26,7 +26,7 @@ import java.util.Map;
  * 自定义参数异常
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CustomParameterizedException extends RuntimeException {
 

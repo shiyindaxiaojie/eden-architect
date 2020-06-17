@@ -24,7 +24,7 @@ import lombok.*;
  * JWT 令牌
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ApiModel(description = "JWT 令牌")
 @AllArgsConstructor

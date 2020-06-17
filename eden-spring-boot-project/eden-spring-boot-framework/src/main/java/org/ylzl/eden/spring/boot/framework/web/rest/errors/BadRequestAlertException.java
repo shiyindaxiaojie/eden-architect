@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.boot.framework.web.rest.vm.ErrorVM;
  * 错误请求
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class BadRequestAlertException extends RuntimeException {
 

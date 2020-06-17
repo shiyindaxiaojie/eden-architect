@@ -47,7 +47,7 @@ import java.util.List;
  * OAuth2 授权服务端自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
 @ConditionalOnExpression(

@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.OAuth2AccessTokenClientAd
  * OAuth2 访问令牌客户端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CloudOAuth2AccessTokenClient extends OAuth2AccessTokenClientAdapter {
 

@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.support.SpringBootApplicationAdapter;
  * Spring Boot 引导类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @RestController
 @Slf4j

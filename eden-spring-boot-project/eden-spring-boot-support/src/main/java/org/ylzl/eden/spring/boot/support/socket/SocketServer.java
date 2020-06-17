@@ -23,7 +23,7 @@ import java.net.InetSocketAddress;
  * Socket 服务端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface SocketServer<T> {
 

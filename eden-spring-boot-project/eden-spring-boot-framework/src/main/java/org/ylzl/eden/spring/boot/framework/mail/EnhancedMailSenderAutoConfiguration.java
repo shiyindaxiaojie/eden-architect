@@ -28,7 +28,7 @@ import javax.mail.Session;
  * 邮件发送自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)
 @Configuration

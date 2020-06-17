@@ -27,7 +27,7 @@ import java.util.Arrays;
  * 日志切面适配器
  *
  * @author gylhelper
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class LoggingAspectAdapter {

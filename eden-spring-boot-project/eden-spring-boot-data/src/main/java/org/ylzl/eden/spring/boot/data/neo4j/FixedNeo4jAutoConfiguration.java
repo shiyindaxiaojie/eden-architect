@@ -47,7 +47,7 @@ import java.util.List;
  * Neo4j 集成 JPA 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({
   DataSourceTransactionManagerAutoConfiguration.class,

@@ -28,7 +28,7 @@ import java.util.List;
  * 跨域过滤器构造工具
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CorsFilterBuilder {
 

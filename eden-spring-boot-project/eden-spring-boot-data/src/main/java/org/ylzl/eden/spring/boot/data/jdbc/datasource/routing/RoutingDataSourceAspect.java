@@ -24,8 +24,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSource;
-import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceNameHolder;
 
 import java.lang.reflect.Method;
 
@@ -37,46 +39,60 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @Aspect
-public class RoutingDataSourceAspect {
+public class RoutingDataSourceAspect implements ApplicationContextAware {
 
   private static final String MSG_ROUTING_DS = "Routing dataSource to {}";
 
-  @Pointcut("@annotation(org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSource)")
+	private static ApplicationContext applicationContext;
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+
+	@Pointcut("within(@org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSource *)")
   public void routingDataSourcePointcut() {}
 
   @Around("routingDataSourcePointcut()")
   public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-    boolean isDirty = false;
-    String oldDataSourceName = DataSourceNameHolder.get();
+		String newDataSourceName = null;
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method method = methodSignature.getMethod();
     if (method.isAnnotationPresent(RoutingDataSource.class)) {
       RoutingDataSource routingDataSource = method.getAnnotation(RoutingDataSource.class);
-      isDirty = this.setDataSource(routingDataSource);
+			newDataSourceName = this.getDataSourceName(routingDataSource);
     } else {
       Class declaringType = methodSignature.getDeclaringType();
       if (declaringType.isAnnotationPresent(RoutingDataSource.class)) {
         RoutingDataSource routingDataSource =
             (RoutingDataSource) declaringType.getAnnotation(RoutingDataSource.class);
-        isDirty = this.setDataSource(routingDataSource);
+				newDataSourceName = this.getDataSourceName(routingDataSource);
       }
+    }
+
+		String oldDataSourceName = null;
+		DynamicRoutingDataSource dataSource = null;
+    boolean isDirty = StringUtils.isNotBlank(newDataSourceName);
+    if (isDirty) {
+			dataSource = (DynamicRoutingDataSource) applicationContext.getBean(RoutingDataSourceDefault.BEAN_NAME);
+			oldDataSourceName = dataSource.getDataSourceName();
+			log.debug(MSG_ROUTING_DS, newDataSourceName);
+			dataSource.setDataSourceName(newDataSourceName);
     }
 
     try {
       return joinPoint.proceed();
     } finally {
       if (isDirty) {
-        DataSourceNameHolder.set(oldDataSourceName);
+				dataSource.setDataSourceName(oldDataSourceName);
       }
     }
   }
 
-  private boolean setDataSource(RoutingDataSource routingDataSource) {
-    if (routingDataSource != null && StringUtils.isNotBlank(routingDataSource.value())) {
-      DataSourceNameHolder.set(routingDataSource.value());
-      log.debug(MSG_ROUTING_DS, routingDataSource.value());
-      return true;
-    }
-    return false;
-  }
+  private String getDataSourceName(RoutingDataSource routingDataSource) {
+		if (routingDataSource != null && StringUtils.isNotBlank(routingDataSource.value())) {
+			return routingDataSource.value();
+		}
+		return null;
+	}
 }

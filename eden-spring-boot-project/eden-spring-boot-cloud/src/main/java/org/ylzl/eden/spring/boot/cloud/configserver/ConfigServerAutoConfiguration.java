@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * ConfigServer 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({EnableConfigServer.class})
 @ConditionalOnExpression(ConfigServerAutoConfiguration.EXPS_CONFIG_SERVER_ENABLED)

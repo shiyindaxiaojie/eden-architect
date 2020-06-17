@@ -35,7 +35,7 @@ import java.util.Date;
  * JWT 令牌提供器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class JwtTokenProvider {

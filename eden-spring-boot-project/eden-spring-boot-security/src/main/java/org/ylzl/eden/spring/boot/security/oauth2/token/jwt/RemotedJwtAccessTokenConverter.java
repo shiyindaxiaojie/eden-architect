@@ -30,7 +30,7 @@ import java.util.Map;
  * JWT 访问令牌转换器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class RemotedJwtAccessTokenConverter extends JwtAccessTokenConverter {

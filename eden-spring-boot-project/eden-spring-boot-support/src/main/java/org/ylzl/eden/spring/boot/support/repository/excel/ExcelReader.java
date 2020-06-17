@@ -24,7 +24,7 @@ import java.util.List;
  * Excel 数据读取接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ExcelReader<T> {
 

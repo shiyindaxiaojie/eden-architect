@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
  * OAuth2 常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class OAuth2Constants {

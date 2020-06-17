@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.framework.web.RestAutoConfiguration;
  * 负载均衡客户端自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(LoadBalancerAutoConfiguration.class)
 @AutoConfigureBefore(RestAutoConfiguration.class)

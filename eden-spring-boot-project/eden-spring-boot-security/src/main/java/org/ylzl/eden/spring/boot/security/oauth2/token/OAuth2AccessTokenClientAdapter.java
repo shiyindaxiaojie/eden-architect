@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.OAuth2Properties;
  * OAuth2 访问令牌提供器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class OAuth2AccessTokenClientAdapter implements OAuth2AccessTokenClient {

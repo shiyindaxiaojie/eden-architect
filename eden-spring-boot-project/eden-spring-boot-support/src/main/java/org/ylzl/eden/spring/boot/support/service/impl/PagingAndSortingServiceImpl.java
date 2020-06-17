@@ -29,7 +29,7 @@ import java.io.Serializable;
  * 查询分页排序业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class PagingAndSortingServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
     implements PagingAndSortingService<T, ID> {

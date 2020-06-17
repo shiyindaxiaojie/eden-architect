@@ -29,6 +29,8 @@ import org.ylzl.eden.spring.boot.data.core.DataConstants;
 @UtilityClass
 public class RoutingDataSourceDefault {
 
+	public static final String BEAN_NAME = "dataSource";
+
 	public static final String PROP_SPRING_DATA_PROPS_DS_PREFIX =
 		DataConstants.PROP_PREFIX + ".routing-datasource";
 

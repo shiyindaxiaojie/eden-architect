@@ -28,7 +28,7 @@ import java.io.IOException;
  * 嵌入式的 Redis
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EmbeddedRedisServer extends ExternalResource {
 

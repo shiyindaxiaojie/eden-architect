@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.boot.framework.web.util.RequestContextHolderUtils;
  * 认证的审计装饰器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AuthorizedAuditorAware implements AuditorAware<String> {
 

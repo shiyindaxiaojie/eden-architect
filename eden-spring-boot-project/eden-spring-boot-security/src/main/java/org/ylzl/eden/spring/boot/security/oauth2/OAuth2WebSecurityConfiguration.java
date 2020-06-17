@@ -41,7 +41,7 @@ import javax.annotation.PostConstruct;
  * OAuth2 WebSecurity 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)
 @AutoConfigureBefore(AuthenticationManagerConfiguration.class)

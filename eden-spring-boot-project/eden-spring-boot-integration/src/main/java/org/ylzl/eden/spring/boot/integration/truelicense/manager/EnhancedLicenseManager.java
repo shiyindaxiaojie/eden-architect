@@ -39,7 +39,7 @@ import java.util.prefs.Preferences;
  * 增强式许可证管理
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public final class EnhancedLicenseManager extends LicenseManager {

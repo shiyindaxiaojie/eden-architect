@@ -63,7 +63,7 @@ import java.util.Map;
  * 动态路由数据源配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({
 	DataSourceAutoConfiguration.class,
@@ -93,8 +93,6 @@ public class RoutingDataSourceAutoConfiguration {
 		implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
 		private static final String MSG_INJECT_ROUTING_DS = "Autowired routing Datasource";
-
-		private static final String DEFAULT_BEAN_NAME = "dataSource";
 
 		private static final String DEFAULT_KEY = "default";
 
@@ -129,7 +127,7 @@ public class RoutingDataSourceAutoConfiguration {
 			mpv.addPropertyValue(SETTER_DEFAULT_TARGET_DS, defaultTargetDataSource);
 			targetDataSources.put(DEFAULT_KEY, defaultTargetDataSource);
 
-			registry.registerBeanDefinition(DEFAULT_BEAN_NAME, beanDefinition);
+			registry.registerBeanDefinition(RoutingDataSourceDefault.BEAN_NAME, beanDefinition);
 		}
 
 		private DataSource getDefaultTargetDataSource() {

@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.boot.security.crypto.keygen.Base64StringKeyGenerator
  * 消息摘要密码编码器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class MessageDigestPasswordEncoder implements PasswordEncoder {
 

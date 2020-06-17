@@ -27,7 +27,7 @@ import org.springframework.http.MediaType;
  * Turbine Stream 属性类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter

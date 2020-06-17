@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * 已认证的 FeignClient 注解
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

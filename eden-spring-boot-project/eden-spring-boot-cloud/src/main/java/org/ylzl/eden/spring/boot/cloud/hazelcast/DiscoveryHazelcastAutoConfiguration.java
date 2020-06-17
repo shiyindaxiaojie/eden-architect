@@ -40,7 +40,7 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
  * 基于 Spring Cloud 的 Hazelcast 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureBefore({HazelcastAutoConfiguration.class, EnhancedHazelcastAutoConfiguration.class})
 @ConditionalOnClass({HazelcastInstance.class})

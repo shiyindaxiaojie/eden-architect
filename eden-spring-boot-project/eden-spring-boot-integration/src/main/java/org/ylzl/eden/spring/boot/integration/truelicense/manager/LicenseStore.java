@@ -34,7 +34,7 @@ import java.util.Date;
  * 许可证服务
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class LicenseStore {

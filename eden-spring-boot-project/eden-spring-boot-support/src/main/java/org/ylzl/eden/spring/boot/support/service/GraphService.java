@@ -25,7 +25,7 @@ import org.springframework.data.domain.Sort;
  * 图形数据库业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface GraphService<T> extends PagingAndSortingService<T, Long> {
 

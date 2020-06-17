@@ -23,7 +23,7 @@ import java.io.Serializable;
  * 增删查改业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface CrudService<T, ID extends Serializable> {
 

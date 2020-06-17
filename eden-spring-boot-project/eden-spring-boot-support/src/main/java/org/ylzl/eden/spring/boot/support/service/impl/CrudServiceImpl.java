@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 增删查改业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CrudServiceImpl<T, ID extends Serializable> implements CrudService<T, ID> {
 

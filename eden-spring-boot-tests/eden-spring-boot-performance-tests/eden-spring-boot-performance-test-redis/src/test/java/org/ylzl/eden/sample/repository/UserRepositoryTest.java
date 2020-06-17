@@ -46,7 +46,7 @@ import static org.junit.Assert.*;
  * 用户 Redis 读写测试
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

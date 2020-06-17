@@ -28,7 +28,7 @@ import java.io.Serializable;
  * 全文检索业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface SearchService<T, ID extends Serializable> extends PagingAndSortingService<T, ID> {
 

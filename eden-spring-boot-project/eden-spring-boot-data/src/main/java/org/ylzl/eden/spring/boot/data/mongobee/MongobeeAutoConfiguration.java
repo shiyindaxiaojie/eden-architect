@@ -43,7 +43,7 @@ import org.ylzl.eden.spring.boot.framework.scheduling.AsyncTaskExecutorAutoConfi
  * MongoDB 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({Mongobee.class})
 @ConditionalOnProperty(prefix = "mongobee", name = "enabled", matchIfMissing = true)

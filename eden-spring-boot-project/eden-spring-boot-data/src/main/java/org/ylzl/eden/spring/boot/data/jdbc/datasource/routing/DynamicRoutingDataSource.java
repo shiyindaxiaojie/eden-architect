@@ -16,19 +16,24 @@
  */
 package org.ylzl.eden.spring.boot.data.jdbc.datasource.routing;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-import org.ylzl.eden.spring.boot.data.jdbc.datasource.DataSourceNameHolder;
 
 /**
  * 动态数据源代理
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
 
+	@Getter
+	@Setter
+	private volatile String dataSourceName;
+
   @Override
   protected Object determineCurrentLookupKey() {
-    return DataSourceNameHolder.get();
+    return dataSourceName;
   }
 }

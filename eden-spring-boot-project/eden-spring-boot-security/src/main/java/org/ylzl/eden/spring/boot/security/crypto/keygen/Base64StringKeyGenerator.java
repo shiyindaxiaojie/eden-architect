@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.commons.codec.binary.Base64;
  * Base 64 字符串密码生成器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class Base64StringKeyGenerator implements StringKeyGenerator {
 

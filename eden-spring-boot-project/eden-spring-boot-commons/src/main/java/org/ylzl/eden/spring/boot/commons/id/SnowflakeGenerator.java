@@ -23,7 +23,7 @@ import lombok.Synchronized;
  * Twitter 雪花算法生成器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SnowflakeGenerator {
 

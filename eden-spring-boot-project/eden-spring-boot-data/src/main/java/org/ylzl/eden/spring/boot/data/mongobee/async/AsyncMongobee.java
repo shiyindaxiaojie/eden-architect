@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
  * 异步 Mongobee
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class AsyncMongobee extends Mongobee {

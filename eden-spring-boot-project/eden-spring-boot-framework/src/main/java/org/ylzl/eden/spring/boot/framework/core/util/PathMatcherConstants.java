@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * 路径匹配常量定义
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class PathMatcherConstants {

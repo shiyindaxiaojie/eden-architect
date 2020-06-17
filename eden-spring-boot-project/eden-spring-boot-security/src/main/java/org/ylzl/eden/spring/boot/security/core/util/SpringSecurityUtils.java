@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.boot.security.core.enums.AuthenticationTypeEnum;
  * Spring Security 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class SpringSecurityUtils {

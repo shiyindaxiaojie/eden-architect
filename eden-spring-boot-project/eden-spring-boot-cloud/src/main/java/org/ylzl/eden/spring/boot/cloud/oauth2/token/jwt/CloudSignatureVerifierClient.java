@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.jwt.SignatureVerifierClie
  * 签名验证客户端
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class CloudSignatureVerifierClient extends SignatureVerifierClientAdapter {
 

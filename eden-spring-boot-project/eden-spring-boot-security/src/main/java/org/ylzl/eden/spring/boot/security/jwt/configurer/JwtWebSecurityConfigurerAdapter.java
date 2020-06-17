@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenProvider;
  * Jwt WebSecurity 配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)

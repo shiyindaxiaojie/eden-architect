@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.support.service.GraphService;
  * 图形数据库业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class GraphServiceImpl<T> extends PagingAndSortingServiceImpl<T, Long>

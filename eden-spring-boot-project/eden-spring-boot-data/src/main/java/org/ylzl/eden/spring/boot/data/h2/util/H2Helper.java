@@ -27,7 +27,7 @@ import java.sql.SQLException;
  * H2 配置助手
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class H2Helper {
 

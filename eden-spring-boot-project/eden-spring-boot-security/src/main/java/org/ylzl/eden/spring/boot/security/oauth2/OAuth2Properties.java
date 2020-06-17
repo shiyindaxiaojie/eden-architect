@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.security.core.SecurityConstants;
  * OAuth2 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 @Getter

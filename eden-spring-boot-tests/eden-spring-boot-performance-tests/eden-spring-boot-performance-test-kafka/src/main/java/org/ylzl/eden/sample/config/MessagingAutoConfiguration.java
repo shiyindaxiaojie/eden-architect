@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.EnableKafka;
  * 消息队列自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableKafka
 @Slf4j

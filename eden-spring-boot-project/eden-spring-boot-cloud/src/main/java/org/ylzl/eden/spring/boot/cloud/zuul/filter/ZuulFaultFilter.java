@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.boot.cloud.zuul.ZuulConstants;
  * Zuul 故障过滤器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Component

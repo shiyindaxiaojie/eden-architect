@@ -37,7 +37,7 @@ import java.util.List;
  * 修复 SqlSessionFactoryBean
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class FixedSqlSessionFactoryBean extends SqlSessionFactoryBean {

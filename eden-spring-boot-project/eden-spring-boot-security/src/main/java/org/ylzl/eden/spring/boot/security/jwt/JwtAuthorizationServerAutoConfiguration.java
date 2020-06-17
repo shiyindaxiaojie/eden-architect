@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenService;
  * JWT 授权服务端自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(JwtWebSecurityConfiguration.class)
 @EnableConfigurationProperties(JwtProperties.class)

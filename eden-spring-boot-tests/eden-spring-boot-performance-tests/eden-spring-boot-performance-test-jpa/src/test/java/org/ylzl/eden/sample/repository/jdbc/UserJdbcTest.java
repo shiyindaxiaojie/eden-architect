@@ -44,7 +44,7 @@ import static org.junit.Assert.assertTrue;
  * <p>使用 MySQL 测试，最好设置参数 innodb_flush_log_at_trx_commit=2
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

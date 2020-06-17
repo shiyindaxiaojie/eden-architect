@@ -52,7 +52,7 @@ import java.util.EnumSet;
  * Web 配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableRestErrorAdvice
 @Slf4j

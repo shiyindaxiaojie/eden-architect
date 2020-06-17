@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  * 实体获取为空
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class EntityNotFoundException extends BadRequestAlertException {
 

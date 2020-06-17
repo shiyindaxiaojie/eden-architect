@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.commons.algorithms.datastructures.queues;
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class Queue {
 

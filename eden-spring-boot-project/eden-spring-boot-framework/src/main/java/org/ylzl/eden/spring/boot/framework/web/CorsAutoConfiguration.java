@@ -37,7 +37,7 @@ import java.util.List;
  * 跨域自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(Servlet.class)
 @Slf4j

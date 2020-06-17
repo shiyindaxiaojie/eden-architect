@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.boot.data.elasticsearch.mapper.JacksonEntityMapper;
  * Elasticsearch 数据自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(ElasticsearchAutoConfiguration.class)
 @AutoConfigureBefore(ElasticsearchDataAutoConfiguration.class)

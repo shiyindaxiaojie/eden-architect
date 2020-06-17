@@ -31,7 +31,7 @@ import java.util.Map;
  * Hystrix Stream 聚合器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @CommonsLog
 public class HystrixStreamAggregator {

@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.boot.integration.easyexcel.write.EasyExcelWriter;
  * EasyExcel 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EasyExcel.class)
 @ConditionalOnExpression(EasyExcelAutoConfiguration.EXPS_EASY_EXCEL_ENABLED)

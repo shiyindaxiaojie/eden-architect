@@ -38,7 +38,7 @@ import java.util.Map;
  * Turbine Stream 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass(EnableBinding.class)
 @ConditionalOnProperty(value = "turbine.stream.enabled")

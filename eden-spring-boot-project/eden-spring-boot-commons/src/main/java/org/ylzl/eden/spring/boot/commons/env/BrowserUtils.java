@@ -28,7 +28,7 @@ import java.net.URLEncoder;
  * 浏览器工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class BrowserUtils {

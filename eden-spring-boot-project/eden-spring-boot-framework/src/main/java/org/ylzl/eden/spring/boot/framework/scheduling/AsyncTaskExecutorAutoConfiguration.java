@@ -37,7 +37,7 @@ import java.util.concurrent.Executor;
  * 异步执行自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
 @EnableAsync

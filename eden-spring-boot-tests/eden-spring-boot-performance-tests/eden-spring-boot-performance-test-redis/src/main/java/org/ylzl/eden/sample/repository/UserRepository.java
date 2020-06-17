@@ -13,7 +13,7 @@ import java.util.List;
  * 用户数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Repository
 public interface UserRepository extends RedisRepository<User, Long> {

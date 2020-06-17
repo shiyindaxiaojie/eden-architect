@@ -38,7 +38,7 @@ import java.util.List;
  * Web 安全配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration

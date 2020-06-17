@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.boot.integration.kafka.KafkaProperties;
  * 嵌入式的 Kafka
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class EmbeddedKafka extends KafkaEmbedded {

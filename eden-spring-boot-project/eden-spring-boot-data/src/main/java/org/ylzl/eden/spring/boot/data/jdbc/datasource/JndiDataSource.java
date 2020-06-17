@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  * JNDI 数据源
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JndiDataSource implements DataSource {
 

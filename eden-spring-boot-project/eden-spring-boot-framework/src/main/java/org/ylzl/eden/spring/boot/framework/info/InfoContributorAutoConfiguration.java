@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.boot.framework.info.contributor.MailEnabledInfoContr
  * InfoContributor 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(
     org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration.class)

@@ -34,7 +34,7 @@ import java.util.Map;
  * 密码编码器工厂
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class PasswordEncoderFactories {

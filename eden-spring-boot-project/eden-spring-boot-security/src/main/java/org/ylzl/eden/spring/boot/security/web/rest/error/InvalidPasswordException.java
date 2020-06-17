@@ -22,7 +22,7 @@ import org.ylzl.eden.spring.boot.framework.web.rest.errors.BadRequestAlertExcept
  * 无效密码异常
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class InvalidPasswordException extends BadRequestAlertException {
 

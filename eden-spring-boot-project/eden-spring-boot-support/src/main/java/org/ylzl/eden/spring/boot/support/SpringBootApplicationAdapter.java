@@ -34,7 +34,7 @@ import java.util.Collection;
  * Spring Boot 应用启动入口适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public abstract class SpringBootApplicationAdapter {

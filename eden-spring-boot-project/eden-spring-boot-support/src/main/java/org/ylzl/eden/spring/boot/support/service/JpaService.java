@@ -29,7 +29,7 @@ import java.util.List;
  * 关系数据库业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface JpaService<T, ID extends Serializable>
     extends CrudService<T, ID>, PagingAndSortingService<T, ID> {

@@ -31,7 +31,7 @@ import java.net.UnknownHostException;
  * IP 配置工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class IpConfigUtils {

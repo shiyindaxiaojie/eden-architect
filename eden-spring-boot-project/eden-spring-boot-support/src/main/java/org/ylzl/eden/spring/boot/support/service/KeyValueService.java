@@ -23,6 +23,6 @@ import java.io.Serializable;
  * 键值对业务接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface KeyValueService<T, ID extends Serializable> extends CrudService<T, ID> {}

@@ -29,7 +29,7 @@ import java.sql.Types;
  * SQLite 方言类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class SQLiteDialect extends Dialect {

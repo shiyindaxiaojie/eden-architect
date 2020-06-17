@@ -32,7 +32,7 @@ import java.sql.SQLException;
  * 异步 Spring Liquibase
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class AsyncSpringLiquibase extends SpringLiquibase {

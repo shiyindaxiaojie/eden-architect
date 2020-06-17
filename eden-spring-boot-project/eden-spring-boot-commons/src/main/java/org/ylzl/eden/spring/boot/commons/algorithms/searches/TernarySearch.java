@@ -21,11 +21,10 @@ package org.ylzl.eden.spring.boot.commons.algorithms.searches;
  * 三元查找
  *
  * <p>时间复杂度：最好为 O(1)，最差为 O(log3(N))，平均为 O(log3(N))
- *
  * <p>空间复杂度：最差为 O(1)
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class TernarySearch implements Search {
 

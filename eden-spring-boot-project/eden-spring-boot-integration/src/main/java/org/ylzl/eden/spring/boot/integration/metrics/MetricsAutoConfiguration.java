@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
  * Metrics 自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnClass({MetricRegistry.class, HealthCheckRegistry.class})
 @ConditionalOnExpression(MetricsAutoConfiguration.EXPS_METRICS_ENABLED)

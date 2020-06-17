@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * TODO
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableOAuth2Sso
 @Slf4j

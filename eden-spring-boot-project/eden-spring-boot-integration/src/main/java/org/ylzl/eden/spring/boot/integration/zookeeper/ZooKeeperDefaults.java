@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * ZooKeeper 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class ZooKeeperDefaults {

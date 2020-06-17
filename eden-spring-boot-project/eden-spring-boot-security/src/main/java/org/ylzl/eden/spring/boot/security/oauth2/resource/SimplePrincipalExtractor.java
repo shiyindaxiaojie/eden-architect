@@ -25,7 +25,7 @@ import java.util.Map;
  * 用户提取器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SimplePrincipalExtractor implements PrincipalExtractor {
 

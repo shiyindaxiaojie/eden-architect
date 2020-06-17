@@ -28,7 +28,7 @@ import java.net.URISyntaxException;
  * 负载均衡客户端助手
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Slf4j
 public class LoadBalancerClientHelper {

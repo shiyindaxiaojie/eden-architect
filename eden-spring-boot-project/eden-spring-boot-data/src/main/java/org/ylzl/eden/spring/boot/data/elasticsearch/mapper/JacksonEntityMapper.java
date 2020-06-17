@@ -27,7 +27,7 @@ import java.io.IOException;
  * Jackson 实体映射器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class JacksonEntityMapper implements EntityMapper {
 

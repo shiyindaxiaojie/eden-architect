@@ -27,7 +27,7 @@ import java.io.Serializable;
  * 分页器数据传输对象
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ApiModel(description = "分页器数据传输对象")
 @Data

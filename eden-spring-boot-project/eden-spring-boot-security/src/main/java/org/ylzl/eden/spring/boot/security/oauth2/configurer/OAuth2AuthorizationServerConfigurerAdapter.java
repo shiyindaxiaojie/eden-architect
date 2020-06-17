@@ -36,7 +36,7 @@ import java.util.List;
  * OAuth2 授权服务器配置适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(OAuth2WebSecurityConfiguration.class)
 public class OAuth2AuthorizationServerConfigurerAdapter

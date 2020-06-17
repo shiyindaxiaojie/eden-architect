@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * 字符常量
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class CharConstants {

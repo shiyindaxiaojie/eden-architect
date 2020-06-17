@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  * 背包测试
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class BagTest {
 

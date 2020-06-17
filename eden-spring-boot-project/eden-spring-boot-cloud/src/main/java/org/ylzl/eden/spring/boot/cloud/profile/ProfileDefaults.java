@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
  * Profile 属性默认值
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ProfileDefaults {

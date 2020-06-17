@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * 开启审计配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Import(AuditorAwareConfiguration.class)
 @Target({ElementType.TYPE})

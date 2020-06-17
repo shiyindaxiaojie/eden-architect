@@ -26,7 +26,7 @@ import java.util.Map;
  * 密码编码代理类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DelegatingPasswordEncoder implements PasswordEncoder {
 

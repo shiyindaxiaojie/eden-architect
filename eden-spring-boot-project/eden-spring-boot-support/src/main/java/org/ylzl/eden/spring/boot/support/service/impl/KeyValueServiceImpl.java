@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 键值对业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class KeyValueServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>

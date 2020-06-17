@@ -25,7 +25,7 @@ import java.util.Map;
  * 持久化审计事件接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface PersistentAuditEvent extends Serializable {
 

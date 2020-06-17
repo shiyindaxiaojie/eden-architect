@@ -31,7 +31,7 @@ import java.util.Map;
  * 权限提取器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SimpleAuthoritiesExtractor implements AuthoritiesExtractor {
 

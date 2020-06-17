@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  * 非法访问
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class AccessDeniedException extends BadRequestAlertException {
 

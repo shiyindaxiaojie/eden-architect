@@ -26,7 +26,7 @@ import javax.validation.ConstraintValidatorContext;
  * SQL 注入安全校验器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SQLInjectionSafeValidator implements ConstraintValidator<SQLInjectionSafe, String> {
 

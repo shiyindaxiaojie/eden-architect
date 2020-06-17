@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 文档数据库业务实现
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DocumentServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
     implements DocumentService<T, ID> {

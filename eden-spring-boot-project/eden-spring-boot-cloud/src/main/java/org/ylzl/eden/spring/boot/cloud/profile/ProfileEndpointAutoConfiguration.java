@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.cloud.profile.endpoint.ProfileEndpoint;
  * 运行环境端点自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @ConditionalOnEnabledEndpoint(ProfileEndpoint.ENDPOINT_ID)
 @EnableConfigurationProperties({ProfileProperties.class, ConfigServerProperties.class})

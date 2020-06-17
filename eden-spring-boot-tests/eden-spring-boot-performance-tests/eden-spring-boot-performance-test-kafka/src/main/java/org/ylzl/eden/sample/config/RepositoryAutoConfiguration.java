@@ -10,7 +10,7 @@ import org.ylzl.eden.spring.boot.data.audit.EnableAuditorAware;
  * 数据仓库自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableAuditorAware
 @EnableJpaRepositories(RepositoryAutoConfiguration.JPA_PACKAGE)

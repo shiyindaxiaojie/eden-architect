@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.boot.commons.algorithms.searches;
  * 查找接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface Search {
 

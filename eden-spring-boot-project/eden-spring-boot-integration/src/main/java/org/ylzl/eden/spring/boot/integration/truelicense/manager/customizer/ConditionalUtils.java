@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * 动态条件工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public final class ConditionalUtils {

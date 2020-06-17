@@ -28,7 +28,7 @@ import java.util.List;
  * Excel 数据读取适配器
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public abstract class ExcelReaderAdpater<T> implements ExcelReader<T> {

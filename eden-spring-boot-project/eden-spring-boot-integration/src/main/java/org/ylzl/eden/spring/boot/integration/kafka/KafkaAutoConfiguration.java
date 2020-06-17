@@ -37,7 +37,7 @@ import org.ylzl.eden.spring.boot.integration.kafka.configurer.ConcurrentKafkaLis
  * Kafka 配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 @ConditionalOnClass({KafkaTemplate.class, EnableKafka.class})

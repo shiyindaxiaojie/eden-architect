@@ -8,7 +8,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
  * 数据仓库自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @EnableRedisRepositories(basePackages = RepositoryAutoConfiguration.REDIS_PACKAGE)
 @Slf4j

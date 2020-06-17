@@ -44,7 +44,7 @@ import java.lang.reflect.Method;
  * Redis 缓存自动配置
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class, RedisCacheManager.class})
