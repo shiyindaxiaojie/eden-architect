@@ -74,6 +74,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
     return RedisCacheManager.create(redisConnectionFactory);
   }
 
+  @ConditionalOnMissingBean
   @Bean
   @Override
   public KeyGenerator keyGenerator() {

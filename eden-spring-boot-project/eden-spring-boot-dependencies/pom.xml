@@ -79,7 +79,7 @@
 		<classes12.version>10.2.0.2.0</classes12.version>
 		<classmate.version>1.5.1</classmate.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-collections.version>3.1</commons-collections.version>
+		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<commons-io.version>2.6</commons-io.version>
@@ -100,7 +100,7 @@
 		<gatling.version>3.2.1</gatling.version>
 		<glassfish.version>3.0.1</glassfish.version>
 		<glassfish-jersey.version>2.20</glassfish-jersey.version>
-		<guava.version>20.0</guava.version>
+		<guava.version>24.1.1</guava.version>
 		<hessian.version>4.0.63</hessian.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
