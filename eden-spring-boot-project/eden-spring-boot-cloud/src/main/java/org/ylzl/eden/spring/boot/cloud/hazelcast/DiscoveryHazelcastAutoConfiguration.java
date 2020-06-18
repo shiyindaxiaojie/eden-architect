@@ -33,8 +33,8 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.cloud.core.CloudConstants;
-import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastAutoConfiguration;
-import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperties;
+import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastAutoConfiguration;
+import org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastProperties;
 
 /**
  * 基于 Spring Cloud 的 Hazelcast 自动配置
@@ -44,7 +44,7 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
  */
 @AutoConfigureBefore({HazelcastAutoConfiguration.class, EnhancedHazelcastAutoConfiguration.class})
 @ConditionalOnClass({HazelcastInstance.class})
-@ConditionalOnExpression(DiscoveryHazelcastAutoConfiguration.EXPS_CLOUD_HAZELCAST_ENABLED)
+@ConditionalOnExpression(DiscoveryHazelcastAutoConfiguration.EXP_CLOUD_HAZELCAST_ENABLED)
 @ConditionalOnBean({DiscoveryClient.class})
 @ConditionalOnMissingBean({HazelcastInstance.class})
 @EnableCaching
@@ -53,7 +53,7 @@ import org.ylzl.eden.spring.boot.integration.hazelcast.EnhancedHazelcastProperti
 @Configuration
 public class DiscoveryHazelcastAutoConfiguration extends EnhancedHazelcastAutoConfiguration {
 
-  public static final String EXPS_CLOUD_HAZELCAST_ENABLED =
+  public static final String EXP_CLOUD_HAZELCAST_ENABLED =
       "${" + CloudConstants.PROP_PREFIX + ".hazelcast.enabled:true}";
 
   private static final String MSG_DICOVERY_HAZELCAST_IN_DEV =

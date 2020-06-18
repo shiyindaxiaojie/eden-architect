@@ -6,7 +6,7 @@
 	<artifactId>eden-ftpserver-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-ftpserver-spring-boot-starter</name>
-	<description>Eden* Ftpserver Spring Boot Starter</description>
+	<description>Eden* FTPServer Spring Boot Starter</description>
 
 	<parent>
 		<groupId>org.ylzl</groupId>

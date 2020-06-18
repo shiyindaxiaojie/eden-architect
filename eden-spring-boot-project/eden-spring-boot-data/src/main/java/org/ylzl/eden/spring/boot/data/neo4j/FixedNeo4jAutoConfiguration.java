@@ -67,23 +67,23 @@ public class FixedNeo4jAutoConfiguration {
 
   public static final String NEO4J_TM_BEAN_NAME = "neo4jTransactionManager";
 
-  public static final String MSG_INJECT_TM = "Inject default TransactionManager";
+  public static final String MSG_AUTOWIRED_TM = "Autowired default TransactionManager";
 
-  public static final String MSG_INJECT_JPA_TM = "Inject JpaTransactionManager";
+  public static final String MSG_AUTOWIRED_JPA_TM = "Autowired JpaTransactionManager";
 
-  public static final String MSG_INJECT_NEO4J_TM = "Inject Neo4jTransactionManager";
+  public static final String MSG_AUTOWIRED_NEO4J_TM = "Autowired Neo4jTransactionManager";
 
   @Primary
   @Bean(name = JPA_TM_BEAN_NAME)
   public JpaTransactionManager jpaTransactionManager(
       LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-    log.debug(MSG_INJECT_JPA_TM);
+    log.debug(MSG_AUTOWIRED_JPA_TM);
     return new JpaTransactionManager(entityManagerFactory.getObject());
   }
 
   @Bean(name = NEO4J_TM_BEAN_NAME)
   public Neo4jTransactionManager neo4jTransactionManager(SessionFactory sessionFactory) {
-    log.debug(MSG_INJECT_NEO4J_TM);
+    log.debug(MSG_AUTOWIRED_NEO4J_TM);
     return new Neo4jTransactionManager(sessionFactory);
   }
 
@@ -91,7 +91,7 @@ public class FixedNeo4jAutoConfiguration {
   public PlatformTransactionManager platformTransactionManager(
       Neo4jTransactionManager neo4jTransactionManager,
       JpaTransactionManager jpaTransactionManager) {
-    log.debug(MSG_INJECT_TM);
+    log.debug(MSG_AUTOWIRED_TM);
     return new ChainedTransactionManager(jpaTransactionManager, neo4jTransactionManager);
   }
 

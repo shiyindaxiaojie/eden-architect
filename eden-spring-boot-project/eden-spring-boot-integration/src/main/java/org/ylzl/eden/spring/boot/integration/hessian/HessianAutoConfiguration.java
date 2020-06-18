@@ -36,13 +36,13 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  * @since 1.0.0
  */
 @ConditionalOnClass(HessianProxy.class)
-@ConditionalOnExpression(HessianAutoConfiguration.EXPS_HESSIAN_ENABLED)
+@ConditionalOnExpression(HessianAutoConfiguration.EXP_HESSIAN_ENABLED)
 @EnableConfigurationProperties(HessianProperties.class)
 @Slf4j
 @Configuration
 public class HessianAutoConfiguration {
 
-  public static final String EXPS_HESSIAN_ENABLED =
+  public static final String EXP_HESSIAN_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".hessian.enabled:true}";
 
   @ConditionalOnMissingBean

@@ -69,12 +69,12 @@ public class JndiDataSource implements DataSource {
     }
   }
 
-  public void setLoginTimeout(int loginTimeout) throws SQLException {
-    this.loginTimeout = loginTimeout;
-  }
-
   public int getLoginTimeout() throws SQLException {
     return loginTimeout;
+  }
+
+  public void setLoginTimeout(int loginTimeout) throws SQLException {
+    this.loginTimeout = loginTimeout;
   }
 
   public PrintWriter getLogWriter() throws SQLException {

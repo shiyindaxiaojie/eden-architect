@@ -41,13 +41,24 @@ public class RegexUtils {
     return Pattern.compile(regex, Pattern.MULTILINE).matcher(input).find();
   }
 
-  public static List<String> addWithGroup(@NonNull String regex, @NonNull CharSequence input) {
+  public static List<String> group(@NonNull String regex, @NonNull CharSequence input) {
     List<String> matches = new ArrayList<>();
     Matcher matcher = Pattern.compile(regex).matcher(input);
+    int i = 1;
     while (matcher.find()) {
-      matches.add(matcher.group());
+      matches.add(matcher.group(i));
+      i++;
     }
     return matches;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(
+        RegexUtils.group(
+            "^VERETIV(.*?)\\.CSV$", "VERETIV123456.CSV"));
+    System.out.println(
+        RegexUtils.group(
+            "^VERTIV(.*?)2020-05-08\\.CSV$|^VERETIV(.*?)2020-05-08\\.CSV$", "VERETIV1234562020-05-08.CSV"));
   }
 
   public static String replaceAll(

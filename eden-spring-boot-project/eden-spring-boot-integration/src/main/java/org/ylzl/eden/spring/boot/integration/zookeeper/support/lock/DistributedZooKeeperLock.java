@@ -42,18 +42,25 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 
   @Override
   public boolean lock(String path, int retryTimes, long sleepMillis) {
-	  log.debug("Curator client create zooKeeper node lock \"{}\"", path);
+    log.debug("Curator client create zooKeeper node lock \"{}\"", path);
     boolean isSuccess = this.create(path);
     while ((!isSuccess) && retryTimes-- > 0) {
       try {
         Thread.sleep(sleepMillis);
       } catch (InterruptedException e) {
-      	log.error("Curator client create zooKeeper node lock \"{}\", catch InterruptedException: {}", path, e.getMessage(), e);
+        log.error(
+            "Curator client create zooKeeper node lock \"{}\", catch InterruptedException: {}",
+            path,
+            e.getMessage(),
+            e);
         return false;
       }
       isSuccess = this.create(path);
     }
-    log.debug("Curator client create zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
+    log.debug(
+        "Curator client create zooKeeper node lock \"{}\" {}",
+        path,
+        isSuccess ? "success" : "failed");
     return isSuccess;
   }
 
@@ -65,9 +72,16 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
       zooKeeperTemplate.delete(path);
       isSuccess = true;
     } catch (KeeperException | InterruptedException e) {
-      log.error("Curator client remove zooKeeper node lock \"{}\", catch Exception: {}", path, e.getMessage(), e);
+      log.error(
+          "Curator client remove zooKeeper node lock \"{}\", catch Exception: {}",
+          path,
+          e.getMessage(),
+          e);
     }
-    log.debug("Curator client remove zooKeeper node lock \"{}\" {}", path, isSuccess ? "success" : "failed");
+    log.debug(
+        "Curator client remove zooKeeper node lock \"{}\" {}",
+        path,
+        isSuccess ? "success" : "failed");
     return isSuccess;
   }
 

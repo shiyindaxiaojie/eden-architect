@@ -38,31 +38,32 @@ import org.ylzl.eden.spring.boot.integration.zookeeper.support.lock.ZooKeeperLoc
  * @since 1.0.0
  */
 @ConditionalOnClass(ZooKeeper.class)
-@ConditionalOnExpression(ZooKeeperAutoConfiguration.EXPS_ZOOKEEPER_ENABLED)
+@ConditionalOnExpression(ZooKeeperAutoConfiguration.EXP_ZOOKEEPER_ENABLED)
 @EnableConfigurationProperties(ZooKeeperProperties.class)
 @Slf4j
 @Configuration
 public class ZooKeeperAutoConfiguration {
 
-	public static final String EXPS_ZOOKEEPER_ENABLED =
-		"${" + FrameworkConstants.PROP_SPRING_PREFIX + ".zookeeper.enabled:true}";
+  public static final String EXP_ZOOKEEPER_ENABLED =
+      "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".zookeeper.enabled:true}";
 
-	private final ZooKeeperProperties zooKeeperProperties;
+  private final ZooKeeperProperties zooKeeperProperties;
 
-	public ZooKeeperAutoConfiguration(ZooKeeperProperties zooKeeperProperties) {
-		this.zooKeeperProperties = zooKeeperProperties;
-	}
+  public ZooKeeperAutoConfiguration(ZooKeeperProperties zooKeeperProperties) {
+    this.zooKeeperProperties = zooKeeperProperties;
+  }
 
-	@ConditionalOnMissingBean
-	@Bean
-	public ZooKeeperTemplate zooKeeperTemplate() {
-		return new ZooKeeperTemplate(zooKeeperProperties.getConnectString(), zooKeeperProperties.getSessionTimeout());
-	}
+  @ConditionalOnMissingBean
+  @Bean
+  public ZooKeeperTemplate zooKeeperTemplate() {
+    return new ZooKeeperTemplate(
+        zooKeeperProperties.getConnectString(), zooKeeperProperties.getSessionTimeout());
+  }
 
-	@ConditionalOnBean(ZooKeeperTemplate.class)
-	@ConditionalOnMissingBean
-	@Bean
-	public ZooKeeperLock zooKeeperLock(ZooKeeperTemplate zooKeeperTemplate) {
-		return new DistributedZooKeeperLock(zooKeeperTemplate);
-	}
+  @ConditionalOnBean(ZooKeeperTemplate.class)
+  @ConditionalOnMissingBean
+  @Bean
+  public ZooKeeperLock zooKeeperLock(ZooKeeperTemplate zooKeeperTemplate) {
+    return new DistributedZooKeeperLock(zooKeeperTemplate);
+  }
 }

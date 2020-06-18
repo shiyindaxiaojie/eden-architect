@@ -81,7 +81,7 @@ public class JwtTokenService {
       return JwtToken.builder().value(token).build();
     } catch (BadCredentialsException ex) {
       log.error(EXP_AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);
-      throw new InvalidCredentialsException();
+      throw new InvalidCredentialsException(ex.getMessage());
     } catch (Exception ex) {
       log.error(EXP_AUTHENTICATE_EXCEPTION, ex.getMessage(), ex);
       throw ex;

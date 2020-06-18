@@ -26,7 +26,6 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ZooKeeper 模板
@@ -37,26 +36,27 @@ import java.util.List;
 @Slf4j
 public class ZooKeeperTemplate extends ZooKeeperAccessor {
 
-  private boolean initialized = false;
-
   public ZooKeeperTemplate(String connectString, int sessionTimeout) {
     super(connectString, sessionTimeout);
   }
 
-  public String create(String path, byte[] data, ArrayList<ACL> acl, CreateMode createMode) throws KeeperException, InterruptedException {
-  	return getZookeeper().create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+  public String create(String path, byte[] data, ArrayList<ACL> acl, CreateMode createMode)
+      throws KeeperException, InterruptedException {
+    return getZookeeper()
+        .create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
   }
 
   public void delete(String path) throws KeeperException, InterruptedException {
-	  getZookeeper().delete(path, -1);
+    getZookeeper().delete(path, -1);
   }
 
   public byte[] getData(String path) throws KeeperException, InterruptedException {
-  	return getZookeeper().getData(path, true, null);
+    return getZookeeper().getData(path, true, null);
   }
 
-  public String getDataString(String path) throws KeeperException, InterruptedException, UnsupportedEncodingException {
-  	byte[] data = getData(path);
-  	return data == null ? null: new String(data, FrameworkConstants.DEFAULT_ENCODING);
+  public String getDataString(String path)
+      throws KeeperException, InterruptedException, UnsupportedEncodingException {
+    byte[] data = getData(path);
+    return data == null ? null : new String(data, FrameworkConstants.DEFAULT_ENCODING);
   }
 }

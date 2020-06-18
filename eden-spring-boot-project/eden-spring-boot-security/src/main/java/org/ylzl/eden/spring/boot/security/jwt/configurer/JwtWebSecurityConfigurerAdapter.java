@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.boot.security.jwt.configurer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -91,6 +92,7 @@ public class JwtWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
     }
   }
 
+  @Bean
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();

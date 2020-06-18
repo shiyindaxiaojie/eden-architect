@@ -59,14 +59,17 @@
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-core</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-servlet</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-servlets</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>

@@ -48,7 +48,7 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
 
   public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
-  private static final String MSG_INJECT_EXECUTOR = "Inject AsyncTaskExecutor";
+  private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
 
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
@@ -62,7 +62,7 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
   @Bean(name = BEAN_TASK_EXECUTOR)
   @Override
   public Executor getAsyncExecutor() {
-    log.debug(MSG_INJECT_EXECUTOR);
+    log.debug(MSG_AUTOWIRED_EXECUTOR);
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
     executor.setCorePoolSize(properties.getCorePoolSize());
     executor.setMaxPoolSize(properties.getMaxPoolSize());

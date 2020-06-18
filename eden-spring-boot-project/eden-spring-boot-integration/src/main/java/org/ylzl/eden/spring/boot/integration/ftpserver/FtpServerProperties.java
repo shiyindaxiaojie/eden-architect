@@ -30,20 +30,8 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".ftp-server")
-public class FtpServerProperties {
+@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".ftpserver")
+public class FTPServerProperties {
 
   private Boolean enabled;
-
-  private Client client = new Client();
-
-  private Server server = new Server();
-
-  @Getter
-  @Setter
-  public static class Client {}
-
-  @Getter
-  @Setter
-  public static class Server {}
 }

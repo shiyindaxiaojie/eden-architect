@@ -47,12 +47,13 @@ import java.util.Properties;
 @Configuration
 public class MybatisPageHelperAutoConfiguration {
 
-  private static final String MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR = "Inject Mybatis PageHelper";
+  private static final String MSG_AUTOWIRED_MYBATIS_PAGE_INTERCEPTOR =
+      "Autowired Mybatis PageHelper";
 
   @ConditionalOnMissingBean
   @Bean
   public PageInterceptor pageInterceptor() {
-    log.debug(MSG_INJECT_MYBATIS_PAGE_INTERCEPTOR);
+    log.debug(MSG_AUTOWIRED_MYBATIS_PAGE_INTERCEPTOR);
     PageInterceptor pageInterceptor = new PageInterceptor();
     Properties properties = new Properties();
     properties.setProperty("supportMethodsArguments", "true");

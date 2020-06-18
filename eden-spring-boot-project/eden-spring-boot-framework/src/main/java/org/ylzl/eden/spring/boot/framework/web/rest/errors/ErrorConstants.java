@@ -28,23 +28,23 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ErrorConstants {
 
-  public static final String ERR_INTERNAL_SERVER_ERROR = "服务器内部错误";
+  public static final String ERR_INTERNAL_SERVER_ERROR = "Internal server error!";
 
-  public static final String ERR_CONCURRENCY_FAILURE = "并发失败";
+  public static final String ERR_CONCURRENCY_FAILURE = "Concurrency failed!";
 
-  public static final String ERR_INVALID_CREDENTIALS = "无效凭据";
+  public static final String ERR_INVALID_CREDENTIALS = "Invalid credentials!";
 
-  public static final String ERR_BAD_REQUEST_ALERT = "错误请求";
+  public static final String ERR_BAD_REQUEST_ALERT = "Bad request!";
 
-  public static final String ERR_ACCESS_DENIED = "非法访问";
+  public static final String ERR_ACCESS_DENIED = "Access Denied!";
 
-  public static final String ERR_UNAUTHORIZED = "请求未认证或者认证失败";
+  public static final String ERR_UNAUTHORIZED = "Unauthorized!";
 
-  public static final String ERR_METHOD_NOT_SUPPORTED = "不支持的方法";
+  public static final String ERR_METHOD_NOT_SUPPORTED = "Method not supported!";
 
-  public static final String ERR_VALIDATION = "校验失败";
+  public static final String ERR_METHOD_ARGUMENT_NOT_VALID = "Method argument not valid!";
 
-  public static final String ERR_ENTITY_NOT_FOUND = "实体获取为空";
+  public static final String ERR_ENTITY_NOT_FOUND = "Entity not found!";
 
-  public static final String ERR_INVALID_PRIMARY_KEY = "无效主键";
+  public static final String ERR_INVALID_PRIMARY_KEY = "Invalid primary key!";
 }

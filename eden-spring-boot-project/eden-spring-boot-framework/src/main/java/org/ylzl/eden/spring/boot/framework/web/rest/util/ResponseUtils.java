@@ -21,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.ylzl.eden.spring.boot.commons.io.FileUtils;
-import org.ylzl.eden.spring.boot.commons.io.IOUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
@@ -37,7 +36,7 @@ import java.text.MessageFormat;
  * Http 响应工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 @UtilityClass
@@ -72,8 +71,8 @@ public final class ResponseUtils {
    * @return
    * @throws IOException
    */
-  public static void download(
-      HttpServletRequest request, HttpServletResponse response, File file) throws IOException {
+  public static void download(HttpServletRequest request, HttpServletResponse response, File file)
+      throws IOException {
     String fileName = file.getName();
     response.setHeader(
         HttpHeaders.CONTENT_DISPOSITION,
@@ -107,7 +106,7 @@ public final class ResponseUtils {
               StringConstants.SLASH,
               fileLength));
 
-		FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
+      FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
       response.flushBuffer();
     }
     response.setHeader(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileLength));

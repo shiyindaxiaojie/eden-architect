@@ -26,20 +26,18 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
  * ZooKeeper 配置属性
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_SPRING_PREFIX + ".zookeeper")
 public class ZooKeeperProperties {
 
-	private Boolean enabled = ZooKeeperDefaults.enabled;
+  private Boolean enabled = ZooKeeperDefaults.enabled;
 
-	private String connectString = ZooKeeperDefaults.connectString;
+  private String connectString = ZooKeeperDefaults.connectString;
 
-	private Integer sessionTimeout = ZooKeeperDefaults.sessionTimeout;
+  private Integer sessionTimeout = ZooKeeperDefaults.sessionTimeout;
 
-	public static class Curator {
-
-	}
+  public static class Curator {}
 }

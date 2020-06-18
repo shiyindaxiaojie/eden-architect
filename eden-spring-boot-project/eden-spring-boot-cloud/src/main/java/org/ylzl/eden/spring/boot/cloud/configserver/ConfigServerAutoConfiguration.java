@@ -38,14 +38,14 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
  * @since 1.0.0
  */
 @ConditionalOnClass({EnableConfigServer.class})
-@ConditionalOnExpression(ConfigServerAutoConfiguration.EXPS_CONFIG_SERVER_ENABLED)
+@ConditionalOnExpression(ConfigServerAutoConfiguration.EXP_CONFIG_SERVER_ENABLED)
 @EnableConfigServer
 @Profile(ProfileConstants.SPRING_PROFILE_NATIVE)
 @Slf4j
 @Configuration
 public class ConfigServerAutoConfiguration {
 
-  public static final String EXPS_CONFIG_SERVER_ENABLED =
+  public static final String EXP_CONFIG_SERVER_ENABLED =
       "${" + FrameworkConstants.PROP_SPRING_PREFIX + ".cloud.config.server.bootstrap:true}";
 
   private final NativeEnvironmentRepositoryFactory nativeEnvironmentRepositoryFactory;

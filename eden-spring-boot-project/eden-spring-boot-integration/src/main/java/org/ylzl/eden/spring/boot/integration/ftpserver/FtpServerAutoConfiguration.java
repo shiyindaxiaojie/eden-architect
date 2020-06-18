@@ -35,30 +35,30 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
  * @since 1.0.0
  */
 @ConditionalOnClass(FtpServer.class)
-@ConditionalOnExpression(FtpServerAutoConfiguration.EXPS_FTP_SERVER_ENABLED)
-@EnableConfigurationProperties(FtpServerProperties.class)
+@ConditionalOnExpression(FTPServerAutoConfiguration.EXP_FTP_SERVER_ENABLED)
+@EnableConfigurationProperties(FTPServerProperties.class)
 @Slf4j
 @Configuration
-public class FtpServerAutoConfiguration {
+public class FTPServerAutoConfiguration {
 
-  public static final String EXPS_FTP_SERVER_ENABLED =
-      "${" + IntegrationConstants.PROP_PREFIX + ".ftp-server.enabled:true}";
+  public static final String EXP_FTP_SERVER_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".ftpserver.enabled:true}";
 
-  private static final String MSG_INJECT_FTPSERVER = "Inject FtpServer";
+  private static final String MSG_AUTOWIRED_FTP_SERVER = "Autowired FTPServer";
 
-  private static final String MSG_INJECT_FTPSERVER_FACTORY = "Inject FtpServer Factory";
+  private static final String MSG_AUTOWIRED_FTP_SERVER_FACTORY = "Autowired FTPServer Factory";
 
   @ConditionalOnMissingBean
   @Bean
   public FtpServerFactoryBean ftpServerFactoryBean() {
-    log.debug(MSG_INJECT_FTPSERVER_FACTORY);
+    log.debug(MSG_AUTOWIRED_FTP_SERVER_FACTORY);
     return new FtpServerFactoryBean();
   }
 
   @ConditionalOnMissingBean
   @Bean
   public FtpServer ftpServer(FtpServerFactoryBean ftpServerFactoryBean) {
-    log.debug(MSG_INJECT_FTPSERVER);
+    log.debug(MSG_AUTOWIRED_FTP_SERVER);
     // TODO
     return ftpServerFactoryBean.createServer();
   }

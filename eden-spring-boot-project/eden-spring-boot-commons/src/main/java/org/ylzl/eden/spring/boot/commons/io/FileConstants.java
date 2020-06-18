@@ -18,16 +18,14 @@ package org.ylzl.eden.spring.boot.commons.io;
 
 import lombok.experimental.UtilityClass;
 
-import java.io.File;
-
 /**
  * 文件常量
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class FileConstants {
 
-	public static final String FILE_SEPARATOR = ".";
+  public static final String FILE_SEPARATOR = ".";
 }

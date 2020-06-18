@@ -51,7 +51,7 @@ import java.util.List;
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
 @ConditionalOnExpression(
-    OAuth2AuthorizationServerAutoConfiguration.EXPS_OAUTH2_AUTHORIZATION_SERVER)
+    OAuth2AuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @EnableAuthorizationServer
 @Import({DefaultWebSecuirtyConfiguration.class, OAuth2WebSecurityConfiguration.class})
@@ -59,7 +59,7 @@ import java.util.List;
 @Configuration
 public class OAuth2AuthorizationServerAutoConfiguration {
 
-  public static final String EXPS_OAUTH2_AUTHORIZATION_SERVER =
+  public static final String EXP_OAUTH2_AUTHORIZATION_SERVER =
       "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
 
   @ConditionalOnMissingBean
@@ -83,14 +83,14 @@ public class OAuth2AuthorizationServerAutoConfiguration {
   @Configuration
   public static class JwtOAuth2AuthorizationServerConfiguration {
 
-    private static final String MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR =
-        "Inject JwtAccessTokenConverter (OAuth2AuthorizationServer)";
+    private static final String MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR =
+        "Autowired JwtAccessTokenConverter (OAuth2AuthorizationServer)";
 
-    private static final String MSG_INJECT_TOKEN_STORE =
-        "Inject TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
+    private static final String MSG_AUTOWIRED_TOKEN_STORE =
+        "Autowired TokenStore (OAuth2AuthorizationServer JwtTokenStore)";
 
-    private static final String MSG_INJECT_TOKEN_ENHANCER =
-        "Inject TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
+    private static final String MSG_AUTOWIRED_TOKEN_ENHANCER =
+        "Autowired TokenEnhancer (OAuth2AuthorizationServer JwtTokenEnhancer)";
 
     private static final String BEAN_JWT_TOKEN_ENHANCER = "jwtTokenEnhancer";
 
@@ -103,7 +103,7 @@ public class OAuth2AuthorizationServerAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-      log.debug(MSG_INJECT_JWT_ACCESS_TOKEN_CONVERTOR);
+      log.debug(MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR);
       JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
       KeyPair keyPair =
           new KeyStoreKeyFactory(
@@ -116,14 +116,14 @@ public class OAuth2AuthorizationServerAutoConfiguration {
 
     @Bean
     public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-      log.debug(MSG_INJECT_TOKEN_STORE);
+      log.debug(MSG_AUTOWIRED_TOKEN_STORE);
       return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     @ConditionalOnMissingBean
     @Bean(BEAN_JWT_TOKEN_ENHANCER)
     public TokenEnhancer tokenEnhancer() {
-      log.debug(MSG_INJECT_TOKEN_ENHANCER);
+      log.debug(MSG_AUTOWIRED_TOKEN_ENHANCER);
       return new JwtTokenEnhancer();
     }
   }

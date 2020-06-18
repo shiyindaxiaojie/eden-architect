@@ -31,18 +31,30 @@ import java.util.EnumSet;
  * 文件工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
-  public static boolean createDirectory(@NonNull String dirPath) {
-    File file = new File(dirPath);
+  public static boolean mkdirs(@NonNull String dirPath) {
+    return mkdirs(new File(dirPath));
+  }
+
+  public static boolean mkdirs(@NonNull File file) {
     if (file.exists()) {
       return true;
     }
+
     return file.mkdirs();
   }
+
+  public static boolean checkAndMkdirs(@NonNull File file) {
+		File parentFile = file.getParentFile();
+		if (!parentFile.exists()) {
+			return parentFile.mkdirs();
+		}
+		return true;
+	}
 
   public static void delete(File file) throws IOException {
     Files.delete(Paths.get(file.getAbsolutePath()));
@@ -224,5 +236,27 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
       }
     }
+  }
+
+  public static byte[] toBytes(@NonNull File file) throws IOException {
+    int bufferSize = 1024;
+    try (FileInputStream fis = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(bufferSize); ) {
+      byte[] b = new byte[bufferSize];
+      int n;
+      while ((n = fis.read(b)) != -1) {
+        bos.write(b, 0, n);
+      }
+      return bos.toByteArray();
+    }
+  }
+
+  public static File toFile(@NonNull byte[] bytes, @NonNull File file) throws IOException {
+		checkAndMkdirs(file);
+    try (FileOutputStream fos = new FileOutputStream(file);
+        BufferedOutputStream bos = new BufferedOutputStream(fos); ) {
+      bos.write(bytes);
+    }
+    return file;
   }
 }

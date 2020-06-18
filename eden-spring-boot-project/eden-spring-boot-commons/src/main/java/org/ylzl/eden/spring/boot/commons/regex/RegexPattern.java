@@ -106,8 +106,8 @@ public class RegexPattern {
   /** URL */
   public static final String REGEX_URL = "[a-zA-z]+://[^\\s]*";
 
-  /** 用户名（取值范围为 a-z、A-Z、0-9、"_"、汉字，不能以"_"结尾，用户名必须是 6-20 位） */
-  public static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
+  /** 用户名（取值范围为 a-z、A-Z、0-9、"_"、汉字，不能以"_"结尾，用户名必须是 1-20 位） */
+  public static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{1,20}(?<!_)$";
 
   /** 汉字 */
   public static final String REGEX_ZH_CN = "^[\\u4e00-\\u9fa5]+$";

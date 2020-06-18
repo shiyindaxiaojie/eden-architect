@@ -37,9 +37,7 @@ public class ZooKeeperAccessor implements InitializingBean, DisposableBean {
 
   private CountDownLatch semaphore = new CountDownLatch(1);
 
-  @Getter
-  @Setter
-  private ZooKeeper zookeeper;
+  @Getter @Setter private ZooKeeper zookeeper;
 
   private final String connectString;
 
@@ -58,9 +56,9 @@ public class ZooKeeperAccessor implements InitializingBean, DisposableBean {
 
   @Override
   public void destroy() throws Exception {
-  	if (zookeeper != null) {
-		zookeeper.close();
-	}
+    if (zookeeper != null) {
+      zookeeper.close();
+    }
   }
 
   /** ZooKeeper 监视器 */

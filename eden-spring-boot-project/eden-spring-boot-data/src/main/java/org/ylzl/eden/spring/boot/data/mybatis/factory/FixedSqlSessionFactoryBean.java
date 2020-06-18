@@ -17,6 +17,7 @@
 package org.ylzl.eden.spring.boot.data.mybatis.factory;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -27,10 +28,10 @@ import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.ClassUtils;
+import org.ylzl.eden.spring.boot.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public class FixedSqlSessionFactoryBean extends SqlSessionFactoryBean {
             ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX,
             resourcePath,
             TYPE_ALIASES_PKG_SUFFIX);
-    List<String> result = new ArrayList<String>();
+    List<String> result = Lists.newArrayList();
     try {
       Resource[] resources = resolver.getResources(typeAliasesPackage);
       if (resources != null && resources.length > 0) {
@@ -95,7 +96,7 @@ public class FixedSqlSessionFactoryBean extends SqlSessionFactoryBean {
     } catch (ClassNotFoundException e) {
       log.error(MSG_CLASS_NOT_FOUND_EXCEPTION, e.getMessage(), e);
     }
-    if (result.size() > 0) {
+    if (CollectionUtils.isNotEmpty(result)) {
       super.setTypeAliasesPackage(StringUtils.join(result.toArray(), ","));
     }
   }

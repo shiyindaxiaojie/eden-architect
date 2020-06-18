@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * 跨域自动配置
  *
- * <p>变更日志：Spring Boot 1.X 升级到 2.X
+ * <p>从 Spring Boot 1.X 升级到 2.X
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.autoconfigure.ManagementServerProperties 迁移到 {@link
@@ -50,14 +50,14 @@ import java.util.List;
 @Configuration
 public class CorsAutoConfiguration {
 
-  public static final String MSG_INJECT_CORSFILTER = "Inject CorsFilter";
+  public static final String MSG_AUTOWIRED_CORSFILTER = "Autowired CorsFilter";
 
   @ConditionalOnMissingBean
   @Bean
   public CorsFilter corsFilter(
       FrameworkProperties frameworkProperties,
       ManagementServerProperties managementServerProperties) {
-    log.debug(MSG_INJECT_CORSFILTER);
+    log.debug(MSG_AUTOWIRED_CORSFILTER);
     CorsConfiguration corsConfiguration = frameworkProperties.getCors();
     List<String> paths = new ArrayList<>();
     if (corsConfiguration.getAllowedOrigins() != null

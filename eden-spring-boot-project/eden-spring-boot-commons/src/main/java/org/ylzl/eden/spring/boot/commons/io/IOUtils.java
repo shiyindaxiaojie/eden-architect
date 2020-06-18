@@ -29,16 +29,10 @@ import java.nio.channels.FileChannel;
  * IO 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 1.0.0
  */
 @UtilityClass
 public class IOUtils extends org.apache.commons.io.IOUtils {
-
-  public static void closeQuietly(@NonNull Closeable... closeables) {
-    for (final Closeable closeable : closeables) {
-      closeQuietly(closeable);
-    }
-  }
 
   public static void transferFrom(@NonNull FileChannel inChannel, @NonNull FileChannel outChannel)
       throws IOException {

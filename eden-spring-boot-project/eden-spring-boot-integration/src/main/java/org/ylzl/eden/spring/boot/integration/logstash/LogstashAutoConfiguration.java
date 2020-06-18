@@ -17,14 +17,12 @@
 
 package org.ylzl.eden.spring.boot.integration.logstash;
 
-import ch.qos.logback.classic.AsyncAppender;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.boolex.OnMarkerEvaluator;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggerContextListener;
-import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.filter.EvaluatorFilter;
 import ch.qos.logback.core.spi.ContextAwareBase;
@@ -51,12 +49,11 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.commons.lang.time.DatePattern;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
-import org.ylzl.eden.spring.boot.integration.metrics.MetricsAutoConfiguration;
+import org.ylzl.eden.spring.boot.integration.metrics.MetricsLoggingAutoConfiguration;
 import org.ylzl.eden.spring.boot.integration.metrics.MetricsProperties;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -66,18 +63,14 @@ import java.util.Map;
  * @since 1.0.0
  */
 @ConditionalOnClass(LogstashEncoder.class)
-@ConditionalOnExpression(LogstashAutoConfiguration.EXPS_LOGSTASH_ENABLED)
+@ConditionalOnExpression(LogstashAutoConfiguration.EXP_LOGSTASH_ENABLED)
 @EnableConfigurationProperties(LogstashProperties.class)
 @Slf4j
 @Configuration
 public class LogstashAutoConfiguration {
 
-  public static final String EXPS_LOGSTASH_ENABLED =
+  public static final String EXP_LOGSTASH_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
-
-  private static final String MSG_INJECT_LOGSTASH_APPENDER = "Inject Logstash Appender";
-
-  private static final String MSG_INJECT_CONSOLE_APPENDER = "Inject Console Appender";
 
   private static final String CONSOLE_APPENDER_NAME = "CONSOLE";
 
@@ -92,6 +85,16 @@ public class LogstashAutoConfiguration {
   private static final String KEY_VERSION = "verison";
 
   private static final String KEY_TIMESTAMP = "timestamp";
+
+  private static final String MSG_AUTOWIRED_LOGSTASH_APPENDER = "Autowired Logstash Appender";
+
+  private static final String MSG_AUTOWIRED_CONSOLE_APPENDER = "Autowired Console Appender";
+
+  private static final String MSG_FILTER_METRICS_LOG =
+      "Filtering metrics logs from all appenders except the {} appender";
+
+  private static final String MSG_FILTER_METRICS_LOG_WITHOUT_LOGSTASH =
+      "Filtering metrics logs from all appenders except the {} appender";
 
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
@@ -115,11 +118,11 @@ public class LogstashAutoConfiguration {
     String customFields = objectMapper.writeValueAsString(map);
 
     if (logstashProperties.isUseJsonFormat()) {
-      addConsoleAppender(context, customFields);
+      addJsonConsoleAppender(context, customFields);
     }
 
     if (logstashProperties.isEnabled()) {
-      addLogstashAppender(context, customFields);
+      addLogstashTcpSocketAppender(context, customFields);
     }
 
     if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
@@ -131,8 +134,8 @@ public class LogstashAutoConfiguration {
     }
   }
 
-  private void addConsoleAppender(LoggerContext context, String customFields) {
-    log.info(MSG_INJECT_LOGSTASH_APPENDER);
+  private void addJsonConsoleAppender(LoggerContext context, String customFields) {
+    log.info(MSG_AUTOWIRED_LOGSTASH_APPENDER);
 
     ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
     consoleAppender.setContext(context);
@@ -144,25 +147,18 @@ public class LogstashAutoConfiguration {
     context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
   }
 
-  private void addLogstashAppender(LoggerContext context, String customFields) {
-    log.info(MSG_INJECT_CONSOLE_APPENDER);
+  private void addLogstashTcpSocketAppender(LoggerContext context, String customFields) {
+    log.info(MSG_AUTOWIRED_CONSOLE_APPENDER);
 
     LogstashTcpSocketAppender logstashAppender = new LogstashTcpSocketAppender();
     logstashAppender.addDestinations(
         new InetSocketAddress(logstashProperties.getHost(), logstashProperties.getPort()));
     logstashAppender.setContext(context);
     logstashAppender.setEncoder(logstashEncoder(customFields));
-    logstashAppender.setName(LOGSTASH_APPENDER_NAME);
+    logstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
     logstashAppender.start();
 
-    AsyncAppender asyncLogstashAppender = new AsyncAppender();
-    asyncLogstashAppender.setContext(context);
-    asyncLogstashAppender.setName(ASYNC_LOGSTASH_APPENDER_NAME);
-    asyncLogstashAppender.setQueueSize(logstashProperties.getQueueSize());
-    asyncLogstashAppender.addAppender(logstashAppender);
-    asyncLogstashAppender.start();
-
-    context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(asyncLogstashAppender);
+    context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(logstashAppender);
   }
 
   private void addContextListener(LoggerContext context, String customFields) {
@@ -173,9 +169,10 @@ public class LogstashAutoConfiguration {
   }
 
   private void setMetricsMarkerLogbackFilter(LoggerContext context, boolean useJsonFormat) {
+    log.info(MSG_FILTER_METRICS_LOG_WITHOUT_LOGSTASH, LOGSTASH_APPENDER_NAME);
     OnMarkerEvaluator onMarkerEvaluator = new OnMarkerEvaluator();
     onMarkerEvaluator.setContext(context);
-    onMarkerEvaluator.addMarker(MetricsAutoConfiguration.LOGGER_NAME);
+    onMarkerEvaluator.addMarker(MetricsLoggingAutoConfiguration.LOGGER_NAME);
     onMarkerEvaluator.start();
     EvaluatorFilter<ILoggingEvent> metricsFilter = new EvaluatorFilter<>();
     metricsFilter.setContext(context);
@@ -183,17 +180,23 @@ public class LogstashAutoConfiguration {
     metricsFilter.setOnMatch(FilterReply.DENY);
     metricsFilter.start();
 
-    for (Logger logger : context.getLoggerList()) {
-      for (Iterator<Appender<ILoggingEvent>> it = logger.iteratorForAppenders(); it.hasNext(); ) {
-        Appender<ILoggingEvent> appender = it.next();
-        if (!appender.getName().equals(ASYNC_LOGSTASH_APPENDER_NAME)
-            && !(appender.getName().equals(CONSOLE_APPENDER_NAME) && useJsonFormat)) {
-          appender.setContext(context);
-          appender.addFilter(metricsFilter);
-          appender.start();
-        }
-      }
-    }
+    context
+        .getLoggerList()
+        .forEach(
+            logger ->
+                logger
+                    .iteratorForAppenders()
+                    .forEachRemaining(
+                        appender -> {
+                          if (!appender.getName().equals(ASYNC_LOGSTASH_APPENDER_NAME)
+                              && !(appender.getName().equals(CONSOLE_APPENDER_NAME)
+                                  && useJsonFormat)) {
+                            log.debug(MSG_FILTER_METRICS_LOG, appender.getName());
+                            appender.setContext(context);
+                            appender.addFilter(metricsFilter);
+                            appender.start();
+                          }
+                        }));
   }
 
   private LoggingEventCompositeJsonEncoder compositeJsonEncoder(
@@ -281,20 +284,20 @@ public class LogstashAutoConfiguration {
     @Override
     public void onStart(LoggerContext context) {
       if (logstashProperties.isUseJsonFormat()) {
-        addConsoleAppender(context, customFields);
+        addJsonConsoleAppender(context, customFields);
       }
       if (logstashProperties.isEnabled()) {
-        addLogstashAppender(context, customFields);
+        addLogstashTcpSocketAppender(context, customFields);
       }
     }
 
     @Override
     public void onReset(LoggerContext context) {
       if (logstashProperties.isUseJsonFormat()) {
-        addConsoleAppender(context, customFields);
+        addJsonConsoleAppender(context, customFields);
       }
       if (logstashProperties.isEnabled()) {
-        addLogstashAppender(context, customFields);
+        addLogstashTcpSocketAppender(context, customFields);
       }
     }
 

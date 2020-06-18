@@ -38,8 +38,8 @@ import javax.sql.DataSource;
 @Configuration
 public class EnhancedJdbcTemplateAutoConfiguration {
 
-  public static final String MSG_INJECT_NAMED_JDBCTPL =
-      "Inject enhanced NamedParameterJdbcTemplate";
+  public static final String MSG_AUTOWIRED_NAMED_JDBCTPL =
+      "Autowired enhanced NamedParameterJdbcTemplate";
 
   /**
    * Inject EnhancedNamedParameterJdbcTemplate
@@ -51,7 +51,7 @@ public class EnhancedJdbcTemplateAutoConfiguration {
   @Bean
   public EnhancedNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(
       DataSource dataSource) {
-    log.debug(MSG_INJECT_NAMED_JDBCTPL);
+    log.debug(MSG_AUTOWIRED_NAMED_JDBCTPL);
     return new EnhancedNamedParameterJdbcTemplate(dataSource);
   }
 }

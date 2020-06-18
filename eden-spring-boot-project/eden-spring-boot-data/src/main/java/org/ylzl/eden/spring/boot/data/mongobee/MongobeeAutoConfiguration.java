@@ -55,7 +55,7 @@ public class MongobeeAutoConfiguration {
 
   private static final String DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX = "config.dbmigrations";
 
-  private static final String MSG_INJECT_MONGOBEE = "Inject Mongobee";
+  private static final String MSG_AUTOWIRED_MONGOBEE = "Autowired Mongobee";
 
   private final Environment environment;
 
@@ -83,7 +83,7 @@ public class MongobeeAutoConfiguration {
       MongoClient mongoClient,
       MongoTemplate mongoTemplate,
       MongoProperties mongoProperties) {
-    log.debug(MSG_INJECT_MONGOBEE);
+    log.debug(MSG_AUTOWIRED_MONGOBEE);
     Mongobee mongobee = new AsyncMongobee(mongoClient, environment, taskExecutor);
     mongobee.setDbName(mongoProperties.getMongoClientDatabase());
     mongobee.setMongoTemplate(mongoTemplate);

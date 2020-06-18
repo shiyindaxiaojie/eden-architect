@@ -44,18 +44,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-hibernate53</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-spring</artifactId>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>swagger-bootstrap-ui</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -134,10 +124,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>javax.cache</groupId>
-			<artifactId>cache-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<optional>true</optional>
@@ -150,11 +136,6 @@
 		<dependency>
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -182,6 +163,11 @@
 		<dependency>
 			<groupId>org.apache.ftpserver</groupId>
 			<artifactId>ftpserver-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -238,6 +224,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-framework</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 </project>

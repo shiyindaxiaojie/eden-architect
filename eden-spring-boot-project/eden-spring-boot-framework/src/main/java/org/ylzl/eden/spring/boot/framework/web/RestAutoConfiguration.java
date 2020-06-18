@@ -41,14 +41,14 @@ import java.util.List;
 @Configuration
 public class RestAutoConfiguration {
 
-  private static final String MSG_INJECT_REST_TEMPLATE = "Inject RestTemplate";
+  private static final String MSG_AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";
 
-  private static final String MSG_INJECT_ASYNC_REST_TEMPLATE = "Inject AsyncRestTemplate";
+  private static final String MSG_AUTOWIRED_ASYNC_REST_TEMPLATE = "Autowired AsyncRestTemplate";
 
   @ConditionalOnMissingBean
   @Bean
   public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-    log.debug(MSG_INJECT_REST_TEMPLATE);
+    log.debug(MSG_AUTOWIRED_REST_TEMPLATE);
     RestTemplate restTemplate = new RestTemplate(factory);
     this.setDefaultCharset(restTemplate.getMessageConverters());
     return restTemplate;
@@ -57,7 +57,7 @@ public class RestAutoConfiguration {
   @ConditionalOnMissingBean
   @Bean
   public AsyncRestTemplate asyncRestTemplate(AsyncClientHttpRequestFactory factory) {
-    log.debug(MSG_INJECT_ASYNC_REST_TEMPLATE);
+    log.debug(MSG_AUTOWIRED_ASYNC_REST_TEMPLATE);
     AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate(factory);
     this.setDefaultCharset(asyncRestTemplate.getMessageConverters());
     return asyncRestTemplate;

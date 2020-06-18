@@ -31,7 +31,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -41,30 +40,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @UtilityClass
-public class ObjectUtils {
-
-  public static boolean isEmpty(Object object) {
-    if (object == null) {
-      return true;
-    }
-    if (object instanceof CharSequence) {
-      return ((CharSequence) object).length() == 0;
-    }
-    if (object instanceof Collection) {
-      return ((Collection) object).isEmpty();
-    }
-    if (object instanceof Map) {
-      return ((Map) object).isEmpty();
-    }
-    if (object.getClass().isArray()) {
-      return Array.getLength(object) == 0;
-    }
-    return false;
-  }
-
-  public static boolean isNotEmpty(Object object) {
-    return !isEmpty(object);
-  }
+public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 
   public static boolean isNull(Object object) {
     if (isEmpty(object)) {

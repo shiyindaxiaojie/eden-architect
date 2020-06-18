@@ -16,10 +16,10 @@
  */
 package org.ylzl.eden.spring.boot.commons.env.browser;
 
+import com.google.common.net.HttpHeaders;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.http.HttpHeaders;
 import org.ylzl.eden.spring.boot.commons.regex.RegexUtils;
 
 import javax.servlet.http.HttpServletRequest;

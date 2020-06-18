@@ -35,12 +35,12 @@ import org.ylzl.eden.spring.boot.integration.easyexcel.write.EasyExcelWriter;
  * @since 1.0.0
  */
 @ConditionalOnClass(EasyExcel.class)
-@ConditionalOnExpression(EasyExcelAutoConfiguration.EXPS_EASY_EXCEL_ENABLED)
+@ConditionalOnExpression(EasyExcelAutoConfiguration.EXP_EASY_EXCEL_ENABLED)
 @Slf4j
 @Configuration
 public class EasyExcelAutoConfiguration {
 
-  public static final String EXPS_EASY_EXCEL_ENABLED =
+  public static final String EXP_EASY_EXCEL_ENABLED =
       "${" + IntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
 
   @ConditionalOnMissingBean
