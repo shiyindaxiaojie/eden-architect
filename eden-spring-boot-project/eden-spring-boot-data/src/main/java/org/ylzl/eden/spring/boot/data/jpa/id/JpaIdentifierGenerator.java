@@ -53,7 +53,7 @@ public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable
   private SnowflakeGenerator snowflakeGenerator;
 
   public JpaIdentifierGenerator() {
-    snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).datacenterId(0L).build();
+    snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).dataCenterId(0L).build();
   }
 
   @Override
