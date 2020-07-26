@@ -100,6 +100,7 @@
 		<gatling.version>3.2.1</gatling.version>
 		<glassfish.version>3.0.1</glassfish.version>
 		<glassfish-jersey.version>2.20</glassfish-jersey.version>
+		<grpc.version>1.30.2</grpc.version>
 		<guava.version>28.0-jre</guava.version>
 		<hessian.version>4.0.63</hessian.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
@@ -146,6 +147,7 @@
 		<p6spy.version>3.9.0</p6spy.version>
 		<pagehelper.version>5.1.11</pagehelper.version>
 		<pagehelper.starter.version>1.2.5</pagehelper.starter.version>
+		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<prometheus-simpleclient.version>0.4.0</prometheus-simpleclient.version>
 		<poi.version>4.1.1</poi.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -656,6 +658,11 @@
 				<version>${guava.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.google.protobuf</groupId>
+				<artifactId>protobuf-java</artifactId>
+				<version>${protobuf.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.ryantenney.metrics</groupId>
 				<artifactId>metrics-spring</artifactId>
 				<version>${metrics-spring.version}</version>
@@ -779,6 +786,21 @@
 				<groupId>io.gatling.highcharts</groupId>
 				<artifactId>gatling-charts-highcharts</artifactId>
 				<version>${gatling.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-netty</artifactId>
+				<version>${grpc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-protobuf</artifactId>
+				<version>${grpc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-stub</artifactId>
+				<version>${grpc.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.jsonwebtoken</groupId>

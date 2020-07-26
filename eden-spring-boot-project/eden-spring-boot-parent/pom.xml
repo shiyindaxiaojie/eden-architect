@@ -16,8 +16,9 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>eden-spring-boot-parent</artifactId>
@@ -45,7 +46,8 @@
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
-		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}</infinispan-protocol-parser-generator-maven-plugin.version>
+		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
+		</infinispan-protocol-parser-generator-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
@@ -74,6 +76,7 @@
 		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
 		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
 		<openapi-generator-maven-plugin.version>3.0.1</openapi-generator-maven-plugin.version>
+		<os-maven-plugin.version>1.6.2</os-maven-plugin.version>
 		<plantuml-generator-maven-plugin.version>0.9.1</plantuml-generator-maven-plugin.version>
 		<plantuml-maven-plugin.version>1.2</plantuml-maven-plugin.version>
 		<properties-maven-plugin>1.0.0</properties-maven-plugin>
@@ -87,10 +90,13 @@
 		<yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
 
 		<!-- 插件属性 -->
-		<asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
-		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
+		<asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated
+		</asciidoctor.generated.directory>
+		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html
+		</asciidoctor.html.output.directory>
 		<asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
-		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
+		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf
+		</asciidoctor.pdf.output.directory>
 		<asciidoctorj-diagram.version>1.5.18</asciidoctorj-diagram.version>
 		<asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
@@ -111,32 +117,52 @@
 		<plantuml.output.directory>${project.build.directory}/plantuml</plantuml.output.directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
+		<project.testresult.directory>${project.build.directory}/test-results
+		</project.testresult.directory>
+		<protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
 		<server.url/>
 		<simulationClass/>
-		<sonar.exclusions>src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, target/classes/static/**/*.*, target/classes/static/**/*.*
+		<sonar.exclusions>src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js,
+			target/classes/static/**/*.*, target/classes/static/**/*.*
 		</sonar.exclusions>
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.issue.ignore.multicriteria>S3437,S4684,UndocumentedApi,BoldAndItalicTagsCheck</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>src/main/webapp/app/**/*.*</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
-		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>Web:BoldAndItalicTagsCheck</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>
-		<sonar.issue.ignore.multicriteria.S3437.resourceKey>src/main/java/**/*</sonar.issue.ignore.multicriteria.S3437.resourceKey>
-		<sonar.issue.ignore.multicriteria.S3437.ruleKey>squid:S3437</sonar.issue.ignore.multicriteria.S3437.ruleKey>
-		<sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>src/main/java/**/*</sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>
-		<sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi</sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
-		<sonar.issue.ignore.multicriteria.S4684.resourceKey>src/main/java/**/*</sonar.issue.ignore.multicriteria.S4684.resourceKey>
-		<sonar.issue.ignore.multicriteria.S4684.ruleKey>squid:S4684</sonar.issue.ignore.multicriteria.S4684.ruleKey>
-		<sonar.jacoco.reportPaths>${project.build.directory}/jacoco/test.exec,${project.build.directory}/jacoco/integrationTest.exec</sonar.jacoco.reportPaths>
+		<sonar.issue.ignore.multicriteria>S3437,S4684,UndocumentedApi,BoldAndItalicTagsCheck
+		</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
+			src/main/webapp/app/**/*.*
+		</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
+		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>Web:BoldAndItalicTagsCheck
+		</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>
+		<sonar.issue.ignore.multicriteria.S3437.resourceKey>src/main/java/**/*
+		</sonar.issue.ignore.multicriteria.S3437.resourceKey>
+		<sonar.issue.ignore.multicriteria.S3437.ruleKey>squid:S3437
+		</sonar.issue.ignore.multicriteria.S3437.ruleKey>
+		<sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>src/main/java/**/*
+		</sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>
+		<sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi
+		</sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
+		<sonar.issue.ignore.multicriteria.S4684.resourceKey>src/main/java/**/*
+		</sonar.issue.ignore.multicriteria.S4684.resourceKey>
+		<sonar.issue.ignore.multicriteria.S4684.ruleKey>squid:S4684
+		</sonar.issue.ignore.multicriteria.S4684.ruleKey>
+		<sonar.jacoco.reportPaths>
+			${project.build.directory}/jacoco/test.exec,${project.build.directory}/jacoco/integrationTest.exec
+		</sonar.jacoco.reportPaths>
 		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
-		<sonar.junit.reportPaths>${project.build.directory}/test-results/test,${project.build.directory}/test-results/integrationTest</sonar.junit.reportPaths>
+		<sonar.junit.reportPaths>
+			${project.build.directory}/test-results/test,${project.build.directory}/test-results/integrationTest
+		</sonar.junit.reportPaths>
 		<sonar.projectKey>${project.name}</sonar.projectKey>
 		<sonar.projectName>${project.description}</sonar.projectName>
 		<sonar.projectVersion>${project.version}</sonar.projectVersion>
 		<sonar.sources>src/main/</sonar.sources>
 		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
-		<sonar.testExecutionReportPaths>${project.build.directory}/test-results/jest/TESTS-results-sonar.xml</sonar.testExecutionReportPaths>
+		<sonar.testExecutionReportPaths>
+			${project.build.directory}/test-results/jest/TESTS-results-sonar.xml
+		</sonar.testExecutionReportPaths>
 		<sonar.tests>src/test/</sonar.tests>
-		<sonar.typescript.lcov.reportPaths>${project.build.directory}/test-results/lcov.info</sonar.typescript.lcov.reportPaths>
+		<sonar.typescript.lcov.reportPaths>${project.build.directory}/test-results/lcov.info
+		</sonar.typescript.lcov.reportPaths>
 		<spring.datasource.driver/>
 		<spring.datasource.url/>
 		<spring.datasource.username/>
@@ -149,7 +175,8 @@
 		<swagger2markup-extensions.version>1.3.3</swagger2markup-extensions.version>
 		<swagger.input>${server.url}/v2/api-docs</swagger.input>
 		<swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
-		<swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
+		<swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets
+		</swagger.snippetOutput.dir>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<validation-api.version>1.1.0.Final</validation-api.version>
 		<yarn.version>v1.9.2</yarn.version>
@@ -159,6 +186,13 @@
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<finalName>${project.name}</finalName>
 		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+				<version>${os-maven-plugin.version}</version>
+			</extension>
+		</extensions>
 		<pluginManagement>
 			<!-- 相同的 phase 按引入顺序执行 -->
 			<plugins>
@@ -327,7 +361,9 @@
 							</goals>
 							<configuration>
 								<files>
-									<file>${project.build.outputDirectory}/config/application-${spring.profiles.active}.yml</file>
+									<file>
+										${project.build.outputDirectory}/config/application-${spring.profiles.active}.yml
+									</file>
 								</files>
 							</configuration>
 						</execution>
@@ -462,11 +498,15 @@
 					<configuration>
 						<rules>
 							<requireMavenVersion>
-								<message>You are running an older version of Maven. Application requires at least Maven ${maven.version}</message>
+								<message>You are running an older version of Maven. Application requires at least
+									Maven ${maven.version}
+								</message>
 								<version>[${maven.version},)</version>
 							</requireMavenVersion>
 							<requireJavaVersion>
-								<message>You are running an incompatible version of Java.Application requires at least JDK ${java.version}</message>
+								<message>You are running an incompatible version of Java.Application requires at
+									least JDK ${java.version}
+								</message>
 								<version>[${java.version},13)</version>
 							</requireJavaVersion>
 						</rules>
@@ -908,6 +948,24 @@
 							<goals>
 								<goal>build-info</goal>
 								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.xolstice.maven.plugins</groupId>
+					<artifactId>protobuf-maven-plugin</artifactId>
+					<version>${protobuf-maven-plugin.version}</version>
+					<configuration>
+						<protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+						<pluginId>grpc-java</pluginId>
+						<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>compile-custom</goal>
 							</goals>
 						</execution>
 					</executions>
