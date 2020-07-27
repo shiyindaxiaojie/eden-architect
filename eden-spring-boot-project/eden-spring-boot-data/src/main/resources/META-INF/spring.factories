@@ -6,6 +6,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.data.jdbc.EnhancedJdbcTemplateAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.liquibase.AsyncLiquibaseAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.memcached.MemcachedAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mongobee.MongobeeAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mongodb.MongoDBAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatis.EnhancedMybatisAutoConfiguration,\

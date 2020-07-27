@@ -172,6 +172,7 @@
 		<spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
 		<springfox.version>2.9.2</springfox.version>
+		<spymemcached.version>2.12.3</spymemcached.version>
 		<sqlite.version>3.30.1</sqlite.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 		<thumbnailator.version>0.4.8</thumbnailator.version>
@@ -958,6 +959,11 @@
 				<artifactId>json-lib</artifactId>
 				<version>${json-lib.version}</version>
 				<classifier>jdk15</classifier>
+			</dependency>
+			<dependency>
+				<groupId>net.spy</groupId>
+				<artifactId>spymemcached</artifactId>
+				<version>${spymemcached.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>oracle</groupId>
