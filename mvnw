@@ -223,7 +223,7 @@ else
 	if [ -n "$MVNW_REPOURL" ]; then
 		jarUrl="$MVNW_REPOURL/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar"
 	else
-		jarUrl="https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar"
+		jarUrl="https://repo1.maven.org/maven2/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar"
 	fi
 	while IFS="=" read key value; do
 		case "$key" in wrapperUrl)

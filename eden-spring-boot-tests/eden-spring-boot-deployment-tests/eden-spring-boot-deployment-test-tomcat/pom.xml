@@ -35,7 +35,7 @@
 
 	<properties>
 		<cargo.container.id>tomcat7x</cargo.container.id>
-		<cargo.container.url>https://repo.maven.apache.org/maven2/org/apache/tomcat/tomcat/${tomcat.version}/tomcat-${tomcat.version}.zip</cargo.container.url>
+		<cargo.container.url>https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/${tomcat.version}/tomcat-${tomcat.version}.zip</cargo.container.url>
 		<tomcat.version>7.0.90</tomcat.version>
 	</properties>
 

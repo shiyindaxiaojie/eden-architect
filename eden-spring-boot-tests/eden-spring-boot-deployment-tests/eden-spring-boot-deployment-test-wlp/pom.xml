@@ -35,7 +35,7 @@
 
 	<properties>
 		<cargo.container.id>liberty</cargo.container.id>
-		<cargo.container.url>https://repo.maven.apache.org/maven2/com/ibm/websphere/appserver/runtime/wlp-webProfile7/${wlp.version}/wlp-webProfile7-${wlp.version}.zip
+		<cargo.container.url>https://repo1.maven.org/maven2/com/ibm/websphere/appserver/runtime/wlp-webProfile7/${wlp.version}/wlp-webProfile7-${wlp.version}.zip
 		</cargo.container.url>
 		<wlp.version>18.0.0.1</wlp.version>
 	</properties>
