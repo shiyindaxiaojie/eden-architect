@@ -68,7 +68,6 @@ import java.util.Map;
   AsyncLiquibaseAutoConfiguration.class,
   MybatisPageHelperAutoConfiguration.class
 })
-@ConditionalOnExpression(RoutingDataSourceAutoConfiguration.EXP_ROUTING_DATASOURCE_ENABLED)
 @EnableConfigurationProperties({
   DataSourceProperties.class,
   DataProperties.class,
@@ -82,8 +81,7 @@ public class RoutingDataSourceAutoConfiguration
   private static final String PROP_ROUTING_DATA_SOURCE_PREFIX =
       DataConstants.PROP_PREFIX + ".routing-datasource";
 
-  public static final String EXP_ROUTING_DATASOURCE_ENABLED =
-      "${" + PROP_ROUTING_DATA_SOURCE_PREFIX + ".enabled:false}";
+  public static final String ROUTING_DATASOURCE_ENABLED = PROP_ROUTING_DATA_SOURCE_PREFIX + ".enabled";
 
   private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
 
@@ -93,16 +91,24 @@ public class RoutingDataSourceAutoConfiguration
 
   private static final String DEFAULT_DATASOURCE_NAME = "default";
 
+  private Environment env;
+
   private BinderHelper binderHelper;
 
   @Override
   public void setEnvironment(Environment env) {
-    binderHelper = new BinderHelper(env);
+    this.env = env;
+  	this.binderHelper = new BinderHelper(env);
   }
 
   @Override
   public void registerBeanDefinitions(
       AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+  	if (!env.containsProperty(ROUTING_DATASOURCE_ENABLED) ||
+			!env.getProperty(ROUTING_DATASOURCE_ENABLED, Boolean.class)) {
+  		return;
+		}
+
     log.debug(MSG_AUTOWIRED_ROUTING_DS);
     GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
     beanDefinition.setBeanClass(RoutingDataSourceProxy.class);

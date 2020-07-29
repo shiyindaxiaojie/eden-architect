@@ -92,6 +92,7 @@
 		<dependency>
 			<groupId>net.spy</groupId>
 			<artifactId>spymemcached</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>javax.cache</groupId>
