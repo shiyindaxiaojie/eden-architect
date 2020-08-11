@@ -47,19 +47,6 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
-   * 树的最大深度
-   *
-   * @param root 根节点
-   * @return 深度
-   */
-  public int depth(Node root) {
-    if (root == null) {
-      return 0;
-    }
-    return Math.max(depth(root.getLeft()), depth(root.getRight())) + 1;
-  }
-
-  /**
    * 查找树节点
    *
    * @param key

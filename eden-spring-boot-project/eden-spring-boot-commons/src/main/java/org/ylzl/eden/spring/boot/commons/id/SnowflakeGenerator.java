@@ -22,6 +22,8 @@ import lombok.Synchronized;
 /**
  * Twitter 雪花算法生成器
  *
+ * <p>总共 64 位，0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号</p>
+ *
  * @author gyl
  * @since 1.0.0
  */
@@ -30,20 +32,20 @@ public class SnowflakeGenerator {
   /** 开始时间截（2018-01-01） */
   private final long twepoch = 1514736000000L;
 
-  /** 机器 ID 所占的位数 */
+  /** 机器 ID 占 5 位（机器 ID 和数据中心 ID 加起来不能超过 10） */
   private final long workerIdBits = 5L;
 
-  /** 数据中心标识 ID 所占的位数 */
+  /** 数据中心 ID 占 5 位 */
   private final long datacenterIdBits = 5L;
+
+	/** 序列号占  12 位 */
+	private final long sequenceBits = 12L;
 
   /** 支持的最大机器 ID */
   private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
   /** 支持的最大数据标识 ID */
   private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-
-  /** 序列在 ID 中占的位数 */
-  private final long sequenceBits = 12L;
 
   /** 机器 ID 向左移 12 位 */
   private final long workerIdShift = sequenceBits;
@@ -57,13 +59,13 @@ public class SnowflakeGenerator {
   /** 生成序列的掩码 */
   private final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
-  /** 工作机器 ID (0~31) */
+  /** 机器 ID */
   private long workerId;
 
-  /** 数据中心 ID (0~31) */
+  /** 数据中心 ID */
   private long dataCenterId;
 
-  /** 毫秒内序列 (0~4095) */
+  /** 毫秒内序列号 */
   private long sequence = 0L;
 
   /** 上次生成 ID 的时间截 */
@@ -107,7 +109,7 @@ public class SnowflakeGenerator {
       // 毫秒内序列溢出
       if (sequence == 0) {
         // 阻塞到下一个毫秒，获得新的时间戳
-        timestamp = tilNextMillis(lastTimestamp);
+        timestamp = tillNextMillis(lastTimestamp);
       }
     } else { // 时间戳改变，毫秒内序列重置
       sequence = 0L;
@@ -129,7 +131,7 @@ public class SnowflakeGenerator {
    * @param lastTimestamp 上次生成 ID 的时间截
    * @return 当前时间戳
    */
-  protected long tilNextMillis(long lastTimestamp) {
+  protected long tillNextMillis(long lastTimestamp) {
     long timestamp = timeGen();
     while (timestamp <= lastTimestamp) {
       timestamp = timeGen();
