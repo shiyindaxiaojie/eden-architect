@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger;
+package org.ylzl.eden.spring.boot.integration.swagger2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -33,8 +33,8 @@ import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
-import org.ylzl.eden.spring.boot.integration.swagger.customizer.DefaultSwaggerCustomizer;
-import org.ylzl.eden.spring.boot.integration.swagger.customizer.SwaggerCustomizer;
+import org.ylzl.eden.spring.boot.integration.swagger2.customizer.DefaultSwagger2Customizer;
+import org.ylzl.eden.spring.boot.integration.swagger2.customizer.Swagger2Customizer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.schema.AlternateTypeRule;
@@ -72,17 +72,17 @@ import java.util.List;
   Servlet.class,
   DispatcherServlet.class
 })
-@ConditionalOnExpression(SwaggerAutoConfiguration.EXP_SWAGGER_ENABLED)
+@ConditionalOnExpression(Swagger2AutoConfiguration.EXP_SWAGGER_ENABLED)
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(SwaggerProperties.class)
+@EnableConfigurationProperties(Swagger2Properties.class)
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 @Slf4j
 @Configuration
-public class SwaggerAutoConfiguration {
+public class Swagger2AutoConfiguration {
 
   public static final String EXP_SWAGGER_ENABLED =
-      "${" + IntegrationConstants.PROP_PREFIX + ".swagger.enabled:true}";
+      "${" + IntegrationConstants.PROP_PREFIX + ".swagger2.enabled:true}";
 
   public static final String DEFAULT_GROUP_NAME = "management";
 
@@ -93,12 +93,12 @@ public class SwaggerAutoConfiguration {
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
 
-  private final SwaggerProperties properties;
+  private final Swagger2Properties properties;
 
   private final ManagementServerProperties managementServerProperties;
 
-  public SwaggerAutoConfiguration(
-      SwaggerProperties properties, ManagementServerProperties managementServerProperties) {
+  public Swagger2AutoConfiguration(
+		Swagger2Properties properties, ManagementServerProperties managementServerProperties) {
     this.properties = properties;
     this.managementServerProperties = managementServerProperties;
   }
@@ -106,13 +106,13 @@ public class SwaggerAutoConfiguration {
   @ConditionalOnMissingBean(name = "swaggerSpringfoxApiDocket")
   @Bean
   public Docket swaggerSpringfoxApiDocket(
-      List<SwaggerCustomizer> swaggerCustomizers,
+      List<Swagger2Customizer> swagger2Customizers,
       ObjectProvider<AlternateTypeRule[]> alternateTypeRules) {
     log.debug(MSG_AUTOWIRED_SWAGGER);
     StopWatch watch = new StopWatch();
     watch.start();
     Docket docket = createDocket();
-    for (SwaggerCustomizer customizer : swaggerCustomizers) {
+    for (Swagger2Customizer customizer : swagger2Customizers) {
       customizer.customize(docket);
     }
     if (alternateTypeRules.getIfAvailable() != null) {
@@ -124,8 +124,8 @@ public class SwaggerAutoConfiguration {
   }
 
   @Bean
-  public DefaultSwaggerCustomizer swaggerCustomizer() {
-    return new DefaultSwaggerCustomizer(properties);
+  public DefaultSwagger2Customizer swaggerCustomizer() {
+    return new DefaultSwagger2Customizer(properties);
   }
 
   @Bean

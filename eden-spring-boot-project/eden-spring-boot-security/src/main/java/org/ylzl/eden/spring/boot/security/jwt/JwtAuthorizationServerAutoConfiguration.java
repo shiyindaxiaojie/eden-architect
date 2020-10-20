@@ -38,13 +38,13 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenService;
  * @since 1.0.0
  */
 @EnableConfigurationProperties(JwtProperties.class)
-@ConditionalOnExpression(JwtAuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
+@ConditionalOnExpression(JwtAuthorizationServerAutoConfiguration.EXP_JWT_AUTHORIZATION_SERVER)
 @Import({DefaultWebSecuirtyConfiguration.class, JwtWebSecurityConfiguration.class})
 @Slf4j
 @Configuration
 public class JwtAuthorizationServerAutoConfiguration {
 
-  public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
+  public static final String EXP_JWT_AUTHORIZATION_SERVER =
       "${" + SecurityConstants.PROP_PREFIX + ".jwt.authorization.server.enabled:false}";
 
   private final JwtProperties jwtProperties;

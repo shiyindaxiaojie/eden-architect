@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger.customizer;
+package org.ylzl.eden.spring.boot.integration.swagger2.customizer;
 
 import org.springframework.core.Ordered;
 import org.springframework.http.ResponseEntity;
-import org.ylzl.eden.spring.boot.integration.swagger.SwaggerProperties;
+import org.ylzl.eden.spring.boot.integration.swagger2.Swagger2Properties;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
@@ -38,15 +38,15 @@ import static springfox.documentation.builders.PathSelectors.regex;
  * @author gyl
  * @since 1.0.0
  */
-public class DefaultSwaggerCustomizer implements SwaggerCustomizer, Ordered {
+public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
 
   public static final int DEFAULT_ORDER = 0;
 
   private int order = DEFAULT_ORDER;
 
-  private final SwaggerProperties properties;
+  private final Swagger2Properties properties;
 
-  public DefaultSwaggerCustomizer(SwaggerProperties properties) {
+  public DefaultSwagger2Customizer(Swagger2Properties properties) {
     this.properties = properties;
   }
 

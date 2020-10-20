@@ -45,5 +45,5 @@ public final class JwtConstants {
 
   public static final String CLAIM_KEY = "auth";
 
-  public static final String ENDPOINT_TOKEN = "/jwt/token";
+  public static final String ENDPOINT_TOKEN = "/auth";
 }

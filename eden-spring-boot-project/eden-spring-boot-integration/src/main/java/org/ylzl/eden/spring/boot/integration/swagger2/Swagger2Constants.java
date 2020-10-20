@@ -15,4 +15,26 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger;
+package org.ylzl.eden.spring.boot.integration.swagger2;
+
+import lombok.experimental.UtilityClass;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.swagger2.web.Swagger2Controller;
+
+/**
+ * Swagger2 常量定义
+ *
+ * @author gyl
+ * @since 1.0.0
+ */
+@UtilityClass
+public final class Swagger2Constants {
+
+  public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
+
+  public static final String RESOURCES_URL = "/swagger-resources";
+
+  public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
+
+  public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
+}

@@ -15,17 +15,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger.customizer;
-
-import springfox.documentation.spring.web.plugins.Docket;
-
-/**
- * Swagger 自定义接口
- *
- * @author gyl
- * @since 1.0.0
- */
-public interface SwaggerCustomizer {
-
-  void customize(Docket docket);
-}
+package org.ylzl.eden.spring.boot.integration.swagger2;

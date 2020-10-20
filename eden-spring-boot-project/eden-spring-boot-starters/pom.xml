@@ -28,7 +28,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
+		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
 
@@ -79,10 +79,14 @@
 		<module>eden-mina-spring-boot-starter</module>
 		<module>eden-mongobee-spring-boot-starter</module>
 		<module>eden-mongodb-spring-boot-starter</module>
+		<module>eden-mybatis-mapper-spring-boot-starter</module>
+		<module>eden-mybatis-pagehelper-spring-boot-starter</module>
+		<module>eden-mybatis-plus-spring-boot-starter</module>
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-mycat-spring-boot-starter</module>
 		<module>eden-mysql-spring-boot-starter</module>
-		<module>eden-nacos-spring-boot-starter</module>
+		<module>eden-nacos-config-spring-boot-starter</module>
+		<module>eden-nacos-discovery-spring-boot-starter</module>
 		<module>eden-neo4j-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
 		<module>eden-oauth2-spring-boot-starter</module>
@@ -91,12 +95,14 @@
 		<module>eden-qpid-spring-boot-starter</module>
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
+		<module>eden-resteasy-spring-boot-starter</module>
 		<module>eden-ribbon-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
 		<module>eden-shiro-spring-boot-starter</module>
 		<module>eden-sqlite-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
+		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-test-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>
 		<module>eden-truelicense-spring-boot-starter</module>

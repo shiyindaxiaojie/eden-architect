@@ -15,26 +15,42 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger;
+package org.ylzl.eden.spring.boot.integration.swagger2;
 
 import lombok.experimental.UtilityClass;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.swagger2.web.Swagger2Controller;
 
 /**
- * Swagger 常量定义
+ * Swagger2 配置属性默认值
  *
  * @author gyl
  * @since 1.0.0
  */
 @UtilityClass
-public final class SwaggerConstants {
+public final class Swagger2Defaults {
 
-  public static final String DEFAULT_URL = Swagger2Controller.DEFAULT_URL;
+  public static final String contactEmail = "1813986321@qq.com";
 
-  public static final String RESOURCES_URL = "/swagger-resources";
+  public static final String contactName = "郭远陆";
 
-  public static final String RESOURCES_CONF_URL = RESOURCES_URL + "/configuration";
+  public static final String contactUrl = null;
 
-  public static final String VERSION = DocumentationType.SWAGGER_2.getVersion();
+  public static final String defaultIncludePattern = "/api/.*";
+
+  public static final String description = "API documentation";
+
+  public static final String host = null;
+
+  public static final String license = null;
+
+  public static final String licenseUrl = null;
+
+  public static final String[] protocols = {};
+
+  public static final String termsOfServiceUrl = null;
+
+  public static final String title = "Application API";
+
+  public static final boolean useDefaultResponseMessages = true;
+
+  public static final String version = "2.0.0-SNAPSHOT";
 }

@@ -17,18 +17,25 @@
 
 package org.ylzl.eden.spring.boot.framework.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.AsyncClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.boot.commons.env.CharsetConstants;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,4 +79,15 @@ public class RestAutoConfiguration {
       }
     }
   }
+
+  @ConditionalOnClass(ObjectMapper.class)
+  @Bean
+	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(RestTemplate restTemplate) {
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+		List<HttpMessageConverter<?>> messageConverters = Lists.newArrayList();
+		messageConverters.add(converter);
+		restTemplate.setMessageConverters(messageConverters);
+		return converter;
+	}
 }

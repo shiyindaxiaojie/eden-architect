@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.integration.swagger;
+package org.ylzl.eden.spring.boot.integration.swagger2;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,41 +23,41 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 
 /**
- * Swagger 配置属性
+ * Swagger2 配置属性
  *
  * @author gyl
  * @since 1.0.0
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".swagger")
-public class SwaggerProperties {
+@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".swagger2")
+public class Swagger2Properties {
 
   private Boolean enabled = true;
 
-  private String contactEmail = SwaggerDefaults.contactEmail;
+  private String contactEmail = Swagger2Defaults.contactEmail;
 
-  private String contactName = SwaggerDefaults.contactName;
+  private String contactName = Swagger2Defaults.contactName;
 
-  private String contactUrl = SwaggerDefaults.contactUrl;
+  private String contactUrl = Swagger2Defaults.contactUrl;
 
-  private String defaultIncludePattern = SwaggerDefaults.defaultIncludePattern;
+  private String defaultIncludePattern = Swagger2Defaults.defaultIncludePattern;
 
-  private String description = SwaggerDefaults.description;
+  private String description = Swagger2Defaults.description;
 
-  private String host = SwaggerDefaults.host;
+  private String host = Swagger2Defaults.host;
 
-  private String license = SwaggerDefaults.license;
+  private String license = Swagger2Defaults.license;
 
-  private String licenseUrl = SwaggerDefaults.licenseUrl;
+  private String licenseUrl = Swagger2Defaults.licenseUrl;
 
-  private String[] protocols = SwaggerDefaults.protocols;
+  private String[] protocols = Swagger2Defaults.protocols;
 
-  private String termsOfServiceUrl = SwaggerDefaults.termsOfServiceUrl;
+  private String termsOfServiceUrl = Swagger2Defaults.termsOfServiceUrl;
 
-  private String title = SwaggerDefaults.title;
+  private String title = Swagger2Defaults.title;
 
-  private Boolean useDefaultResponseMessages = SwaggerDefaults.useDefaultResponseMessages;
+  private Boolean useDefaultResponseMessages = Swagger2Defaults.useDefaultResponseMessages;
 
-  private String version = SwaggerDefaults.version;
+  private String version = Swagger2Defaults.version;
 }
