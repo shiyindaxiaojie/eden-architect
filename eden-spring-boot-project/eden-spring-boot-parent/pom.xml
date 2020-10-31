@@ -35,7 +35,7 @@
 
 	<properties>
 		<!-- 插件版本 -->
-		<asciidoctor-maven-plugin.version>2.0.0</asciidoctor-maven-plugin.version>
+		<asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
 		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
 		<dependency-check-maven.version>3.3.1</dependency-check-maven.version>
@@ -232,7 +232,7 @@
 					<groupId>com.google.cloud.tools</groupId>
 					<artifactId>jib-maven-plugin</artifactId>
 					<version>${jib-maven-plugin.version}</version>
-					<configuration>
+					<!--<configuration>
 						<from>
 							<image>openjdk:8-jre-alpine</image>
 						</from>
@@ -267,7 +267,7 @@
 								</permission>
 							</permissions>
 						</extraDirectories>
-					</configuration>
+					</configuration>-->
 				</plugin>
 				<plugin>
 					<groupId>com.rimerosolutions.maven.plugins</groupId>
@@ -1074,22 +1074,6 @@
 				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
 				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
 			</properties>
-		</profile>
-
-		<profile>
-			<id>assembly</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-assembly-plugin</artifactId>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 
 		<profile>

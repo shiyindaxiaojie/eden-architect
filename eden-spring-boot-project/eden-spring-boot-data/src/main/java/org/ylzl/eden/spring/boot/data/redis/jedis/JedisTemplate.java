@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.redis.support;
+package org.ylzl.eden.spring.boot.data.redis.jedis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -25,7 +25,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;
@@ -34,18 +33,18 @@ import redis.clients.jedis.util.JedisClusterCRC16;
 import java.util.*;
 
 /**
- * 增强式 RedisTemplate
+ * JedisTemplate
  *
  * @author gyl
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class RedisClusterTemplate extends RedisTemplate<String, Object> {
+public class JedisTemplate extends RedisTemplate<String, Object> {
 
   @Autowired(required = false)
   private FixedJedisCluster jedisCluster;
 
-  public RedisClusterTemplate() {
+  public JedisTemplate() {
     RedisSerializer<String> stringSerializer = new StringRedisSerializer();
     setKeySerializer(stringSerializer);
     setHashKeySerializer(stringSerializer);

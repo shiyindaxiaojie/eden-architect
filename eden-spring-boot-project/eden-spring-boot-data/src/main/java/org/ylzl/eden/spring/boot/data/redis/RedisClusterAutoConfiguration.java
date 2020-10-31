@@ -20,7 +20,6 @@ package org.ylzl.eden.spring.boot.data.redis;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -34,11 +33,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.spring.boot.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.data.redis.jedis.FixedJedisCluster;
-import org.ylzl.eden.spring.boot.data.redis.support.RedisClusterTemplate;
+import org.ylzl.eden.spring.boot.data.redis.jedis.JedisTemplate;
 import org.ylzl.eden.spring.boot.data.redis.support.lock.DistributedRedisLock;
 import org.ylzl.eden.spring.boot.data.redis.support.lock.RedisLock;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.HashSet;
@@ -56,7 +56,8 @@ import java.util.Set;
 @Configuration
 public class RedisClusterAutoConfiguration {
 
-  @ConditionalOnClass({Jedis.class})
+  @ConditionalOnClass({Jedis.class, JedisCluster.class})
+	@Configuration
   public static class FixedJedisAutoConfiguration {
 
     @ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)
@@ -82,20 +83,19 @@ public class RedisClusterAutoConfiguration {
           redisProperties.getPassword(),
           poolConfig);
     }
-  }
 
-  @ConditionalOnMissingBean
-  @Bean
-  public RedisClusterTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-    RedisClusterTemplate redisTemplate = new RedisClusterTemplate();
-    redisTemplate.setConnectionFactory(redisConnectionFactory);
-    return redisTemplate;
-  }
+		@ConditionalOnMissingBean
+		@Bean
+		public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+			JedisTemplate redisTemplate = new JedisTemplate();
+			redisTemplate.setConnectionFactory(redisConnectionFactory);
+			return redisTemplate;
+		}
 
-  @ConditionalOnBean(RedisTemplate.class)
-  @ConditionalOnMissingBean
-  @Bean
-  public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
-    return new DistributedRedisLock(redisTemplate);
+		@ConditionalOnMissingBean
+		@Bean
+		public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
+			return new DistributedRedisLock(redisTemplate);
+		}
   }
 }

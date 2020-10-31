@@ -28,6 +28,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -51,6 +52,7 @@ import java.util.List;
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore({MybatisAutoConfiguration.class})
+@ConditionalOnMissingClass("com.baomidou.mybatisplus.core.MybatisConfiguration")
 @ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
 @EnableConfigurationProperties({MybatisProperties.class})
 @Slf4j
