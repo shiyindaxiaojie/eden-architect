@@ -15,19 +15,23 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.jpa;
+package org.ylzl.eden.spring.boot.integration.flowable;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 
 /**
- * Hibernate JPA 自动配置
+ * Flowable 配置属性
  *
  * @author gyl
- * @since 2.0.0
+ * @since 1.0.0
  */
-@AutoConfigureAfter({DataSourceAutoConfiguration.class})
-@Configuration
-public class EnhancedHibernateJpaAutoConfiguration extends HibernateJpaAutoConfiguration {}
+@Getter
+@Setter
+@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".flowable")
+public class CustomFlowableProperties {
+
+  private String fontName = FlowableDefaults.fontName;
+}

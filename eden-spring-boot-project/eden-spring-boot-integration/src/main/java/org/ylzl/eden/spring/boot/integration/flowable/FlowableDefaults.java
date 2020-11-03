@@ -17,21 +17,16 @@
 
 package org.ylzl.eden.spring.boot.integration.flowable;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
+import lombok.experimental.UtilityClass;
 
 /**
- * Flowable 配置属性
+ * Flowable 配置属性默认值
  *
  * @author gyl
  * @since 1.0.0
  */
-@Getter
-@Setter
-@ConfigurationProperties(prefix = IntegrationConstants.PROP_PREFIX + ".flowable")
-public class EnhancedFlowableProperties {
+@UtilityClass
+public final class FlowableDefaults {
 
-  private String fontName = EnhancedFlowableDefaults.fontName;
+  public static final String fontName = "simsun";
 }

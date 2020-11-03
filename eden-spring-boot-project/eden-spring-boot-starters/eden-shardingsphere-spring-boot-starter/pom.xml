@@ -21,14 +21,6 @@
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>sharding-transaction-xa-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>sharding-transaction-base-seata-at</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot-data</artifactId>
 		</dependency>

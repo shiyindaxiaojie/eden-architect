@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.mybatis;
+package org.ylzl.eden.spring.boot.data.mybatismapper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;

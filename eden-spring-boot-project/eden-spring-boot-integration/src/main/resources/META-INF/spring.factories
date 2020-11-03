@@ -1,6 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.boot.integration.flowable.EnhancedFlowableAutoConfiguration,\
+  org.ylzl.eden.spring.boot.integration.flowable.CustomFlowableAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.ftpclient.FTPClientAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.ftpserver.FTPServerAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.hessian.HessianAutoConfiguration,\

@@ -151,8 +151,7 @@
 		<mybatis-plus.version>3.0.7.1</mybatis-plus.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
-		<mysql.version>5.1.49</mysql.version>
-		<mysql8.version>8.0.20</mysql8.version>
+		<mysql.version>8.0.20</mysql.version>
 		<mvel.version>2.4.8.Final</mvel.version>
 		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
 		<netty.version>4.1.42.Final</netty.version>
@@ -987,7 +986,7 @@
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql8.version}</version>
+				<version>${mysql.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.bull.javamelody</groupId>

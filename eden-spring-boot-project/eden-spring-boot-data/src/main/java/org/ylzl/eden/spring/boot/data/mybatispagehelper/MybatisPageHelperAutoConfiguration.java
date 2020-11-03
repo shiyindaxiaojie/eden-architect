@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.data.mybatis;
+package org.ylzl.eden.spring.boot.data.mybatispagehelper;
 
 import com.github.pagehelper.PageInterceptor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.boot.data.mybatis.CustomMybatisAutoConfiguration;
 
 import java.util.Properties;
 
@@ -39,10 +40,10 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
-@AutoConfigureBefore({EnhancedMybatisAutoConfiguration.class})
+@AutoConfigureBefore({CustomMybatisAutoConfiguration.class})
 @EnableConfigurationProperties({MybatisProperties.class})
 @ConditionalOnClass({PageInterceptor.class})
-@Import(EnhancedMybatisAutoConfiguration.class)
+@Import(CustomMybatisAutoConfiguration.class)
 @Slf4j
 @Configuration
 public class MybatisPageHelperAutoConfiguration {

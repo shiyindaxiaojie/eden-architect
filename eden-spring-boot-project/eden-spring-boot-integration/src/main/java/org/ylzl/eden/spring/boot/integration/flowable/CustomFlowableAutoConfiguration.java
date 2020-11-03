@@ -36,14 +36,14 @@ import javax.sql.DataSource;
  * @since 1.0.0
  */
 @ConditionalOnClass(ProcessEngineConfigurationConfigurer.class)
-@EnableConfigurationProperties(EnhancedFlowableProperties.class)
+@EnableConfigurationProperties(CustomFlowableProperties.class)
 @Slf4j
 @Configuration
-public class EnhancedFlowableAutoConfiguration implements ProcessEngineConfigurationConfigurer {
+public class CustomFlowableAutoConfiguration implements ProcessEngineConfigurationConfigurer {
 
   private final DataSource dataSource;
 
-  public EnhancedFlowableAutoConfiguration(DataSource dataSource) {
+  public CustomFlowableAutoConfiguration(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 

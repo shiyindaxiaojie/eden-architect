@@ -22,7 +22,6 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -40,7 +39,7 @@ import org.ylzl.eden.spring.boot.data.core.DataConstants;
 import org.ylzl.eden.spring.boot.data.core.DataProperties;
 import org.ylzl.eden.spring.boot.data.jdbc.datasource.routing.RoutingDataSourceProxy;
 import org.ylzl.eden.spring.boot.data.liquibase.AsyncLiquibaseAutoConfiguration;
-import org.ylzl.eden.spring.boot.data.mybatis.MybatisPageHelperAutoConfiguration;
+import org.ylzl.eden.spring.boot.data.mybatispagehelper.MybatisPageHelperAutoConfiguration;
 import org.ylzl.eden.spring.boot.framework.core.bind.BinderHelper;
 
 import javax.sql.DataSource;

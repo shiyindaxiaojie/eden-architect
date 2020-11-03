@@ -29,7 +29,7 @@ import java.io.*;
  * @author gyl
  * @since 1.0.0
  */
-public class EnhancedKeyStoreParam extends AbstractKeyStoreParam {
+public class CustomKeyStoreParam extends AbstractKeyStoreParam {
 
   private String storePath;
 
@@ -39,7 +39,7 @@ public class EnhancedKeyStoreParam extends AbstractKeyStoreParam {
 
   private String keyPwd;
 
-  public EnhancedKeyStoreParam(
+  public CustomKeyStoreParam(
       Class clazz, String resource, String alias, String storePwd, String keyPwd) {
     super(clazz, resource);
     this.storePath = resource;

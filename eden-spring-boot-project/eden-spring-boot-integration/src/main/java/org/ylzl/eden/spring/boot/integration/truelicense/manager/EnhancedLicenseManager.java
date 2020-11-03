@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.boot.commons.env.OSUtils;
 import org.ylzl.eden.spring.boot.commons.lang.ObjectUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.integration.truelicense.TrueLicenseProperties;
-import org.ylzl.eden.spring.boot.integration.truelicense.keystore.EnhancedKeyStoreParam;
+import org.ylzl.eden.spring.boot.integration.truelicense.keystore.CustomKeyStoreParam;
 import org.ylzl.eden.spring.boot.integration.truelicense.manager.env.LicenseOS;
 
 import java.beans.XMLDecoder;
@@ -116,7 +116,7 @@ public final class EnhancedLicenseManager extends LicenseManager {
     KeyStoreParam keyStoreParam = null;
     if (isPublicKey) {
       keyStoreParam =
-          new EnhancedKeyStoreParam(
+          new CustomKeyStoreParam(
               EnhancedLicenseManager.class,
               trueLicenseProperties.getPublicKeysStorePath(),
               trueLicenseProperties.getPublicAlias(),
@@ -124,7 +124,7 @@ public final class EnhancedLicenseManager extends LicenseManager {
               null);
     } else {
       keyStoreParam =
-          new EnhancedKeyStoreParam(
+          new CustomKeyStoreParam(
               EnhancedLicenseManager.class,
               trueLicenseProperties.getPrivateKeysStorePath(),
               trueLicenseProperties.getPrivateAlias(),

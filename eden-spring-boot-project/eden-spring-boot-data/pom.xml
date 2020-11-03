@@ -313,5 +313,13 @@
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>

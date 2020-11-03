@@ -57,7 +57,7 @@ import java.util.List;
 @EnableConfigurationProperties({MybatisProperties.class})
 @Slf4j
 @Configuration
-public class EnhancedMybatisAutoConfiguration {
+public class CustomMybatisAutoConfiguration {
 
   private static final String MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY =
       "Autowired Mybatis SqlSessionFactory";
@@ -73,7 +73,7 @@ public class EnhancedMybatisAutoConfiguration {
 
   private final MybatisProperties mybatisProperties;
 
-  public EnhancedMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
+  public CustomMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
     this.mybatisProperties = mybatisProperties;
   }
 
