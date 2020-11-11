@@ -17,6 +17,8 @@
 
 package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * 错误凭证
  *
@@ -26,10 +28,18 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 public class InvalidCredentialsException extends BadRequestAlertException {
 
   public InvalidCredentialsException() {
-    super(ErrorConstants.ERR_INVALID_CREDENTIALS);
+    super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
   }
 
-  public InvalidCredentialsException(String message) {
-    super(message);
-  }
+	public InvalidCredentialsException(String message) {
+		super(message);
+	}
+
+	public InvalidCredentialsException(String message, String description) {
+		super(message, description);
+	}
+
+	public int getStatusCode() {
+		return HttpStatus.UNAUTHORIZED.value();
+	}
 }

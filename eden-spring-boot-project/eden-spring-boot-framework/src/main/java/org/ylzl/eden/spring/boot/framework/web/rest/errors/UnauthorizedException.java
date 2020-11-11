@@ -17,6 +17,8 @@
 
 package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * 请求未认证
  *
@@ -26,10 +28,18 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 public class UnauthorizedException extends BadRequestAlertException {
 
   public UnauthorizedException() {
-    super(ErrorConstants.ERR_UNAUTHORIZED);
+    super(ErrorEnum.UNAUTHORIZED.getMessage());
   }
 
-  public UnauthorizedException(String message) {
-    super(message);
-  }
+	public UnauthorizedException(String message) {
+		super(message);
+	}
+
+	public UnauthorizedException(String message, String description) {
+		super(message, description);
+	}
+
+	public int getStatusCode() {
+		return HttpStatus.UNAUTHORIZED.value();
+	}
 }

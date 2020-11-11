@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.ylzl.eden.spring.boot.framework.web.rest.vm.ErrorVM;
+import org.ylzl.eden.spring.boot.framework.web.rest.vm.FieldErrorVM;
 import org.ylzl.eden.spring.boot.framework.web.rest.vm.ParameterizedErrorVM;
 
 import java.util.List;
@@ -52,11 +53,11 @@ public class RestErrorAdvice {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
-  public ErrorVM processValidationException(MethodArgumentNotValidException ex) {
+  public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     List<FieldError> fieldErrors = result.getFieldErrors();
-    ErrorVM errorVM =
-        ErrorVM.builder().message(ErrorConstants.ERR_METHOD_ARGUMENT_NOT_VALID).build();
+		FieldErrorVM errorVM =
+			FieldErrorVM.builder().message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage()).description(ex.getMessage()).build();
     for (FieldError fieldError : fieldErrors) {
       errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
     }
@@ -73,7 +74,7 @@ public class RestErrorAdvice {
   @ResponseBody
   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
   public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-    return ErrorVM.builder().message(ErrorConstants.ERR_METHOD_NOT_SUPPORTED).build();
+    return ErrorVM.builder().message(ErrorEnum.METHOD_NOT_SUPPORTED.getMessage()).description(ex.getMessage()).build();
   }
 
   /**
@@ -99,7 +100,7 @@ public class RestErrorAdvice {
       builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
       errorVM =
           ErrorVM.builder()
-              .message(ErrorConstants.ERR_INTERNAL_SERVER_ERROR)
+              .message(ErrorEnum.INTERNAL_SERVER_ERROR.getMessage())
               .description(ex.getMessage())
               .build();
     }
@@ -165,10 +166,10 @@ public class RestErrorAdvice {
    * @param ex 非法访问异常
    * @return
    */
-  @ExceptionHandler(AccessDeniedException.class)
+  @ExceptionHandler(ForbiddenException.class)
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ResponseBody
-  public ErrorVM processAccessDeniedException(AccessDeniedException ex) {
+  public ErrorVM processForbiddenException(ForbiddenException ex) {
     return ex.getErrorVM();
   }
 

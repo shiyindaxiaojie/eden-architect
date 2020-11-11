@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.boot.security.web.authentication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.boot.framework.web.rest.errors.ErrorConstants;
+import org.ylzl.eden.spring.boot.framework.web.rest.errors.ErrorEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +39,6 @@ public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
   public void commence(
       HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
       throws IOException {
-    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorConstants.ERR_UNAUTHORIZED);
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorEnum.UNAUTHORIZED.getMessage());
   }
 }

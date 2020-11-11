@@ -17,19 +17,26 @@
 
 package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 
+import lombok.Getter;
+
 /**
  * 实体获取为空
  *
  * @author gyl
  * @since 1.0.0
  */
+@Getter
 public class EntityNotFoundException extends BadRequestAlertException {
 
   public EntityNotFoundException() {
-    super(ErrorConstants.ERR_ENTITY_NOT_FOUND);
+    super(ErrorEnum.ENTITY_NOT_FOUND.getMessage());
   }
 
-  public EntityNotFoundException(String message) {
-    super(message);
-  }
+	public EntityNotFoundException(String message) {
+		super(message);
+	}
+
+	public EntityNotFoundException(String message, String description) {
+		super(message, description);
+	}
 }

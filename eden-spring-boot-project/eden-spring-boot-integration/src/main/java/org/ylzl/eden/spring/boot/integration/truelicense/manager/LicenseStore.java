@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.spring.boot.commons.lang.ObjectUtils;
 import org.ylzl.eden.spring.boot.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.commons.lang.time.DateUtils;
-import org.ylzl.eden.spring.boot.integration.truelicense.manager.mapper.LicenseMapper;
 
 import javax.security.auth.x500.X500Principal;
 import java.io.File;
@@ -39,50 +38,69 @@ import java.util.Date;
 @Slf4j
 public class LicenseStore {
 
-  private static final X500Principal DEFAULT_HOLDER_AND_ISSUER =
-      new X500Principal("CN=localhost, OU=localhost, O=localhost, L=SH, ST=SH, C=CN");
+	private static final X500Principal DEFAULT_HOLDER_AND_ISSUER =
+		new X500Principal("CN=localhost, OU=localhost, O=localhost, L=SH, ST=SH, C=CN");
 
-  private static final String DEFAULT_CONSUMER_TYPE = "user";
+	private static final String DEFAULT_CONSUMER_TYPE = "user";
 
-  private final LicenseManager licenseManager;
+	private final LicenseManager licenseManager;
 
-  public LicenseStore(LicenseManager licenseManager) {
-    this.licenseManager = licenseManager;
-  }
+	public LicenseStore(LicenseManager licenseManager) {
+		this.licenseManager = licenseManager;
+	}
 
-  public boolean store(EnhancedLicenseContent enhancedLicenseContent) {
-    // 如果没有设置类型，按用户类型设置
-    if (StringUtils.isNull(enhancedLicenseContent.getConsumerType())) {
-      enhancedLicenseContent.setConsumerType(DEFAULT_CONSUMER_TYPE);
-    }
+	public boolean store(EnhancedLicenseContent enhancedLicenseContent) {
+		// 如果没有设置类型，按用户类型设置
+		if (StringUtils.isNull(enhancedLicenseContent.getConsumerType())) {
+			enhancedLicenseContent.setConsumerType(DEFAULT_CONSUMER_TYPE);
+		}
 
-    // 签发时间默认为当前系统时间
-    enhancedLicenseContent.setIssued(new Date());
+		// 签发时间默认为当前系统时间
+		enhancedLicenseContent.setIssued(new Date());
 
-    // 如果没有设置生效时间，按签发时间生效
-    if (ObjectUtils.isNull(enhancedLicenseContent.getNotBefore())) {
-      enhancedLicenseContent.setNotBefore(enhancedLicenseContent.getIssued());
-    }
+		// 如果没有设置生效时间，按签发时间生效
+		if (ObjectUtils.isNull(enhancedLicenseContent.getNotBefore())) {
+			enhancedLicenseContent.setNotBefore(enhancedLicenseContent.getIssued());
+		}
 
-    // 如果没有设置到期时间，默认为 1 个月有效期
-    if (ObjectUtils.isNull(enhancedLicenseContent.getNotAfter())) {
-      enhancedLicenseContent.setNotAfter(
-          DateUtils.dateAdd(enhancedLicenseContent.getNotBefore(), 1, Calendar.MONTH));
-    }
+		// 如果没有设置到期时间，默认为 1 个月有效期
+		if (ObjectUtils.isNull(enhancedLicenseContent.getNotAfter())) {
+			enhancedLicenseContent.setNotAfter(
+				DateUtils.dateAdd(enhancedLicenseContent.getNotBefore(), 1, Calendar.MONTH));
+		}
 
-    LicenseContent licenseContent = new LicenseContent();
-    licenseContent.setHolder(DEFAULT_HOLDER_AND_ISSUER);
-    licenseContent.setIssuer(DEFAULT_HOLDER_AND_ISSUER);
-    LicenseMapper.INSTANCE.updateLicenseContentFromLicenseStore(
-        enhancedLicenseContent, licenseContent);
-    File file = new File(enhancedLicenseContent.getLicensePath());
+		LicenseContent licenseContent = new LicenseContent();
+		licenseContent.setHolder(DEFAULT_HOLDER_AND_ISSUER);
+		licenseContent.setIssuer(DEFAULT_HOLDER_AND_ISSUER);
+		if (enhancedLicenseContent.getSubject() != null) {
+			licenseContent.setSubject(enhancedLicenseContent.getSubject());
+		}
+		if (enhancedLicenseContent.getIssued() != null) {
+			licenseContent.setIssued(enhancedLicenseContent.getIssued());
+		}
+		if (enhancedLicenseContent.getNotBefore() != null) {
+			licenseContent.setNotBefore(enhancedLicenseContent.getNotBefore());
+		}
+		if (enhancedLicenseContent.getNotAfter() != null) {
+			licenseContent.setNotAfter(enhancedLicenseContent.getNotAfter());
+		}
+		if (enhancedLicenseContent.getConsumerType() != null) {
+			licenseContent.setConsumerType(enhancedLicenseContent.getConsumerType());
+		}
+		if (enhancedLicenseContent.getConsumerAmount() != null) {
+			licenseContent.setConsumerAmount(enhancedLicenseContent.getConsumerAmount());
+		}
+		if (enhancedLicenseContent.getInfo() != null) {
+			licenseContent.setInfo(enhancedLicenseContent.getInfo());
+		}
 
-    try {
-      licenseManager.store(licenseContent, file);
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return false;
-    }
-    return true;
-  }
+		File file = new File(enhancedLicenseContent.getLicensePath());
+		try {
+			licenseManager.store(licenseContent, file);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return false;
+		}
+		return true;
+	}
 }

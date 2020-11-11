@@ -19,12 +19,11 @@ package org.ylzl.eden.spring.boot.framework.web.rest.vm;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 字段错误视图模型
@@ -32,21 +31,37 @@ import java.io.Serializable;
  * @author gyl
  * @since 1.0.0
  */
-@Builder(toBuilder = true)
+@AllArgsConstructor
 @Data
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@SuperBuilder
+@ToString(callSuper = true)
 @ApiModel(description = "字段错误视图模型")
-public class FieldErrorVM implements Serializable {
+public class FieldErrorVM extends ErrorVM {
 
-  private static final long serialVersionUID = -2067870430489469084L;
+	private List<FieldError> fieldErrors;
 
-  @ApiModelProperty(value = "对象名称")
-  private String objectName;
+	public void add(String objectName, String field, String message) {
+		if (fieldErrors == null) {
+			fieldErrors = new ArrayList<>();
+		}
+		fieldErrors.add(FieldError.builder().objectName(objectName).field(field).message(message).build());
+	}
 
-  @ApiModelProperty(value = "字段")
-  private String field;
+	@Builder(toBuilder = true)
+	@Data
+	@EqualsAndHashCode
+	@ToString
+	private static class FieldError {
 
-  @ApiModelProperty(value = "消息")
-  private String message;
+		@ApiModelProperty(value = "对象名称")
+		private String objectName;
+
+		@ApiModelProperty(value = "字段")
+		private String field;
+
+		@ApiModelProperty(value = "消息")
+		private String message;
+	}
 }

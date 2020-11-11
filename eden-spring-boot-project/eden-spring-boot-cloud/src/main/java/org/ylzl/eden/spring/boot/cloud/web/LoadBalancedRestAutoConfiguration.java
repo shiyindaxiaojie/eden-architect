@@ -42,7 +42,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @AutoConfigureAfter(RestAutoConfiguration.class)
-@ConditionalOnClass({RestTemplate.class, LoadBalanced.class})
+@ConditionalOnClass({RestTemplate.class, LoadBalanced.class, OAuth2Properties.class, JwtProperties.class})
 @Slf4j
 @Configuration
 public class LoadBalancedRestAutoConfiguration {

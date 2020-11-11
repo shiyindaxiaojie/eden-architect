@@ -19,14 +19,12 @@ package org.ylzl.eden.spring.boot.framework.web.rest.vm;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.http.HttpStatus;
+import org.ylzl.eden.spring.boot.framework.web.rest.errors.BadRequestAlertException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 错误视图模型
@@ -34,14 +32,18 @@ import java.util.List;
  * @author gyl
  * @since 1.0.0
  */
-@Builder(toBuilder = true)
+@AllArgsConstructor
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
+@SuperBuilder
 @ToString
 @ApiModel(description = "错误视图模型")
 public class ErrorVM implements Serializable {
 
   private static final long serialVersionUID = 5744374451644419814L;
+
+  private transient int statusCode;
 
   @ApiModelProperty(value = "消息")
   private String message;
@@ -49,13 +51,18 @@ public class ErrorVM implements Serializable {
   @ApiModelProperty(value = "描述")
   private String description;
 
-  private List<FieldErrorVM> fieldErrors;
-
-  public void add(String objectName, String field, String message) {
-    if (fieldErrors == null) {
-      fieldErrors = new ArrayList<>();
-    }
-    fieldErrors.add(
-        FieldErrorVM.builder().objectName(objectName).field(field).message(message).build());
-  }
+  public static ErrorVM build(Throwable t) {
+		ErrorVM errorVM = ErrorVM.builder().build();
+		if (t instanceof BadRequestAlertException) {
+			BadRequestAlertException ex = (BadRequestAlertException) t;
+			errorVM.setMessage(ex.getMessage());
+			errorVM.setDescription(ex.getDescription());
+			errorVM.setStatusCode(ex.getStatusCode());
+		} else {
+			errorVM.setMessage(t.getMessage());
+			errorVM.setDescription(t.getMessage());
+			errorVM.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		}
+		return errorVM;
+	}
 }

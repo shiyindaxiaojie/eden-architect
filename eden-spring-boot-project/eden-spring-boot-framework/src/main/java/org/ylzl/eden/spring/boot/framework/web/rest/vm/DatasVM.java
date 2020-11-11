@@ -15,21 +15,40 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.framework.web.rest.errors;
+package org.ylzl.eden.spring.boot.framework.web.rest.vm;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import java.io.Serializable;
 
 /**
- * 非法访问
+ * 数据列表视图模型
  *
  * @author gyl
  * @since 1.0.0
  */
-public class AccessDeniedException extends BadRequestAlertException {
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@Data
+@EqualsAndHashCode
+@NoArgsConstructor
+@ToString
+@ApiModel(description = "数据列表视图模型")
+public class DatasVM<T> implements Serializable {
 
-  public AccessDeniedException() {
-    super(ErrorConstants.ERR_ACCESS_DENIED);
-  }
+  private static final long serialVersionUID = -6062447811540513140L;
 
-  public AccessDeniedException(String message) {
-    super(message);
-  }
+  /** 消息 */
+  @ApiModelProperty(value = "消息")
+  private String message;
+
+  /** 数据 */
+  @ApiModelProperty(value = "数据")
+  private T data;
+
+  /** 统计 */
+  @ApiModelProperty(value = "统计")
+  private Long count;
 }

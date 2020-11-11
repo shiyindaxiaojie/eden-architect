@@ -26,10 +26,14 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 public class InvalidPrimaryKeyException extends BadRequestAlertException {
 
   public InvalidPrimaryKeyException() {
-    super(ErrorConstants.ERR_INVALID_PRIMARY_KEY);
+    super(ErrorEnum.INVALID_PRIMARY_KEY.getMessage());
   }
 
-  public InvalidPrimaryKeyException(String message) {
-    super(message);
-  }
+	public InvalidPrimaryKeyException(String message) {
+		super(message);
+	}
+
+	public InvalidPrimaryKeyException(String message, String description) {
+		super(message, description);
+	}
 }

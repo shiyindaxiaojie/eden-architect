@@ -19,10 +19,7 @@ package org.ylzl.eden.spring.boot.framework.web.rest.vm;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -33,17 +30,22 @@ import java.util.Map;
  * @author gyl
  * @since 1.0.0
  */
+@AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @ToString
 @ApiModel(description = "参数化错误视图模型")
 public class ParameterizedErrorVM implements Serializable {
 
-  private static final long serialVersionUID = -4358582598956460848L;
+	private static final long serialVersionUID = 7570771053406270725L;
 
-  @ApiModelProperty(value = "消息")
+	@ApiModelProperty(value = "消息")
   private String message;
+
+	@ApiModelProperty(value = "描述")
+	private String description;
 
   @ApiModelProperty(value = "参数映射对象")
   private Map<String, String> paramMap;

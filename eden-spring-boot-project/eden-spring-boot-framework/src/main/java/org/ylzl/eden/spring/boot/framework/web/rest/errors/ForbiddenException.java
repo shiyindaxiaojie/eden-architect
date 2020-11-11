@@ -15,40 +15,32 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.framework.web.rest.vm;
+package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-
-import java.io.Serializable;
+import org.springframework.http.HttpStatus;
 
 /**
- * 业务处理视图模型
+ * 非法访问
  *
  * @author gyl
  * @since 1.0.0
  */
-@AllArgsConstructor
-@Builder(toBuilder = true)
-@Data
-@EqualsAndHashCode
-@NoArgsConstructor
-@ToString
-@ApiModel(description = "处理结果视图模型")
-public class ResultVM<T> implements Serializable {
+public class ForbiddenException extends BadRequestAlertException {
 
-  private static final long serialVersionUID = -6062447811540513140L;
+  public ForbiddenException() {
+    super(ErrorEnum.FORBIDDEN.getMessage());
+  }
 
-  /** 消息 */
-  @ApiModelProperty(value = "消息")
-  private String message;
+	public ForbiddenException(String message) {
+		super(message);
+	}
 
-  /** 数据 */
-  @ApiModelProperty(value = "数据")
-  private T data;
+	public ForbiddenException(String message, String description) {
+		super(message, description);
+	}
 
-  /** 统计 */
-  @ApiModelProperty(value = "统计")
-  private Long count;
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.FORBIDDEN.value();
+	}
 }
