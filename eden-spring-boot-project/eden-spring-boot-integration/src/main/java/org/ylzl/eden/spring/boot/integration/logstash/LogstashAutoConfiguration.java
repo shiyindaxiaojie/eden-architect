@@ -46,7 +46,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.boot.commons.lang.time.DatePattern;
+import org.ylzl.eden.spring.boot.commons.lang.time.DateFormatEnum;
 import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 import org.ylzl.eden.spring.boot.integration.metrics.MetricsLoggingAutoConfiguration;
@@ -262,7 +262,7 @@ public class LogstashAutoConfiguration {
   private LoggingEventFormattedTimestampJsonProvider timestampJsonProvider() {
     final LoggingEventFormattedTimestampJsonProvider timestampJsonProvider =
         new LoggingEventFormattedTimestampJsonProvider();
-    timestampJsonProvider.setTimeZone(DatePattern.DEFAULT_TIME_ZONE);
+    timestampJsonProvider.setTimeZone(DateFormatEnum.DEFAULT_TIME_ZONE);
     timestampJsonProvider.setFieldName(KEY_TIMESTAMP);
     return timestampJsonProvider;
   }

@@ -29,11 +29,11 @@ public class InvalidPrimaryKeyException extends BadRequestAlertException {
     super(ErrorEnum.INVALID_PRIMARY_KEY.getMessage());
   }
 
-	public InvalidPrimaryKeyException(String message) {
-		super(message);
-	}
+  public InvalidPrimaryKeyException(String message) {
+    super(message);
+  }
 
-	public InvalidPrimaryKeyException(String message, String description) {
-		super(message, description);
-	}
+  public InvalidPrimaryKeyException(String message, String description) {
+    super(message, description);
+  }
 }

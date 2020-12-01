@@ -27,78 +27,14 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 public enum PrimitiveTypeEnum {
-  BOOLEAN(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? false : Boolean.parseBoolean(value);
-        }
-      },
-      Boolean.class),
-  BYTE(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? (byte) 0 : Byte.parseByte(value);
-        }
-      },
-      Byte.class),
-  CHAR(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? '\u0000' : value.charAt(0);
-        }
-      },
-      Character.class),
-  DOUBLE(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? 0.0d : Double.parseDouble(value);
-        }
-      },
-      Double.class),
-  FLOAT(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? 0.0f : Float.parseFloat(value);
-        }
-      },
-      Float.class),
-  INTEGER(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? 0 : Integer.parseInt(value);
-        }
-      },
-      Integer.class),
-  LONG(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? 0L : Long.parseLong(value);
-        }
-      },
-      Long.class),
-  SHORT(
-      new Handler() {
-
-        @Override
-        public Object cast(String value) {
-          return value == null ? (short) 0 : Short.parseShort(value);
-        }
-      },
-      Short.class);
+  BOOLEAN(value -> value == null ? false : Boolean.parseBoolean(value), Boolean.class),
+  BYTE(value -> value == null ? (byte) 0 : Byte.parseByte(value), Byte.class),
+  CHAR(value -> value == null ? '\u0000' : value.charAt(0), Character.class),
+  DOUBLE(value -> value == null ? 0.0d : Double.parseDouble(value), Double.class),
+  FLOAT(value -> value == null ? 0.0f : Float.parseFloat(value), Float.class),
+  INTEGER(value -> value == null ? 0 : Integer.parseInt(value), Integer.class),
+  LONG(value -> value == null ? 0L : Long.parseLong(value), Long.class),
+  SHORT(value -> value == null ? (short) 0 : Short.parseShort(value), Short.class);
 
   @Getter private final Handler handler;
 

@@ -30,11 +30,10 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
 
   private static final String MSG_LOGIN_FAILED = "FTPClient login {} to {}:{} failed";
 
-	private static final String MSG_LOGOUT_ERROR =
-		"FTPClient logout failed, caught exception: {}";
+  private static final String MSG_LOGOUT_ERROR = "FTPClient logout failed, caught exception: {}";
 
-	private static final String MSG_DISCONNECT_ERROR =
-		"FTPClient disconnect failed, caught exception: {}";
+  private static final String MSG_DISCONNECT_ERROR =
+      "FTPClient disconnect failed, caught exception: {}";
 
   private static final String MSG_ENTER_PASSIVE_MODE = "FTPClient username {} enter passive mode";
 
@@ -49,11 +48,11 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
   @Override
   public FTPClient create() throws Exception {
     FTPClient client = new FTPClient();
-		client.setConnectTimeout(config.getConnectTimeOut());
-		client.setDataTimeout(config.getDataTimeout());
-		client.setControlEncoding(config.getControlEncoding());
-		client.setControlKeepAliveReplyTimeout(config.getControlKeepAliveReplyTimeout());
-		client.setUseEPSVwithIPv4(config.isUseEPSVwithIPv4());
+    client.setConnectTimeout(config.getConnectTimeOut());
+    client.setDataTimeout(config.getDataTimeout());
+    client.setControlEncoding(config.getControlEncoding());
+    client.setControlKeepAliveReplyTimeout(config.getControlKeepAliveReplyTimeout());
+    client.setUseEPSVwithIPv4(config.isUseEPSVwithIPv4());
 
     String host = config.getHost();
     int port = config.getPort();
@@ -80,8 +79,8 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
       return null;
     }
 
-		client.setBufferSize(config.getBufferSize());
-		client.setFileType(config.getFileType());
+    client.setBufferSize(config.getBufferSize());
+    client.setFileType(config.getFileType());
     if (config.isPassiveMode()) {
       log.info(MSG_ENTER_PASSIVE_MODE, username);
       client.enterLocalPassiveMode(); // 进入被动模式
@@ -101,14 +100,14 @@ public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {
         client.logout();
       }
     } catch (Exception e) {
-    	log.error(MSG_LOGOUT_ERROR, e.getMessage(), e);
-		} finally {
-			try {
-				client.disconnect();
-			} catch (IOException e) {
-				log.error(MSG_DISCONNECT_ERROR, e.getMessage(), e);
-			}
-		}
+      log.error(MSG_LOGOUT_ERROR, e.getMessage(), e);
+    } finally {
+      try {
+        client.disconnect();
+      } catch (IOException e) {
+        log.error(MSG_DISCONNECT_ERROR, e.getMessage(), e);
+      }
+    }
   }
 
   @Override

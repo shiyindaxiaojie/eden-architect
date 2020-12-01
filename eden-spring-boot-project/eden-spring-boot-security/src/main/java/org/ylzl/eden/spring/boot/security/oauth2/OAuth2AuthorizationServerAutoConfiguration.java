@@ -50,8 +50,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
-@ConditionalOnExpression(
-    OAuth2AuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_SERVER)
+@ConditionalOnExpression(OAuth2AuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_SERVER)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @EnableAuthorizationServer
 @Import({DefaultWebSecuirtyConfiguration.class, OAuth2WebSecurityConfiguration.class})

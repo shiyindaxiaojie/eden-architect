@@ -10,7 +10,7 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 public interface FTPClientPool {
 
-	FTPClient borrowObject() throws Exception;
+  FTPClient borrowObject() throws Exception;
 
-	void returnObject(FTPClient client);
+  void returnObject(FTPClient client);
 }

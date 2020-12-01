@@ -57,7 +57,7 @@ import java.util.Set;
 public class RedisClusterAutoConfiguration {
 
   @ConditionalOnClass({Jedis.class, JedisCluster.class})
-	@Configuration
+  @Configuration
   public static class FixedJedisAutoConfiguration {
 
     @ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)
@@ -84,18 +84,18 @@ public class RedisClusterAutoConfiguration {
           poolConfig);
     }
 
-		@ConditionalOnMissingBean
-		@Bean
-		public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-			JedisTemplate redisTemplate = new JedisTemplate();
-			redisTemplate.setConnectionFactory(redisConnectionFactory);
-			return redisTemplate;
-		}
+    @ConditionalOnMissingBean
+    @Bean
+    public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+      JedisTemplate redisTemplate = new JedisTemplate();
+      redisTemplate.setConnectionFactory(redisConnectionFactory);
+      return redisTemplate;
+    }
 
-		@ConditionalOnMissingBean
-		@Bean
-		public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
-			return new DistributedRedisLock(redisTemplate);
-		}
+    @ConditionalOnMissingBean
+    @Bean
+    public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
+      return new DistributedRedisLock(redisTemplate);
+    }
   }
 }

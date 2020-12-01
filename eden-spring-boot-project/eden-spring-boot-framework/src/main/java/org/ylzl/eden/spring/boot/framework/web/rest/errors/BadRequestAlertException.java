@@ -30,9 +30,9 @@ import org.ylzl.eden.spring.boot.framework.web.rest.vm.ErrorVM;
 @Getter
 public class BadRequestAlertException extends RuntimeException {
 
-	private static final long serialVersionUID = -4672286153615627725L;
+  private static final long serialVersionUID = -4672286153615627725L;
 
-	private final String message;
+  private final String message;
 
   private final String description;
 
@@ -48,15 +48,15 @@ public class BadRequestAlertException extends RuntimeException {
     this.description = message;
   }
 
-	public BadRequestAlertException(String message, String description) {
-		super(message);
-		this.message = message;
-		this.description = description;
-	}
+  public BadRequestAlertException(String message, String description) {
+    super(message);
+    this.message = message;
+    this.description = description;
+  }
 
-	public int getStatusCode() {
-	    return HttpStatus.BAD_REQUEST.value();
-	}
+  public int getStatusCode() {
+    return HttpStatus.BAD_REQUEST.value();
+  }
 
   public ErrorVM getErrorVM() {
     return ErrorVM.builder().message(message).description(description).build();

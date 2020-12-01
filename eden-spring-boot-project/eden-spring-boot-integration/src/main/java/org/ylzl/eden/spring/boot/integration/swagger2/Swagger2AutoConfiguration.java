@@ -98,7 +98,7 @@ public class Swagger2AutoConfiguration {
   private final ManagementServerProperties managementServerProperties;
 
   public Swagger2AutoConfiguration(
-		Swagger2Properties properties, ManagementServerProperties managementServerProperties) {
+      Swagger2Properties properties, ManagementServerProperties managementServerProperties) {
     this.properties = properties;
     this.managementServerProperties = managementServerProperties;
   }

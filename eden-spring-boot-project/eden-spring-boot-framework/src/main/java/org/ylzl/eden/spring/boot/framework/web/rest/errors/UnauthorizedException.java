@@ -31,15 +31,15 @@ public class UnauthorizedException extends BadRequestAlertException {
     super(ErrorEnum.UNAUTHORIZED.getMessage());
   }
 
-	public UnauthorizedException(String message) {
-		super(message);
-	}
+  public UnauthorizedException(String message) {
+    super(message);
+  }
 
-	public UnauthorizedException(String message, String description) {
-		super(message, description);
-	}
+  public UnauthorizedException(String message, String description) {
+    super(message, description);
+  }
 
-	public int getStatusCode() {
-		return HttpStatus.UNAUTHORIZED.value();
-	}
+  public int getStatusCode() {
+    return HttpStatus.UNAUTHORIZED.value();
+  }
 }

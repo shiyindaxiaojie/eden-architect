@@ -66,7 +66,8 @@ public class OAuth2Properties {
 
     private Long publicTokenKeyTtl = OAuth2Defaults.Authorization.publicTokenKeyTtl;
 
-    private String cookieDomain = OAuth2Defaults.Authorization.cookieDomain;;
+    private String cookieDomain = OAuth2Defaults.Authorization.cookieDomain;
+    ;
 
     private Integer sessionTimeoutSeconds = OAuth2Defaults.Authorization.sessionTimeoutSeconds;
 
@@ -146,9 +147,11 @@ public class OAuth2Properties {
     @Setter
     public static class Password {
 
-      private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;;
+      private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;
+      ;
 
-      private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;;
+      private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;
+      ;
 
       private Integer accessTokenValiditySeconds =
           OAuth2Defaults.Authorization.Password.accessTokenValiditySeconds;

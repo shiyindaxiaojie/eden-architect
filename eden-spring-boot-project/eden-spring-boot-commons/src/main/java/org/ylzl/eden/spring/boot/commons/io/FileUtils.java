@@ -49,12 +49,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
   }
 
   public static boolean checkAndMkdirs(@NonNull File file) {
-		File parentFile = file.getParentFile();
-		if (!parentFile.exists()) {
-			return parentFile.mkdirs();
-		}
-		return true;
-	}
+    File parentFile = file.getParentFile();
+    if (!parentFile.exists()) {
+      return parentFile.mkdirs();
+    }
+    return true;
+  }
 
   public static void delete(File file) throws IOException {
     Files.delete(Paths.get(file.getAbsolutePath()));
@@ -252,7 +252,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
   }
 
   public static File toFile(@NonNull byte[] bytes, @NonNull File file) throws IOException {
-		checkAndMkdirs(file);
+    checkAndMkdirs(file);
     try (FileOutputStream fos = new FileOutputStream(file);
         BufferedOutputStream bos = new BufferedOutputStream(fos); ) {
       bos.write(bytes);

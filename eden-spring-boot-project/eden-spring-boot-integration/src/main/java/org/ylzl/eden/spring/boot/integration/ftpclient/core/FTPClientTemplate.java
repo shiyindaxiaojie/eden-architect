@@ -21,7 +21,7 @@ public class FTPClientTemplate {
   private static final String MSG_CHANGE_DIR_FAILED =
       "FTPClient changeWorkingDirectory to `{0}` failed";
 
-	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
+  private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
 
   private FTPClientPool pool;
 
@@ -73,12 +73,12 @@ public class FTPClientTemplate {
           throw new RuntimeException(MessageFormat.format(MSG_CHANGE_DIR_FAILED, pathname));
         }
 
-				try {
-					return client.storeFile(remote, local);
-				} finally {
-					client.completePendingCommand();
-				}
-			}
+        try {
+          return client.storeFile(remote, local);
+        } finally {
+          client.completePendingCommand();
+        }
+      }
     }.exec();
   }
 
@@ -93,12 +93,13 @@ public class FTPClientTemplate {
 
         try (InputStream in = client.retrieveFileStream(remote); ) {
           if (in == null || client.getReplyCode() == FTPReply.FILE_UNAVAILABLE) {
-						throw new RuntimeException(MessageFormat.format(MSG_FILE_UNAVAILABLE, client.getReplyCode()));
-					}
+            throw new RuntimeException(
+                MessageFormat.format(MSG_FILE_UNAVAILABLE, client.getReplyCode()));
+          }
 
           return IOUtils.toByteArray(in);
         } finally {
-        	client.completePendingCommand();
+          client.completePendingCommand();
         }
       }
     }.exec();

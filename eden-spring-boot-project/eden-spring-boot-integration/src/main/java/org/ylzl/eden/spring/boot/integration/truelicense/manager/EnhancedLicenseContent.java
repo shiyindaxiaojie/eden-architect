@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
-import org.ylzl.eden.spring.boot.commons.lang.time.DatePattern;
+import org.ylzl.eden.spring.boot.commons.lang.time.DateFormatEnum;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -63,11 +63,15 @@ public class EnhancedLicenseContent implements Serializable {
   @JsonIgnore private Date issued;
 
   /** 证书生效时间 */
-  @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = DatePattern.DEFAULT_TIME_ZONE)
+  @JsonFormat(
+      pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
+      timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
   private Date notBefore;
 
   /** 证书到期时间 */
-  @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = DatePattern.DEFAULT_TIME_ZONE)
+  @JsonFormat(
+      pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
+      timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
   private Date notAfter;
 
   /** 用户类型 */

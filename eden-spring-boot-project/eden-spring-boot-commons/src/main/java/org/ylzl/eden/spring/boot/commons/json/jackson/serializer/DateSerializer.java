@@ -20,7 +20,6 @@ package org.ylzl.eden.spring.boot.commons.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ylzl.eden.spring.boot.commons.lang.time.DatePattern;
 import org.ylzl.eden.spring.boot.commons.lang.time.DateUtils;
 
 import java.io.IOException;
@@ -38,6 +37,6 @@ public class DateSerializer extends JsonSerializer<Date> {
   public void serialize(
       Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
       throws IOException {
-    jsonGenerator.writeString(DateUtils.toDateString(date, DatePattern.NORM_DATE_PATTERN));
+    jsonGenerator.writeString(DateUtils.toDateString(date));
   }
 }

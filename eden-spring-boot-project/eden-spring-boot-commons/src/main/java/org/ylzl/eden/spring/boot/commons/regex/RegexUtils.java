@@ -53,12 +53,11 @@ public class RegexUtils {
   }
 
   public static void main(String[] args) {
+    System.out.println(RegexUtils.group("^VERETIV(.*?)\\.CSV$", "VERETIV123456.CSV"));
     System.out.println(
         RegexUtils.group(
-            "^VERETIV(.*?)\\.CSV$", "VERETIV123456.CSV"));
-    System.out.println(
-        RegexUtils.group(
-            "^VERTIV(.*?)2020-05-08\\.CSV$|^VERETIV(.*?)2020-05-08\\.CSV$", "VERETIV1234562020-05-08.CSV"));
+            "^VERTIV(.*?)2020-05-08\\.CSV$|^VERETIV(.*?)2020-05-08\\.CSV$",
+            "VERETIV1234562020-05-08.CSV"));
   }
 
   public static String replaceAll(

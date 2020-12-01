@@ -49,8 +49,7 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.jwt.SignatureVerifierClie
  */
 @AutoConfigureAfter({RestAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
-@ConditionalOnExpression(
-    OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
+@ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})
 @Import(OAuth2AuthorizationClientAutoConfiguration.class)
 @Slf4j

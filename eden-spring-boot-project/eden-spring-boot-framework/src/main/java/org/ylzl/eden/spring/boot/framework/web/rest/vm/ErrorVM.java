@@ -52,17 +52,17 @@ public class ErrorVM implements Serializable {
   private String description;
 
   public static ErrorVM build(Throwable t) {
-		ErrorVM errorVM = ErrorVM.builder().build();
-		if (t instanceof BadRequestAlertException) {
-			BadRequestAlertException ex = (BadRequestAlertException) t;
-			errorVM.setMessage(ex.getMessage());
-			errorVM.setDescription(ex.getDescription());
-			errorVM.setStatusCode(ex.getStatusCode());
-		} else {
-			errorVM.setMessage(t.getMessage());
-			errorVM.setDescription(t.getMessage());
-			errorVM.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-		}
-		return errorVM;
-	}
+    ErrorVM errorVM = ErrorVM.builder().build();
+    if (t instanceof BadRequestAlertException) {
+      BadRequestAlertException ex = (BadRequestAlertException) t;
+      errorVM.setMessage(ex.getMessage());
+      errorVM.setDescription(ex.getDescription());
+      errorVM.setStatusCode(ex.getStatusCode());
+    } else {
+      errorVM.setMessage(t.getMessage());
+      errorVM.setDescription(t.getMessage());
+      errorVM.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+    return errorVM;
+  }
 }

@@ -8,5 +8,5 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
  */
 public interface Error {
 
-	String getMessage();
+  String getMessage();
 }

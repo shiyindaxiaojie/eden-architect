@@ -31,15 +31,15 @@ public class InvalidCredentialsException extends BadRequestAlertException {
     super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
   }
 
-	public InvalidCredentialsException(String message) {
-		super(message);
-	}
+  public InvalidCredentialsException(String message) {
+    super(message);
+  }
 
-	public InvalidCredentialsException(String message, String description) {
-		super(message, description);
-	}
+  public InvalidCredentialsException(String message, String description) {
+    super(message, description);
+  }
 
-	public int getStatusCode() {
-		return HttpStatus.UNAUTHORIZED.value();
-	}
+  public int getStatusCode() {
+    return HttpStatus.UNAUTHORIZED.value();
+  }
 }

@@ -32,11 +32,11 @@ public class EntityNotFoundException extends BadRequestAlertException {
     super(ErrorEnum.ENTITY_NOT_FOUND.getMessage());
   }
 
-	public EntityNotFoundException(String message) {
-		super(message);
-	}
+  public EntityNotFoundException(String message) {
+    super(message);
+  }
 
-	public EntityNotFoundException(String message, String description) {
-		super(message, description);
-	}
+  public EntityNotFoundException(String message, String description) {
+    super(message, description);
+  }
 }

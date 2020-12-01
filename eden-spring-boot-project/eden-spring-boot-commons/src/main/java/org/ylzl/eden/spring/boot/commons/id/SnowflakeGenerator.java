@@ -22,7 +22,7 @@ import lombok.Synchronized;
 /**
  * Twitter 雪花算法生成器
  *
- * <p>总共 64 位，0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号</p>
+ * <p>总共 64 位，0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号
  *
  * @author gyl
  * @since 1.0.0
@@ -38,8 +38,8 @@ public class SnowflakeGenerator {
   /** 数据中心 ID 占 5 位 */
   private final long datacenterIdBits = 5L;
 
-	/** 序列号占  12 位 */
-	private final long sequenceBits = 12L;
+  /** 序列号占 12 位 */
+  private final long sequenceBits = 12L;
 
   /** 支持的最大机器 ID */
   private final long maxWorkerId = -1L ^ (-1L << workerIdBits);

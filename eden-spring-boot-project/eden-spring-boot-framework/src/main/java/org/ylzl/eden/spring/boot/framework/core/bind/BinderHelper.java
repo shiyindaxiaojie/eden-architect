@@ -12,6 +12,7 @@ import java.util.Properties;
  * 配置属性绑定助手
  *
  * <p>从 Spring Boot 1.X 升级到 2.X
+ *
  * <ul>
  *   <li>org.springframework.boot.bind.RelaxedPropertyResolver 变更为 {@link Binder}
  * </ul>

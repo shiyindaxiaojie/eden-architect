@@ -40,28 +40,29 @@ import java.util.List;
 @ApiModel(description = "字段错误视图模型")
 public class FieldErrorVM extends ErrorVM {
 
-	private List<FieldError> fieldErrors;
+  private List<FieldError> fieldErrors;
 
-	public void add(String objectName, String field, String message) {
-		if (fieldErrors == null) {
-			fieldErrors = new ArrayList<>();
-		}
-		fieldErrors.add(FieldError.builder().objectName(objectName).field(field).message(message).build());
-	}
+  public void add(String objectName, String field, String message) {
+    if (fieldErrors == null) {
+      fieldErrors = new ArrayList<>();
+    }
+    fieldErrors.add(
+        FieldError.builder().objectName(objectName).field(field).message(message).build());
+  }
 
-	@Builder(toBuilder = true)
-	@Data
-	@EqualsAndHashCode
-	@ToString
-	private static class FieldError {
+  @Builder(toBuilder = true)
+  @Data
+  @EqualsAndHashCode
+  @ToString
+  public static class FieldError {
 
-		@ApiModelProperty(value = "对象名称")
-		private String objectName;
+    @ApiModelProperty(value = "对象名称")
+    private String objectName;
 
-		@ApiModelProperty(value = "字段")
-		private String field;
+    @ApiModelProperty(value = "字段")
+    private String field;
 
-		@ApiModelProperty(value = "消息")
-		private String message;
-	}
+    @ApiModelProperty(value = "消息")
+    private String message;
+  }
 }

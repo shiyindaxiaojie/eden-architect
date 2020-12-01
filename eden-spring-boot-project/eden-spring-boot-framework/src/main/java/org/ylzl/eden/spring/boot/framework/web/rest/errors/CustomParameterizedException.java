@@ -58,14 +58,19 @@ public class CustomParameterizedException extends RuntimeException {
     this.paramMap.putAll(paramMap);
   }
 
-	public CustomParameterizedException(String message, String description, Map<String, String> paramMap) {
-		super(message);
-		this.message = message;
-		this.description = description;
-		this.paramMap.putAll(paramMap);
-	}
+  public CustomParameterizedException(
+      String message, String description, Map<String, String> paramMap) {
+    super(message);
+    this.message = message;
+    this.description = description;
+    this.paramMap.putAll(paramMap);
+  }
 
   public ParameterizedErrorVM getErrorVM() {
-    return ParameterizedErrorVM.builder().message(message).description(description).paramMap(paramMap).build();
+    return ParameterizedErrorVM.builder()
+        .message(message)
+        .description(description)
+        .paramMap(paramMap)
+        .build();
   }
 }

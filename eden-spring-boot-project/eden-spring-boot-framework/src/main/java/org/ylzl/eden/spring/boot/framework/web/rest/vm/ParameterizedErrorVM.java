@@ -39,13 +39,13 @@ import java.util.Map;
 @ApiModel(description = "参数化错误视图模型")
 public class ParameterizedErrorVM implements Serializable {
 
-	private static final long serialVersionUID = 7570771053406270725L;
+  private static final long serialVersionUID = 7570771053406270725L;
 
-	@ApiModelProperty(value = "消息")
+  @ApiModelProperty(value = "消息")
   private String message;
 
-	@ApiModelProperty(value = "描述")
-	private String description;
+  @ApiModelProperty(value = "描述")
+  private String description;
 
   @ApiModelProperty(value = "参数映射对象")
   private Map<String, String> paramMap;

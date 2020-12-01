@@ -18,10 +18,10 @@
 package org.ylzl.eden.spring.boot.commons.lang.time;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,14 +31,16 @@ import java.util.Date;
  * @author gyl
  * @since 1.0.0
  */
+@UtilityClass
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
-  public static Date toDate(@NonNull String dateStr, @NonNull String format) throws ParseException {
-    return new SimpleDateFormat(format).parse(dateStr);
+  public static Date toDate(@NonNull String dateStr, @NonNull String pattern)
+      throws ParseException {
+    return DateFormatEnum.getFastDateFormat(pattern).parse(dateStr);
   }
 
   public static Date toDate(@NonNull String dateStr) throws ParseException {
-    return new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN).parse(dateStr);
+    return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().parse(dateStr);
   }
 
   public static Date toDate(@NonNull Timestamp timestamp) {
@@ -49,9 +51,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     return calendar.getTime();
   }
 
-  public static java.sql.Date toSQLDate(@NonNull String dateStr, @NonNull String format)
+  public static java.sql.Date toSQLDate(@NonNull String dateStr, @NonNull String pattern)
       throws ParseException {
-    return new java.sql.Date(toDate(dateStr, format).getTime());
+    return new java.sql.Date(toDate(dateStr, pattern).getTime());
   }
 
   public static java.sql.Date toSQLDate(@NonNull String dateStr) throws ParseException {
@@ -62,29 +64,33 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     return new java.sql.Date(date.getTime());
   }
 
-  public static String toDateString(@NonNull Date date, @NonNull String format) {
-    return new SimpleDateFormat(format).format(date);
+  public static String toDateString(@NonNull Date date, @NonNull String pattern) {
+    return DateFormatEnum.getFastDateFormat(pattern).format(date);
   }
 
   public static String toDateString(@NonNull Date date) {
-    return new SimpleDateFormat(DatePattern.NORM_DATE_PATTERN).format(date);
+    return DateFormatEnum.ISO_8601_EXTENDED_DATE_FORMAT.getFastDateFormat().format(date);
   }
 
   public static String toDateTimeString(@NonNull Date date) {
-    return new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN).format(date);
+    return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().format(date);
   }
 
-  public static String toDateString(@NonNull Calendar calendar, @NonNull String format) {
-    return toDateString(calendar.getTime(), format);
+  public static String toTimeString(@NonNull Date date) {
+    return DateFormatEnum.ISO_8601_EXTENDED_TIME_FORMAT.getFastDateFormat().format(date);
+  }
+
+  public static String toDateString(@NonNull Calendar calendar, @NonNull String pattern) {
+    return toDateString(calendar.getTime(), pattern);
   }
 
   public static String toDateString(@NonNull Calendar calendar) {
     return toDateString(calendar.getTime());
   }
 
-  public static Calendar toCalendar(@NonNull String dateStr, @NonNull String format)
+  public static Calendar toCalendar(@NonNull String dateStr, @NonNull String pattern)
       throws ParseException {
-    return toCalendar(toDate(dateStr, format));
+    return toCalendar(toDate(dateStr, pattern));
   }
 
   public static Calendar toCalendar(@NonNull String dateStr) throws ParseException {
@@ -97,9 +103,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     return calendar;
   }
 
-  public static Timestamp toTimestamp(@NonNull String dateStr, @NonNull String format)
+  public static Timestamp toTimestamp(@NonNull String dateStr, @NonNull String pattern)
       throws ParseException {
-    return toTimestamp(toDate(dateStr, format));
+    return toTimestamp(toDate(dateStr, pattern));
   }
 
   public static Timestamp toTimestamp(@NonNull String dateStr) throws ParseException {
@@ -114,41 +120,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     return toTimestamp(calendar.getTime());
   }
 
-  public static String getDateTime() {
-    return toDateString(new Date(), DatePattern.NORM_DATETIME_PATTERN);
-  }
-
-  public static Date dateAdd(@NonNull Date date, @NonNull int amount, @NonNull int calendarType) {
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(date);
-    switch (calendarType) {
-      case Calendar.SECOND:
-        calendar.add(Calendar.SECOND, amount);
-        break;
-
-      case Calendar.MINUTE:
-        calendar.add(Calendar.MINUTE, amount);
-        break;
-
-      case Calendar.HOUR:
-        calendar.add(Calendar.HOUR, amount);
-        break;
-
-      case Calendar.DATE:
-        calendar.add(Calendar.DATE, amount);
-        break;
-
-      case Calendar.MONTH:
-        calendar.add(Calendar.MONTH, amount);
-        break;
-
-      case Calendar.YEAR:
-        calendar.add(Calendar.YEAR, amount);
-        break;
-
-      default:
-        throw new RuntimeException("不支持的 Calendar 类型");
-    }
-    return calendar.getTime();
+  public static String getDateTimeString() {
+    return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT
+        .getFastDateFormat()
+        .format(Calendar.getInstance());
   }
 }

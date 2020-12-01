@@ -45,13 +45,14 @@ public class MemcachedAutoConfiguration {
 
   private final MemcachedProperties memcachedProperties;
 
-	public MemcachedAutoConfiguration(MemcachedProperties memcachedProperties) {
-		this.memcachedProperties = memcachedProperties;
-	}
+  public MemcachedAutoConfiguration(MemcachedProperties memcachedProperties) {
+    this.memcachedProperties = memcachedProperties;
+  }
 
-	@Bean
+  @Bean
   public MemcachedClient memcachedClient() throws IOException {
-		log.debug(MSG_AUTOWIRED_MEMCACHED_CLIENT);
-		return new MemcachedClient(new InetSocketAddress(memcachedProperties.getHost(), memcachedProperties.getPort()));
+    log.debug(MSG_AUTOWIRED_MEMCACHED_CLIENT);
+    return new MemcachedClient(
+        new InetSocketAddress(memcachedProperties.getHost(), memcachedProperties.getPort()));
   }
 }

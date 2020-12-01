@@ -16,8 +16,9 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ylzl</groupId>
@@ -57,7 +58,8 @@
 	<scm>
 		<url>https://github.com/eden-lab/eden-spring-boot</url>
 		<connection>scm:git:git://github.com/eden-lab/eden-spring-boot.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/eden-lab/eden-spring-boot.git</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/eden-lab/eden-spring-boot.git
+		</developerConnection>
 	</scm>
 
 	<!--<distributionManagement>
@@ -148,11 +150,12 @@
 		<micrometer.version>1.3.3</micrometer.version>
 		<mongobee.version>0.13</mongobee.version>
 		<mybatis.version>3.5.4</mybatis.version>
-		<mybatis-plus.version>3.0.7.1</mybatis-plus.version>
+		<mybatis-plus.version>3.4.1</mybatis-plus.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
 		<mysql.version>8.0.20</mysql.version>
 		<mvel.version>2.4.8.Final</mvel.version>
+		<nacos.version>1.4.0</nacos.version>
 		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
 		<netty.version>4.1.42.Final</netty.version>
 		<oracle.version>11.2.0.4.0</oracle.version>
@@ -177,7 +180,8 @@
 		<spring-boot-starter-data-jest.version>3.3.0.RELEASE</spring-boot-starter-data-jest.version>
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<spring-cloud-security.version>2.2.0.RELEASE</spring-cloud-security.version>
-		<spring-cloud-starter-alibaba-nacos.version>2.2.1.RELEASE</spring-cloud-starter-alibaba-nacos.version>
+		<spring-cloud-starter-alibaba-nacos.version>2.2.3.RELEASE
+		</spring-cloud-starter-alibaba-nacos.version>
 		<spring-data-commons.version>2.2.4.RELEASE</spring-data-commons.version>
 		<spring-data-hadoop.version>2.5.0.RELEASE</spring-data-hadoop.version>
 		<spring-data-jpa.version>2.2.4.RELEASE</spring-data-jpa.version>
@@ -664,6 +668,16 @@
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 				<version>${spring-cloud-starter-alibaba-nacos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-api</artifactId>
+				<version>${nacos.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-client</artifactId>
+				<version>${nacos.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.baomidou</groupId>

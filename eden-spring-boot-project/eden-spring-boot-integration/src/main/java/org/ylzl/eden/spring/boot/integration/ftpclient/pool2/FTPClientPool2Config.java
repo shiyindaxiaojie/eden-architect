@@ -8,6 +8,4 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * @author gyl
  * @since 2.0.0
  */
-public class FTPClientPool2Config extends GenericObjectPoolConfig {
-
-}
+public class FTPClientPool2Config extends GenericObjectPoolConfig {}

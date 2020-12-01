@@ -56,8 +56,11 @@ public class RestErrorAdvice {
   public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     List<FieldError> fieldErrors = result.getFieldErrors();
-		FieldErrorVM errorVM =
-			FieldErrorVM.builder().message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage()).description(ex.getMessage()).build();
+    FieldErrorVM errorVM =
+        FieldErrorVM.builder()
+            .message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage())
+            .description(ex.getMessage())
+            .build();
     for (FieldError fieldError : fieldErrors) {
       errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
     }
@@ -74,7 +77,10 @@ public class RestErrorAdvice {
   @ResponseBody
   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
   public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-    return ErrorVM.builder().message(ErrorEnum.METHOD_NOT_SUPPORTED.getMessage()).description(ex.getMessage()).build();
+    return ErrorVM.builder()
+        .message(ErrorEnum.METHOD_NOT_SUPPORTED.getMessage())
+        .description(ex.getMessage())
+        .build();
   }
 
   /**
