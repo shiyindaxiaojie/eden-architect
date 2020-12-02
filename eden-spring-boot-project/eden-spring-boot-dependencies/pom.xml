@@ -62,23 +62,12 @@
 		</developerConnection>
 	</scm>
 
-	<!--<distributionManagement>
+	<distributionManagement>
 		<repository>
 			<id>github</id>
 			<name>GitHub OWNER Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/eden-lab/eden-spring-boot</url>
 		</repository>
-	</distributionManagement>-->
-
-	<distributionManagement>
-		<repository>
-			<id>rdc-releases</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-release-oJPLbK/</url>
-		</repository>
-		<snapshotRepository>
-			<id>rdc-snapshots</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-snapshot-wHnENu/</url>
-		</snapshotRepository>
 	</distributionManagement>
 
 	<properties>

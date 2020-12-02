@@ -1,0 +1,14 @@
+@startuml
+[eden-spring-boot-parent] --> [eden-spring-boot-dependencies]
+[eden-spring-boot-common] --> [eden-spring-boot-parent]
+[eden-spring-boot-framework] --> [eden-spring-boot-common]
+[eden-spring-boot-data] --> [eden-spring-boot-framework]
+[eden-spring-boot-security] --> [eden-spring-boot-framework]
+[eden-spring-boot-integration] --> [eden-spring-boot-framework]
+[eden-spring-boot-test] --> [eden-spring-boot-integration]
+[eden-spring-boot-cloud] --> [eden-spring-boot-security]
+[eden-spring-boot-support] --> [eden-spring-boot-data]
+[eden-spring-boot-support] --> [eden-spring-boot-cloud]
+[eden-spring-boot-support] --> [eden-spring-boot-test]
+[eden-spring-boot-starters] --> [eden-spring-boot-dependencies]
+@enduml

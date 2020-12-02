@@ -213,9 +213,9 @@ public class Example {
 
 |===
 
-=== 开发视图
+=== 组件图
 
-image:src/docs/staruml/html-docs/diagrams/d5507f74c7649420f3e80c315002ce65.svg[width="600"]
+image:src/docs/plantuml/component.png[width="600"]
 
 == 许可声明
 
