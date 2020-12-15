@@ -5,8 +5,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.integration.ftpserver.FTPServerAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.hessian.HessianAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.logstash.LogstashAutoConfiguration,\
-  org.ylzl.eden.spring.boot.integration.metrics.EnhancedMetricsEndpointAutoConfiguration,\
-  org.ylzl.eden.spring.boot.integration.metrics.MetricsLoggingAutoConfiguration,\
+  org.ylzl.eden.spring.boot.integration.metrics.CustomMetricsEndpointAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.netty.NettyClientAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.netty.NettyServerAutoConfiguration,\
   org.ylzl.eden.spring.boot.integration.swagger2.Swagger2AutoConfiguration,\

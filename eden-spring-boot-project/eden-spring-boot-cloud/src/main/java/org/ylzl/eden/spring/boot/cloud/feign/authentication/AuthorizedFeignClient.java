@@ -45,7 +45,8 @@ public @interface AuthorizedFeignClient {
   String name() default StringConstants.EMPTY;
 
   @AliasFor(annotation = FeignClient.class, attribute = "configuration")
-  Class<?>[] configuration() default AuthorizedFeignConfiguration.class;
+  Class<?>[] configuration();
+  // default AuthorizedFeignConfiguration.class;
 
   String url() default StringConstants.EMPTY;
 

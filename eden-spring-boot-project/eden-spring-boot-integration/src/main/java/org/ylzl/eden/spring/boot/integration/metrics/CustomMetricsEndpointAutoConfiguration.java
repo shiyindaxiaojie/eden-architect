@@ -28,7 +28,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.boot.integration.metrics.endpoint.EnhancedMetricsEndpoint;
+import org.ylzl.eden.spring.boot.integration.metrics.endpoint.CustomMetricsEndpoint;
 
 /**
  * 增强 Metrics 端点自动配置
@@ -41,7 +41,7 @@ import org.ylzl.eden.spring.boot.integration.metrics.endpoint.EnhancedMetricsEnd
 @AutoConfigureAfter(MetricsEndpointAutoConfiguration.class)
 @Slf4j
 @Configuration
-public class EnhancedMetricsEndpointAutoConfiguration {
+public class CustomMetricsEndpointAutoConfiguration {
 
   private static final String MSG_AUTOWIRED_METRICS_ENDPOINT = "Autowired Metrics Endpoint";
 
@@ -49,8 +49,8 @@ public class EnhancedMetricsEndpointAutoConfiguration {
   @ConditionalOnMissingBean
   @ConditionalOnBean({MeterRegistry.class})
   @Bean
-  public EnhancedMetricsEndpoint enhancedMetricsEndpoint(MeterRegistry meterRegistry) {
+  public CustomMetricsEndpoint enhancedMetricsEndpoint(MeterRegistry meterRegistry) {
     log.debug(MSG_AUTOWIRED_METRICS_ENDPOINT);
-    return new EnhancedMetricsEndpoint(meterRegistry);
+    return new CustomMetricsEndpoint(meterRegistry);
   }
 }

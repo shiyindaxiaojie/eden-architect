@@ -35,8 +35,8 @@ import java.util.concurrent.TimeUnit;
  * @since 2.0.0
  */
 @Slf4j
-@WebEndpoint(id = EnhancedMetricsEndpoint.ENDPOINT_ID)
-public class EnhancedMetricsEndpoint {
+@WebEndpoint(id = CustomMetricsEndpoint.ENDPOINT_ID)
+public class CustomMetricsEndpoint {
 
   public static final String ENDPOINT_ID = "allmetrics";
 
@@ -44,7 +44,7 @@ public class EnhancedMetricsEndpoint {
 
   private final MeterRegistry meterRegistry;
 
-  public EnhancedMetricsEndpoint(MeterRegistry meterRegistry) {
+  public CustomMetricsEndpoint(MeterRegistry meterRegistry) {
     this.meterRegistry = meterRegistry;
   }
 

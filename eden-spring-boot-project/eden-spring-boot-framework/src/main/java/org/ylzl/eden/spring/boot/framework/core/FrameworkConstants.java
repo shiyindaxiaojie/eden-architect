@@ -52,6 +52,11 @@ public final class FrameworkConstants {
   public static final String NAME_PATTERN =
       "${spring.application.name:${vcap.application.name:${spring.config.name:application}}}";
 
+	/**
+	 * Spring Boot 读取应用程序启动端口
+	 */
+	public static final String PORT_PATTERN = "${server.port}";
+
   /**
    * Spring Boot 读取应用程序索引
    *
