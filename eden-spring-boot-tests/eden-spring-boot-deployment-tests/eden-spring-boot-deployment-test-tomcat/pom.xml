@@ -39,7 +39,7 @@
 		<tomcat.version>7.0.90</tomcat.version>
 	</properties>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -82,6 +82,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
 </project>

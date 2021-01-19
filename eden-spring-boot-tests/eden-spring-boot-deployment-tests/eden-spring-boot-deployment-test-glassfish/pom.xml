@@ -39,7 +39,7 @@
 		<glassfish.version>3.0.1</glassfish.version>
 	</properties>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -98,6 +98,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
 </project>

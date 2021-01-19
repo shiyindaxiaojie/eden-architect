@@ -19,10 +19,12 @@ package org.ylzl.eden.spring.boot.data.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.ylzl.eden.spring.boot.data.jdbc.namedparam.EnhancedNamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
@@ -33,6 +35,7 @@ import javax.sql.DataSource;
  * @author gyl
  * @since 1.0.0
  */
+@ConditionalOnClass(NamedParameterJdbcTemplate.class)
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})
 @Slf4j
 @Configuration

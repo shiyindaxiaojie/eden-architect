@@ -50,7 +50,7 @@
 		</infinispan-protocol-parser-generator-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
-		<jib-maven-plugin.version>2.4.0</jib-maven-plugin.version>
+		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
 		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
 		<jooq-codegen-maven.version>${jooq.version}</jooq-codegen-maven.version>
 		<kotlin-maven-plugin.version>${kotlin.version}</kotlin-maven-plugin.version>
@@ -1075,6 +1075,14 @@
 			<id>test</id>
 			<properties>
 				<spring.profiles.active>test</spring.profiles.active>
+				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
+			</properties>
+		</profile>
+		<profile>
+			<id>pre</id>
+			<properties>
+				<spring.profiles.active>pre</spring.profiles.active>
 				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
 				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
 			</properties>

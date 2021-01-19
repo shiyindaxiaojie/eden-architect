@@ -1,5 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.spring.boot.framework.aop.TimerAopAutoConfiguration,\
   org.ylzl.eden.spring.boot.framework.core.FrameworkAutoConfiguration,\
   org.ylzl.eden.spring.boot.framework.info.InfoContributorAutoConfiguration,\
   org.ylzl.eden.spring.boot.framework.httpclient.HttpClientAutoConfiguration,\

@@ -75,7 +75,7 @@ public class SqlSafeUtils {
 
   private static final List<Pattern> validationPatterns = buildPatterns(SQL_REGEXPS);
 
-  public static boolean isSqlInjectionSafe(String dataString) {
+  public static boolean isSQLInjectionSafe(String dataString) {
     if (StringUtils.isBlank(dataString)) {
       return true;
     }

@@ -39,7 +39,7 @@
 		<wildfly.version>12.0.0.Final</wildfly.version>
 	</properties>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -87,6 +87,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
 </project>

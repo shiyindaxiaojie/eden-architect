@@ -40,7 +40,7 @@
 		<wlp.version>18.0.0.1</wlp.version>
 	</properties>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -81,6 +81,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
 </project>
