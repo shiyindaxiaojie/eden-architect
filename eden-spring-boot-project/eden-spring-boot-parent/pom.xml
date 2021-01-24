@@ -232,42 +232,6 @@
 					<groupId>com.google.cloud.tools</groupId>
 					<artifactId>jib-maven-plugin</artifactId>
 					<version>${jib-maven-plugin.version}</version>
-					<!--<configuration>
-						<from>
-							<image>openjdk:8-jre-alpine</image>
-						</from>
-						<to>
-							<image>${project.name}:${project.version}</image>
-							<tags>
-								<tag>${project.version}</tag>
-							</tags>
-						</to>
-						<container>
-							<entrypoint>
-								<shell>/bin/sh</shell>
-								<option>-c</option>
-								<arg>/entrypoint.sh</arg>
-							</entrypoint>
-							<ports>
-								<port>8081</port>
-								<port>5701/udp</port>
-							</ports>
-							<environment>
-								<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
-								<RUN_SLEEP>0</RUN_SLEEP>
-							</environment>
-							<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-						</container>
-						<extraDirectories>
-							<paths>src/main/docker</paths>
-							<permissions>
-								<permission>
-									<file>/entrypoint.sh</file>
-									<mode>755</mode>
-								</permission>
-							</permissions>
-						</extraDirectories>
-					</configuration>-->
 				</plugin>
 				<plugin>
 					<groupId>com.rimerosolutions.maven.plugins</groupId>
@@ -484,18 +448,6 @@
 								<goal>enforce</goal>
 							</goals>
 						</execution>
-						<!--<execution>
-							<id>enforce-dependencyConvergence</id>
-							<configuration>
-								<rules>
-									<DependencyConvergence/>
-								</rules>
-								<fail>false</fail>
-							</configuration>
-							<goals>
-								<goal>enforce</goal>
-							</goals>
-						</execution>-->
 					</executions>
 					<configuration>
 						<rules>

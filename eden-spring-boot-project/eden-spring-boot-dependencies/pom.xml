@@ -62,21 +62,31 @@
 		</developerConnection>
 	</scm>
 
-	<distributionManagement>
-		<!--<repository>
+	<profiles>
+		<profile>
 			<id>github</id>
-			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/eden-lab/eden-spring-boot</url>
-		</repository>-->
-		<repository>
-			<id>rdc-releases</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-release-oJPLbK/</url>
-		</repository>
-		<snapshotRepository>
-			<id>rdc-snapshots</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-snapshot-wHnENu/</url>
-		</snapshotRepository>
-	</distributionManagement>
+			<distributionManagement>
+				<repository>
+					<id>github</id>
+					<name>GitHub OWNER Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/eden-lab/eden-spring-boot</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>aliyun</id>
+			<distributionManagement>
+				<repository>
+					<id>rdc-releases</id>
+					<url>https://repo.rdc.aliyun.com/repository/42336-release-oJPLbK/</url>
+				</repository>
+				<snapshotRepository>
+					<id>rdc-snapshots</id>
+					<url>https://repo.rdc.aliyun.com/repository/42336-snapshot-wHnENu/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 	<properties>
 		<!-- 自定义依赖属性 -->

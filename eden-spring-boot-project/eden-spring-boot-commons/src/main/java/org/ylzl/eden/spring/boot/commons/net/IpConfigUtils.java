@@ -36,15 +36,6 @@ import java.net.UnknownHostException;
 @UtilityClass
 public class IpConfigUtils {
 
-  /** 未知IP */
-  public static final String UNKNOWN_IP = "unknown";
-
-  /** 本地IP */
-  public static final String LOCALHOST_IP = "127.0.0.1";
-
-  /** 本地IP */
-  public static final String NATIVE_IP = "0:0:0:0:0:0:0:1";
-
   /**
    * 获取客户端请求的 IP 地址
    *
@@ -53,13 +44,13 @@ public class IpConfigUtils {
    */
   public static String getIpAddress(@NonNull HttpServletRequest request) {
     String ip = request.getHeader("x-forwarded-for");
-    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
       ip = request.getHeader("Proxy-Client-IP");
     }
-    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
       ip = request.getHeader("WL-Proxy-Client-IP");
     }
-    if (StringUtils.isEmpty(ip) || UNKNOWN_IP.equalsIgnoreCase(ip)) {
+    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
       ip = request.getRemoteAddr();
     }
     return ip;
