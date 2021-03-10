@@ -31,9 +31,8 @@ import java.sql.SQLException;
  */
 public class FlywaySQLiteDataSource extends SQLiteDataSource {
 
-  private Connection connection;
-
   private final DataSource dataSource;
+  private Connection connection;
 
   public FlywaySQLiteDataSource(DataSource dataSource) {
     this.dataSource = dataSource;

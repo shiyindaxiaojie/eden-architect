@@ -33,10 +33,8 @@ import java.util.concurrent.TimeUnit;
 public class CachingHttpHeadersFilter implements Filter {
 
   private static final long LAST_MODIFIED = System.currentTimeMillis();
-
-  private long cacheTimeToLive = TimeUnit.DAYS.toMillis(365L);
-
   private final FrameworkProperties.Http properties;
+  private long cacheTimeToLive = TimeUnit.DAYS.toMillis(365L);
 
   public CachingHttpHeadersFilter(FrameworkProperties frameworkProperties) {
     this.properties = frameworkProperties.getHttp();

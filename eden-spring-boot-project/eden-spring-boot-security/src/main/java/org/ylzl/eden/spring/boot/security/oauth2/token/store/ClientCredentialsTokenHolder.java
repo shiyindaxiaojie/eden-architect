@@ -32,11 +32,9 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.TokenProcessor;
 @Slf4j
 public class ClientCredentialsTokenHolder {
 
-  private OAuth2AccessToken oAuth2AccessToken;
-
   private final TokenProcessor tokenProcessor;
-
   private final TokenGrantClient tokenGrantClient;
+  private OAuth2AccessToken oAuth2AccessToken;
 
   public ClientCredentialsTokenHolder(
       TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {

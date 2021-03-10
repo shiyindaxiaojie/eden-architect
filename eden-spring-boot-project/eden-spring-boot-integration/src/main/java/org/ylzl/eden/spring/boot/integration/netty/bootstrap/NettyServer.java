@@ -53,26 +53,16 @@ public class NettyServer implements InitializingBean, DisposableBean {
   private final String host;
 
   private final Integer port;
-
-  private int bossThreads;
-
-  private int workerThreads;
-
-  private int boundToPort = -1;
-
-  private EventLoopGroup bossEventLoopGroup;
-
-  private EventLoopGroup workerEventLoopGroup;
-
   private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
-
   private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
-
-  @Setter private Boolean autoStartup = false;
-
   @Getter private final ChannelOptions channelOptions = new ChannelOptions();
-
   @Getter private final ChannelOptions childChannelOptions = new ChannelOptions();
+  private int bossThreads;
+  private int workerThreads;
+  private int boundToPort = -1;
+  private EventLoopGroup bossEventLoopGroup;
+  private EventLoopGroup workerEventLoopGroup;
+  @Setter private Boolean autoStartup = false;
 
   public NettyServer(String name, String host, int port) {
     this.name = name;

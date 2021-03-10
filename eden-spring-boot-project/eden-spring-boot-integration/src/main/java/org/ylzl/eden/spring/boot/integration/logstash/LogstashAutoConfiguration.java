@@ -25,11 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.LogstashEncoder;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +36,6 @@ import org.ylzl.eden.spring.boot.integration.core.IntegrationConstants;
 import org.ylzl.eden.spring.boot.integration.logstash.util.LogstashUtils;
 import org.ylzl.eden.spring.boot.integration.metrics.MetricsProperties;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,8 +51,8 @@ import java.util.Map;
 @Configuration
 public class LogstashAutoConfiguration {
 
-  public static final String EXP_LOGSTASH_ENABLED =  "${" + IntegrationConstants.PROP_PREFIX +
-		".logstash.enabled:true}";
+  public static final String EXP_LOGSTASH_ENABLED =
+      "${" + IntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
 
   private static final String KEY_APP_NAME = "app_name";
 
@@ -68,36 +65,38 @@ public class LogstashAutoConfiguration {
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
 
-	public LogstashAutoConfiguration(@Value(FrameworkConstants.NAME_PATTERN) String applicationName,
-															@Value(FrameworkConstants.PORT_PATTERN) String serverPort,
-															LogstashProperties logstashProperties,
-															ObjectProvider<MetricsProperties> metricsProperties,
-															ObjectProvider<BuildProperties> buildProperties,
-															ObjectMapper mapper) throws JsonProcessingException {
+  public LogstashAutoConfiguration(
+      @Value(FrameworkConstants.NAME_PATTERN) String applicationName,
+      @Value(FrameworkConstants.PORT_PATTERN) String serverPort,
+      LogstashProperties logstashProperties,
+      ObjectProvider<MetricsProperties> metricsProperties,
+      ObjectProvider<BuildProperties> buildProperties,
+      ObjectMapper mapper)
+      throws JsonProcessingException {
 
-		LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
     Map<String, String> map = Maps.newHashMap();
-		map.put(KEY_APP_NAME, applicationName);
-		map.put(KEY_SERVER_PORT, serverPort);
-		buildProperties.ifAvailable(it -> map.put(KEY_VERSION, it.getVersion()));
-		String customFields = mapper.writeValueAsString(map);
+    map.put(KEY_APP_NAME, applicationName);
+    map.put(KEY_SERVER_PORT, serverPort);
+    buildProperties.ifAvailable(it -> map.put(KEY_VERSION, it.getVersion()));
+    String customFields = mapper.writeValueAsString(map);
 
-		if (logstashProperties.isUseJsonFormat()) {
-			LogstashUtils.addJsonConsoleAppender(context, customFields);
-		}
-		if (logstashProperties.isEnabled()) {
-			LogstashUtils.addLogstashTcpSocketAppender(context, customFields, logstashProperties);
-		}
-		if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
-			LogstashUtils.addContextListener(context, customFields, logstashProperties);
-		}
-		metricsProperties.ifAvailable(
-			properties -> {
-				if (properties.getLogs().isEnabled()) {
-					LogstashUtils.setMetricsMarkerLogbackFilter(context, logstashProperties.isUseJsonFormat());
-				}
-			}
-		);
-	}
+    if (logstashProperties.isUseJsonFormat()) {
+      LogstashUtils.addJsonConsoleAppender(context, customFields);
+    }
+    if (logstashProperties.isEnabled()) {
+      LogstashUtils.addLogstashTcpSocketAppender(context, customFields, logstashProperties);
+    }
+    if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
+      LogstashUtils.addContextListener(context, customFields, logstashProperties);
+    }
+    metricsProperties.ifAvailable(
+        properties -> {
+          if (properties.getLogs().isEnabled()) {
+            LogstashUtils.setMetricsMarkerLogbackFilter(
+                context, logstashProperties.isUseJsonFormat());
+          }
+        });
+  }
 }

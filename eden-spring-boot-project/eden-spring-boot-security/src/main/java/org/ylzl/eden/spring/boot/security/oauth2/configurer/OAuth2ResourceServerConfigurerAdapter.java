@@ -44,25 +44,19 @@ import org.ylzl.eden.spring.boot.security.oauth2.token.cookie.OAuth2CookieHelper
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class OAuth2ResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
 
+  private final TokenStore tokenStore;
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
-
   @Autowired(required = false)
   private AuthenticationEntryPoint authenticationEntryPoint;
-
   @Autowired(required = false)
   private CorsFilter corsFilter;
-
   @Autowired(required = false)
   private TokenExtractor tokenExtractor;
-
   @Autowired(required = false)
   private TokenGrantClient tokenGrantClient;
-
   @Autowired(required = false)
   private OAuth2CookieHelper oAuth2CookieHelper;
-
-  private final TokenStore tokenStore;
 
   public OAuth2ResourceServerConfigurerAdapter(TokenStore tokenStore) {
     this.tokenStore = tokenStore;

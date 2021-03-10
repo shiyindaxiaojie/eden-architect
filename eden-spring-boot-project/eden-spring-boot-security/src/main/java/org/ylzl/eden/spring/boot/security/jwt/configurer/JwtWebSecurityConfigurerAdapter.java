@@ -45,16 +45,12 @@ import org.ylzl.eden.spring.boot.security.jwt.token.JwtTokenProvider;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class JwtWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
+  private final JwtTokenProvider jwtTokenProvider;
+  private final JwtProperties jwtProperties;
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
-
   private AuthenticationEntryPoint authenticationEntryPoint;
-
   private CorsFilter corsFilter;
-
-  private final JwtTokenProvider jwtTokenProvider;
-
-  private final JwtProperties jwtProperties;
 
   public JwtWebSecurityConfigurerAdapter(
       JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {

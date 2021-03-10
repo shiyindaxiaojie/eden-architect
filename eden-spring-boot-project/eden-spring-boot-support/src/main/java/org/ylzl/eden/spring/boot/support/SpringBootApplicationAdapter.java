@@ -53,19 +53,6 @@ public abstract class SpringBootApplicationAdapter {
     this.env = env;
   }
 
-  /** 初始化 */
-  @PostConstruct
-  public void init() {
-    Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-    if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
-      if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
-        log.warn(WARN_RUNNING_IN_DEV_AND_PROD);
-      } else if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
-        log.warn(WARN_RUNNING_IN_DEV_AND_CLOUD);
-      }
-    }
-  }
-
   protected static Environment run(SpringApplication app, String[] args) {
     SpringProfileUtils.addDefaultProfile(app);
     return app.run(args).getEnvironment();
@@ -113,5 +100,18 @@ public abstract class SpringBootApplicationAdapter {
         configServerStatus == null
             ? "Not found or not setup for this application"
             : configServerStatus);
+  }
+
+  /** 初始化 */
+  @PostConstruct
+  public void init() {
+    Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+    if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_DEVELOPMENT)) {
+      if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+        log.warn(WARN_RUNNING_IN_DEV_AND_PROD);
+      } else if (activeProfiles.contains(ProfileConstants.SPRING_PROFILE_PRODUCTION)) {
+        log.warn(WARN_RUNNING_IN_DEV_AND_CLOUD);
+      }
+    }
   }
 }

@@ -49,12 +49,9 @@ public class RateLimitingFilter extends ZuulFilter {
   private static final String MSG_API_RATE_EXCEEDED = "API 速率超过限制";
 
   private static final String CACHE_NAME_SUFFIX = "-rate-limiting";
-
-  private Cache<String, RateLimiter> cache;
-
   private final PathMatcher pathMatcher = new AntPathMatcher();
-
   private final ZuulProperties.RateLimiting properties;
+  private Cache<String, RateLimiter> cache;
 
   public RateLimitingFilter(ZuulProperties zuulProperties, String applicationName) {
     this.properties = zuulProperties.getRateLimiting();

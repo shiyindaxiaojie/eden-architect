@@ -65,10 +65,8 @@ import java.util.concurrent.Executor;
 @Configuration(proxyBeanMethods = false)
 public class AsyncLiquibaseAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_LIQUIBASE = "Autowired SpringLiquibase";
-
   public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
-
+  private static final String MSG_AUTOWIRED_LIQUIBASE = "Autowired SpringLiquibase";
   private final LiquibaseProperties properties;
 
   private final Environment env;

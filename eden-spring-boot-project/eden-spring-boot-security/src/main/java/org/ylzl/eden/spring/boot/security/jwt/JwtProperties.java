@@ -55,9 +55,8 @@ public class JwtProperties {
   @Setter
   public static class Authorization {
 
-    private String header = JwtDefaults.Authorization.header;
-
     private final Server server = new Server();
+    private String header = JwtDefaults.Authorization.header;
 
     @Getter
     @Setter

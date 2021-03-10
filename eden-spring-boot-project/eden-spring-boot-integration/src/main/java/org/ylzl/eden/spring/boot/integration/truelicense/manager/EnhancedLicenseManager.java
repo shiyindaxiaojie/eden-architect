@@ -52,6 +52,36 @@ public final class EnhancedLicenseManager extends LicenseManager {
     this.trueLicenseProperties = trueLicenseProperties;
   }
 
+  private static boolean checkAddresses(List<String> addresses, List<String> validAddresses) {
+    if (validAddresses == null || validAddresses.isEmpty()) {
+      return true;
+    }
+    if (addresses != null && !addresses.isEmpty()) {
+      for (String address : addresses) {
+        if (validAddresses.contains(address.trim())) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private static boolean checkSerial(String serial, List<String> validSerials) {
+    if (validSerials == null || validSerials.isEmpty()) {
+      return true;
+    }
+    if (StringUtils.isNotBlank(serial)) {
+      if (validSerials != null && !validSerials.isEmpty()) {
+        for (String validSerial : validSerials) {
+          if (validSerial.equals(serial)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   @Override
   public byte[] create(LicenseContent content, LicenseNotary notary) throws Exception {
     this.setLicenseParam(false);
@@ -218,35 +248,5 @@ public final class EnhancedLicenseManager extends LicenseManager {
         log.error(e.getMessage(), e);
       }
     }
-  }
-
-  private static boolean checkAddresses(List<String> addresses, List<String> validAddresses) {
-    if (validAddresses == null || validAddresses.isEmpty()) {
-      return true;
-    }
-    if (addresses != null && !addresses.isEmpty()) {
-      for (String address : addresses) {
-        if (validAddresses.contains(address.trim())) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  private static boolean checkSerial(String serial, List<String> validSerials) {
-    if (validSerials == null || validSerials.isEmpty()) {
-      return true;
-    }
-    if (StringUtils.isNotBlank(serial)) {
-      if (validSerials != null && !validSerials.isEmpty()) {
-        for (String validSerial : validSerials) {
-          if (validSerial.equals(serial)) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
   }
 }

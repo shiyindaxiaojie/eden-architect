@@ -33,15 +33,11 @@ import org.ylzl.eden.spring.boot.framework.core.FrameworkConstants;
 @ConfigurationProperties(prefix = FrameworkConstants.PROP_PREFIX + ".infinispan")
 public class InfinispanProperties {
 
-  private String configFile = InfinispanDefaults.configFile;
-
-  private boolean statsEnabled = InfinispanDefaults.statsEnabled;
-
   private final Distributed distributed = new Distributed();
-
   private final Local local = new Local();
-
   private final Replicated replicated = new Replicated();
+  private String configFile = InfinispanDefaults.configFile;
+  private boolean statsEnabled = InfinispanDefaults.statsEnabled;
 
   @Getter
   @Setter

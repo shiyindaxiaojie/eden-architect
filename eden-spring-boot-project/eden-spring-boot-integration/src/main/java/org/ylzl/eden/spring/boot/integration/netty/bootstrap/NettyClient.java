@@ -34,17 +34,11 @@ public class NettyClient {
   private final String host;
 
   private final Integer port;
-
-  private int channelThreads;
-
-  private int boundToPort = -1;
-
-  private EventLoopGroup channelEventLoopGroup;
-
   private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
-
   private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
-
+  private int channelThreads;
+  private int boundToPort = -1;
+  private EventLoopGroup channelEventLoopGroup;
   @Setter private Boolean autoStartup = false;
 
   @Getter private ChannelOptions channelOptions = new ChannelOptions();

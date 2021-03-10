@@ -18,21 +18,23 @@ import java.util.Arrays;
 @Aspect
 public class TimerAspect {
 
-	@Pointcut("@annotation(org.ylzl.eden.spring.boot.framework.aop.timer.Timer)")
-	private void pointcut(){}
+  @Pointcut("@annotation(org.ylzl.eden.spring.boot.framework.aop.timer.Timer)")
+  private void pointcut() {}
 
-	@Around("pointcut()")
-	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-		Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
-		String clazzName = joinPoint.getTarget().getClass().getSimpleName();
-		String methodName = joinPoint.getSignature().getName();
-		long start = System.currentTimeMillis();
-		Object result = joinPoint.proceed();
-		long cost = System.currentTimeMillis() - start;
-		log.info(
-			"Timer: {}.{}() with argument[s] = {} cost {} ms", clazzName, methodName,
-			Arrays.toString(joinPoint.getArgs()),
-			cost);
-		return result;
-	}
+  @Around("pointcut()")
+  public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+    Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+    String clazzName = joinPoint.getTarget().getClass().getSimpleName();
+    String methodName = joinPoint.getSignature().getName();
+    long start = System.currentTimeMillis();
+    Object result = joinPoint.proceed();
+    long cost = System.currentTimeMillis() - start;
+    log.info(
+        "Timer: {}.{}() with argument[s] = {} cost {} ms",
+        clazzName,
+        methodName,
+        Arrays.toString(joinPoint.getArgs()),
+        cost);
+    return result;
+  }
 }

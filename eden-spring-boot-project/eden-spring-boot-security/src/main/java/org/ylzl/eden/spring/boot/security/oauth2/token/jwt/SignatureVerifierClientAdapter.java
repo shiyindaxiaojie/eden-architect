@@ -40,11 +40,9 @@ import java.util.Map;
 @Slf4j
 public class SignatureVerifierClientAdapter implements SignatureVerifierClient {
 
+  public static final String SIGNATURE_VERIFIER_KEY = "value";
   private static final String MSG_NONE_PROP_PUBLIC_KEY_ENDPOINT =
       "No public key endpoint configured in oauth properties";
-
-  public static final String SIGNATURE_VERIFIER_KEY = "value";
-
   private final RestTemplate restTemplate;
 
   private final OAuth2Properties.Authorization oAuth2Properties;

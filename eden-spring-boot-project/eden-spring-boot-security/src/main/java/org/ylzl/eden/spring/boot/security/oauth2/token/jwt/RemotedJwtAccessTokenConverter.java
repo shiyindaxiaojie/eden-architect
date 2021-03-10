@@ -42,12 +42,9 @@ public class RemotedJwtAccessTokenConverter extends JwtAccessTokenConverter {
 
   private static final String MSG_REQ_PUBLIC_KEY_EXCEPTION =
       "Could not get public key from OAuth2 server to create SignatureVerifier, caught exception: {}";
-
-  private long lastKeyFetchTimestamp = 0L;
-
   private final SignatureVerifierClient signatureVerifierClient;
-
   private final OAuth2Properties.Authorization oAuth2Properties;
+  private long lastKeyFetchTimestamp = 0L;
 
   public RemotedJwtAccessTokenConverter(
       SignatureVerifierClient signatureVerifierClient, OAuth2Properties oAuth2Properties) {

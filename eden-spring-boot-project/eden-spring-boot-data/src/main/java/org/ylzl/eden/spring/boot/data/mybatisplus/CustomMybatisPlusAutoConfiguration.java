@@ -65,6 +65,20 @@ import java.util.function.Consumer;
 @Configuration
 public class CustomMybatisPlusAutoConfiguration {
 
+  @ConditionalOnMissingBean
+  @Bean
+  public MybatisPlusInterceptor mybatisPlusInterceptor() {
+    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+    return interceptor;
+  }
+
+  @ConditionalOnMissingBean
+  @Bean
+  public ConfigurationCustomizer configurationCustomizer() {
+    return configuration -> configuration.setUseDeprecatedExecutor(false);
+  }
+
   @Configuration
   public static class InnerMybatisPlusAutoConfiguration extends MybatisPlusAutoConfiguration {
 
@@ -214,19 +228,5 @@ public class CustomMybatisPlusAutoConfiguration {
       }
       factory.setConfiguration(configuration);
     }
-  }
-
-  @ConditionalOnMissingBean
-  @Bean
-  public MybatisPlusInterceptor mybatisPlusInterceptor() {
-    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
-    return interceptor;
-  }
-
-  @ConditionalOnMissingBean
-  @Bean
-  public ConfigurationCustomizer configurationCustomizer() {
-    return configuration -> configuration.setUseDeprecatedExecutor(false);
   }
 }

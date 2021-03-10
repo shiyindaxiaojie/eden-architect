@@ -46,21 +46,14 @@ import java.sql.SQLException;
 @Slf4j
 public class AsyncFlyway extends Flyway {
 
+  public static final long SLOWNESS_THRESHOLD = 5;
   private static final String MSG_STARTING_ASYNC = "Starting Flyway asynchronously";
-
   private static final String MSG_STARTING_SYNC = "Starting Flyway synchronously";
-
   private static final String MSG_EXCEPTION =
       "Flyway could not start correctly, your database is not ready：{}";
-
   private static final String MSG_STARTED = "Flyway has updated your database in {} ms";
-
   private static final String MSG_SLOWNESS = "Flyway took more than {} seconds to start up!";
-
   private static final String STOP_WATCH_ID = "flyway";
-
-  public static final long SLOWNESS_THRESHOLD = 5;
-
   private static final int MIGRATION_FAILED_COUNT = 0;
 
   private final Configuration configuration;

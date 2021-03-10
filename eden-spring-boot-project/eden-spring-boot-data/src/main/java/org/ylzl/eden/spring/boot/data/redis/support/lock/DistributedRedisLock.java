@@ -43,10 +43,8 @@ public class DistributedRedisLock extends AbstractRedisLock {
       "if redis.call(\"get\",KEYS[1]) == ARGV[1] "
           + "then return redis.call(\"del\",KEYS[1])"
           + "else return 0 end";
-
-  private ThreadLocal<String> lock = new ThreadLocal<String>();
-
   private final RedisTemplate<String, Object> redisTemplate;
+  private ThreadLocal<String> lock = new ThreadLocal<String>();
 
   public DistributedRedisLock(RedisTemplate<String, Object> redisTemplate) {
     this.redisTemplate = redisTemplate;

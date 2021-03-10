@@ -41,10 +41,8 @@ import static springfox.documentation.builders.PathSelectors.regex;
 public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
 
   public static final int DEFAULT_ORDER = 0;
-
-  private int order = DEFAULT_ORDER;
-
   private final Swagger2Properties properties;
+  private int order = DEFAULT_ORDER;
 
   public DefaultSwagger2Customizer(Swagger2Properties properties) {
     this.properties = properties;
@@ -80,12 +78,12 @@ public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
         .build();
   }
 
-  public void setOrder(int order) {
-    this.order = order;
-  }
-
   @Override
   public int getOrder() {
     return order;
+  }
+
+  public void setOrder(int order) {
+    this.order = order;
   }
 }

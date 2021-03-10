@@ -33,11 +33,9 @@ import org.ylzl.eden.spring.boot.data.core.DataConstants;
 @ConfigurationProperties(prefix = DataConstants.PROP_PREFIX + ".hazelcast")
 public class EnhancedHazelcastProperties {
 
-  private int backupCount = EnhancedHazelcastDefaults.backupCount;
-
-  private int timeToLiveSeconds = EnhancedHazelcastDefaults.timeToLiveSeconds;
-
   private final ManagementCenter managementCenter = new ManagementCenter();
+  private int backupCount = EnhancedHazelcastDefaults.backupCount;
+  private int timeToLiveSeconds = EnhancedHazelcastDefaults.timeToLiveSeconds;
 
   @Getter
   @Setter

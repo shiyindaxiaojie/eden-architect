@@ -35,21 +35,14 @@ import org.ylzl.eden.spring.boot.framework.core.ProfileConstants;
 @Slf4j
 public class AsyncMongobee extends Mongobee {
 
+  public static final long SLOWNESS_THRESHOLD = 5;
   private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
-
   private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
-
   private static final String MSG_EXCEPTION =
       "Mongobee could not start correctly, your database is not ready：{}";
-
   private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
-
   private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
-
   private static final String STOP_WATCH_ID = "mongobee";
-
-  public static final long SLOWNESS_THRESHOLD = 5;
-
   private final TaskExecutor taskExecutor;
 
   private final Environment environment;

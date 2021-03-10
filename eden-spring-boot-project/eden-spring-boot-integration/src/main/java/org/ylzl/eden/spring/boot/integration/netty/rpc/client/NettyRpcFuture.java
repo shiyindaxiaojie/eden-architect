@@ -11,11 +11,9 @@ import org.ylzl.eden.spring.boot.integration.netty.rpc.RpcResponse;
  */
 public class NettyRpcFuture {
 
-  private volatile boolean isSucceed = false;
-
-  private RpcResponse rpcResponse;
-
   private final Object lock = new Object();
+  private volatile boolean isSucceed = false;
+  private RpcResponse rpcResponse;
 
   @SneakyThrows
   public RpcResponse get(int timeout) {

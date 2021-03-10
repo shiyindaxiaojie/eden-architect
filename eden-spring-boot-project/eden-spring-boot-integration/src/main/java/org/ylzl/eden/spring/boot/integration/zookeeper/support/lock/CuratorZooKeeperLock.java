@@ -33,11 +33,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class CuratorZooKeeperLock extends AbstractZooKeeperLock {
 
-  private CountDownLatch countDownLatch = new CountDownLatch(1);
-
-  private final CuratorFramework curatorFramework;
-
   private static ThreadLocal<InterProcessMutex> interProcessMutexs = new ThreadLocal();
+  private final CuratorFramework curatorFramework;
+  private CountDownLatch countDownLatch = new CountDownLatch(1);
 
   public CuratorZooKeeperLock(CuratorFramework curatorFramework) {
     this.curatorFramework = curatorFramework;

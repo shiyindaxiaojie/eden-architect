@@ -98,10 +98,8 @@ public class AsyncFlywayAutoConfiguration {
   @Configuration
   public static class FlywayConfiguration extends FlywayAutoConfiguration.FlywayConfiguration {
 
-    private static final String MSG_AUTOWIRED_FLYWAY = "Autowired Flyway";
-
     public static final String DEFAULT_LOCATIONS = "classpath:config/flyway/db/migration";
-
+    private static final String MSG_AUTOWIRED_FLYWAY = "Autowired Flyway";
     private final AsyncTaskExecutor asyncTaskExecutor;
 
     private final Environment enviornment;

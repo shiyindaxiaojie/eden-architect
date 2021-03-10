@@ -28,18 +28,6 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  */
 public class QuickSort extends AbstractSort implements Sort {
 
-  /**
-   * 排序数组
-   *
-   * @param array - 未排序的数组
-   * @return 排序后的数组
-   */
-  @Override
-  public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
-    doSort(array, 0, array.length - 1);
-    return array;
-  }
-
   private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {
     if (left < right) {
       int pivot = randomPartition(array, left, right);
@@ -71,5 +59,17 @@ public class QuickSort extends AbstractSort implements Sort {
       }
     }
     return left;
+  }
+
+  /**
+   * 排序数组
+   *
+   * @param array - 未排序的数组
+   * @return 排序后的数组
+   */
+  @Override
+  public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
+    doSort(array, 0, array.length - 1);
+    return array;
   }
 }

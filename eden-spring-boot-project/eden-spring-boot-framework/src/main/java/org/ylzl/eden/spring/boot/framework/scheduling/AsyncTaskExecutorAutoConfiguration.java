@@ -49,11 +49,9 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
   public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
   private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
-
+  private final SchedulingProperties.TaskExecutor properties;
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
-
-  private final SchedulingProperties.TaskExecutor properties;
 
   public AsyncTaskExecutorAutoConfiguration(SchedulingProperties schedulingProperties) {
     this.properties = schedulingProperties.getTaskExecutor();

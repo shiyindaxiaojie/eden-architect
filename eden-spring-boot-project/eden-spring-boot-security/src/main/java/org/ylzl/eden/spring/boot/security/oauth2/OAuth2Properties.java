@@ -50,40 +50,33 @@ public class OAuth2Properties {
   @Setter
   public static class Authorization {
 
+    private final ClientCredentials clientCredentials = new ClientCredentials();
+    private final Code code = new Code();
+    private final Implicit implicit = new Implicit();
+    private final Password password = new Password();
+    private final RefreshToken refreshToken = new RefreshToken();
+    private final Client Client = new Client();
+    private final Server server = new Server();
     private String header = OAuth2Defaults.Authorization.header;
-
+    ;
     private String accessTokenUri = OAuth2Defaults.Authorization.accessTokenUri;
-
     private String accessTokenUriServiceId = OAuth2Defaults.Authorization.accessTokenUriServiceId;
-
     private String publicTokenKeyUri = OAuth2Defaults.Authorization.publicTokenKeyUri;
-
     private String publicTokenKeyUriServiceId =
         OAuth2Defaults.Authorization.publicTokenKeyUriServiceId;
-
     private Long publicTokenKeyRefreshRateLimit =
         OAuth2Defaults.Authorization.publicTokenKeyRefreshRateLimit;
-
     private Long publicTokenKeyTtl = OAuth2Defaults.Authorization.publicTokenKeyTtl;
-
     private String cookieDomain = OAuth2Defaults.Authorization.cookieDomain;
-    ;
-
     private Integer sessionTimeoutSeconds = OAuth2Defaults.Authorization.sessionTimeoutSeconds;
 
-    private final ClientCredentials clientCredentials = new ClientCredentials();
-
-    private final Code code = new Code();
-
-    private final Implicit implicit = new Implicit();
-
-    private final Password password = new Password();
-
-    private final RefreshToken refreshToken = new RefreshToken();
-
-    private final Client Client = new Client();
-
-    private final Server server = new Server();
+    public enum TokenStore {
+      IN_MEMORY,
+      JDBC,
+      JWK,
+      JWT,
+      REDIS;
+    }
 
     @Getter
     @Setter
@@ -169,14 +162,6 @@ public class OAuth2Properties {
       private String clientId = OAuth2Defaults.Authorization.RefreshToken.clientId;
 
       private String clientSecret = OAuth2Defaults.Authorization.RefreshToken.clientSecret;
-    }
-
-    public enum TokenStore {
-      IN_MEMORY,
-      JDBC,
-      JWK,
-      JWT,
-      REDIS;
     }
   }
 

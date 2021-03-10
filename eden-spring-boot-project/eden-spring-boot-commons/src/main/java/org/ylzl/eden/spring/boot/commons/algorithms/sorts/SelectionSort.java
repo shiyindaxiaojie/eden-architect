@@ -28,6 +28,25 @@ import org.ylzl.eden.spring.boot.commons.algorithms.SortUtils;
  */
 public class SelectionSort extends AbstractSort implements Sort {
 
+  public static void main(String[] args) {
+    int[] array = {33, 1, 34, 543, 5, 13, 4, 82, 31};
+    int len = array.length;
+    int min;
+    for (int i = 0; i < len - 1; i++) {
+      min = i;
+      for (int j = i + 1; j < len; j++) {
+        if (array[j] < array[min]) {
+          int temp = array[min];
+          array[min] = array[j];
+          array[j] = temp;
+        }
+      }
+    }
+    for (int i = 0; i < array.length; i++) {
+      System.out.println(array[i]);
+    }
+  }
+
   /**
    * 排序数组
    *
@@ -49,24 +68,5 @@ public class SelectionSort extends AbstractSort implements Sort {
       }
     }
     return array;
-  }
-
-  public static void main(String[] args) {
-    int[] array = {33, 1, 34, 543, 5, 13, 4, 82, 31};
-    int len = array.length;
-    int min;
-    for (int i = 0; i < len - 1; i++) {
-      min = i;
-      for (int j = i + 1; j < len; j++) {
-        if (array[j] < array[min]) {
-          int temp = array[min];
-          array[min] = array[j];
-          array[j] = temp;
-        }
-      }
-    }
-    for (int i = 0; i < array.length; i++) {
-      System.out.println(array[i]);
-    }
   }
 }

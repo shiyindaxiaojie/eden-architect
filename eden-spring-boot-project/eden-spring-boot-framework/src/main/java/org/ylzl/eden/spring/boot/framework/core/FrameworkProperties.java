@@ -41,12 +41,10 @@ public class FrameworkProperties {
   @Setter
   public static class Http {
 
+    private final Cache cache = new Cache();
     public Version version = FrameworkDefaults.Http.version;
-
     private boolean useUndertowUserCipherSuitesOrder =
         FrameworkDefaults.Http.useUndertowUserCipherSuitesOrder;
-
-    private final Cache cache = new Cache();
 
     public enum Version {
       V_1_1,

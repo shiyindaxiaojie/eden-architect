@@ -30,22 +30,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
   private Node root;
 
-  @Data
-  class Node {
-
-    private Node left;
-
-    private Node right;
-
-    private Node parent;
-
-    private T data;
-
-    public Node(T data) {
-      this.data = data;
-    }
-  }
-
   /**
    * 查找树节点
    *
@@ -120,5 +104,21 @@ public class BinaryTree<T extends Comparable<T>> {
       current = current.getLeft();
     }
     return parent;
+  }
+
+  @Data
+  class Node {
+
+    private Node left;
+
+    private Node right;
+
+    private Node parent;
+
+    private T data;
+
+    public Node(T data) {
+      this.data = data;
+    }
   }
 }

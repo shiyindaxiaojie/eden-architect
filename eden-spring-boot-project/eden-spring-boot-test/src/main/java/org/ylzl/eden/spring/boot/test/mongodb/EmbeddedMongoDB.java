@@ -64,6 +64,120 @@ public class EmbeddedMongoDB extends ExternalResource {
     return new Builder().withReplicaSetName(replicaSetName);
   }
 
+  private static Integer randomOrDefaultServerPort() {
+    try {
+      return Network.getFreeServerPort();
+    } catch (IOException e) {
+      return 27017;
+    }
+  }
+
+  private static IMongoCmdOptions defaultCommandOptions() {
+    return new MongoCmdOptionsBuilder() //
+        .useNoPrealloc(false) //
+        .useSmallFiles(false) //
+        .useNoJournal(false) //
+        .useStorageEngine(STORAGE_ENGINE) //
+        .verbose(false) //
+        .build();
+  }
+
+  private static IMongodConfig defaultMongodConfig(
+      IFeatureAwareVersion version,
+      int port,
+      IMongoCmdOptions cmdOptions,
+      boolean configServer,
+      boolean shardServer,
+      String replicaSet) {
+
+    try {
+
+      MongodConfigBuilder builder =
+          new MongodConfigBuilder() //
+              .version(version) //
+              .withLaunchArgument("--quiet") //
+              .net(new Net(LOCALHOST, port, Network.localhostIsIPv6())) //
+              .configServer(configServer)
+              .cmdOptions(cmdOptions); //
+
+      if (StringUtils.hasText(replicaSet)) {
+
+        builder =
+            builder //
+                .replication(new Storage(null, replicaSet, 0));
+
+        if (!configServer) {
+          builder = builder.shardServer(shardServer);
+        } else {
+          builder = builder.shardServer(false);
+        }
+      }
+
+      return builder.build();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static IMongosConfig defaultMongosConfig(
+      IFeatureAwareVersion version,
+      int port,
+      IMongoCmdOptions cmdOptions,
+      String configServerReplicaSet,
+      int configServerPort) {
+
+    try {
+      MongosConfigBuilder builder =
+          new MongosConfigBuilder() //
+              .version(version) //
+              .withLaunchArgument("--quiet", null) //
+              .net(new Net(LOCALHOST, port, Network.localhostIsIPv6())) //
+              .cmdOptions(cmdOptions);
+
+      if (StringUtils.hasText(configServerReplicaSet)) {
+        builder =
+            builder
+                .replicaSet(configServerReplicaSet) //
+                .configDB(LOCALHOST + ":" + configServerPort);
+      }
+
+      return builder.build();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  protected void before() {
+    resource.start();
+  }
+
+  @Override
+  protected void after() {
+    resource.stop();
+  }
+
+  public MongoClient getMongoClient() {
+    return resource.mongoClient();
+  }
+
+  public String getConnectionString() {
+    return resource.connectionString();
+  }
+
+  interface TestResource {
+
+    void start();
+
+    void stop();
+
+    String connectionString();
+
+    default MongoClient mongoClient() {
+      return new MongoClient(new MongoClientURI(connectionString()));
+    }
+  }
+
   public static class Builder {
 
     IFeatureAwareVersion version;
@@ -108,45 +222,6 @@ public class EmbeddedMongoDB extends ExternalResource {
                 version, rsName, silent, serverPorts.toArray(new Integer[serverPorts.size()])));
       }
       throw new UnsupportedOperationException("implement me");
-    }
-  }
-
-  @Override
-  protected void before() {
-    resource.start();
-  }
-
-  @Override
-  protected void after() {
-    resource.stop();
-  }
-
-  public MongoClient getMongoClient() {
-    return resource.mongoClient();
-  }
-
-  public String getConnectionString() {
-    return resource.connectionString();
-  }
-
-  private static Integer randomOrDefaultServerPort() {
-    try {
-      return Network.getFreeServerPort();
-    } catch (IOException e) {
-      return 27017;
-    }
-  }
-
-  interface TestResource {
-
-    void start();
-
-    void stop();
-
-    String connectionString();
-
-    default MongoClient mongoClient() {
-      return new MongoClient(new MongoClientURI(connectionString()));
     }
   }
 
@@ -272,81 +347,6 @@ public class EmbeddedMongoDB extends ExternalResource {
     @Override
     public String connectionString() {
       return "mongodb://localhost:" + serverPorts[0] + "/?replicaSet=" + replicaSetName;
-    }
-  }
-
-  private static IMongoCmdOptions defaultCommandOptions() {
-    return new MongoCmdOptionsBuilder() //
-        .useNoPrealloc(false) //
-        .useSmallFiles(false) //
-        .useNoJournal(false) //
-        .useStorageEngine(STORAGE_ENGINE) //
-        .verbose(false) //
-        .build();
-  }
-
-  private static IMongodConfig defaultMongodConfig(
-      IFeatureAwareVersion version,
-      int port,
-      IMongoCmdOptions cmdOptions,
-      boolean configServer,
-      boolean shardServer,
-      String replicaSet) {
-
-    try {
-
-      MongodConfigBuilder builder =
-          new MongodConfigBuilder() //
-              .version(version) //
-              .withLaunchArgument("--quiet") //
-              .net(new Net(LOCALHOST, port, Network.localhostIsIPv6())) //
-              .configServer(configServer)
-              .cmdOptions(cmdOptions); //
-
-      if (StringUtils.hasText(replicaSet)) {
-
-        builder =
-            builder //
-                .replication(new Storage(null, replicaSet, 0));
-
-        if (!configServer) {
-          builder = builder.shardServer(shardServer);
-        } else {
-          builder = builder.shardServer(false);
-        }
-      }
-
-      return builder.build();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private static IMongosConfig defaultMongosConfig(
-      IFeatureAwareVersion version,
-      int port,
-      IMongoCmdOptions cmdOptions,
-      String configServerReplicaSet,
-      int configServerPort) {
-
-    try {
-      MongosConfigBuilder builder =
-          new MongosConfigBuilder() //
-              .version(version) //
-              .withLaunchArgument("--quiet", null) //
-              .net(new Net(LOCALHOST, port, Network.localhostIsIPv6())) //
-              .cmdOptions(cmdOptions);
-
-      if (StringUtils.hasText(configServerReplicaSet)) {
-        builder =
-            builder
-                .replicaSet(configServerReplicaSet) //
-                .configDB(LOCALHOST + ":" + configServerPort);
-      }
-
-      return builder.build();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     }
   }
 }

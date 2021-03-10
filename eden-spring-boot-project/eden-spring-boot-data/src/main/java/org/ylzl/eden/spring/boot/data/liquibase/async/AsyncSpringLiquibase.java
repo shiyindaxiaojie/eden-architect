@@ -38,21 +38,14 @@ import java.util.concurrent.Executor;
 @Slf4j
 public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 
+  public static final long SLOWNESS_THRESHOLD = 5;
   private static final String MSG_STARTING_ASYNC = "Starting Liquibase asynchronously";
-
   private static final String MSG_STARTING_SYNC = "Starting Liquibase synchronously";
-
   private static final String MSG_EXCEPTION =
       "Liquibase could not start correctly, your database is not ready：{}";
-
   private static final String MSG_STARTED = "Liquibase has updated your database in {} ms";
-
   private static final String MSG_SLOWNESS = "Liquibase took more than {} seconds to start up!";
-
   private static final String STOP_WATCH_ID = "liquibase";
-
-  public static final long SLOWNESS_THRESHOLD = 5;
-
   private final Executor asyncTaskExecutor;
 
   private final Environment environment;

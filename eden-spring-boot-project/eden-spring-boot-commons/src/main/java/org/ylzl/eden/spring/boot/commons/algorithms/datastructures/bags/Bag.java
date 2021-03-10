@@ -34,13 +34,6 @@ public class Bag<E> implements Iterable<E> {
 
   private int size;
 
-  private static class Node<E> {
-
-    private E element;
-
-    private Node<E> nextNode;
-  }
-
   @Override
   public Iterator<E> iterator() {
     return new Iterator<E>() {
@@ -114,5 +107,12 @@ public class Bag<E> implements Iterable<E> {
       }
     }
     return false;
+  }
+
+  private static class Node<E> {
+
+    private E element;
+
+    private Node<E> nextNode;
   }
 }

@@ -72,11 +72,9 @@ public class EnhancedHazelcastAutoConfiguration implements DisposableBean {
   private static final String MSG_STOPING_HAZELCAST = "Shutdown Hazelcast";
 
   private static final String MSG_ALREADY_STARTED_HAZELCAST = "Hazelcast is already running";
-
+  private final EnhancedHazelcastProperties enhancedHazelcastProperties;
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
-
-  private final EnhancedHazelcastProperties enhancedHazelcastProperties;
 
   public EnhancedHazelcastAutoConfiguration(
       EnhancedHazelcastProperties enhancedHazelcastProperties) {

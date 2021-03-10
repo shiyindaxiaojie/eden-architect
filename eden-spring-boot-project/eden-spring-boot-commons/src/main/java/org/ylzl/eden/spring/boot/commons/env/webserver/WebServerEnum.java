@@ -172,11 +172,6 @@ public enum WebServerEnum {
     throw new UnsupportedOperationException(MSG_UNSUPPORTED_EXCEPTION);
   }
 
-  public interface Handler {
-
-    boolean isCurrentWebServer();
-  }
-
   private static boolean detect(String className) {
     try {
       ClassLoader.getSystemClassLoader().loadClass(className);
@@ -187,5 +182,10 @@ public enum WebServerEnum {
       }
     }
     return true;
+  }
+
+  public interface Handler {
+
+    boolean isCurrentWebServer();
   }
 }

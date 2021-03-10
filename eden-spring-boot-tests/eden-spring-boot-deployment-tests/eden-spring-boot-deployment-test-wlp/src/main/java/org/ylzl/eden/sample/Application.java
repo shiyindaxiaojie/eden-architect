@@ -41,16 +41,6 @@ public class Application extends SpringBootApplicationAdapter {
   }
 
   /**
-   * 测试入口
-   *
-   * @return 测试信息
-   */
-  @GetMapping("/")
-  public String hello() {
-    return "Hello World";
-  }
-
-  /**
    * 启动入口
    *
    * @param args 命令行参数
@@ -59,5 +49,15 @@ public class Application extends SpringBootApplicationAdapter {
     SpringApplication app = new SpringApplication(Application.class);
     Environment env = run(app, args);
     logApplicationServerAfterRunning(env);
+  }
+
+  /**
+   * 测试入口
+   *
+   * @return 测试信息
+   */
+  @GetMapping("/")
+  public String hello() {
+    return "Hello World";
   }
 }

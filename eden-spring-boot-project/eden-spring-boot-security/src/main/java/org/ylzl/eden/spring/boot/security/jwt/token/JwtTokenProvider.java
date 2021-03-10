@@ -52,14 +52,10 @@ public class JwtTokenProvider {
 
   private static final String MSG_HANDLE_EXCEPTION =
       "JWT token compact of handler are invalid, caught exception: {0}";
-
-  private String secretKey;
-
-  private long tokenValidityInMilliseconds;
-
-  private long tokenValidityInMillisecondsForRememberMe;
-
   private final JwtProperties.Authentication jwtProperties;
+  private String secretKey;
+  private long tokenValidityInMilliseconds;
+  private long tokenValidityInMillisecondsForRememberMe;
 
   public JwtTokenProvider(JwtProperties jwtProperties) {
     this.jwtProperties = jwtProperties.getAuthentication();

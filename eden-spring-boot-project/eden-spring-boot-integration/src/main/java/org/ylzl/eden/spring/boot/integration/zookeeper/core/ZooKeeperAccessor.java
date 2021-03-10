@@ -35,13 +35,10 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ZooKeeperAccessor implements InitializingBean, DisposableBean {
 
-  private CountDownLatch semaphore = new CountDownLatch(1);
-
-  @Getter @Setter private ZooKeeper zookeeper;
-
   private final String connectString;
-
   private final int sessionTimeout;
+  private CountDownLatch semaphore = new CountDownLatch(1);
+  @Getter @Setter private ZooKeeper zookeeper;
 
   public ZooKeeperAccessor(String connectString, int sessionTimeout) {
     this.connectString = connectString;

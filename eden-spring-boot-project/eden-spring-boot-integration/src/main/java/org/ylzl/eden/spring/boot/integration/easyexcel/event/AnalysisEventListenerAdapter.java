@@ -41,6 +41,7 @@ public abstract class AnalysisEventListenerAdapter<T> extends AnalysisEventListe
 
   /** 发生异常时是否中断 */
   private boolean isStopOnException = true;
+  private List<T> datas = new ArrayList<>();
 
   public AnalysisEventListenerAdapter() {}
 
@@ -52,8 +53,6 @@ public abstract class AnalysisEventListenerAdapter<T> extends AnalysisEventListe
     this.batchSize = batchSize;
     this.isStopOnException = isStopOnException;
   }
-
-  private List<T> datas = new ArrayList<>();
 
   @Override
   public void invoke(T data, AnalysisContext analysisContext) {
