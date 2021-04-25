@@ -7,7 +7,7 @@
   ~ (the "License"); you may not use this file except in compliance with
   ~ the License.  You may obtain a copy of the License at
   ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~      http://www.apache.org/licenses/LICENSEb-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,6 +35,7 @@
 
 	<properties>
 		<!-- 插件版本 -->
+		<archetype-packaging.version>3.2.0</archetype-packaging.version>
 		<asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
 		<cargo-maven2-plugin.version>1.7.9</cargo-maven2-plugin.version>
@@ -48,7 +49,7 @@
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
 		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
 		</infinispan-protocol-parser-generator-maven-plugin.version>
-		<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
 		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
@@ -56,6 +57,7 @@
 		<kotlin-maven-plugin.version>${kotlin.version}</kotlin-maven-plugin.version>
 		<liquibase-maven-plugin.version>3.5.5</liquibase-maven-plugin.version>
 		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+		<maven-archetype-plugin.version>3.2.0</maven-archetype-plugin.version>
 		<maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
 		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -81,7 +83,7 @@
 		<os-maven-plugin.version>1.6.2</os-maven-plugin.version>
 		<plantuml-generator-maven-plugin.version>0.9.1</plantuml-generator-maven-plugin.version>
 		<plantuml-maven-plugin.version>1.2</plantuml-maven-plugin.version>
-		<properties-maven-plugin>1.0.0</properties-maven-plugin>
+		<properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
 		<scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
 		<sonar-maven-plugin.version>3.4.1.1168</sonar-maven-plugin.version>
 		<spring-boot-maven-plugin.version>2.2.2.RELEASE</spring-boot-maven-plugin.version>
@@ -103,9 +105,6 @@
 		<asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
 		<graphvizDot/>
-		<jacoco.reportFolder>${project.build.directory}/jacoco</jacoco.reportFolder>
-		<jacoco.utReportFile>${jacoco.reportFolder}/test.exec</jacoco.utReportFile>
-		<jacoco.itReportFile>${jacoco.reportFolder}/integrationTest.exec</jacoco.itReportFile>
 		<jruby-complete.version>1.7.26</jruby-complete.version>
 		<junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
 		<junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
@@ -124,47 +123,6 @@
 		<protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
 		<server.url/>
 		<simulationClass/>
-		<sonar.exclusions>src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js,
-			target/classes/static/**/*.*, target/classes/static/**/*.*
-		</sonar.exclusions>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.issue.ignore.multicriteria>S3437,S4684,UndocumentedApi,BoldAndItalicTagsCheck
-		</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
-			src/main/webapp/app/**/*.*
-		</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
-		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>Web:BoldAndItalicTagsCheck
-		</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>
-		<sonar.issue.ignore.multicriteria.S3437.resourceKey>src/main/java/**/*
-		</sonar.issue.ignore.multicriteria.S3437.resourceKey>
-		<sonar.issue.ignore.multicriteria.S3437.ruleKey>squid:S3437
-		</sonar.issue.ignore.multicriteria.S3437.ruleKey>
-		<sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>src/main/java/**/*
-		</sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>
-		<sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi
-		</sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
-		<sonar.issue.ignore.multicriteria.S4684.resourceKey>src/main/java/**/*
-		</sonar.issue.ignore.multicriteria.S4684.resourceKey>
-		<sonar.issue.ignore.multicriteria.S4684.ruleKey>squid:S4684
-		</sonar.issue.ignore.multicriteria.S4684.ruleKey>
-		<sonar.jacoco.reportPaths>
-			${project.build.directory}/jacoco/test.exec,${project.build.directory}/jacoco/integrationTest.exec
-		</sonar.jacoco.reportPaths>
-		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
-		<sonar.junit.reportPaths>
-			${project.build.directory}/test-results/test,${project.build.directory}/test-results/integrationTest
-		</sonar.junit.reportPaths>
-		<sonar.projectKey>${project.name}</sonar.projectKey>
-		<sonar.projectName>${project.description}</sonar.projectName>
-		<sonar.projectVersion>${project.version}</sonar.projectVersion>
-		<sonar.sources>src/main/</sonar.sources>
-		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
-		<sonar.testExecutionReportPaths>
-			${project.build.directory}/test-results/jest/TESTS-results-sonar.xml
-		</sonar.testExecutionReportPaths>
-		<sonar.tests>src/test/</sonar.tests>
-		<sonar.typescript.lcov.reportPaths>${project.build.directory}/test-results/lcov.info
-		</sonar.typescript.lcov.reportPaths>
 		<spring.datasource.driver/>
 		<spring.datasource.url/>
 		<spring.datasource.username/>
@@ -373,6 +331,14 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>${maven-archetype-plugin.version}</version>
+					<configuration>
+						<propertyFile>archetype.properties</propertyFile>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>${maven-assembly-plugin.version}</version>
 					<configuration>
@@ -479,30 +445,11 @@
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>${maven-failsafe-plugin.version}</version>
 					<configuration>
-						<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-						<runOrder>alphabetical</runOrder>
-						<reportsDirectory>${junit.itReportFolder}</reportsDirectory>
 						<includes>
 							<include>**/*IT*</include>
 							<include>**/*IntTest*</include>
 						</includes>
 					</configuration>
-					<executions>
-						<execution>
-							<id>integration-test</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>integration-test</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>verify</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>verify</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -636,8 +583,6 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
 					<configuration>
-						<runOrder>alphabetical</runOrder>
-						<reportsDirectory>${junit.utReportFolder}</reportsDirectory>
 						<excludes>
 							<exclude>**/*IT*</exclude>
 							<exclude>**/*IntTest*</exclude>
@@ -742,20 +687,6 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>properties-maven-plugin</artifactId>
 					<version>${properties-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>properties-read-project-properties</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>read-project-properties</goal>
-							</goals>
-							<configuration>
-								<files>
-									<file>${project.build.outputDirectory}/*.properties</file>
-								</files>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.flywaydb</groupId>
@@ -771,50 +702,6 @@
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
 					<version>${jacoco-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>jacoco-prepare-agent</id>
-							<phase>test</phase>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.utReportFile}</destFile>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-report</id>
-							<phase>test</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.utReportFile}</dataFile>
-								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-prepare-agent-integration</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>prepare-agent-integration</goal>
-							</goals>
-							<configuration>
-								<destFile>${jacoco.itReportFile}</destFile>
-							</configuration>
-						</execution>
-						<execution>
-							<id>jacoco-report-integration</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>report-integration</goal>
-							</goals>
-							<configuration>
-								<dataFile>${jacoco.itReportFile}</dataFile>
-								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.jetbrains.kotlin</groupId>
@@ -942,9 +829,15 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>spring-boot-build-repackage</id>
+							<id>spring-boot-build</id>
+							<phase>compile</phase>
 							<goals>
 								<goal>build-info</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>spring-boot-repackage</id>
+							<goals>
 								<goal>repackage</goal>
 							</goals>
 						</execution>
@@ -1048,7 +941,6 @@
 				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
 			</properties>
 		</profile>
-
 		<profile>
 			<id>docker</id>
 			<build>
@@ -1066,25 +958,127 @@
 		</profile>
 
 		<profile>
-			<id>jacoco</id>
+			<id>unit-test</id>
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<argLine>${surefireArgLine}
+							</argLine>
+							<skipTests>${skip.unit.tests}
+							</skipTests>
+							<excludes>
+								<exclude>**/IT*.java</exclude>
+								<include>**/*IntTest*</include>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>pre-unit-test</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>
+										${project.build.directory}/coverage-reports/jacoco-ut.exec
+									</destFile>
+									<propertyName>surefireArgLine</propertyName>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-unit-test</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<dataFile>
+										${project.build.directory}/coverage-reports/jacoco-ut.exec
+									</dataFile>
+									<outputDirectory>
+										${project.reporting.outputDirectory}/jacoco-ut
+									</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 
 		<profile>
-			<id>sonar</id>
+			<id>integration-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>integration-tests</id>
+								<goals>
+									<goal>verify</goal>
+									<goal>integration-test</goal>
+								</goals>
+								<configuration>
+									<argLine>${failsafeArgLine}
+									</argLine>
+									<skipTests>${skip.integration.tests}</skipTests>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>
+										${project.build.directory}/coverage-reports/jacoco-it.exec
+									</destFile>
+									<propertyName>failsafeArgLine</propertyName>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-integration-test</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<dataFile>
+										${project.build.directory}/coverage-reports/jacoco-it.exec
+									</dataFile>
+									<outputDirectory>
+										${project.reporting.outputDirectory}/jacoco-it
+									</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>code-review</id>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.sonarsource.scanner.maven</groupId>
 						<artifactId>sonar-maven-plugin</artifactId>
-						<version>${sonar-maven-plugin.version}</version>
 					</plugin>
 				</plugins>
 			</build>

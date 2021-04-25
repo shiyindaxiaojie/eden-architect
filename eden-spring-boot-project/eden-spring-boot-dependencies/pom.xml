@@ -175,7 +175,7 @@
 		<poi.version>4.1.1</poi.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<redisson.version>3.12.5</redisson.version>
+		<redisson.version>3.15.2</redisson.version>
 		<reflections.version>0.9.12</reflections.version>
 		<resteasy.version>3.6.2.Final</resteasy.version>
 		<resteasy-spring-boot.version>3.0.1.Final-SNAPSHOT</resteasy-spring-boot.version>
@@ -186,7 +186,7 @@
 		<sharding-sphere.version>4.1.1</sharding-sphere.version>
 		<spring.profiles.active/>
 		<spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-		<spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+		<spring-boot-admin.version>2.2.4</spring-boot-admin.version>
 		<spring-boot-starter-data-jest.version>3.3.0.RELEASE</spring-boot-starter-data-jest.version>
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<spring-cloud-security.version>2.2.0.RELEASE</spring-cloud-security.version>
@@ -1341,7 +1341,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.redisson</groupId>
-				<artifactId>redisson</artifactId>
+				<artifactId>redisson-spring-boot-starter</artifactId>
 				<version>${redisson.version}</version>
 			</dependency>
 			<dependency>

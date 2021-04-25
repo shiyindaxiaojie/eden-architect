@@ -1,6 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.boot.data.flyway.AsyncFlywayAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.hazelcast.EnhancedHazelcastAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.jdbc.EnhancedJdbcTemplateAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.jdbc.RoutingDataSourceAutoConfiguration,\

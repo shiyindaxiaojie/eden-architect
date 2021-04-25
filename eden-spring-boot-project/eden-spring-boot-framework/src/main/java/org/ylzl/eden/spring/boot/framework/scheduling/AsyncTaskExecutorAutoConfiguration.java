@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +40,6 @@ import java.util.concurrent.Executor;
  * @author gyl
  * @since 1.0.0
  */
-@ConditionalOnMissingBean(name = AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR)
 @EnableAsync
 @EnableConfigurationProperties(SchedulingProperties.class)
 @Slf4j
@@ -49,7 +49,9 @@ public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
   public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
   private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
+
   private final SchedulingProperties.TaskExecutor properties;
+
   @Value(FrameworkConstants.NAME_PATTERN)
   private String applicationName;
 
