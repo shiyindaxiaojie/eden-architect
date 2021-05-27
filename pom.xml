@@ -40,15 +40,4 @@
 		<module>eden-spring-boot-tests</module>
 	</modules>
 
-	<distributionManagement>
-		<repository>
-			<id>rdc-releases</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-release-oJPLbK/</url>
-		</repository>
-		<snapshotRepository>
-			<id>rdc-snapshots</id>
-			<url>https://repo.rdc.aliyun.com/repository/42336-snapshot-wHnENu/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 </project>
