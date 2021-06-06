@@ -35,6 +35,6 @@ public class SQLInjectionSafeValidator implements ConstraintValidator<SQLInjecti
 
   @Override
   public boolean isValid(String dataString, ConstraintValidatorContext cxt) {
-    return SqlSafeUtils.isSqlInjectionSafe(dataString);
+    return SqlSafeUtils.isSQLInjectionSafe(dataString);
   }
 }
