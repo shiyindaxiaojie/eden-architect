@@ -21,32 +21,6 @@ WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上�
 6. 通用的工具库积累，并对 Apache Commons 和 Google Guava 等工具类进行适配封装；
 7. 丰富的组件测试框架，允许在测试的生命周期启动嵌入式的 Redis、Kafka、MongoDB 等中间件执行测试。
 
-== 关键技术
-
-|===
-
-| 技术 | 源代码
-
-| 雪花算法
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-commons/src/main/java/org/ylzl/eden/spring/boot/commons/id/SnowflakeGenerator.java[SnowflakeGenerator.java]
-
-| 哈希一致性
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-commons/src/main/java/org/ylzl/eden/spring/boot/commons/algorithms/consistent/ConsistentHash.java[ConsistentHash.java]
-
-| Redis 布隆过滤器
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/redis/support/RedisBloomFilter.java[RedisBloomFilter.java]
-
-| Redis 分布式锁
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-data/src/main/java/org/ylzl/eden/spring/boot/data/redis/support/lock/DistributedRedisLock.java[DistributedRedisLock.java]
-
-| Zookeeper 分布式锁
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-integration/src/main/java/org/ylzl/eden/spring/boot/integration/zookeeper/support/lock/DistributedZooKeeperLock.java[DistributedZooKeeperLock.java]
-
-| Zuul 限流过滤器
-| https://github.com/eden-lab/eden-spring-boot/blob/2.0.0/eden-spring-boot-project/eden-spring-boot-cloud/src/main/java/org/ylzl/eden/spring/boot/cloud/zuul/filter/RateLimitingFilter.java[RateLimitingFilter.java]
-
-|===
-
 == 安装入门
 
 === 构建源码
@@ -212,10 +186,6 @@ public class Example {
 | -
 
 |===
-
-=== 组件图
-
-image:src/docs/plantuml/component.png[width="600"]
 
 == 许可声明
 
