@@ -122,7 +122,7 @@
 		<glassfish.version>3.0.1</glassfish.version>
 		<glassfish-jersey.version>2.20</glassfish-jersey.version>
 		<grpc.version>1.30.2</grpc.version>
-		<guava.version>28.0-jre</guava.version>
+		<guava.version>30.0-jre</guava.version>
 		<hessian.version>4.0.63</hessian.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
