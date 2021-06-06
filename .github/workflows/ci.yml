@@ -15,6 +15,6 @@ jobs:
       - name: Package application
         run: |
           chmod +x mvnw
-          ./mvnw -ntp package -DskipTests -e -U
+          ./mvnw -ntp package -DskipTests -e -U -Pgithub
 #            - name: Verify application
 #              run: ./mvnw -ntp clean verify
