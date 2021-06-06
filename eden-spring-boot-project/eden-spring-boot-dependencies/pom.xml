@@ -127,7 +127,7 @@
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
 		<hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
-		<hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
+		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<hutool.version>5.4.7</hutool.version>
 		<infinispan.version>9.4.17.Final</infinispan.version>
 		<jakarta-servlet.version>4.0.3</jakarta-servlet.version>
