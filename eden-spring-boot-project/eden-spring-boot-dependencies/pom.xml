@@ -145,6 +145,7 @@
 		<joda-time.version>2.10.1</joda-time.version>
 		<jodconverter.version>4.2.2</jodconverter.version>
 		<johnzon.version>1.2.2</johnzon.version>
+		<jol.version>0.16</jol.version>
 		<jooq.version>3.12.3</jooq.version>
 		<json-lib.version>2.4</json-lib.version>
 		<junit.version>4.13.1</junit.version>
@@ -1328,6 +1329,11 @@
 				<groupId>org.openjdk.jmh</groupId>
 				<artifactId>jmh-generator-annprocess</artifactId>
 				<version>${jmh.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.openjdk.jol</groupId>
+				<artifactId>jol-core</artifactId>
+				<version>${jol.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ow2.asm</groupId>
