@@ -53,19 +53,19 @@ public class RestErrorAdvice {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
-  public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
-    BindingResult result = ex.getBindingResult();
-    List<FieldError> fieldErrors = result.getFieldErrors();
-    FieldErrorVM errorVM =
-        FieldErrorVM.builder()
-            .message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage())
-            .description(ex.getMessage())
-            .build();
-    for (FieldError fieldError : fieldErrors) {
-      errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
-    }
-    return errorVM;
-  }
+	public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
+		BindingResult result = ex.getBindingResult();
+		List<FieldError> fieldErrors = result.getFieldErrors();
+		FieldErrorVM errorVM =
+			FieldErrorVM.builder()
+				.message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage())
+				.description(ex.getMessage())
+				.build();
+		for (FieldError fieldError : fieldErrors) {
+			errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
+		}
+		return errorVM;
+	}
 
   /**
    * 处理不支持的请求方法异常

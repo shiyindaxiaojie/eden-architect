@@ -52,5 +52,5 @@ public final class Swagger2Defaults {
 
   public static final boolean useDefaultResponseMessages = true;
 
-  public static final String version = "2.0.0-SNAPSHOT";
+  public static final String version = "2.0.0.RELEASE";
 }

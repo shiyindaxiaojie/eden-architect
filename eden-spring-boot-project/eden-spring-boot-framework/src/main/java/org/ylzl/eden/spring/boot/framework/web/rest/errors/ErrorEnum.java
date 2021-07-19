@@ -3,6 +3,8 @@ package org.ylzl.eden.spring.boot.framework.web.rest.errors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import org.ylzl.eden.spring.boot.framework.web.rest.errors.ErrorAssert;
+
 /**
  * 错误标准化枚举
  *
