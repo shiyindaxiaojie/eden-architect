@@ -148,7 +148,7 @@
 		<mvel.version>2.4.8.Final</mvel.version>
 		<nacos.version>1.4.0</nacos.version>
 		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
-		<netty.version>4.1.42.Final</netty.version>
+		<netty.version>4.1.68.Final</netty.version>
 		<oracle.version>11.2.0.4.0</oracle.version>
 		<p6spy.version>3.9.0</p6spy.version>
 		<pagehelper.version>5.1.11</pagehelper.version>
