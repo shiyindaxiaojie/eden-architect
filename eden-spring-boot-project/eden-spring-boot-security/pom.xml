@@ -21,17 +21,16 @@
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-security</artifactId>
-	<packaging>jar</packaging>
-	<name>eden-spring-boot-security</name>
-	<description>Eden* Spring Boot Security</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-security</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-spring-boot-security</name>
+	<description>Eden* Spring Boot Security</description>
 
 	<dependencies>
 		<dependency>

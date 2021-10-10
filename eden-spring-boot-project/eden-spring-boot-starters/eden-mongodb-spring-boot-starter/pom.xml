@@ -21,10 +21,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-data</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

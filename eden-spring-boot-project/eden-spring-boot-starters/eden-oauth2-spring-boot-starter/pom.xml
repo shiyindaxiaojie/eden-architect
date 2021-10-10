@@ -37,10 +37,5 @@
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-security</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

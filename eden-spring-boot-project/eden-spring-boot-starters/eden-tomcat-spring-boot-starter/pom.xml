@@ -34,14 +34,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-support</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

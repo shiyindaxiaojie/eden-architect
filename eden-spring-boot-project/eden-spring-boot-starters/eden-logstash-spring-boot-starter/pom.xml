@@ -21,18 +21,5 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-support</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

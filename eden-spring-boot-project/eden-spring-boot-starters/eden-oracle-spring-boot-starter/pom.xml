@@ -22,5 +22,4 @@
 			<artifactId>ojdbc6</artifactId>
 		</dependency>-->
 	</dependencies>
-
 </project>

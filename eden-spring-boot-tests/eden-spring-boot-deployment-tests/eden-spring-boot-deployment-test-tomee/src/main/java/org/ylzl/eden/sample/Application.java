@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ylzl.eden.spring.boot.support.SpringBootApplicationAdapter;
+import org.ylzl.eden.spring.boot.support.start.SpringBootApplicationTemplate;
 
 /**
  * Spring Boot 引导类
@@ -34,7 +34,7 @@ import org.ylzl.eden.spring.boot.support.SpringBootApplicationAdapter;
 @RestController
 @Slf4j
 @SpringBootApplication
-public class Application extends SpringBootApplicationAdapter {
+public class Application extends SpringBootApplicationTemplate {
 
   public Application(Environment env) {
     super(env);

@@ -8,7 +8,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.data.mongobee.MongobeeAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mongodb.MongoDBAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatis.CustomMybatisAutoConfiguration,\
-  org.ylzl.eden.spring.boot.data.mybatismapper.MybatisMapperAutoConfiguration,\
+  org.ylzl.eden.spring.boot.data.tkmybatis.TKMybatisAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatispagehelper.MybatisPageHelperAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.mybatisplus.CustomMybatisPlusAutoConfiguration,\
   org.ylzl.eden.spring.boot.data.neo4j.FixedNeo4jAutoConfiguration,\

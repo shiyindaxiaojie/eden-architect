@@ -18,10 +18,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>
 		</dependency>
@@ -34,5 +30,4 @@
 			<artifactId>zookeeper</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

@@ -21,17 +21,16 @@
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-project</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-spring-boot-project</name>
-	<description>Eden* Spring Boot Project</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot</artifactId>
 		<version>2.0.0.RELEASE</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-project</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-spring-boot-project</name>
+	<description>Eden* Spring Boot Project</description>
 
 	<modules>
 		<module>eden-spring-boot-cloud</module>
@@ -46,5 +45,4 @@
 		<module>eden-spring-boot-support</module>
 		<module>eden-spring-boot-test</module>
 	</modules>
-
 </project>

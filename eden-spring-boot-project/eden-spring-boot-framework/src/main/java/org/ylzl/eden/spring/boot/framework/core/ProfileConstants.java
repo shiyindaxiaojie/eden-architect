@@ -35,7 +35,7 @@ public final class ProfileConstants {
   public static final String SPRING_PROFILE_PRODUCTION = "prod";
 
   /** 预发布环境 */
-  public static final String SPRING_PROFILE_PRRVIEW = "pre";
+  public static final String SPRING_PROFILE_STAGING = "staging";
 
   /** 测试环境 */
   public static final String SPRING_PROFILE_TEST = "test";
@@ -46,6 +46,6 @@ public final class ProfileConstants {
   /** 云环境 */
   public static final String SPRING_PROFILE_CLOUD = "cloud";
 
-  /** 本地环境 */
+  /** 主机环境 */
   public static final String SPRING_PROFILE_NATIVE = "native";
 }
