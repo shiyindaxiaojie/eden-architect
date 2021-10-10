@@ -21,17 +21,16 @@
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-starters</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-spring-boot-starters</name>
-	<description>Eden* Spring Boot Starters</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-starters</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-spring-boot-starters</name>
+	<description>Eden* Spring Boot Starters</description>
 
 	<modules>
 		<module>eden-activemq-spring-boot-starter</module>
@@ -59,7 +58,6 @@
 		<module>eden-ftpclient-spring-boot-starter</module>
 		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hazelcast-spring-boot-starter</module>
-		<module>eden-h2-spring-boot-starter</module>
 		<module>eden-hbase-spring-boot-starter</module>
 		<module>eden-hessian-spring-boot-starter</module>
 		<module>eden-hibernate-spring-boot-starter</module>
@@ -80,17 +78,16 @@
 		<module>eden-mina-spring-boot-starter</module>
 		<module>eden-mongobee-spring-boot-starter</module>
 		<module>eden-mongodb-spring-boot-starter</module>
-		<module>eden-mybatis-mapper-spring-boot-starter</module>
 		<module>eden-mybatis-pagehelper-spring-boot-starter</module>
 		<module>eden-mybatis-plus-spring-boot-starter</module>
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-mycat-spring-boot-starter</module>
-		<module>eden-mysql-spring-boot-starter</module>
 		<module>eden-nacos-config-spring-boot-starter</module>
 		<module>eden-nacos-discovery-spring-boot-starter</module>
 		<module>eden-neo4j-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
 		<module>eden-oauth2-spring-boot-starter</module>
+		<module>eden-openapi-spring-boot-starter</module>
 		<module>eden-oracle-spring-boot-starter</module>
 		<module>eden-prometheus-spring-boot-starter</module>
 		<module>eden-qpid-spring-boot-starter</module>
@@ -106,6 +103,7 @@
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-test-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>
+		<module>eden-tkmybatis-spring-boot-starter</module>
 		<module>eden-truelicense-spring-boot-starter</module>
 		<module>eden-turbine-spring-boot-starter</module>
 		<module>eden-undertow-spring-boot-starter</module>
@@ -114,5 +112,4 @@
 		<module>eden-zookeeper-spring-boot-starter</module>
 		<module>eden-zuul-spring-boot-starter</module>
 	</modules>
-
 </project>

@@ -22,10 +22,5 @@
 			<artifactId>javamelody-core</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

@@ -30,5 +30,4 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

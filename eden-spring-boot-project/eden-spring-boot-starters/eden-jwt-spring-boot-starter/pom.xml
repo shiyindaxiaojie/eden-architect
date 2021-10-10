@@ -33,10 +33,5 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-security</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

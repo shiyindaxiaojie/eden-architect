@@ -36,5 +36,4 @@
 			<artifactId>eden-spring-boot-cloud</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

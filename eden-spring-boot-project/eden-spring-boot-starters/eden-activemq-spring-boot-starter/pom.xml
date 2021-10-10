@@ -22,5 +22,4 @@
 			<artifactId>eden-spring-boot-integration</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

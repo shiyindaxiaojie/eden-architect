@@ -22,5 +22,4 @@
 			<artifactId>eden-spring-boot-data</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

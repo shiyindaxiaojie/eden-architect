@@ -44,5 +44,4 @@
 			<artifactId>eden-spring-boot-support</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

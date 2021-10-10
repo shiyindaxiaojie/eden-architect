@@ -21,10 +21,5 @@
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

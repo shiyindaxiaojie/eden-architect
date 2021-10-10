@@ -22,5 +22,4 @@
 			<artifactId>sqlite-jdbc</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>

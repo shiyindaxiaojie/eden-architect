@@ -21,6 +21,12 @@
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath/>
+	</parent>
 	<groupId>org.ylzl</groupId>
 	<artifactId>eden-spring-boot-dependencies</artifactId>
 	<version>2.0.0.RELEASE</version>
@@ -28,22 +34,15 @@
 	<name>eden-spring-boot-dependencies</name>
 	<description>Eden* Spring Boot Dependencies</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.6.RELEASE</version>
-		<relativePath/>
-	</parent>
-
 	<developers>
 		<developer>
-			<id>gyl</id>
-			<name>guoyuanlu</name>
+			<id>sion</id>
+			<name>梦想歌</name>
 			<email>shiyindaxiaojie@gmail.com</email>
 			<organization>ylzl.org</organization>
 			<organizationUrl>https://github.com/orgs/eden-lab/teams</organizationUrl>
 			<roles>
-				<role>DevOps</role>
+				<role>Architect</role>
 			</roles>
 		</developer>
 	</developers>
@@ -367,11 +366,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-h2-spring-boot-starter</artifactId>
-				<version>${eden-spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-hbase-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
@@ -477,11 +471,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-mybatis-mapper-spring-boot-starter</artifactId>
-				<version>${eden-spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-mybatis-pagehelper-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
@@ -493,11 +482,6 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-mycat-spring-boot-starter</artifactId>
-				<version>${eden-spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-mysql-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
 			<dependency>
@@ -523,6 +507,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-oauth2-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-openapi-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
 			<dependency>
@@ -593,6 +582,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-test-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-tkmybatis-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>
 			<dependency>

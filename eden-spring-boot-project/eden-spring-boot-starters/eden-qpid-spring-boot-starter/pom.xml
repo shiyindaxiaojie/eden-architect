@@ -17,10 +17,5 @@
 	</parent>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot-integration</artifactId>
-		</dependency>
 	</dependencies>
-
 </project>

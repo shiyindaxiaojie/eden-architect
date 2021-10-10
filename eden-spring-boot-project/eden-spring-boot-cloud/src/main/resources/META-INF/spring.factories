@@ -3,7 +3,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.cloud.configserver.ConfigServerAutoConfiguration,\
   org.ylzl.eden.spring.boot.cloud.feign.FeignAutoConfiguration,\
   org.ylzl.eden.spring.boot.cloud.hazelcast.DiscoveryHazelcastAutoConfiguration,\
-  org.ylzl.eden.spring.boot.cloud.jdbc.CloudDataSourceAutoConfiguration,\
+  org.ylzl.eden.spring.boot.cloud.database.CloudDataSourceAutoConfiguration,\
   org.ylzl.eden.spring.boot.cloud.loadbalancer.LoadBalancerClientAutoConfiguration,\
   org.ylzl.eden.spring.boot.cloud.oauth2.LoadBalancedOAuth2AuthorizationClientAutoConfiguration,\
   org.ylzl.eden.spring.boot.cloud.profile.ProfileEndpointAutoConfiguration,\

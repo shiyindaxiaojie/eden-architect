@@ -21,22 +21,36 @@
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-support</artifactId>
-	<packaging>jar</packaging>
-	<name>eden-spring-boot-support</name>
-	<description>Eden* Spring Boot Support</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
 		<relativePath>../eden-spring-boot-parent</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-support</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-spring-boot-support</name>
+	<description>Eden* Spring Boot Support</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-annotation</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-extension</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -111,6 +125,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
