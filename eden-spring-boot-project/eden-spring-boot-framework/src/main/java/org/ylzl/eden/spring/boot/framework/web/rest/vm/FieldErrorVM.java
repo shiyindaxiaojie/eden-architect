@@ -50,7 +50,7 @@ public class FieldErrorVM extends ErrorVM {
         FieldError.builder().objectName(objectName).field(field).message(message).build());
   }
 
-  @Builder(toBuilder = true)
+  @SuperBuilder(toBuilder = true)
   @Data
   @EqualsAndHashCode
   @ToString

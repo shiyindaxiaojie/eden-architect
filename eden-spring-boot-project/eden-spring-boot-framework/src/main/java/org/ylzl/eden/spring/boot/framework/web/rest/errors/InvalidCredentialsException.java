@@ -39,7 +39,8 @@ public class InvalidCredentialsException extends BadRequestAlertException {
     super(message, description);
   }
 
-  public int getStatusCode() {
+  @Override
+	public int getStatusCode() {
     return HttpStatus.UNAUTHORIZED.value();
   }
 }

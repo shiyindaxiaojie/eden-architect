@@ -36,7 +36,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @ToString
 @ApiModel(description = "错误视图模型")
 public class ErrorVM implements Serializable {
