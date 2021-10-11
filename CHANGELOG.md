@@ -1,4 +1,4 @@
-# 2.0.0.RELEASE (2021-01-01)
+# 2.0.0-SNAPSHOT (2021-01-01)
 
 ## New Features
 - 新增xx功能
