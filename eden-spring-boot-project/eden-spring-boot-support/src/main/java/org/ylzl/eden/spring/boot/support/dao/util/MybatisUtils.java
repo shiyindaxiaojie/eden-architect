@@ -59,6 +59,7 @@ public class MybatisUtils {
 	 * @param sortRule 排序规则
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> Page<T> buildPage(
 		long pageNum, long pageSize, String sortColumn, String sortRule) {
 		Page<T> page = new Page(pageNum, pageSize);
@@ -142,6 +143,6 @@ public class MybatisUtils {
 	 * @return
 	 */
 	public static boolean effectiveRowsToBoolean(int effectiveRows) {
-		return effectiveRows > ApplicationConstants.DEFAULT_SUCCESS_VALUE;
+		return effectiveRows > 0;
 	}
 }

@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.boot.support.dao.domain.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -31,7 +32,9 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @ApiModel(description = "分页器查询对象")
+@AllArgsConstructor
 @Data
+@Builder
 public class PageableQuery implements Serializable {
 
   private static final long serialVersionUID = 1L;
