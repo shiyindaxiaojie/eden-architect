@@ -76,7 +76,7 @@
 		<maven-site-plugin.version>3.8.2</maven-site-plugin.version>
 		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
 		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
-		<openapi-generator-maven-plugin.version>5.1.0</openapi-generator-maven-plugin.version>
+		<openapi-generator-maven-plugin.version>5.2.1</openapi-generator-maven-plugin.version>
 		<openapi-generator-maven-plugin.apiPackage/>
 		<openapi-generator-maven-plugin.modelPackage/>
 		<os-maven-plugin.version>1.6.2</os-maven-plugin.version>
@@ -788,12 +788,11 @@
 									<java8>true</java8>
 									<serializableModel>true</serializableModel>
 									<interfaceOnly>true</interfaceOnly>
-									<useSwaggerAnnotations>false</useSwaggerAnnotations>
+									<useSwaggerAnnotations>true</useSwaggerAnnotations>
 								</configOptions>
 								<apiPackage>${openapi-generator-maven-plugin.apiPackage}</apiPackage>
 								<modelPackage>${openapi-generator-maven-plugin.modelPackage}</modelPackage>
 								<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
-								<validateSpec>true</validateSpec>
 							</configuration>
 						</execution>
 					</executions>
