@@ -97,6 +97,7 @@
 		<easyexcel.version>2.2.3</easyexcel.version>
 		<ehcache.version>2.10.4</ehcache.version>
 		<embedded-redis.version>0.7.2</embedded-redis.version>
+		<feign.version>10.4.0</feign.version>
 		<flowable.version>6.5.0</flowable.version>
 		<ftpserver.version>1.1.1</ftpserver.version>
 		<gatling.version>3.2.1</gatling.version>
@@ -855,6 +856,21 @@
 				<groupId>io.gatling.highcharts</groupId>
 				<artifactId>gatling-charts-highcharts</artifactId>
 				<version>${gatling.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-jackson</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-jaxrs</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-okhttp</artifactId>
+				<version>${feign.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.grpc</groupId>
