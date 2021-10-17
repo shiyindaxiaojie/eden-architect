@@ -542,6 +542,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-redisson-spring-boot-starter</artifactId>
+				<version>${eden-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-resteasy-spring-boot-starter</artifactId>
 				<version>${eden-spring-boot.version}</version>
 			</dependency>

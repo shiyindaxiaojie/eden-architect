@@ -93,6 +93,7 @@
 		<module>eden-qpid-spring-boot-starter</module>
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
+		<module>eden-redisson-spring-boot-starter</module>
 		<module>eden-resteasy-spring-boot-starter</module>
 		<module>eden-ribbon-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
