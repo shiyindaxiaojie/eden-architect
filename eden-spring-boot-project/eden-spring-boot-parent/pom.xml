@@ -144,7 +144,6 @@
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<finalName>${project.name}</finalName>
-		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<extensions>
 			<extension>
 				<groupId>kr.motd.maven</groupId>

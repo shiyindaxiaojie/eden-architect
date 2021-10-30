@@ -20,19 +20,17 @@
 				 xmlns="http://maven.apache.org/POM/4.0.0"
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-deployment-test-wildfly</artifactId>
-	<packaging>war</packaging>
-	<name>eden-spring-boot-deployment-test-wildfly</name>
-	<description>Eden* Spring Boot Deployment Test Wildfly</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-deployment-tests</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-deployment-test-wildfly</artifactId>
+	<packaging>war</packaging>
+	<name>eden-spring-boot-deployment-test-wildfly</name>
+	<description>Eden* Spring Boot Deployment Test Wildfly</description>
 
 	<properties>
 		<cargo.container.id>wildfly12x</cargo.container.id>

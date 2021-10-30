@@ -20,19 +20,17 @@
 				 xmlns="http://maven.apache.org/POM/4.0.0"
 				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-spring-boot-deployment-test-tomcat</artifactId>
-	<packaging>war</packaging>
-	<name>eden-spring-boot-deployment-test-tomcat</name>
-	<description>Eden* Spring Boot Deployment Test Tomcat</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-deployment-tests</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<artifactId>eden-spring-boot-deployment-test-tomcat</artifactId>
+	<packaging>war</packaging>
+	<name>eden-spring-boot-deployment-test-tomcat</name>
+	<description>Eden* Spring Boot Deployment Test Tomcat</description>
 
 	<properties>
 		<cargo.container.id>tomcat7x</cargo.container.id>
