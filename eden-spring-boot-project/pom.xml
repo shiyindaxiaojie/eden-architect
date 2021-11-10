@@ -42,7 +42,7 @@
 		<module>eden-spring-boot-parent</module>
 		<module>eden-spring-boot-security</module>
 		<module>eden-spring-boot-starters</module>
-		<module>eden-spring-boot-support</module>
+		<module>eden-spring-boot-template</module>
 		<module>eden-spring-boot-test</module>
 	</modules>
 </project>
