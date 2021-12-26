@@ -1,0 +1,11 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.spring.framework.timer.autoconfigure.TimerAopAutoConfiguration,\
+  org.ylzl.eden.spring.framework.core.autoconfigure.SpringFrameworkAutoConfiguration,\
+  org.ylzl.eden.spring.framework.info.autoconfigure.InfoContributorAutoConfiguration,\
+  org.ylzl.eden.spring.framework.httpclient.autoconfigure.HttpClientAutoConfiguration,\
+  org.ylzl.eden.spring.framework.mail.autoconfigure.EnhancedMailSenderAutoConfiguration,\
+  org.ylzl.eden.spring.framework.async.autoconfigure.AsyncTaskExecutorAutoConfiguration,\
+  org.ylzl.eden.spring.framework.undertow.UndertowSSLAutoConfiguration,\
+  org.ylzl.eden.spring.framework.web.CorsAutoConfiguration,\
+  org.ylzl.eden.spring.framework.web.RestAutoConfiguration
