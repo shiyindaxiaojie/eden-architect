@@ -1,15 +1,15 @@
-= Eden* Spring Boot
+= Eden* Architect
 
 image:src/docs/readme/language-java-blue.svg[]
 image:src/docs/readme/license-apache 2.0-red.svg["License",link="https://www.apache.org/licenses/LICENSE-2.0.html"]
 image:https://github.com/eden-lab/eden-spring-boot/workflows/build/badge.svg["Github Actions",link="https://github.com/eden-lab/eden-spring-boot/actions"]
 image:https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-spring-boot&metric=alert_status["SonarCloud",link="https://sonarcloud.io/dashboard?id=eden-lab_eden-spring-boot"]
 
-Eden* Spring Boot 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
+Eden* Architect 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
 
-您可以通过 Eden* Spring Boot 创建独立的 Java 应用程序，使用 `java -jar` 或更传统的 WAR 部署来启动它。
+您可以通过 Eden* Architect 创建独立的 Java 应用程序，使用 `java -jar` 或更传统的 WAR 部署来启动它。
 
-WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上，如果需要支持 JDK 1.7，请切换为 1.X.X 分支。
+WARNING: Eden* Architect 使用的 Spring Boot 版本仅支持 JDK 1.8 以上，如果需要支持 JDK 1.7，请切换为 1.X.X 分支。
 
 == 基本介绍
 
@@ -25,7 +25,7 @@ WARNING: Eden* Spring Boot 使用的 Spring Boot 版本仅支持 JDK 1.8 以上�
 
 === 构建源码
 
-Eden* Spring Boot 的源码支持在 JDK 1.8 以上的版本编译构建。
+Eden* Architect 的源码支持在 JDK 1.8 以上的版本编译构建。
 
 您可以使用以下命令构建并发布到本地的 Maven 仓库中：
 
@@ -59,8 +59,8 @@ $ ./mvnw clean install
     <!-- 继承 Eden* Spring Boot 依赖 -->
     <parent>
         <groupId>org.ylzl</groupId>
-        <artifactId>eden-spring-boot-parent</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <artifactId>eden-parent</artifactId>
+        <version>2.0.0.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -121,67 +121,67 @@ public class Example {
 
 | 应用名称 | 描述 | 技术栈
 
-| eden-spring-boot-project
-| 开发程序集
+| eden-component
+| 组件
 | -
 
-| eden-spring-boot-cloud
-| 微服务框架
-| Spring Cloud Config、Eureka、Consul...
-
-| eden-spring-boot-commons
-| 工具类库
+| eden-commons
+| 工具库
 | Apache Commons、Googla Guava...
 
-| eden-spring-boot-data
-| 数据仓库
-| Spring Data、Flyway、Liquibase、Mongobee
-
-| eden-spring-boot-dependencies
+| eden-dependencies
 | 依赖管理
 | -
 
-| eden-spring-boot-framework
-| 基础框架
-| HttpClient...
-
-| eden-spring-boot-integration
-| 组件集成
-| Hazelcast、Kafka、Logstash、Metrics、Netty、Swagger...
-
-| eden-spring-boot-parent
+| eden-parent
 | 构建管理
 | -
-
-| eden-spring-boot-security
-| 安全认证
-| Spring Security OAuth2、Jwt...
 
 | eden-spring-boot-starters
 | 依赖集
 | -
 
-| eden-spring-boot-support
-| 帮助支持
+| eden-spring-cloud
+| 微服务框架
+| Spring Cloud Config、Eureka、Consul...
+
+| eden-spring-data
+| 数据仓库
+| Spring Data、Flyway、Liquibase、Mongobee
+
+| eden-spring-framework
+| 基础框架
+| HttpClient...
+
+| eden-spring-integration
+| 第三方集成
+| Hazelcast、Kafka、Logstash、Metrics、Netty、Swagger...
+
+| eden-spring-security
+| 安全认证
+| Spring Security OAuth2、Jwt...
+
+| eden-templates
+| 开发模板
 | -
 
-| eden-spring-boot-test
+| eden-tests
 | 测试框架
 | -
 
-| eden-spring-boot-tests
-| 测试程序集
-| -
-
-| eden-spring-boot-deployment-tests
+| eden-deployment-tests
 | 部署测试集
 | -
 
-| eden-spring-boot-integration-tests
+| eden-integration-tests
 | 集成测试集
 | -
 
-| eden-spring-boot-smoke-tests
+| eden-performance-tests
+| 性能测试集
+| -
+
+| eden-smoke-tests
 | 冒烟测试集
 | -
 

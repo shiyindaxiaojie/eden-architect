@@ -17,8 +17,8 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xmlns="http://maven.apache.org/POM/4.0.0"
-				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -28,22 +28,110 @@
 		<relativePath/>
 	</parent>
 	<groupId>org.ylzl</groupId>
-	<artifactId>eden-spring-boot</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<artifactId>eden-architect</artifactId>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
-	<name>eden-spring-boot</name>
-	<description>Eden* Spring Boot</description>
+	<name>eden-architect</name>
+	<description>自研架构</description>
 
 	<modules>
-		<module>eden-spring-boot-project</module>
-		<module>eden-spring-boot-tests</module>
+		<module>eden-components</module>
+		<module>eden-tests</module>
 	</modules>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/eden-lab/eden-architect</url>
+		<connection>scm:git:git://github.com/eden-lab/eden-architect.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/eden-lab/eden-architect.git
+		</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/eden-lab/eden-architect/issues</url>
+	</issueManagement>
 
 	<distributionManagement>
 		<repository>
 			<id>github</id>
 			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/eden-lab/eden-spring-boot</url>
+			<url>https://maven.pkg.github.com/eden-lab/eden-architect</url>
 		</repository>
 	</distributionManagement>
+
+	<developers>
+		<developer>
+			<id>sion</id>
+			<name>梦想歌</name>
+			<email>shiyindaxiaojie@gmail.com</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>zx</id>
+			<name>子欣</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<properties>
+		<revision>2.0.0.RELEASE</revision>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>${flatten-maven-plugin.version}</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

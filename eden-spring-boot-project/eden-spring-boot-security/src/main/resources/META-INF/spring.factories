@@ -1,7 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.boot.security.jwt.JwtAuthorizationServerAutoConfiguration,\
-  org.ylzl.eden.spring.boot.security.oauth2.OAuth2AuthorizationClientAutoConfiguration,\
-  org.ylzl.eden.spring.boot.security.oauth2.OAuth2AuthorizationServerAutoConfiguration,\
-  org.ylzl.eden.spring.boot.security.oauth2.OAuth2ResourceServerAutoConfiguration,\
-  org.ylzl.eden.spring.boot.security.web.WebSecurityAutoConfiguration

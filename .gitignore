@@ -51,6 +51,7 @@ bin/
 maven/
 node/
 target/
+.flattened-pom.xml
 
 # Node.js
 node/

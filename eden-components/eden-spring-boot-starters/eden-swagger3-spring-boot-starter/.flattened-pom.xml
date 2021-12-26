@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.ylzl</groupId>
+    <artifactId>eden-spring-boot-starters</artifactId>
+    <version>2.0.0.RELEASE</version>
+  </parent>
+  <groupId>org.ylzl</groupId>
+  <artifactId>eden-swagger3-spring-boot-starter</artifactId>
+  <version>2.0.0.RELEASE</version>
+  <name>eden-swagger3-spring-boot-starter</name>
+  <description>Eden* Swagger3 Spring Boot Starter</description>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger.parser.v3</groupId>
+      <artifactId>swagger-parser</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>mailapi</artifactId>
+          <groupId>javax.mail</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>swagger-ui</artifactId>
+    </dependency>
+  </dependencies>
+</project>
