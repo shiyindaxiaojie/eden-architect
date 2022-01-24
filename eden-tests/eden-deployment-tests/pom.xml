@@ -120,6 +120,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
