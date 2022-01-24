@@ -56,7 +56,7 @@
 		<!-- Web -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
 		<knife4j.version>2.0.3</knife4j.version>
-		<resteasy.version>3.0.7.Final</resteasy.version>
+		<resteasy.version>4.5.7.Final</resteasy.version>
 		<resteasy-spring-boot.version>1.0.1.Final</resteasy-spring-boot.version>
 		<springfox.version>2.9.2</springfox.version>
 		<swagger.version>1.6.3</swagger.version>
