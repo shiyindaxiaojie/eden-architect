@@ -24,7 +24,7 @@ import java.sql.Types;
  * H2 方言类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class FixedH2Dialect extends H2Dialect {
 

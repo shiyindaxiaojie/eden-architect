@@ -23,7 +23,7 @@ import java.util.List;
  * 排序接口
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface Sort {
 

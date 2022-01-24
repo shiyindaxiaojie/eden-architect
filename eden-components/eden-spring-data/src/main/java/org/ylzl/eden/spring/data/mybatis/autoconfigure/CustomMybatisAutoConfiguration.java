@@ -48,7 +48,7 @@ import java.util.List;
  * Mybatis 自定义配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @ConditionalOnMissingClass("com.baomidou.mybatisplus.core.MybatisConfiguration")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)

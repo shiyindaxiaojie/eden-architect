@@ -32,7 +32,7 @@ import java.util.Map;
  * 通道选项
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public final class ChannelOptions implements Supplier<Map<ChannelOption, Object>> {
 

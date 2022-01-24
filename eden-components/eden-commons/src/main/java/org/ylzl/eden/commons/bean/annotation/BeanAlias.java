@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * 别名注解
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.FIELD})

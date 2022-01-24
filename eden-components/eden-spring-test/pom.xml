@@ -33,27 +33,33 @@
 	<description>Spring Test 扩展</description>
 
 	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
-		<!-- DevTool -->
+		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
-			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
 

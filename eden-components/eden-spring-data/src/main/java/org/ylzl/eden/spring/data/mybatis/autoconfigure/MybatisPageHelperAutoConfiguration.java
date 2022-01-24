@@ -29,7 +29,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.data.mybatis.autoconfigure.CustomMybatisAutoConfiguration;
 
 import java.util.Properties;
 
@@ -37,7 +36,7 @@ import java.util.Properties;
  * Mybatis 分页插件自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore({CustomMybatisAutoConfiguration.class})

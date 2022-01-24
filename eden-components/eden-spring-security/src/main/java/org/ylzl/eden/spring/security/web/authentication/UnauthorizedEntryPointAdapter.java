@@ -30,7 +30,7 @@ import java.io.IOException;
  * 未认证处理适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {

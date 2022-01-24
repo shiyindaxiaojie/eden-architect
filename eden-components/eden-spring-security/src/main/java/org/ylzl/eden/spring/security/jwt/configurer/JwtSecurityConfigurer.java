@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
  * JWT 安全配置器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class JwtSecurityConfigurer
     extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

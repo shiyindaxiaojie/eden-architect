@@ -31,7 +31,7 @@ import java.util.List;
  * 持久化审计事件数据仓库接口
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @NoRepositoryBean
 public interface PersistenceAuditEventRepository<

@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.integration.swagger2.customizer;
 
 import org.springframework.core.Ordered;
 import org.springframework.http.ResponseEntity;
-import org.ylzl.eden.spring.integration.swagger2.Swagger2Properties;
+import org.ylzl.eden.spring.integration.swagger2.env.Swagger2Properties;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
@@ -36,7 +36,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
  * 默认的 Swagger 自定义实现
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
 

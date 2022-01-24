@@ -27,9 +27,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 import org.ylzl.eden.spring.framework.async.env.AsyncProperties;
 import org.ylzl.eden.spring.framework.async.interceptor.ExceptionHandlingAsyncTaskExecutor;
+import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 
 import java.util.concurrent.Executor;
 
@@ -37,7 +37,7 @@ import java.util.concurrent.Executor;
  * 异步执行自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @EnableAsync
 @EnableConfigurationProperties(AsyncProperties.class)

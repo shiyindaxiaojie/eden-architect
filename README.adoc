@@ -1,172 +1,74 @@
 = Eden* Architect
 
 image:src/docs/readme/language-java-blue.svg[]
-image:src/docs/readme/license-apache 2.0-red.svg["License",link="https://www.apache.org/licenses/LICENSE-2.0.html"]
-image:https://github.com/eden-lab/eden-spring-boot/workflows/build/badge.svg["Github Actions",link="https://github.com/eden-lab/eden-spring-boot/actions"]
-image:https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-spring-boot&metric=alert_status["SonarCloud",link="https://sonarcloud.io/dashboard?id=eden-lab_eden-spring-boot"]
+image:src/docs/readme/license-apache2.0-red.svg["License",link="https://www.apache.org/licenses/LICENSE-2.0.html"]
+image:https://github.com/eden-lab/eden-architect/workflows/build/badge.svg["Github Actions",link="https://github.com/eden-lab/eden-architect/actions"]
+image:https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-architect&metric=alert_status["SonarCloud",link="https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-architect&metric=alert_status"]
 
-Eden* Architect 是一组基于 Spring 体系的增强式框架，在官方各组件实现的基础上进行简化和扩展，消除样板代码和简化配置，开箱即用，降低初学者的使用门槛。
+Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将 Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
 
-您可以通过 Eden* Architect 创建独立的 Java 应用程序，使用 `java -jar` 或更传统的 WAR 部署来启动它。
+== 主要功能
 
-WARNING: Eden* Architect 使用的 Spring Boot 版本仅支持 JDK 1.8 以上，如果需要支持 JDK 1.7，请切换为 1.X.X 分支。
+* **Maven 依赖和插件封装**：解决了主流技术组件集成产生的依赖冲突问题，并提供相关组件的 `Spring Boot Starter`，为开发者减少在组件集成消耗的时间。另外，提供了各种 Maven 插件（几乎覆盖市面上 99% 的组件），降低了各种 Maven 插件集成的复杂度，开发者只需要直接引入插件就可以实现灵活的构建操作。
+* **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus` 和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
+* **数据分片能力封装**：提供了 `Sharding JDBC` 的封装，兼容 `Mybatis Plus`、`DynamicDataSource` 组件。
+* **常用中间件集成**：提供了 `Kafka`、`XXLJob`、`CAT`、`Zookeeper`、`EasyExcel`、`Sentinel` 等组件的集成，并提供 `Spring Boot Starter` 能力。
+* **腾讯云组件集成**：提供了腾讯云产品常用的 `COS 对象存储`、`VOD 云点播`、`TMS 敏感词过滤`、`TPNS 推送`、`CMQ 消息队列`等组件的集成，引入相关 `Spring Boot Starter` 开启自动配置能力。
 
-== 基本介绍
+== 组件构成
 
-1. 自动化配置优先，组件的集成配置只需要引入指定的 starter 即可，你也可以按自己的需求去覆盖默认的配置；
-2. 统一的依赖和插件管理，解决了大量的依赖冲突，简化 POM 文件的配置工作；
-3. 完善的微服务体系框架，基于服务发现覆盖单机配置，增强网关的认证口令传输；
-4. 认证授权流程开箱即用，如 OAuth2、Jwt、Shiro 等安全框架；
-5. 常用组件的自动化配置，如 Swagger、Metrics、Logstash、HazelCast 等等；
-6. 通用的工具库积累，并对 Apache Commons 和 Google Guava 等工具类进行适配封装；
-7. 丰富的组件测试框架，允许在测试的生命周期启动嵌入式的 Redis、Kafka、MongoDB 等中间件执行测试。
-
-== 安装入门
-
-=== 构建源码
-
-Eden* Architect 的源码支持在 JDK 1.8 以上的版本编译构建。
-
-您可以使用以下命令构建并发布到本地的 Maven 仓库中：
-
-[indent=0]
-----
-
-$ ./mvnw clean install
-
-----
-
-发布完成后，您可以开始集成组件和配置到应用程序中，后面的内容以 Swagger2 的集成过程为例。
-
-=== 引入依赖
-
-从 eden-spring-boot-starters 中选择您需要的组件，以依赖引入的形式添加到应用程序的 POM 文件。此处已完成配置 Swagger2 的工作。
-
-[source,xml,indent=0]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>war</packaging>
-    <groupId>org.ylzl</groupId>
-    <artifactId>eden-sample</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>sample</name>
-    <description>Eden* Sample</description>
-
-    <!-- 继承 Eden* Spring Boot 依赖 -->
-    <parent>
-        <groupId>org.ylzl</groupId>
-        <artifactId>eden-parent</artifactId>
-        <version>2.0.0.RELEASE</version>
-        <relativePath/>
-    </parent>
-
-    <dependencies>
-        <!-- 从 eden-spring-boot-starters 引入 Swagger2 依赖 -->
-        <dependency>
-            <groupId>org.ylzl</groupId>
-            <artifactId>eden-swagger2-spring-boot-starter</artifactId>
-        </dependency>
-    </dependencies>
-</project>
-----
-
-=== 微调配置
-
-Eden* Spring Boot 提供了自动化配置和默认的配置值，当然，您可以参考下述代码在应用配置属性文件中覆盖它。
-
-[source,yaml,indent=0]
-----
-eden:
-    integration:
-        swagger:
-            default-include-pattern: /api/.* # 配置 Swagger 注解扫描的路径
-----
-
-=== 启动代码
-
-请参考 Spring Boot 的启动示例。
-
-[source,java,indent=0]
-----
-
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@SpringBootApplication
-public class Example {
-
-    @RequestMapping("/")
-    public String home() {
-        return "Hello World!";
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Example.class, args);
-    }
-}
-
-----
-
-== 体系结构
-
-=== 模块清单
+image::src/docs/uml/component.png[]
 
 |===
 
 | 应用名称 | 描述 | 技术栈
 
-| eden-component
-| 组件
+| eden-components
+| 组件集
 | -
 
-| eden-commons
-| 工具库
-| Apache Commons、Googla Guava...
-
 | eden-dependencies
-| 依赖管理
+| 依赖管理组件
 | -
 
 | eden-parent
-| 构建管理
+| 构建管理组件
 | -
+
+| eden-commons
+| 基础工具组件
+| Apache Commons、Google Guava 、HuTool...
 
 | eden-spring-boot-starters
-| 依赖集
+| 自动配置组件
 | -
 
+| eden-spring-framework
+| 基础框架组件
+| HttpClient、
+
 | eden-spring-cloud
-| 微服务框架
-| Spring Cloud Config、Eureka、Consul...
+| 微服务框架组件
+| Nacos、Sentinel、Apollo...
 
 | eden-spring-data
-| 数据仓库
-| Spring Data、Flyway、Liquibase、Mongobee
-
-| eden-spring-framework
-| 基础框架
-| HttpClient...
+| 数据仓库组件
+| Mybatis、Redis、Flyway、Liquibase...
 
 | eden-spring-integration
-| 第三方集成
-| Hazelcast、Kafka、Logstash、Metrics、Netty、Swagger...
+| 第三方集成组件
+| RocketMQ、Kafka、Netty、Swagger...
 
 | eden-spring-security
-| 安全认证
+| 授权认证组件
 | Spring Security OAuth2、Jwt...
 
-| eden-templates
-| 开发模板
+| eden-spring-test
+| 单元测试、集成测试组件
 | -
 
 | eden-tests
-| 测试框架
+| 测试集
 | -
 
 | eden-deployment-tests
@@ -187,6 +89,67 @@ public class Example {
 
 |===
 
-== 许可声明
+== 如何构建
 
-遵循 https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 License]
+* master 分支对应的是 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
+* 1.5.x 分支对应的是 `Spring Boot 1.5.x`，最低支持 JDK 1.8。
+* 2.4.x 分支对应的是 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
+
+本项目使用 Maven 来构建，最快的使用方式是 clone 到本地，然后执行以下命令：
+
+[source,bash,indent=0]
+----
+
+./mvnw install
+
+----
+
+执行完毕后，项目将被安装到本地 Maven 仓库。
+
+== 如何使用
+
+=== 如何集成到您的服务
+
+如果需要使用已发布的版本，在 `parent` 中添加如下配置。
+
+[source,xml,indent=0]
+----
+
+<parent>
+    <groupId>org.ylzl</groupId>
+    <artifactId>eden-parent</artifactId>
+    <version>2.4.13.RELEASE</version>
+    <relativePath/>
+</parent>
+
+----
+
+然后在 `dependencies` 中添加自己所需使用的依赖即可使用，例如，引入 Mybatis 组件。
+
+[source,xml,indent=0]
+----
+
+<dependency>
+    <groupId>org.ylzl</groupId>
+    <artifactId>eden-mybatis-spring-boot-starter</artifactId>
+</dependency>
+
+----
+
+WARNING: 我们已经把常用的依赖纳入 `eden-dependencies` 管理，非特殊请款法国不建议使用版本号覆盖原有的依赖。
+
+== 代码演示
+
+为了演示如何使用，我们提供了两种不同架构风格的 Demo
+
+* 面向数据模型的分层架构，代码实例请查看 https://github.com/eden-lab/eden-demo-layer[eden-demo-layer]
+* 面向领域模型的 COLA 架构，代码实例可以查看 https://github.com/eden-lab/eden-demo-cola[eden-demo-cola]
+
+== 版本规范
+
+项目的版本号格式为 x.x.x 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 0.x.x 的格式。
+
+由于 `Spring Boot 1.5.x` 和 `Spring Boot 2.4.x` 在架构层面有很大的变更，因此我们采取跟 SpringBoot 版本号一致的版本:
+
+* 1.5.x 版本适用于 `Spring Boot 1.5.x`
+* 2.4.x 版本适用于 `Spring Boot 2.4.x`

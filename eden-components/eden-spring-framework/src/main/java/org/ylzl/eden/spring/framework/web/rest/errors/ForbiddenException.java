@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
  * 非法访问
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class ForbiddenException extends BadRequestAlertException {
 

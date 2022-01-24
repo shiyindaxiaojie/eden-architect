@@ -32,7 +32,7 @@ import java.util.Date;
  * 许可证服务
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class LicenseStore {

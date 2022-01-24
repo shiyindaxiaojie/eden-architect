@@ -1,17 +1,14 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.data.hazelcast.autoconfigure.EnhancedHazelcastAutoConfiguration,\
-  org.ylzl.eden.spring.data.jdbc.autoconfigure.EnhancedJdbcTemplateAutoConfiguration,\
+  org.ylzl.eden.spring.data.jdbc.autoconfigure.BatchJdbcTemplateAutoConfiguration,\
   org.ylzl.eden.spring.data.jdbc.autoconfigure.RoutingDataSourceAutoConfiguration,\
   org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration,\
-  org.ylzl.eden.spring.data.memcached.autoconfigure.MemcachedAutoConfiguration,\
   org.ylzl.eden.spring.data.mongobee.autoconfigure.MongobeeAutoConfiguration,\
   org.ylzl.eden.spring.data.mongodb.autoconfigure.MongoDBAutoConfiguration,\
   org.ylzl.eden.spring.data.mybatis.autoconfigure.CustomMybatisAutoConfiguration,\
   org.ylzl.eden.spring.data.mybatis.autoconfigure.TKMybatisAutoConfiguration,\
   org.ylzl.eden.spring.data.mybatis.autoconfigure.MybatisPageHelperAutoConfiguration,\
   org.ylzl.eden.spring.data.mybatis.autoconfigure.CustomMybatisPlusAutoConfiguration,\
-  org.ylzl.eden.spring.data.neo4j.autoconfigure.FixedNeo4jAutoConfiguration,\
   org.ylzl.eden.spring.data.redis.autoconfigure.RedisClusterAutoConfiguration,\
   org.ylzl.eden.spring.data.redis.autoconfigure.RedisCacheAutoConfiguration
 

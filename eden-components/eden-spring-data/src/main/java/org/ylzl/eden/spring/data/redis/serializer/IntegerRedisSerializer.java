@@ -24,7 +24,7 @@ import org.springframework.data.redis.serializer.SerializationException;
  * Integer Redis 序列化
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public enum IntegerRedisSerializer implements RedisSerializer<Integer> {
   INSTANCE;

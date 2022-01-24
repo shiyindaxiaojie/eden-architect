@@ -29,7 +29,7 @@ import java.util.List;
  * 字段错误视图模型
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AllArgsConstructor
 @Data

@@ -23,8 +23,8 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 import org.ylzl.eden.spring.framework.info.contributor.ActiveProfilesInfoContributor;
+import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributor;
 
 /**

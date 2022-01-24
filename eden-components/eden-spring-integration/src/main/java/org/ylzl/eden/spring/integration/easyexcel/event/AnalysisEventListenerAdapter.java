@@ -31,7 +31,7 @@ import java.util.Map;
  * 读取数据分析事件监听适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public abstract class AnalysisEventListenerAdapter<T> extends AnalysisEventListener<T> {

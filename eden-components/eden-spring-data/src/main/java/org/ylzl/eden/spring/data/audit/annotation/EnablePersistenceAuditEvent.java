@@ -26,7 +26,7 @@ import java.lang.annotation.*;
  * 开启审计事件持久化配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Import(PersistenceAuditEventConfiguration.class)
 @Target({ElementType.TYPE})

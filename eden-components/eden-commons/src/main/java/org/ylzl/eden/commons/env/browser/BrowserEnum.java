@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * 浏览器枚举
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public enum BrowserEnum {
   CHROME("Chrome"),

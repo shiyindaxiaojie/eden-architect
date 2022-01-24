@@ -28,7 +28,7 @@ import java.io.IOException;
  * Ajax 认证失败处理类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 

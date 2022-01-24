@@ -27,15 +27,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2ResourceServerConfigurerAdapter;
+import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 
 /**
  * OAuth2 资源服务器配置适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @ConditionalOnClass(EnableResourceServer.class)
 @ConditionalOnExpression(OAuth2ResourceServerAutoConfiguration.EXP_OAUTH2_RESOURCE_SERVER)
@@ -46,7 +46,7 @@ import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2ResourceServerConfi
 public class OAuth2ResourceServerAutoConfiguration {
 
   public static final String EXP_OAUTH2_RESOURCE_SERVER =
-      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
+      "${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
 
   @ConditionalOnMissingBean
   @Bean

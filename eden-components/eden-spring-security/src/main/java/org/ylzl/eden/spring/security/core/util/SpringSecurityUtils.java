@@ -25,14 +25,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.core.enums.AuthenticationTypeEnum;
 
 /**
  * Spring Security 工具集
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public final class SpringSecurityUtils {
@@ -101,7 +101,7 @@ public final class SpringSecurityUtils {
     Authentication authentication = getAuthentication();
     if (authentication != null) {
       for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-        if (SecurityConstants.ROLE_ANONYMOUS.equals(grantedAuthority.getAuthority())) {
+        if (SpringSecurityConstants.ROLE_ANONYMOUS.equals(grantedAuthority.getAuthority())) {
           return false;
         }
       }

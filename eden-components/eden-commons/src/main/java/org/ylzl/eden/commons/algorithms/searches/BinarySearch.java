@@ -27,7 +27,7 @@ import lombok.NonNull;
  * <p>空间复杂度：最差为 O(1)
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class BinarySearch implements Search {
 

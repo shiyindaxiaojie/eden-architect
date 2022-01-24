@@ -26,7 +26,7 @@ import java.sql.Types;
  * PostgreSQL95 方言类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class FixedPostgreSQL95Dialect extends PostgreSQL95Dialect {
 

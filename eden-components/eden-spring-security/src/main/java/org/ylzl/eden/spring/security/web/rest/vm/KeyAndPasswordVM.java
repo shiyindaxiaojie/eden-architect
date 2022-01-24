@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 重置密码视图模型
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AllArgsConstructor
 @Builder

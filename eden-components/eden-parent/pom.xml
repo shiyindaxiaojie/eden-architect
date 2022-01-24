@@ -46,8 +46,7 @@
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
-		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
-		</infinispan-protocol-parser-generator-maven-plugin.version>
+		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}</infinispan-protocol-parser-generator-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
@@ -93,17 +92,14 @@
 		<yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
 
 		<!-- 插件配置 -->
-		<asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated
-		</asciidoctor.generated.directory>
-		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html
-		</asciidoctor.html.output.directory>
-		<asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc
-		</asciidoctor.input.directory>
-		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf
-		</asciidoctor.pdf.output.directory>
+		<asciidoctor.generated.directory>${project.build.directory}/asciidoc/generated</asciidoctor.generated.directory>
+		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
+		<asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
+		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
 		<asciidoctorj-diagram.version>1.5.18</asciidoctorj-diagram.version>
 		<asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
-		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
+		<gatling.configFolder>${project.basedir}/src/test/gatling/conf
+		</gatling.configFolder>
 		<graphvizDot/>
 		<jruby-complete.version>1.7.26</jruby-complete.version>
 		<junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
@@ -118,8 +114,7 @@
 		<plantuml.output.directory>${project.build.directory}/plantuml</plantuml.output.directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.testresult.directory>${project.build.directory}/test-results
-		</project.testresult.directory>
+		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
 		<protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
 		<server.url/>
 		<simulationClass/>
@@ -135,8 +130,7 @@
 		<swagger2markup-extensions.version>1.3.3</swagger2markup-extensions.version>
 		<swagger.input>${server.url}/v2/api-docs</swagger.input>
 		<swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
-		<swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets
-		</swagger.snippetOutput.dir>
+		<swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<validation-api.version>1.1.0.Final</validation-api.version>
 		<yarn.version>v1.9.2</yarn.version>
@@ -202,13 +196,15 @@
 					<configuration>
 						<repository>${project.name}</repository>
 						<tag>${project.version}</tag>
-						<contextDirectory>${project.build.directory}</contextDirectory>
+						<contextDirectory>${project.build.directory}
+						</contextDirectory>
 					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>de.elnarion.maven</groupId>
 					<artifactId>plantuml-generator-maven-plugin</artifactId>
-					<version>${plantuml-generator-maven-plugin.version}</version>
+					<version>${plantuml-generator-maven-plugin.version}
+					</version>
 				</plugin>
 				<plugin>
 					<groupId>io.gatling</groupId>
@@ -216,7 +212,8 @@
 					<version>${gatling-maven-plugin.version}</version>
 					<configuration>
 						<disableCompiler>true</disableCompiler>
-						<propagateSystemProperties>true</propagateSystemProperties>
+						<propagateSystemProperties>true
+						</propagateSystemProperties>
 						<failOnError>true</failOnError>
 						<runMultipleSimulations>true</runMultipleSimulations>
 					</configuration>
@@ -228,21 +225,28 @@
 					<dependencies>
 						<dependency>
 							<groupId>io.github.swagger2markup</groupId>
-							<artifactId>swagger2markup-import-files-ext</artifactId>
-							<version>${swagger2markup-extensions.version}</version>
+							<artifactId>swagger2markup-import-files-ext
+							</artifactId>
+							<version>${swagger2markup-extensions.version}
+							</version>
 						</dependency>
 						<dependency>
 							<groupId>io.github.swagger2markup</groupId>
-							<artifactId>swagger2markup-spring-restdocs-ext</artifactId>
-							<version>${swagger2markup-extensions.version}</version>
+							<artifactId>swagger2markup-spring-restdocs-ext
+							</artifactId>
+							<version>${swagger2markup-extensions.version}
+							</version>
 						</dependency>
 					</dependencies>
 					<configuration>
 						<swaggerInput>${swagger.input}</swaggerInput>
-						<outputDir>${asciidoctor.generated.directory}</outputDir>
+						<outputDir>${asciidoctor.generated.directory}
+						</outputDir>
 						<config>
-							<swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
-							<swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
+							<swagger2markup.markupLanguage>ASCIIDOC
+							</swagger2markup.markupLanguage>
+							<swagger2markup.pathsGroupedBy>TAGS
+							</swagger2markup.pathsGroupedBy>
 							<swagger2markup.extensions.dynamicOverview.contentPath>
 								${project.basedir}/src/docs/asciidoc/extensions/overview
 							</swagger2markup.extensions.dynamicOverview.contentPath>
@@ -258,13 +262,16 @@
 							<swagger2markup.extensions.springRestDocs.snippetBaseUri>
 								${swagger.snippetOutput.dir}
 							</swagger2markup.extensions.springRestDocs.snippetBaseUri>
-							<swagger2markup.extensions.springRestDocs.defaultSnippets>true
+							<swagger2markup.extensions.springRestDocs.defaultSnippets>
+								true
 							</swagger2markup.extensions.springRestDocs.defaultSnippets>
 						</config>
 					</configuration>
 					<executions>
 						<execution>
-							<id>swagger2markup-maven-plugin-convertSwagger2markup</id>
+							<id>
+								swagger2markup-maven-plugin-convertSwagger2markup
+							</id>
 							<phase>pre-site</phase>
 							<goals>
 								<goal>convertSwagger2markup</goal>
@@ -344,7 +351,8 @@
 					<configuration>
 						<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
 						<descriptors>
-							<descriptor>src/main/assembly/assembly.xml</descriptor>
+							<descriptor>src/main/assembly/assembly.xml
+							</descriptor>
 						</descriptors>
 					</configuration>
 					<executions>
@@ -380,7 +388,9 @@
 							</path>
 							<path>
 								<groupId>org.springframework.boot</groupId>
-								<artifactId>spring-boot-configuration-processor</artifactId>
+								<artifactId>
+									spring-boot-configuration-processor
+								</artifactId>
 								<version>${spring-boot.version}</version>
 							</path>
 						</annotationProcessorPaths>
@@ -418,14 +428,16 @@
 					<configuration>
 						<rules>
 							<requireMavenVersion>
-								<message>You are running an older version of Maven. Application
+								<message>You are running an older version of
+									Maven. Application
 									requires at least
 									Maven ${maven.version}
 								</message>
 								<version>[${maven.version},)</version>
 							</requireMavenVersion>
 							<requireJavaVersion>
-								<message>You are running an incompatible version of Java.Application
+								<message>You are running an incompatible version
+									of Java.Application
 									requires at
 									least JDK ${java.version}
 								</message>
@@ -506,7 +518,8 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>${maven-project-info-reports-plugin.version}</version>
+					<version>${maven-project-info-reports-plugin.version}
+					</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -520,14 +533,17 @@
 								<goal>copy-resources</goal>
 							</goals>
 							<configuration>
-								<outputDirectory>target/classes</outputDirectory>
-								<useDefaultDelimiters>false</useDefaultDelimiters>
+								<outputDirectory>target/classes
+								</outputDirectory>
+								<useDefaultDelimiters>false
+								</useDefaultDelimiters>
 								<delimiters>
 									<delimiter>#</delimiter>
 								</delimiters>
 								<resources>
 									<resource>
-										<directory>src/main/resources</directory>
+										<directory>src/main/resources
+										</directory>
 										<filtering>true</filtering>
 										<includes>
 											<include>**/*.properties</include>
@@ -535,7 +551,8 @@
 										</includes>
 									</resource>
 									<resource>
-										<directory>src/main/resources</directory>
+										<directory>src/main/resources
+										</directory>
 										<filtering>false</filtering>
 										<excludes>
 											<exclude>**/*.properties</exclude>
@@ -625,13 +642,15 @@
 						</dependency>
 					</dependencies>
 					<configuration>
-						<sourceDirectory>${asciidoctor.input.directory}</sourceDirectory>
+						<sourceDirectory>${asciidoctor.input.directory}
+						</sourceDirectory>
 						<sourceDocumentName>index.adoc</sourceDocumentName>
 						<attributes>
 							<doctype>book</doctype>
 							<toc>left</toc>
 							<toclevels>3</toclevels>
-							<generated>${asciidoctor.generated.directory}</generated>
+							<generated>${asciidoctor.generated.directory}
+							</generated>
 						</attributes>
 					</configuration>
 					<executions>
@@ -643,7 +662,8 @@
 							</goals>
 							<configuration>
 								<backend>html5</backend>
-								<outputDirectory>${asciidoctor.html.output.directory}
+								<outputDirectory>
+									${asciidoctor.html.output.directory}
 								</outputDirectory>
 							</configuration>
 						</execution>
@@ -655,7 +675,8 @@
 							</goals>
 							<configuration>
 								<backend>pdf</backend>
-								<outputDirectory>${asciidoctor.pdf.output.directory}
+								<outputDirectory>
+									${asciidoctor.pdf.output.directory}
 								</outputDirectory>
 							</configuration>
 						</execution>
@@ -703,8 +724,12 @@
 				</plugin>
 				<plugin>
 					<groupId>org.infinispan</groupId>
-					<artifactId>infinispan-protocol-parser-generator-maven-plugin</artifactId>
-					<version>${infinispan-protocol-parser-generator-maven-plugin.version}</version>
+					<artifactId>
+						infinispan-protocol-parser-generator-maven-plugin
+					</artifactId>
+					<version>
+						${infinispan-protocol-parser-generator-maven-plugin.version}
+					</version>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
@@ -726,7 +751,8 @@
 					<artifactId>liquibase-maven-plugin</artifactId>
 					<version>${liquibase-maven-plugin.version}</version>
 					<configuration>
-						<changeLogFile>src/main/resources/config/liquibase/master.xml
+						<changeLogFile>
+							src/main/resources/config/liquibase/master.xml
 						</changeLogFile>
 						<outputChangeLogFile>
 							src/main/resources/config/liquibase/changelog/${maven.build.timestamp}.xml
@@ -772,7 +798,8 @@
 						</dependency>
 						<dependency>
 							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-starter-data-jpa</artifactId>
+							<artifactId>spring-boot-starter-data-jpa
+							</artifactId>
 						</dependency>
 						<dependency>
 							<groupId>javax.validation</groupId>
@@ -791,21 +818,27 @@
 								<goal>generate</goal>
 							</goals>
 							<configuration>
-								<inputSpec>${project.basedir}/src/main/resources/openapi.yaml
+								<inputSpec>
+									${project.basedir}/src/main/resources/openapi.yaml
 								</inputSpec>
 								<generatorName>jaxrs-spec</generatorName>
 								<configOptions>
-									<dateLibrary>java8-localdatetime</dateLibrary>
+									<dateLibrary>java8-localdatetime
+									</dateLibrary>
 									<java8>true</java8>
 									<serializableModel>true</serializableModel>
 									<interfaceOnly>true</interfaceOnly>
-									<useSwaggerAnnotations>true</useSwaggerAnnotations>
+									<useSwaggerAnnotations>true
+									</useSwaggerAnnotations>
 								</configOptions>
-								<apiPackage>${openapi-generator-maven-plugin.apiPackage}
+								<apiPackage>
+									${openapi-generator-maven-plugin.apiPackage}
 								</apiPackage>
-								<modelPackage>${openapi-generator-maven-plugin.modelPackage}
+								<modelPackage>
+									${openapi-generator-maven-plugin.modelPackage}
 								</modelPackage>
-								<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+								<supportingFilesToGenerate>ApiUtil.java
+								</supportingFilesToGenerate>
 							</configuration>
 						</execution>
 					</executions>
@@ -924,32 +957,40 @@
 			<id>dev</id>
 			<properties>
 				<spring.profiles.active>dev</spring.profiles.active>
-				<spring.devtools.restart.enabled>true</spring.devtools.restart.enabled>
-				<spring.devtools.livereload.enabled>true</spring.devtools.livereload.enabled>
+				<spring.devtools.restart.enabled>true
+				</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>true
+				</spring.devtools.livereload.enabled>
 			</properties>
 		</profile>
 		<profile>
 			<id>test</id>
 			<properties>
 				<spring.profiles.active>test</spring.profiles.active>
-				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
-				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
+				<spring.devtools.restart.enabled>false
+				</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>false
+				</spring.devtools.livereload.enabled>
 			</properties>
 		</profile>
 		<profile>
 			<id>pre</id>
 			<properties>
 				<spring.profiles.active>pre</spring.profiles.active>
-				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
-				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
+				<spring.devtools.restart.enabled>false
+				</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>false
+				</spring.devtools.livereload.enabled>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<spring.profiles.active>prod</spring.profiles.active>
-				<spring.devtools.restart.enabled>false</spring.devtools.restart.enabled>
-				<spring.devtools.livereload.enabled>false</spring.devtools.livereload.enabled>
+				<spring.devtools.restart.enabled>false
+				</spring.devtools.restart.enabled>
+				<spring.devtools.livereload.enabled>false
+				</spring.devtools.livereload.enabled>
 			</properties>
 		</profile>
 		<profile>
@@ -1040,7 +1081,8 @@
 								<configuration>
 									<argLine>${failsafeArgLine}
 									</argLine>
-									<skipTests>${skip.integration.tests}</skipTests>
+									<skipTests>${skip.integration.tests}
+									</skipTests>
 								</configuration>
 							</execution>
 						</executions>

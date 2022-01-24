@@ -9,7 +9,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * Redis 布隆过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class RedisBloomFilter<T> {
 

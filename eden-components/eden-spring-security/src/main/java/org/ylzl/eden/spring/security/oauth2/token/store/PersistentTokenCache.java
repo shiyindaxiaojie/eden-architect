@@ -25,9 +25,11 @@ import java.util.Map;
  * 持久化令牌缓存
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class PersistentTokenCache<T> {
+
+  private static final long MIN_EXPIRE_MILLIS = 0L;
 
   private final long expireMillis;
 
@@ -36,7 +38,7 @@ public class PersistentTokenCache<T> {
   private long latestWriteTime;
 
   public PersistentTokenCache(long expireMillis) {
-    if (expireMillis <= 0l) {
+    if (expireMillis <= MIN_EXPIRE_MILLIS) {
       throw new IllegalArgumentException();
     }
     this.expireMillis = expireMillis;
@@ -86,7 +88,7 @@ public class PersistentTokenCache<T> {
    * 令牌值对象
    *
    * @author gyl
-   * @since 1.0.0
+   * @since 2.4.x
    */
   private class Value {
 

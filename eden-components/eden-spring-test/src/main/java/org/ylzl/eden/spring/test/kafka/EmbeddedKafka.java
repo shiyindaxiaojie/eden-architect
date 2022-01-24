@@ -31,7 +31,7 @@ import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
  * </ul>
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class EmbeddedKafka extends EmbeddedKafkaRule {

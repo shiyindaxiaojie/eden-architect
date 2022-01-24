@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
  * 错误凭证
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class InvalidCredentialsException extends BadRequestAlertException {
 

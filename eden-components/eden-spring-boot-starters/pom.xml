@@ -57,7 +57,6 @@
 		<module>eden-prometheus-spring-boot-starter</module>
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
-		<module>eden-resteasy-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>

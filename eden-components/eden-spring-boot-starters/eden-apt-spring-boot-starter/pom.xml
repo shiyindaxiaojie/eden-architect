@@ -12,7 +12,7 @@
 	</parent>
 	<artifactId>eden-apt-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-aapt-spring-boot-starter</name>
+	<name>eden-apt-spring-boot-starter</name>
 	<description>Annotation Processer Tool 自定义配置</description>
 
 	<dependencies>

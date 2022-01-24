@@ -24,7 +24,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.commons.lang.time.DateUtils;
-import org.ylzl.eden.spring.integration.truelicense.TrueLicenseProperties;
+import org.ylzl.eden.spring.integration.truelicense.env.TrueLicenseProperties;
 
 import java.io.File;
 
@@ -32,7 +32,7 @@ import java.io.File;
  * 许可证安装服务
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class LicenseInstall implements InitializingBean, DisposableBean {

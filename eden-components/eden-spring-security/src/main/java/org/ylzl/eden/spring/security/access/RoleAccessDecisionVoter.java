@@ -31,7 +31,7 @@ import java.util.Map;
  * 角色访问决策适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class RoleAccessDecisionVoter implements AccessDecisionVoter<Object> {
 

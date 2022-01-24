@@ -31,7 +31,7 @@ import java.util.Map;
  * 存储据过程回调
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class ListCallableStatementCallback implements CallableStatementCallback<Object> {
 

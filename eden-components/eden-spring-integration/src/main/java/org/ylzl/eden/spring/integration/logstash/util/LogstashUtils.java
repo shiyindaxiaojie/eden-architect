@@ -18,7 +18,7 @@ import net.logstash.logback.composite.loggingevent.*;
 import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder;
 import net.logstash.logback.encoder.LogstashEncoder;
 import net.logstash.logback.stacktrace.ShortenedThrowableConverter;
-import org.ylzl.eden.spring.integration.logstash.LogstashProperties;
+import org.ylzl.eden.spring.integration.logstash.env.LogstashProperties;
 
 import java.net.InetSocketAddress;
 

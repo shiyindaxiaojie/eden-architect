@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * OAuth2 Cookies
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class OAuth2Cookies {
 

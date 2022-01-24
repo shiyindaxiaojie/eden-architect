@@ -24,7 +24,7 @@ import org.ylzl.eden.commons.algorithms.SortUtils;
  * 快速排序
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class QuickSort extends AbstractSort implements Sort {
 

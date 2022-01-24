@@ -24,7 +24,7 @@ import org.springframework.cloud.netflix.zuul.filters.post.SendResponseFilter;
 import org.ylzl.eden.commons.io.IOUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.cloud.zuul.ZuulConstants;
+import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
 import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 import springfox.documentation.swagger2.web.Swagger2Controller;
 
@@ -37,7 +37,7 @@ import java.util.zip.GZIPInputStream;
  * Swagger Base Path 过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
@@ -87,7 +87,8 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
       if (context.getResponseGZipped()) {
         responseDataStream = new GZIPInputStream(context.getResponseDataStream());
       }
-      String response = IOUtils.toString(responseDataStream, SpringFrameworkConstants.DEFAULT_ENCODING);
+      String response =
+          IOUtils.toString(responseDataStream, SpringFrameworkConstants.DEFAULT_ENCODING);
       if (StringUtils.isNotBlank(response)) {
         LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
         String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, StringConstants.EMPTY);

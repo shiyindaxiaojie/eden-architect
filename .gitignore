@@ -13,6 +13,7 @@
 *~.nib
 log/
 local.properties
+.log
 
 # ESLint
 .eslintcache
@@ -52,6 +53,7 @@ maven/
 node/
 target/
 .flattened-pom.xml
+*.flattened-pom.xml
 
 # Node.js
 node/
@@ -83,3 +85,4 @@ package-lock.json
 .merge_file*
 Desktop.ini
 Thumbs.db
+logs/

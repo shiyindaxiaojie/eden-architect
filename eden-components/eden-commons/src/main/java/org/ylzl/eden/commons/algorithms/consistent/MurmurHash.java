@@ -21,6 +21,6 @@ package org.ylzl.eden.commons.algorithms.consistent;
  * Murmur 哈希
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class MurmurHash {}

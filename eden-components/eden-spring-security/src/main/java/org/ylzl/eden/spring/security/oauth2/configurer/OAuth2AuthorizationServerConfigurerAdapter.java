@@ -26,9 +26,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2WebSecurityConfiguration;
 import org.ylzl.eden.spring.security.oauth2.constant.OAuth2Constants;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
-import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2WebSecurityConfiguration;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ import java.util.List;
  * OAuth2 授权服务器配置适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter(OAuth2WebSecurityConfiguration.class)
 public class OAuth2AuthorizationServerConfigurerAdapter

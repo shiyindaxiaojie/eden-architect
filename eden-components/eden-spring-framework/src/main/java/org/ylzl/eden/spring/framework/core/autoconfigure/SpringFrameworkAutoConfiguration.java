@@ -29,14 +29,14 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.util.UrlPathHelper;
-import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
+import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 
 /**
  * 框架自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(SpringFrameworkProperties.class)
@@ -64,7 +64,7 @@ public class SpringFrameworkAutoConfiguration {
 
   @ConditionalOnMissingBean
   @Bean
-  public SpringBinderHelper binderHelper(Environment environment) {
+  public SpringBinderHelper springBinderHelper(Environment environment) {
     return new SpringBinderHelper(environment);
   }
 }

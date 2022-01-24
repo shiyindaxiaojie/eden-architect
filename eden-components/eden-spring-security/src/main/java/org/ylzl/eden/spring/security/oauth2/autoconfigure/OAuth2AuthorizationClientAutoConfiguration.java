@@ -34,9 +34,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.framework.web.RestAutoConfiguration;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.oauth2.endpoint.OAuth2TokenEndpoint;
+import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.*;
 import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieHelper;
 import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieTokenExtractor;
@@ -50,7 +50,7 @@ import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHo
  * OAuth2 授权客户端自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter(RestAutoConfiguration.class)
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration.class)
@@ -61,7 +61,7 @@ import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHo
 public class OAuth2AuthorizationClientAutoConfiguration {
 
   public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
-      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
+      "${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
   private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
       "Autowired OAuth2AccessTokenClient";

@@ -28,7 +28,7 @@ import java.util.Map;
  * 参数化错误视图模型
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AllArgsConstructor
 @Builder(toBuilder = true)

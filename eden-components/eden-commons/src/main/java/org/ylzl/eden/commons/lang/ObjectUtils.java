@@ -38,7 +38,7 @@ import java.util.Map;
  * 对象工具集
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {

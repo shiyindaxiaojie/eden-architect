@@ -28,7 +28,7 @@ import java.util.List;
  * 激活策略信息装饰器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class ActiveProfilesInfoContributor implements InfoContributor {
 

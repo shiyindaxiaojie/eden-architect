@@ -36,8 +36,8 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.data.core.constant.SpringDataConstants;
-import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
+import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.data.mybatis.autoconfigure.MybatisPageHelperAutoConfiguration;
 import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
@@ -57,20 +57,17 @@ import java.util.Map;
  * </ul>
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureBefore({
   DataSourceAutoConfiguration.class,
   DataSourceTransactionManagerAutoConfiguration.class,
   HibernateJpaAutoConfiguration.class,
-  EnhancedJdbcTemplateAutoConfiguration.class,
+  BatchJdbcTemplateAutoConfiguration.class,
   AsyncLiquibaseAutoConfiguration.class,
   MybatisPageHelperAutoConfiguration.class
 })
-@EnableConfigurationProperties({
-  DataSourceProperties.class,
-  RoutingDataSourceProperties.class
-})
+@EnableConfigurationProperties({DataSourceProperties.class, RoutingDataSourceProperties.class})
 @Slf4j
 @Configuration
 public class RoutingDataSourceAutoConfiguration

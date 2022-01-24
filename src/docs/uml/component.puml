@@ -1,4 +1,5 @@
 @startuml
+
 [eden-dependencies] --> [eden-architect]
 [eden-parent] --> [eden-dependencies]
 [eden-commons] --> [eden-parent]
@@ -6,8 +7,8 @@
 [eden-spring-data] --> [eden-spring-framework]
 [eden-spring-security] --> [eden-spring-framework]
 [eden-spring-integration] --> [eden-spring-framework]
-[eden-test] --> [eden-spring-integration]
+[eden-spring-test] --> [eden-spring-integration]
 [eden-spring-cloud] --> [eden-spring-framework]
 [eden-spring-cloud] --> [eden-spring-security]
-[eden-templates] --> [eden-spring-framework]
+
 @enduml

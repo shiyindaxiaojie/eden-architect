@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * Redis 布隆过滤器策略
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
   MURMUR128_MITZ_32() {

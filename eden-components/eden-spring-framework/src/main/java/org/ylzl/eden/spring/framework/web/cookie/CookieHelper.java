@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * Cookie 助手
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class CookieHelper {

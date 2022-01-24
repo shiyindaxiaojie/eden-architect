@@ -23,13 +23,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
-import org.ylzl.eden.spring.cloud.zuul.ZuulConstants;
+import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
 
 /**
  * Zuul 故障过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 @Component

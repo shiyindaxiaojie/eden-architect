@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.integration.zookeeper.support.lock;
  * 抽象 ZooKeeper 锁
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public abstract class AbstractZooKeeperLock implements ZooKeeperLock {
 

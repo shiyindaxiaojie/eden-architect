@@ -10,7 +10,7 @@ import java.util.Set;
  * Jedis 集群
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class FixedJedisCluster extends JedisCluster {
 

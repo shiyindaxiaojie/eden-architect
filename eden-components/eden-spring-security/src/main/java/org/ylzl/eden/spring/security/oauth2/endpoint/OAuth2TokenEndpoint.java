@@ -41,7 +41,7 @@ import javax.validation.Valid;
  * OAuth2 令牌端点
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 @RequestMapping

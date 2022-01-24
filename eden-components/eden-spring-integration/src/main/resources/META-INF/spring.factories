@@ -1,13 +1,11 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.integration.flowable.CustomFlowableAutoConfiguration,\
-  org.ylzl.eden.spring.integration.ftpclient.FTPClientAutoConfiguration,\
-  org.ylzl.eden.spring.integration.ftpserver.FTPServerAutoConfiguration,\
-  org.ylzl.eden.spring.integration.hessian.HessianAutoConfiguration,\
-  org.ylzl.eden.spring.integration.logstash.LogstashAutoConfiguration,\
-  org.ylzl.eden.spring.integration.metrics.CustomMetricsEndpointAutoConfiguration,\
-  org.ylzl.eden.spring.integration.netty.NettyClientAutoConfiguration,\
-  org.ylzl.eden.spring.integration.netty.NettyServerAutoConfiguration,\
-  org.ylzl.eden.spring.integration.swagger2.Swagger2AutoConfiguration,\
-  org.ylzl.eden.spring.integration.truelicense.TrueLicenseClientAutoConfiguration,\
-  org.ylzl.eden.spring.integration.truelicense.TrueLicenseServerAutoConfiguration
+  org.ylzl.eden.spring.integration.ftpclient.autoconfigure.FTPClientAutoConfiguration,\
+  org.ylzl.eden.spring.integration.ftpserver.autoconfigure.FTPServerAutoConfiguration,\
+  org.ylzl.eden.spring.integration.logstash.autoconfigure.LogstashAutoConfiguration,\
+  org.ylzl.eden.spring.integration.metrics.autoconfigure.AllMetricsEndpointAutoConfiguration,\
+  org.ylzl.eden.spring.integration.netty.autoconfigure.NettyClientAutoConfiguration,\
+  org.ylzl.eden.spring.integration.netty.autoconfigure.NettyServerAutoConfiguration,\
+  org.ylzl.eden.spring.integration.swagger2.autoconfigure.Swagger2AutoConfiguration,\
+  org.ylzl.eden.spring.integration.truelicense.autoconfigure.TrueLicenseClientAutoConfiguration,\
+  org.ylzl.eden.spring.integration.truelicense.autoconfigure.TrueLicenseServerAutoConfiguration

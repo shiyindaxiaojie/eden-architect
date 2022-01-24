@@ -33,7 +33,7 @@ import java.lang.annotation.*;
  * </ul>
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

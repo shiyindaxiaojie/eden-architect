@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.framework.web.rest.errors.RestErrorAdvice;
  * REST 错误自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Configuration
 public class RestErrorAdviceConfiguration {

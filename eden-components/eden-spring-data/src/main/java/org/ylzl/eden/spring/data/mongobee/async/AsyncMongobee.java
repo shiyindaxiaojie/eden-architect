@@ -56,7 +56,8 @@ public class AsyncMongobee extends Mongobee {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    if (environment.acceptsProfiles(Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+    if (environment.acceptsProfiles(
+        Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
       taskExecutor.execute(
           new Runnable() {
 

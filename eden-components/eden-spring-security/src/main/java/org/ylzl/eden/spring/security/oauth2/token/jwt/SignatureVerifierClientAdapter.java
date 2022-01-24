@@ -35,7 +35,7 @@ import java.util.Map;
  * OAuth2 签名验证客户端适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class SignatureVerifierClientAdapter implements SignatureVerifierClient {

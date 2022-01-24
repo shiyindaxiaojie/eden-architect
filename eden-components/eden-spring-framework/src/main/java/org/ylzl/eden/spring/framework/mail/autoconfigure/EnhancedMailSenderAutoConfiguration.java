@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
  * 邮件发送自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)
 @Configuration

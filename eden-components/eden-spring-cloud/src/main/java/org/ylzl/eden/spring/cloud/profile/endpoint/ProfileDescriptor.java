@@ -29,7 +29,7 @@ import java.util.Map;
  * 运行环境描述信息
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AllArgsConstructor
 @Builder
@@ -40,6 +40,4 @@ public class ProfileDescriptor {
   private String[] activeProfiles;
 
   private String ribbonEnv;
-
-  private List<Map<String, Object>> configurationSources;
 }

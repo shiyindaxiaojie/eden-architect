@@ -1,17 +1,21 @@
+# Code Style Guide
 root = true
 
 [*]
 indent_style = tab
 indent_size = 4
-max_line_length = 100
+max_line_length = 1200
 
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.yml]
+[*.{yml, bat}]
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
+
+[Jenkinsfile]
+indent_size = 2
