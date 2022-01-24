@@ -28,48 +28,48 @@ import org.ylzl.eden.commons.algorithms.SortUtils;
  */
 public class QuickSort extends AbstractSort implements Sort {
 
-  private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {
-    if (left < right) {
-      int pivot = randomPartition(array, left, right);
-      doSort(array, left, pivot - 1);
-      doSort(array, pivot, right);
-    }
-  }
+	private static <T extends Comparable<T>> void doSort(T[] array, int left, int right) {
+		if (left < right) {
+			int pivot = randomPartition(array, left, right);
+			doSort(array, left, pivot - 1);
+			doSort(array, pivot, right);
+		}
+	}
 
-  private static <T extends Comparable<T>> int randomPartition(T[] array, int left, int right) {
-    int randomIndex = left + (int) (Math.random() * (right - left + 1));
-    SortUtils.swap(array, randomIndex, right);
-    return partition(array, left, right);
-  }
+	private static <T extends Comparable<T>> int randomPartition(T[] array, int left, int right) {
+		int randomIndex = left + (int) (Math.random() * (right - left + 1));
+		SortUtils.swap(array, randomIndex, right);
+		return partition(array, left, right);
+	}
 
-  private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
-    int mid = (left + right) / 2;
-    T pivot = array[mid];
-    while (left <= right) {
-      while (SortUtils.less(array[left], pivot)) {
-        ++left;
-      }
-      while (SortUtils.less(pivot, array[right])) {
-        --right;
-      }
-      if (left <= right) {
-        SortUtils.swap(array, left, right);
-        ++left;
-        --right;
-      }
-    }
-    return left;
-  }
+	private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
+		int mid = (left + right) / 2;
+		T pivot = array[mid];
+		while (left <= right) {
+			while (SortUtils.less(array[left], pivot)) {
+				++left;
+			}
+			while (SortUtils.less(pivot, array[right])) {
+				--right;
+			}
+			if (left <= right) {
+				SortUtils.swap(array, left, right);
+				++left;
+				--right;
+			}
+		}
+		return left;
+	}
 
-  /**
-   * 排序数组
-   *
-   * @param array - 未排序的数组
-   * @return 排序后的数组
-   */
-  @Override
-  public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
-    doSort(array, 0, array.length - 1);
-    return array;
-  }
+	/**
+	 * 排序数组
+	 *
+	 * @param array - 未排序的数组
+	 * @return 排序后的数组
+	 */
+	@Override
+	public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
+		doSort(array, 0, array.length - 1);
+		return array;
+	}
 }

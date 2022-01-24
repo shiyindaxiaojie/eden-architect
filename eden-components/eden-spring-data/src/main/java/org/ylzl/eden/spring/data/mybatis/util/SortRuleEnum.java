@@ -1,4 +1,5 @@
 package org.ylzl.eden.template.mybatis;
+
 /**
  * 排序规则枚举
  *
@@ -6,6 +7,6 @@ package org.ylzl.eden.template.mybatis;
  * @since 0.0.1
  */
 public enum SortRuleEnum {
-  ASC,
-  DESC;
+	ASC,
+	DESC;
 }

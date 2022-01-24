@@ -41,28 +41,28 @@ import java.io.Serializable;
 @ApiModel(description = "错误视图模型")
 public class ErrorVM implements Serializable {
 
-  private static final long serialVersionUID = 5744374451644419814L;
+	private static final long serialVersionUID = 5744374451644419814L;
 
-  private transient int statusCode;
+	private transient int statusCode;
 
-  @ApiModelProperty(value = "消息")
-  private String message;
+	@ApiModelProperty(value = "消息")
+	private String message;
 
-  @ApiModelProperty(value = "描述")
-  private String description;
+	@ApiModelProperty(value = "描述")
+	private String description;
 
-  public static ErrorVM build(Throwable t) {
-    ErrorVM errorVM = ErrorVM.builder().build();
-    if (t instanceof BadRequestAlertException) {
-      BadRequestAlertException ex = (BadRequestAlertException) t;
-      errorVM.setMessage(ex.getMessage());
-      errorVM.setDescription(ex.getDescription());
-      errorVM.setStatusCode(ex.getStatusCode());
-    } else {
-      errorVM.setMessage(t.getMessage());
-      errorVM.setDescription(t.getMessage());
-      errorVM.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
-    return errorVM;
-  }
+	public static ErrorVM build(Throwable t) {
+		ErrorVM errorVM = ErrorVM.builder().build();
+		if (t instanceof BadRequestAlertException) {
+			BadRequestAlertException ex = (BadRequestAlertException) t;
+			errorVM.setMessage(ex.getMessage());
+			errorVM.setDescription(ex.getDescription());
+			errorVM.setStatusCode(ex.getStatusCode());
+		} else {
+			errorVM.setMessage(t.getMessage());
+			errorVM.setDescription(t.getMessage());
+			errorVM.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		}
+		return errorVM;
+	}
 }

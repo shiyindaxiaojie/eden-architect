@@ -29,4 +29,5 @@ import java.io.Serializable;
  */
 @NoRepositoryBean
 public interface ElasticsearchRepository<T, ID extends Serializable>
-    extends org.springframework.data.elasticsearch.repository.ElasticsearchRepository<T, ID> {}
+	extends org.springframework.data.elasticsearch.repository.ElasticsearchRepository<T, ID> {
+}

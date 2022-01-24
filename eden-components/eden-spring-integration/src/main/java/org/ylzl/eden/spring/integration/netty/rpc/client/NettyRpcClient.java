@@ -21,48 +21,48 @@ import org.ylzl.eden.spring.integration.netty.rpc.serializer.Serializer;
  */
 public class NettyRpcClient implements RpcClient {
 
-  private NettyClient nettyClient;
+	private NettyClient nettyClient;
 
-  private NettyRpcClientHandler nettyRpcClientHandler;
+	private NettyRpcClientHandler nettyRpcClientHandler;
 
-  private Serializer serializer;
+	private Serializer serializer;
 
-  public NettyRpcClient(String name, String host, int port, Serializer serializer) {
-    this.nettyClient = new NettyClient(name, host, port);
-    this.nettyRpcClientHandler = new NettyRpcClientHandler();
-    this.serializer = serializer;
-  }
+	public NettyRpcClient(String name, String host, int port, Serializer serializer) {
+		this.nettyClient = new NettyClient(name, host, port);
+		this.nettyRpcClientHandler = new NettyRpcClientHandler();
+		this.serializer = serializer;
+	}
 
-  @Override
-  public void startup() {
-    if (!nettyClient.isInitialized()) {
-      nettyClient.getChannelOptions().setSoKeepAlive(true);
-      nettyClient.getChannelOptions().setTcpNodelay(true);
-      nettyClient.addChannelHandler(
-          new ChannelInitializer<SocketChannel>() {
+	@Override
+	public void startup() {
+		if (!nettyClient.isInitialized()) {
+			nettyClient.getChannelOptions().setSoKeepAlive(true);
+			nettyClient.getChannelOptions().setTcpNodelay(true);
+			nettyClient.addChannelHandler(
+				new ChannelInitializer<SocketChannel>() {
 
-            @Override
-            protected void initChannel(SocketChannel ch) {
-              ChannelPipeline pipeline = ch.pipeline();
-              pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4));
-              pipeline.addLast(new RpcWriteEncoder(RpcRequest.class, serializer));
-              pipeline.addLast(new RpcReadDecoder(RpcResponse.class, serializer));
-              pipeline.addLast(nettyRpcClientHandler);
-            }
-          });
-      nettyClient.startup();
-    }
-  }
+					@Override
+					protected void initChannel(SocketChannel ch) {
+						ChannelPipeline pipeline = ch.pipeline();
+						pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4));
+						pipeline.addLast(new RpcWriteEncoder(RpcRequest.class, serializer));
+						pipeline.addLast(new RpcReadDecoder(RpcResponse.class, serializer));
+						pipeline.addLast(nettyRpcClientHandler);
+					}
+				});
+			nettyClient.startup();
+		}
+	}
 
-  @Override
-  public void shutdown() {
-    nettyClient.shutdown();
-  }
+	@Override
+	public void shutdown() {
+		nettyClient.shutdown();
+	}
 
-  @SneakyThrows
-  @Override
-  public RpcResponse invoke(RpcRequest request, int timeout) {
-    nettyClient.getChannel().writeAndFlush(request).await();
-    return nettyRpcClientHandler.get(request.getRequestId(), timeout);
-  }
+	@SneakyThrows
+	@Override
+	public RpcResponse invoke(RpcRequest request, int timeout) {
+		nettyClient.getChannel().writeAndFlush(request).await();
+		return nettyRpcClientHandler.get(request.getRequestId(), timeout);
+	}
 }

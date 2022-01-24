@@ -31,30 +31,30 @@ import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClientAdapter
  */
 public class JwtOAuth2AccessTokenClient extends OAuth2AccessTokenClientAdapter {
 
-  private final LoadBalancerClientHelper loadBalancerClientHelper;
+	private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-  private final String accessTokenUriServiceId;
+	private final String accessTokenUriServiceId;
 
-  public JwtOAuth2AccessTokenClient(
-      RestTemplate restTemplate,
-      OAuth2Properties oAuth2Properties,
-      LoadBalancerClientHelper loadBalancerClientHelper) {
-    super(restTemplate, oAuth2Properties);
-    this.loadBalancerClientHelper = loadBalancerClientHelper;
-    this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
-  }
+	public JwtOAuth2AccessTokenClient(
+		RestTemplate restTemplate,
+		OAuth2Properties oAuth2Properties,
+		LoadBalancerClientHelper loadBalancerClientHelper) {
+		super(restTemplate, oAuth2Properties);
+		this.loadBalancerClientHelper = loadBalancerClientHelper;
+		this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
+	}
 
-  /**
-   * 获取 OAuth2 访问令牌端点
-   *
-   * @return OAuth2 访问令牌端点
-   */
-  @Override
-  protected String getAccessTokenUri() {
-    String accessTokenUri = super.getAccessTokenUri();
-    if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
-      return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
-    }
-    return accessTokenUri;
-  }
+	/**
+	 * 获取 OAuth2 访问令牌端点
+	 *
+	 * @return OAuth2 访问令牌端点
+	 */
+	@Override
+	protected String getAccessTokenUri() {
+		String accessTokenUri = super.getAccessTokenUri();
+		if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
+			return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
+		}
+		return accessTokenUri;
+	}
 }

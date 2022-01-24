@@ -40,50 +40,50 @@ import static springfox.documentation.builders.PathSelectors.regex;
  */
 public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
 
-  public static final int DEFAULT_ORDER = 0;
-  private final Swagger2Properties properties;
-  private int order = DEFAULT_ORDER;
+	public static final int DEFAULT_ORDER = 0;
+	private final Swagger2Properties properties;
+	private int order = DEFAULT_ORDER;
 
-  public DefaultSwagger2Customizer(Swagger2Properties properties) {
-    this.properties = properties;
-  }
+	public DefaultSwagger2Customizer(Swagger2Properties properties) {
+		this.properties = properties;
+	}
 
-  @Override
-  public void customize(Docket docket) {
-    Contact contact =
-        new Contact(
-            properties.getContactName(), properties.getContactUrl(), properties.getContactEmail());
+	@Override
+	public void customize(Docket docket) {
+		Contact contact =
+			new Contact(
+				properties.getContactName(), properties.getContactUrl(), properties.getContactEmail());
 
-    ApiInfo apiInfo =
-        new ApiInfo(
-            properties.getTitle(),
-            properties.getDescription(),
-            properties.getVersion(),
-            properties.getTermsOfServiceUrl(),
-            contact,
-            properties.getLicense(),
-            properties.getLicenseUrl(),
-            new ArrayList<VendorExtension>());
+		ApiInfo apiInfo =
+			new ApiInfo(
+				properties.getTitle(),
+				properties.getDescription(),
+				properties.getVersion(),
+				properties.getTermsOfServiceUrl(),
+				contact,
+				properties.getLicense(),
+				properties.getLicenseUrl(),
+				new ArrayList<VendorExtension>());
 
-    docket
-        .host(properties.getHost())
-        .protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
-        .apiInfo(apiInfo)
-        .useDefaultResponseMessages(properties.getUseDefaultResponseMessages())
-        .forCodeGeneration(true)
-        .directModelSubstitute(ByteBuffer.class, String.class)
-        .genericModelSubstitutes(ResponseEntity.class)
-        .select()
-        .paths(regex(properties.getDefaultIncludePattern()))
-        .build();
-  }
+		docket
+			.host(properties.getHost())
+			.protocols(new HashSet<>(Arrays.asList(properties.getProtocols())))
+			.apiInfo(apiInfo)
+			.useDefaultResponseMessages(properties.getUseDefaultResponseMessages())
+			.forCodeGeneration(true)
+			.directModelSubstitute(ByteBuffer.class, String.class)
+			.genericModelSubstitutes(ResponseEntity.class)
+			.select()
+			.paths(regex(properties.getDefaultIncludePattern()))
+			.build();
+	}
 
-  @Override
-  public int getOrder() {
-    return order;
-  }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
-  public void setOrder(int order) {
-    this.order = order;
-  }
+	public void setOrder(int order) {
+		this.order = order;
+	}
 }

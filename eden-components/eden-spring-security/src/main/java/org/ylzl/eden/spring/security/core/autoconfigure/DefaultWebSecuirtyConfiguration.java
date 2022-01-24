@@ -44,37 +44,37 @@ import java.util.List;
 @Configuration
 public class DefaultWebSecuirtyConfiguration {
 
-  private static final String MSG_AUTOWIRED_PASSWORD_ENCODER =
-      "Autowired PasswordEncoder (BCryptPasswordEncoder)";
+	private static final String MSG_AUTOWIRED_PASSWORD_ENCODER =
+		"Autowired PasswordEncoder (BCryptPasswordEncoder)";
 
-  private static final String MSG_AUTOWIRED_USER_DETAILS_SERVICE =
-      "Autowired UserDetailsService (InMemoryUserDetailsManager)";
+	private static final String MSG_AUTOWIRED_USER_DETAILS_SERVICE =
+		"Autowired UserDetailsService (InMemoryUserDetailsManager)";
 
-  private final SecurityProperties securityProperties;
+	private final SecurityProperties securityProperties;
 
-  public DefaultWebSecuirtyConfiguration(SecurityProperties securityProperties) {
-    this.securityProperties = securityProperties;
-  }
+	public DefaultWebSecuirtyConfiguration(SecurityProperties securityProperties) {
+		this.securityProperties = securityProperties;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    log.debug(MSG_AUTOWIRED_PASSWORD_ENCODER);
-    return new BCryptPasswordEncoder();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		log.debug(MSG_AUTOWIRED_PASSWORD_ENCODER);
+		return new BCryptPasswordEncoder();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-    log.debug(MSG_AUTOWIRED_USER_DETAILS_SERVICE);
-    SecurityProperties.User user = securityProperties.getUser();
-    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    List<String> roles = user.getRoles();
-    for (String role : roles) {
-      authorities.add(new SimpleGrantedAuthority(role));
-    }
-    UserDetails userDetails =
-        new User(user.getName(), passwordEncoder.encode(user.getPassword()), authorities);
-    return new InMemoryUserDetailsManager(Collections.singletonList(userDetails));
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+		log.debug(MSG_AUTOWIRED_USER_DETAILS_SERVICE);
+		SecurityProperties.User user = securityProperties.getUser();
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		List<String> roles = user.getRoles();
+		for (String role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role));
+		}
+		UserDetails userDetails =
+			new User(user.getName(), passwordEncoder.encode(user.getPassword()), authorities);
+		return new InMemoryUserDetailsManager(Collections.singletonList(userDetails));
+	}
 }

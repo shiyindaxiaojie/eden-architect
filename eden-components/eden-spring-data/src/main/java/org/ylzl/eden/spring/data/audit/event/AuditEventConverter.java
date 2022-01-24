@@ -30,57 +30,57 @@ import java.util.*;
  */
 public class AuditEventConverter {
 
-  public static final String REMOTE_ADDRESS = "remoteAddress";
+	public static final String REMOTE_ADDRESS = "remoteAddress";
 
-  public static final String SESSION_ID = "sessionId";
+	public static final String SESSION_ID = "sessionId";
 
-  public List<AuditEvent> convertToAuditEvent(
-      Iterable<PersistentAuditEvent> persistentAuditEvents) {
-    if (persistentAuditEvents == null) {
-      return Collections.emptyList();
-    }
-    List<AuditEvent> auditEvents = new ArrayList<>();
-    for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
-      auditEvents.add(convertToAuditEvent(persistentAuditEvent));
-    }
-    return auditEvents;
-  }
+	public List<AuditEvent> convertToAuditEvent(
+		Iterable<PersistentAuditEvent> persistentAuditEvents) {
+		if (persistentAuditEvents == null) {
+			return Collections.emptyList();
+		}
+		List<AuditEvent> auditEvents = new ArrayList<>();
+		for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
+			auditEvents.add(convertToAuditEvent(persistentAuditEvent));
+		}
+		return auditEvents;
+	}
 
-  public AuditEvent convertToAuditEvent(PersistentAuditEvent persistentAuditEvent) {
-    if (persistentAuditEvent == null) {
-      return null;
-    }
-    return new AuditEvent(
-        persistentAuditEvent.getEventDate(),
-        persistentAuditEvent.getPrincipal(),
-        persistentAuditEvent.getEventType(),
-        convertDataToObjects(persistentAuditEvent.getData()));
-  }
+	public AuditEvent convertToAuditEvent(PersistentAuditEvent persistentAuditEvent) {
+		if (persistentAuditEvent == null) {
+			return null;
+		}
+		return new AuditEvent(
+			persistentAuditEvent.getEventDate(),
+			persistentAuditEvent.getPrincipal(),
+			persistentAuditEvent.getEventType(),
+			convertDataToObjects(persistentAuditEvent.getData()));
+	}
 
-  public Map<String, Object> convertDataToObjects(Map<String, String> data) {
-    Map<String, Object> results = new HashMap<>();
-    if (data != null) {
-      for (Map.Entry<String, String> entry : data.entrySet()) {
-        results.put(entry.getKey(), entry.getValue());
-      }
-    }
-    return results;
-  }
+	public Map<String, Object> convertDataToObjects(Map<String, String> data) {
+		Map<String, Object> results = new HashMap<>();
+		if (data != null) {
+			for (Map.Entry<String, String> entry : data.entrySet()) {
+				results.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return results;
+	}
 
-  public Map<String, String> convertDataToStrings(Map<String, Object> data) {
-    Map<String, String> results = new HashMap<>();
-    if (data != null) {
-      for (Map.Entry<String, Object> entry : data.entrySet()) {
-        if (entry.getValue() instanceof WebAuthenticationDetails) {
-          WebAuthenticationDetails authenticationDetails =
-              (WebAuthenticationDetails) entry.getValue();
-          results.put(REMOTE_ADDRESS, authenticationDetails.getRemoteAddress());
-          results.put(SESSION_ID, authenticationDetails.getSessionId());
-        } else {
-          results.put(entry.getKey(), Objects.toString(entry.getValue()));
-        }
-      }
-    }
-    return results;
-  }
+	public Map<String, String> convertDataToStrings(Map<String, Object> data) {
+		Map<String, String> results = new HashMap<>();
+		if (data != null) {
+			for (Map.Entry<String, Object> entry : data.entrySet()) {
+				if (entry.getValue() instanceof WebAuthenticationDetails) {
+					WebAuthenticationDetails authenticationDetails =
+						(WebAuthenticationDetails) entry.getValue();
+					results.put(REMOTE_ADDRESS, authenticationDetails.getRemoteAddress());
+					results.put(SESSION_ID, authenticationDetails.getSessionId());
+				} else {
+					results.put(entry.getKey(), Objects.toString(entry.getValue()));
+				}
+			}
+		}
+		return results;
+	}
 }

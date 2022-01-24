@@ -36,21 +36,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UndertowSSLAutoConfiguration {
 
-  private static final String MSG_CONFIG_UNDERTOW_SSL =
-      "Configuring Undertow Setting user cipher suite order to true";
+	private static final String MSG_CONFIG_UNDERTOW_SSL =
+		"Configuring Undertow Setting user cipher suite order to true";
 
-  private final UndertowServletWebServerFactory factory;
+	private final UndertowServletWebServerFactory factory;
 
-  public UndertowSSLAutoConfiguration(
-      UndertowServletWebServerFactory undertowServletWebServerFactory) {
-    this.factory = undertowServletWebServerFactory;
-    configuringUserCipherSuiteOrder();
-  }
+	public UndertowSSLAutoConfiguration(
+		UndertowServletWebServerFactory undertowServletWebServerFactory) {
+		this.factory = undertowServletWebServerFactory;
+		configuringUserCipherSuiteOrder();
+	}
 
-  private void configuringUserCipherSuiteOrder() {
-    log.info(MSG_CONFIG_UNDERTOW_SSL);
-    factory.addBuilderCustomizers(
-        builder ->
-            builder.setSocketOption(UndertowOptions.SSL_USER_CIPHER_SUITES_ORDER, Boolean.TRUE));
-  }
+	private void configuringUserCipherSuiteOrder() {
+		log.info(MSG_CONFIG_UNDERTOW_SSL);
+		factory.addBuilderCustomizers(
+			builder ->
+				builder.setSocketOption(UndertowOptions.SSL_USER_CIPHER_SUITES_ORDER, Boolean.TRUE));
+	}
 }

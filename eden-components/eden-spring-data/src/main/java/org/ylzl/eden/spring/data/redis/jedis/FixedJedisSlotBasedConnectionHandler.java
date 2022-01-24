@@ -16,28 +16,28 @@ import java.util.Set;
  */
 public class FixedJedisSlotBasedConnectionHandler extends JedisSlotBasedConnectionHandler {
 
-  public FixedJedisSlotBasedConnectionHandler(
-      Set<HostAndPort> nodes,
-      GenericObjectPoolConfig poolConfig,
-      int connectionTimeout,
-      int soTimeout,
-      String password) {
-    super(nodes, poolConfig, connectionTimeout, soTimeout, password);
-  }
+	public FixedJedisSlotBasedConnectionHandler(
+		Set<HostAndPort> nodes,
+		GenericObjectPoolConfig poolConfig,
+		int connectionTimeout,
+		int soTimeout,
+		String password) {
+		super(nodes, poolConfig, connectionTimeout, soTimeout, password);
+	}
 
-  public JedisPool getJedisPoolFromSlot(int slot) {
-    JedisPool connectionPool = cache.getSlotPool(slot);
-    if (connectionPool != null) {
-      return connectionPool;
-    } else {
-      renewSlotCache();
-      connectionPool = cache.getSlotPool(slot);
-      if (connectionPool != null) {
-        return connectionPool;
-      } else {
-        throw new JedisNoReachableClusterNodeException(
-            "No reachable node in cluster for slot " + slot);
-      }
-    }
-  }
+	public JedisPool getJedisPoolFromSlot(int slot) {
+		JedisPool connectionPool = cache.getSlotPool(slot);
+		if (connectionPool != null) {
+			return connectionPool;
+		} else {
+			renewSlotCache();
+			connectionPool = cache.getSlotPool(slot);
+			if (connectionPool != null) {
+				return connectionPool;
+			} else {
+				throw new JedisNoReachableClusterNodeException(
+					"No reachable node in cluster for slot " + slot);
+			}
+		}
+	}
 }

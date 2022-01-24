@@ -43,14 +43,14 @@ import org.ylzl.eden.spring.integration.metrics.endpoint.AllMetricsEndpoint;
 @Configuration
 public class AllMetricsEndpointAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_METRICS_ENDPOINT = "Autowired Metrics Endpoint";
+	private static final String MSG_AUTOWIRED_METRICS_ENDPOINT = "Autowired Metrics Endpoint";
 
-  @ConditionalOnAvailableEndpoint
-  @ConditionalOnMissingBean
-  @ConditionalOnBean({MeterRegistry.class})
-  @Bean
-  public AllMetricsEndpoint enhancedMetricsEndpoint(MeterRegistry meterRegistry) {
-    log.debug(MSG_AUTOWIRED_METRICS_ENDPOINT);
-    return new AllMetricsEndpoint(meterRegistry);
-  }
+	@ConditionalOnAvailableEndpoint
+	@ConditionalOnMissingBean
+	@ConditionalOnBean({MeterRegistry.class})
+	@Bean
+	public AllMetricsEndpoint enhancedMetricsEndpoint(MeterRegistry meterRegistry) {
+		log.debug(MSG_AUTOWIRED_METRICS_ENDPOINT);
+		return new AllMetricsEndpoint(meterRegistry);
+	}
 }

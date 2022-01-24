@@ -32,5 +32,5 @@ import org.ylzl.eden.spring.cloud.core.constant.SpringCloudConstants;
 @ConfigurationProperties(prefix = SpringCloudConstants.PROP_PREFIX + ".profile")
 public class ProfileProperties {
 
-  private String[] displayOnActiveProfiles = ProfileDefaults.displayOnActiveProfiles;
+	private String[] displayOnActiveProfiles = ProfileDefaults.displayOnActiveProfiles;
 }

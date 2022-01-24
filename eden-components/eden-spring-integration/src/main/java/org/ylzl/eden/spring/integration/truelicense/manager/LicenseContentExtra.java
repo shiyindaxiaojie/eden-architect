@@ -37,9 +37,9 @@ import java.util.List;
 @ToString
 public class LicenseContentExtra implements Serializable {
 
-  private static final long serialVersionUID = 1281541768858257351L;
+	private static final long serialVersionUID = 1281541768858257351L;
 
-  private LicenseOS licenseOS;
+	private LicenseOS licenseOS;
 
-  private List<Conditional> conditionals;
+	private List<Conditional> conditionals;
 }

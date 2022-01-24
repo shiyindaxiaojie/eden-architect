@@ -32,107 +32,115 @@ import java.util.Date;
 @UtilityClass
 public class JSR310DateConverters {
 
-  public static class LocalDateToDateConverter implements Converter<LocalDate, Date> {
+	public static class LocalDateToDateConverter implements Converter<LocalDate, Date> {
 
-    public static final LocalDateToDateConverter INSTANCE = new LocalDateToDateConverter();
+		public static final LocalDateToDateConverter INSTANCE = new LocalDateToDateConverter();
 
-    private LocalDateToDateConverter() {}
+		private LocalDateToDateConverter() {
+		}
 
-    @Override
-    public Date convert(LocalDate source) {
-      return source == null
-          ? null
-          : Date.from(source.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
-  }
+		@Override
+		public Date convert(LocalDate source) {
+			return source == null
+				? null
+				: Date.from(source.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		}
+	}
 
-  public static class DateToLocalDateConverter implements Converter<Date, LocalDate> {
+	public static class DateToLocalDateConverter implements Converter<Date, LocalDate> {
 
-    public static final DateToLocalDateConverter INSTANCE = new DateToLocalDateConverter();
+		public static final DateToLocalDateConverter INSTANCE = new DateToLocalDateConverter();
 
-    private DateToLocalDateConverter() {}
+		private DateToLocalDateConverter() {
+		}
 
-    @Override
-    public LocalDate convert(Date source) {
-      return source == null
-          ? null
-          : ZonedDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault()).toLocalDate();
-    }
-  }
+		@Override
+		public LocalDate convert(Date source) {
+			return source == null
+				? null
+				: ZonedDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		}
+	}
 
-  public static class ZonedDateTimeToDateConverter implements Converter<ZonedDateTime, Date> {
+	public static class ZonedDateTimeToDateConverter implements Converter<ZonedDateTime, Date> {
 
-    public static final ZonedDateTimeToDateConverter INSTANCE = new ZonedDateTimeToDateConverter();
+		public static final ZonedDateTimeToDateConverter INSTANCE = new ZonedDateTimeToDateConverter();
 
-    private ZonedDateTimeToDateConverter() {}
+		private ZonedDateTimeToDateConverter() {
+		}
 
-    @Override
-    public Date convert(ZonedDateTime source) {
-      return source == null ? null : Date.from(source.toInstant());
-    }
-  }
+		@Override
+		public Date convert(ZonedDateTime source) {
+			return source == null ? null : Date.from(source.toInstant());
+		}
+	}
 
-  public static class DateToZonedDateTimeConverter implements Converter<Date, ZonedDateTime> {
+	public static class DateToZonedDateTimeConverter implements Converter<Date, ZonedDateTime> {
 
-    public static final DateToZonedDateTimeConverter INSTANCE = new DateToZonedDateTimeConverter();
+		public static final DateToZonedDateTimeConverter INSTANCE = new DateToZonedDateTimeConverter();
 
-    private DateToZonedDateTimeConverter() {}
+		private DateToZonedDateTimeConverter() {
+		}
 
-    @Override
-    public ZonedDateTime convert(Date source) {
-      return source == null
-          ? null
-          : ZonedDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault());
-    }
-  }
+		@Override
+		public ZonedDateTime convert(Date source) {
+			return source == null
+				? null
+				: ZonedDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault());
+		}
+	}
 
-  public static class LocalDateTimeToDateConverter implements Converter<LocalDateTime, Date> {
+	public static class LocalDateTimeToDateConverter implements Converter<LocalDateTime, Date> {
 
-    public static final LocalDateTimeToDateConverter INSTANCE = new LocalDateTimeToDateConverter();
+		public static final LocalDateTimeToDateConverter INSTANCE = new LocalDateTimeToDateConverter();
 
-    private LocalDateTimeToDateConverter() {}
+		private LocalDateTimeToDateConverter() {
+		}
 
-    @Override
-    public Date convert(LocalDateTime source) {
-      return source == null ? null : Date.from(source.atZone(ZoneId.systemDefault()).toInstant());
-    }
-  }
+		@Override
+		public Date convert(LocalDateTime source) {
+			return source == null ? null : Date.from(source.atZone(ZoneId.systemDefault()).toInstant());
+		}
+	}
 
-  public static class DateToLocalDateTimeConverter implements Converter<Date, LocalDateTime> {
+	public static class DateToLocalDateTimeConverter implements Converter<Date, LocalDateTime> {
 
-    public static final DateToLocalDateTimeConverter INSTANCE = new DateToLocalDateTimeConverter();
+		public static final DateToLocalDateTimeConverter INSTANCE = new DateToLocalDateTimeConverter();
 
-    private DateToLocalDateTimeConverter() {}
+		private DateToLocalDateTimeConverter() {
+		}
 
-    @Override
-    public LocalDateTime convert(Date source) {
-      return source == null
-          ? null
-          : LocalDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault());
-    }
-  }
+		@Override
+		public LocalDateTime convert(Date source) {
+			return source == null
+				? null
+				: LocalDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault());
+		}
+	}
 
-  public static class DurationToLongConverter implements Converter<Duration, Long> {
+	public static class DurationToLongConverter implements Converter<Duration, Long> {
 
-    public static final DurationToLongConverter INSTANCE = new DurationToLongConverter();
+		public static final DurationToLongConverter INSTANCE = new DurationToLongConverter();
 
-    private DurationToLongConverter() {}
+		private DurationToLongConverter() {
+		}
 
-    @Override
-    public Long convert(Duration source) {
-      return source == null ? null : source.toNanos();
-    }
-  }
+		@Override
+		public Long convert(Duration source) {
+			return source == null ? null : source.toNanos();
+		}
+	}
 
-  public static class LongToDurationConverter implements Converter<Long, Duration> {
+	public static class LongToDurationConverter implements Converter<Long, Duration> {
 
-    public static final LongToDurationConverter INSTANCE = new LongToDurationConverter();
+		public static final LongToDurationConverter INSTANCE = new LongToDurationConverter();
 
-    private LongToDurationConverter() {}
+		private LongToDurationConverter() {
+		}
 
-    @Override
-    public Duration convert(Long source) {
-      return source == null ? null : Duration.ofNanos(source);
-    }
-  }
+		@Override
+		public Duration convert(Long source) {
+			return source == null ? null : Duration.ofNanos(source);
+		}
+	}
 }

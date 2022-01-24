@@ -26,4 +26,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public class CharUtils extends org.apache.commons.lang3.CharUtils {}
+public class CharUtils extends org.apache.commons.lang3.CharUtils {
+}

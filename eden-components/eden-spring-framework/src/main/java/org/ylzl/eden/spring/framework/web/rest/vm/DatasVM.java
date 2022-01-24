@@ -38,17 +38,23 @@ import java.io.Serializable;
 @ApiModel(description = "数据列表视图模型")
 public class DatasVM<T> implements Serializable {
 
-  private static final long serialVersionUID = -6062447811540513140L;
+	private static final long serialVersionUID = -6062447811540513140L;
 
-  /** 消息 */
-  @ApiModelProperty(value = "消息")
-  private String message;
+	/**
+	 * 消息
+	 */
+	@ApiModelProperty(value = "消息")
+	private String message;
 
-  /** 数据 */
-  @ApiModelProperty(value = "数据")
-  private T data;
+	/**
+	 * 数据
+	 */
+	@ApiModelProperty(value = "数据")
+	private T data;
 
-  /** 统计 */
-  @ApiModelProperty(value = "统计")
-  private Long count;
+	/**
+	 * 统计
+	 */
+	@ApiModelProperty(value = "统计")
+	private Long count;
 }

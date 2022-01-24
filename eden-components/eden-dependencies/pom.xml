@@ -122,7 +122,8 @@
 		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
 
 		<!-- 搜索引擎 -->
-		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
+		</spring-boot-starter-data-elasticsearch.version>
 
 		<!-- 缓存 -->
 		<ehcache.version>2.10.4</ehcache.version>

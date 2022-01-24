@@ -33,33 +33,33 @@ import java.io.IOException;
 @UtilityClass
 public class ThumbnailatorUtils {
 
-  public static void compress(
-      @NonNull File srcFile, @NonNull File destFile, long limitSize, double scale)
-      throws IOException {
-    Thumbnails.of(srcFile).scale(scale).toFile(destFile);
-    if (destFile.length() > limitSize) {
-      compress(destFile, destFile, limitSize);
-    }
-  }
+	public static void compress(
+		@NonNull File srcFile, @NonNull File destFile, long limitSize, double scale)
+		throws IOException {
+		Thumbnails.of(srcFile).scale(scale).toFile(destFile);
+		if (destFile.length() > limitSize) {
+			compress(destFile, destFile, limitSize);
+		}
+	}
 
-  public static void compress(@NonNull File srcFile, @NonNull File destFile, long limitSize)
-      throws IOException {
-    compress(srcFile, destFile, limitSize, 0.9);
-  }
+	public static void compress(@NonNull File srcFile, @NonNull File destFile, long limitSize)
+		throws IOException {
+		compress(srcFile, destFile, limitSize, 0.9);
+	}
 
-  public static void zoom(@NonNull File srcFile, @NonNull File destFile, int width, int height)
-      throws IOException {
-    Thumbnails.of(srcFile).size(width, height).keepAspectRatio(false).toFile(destFile);
-  }
+	public static void zoom(@NonNull File srcFile, @NonNull File destFile, int width, int height)
+		throws IOException {
+		Thumbnails.of(srcFile).size(width, height).keepAspectRatio(false).toFile(destFile);
+	}
 
-  public static void zoom(
-      @NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename)
-      throws IOException {
-    Thumbnails.of(fileNameArr).size(width, height).keepAspectRatio(false).toFiles(destFile, rename);
-  }
+	public static void zoom(
+		@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename)
+		throws IOException {
+		Thumbnails.of(fileNameArr).size(width, height).keepAspectRatio(false).toFiles(destFile, rename);
+	}
 
-  public static void zoom(
-      @NonNull String[] fileNameArr, @NonNull File destFile, int width, int height) {
-    zoom(fileNameArr, destFile, width, height);
-  }
+	public static void zoom(
+		@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height) {
+		zoom(fileNameArr, destFile, width, height);
+	}
 }

@@ -60,123 +60,123 @@ import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHo
 @Configuration
 public class OAuth2AuthorizationClientAutoConfiguration {
 
-  public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
-      "${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
+	public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
+		"${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
-  private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
-      "Autowired OAuth2AccessTokenClient";
+	private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
+		"Autowired OAuth2AccessTokenClient";
 
-  private static final String MSG_AUTOWIRED_TOKEN_GRANT_CLIENT = "Autowired TokenGrantClient";
+	private static final String MSG_AUTOWIRED_TOKEN_GRANT_CLIENT = "Autowired TokenGrantClient";
 
-  private static final String MSG_AUTOWIRED_TOKEN_EXTRACTOR =
-      "Autowired TokenExtractor (OAuth2CookieTokenExtractor)";
+	private static final String MSG_AUTOWIRED_TOKEN_EXTRACTOR =
+		"Autowired TokenExtractor (OAuth2CookieTokenExtractor)";
 
-  private static final String MSG_AUTOWIRED_OAUTH2_COOKIE_HELPER = "Autowired OAuth2CookieHelper";
+	private static final String MSG_AUTOWIRED_OAUTH2_COOKIE_HELPER = "Autowired OAuth2CookieHelper";
 
-  private static final String MSG_AUTOWIRED_OAUTH2_TOKEN_ENDPOINT = "Autowired OAuth2TokenEndpoint";
+	private static final String MSG_AUTOWIRED_OAUTH2_TOKEN_ENDPOINT = "Autowired OAuth2TokenEndpoint";
 
-  private static final String MSG_AUTOWIRED_CLIENT_CREDENTIALS_TOKEN_HOLDER =
-      "Autowired ClientCredentialsTokenHolder";
+	private static final String MSG_AUTOWIRED_CLIENT_CREDENTIALS_TOKEN_HOLDER =
+		"Autowired ClientCredentialsTokenHolder";
 
-  private final OAuth2Properties oAuth2Properties;
+	private final OAuth2Properties oAuth2Properties;
 
-  public OAuth2AuthorizationClientAutoConfiguration(OAuth2Properties oAuth2Properties) {
-    this.oAuth2Properties = oAuth2Properties;
-  }
+	public OAuth2AuthorizationClientAutoConfiguration(OAuth2Properties oAuth2Properties) {
+		this.oAuth2Properties = oAuth2Properties;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
-    log.debug(MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT);
-    return new OAuth2AccessTokenClientAdapter(restTemplate, oAuth2Properties);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
+		log.debug(MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT);
+		return new OAuth2AccessTokenClientAdapter(restTemplate, oAuth2Properties);
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public TokenGrantClient tokenGrantClient(OAuth2AccessTokenClient oAuth2AccessTokenClient) {
-    log.debug(MSG_AUTOWIRED_TOKEN_GRANT_CLIENT);
-    return new TokenGrantClientAdapter(oAuth2AccessTokenClient, oAuth2Properties);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public TokenGrantClient tokenGrantClient(OAuth2AccessTokenClient oAuth2AccessTokenClient) {
+		log.debug(MSG_AUTOWIRED_TOKEN_GRANT_CLIENT);
+		return new TokenGrantClientAdapter(oAuth2AccessTokenClient, oAuth2Properties);
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public TokenExtractor tokenExtractor() {
-    log.debug(MSG_AUTOWIRED_TOKEN_EXTRACTOR);
-    return new OAuth2CookieTokenExtractor();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public TokenExtractor tokenExtractor() {
+		log.debug(MSG_AUTOWIRED_TOKEN_EXTRACTOR);
+		return new OAuth2CookieTokenExtractor();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public OAuth2CookieHelper oAuth2CookieHelper(TokenProcessor tokenProcessor) {
-    log.debug(MSG_AUTOWIRED_OAUTH2_COOKIE_HELPER);
-    return new OAuth2CookieHelper(tokenProcessor, oAuth2Properties);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public OAuth2CookieHelper oAuth2CookieHelper(TokenProcessor tokenProcessor) {
+		log.debug(MSG_AUTOWIRED_OAUTH2_COOKIE_HELPER);
+		return new OAuth2CookieHelper(tokenProcessor, oAuth2Properties);
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public OAuth2TokenEndpoint oAuth2TokenEndpoint(
-      TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
-    log.debug(MSG_AUTOWIRED_OAUTH2_TOKEN_ENDPOINT);
-    return new OAuth2TokenEndpoint(tokenGrantClient, oAuth2CookieHelper);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public OAuth2TokenEndpoint oAuth2TokenEndpoint(
+		TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
+		log.debug(MSG_AUTOWIRED_OAUTH2_TOKEN_ENDPOINT);
+		return new OAuth2TokenEndpoint(tokenGrantClient, oAuth2CookieHelper);
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public ClientCredentialsTokenHolder clientCredentialsTokenHolder(
-      TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
-    log.debug(MSG_AUTOWIRED_CLIENT_CREDENTIALS_TOKEN_HOLDER);
-    return new ClientCredentialsTokenHolder(tokenProcessor, tokenGrantClient);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public ClientCredentialsTokenHolder clientCredentialsTokenHolder(
+		TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
+		log.debug(MSG_AUTOWIRED_CLIENT_CREDENTIALS_TOKEN_HOLDER);
+		return new ClientCredentialsTokenHolder(tokenProcessor, tokenGrantClient);
+	}
 
-  @ConditionalOnClass(Jwt.class)
-  @Configuration
-  public static class OAuth2AuthorizationClientJwtConfiguration {
+	@ConditionalOnClass(Jwt.class)
+	@Configuration
+	public static class OAuth2AuthorizationClientJwtConfiguration {
 
-    private static final String MSG_AUTOWIRED_SIGN_VERIFY_CLIENT =
-        "Autowired SignatureVerifierClient";
+		private static final String MSG_AUTOWIRED_SIGN_VERIFY_CLIENT =
+			"Autowired SignatureVerifierClient";
 
-    private static final String MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR =
-        "Autowired JwtAccessTokenConverter (OAuth2AuthorizationClient)";
+		private static final String MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR =
+			"Autowired JwtAccessTokenConverter (OAuth2AuthorizationClient)";
 
-    private static final String MSG_AUTOWIRED_TOKEN_STORE =
-        "Autowired TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
+		private static final String MSG_AUTOWIRED_TOKEN_STORE =
+			"Autowired TokenStore (OAuth2AuthorizationClient JwtTokenStore)";
 
-    private static final String MSG_AUTOWIRED_TOKEN_PROCESSOR =
-        "Autowired TokenProcessor (JwtTokenProcessor)";
+		private static final String MSG_AUTOWIRED_TOKEN_PROCESSOR =
+			"Autowired TokenProcessor (JwtTokenProcessor)";
 
-    private final OAuth2Properties oAuth2Properties;
+		private final OAuth2Properties oAuth2Properties;
 
-    public OAuth2AuthorizationClientJwtConfiguration(OAuth2Properties oAuth2Properties) {
-      this.oAuth2Properties = oAuth2Properties;
-    }
+		public OAuth2AuthorizationClientJwtConfiguration(OAuth2Properties oAuth2Properties) {
+			this.oAuth2Properties = oAuth2Properties;
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
-      log.debug(MSG_AUTOWIRED_SIGN_VERIFY_CLIENT);
-      return new SignatureVerifierClientAdapter(restTemplate, oAuth2Properties);
-    }
+		@ConditionalOnMissingBean
+		@Bean
+		public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
+			log.debug(MSG_AUTOWIRED_SIGN_VERIFY_CLIENT);
+			return new SignatureVerifierClientAdapter(restTemplate, oAuth2Properties);
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter(
-        SignatureVerifierClient signatureVerifierClient) {
-      log.debug(MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR);
-      return new RemotedJwtAccessTokenConverter(signatureVerifierClient, oAuth2Properties);
-    }
+		@ConditionalOnMissingBean
+		@Bean
+		public JwtAccessTokenConverter jwtAccessTokenConverter(
+			SignatureVerifierClient signatureVerifierClient) {
+			log.debug(MSG_AUTOWIRED_JWT_ACCESS_TOKEN_CONVERTOR);
+			return new RemotedJwtAccessTokenConverter(signatureVerifierClient, oAuth2Properties);
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-      log.debug(MSG_AUTOWIRED_TOKEN_STORE);
-      return new JwtTokenStore(jwtAccessTokenConverter);
-    }
+		@ConditionalOnMissingBean
+		@Bean
+		public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+			log.debug(MSG_AUTOWIRED_TOKEN_STORE);
+			return new JwtTokenStore(jwtAccessTokenConverter);
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public TokenProcessor tokenProcessor() {
-      log.debug(MSG_AUTOWIRED_TOKEN_PROCESSOR);
-      return new JwtTokenProcessor();
-    }
-  }
+		@ConditionalOnMissingBean
+		@Bean
+		public TokenProcessor tokenProcessor() {
+			log.debug(MSG_AUTOWIRED_TOKEN_PROCESSOR);
+			return new JwtTokenProcessor();
+		}
+	}
 }

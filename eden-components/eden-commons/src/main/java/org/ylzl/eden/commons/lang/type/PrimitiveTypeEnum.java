@@ -27,34 +27,36 @@ import lombok.NonNull;
  * @since 2.4.x
  */
 public enum PrimitiveTypeEnum {
-  BOOLEAN(value -> value == null ? false : Boolean.parseBoolean(value), Boolean.class),
-  BYTE(value -> value == null ? (byte) 0 : Byte.parseByte(value), Byte.class),
-  CHAR(value -> value == null ? '\u0000' : value.charAt(0), Character.class),
-  DOUBLE(value -> value == null ? 0.0d : Double.parseDouble(value), Double.class),
-  FLOAT(value -> value == null ? 0.0f : Float.parseFloat(value), Float.class),
-  INTEGER(value -> value == null ? 0 : Integer.parseInt(value), Integer.class),
-  LONG(value -> value == null ? 0L : Long.parseLong(value), Long.class),
-  SHORT(value -> value == null ? (short) 0 : Short.parseShort(value), Short.class);
+	BOOLEAN(value -> value == null ? false : Boolean.parseBoolean(value), Boolean.class),
+	BYTE(value -> value == null ? (byte) 0 : Byte.parseByte(value), Byte.class),
+	CHAR(value -> value == null ? '\u0000' : value.charAt(0), Character.class),
+	DOUBLE(value -> value == null ? 0.0d : Double.parseDouble(value), Double.class),
+	FLOAT(value -> value == null ? 0.0f : Float.parseFloat(value), Float.class),
+	INTEGER(value -> value == null ? 0 : Integer.parseInt(value), Integer.class),
+	LONG(value -> value == null ? 0L : Long.parseLong(value), Long.class),
+	SHORT(value -> value == null ? (short) 0 : Short.parseShort(value), Short.class);
 
-  @Getter private final Handler handler;
+	@Getter
+	private final Handler handler;
 
-  @Getter private final Class<?> wrapperClass;
+	@Getter
+	private final Class<?> wrapperClass;
 
-  PrimitiveTypeEnum(Handler handler, Class<?> wrapperClass) {
-    this.handler = handler;
-    this.wrapperClass = wrapperClass;
-  }
+	PrimitiveTypeEnum(Handler handler, Class<?> wrapperClass) {
+		this.handler = handler;
+		this.wrapperClass = wrapperClass;
+	}
 
-  public static PrimitiveTypeEnum toPrimitiveTypeEnum(@NonNull String type) {
-    for (PrimitiveTypeEnum primitiveTypeEnum : PrimitiveTypeEnum.values()) {
-      if (primitiveTypeEnum.name().equalsIgnoreCase(type)) {
-        return primitiveTypeEnum;
-      }
-    }
-    return null;
-  }
+	public static PrimitiveTypeEnum toPrimitiveTypeEnum(@NonNull String type) {
+		for (PrimitiveTypeEnum primitiveTypeEnum : PrimitiveTypeEnum.values()) {
+			if (primitiveTypeEnum.name().equalsIgnoreCase(type)) {
+				return primitiveTypeEnum;
+			}
+		}
+		return null;
+	}
 
-  public interface Handler {
-    Object cast(String value);
-  }
+	public interface Handler {
+		Object cast(String value);
+	}
 }

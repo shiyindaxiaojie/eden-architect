@@ -28,26 +28,26 @@ import org.ylzl.eden.commons.algorithms.SortUtils;
  */
 public class BubbleSort extends AbstractSort implements Sort {
 
-  /**
-   * 排序数组
-   *
-   * @param array - 未排序的数组
-   * @return 排序后的数组
-   */
-  @Override
-  public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
-    for (int i = 0, size = array.length; i < size - 1; i++) {
-      boolean swapped = false;
-      for (int j = 0; j < size - 1 - i; j++) { // 因为最后一个是最大值，所以每 i 轮循环，j 比较的次数减 1
-        if (SortUtils.less(array[j], array[j + 1])) {
-          SortUtils.swap(array, j, j + 1);
-          swapped = true;
-        }
-      }
-      if (!swapped) {
-        break;
-      }
-    }
-    return array;
-  }
+	/**
+	 * 排序数组
+	 *
+	 * @param array - 未排序的数组
+	 * @return 排序后的数组
+	 */
+	@Override
+	public <T extends Comparable<T>> T[] sort(@NonNull T[] array) {
+		for (int i = 0, size = array.length; i < size - 1; i++) {
+			boolean swapped = false;
+			for (int j = 0; j < size - 1 - i; j++) { // 因为最后一个是最大值，所以每 i 轮循环，j 比较的次数减 1
+				if (SortUtils.less(array[j], array[j + 1])) {
+					SortUtils.swap(array, j, j + 1);
+					swapped = true;
+				}
+			}
+			if (!swapped) {
+				break;
+			}
+		}
+		return array;
+	}
 }

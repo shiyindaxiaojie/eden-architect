@@ -39,71 +39,71 @@ import java.util.Map;
 @Slf4j
 public class AccessControlFilter extends ZuulFilter {
 
-  private static final String MSG_ALLOWING_ACCESS =
-      "Access Control: allowing access for {}, as no access control policy has been set up for service: {}";
+	private static final String MSG_ALLOWING_ACCESS =
+		"Access Control: allowing access for {}, as no access control policy has been set up for service: {}";
 
-  private static final String MSG_FILTER_UNAUTHORIZED_ACCESS =
-      "Access Control: filtered unauthorized access on endpoint {}";
+	private static final String MSG_FILTER_UNAUTHORIZED_ACCESS =
+		"Access Control: filtered unauthorized access on endpoint {}";
 
-  private final ZuulProperties zuulProperties;
+	private final ZuulProperties zuulProperties;
 
-  private final RouteLocator routeLocator;
+	private final RouteLocator routeLocator;
 
-  public AccessControlFilter(ZuulProperties zuulProperties, RouteLocator routeLocator) {
-    this.zuulProperties = zuulProperties;
-    this.routeLocator = routeLocator;
-  }
+	public AccessControlFilter(ZuulProperties zuulProperties, RouteLocator routeLocator) {
+		this.zuulProperties = zuulProperties;
+		this.routeLocator = routeLocator;
+	}
 
-  @Override
-  public String filterType() {
-    return ZuulConstants.FILTER_TYPE_PRE;
-  }
+	@Override
+	public String filterType() {
+		return ZuulConstants.FILTER_TYPE_PRE;
+	}
 
-  @Override
-  public int filterOrder() {
-    return 0;
-  }
+	@Override
+	public int filterOrder() {
+		return 0;
+	}
 
-  @Override
-  public boolean shouldFilter() {
-    HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
-    for (Route route : routeLocator.getRoutes()) {
-      String serviceUrl = request.getContextPath() + route.getFullPath();
-      String serviceName = route.getId();
-      if (request.getRequestURI().startsWith(serviceUrl.substring(0, serviceUrl.length() - 2))) {
-        return !isAuthorizedRequest(serviceUrl, serviceName, request.getRequestURI());
-      }
-    }
-    return false;
-  }
+	@Override
+	public boolean shouldFilter() {
+		HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+		for (Route route : routeLocator.getRoutes()) {
+			String serviceUrl = request.getContextPath() + route.getFullPath();
+			String serviceName = route.getId();
+			if (request.getRequestURI().startsWith(serviceUrl.substring(0, serviceUrl.length() - 2))) {
+				return !isAuthorizedRequest(serviceUrl, serviceName, request.getRequestURI());
+			}
+		}
+		return false;
+	}
 
-  private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
-    Map<String, List<String>> authorizedMicroservicesEndpoints =
-        zuulProperties.getAccessControl().getAuthorizedMicroservicesEndpoints();
+	private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
+		Map<String, List<String>> authorizedMicroservicesEndpoints =
+			zuulProperties.getAccessControl().getAuthorizedMicroservicesEndpoints();
 
-    List<String> authorizedEndpoints = authorizedMicroservicesEndpoints.get(serviceName);
-    if (authorizedEndpoints == null) {
-      log.debug(MSG_ALLOWING_ACCESS, requestUri, serviceName);
-      return true;
-    }
-    for (String endpoint : authorizedEndpoints) {
-      String gatewayEndpoint = serviceUrl.substring(0, serviceUrl.length() - 3) + endpoint;
-      if (requestUri.startsWith(gatewayEndpoint)) {
-        log.debug(MSG_ALLOWING_ACCESS, requestUri, gatewayEndpoint);
-        return true;
-      }
-    }
-    return false;
-  }
+		List<String> authorizedEndpoints = authorizedMicroservicesEndpoints.get(serviceName);
+		if (authorizedEndpoints == null) {
+			log.debug(MSG_ALLOWING_ACCESS, requestUri, serviceName);
+			return true;
+		}
+		for (String endpoint : authorizedEndpoints) {
+			String gatewayEndpoint = serviceUrl.substring(0, serviceUrl.length() - 3) + endpoint;
+			if (requestUri.startsWith(gatewayEndpoint)) {
+				log.debug(MSG_ALLOWING_ACCESS, requestUri, gatewayEndpoint);
+				return true;
+			}
+		}
+		return false;
+	}
 
-  @Override
-  public Object run() {
-    RequestContext ctx = RequestContext.getCurrentContext();
-    ctx.setResponseStatusCode(HttpStatus.FORBIDDEN.value());
-    if (ctx.getResponseBody() == null && !ctx.getResponseGZipped()) {
-      ctx.setSendZuulResponse(false);
-    }
-    log.debug(MSG_FILTER_UNAUTHORIZED_ACCESS, ctx.getRequest().getRequestURI());
-    return null;
-  }
+	@Override
+	public Object run() {
+		RequestContext ctx = RequestContext.getCurrentContext();
+		ctx.setResponseStatusCode(HttpStatus.FORBIDDEN.value());
+		if (ctx.getResponseBody() == null && !ctx.getResponseGZipped()) {
+			ctx.setSendZuulResponse(false);
+		}
+		log.debug(MSG_FILTER_UNAUTHORIZED_ACCESS, ctx.getRequest().getRequestURI());
+		return null;
+	}
 }

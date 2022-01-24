@@ -29,12 +29,12 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 public class MongoDBServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
-    implements MongoDBService<T, ID> {
+	implements MongoDBService<T, ID> {
 
-  private final MongoRepository<T, ID> mongoRepository;
+	private final MongoRepository<T, ID> mongoRepository;
 
-  public MongoDBServiceImpl(MongoRepository<T, ID> mongoRepository) {
-    super(mongoRepository);
-    this.mongoRepository = mongoRepository;
-  }
+	public MongoDBServiceImpl(MongoRepository<T, ID> mongoRepository) {
+		super(mongoRepository);
+		this.mongoRepository = mongoRepository;
+	}
 }

@@ -29,37 +29,37 @@ package org.ylzl.eden.commons.algorithms.searches;
  */
 public class TernarySearch implements Search {
 
-  /**
-   * 查找
-   *
-   * @param array 数组
-   * @param key 查找关键字
-   * @return 匹配值
-   */
-  @Override
-  public <T extends Comparable<T>> int search(T[] array, T key) {
-    return search(array, key, 0, array.length - 1);
-  }
+	/**
+	 * 查找
+	 *
+	 * @param array 数组
+	 * @param key   查找关键字
+	 * @return 匹配值
+	 */
+	@Override
+	public <T extends Comparable<T>> int search(T[] array, T key) {
+		return search(array, key, 0, array.length - 1);
+	}
 
-  private <T extends Comparable<T>> int search(T[] arr, T key, int start, int end) {
-    if (start > end) {
-      return -1;
-    }
+	private <T extends Comparable<T>> int search(T[] arr, T key, int start, int end) {
+		if (start > end) {
+			return -1;
+		}
 
-    int mid1 = start + (end - start) / 3;
-    int mid2 = start + 2 * (end - start) / 3;
-    if (key.compareTo(arr[mid1]) == 0) {
-      return mid1;
-    }
-    if (key.compareTo(arr[mid2]) == 0) {
-      return mid2;
-    }
-    if (key.compareTo(arr[mid1]) < 0) {
-      return search(arr, key, start, --mid1);
-    }
-    if (key.compareTo(arr[mid2]) > 0) {
-      return search(arr, key, ++mid2, end);
-    }
-    return search(arr, key, mid1, mid2);
-  }
+		int mid1 = start + (end - start) / 3;
+		int mid2 = start + 2 * (end - start) / 3;
+		if (key.compareTo(arr[mid1]) == 0) {
+			return mid1;
+		}
+		if (key.compareTo(arr[mid2]) == 0) {
+			return mid2;
+		}
+		if (key.compareTo(arr[mid1]) < 0) {
+			return search(arr, key, start, --mid1);
+		}
+		if (key.compareTo(arr[mid2]) > 0) {
+			return search(arr, key, ++mid2, end);
+		}
+		return search(arr, key, mid1, mid2);
+	}
 }

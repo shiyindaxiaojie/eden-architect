@@ -31,53 +31,53 @@ import java.io.*;
  */
 public class CustomKeyStoreParam extends AbstractKeyStoreParam {
 
-  private String storePath;
+	private String storePath;
 
-  private String alias;
+	private String alias;
 
-  private String storePwd;
+	private String storePwd;
 
-  private String keyPwd;
+	private String keyPwd;
 
-  public CustomKeyStoreParam(
-      Class clazz, String resource, String alias, String storePwd, String keyPwd) {
-    super(clazz, resource);
-    this.storePath = resource;
-    this.alias = alias;
-    this.storePwd = storePwd;
-    this.keyPwd = keyPwd;
-  }
+	public CustomKeyStoreParam(
+		Class clazz, String resource, String alias, String storePwd, String keyPwd) {
+		super(clazz, resource);
+		this.storePath = resource;
+		this.alias = alias;
+		this.storePwd = storePwd;
+		this.keyPwd = keyPwd;
+	}
 
-  @Override
-  public String getAlias() {
-    return alias;
-  }
+	@Override
+	public String getAlias() {
+		return alias;
+	}
 
-  @Override
-  public String getStorePwd() {
-    return storePwd;
-  }
+	@Override
+	public String getStorePwd() {
+		return storePwd;
+	}
 
-  @Override
-  public String getKeyPwd() {
-    return keyPwd;
-  }
+	@Override
+	public String getKeyPwd() {
+		return keyPwd;
+	}
 
-  @Override
-  public InputStream getStream() throws IOException {
-    InputStream inputStream;
-    if (storePath.startsWith(ClassConstants.CLASS_DIR)) {
-      String path = storePath.substring(ClassConstants.CLASS_DIR.length());
-      if (!path.startsWith(IOConstants.DIR_SEPARATOR_STR)) {
-        path = StringConstants.SLASH + path;
-      }
-      inputStream = this.getClass().getResourceAsStream(path);
-    } else {
-      inputStream = new FileInputStream(new File(storePath));
-    }
-    if (inputStream == null) {
-      throw new FileNotFoundException(storePath);
-    }
-    return inputStream;
-  }
+	@Override
+	public InputStream getStream() throws IOException {
+		InputStream inputStream;
+		if (storePath.startsWith(ClassConstants.CLASS_DIR)) {
+			String path = storePath.substring(ClassConstants.CLASS_DIR.length());
+			if (!path.startsWith(IOConstants.DIR_SEPARATOR_STR)) {
+				path = StringConstants.SLASH + path;
+			}
+			inputStream = this.getClass().getResourceAsStream(path);
+		} else {
+			inputStream = new FileInputStream(new File(storePath));
+		}
+		if (inputStream == null) {
+			throw new FileNotFoundException(storePath);
+		}
+		return inputStream;
+	}
 }

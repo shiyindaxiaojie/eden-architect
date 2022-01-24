@@ -33,11 +33,12 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_SPRING_PREFIX + ".zookeeper")
 public class ZooKeeperProperties {
 
-  private Boolean enabled = ZooKeeperDefaults.enabled;
+	private Boolean enabled = ZooKeeperDefaults.enabled;
 
-  private String connectString = ZooKeeperDefaults.connectString;
+	private String connectString = ZooKeeperDefaults.connectString;
 
-  private Integer sessionTimeout = ZooKeeperDefaults.sessionTimeout;
+	private Integer sessionTimeout = ZooKeeperDefaults.sessionTimeout;
 
-  public static class Curator {}
+	public static class Curator {
+	}
 }

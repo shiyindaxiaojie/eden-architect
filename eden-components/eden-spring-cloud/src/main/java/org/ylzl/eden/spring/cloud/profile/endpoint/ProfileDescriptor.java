@@ -22,9 +22,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * 运行环境描述信息
  *
@@ -37,7 +34,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class ProfileDescriptor {
 
-  private String[] activeProfiles;
+	private String[] activeProfiles;
 
-  private String ribbonEnv;
+	private String ribbonEnv;
 }

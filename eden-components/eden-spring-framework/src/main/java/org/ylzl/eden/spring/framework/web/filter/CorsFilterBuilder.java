@@ -32,33 +32,33 @@ import java.util.List;
  */
 public class CorsFilterBuilder {
 
-  public static CorsFilterBuilder.Builder builder() {
-    return new CorsFilterBuilder.Builder();
-  }
+	public static CorsFilterBuilder.Builder builder() {
+		return new CorsFilterBuilder.Builder();
+	}
 
-  @NoArgsConstructor
-  public static class Builder {
+	@NoArgsConstructor
+	public static class Builder {
 
-    private List<String> paths;
+		private List<String> paths;
 
-    private CorsConfiguration corsConfiguration;
+		private CorsConfiguration corsConfiguration;
 
-    public CorsFilterBuilder.Builder paths(List<String> paths) {
-      this.paths = paths;
-      return this;
-    }
+		public CorsFilterBuilder.Builder paths(List<String> paths) {
+			this.paths = paths;
+			return this;
+		}
 
-    public CorsFilterBuilder.Builder corsConfiguration(CorsConfiguration corsConfiguration) {
-      this.corsConfiguration = corsConfiguration;
-      return this;
-    }
+		public CorsFilterBuilder.Builder corsConfiguration(CorsConfiguration corsConfiguration) {
+			this.corsConfiguration = corsConfiguration;
+			return this;
+		}
 
-    public CorsFilter build() {
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      for (String path : paths) {
-        source.registerCorsConfiguration(path, corsConfiguration);
-      }
-      return new CorsFilter(source);
-    }
-  }
+		public CorsFilter build() {
+			UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+			for (String path : paths) {
+				source.registerCorsConfiguration(path, corsConfiguration);
+			}
+			return new CorsFilter(source);
+		}
+	}
 }

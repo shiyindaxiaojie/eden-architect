@@ -18,9 +18,8 @@
 package org.ylzl.eden.sample;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
@@ -36,28 +35,22 @@ import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
 @SpringBootApplication
 public class Application extends SpringBootApplicationTemplate {
 
-  public Application(Environment env) {
-    super(env);
-  }
+	/**
+	 * 启动入口
+	 *
+	 * @param args 命令行参数
+	 */
+	public static void main(String[] args) {
+		run(Application.class, args, WebApplicationType.SERVLET);
+	}
 
-  /**
-   * 启动入口
-   *
-   * @param args 命令行参数
-   */
-  public static void main(String[] args) {
-    SpringApplication app = new SpringApplication(Application.class);
-    Environment env = run(app, args);
-    logApplicationServerAfterRunning(env);
-  }
-
-  /**
-   * 测试入口
-   *
-   * @return 测试信息
-   */
-  @GetMapping("/")
-  public String hello() {
-    return "Hello World";
-  }
+	/**
+	 * 测试入口
+	 *
+	 * @return 测试信息
+	 */
+	@GetMapping("/")
+	public String hello() {
+		return "Hello World";
+	}
 }

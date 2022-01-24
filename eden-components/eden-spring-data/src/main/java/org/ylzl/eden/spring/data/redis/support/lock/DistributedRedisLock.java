@@ -39,69 +39,69 @@ import java.util.UUID;
  */
 public class DistributedRedisLock extends AbstractRedisLock {
 
-  private static final String UNLOCK_LUA =
-      "if redis.call(\"get\",KEYS[1]) == ARGV[1] "
-          + "then return redis.call(\"del\",KEYS[1])"
-          + "else return 0 end";
-  private final RedisTemplate<String, Object> redisTemplate;
-  private ThreadLocal<String> lock = new ThreadLocal<String>();
+	private static final String UNLOCK_LUA =
+		"if redis.call(\"get\",KEYS[1]) == ARGV[1] "
+			+ "then return redis.call(\"del\",KEYS[1])"
+			+ "else return 0 end";
+	private final RedisTemplate<String, Object> redisTemplate;
+	private ThreadLocal<String> lock = new ThreadLocal<String>();
 
-  public DistributedRedisLock(RedisTemplate<String, Object> redisTemplate) {
-    this.redisTemplate = redisTemplate;
-  }
+	public DistributedRedisLock(RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
 
-  @Override
-  public boolean lock(String key, int secondsToExpire, int retryTimes, long sleepMillis) {
-    boolean result = set(key, secondsToExpire);
-    while ((!result) && retryTimes-- > 0) {
-      try {
-        Thread.sleep(sleepMillis);
-      } catch (InterruptedException e) {
-        return false;
-      }
-      result = set(key, secondsToExpire);
-    }
-    return result;
-  }
+	@Override
+	public boolean lock(String key, int secondsToExpire, int retryTimes, long sleepMillis) {
+		boolean result = set(key, secondsToExpire);
+		while ((!result) && retryTimes-- > 0) {
+			try {
+				Thread.sleep(sleepMillis);
+			} catch (InterruptedException e) {
+				return false;
+			}
+			result = set(key, secondsToExpire);
+		}
+		return result;
+	}
 
-  @Override
-  public boolean unlock(final String key) {
-    final List<String> keys = Collections.singletonList(key);
-    final List<String> args = Collections.singletonList(lock.get());
-    Long result =
-        redisTemplate.execute(
-            new RedisCallback<Long>() {
-              public Long doInRedis(RedisConnection connection)
-                  throws DataAccessException { // 集群模式不支持执行 LUA 脚本
-                Object nativeConnection = connection.getNativeConnection();
-                if (nativeConnection instanceof JedisCluster) { // 集群模式
-                  return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
-                }
-                if (nativeConnection instanceof Jedis) {
-                  return (Long) ((Jedis) nativeConnection).eval(UNLOCK_LUA, keys, args);
-                }
-                return 0L;
-              }
-            });
+	@Override
+	public boolean unlock(final String key) {
+		final List<String> keys = Collections.singletonList(key);
+		final List<String> args = Collections.singletonList(lock.get());
+		Long result =
+			redisTemplate.execute(
+				new RedisCallback<Long>() {
+					public Long doInRedis(RedisConnection connection)
+						throws DataAccessException { // 集群模式不支持执行 LUA 脚本
+						Object nativeConnection = connection.getNativeConnection();
+						if (nativeConnection instanceof JedisCluster) { // 集群模式
+							return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
+						}
+						if (nativeConnection instanceof Jedis) {
+							return (Long) ((Jedis) nativeConnection).eval(UNLOCK_LUA, keys, args);
+						}
+						return 0L;
+					}
+				});
 
-    return result != null && result > 0L;
-  }
+		return result != null && result > 0L;
+	}
 
-  private boolean set(final String key, final int secondsToExpire) {
-    String result =
-        redisTemplate.execute(
-            new RedisCallback<String>() {
+	private boolean set(final String key, final int secondsToExpire) {
+		String result =
+			redisTemplate.execute(
+				new RedisCallback<String>() {
 
-              @Override
-              public String doInRedis(RedisConnection connection) throws DataAccessException {
-                JedisCommands commands = (JedisCommands) connection.getNativeConnection();
-                String value = UUID.randomUUID().toString();
-                lock.set(value);
-                SetParams setParams = new SetParams();
-                setParams.ex(secondsToExpire);
-                return commands.set(key, value, setParams);
-              }
-            });
-    return StringUtils.isNotEmpty(result);
-  }
+					@Override
+					public String doInRedis(RedisConnection connection) throws DataAccessException {
+						JedisCommands commands = (JedisCommands) connection.getNativeConnection();
+						String value = UUID.randomUUID().toString();
+						lock.set(value);
+						SetParams setParams = new SetParams();
+						setParams.ex(secondsToExpire);
+						return commands.set(key, value, setParams);
+					}
+				});
+		return StringUtils.isNotEmpty(result);
+	}
 }

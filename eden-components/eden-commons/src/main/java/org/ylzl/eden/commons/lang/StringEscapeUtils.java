@@ -26,4 +26,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public class StringEscapeUtils extends org.apache.commons.text.StringEscapeUtils {}
+public class StringEscapeUtils extends org.apache.commons.text.StringEscapeUtils {
+}

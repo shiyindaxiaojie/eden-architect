@@ -44,28 +44,28 @@ import java.util.List;
 @Endpoint(id = ZuulRouteEndpoint.ENDPOINT_ID)
 public class ZuulRouteEndpoint {
 
-  public static final String ENDPOINT_ID = "zuul-routes";
+	public static final String ENDPOINT_ID = "zuul-routes";
 
-  private final RouteLocator routeLocator;
+	private final RouteLocator routeLocator;
 
-  private final DiscoveryClient discoveryClient;
+	private final DiscoveryClient discoveryClient;
 
-  public ZuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
-    this.routeLocator = routeLocator;
-    this.discoveryClient = discoveryClient;
-  }
+	public ZuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+		this.routeLocator = routeLocator;
+		this.discoveryClient = discoveryClient;
+	}
 
-  @ReadOperation
-  public List<ZuulRoute> zuulRoutes() {
-    List<Route> routes = routeLocator.getRoutes();
-    List<ZuulRoute> zuulRoutes = new ArrayList<>();
-    for (Route route : routes) {
-      ZuulRoute zuulRoute = new ZuulRoute();
-      zuulRoute.setPath(route.getFullPath());
-      zuulRoute.setServiceId(route.getId());
-      zuulRoute.setServiceInstances(discoveryClient.getInstances(route.getLocation()));
-      zuulRoutes.add(zuulRoute);
-    }
-    return zuulRoutes;
-  }
+	@ReadOperation
+	public List<ZuulRoute> zuulRoutes() {
+		List<Route> routes = routeLocator.getRoutes();
+		List<ZuulRoute> zuulRoutes = new ArrayList<>();
+		for (Route route : routes) {
+			ZuulRoute zuulRoute = new ZuulRoute();
+			zuulRoute.setPath(route.getFullPath());
+			zuulRoute.setServiceId(route.getId());
+			zuulRoute.setServiceInstances(discoveryClient.getInstances(route.getLocation()));
+			zuulRoutes.add(zuulRoute);
+		}
+		return zuulRoutes;
+	}
 }

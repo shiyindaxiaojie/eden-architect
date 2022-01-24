@@ -58,36 +58,36 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextInitializer {
 
-  protected static final String[] RESOURCE_LOCATIONS = {
-    "classpath:/static/app/", "classpath:/static/content/", "classpath:/static/i18n/"
-  };
-  protected static final String[] RESOURCE_PATHS = {"/app/*", "/content/*", "/i18n/*"};
+	protected static final String[] RESOURCE_LOCATIONS = {
+		"classpath:/static/app/", "classpath:/static/content/", "classpath:/static/i18n/"
+	};
+	protected static final String[] RESOURCE_PATHS = {"/app/*", "/content/*", "/i18n/*"};
 
-  private final SpringFrameworkProperties properties;
+	private final SpringFrameworkProperties properties;
 
-  private final Environment env;
+	private final Environment env;
 
-  public WebConfigurerAdapter(SpringFrameworkProperties properties, Environment env) {
-    this.properties = properties;
-    this.env = env;
-  }
+	public WebConfigurerAdapter(SpringFrameworkProperties properties, Environment env) {
+		this.properties = properties;
+		this.env = env;
+	}
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    ResourceHandlerRegistration resourceHandlerRegistration =
-        registry.addResourceHandler(RESOURCE_PATHS);
-    resourceHandlerRegistration
-        .addResourceLocations(RESOURCE_LOCATIONS)
-        .setCacheControl(getCacheControl());
-  }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		ResourceHandlerRegistration resourceHandlerRegistration =
+			registry.addResourceHandler(RESOURCE_PATHS);
+		resourceHandlerRegistration
+			.addResourceLocations(RESOURCE_LOCATIONS)
+			.setCacheControl(getCacheControl());
+	}
 
-  @Override
-  public void onStartup(ServletContext servletContext) {
-    // TODO
-  }
+	@Override
+	public void onStartup(ServletContext servletContext) {
+		// TODO
+	}
 
-  protected CacheControl getCacheControl() {
-    return CacheControl.maxAge(properties.getHttp().getCache().getTimeToLiveInDays(), TimeUnit.DAYS)
-        .cachePublic();
-  }
+	protected CacheControl getCacheControl() {
+		return CacheControl.maxAge(properties.getHttp().getCache().getTimeToLiveInDays(), TimeUnit.DAYS)
+			.cachePublic();
+	}
 }

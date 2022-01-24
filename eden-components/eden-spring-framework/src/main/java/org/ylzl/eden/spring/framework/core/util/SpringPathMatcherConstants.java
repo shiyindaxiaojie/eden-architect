@@ -28,5 +28,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class SpringPathMatcherConstants {
 
-  public static final String ALL_CHILD_PATTERN = "/**";
+	public static final String ALL_CHILD_PATTERN = "/**";
 }

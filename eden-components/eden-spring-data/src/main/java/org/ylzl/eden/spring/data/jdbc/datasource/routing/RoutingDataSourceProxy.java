@@ -26,9 +26,9 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 
-  @SuppressWarnings("unchecked")
-  @Override
-  protected Object determineCurrentLookupKey() {
-    return DataSourceNameContextHolder.get();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Object determineCurrentLookupKey() {
+		return DataSourceNameContextHolder.get();
+	}
 }

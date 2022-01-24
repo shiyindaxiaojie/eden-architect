@@ -33,27 +33,27 @@ import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieHelper;
  * @since 2.4.x
  */
 public class OAuth2SecurityConfigurer
-    extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+	extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-  private final OAuth2CookieHelper oAuth2CookieHelper;
+	private final OAuth2CookieHelper oAuth2CookieHelper;
 
-  private final TokenStore tokenStore;
+	private final TokenStore tokenStore;
 
-  private final TokenGrantClient tokenGrantClient;
+	private final TokenGrantClient tokenGrantClient;
 
-  public OAuth2SecurityConfigurer(
-      OAuth2CookieHelper oAuth2CookieHelper,
-      TokenStore tokenStore,
-      TokenGrantClient tokenGrantClient) {
-    this.oAuth2CookieHelper = oAuth2CookieHelper;
-    this.tokenStore = tokenStore;
-    this.tokenGrantClient = tokenGrantClient;
-  }
+	public OAuth2SecurityConfigurer(
+		OAuth2CookieHelper oAuth2CookieHelper,
+		TokenStore tokenStore,
+		TokenGrantClient tokenGrantClient) {
+		this.oAuth2CookieHelper = oAuth2CookieHelper;
+		this.tokenStore = tokenStore;
+		this.tokenGrantClient = tokenGrantClient;
+	}
 
-  @Override
-  public void configure(HttpSecurity http) {
-    OAuth2TokenFilter oAuth2TokenFilter =
-        new OAuth2TokenFilter(oAuth2CookieHelper, tokenStore, tokenGrantClient);
-    http.addFilterBefore(oAuth2TokenFilter, OAuth2AuthenticationProcessingFilter.class);
-  }
+	@Override
+	public void configure(HttpSecurity http) {
+		OAuth2TokenFilter oAuth2TokenFilter =
+			new OAuth2TokenFilter(oAuth2CookieHelper, tokenStore, tokenGrantClient);
+		http.addFilterBefore(oAuth2TokenFilter, OAuth2AuthenticationProcessingFilter.class);
+	}
 }

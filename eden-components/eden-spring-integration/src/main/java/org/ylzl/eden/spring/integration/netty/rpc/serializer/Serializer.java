@@ -25,7 +25,7 @@ package org.ylzl.eden.spring.integration.netty.rpc.serializer;
  */
 public interface Serializer {
 
-  <T> byte[] serialize(T obj) throws Exception;
+	<T> byte[] serialize(T obj) throws Exception;
 
-  <T> T deserialize(byte[] data, Class<T> clz) throws Exception;
+	<T> T deserialize(byte[] data, Class<T> clz) throws Exception;
 }

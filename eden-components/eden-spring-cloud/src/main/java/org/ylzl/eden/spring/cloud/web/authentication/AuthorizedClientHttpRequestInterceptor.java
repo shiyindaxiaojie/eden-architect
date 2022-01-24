@@ -38,36 +38,36 @@ import java.io.IOException;
  */
 public class AuthorizedClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
-  private final OAuth2Properties oAuth2Properties;
+	private final OAuth2Properties oAuth2Properties;
 
-  private final JwtProperties jwtProperties;
+	private final JwtProperties jwtProperties;
 
-  public AuthorizedClientHttpRequestInterceptor(
-      OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
-    this.oAuth2Properties = oAuth2Properties;
-    this.jwtProperties = jwtProperties;
-  }
+	public AuthorizedClientHttpRequestInterceptor(
+		OAuth2Properties oAuth2Properties, JwtProperties jwtProperties) {
+		this.oAuth2Properties = oAuth2Properties;
+		this.jwtProperties = jwtProperties;
+	}
 
-  @Override
-  public ClientHttpResponse intercept(
-      HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-    HttpHeaders headers = request.getHeaders();
-    Authentication authentication = SpringSecurityUtils.getAuthentication();
-    if (authentication != null) {
-      if (authentication.getDetails() instanceof OAuth2AuthenticationDetails
-          && oAuth2Properties != null) {
-        OAuth2AuthenticationDetails details =
-            (OAuth2AuthenticationDetails) authentication.getDetails();
-        headers.add(
-            oAuth2Properties.getAuthorization().getHeader(),
-            SpringSecurityUtils.getAuthorizationHeader(details));
-      } else if (authentication.getCredentials() instanceof String && jwtProperties != null) {
-        String credentials = (String) authentication.getCredentials();
-        headers.add(
-            jwtProperties.getAuthorization().getHeader(),
-            SpringSecurityUtils.getAuthorizationHeader(credentials));
-      }
-    }
-    return execution.execute(request, body);
-  }
+	@Override
+	public ClientHttpResponse intercept(
+		HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+		HttpHeaders headers = request.getHeaders();
+		Authentication authentication = SpringSecurityUtils.getAuthentication();
+		if (authentication != null) {
+			if (authentication.getDetails() instanceof OAuth2AuthenticationDetails
+				&& oAuth2Properties != null) {
+				OAuth2AuthenticationDetails details =
+					(OAuth2AuthenticationDetails) authentication.getDetails();
+				headers.add(
+					oAuth2Properties.getAuthorization().getHeader(),
+					SpringSecurityUtils.getAuthorizationHeader(details));
+			} else if (authentication.getCredentials() instanceof String && jwtProperties != null) {
+				String credentials = (String) authentication.getCredentials();
+				headers.add(
+					jwtProperties.getAuthorization().getHeader(),
+					SpringSecurityUtils.getAuthorizationHeader(credentials));
+			}
+		}
+		return execution.execute(request, body);
+	}
 }

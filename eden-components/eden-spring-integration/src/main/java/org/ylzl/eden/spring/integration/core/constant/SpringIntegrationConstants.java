@@ -29,6 +29,6 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @UtilityClass
 public class SpringIntegrationConstants {
 
-  public static final String PROP_PREFIX =
-      SpringFrameworkConstants.PROP_EDEN_PREFIX + ".integration";
+	public static final String PROP_PREFIX =
+		SpringFrameworkConstants.PROP_EDEN_PREFIX + ".integration";
 }

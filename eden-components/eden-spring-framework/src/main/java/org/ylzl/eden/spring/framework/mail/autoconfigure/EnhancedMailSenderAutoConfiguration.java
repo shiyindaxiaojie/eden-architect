@@ -30,4 +30,5 @@ import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)
 @Configuration
-public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {}
+public class EnhancedMailSenderAutoConfiguration extends MailSenderAutoConfiguration {
+}

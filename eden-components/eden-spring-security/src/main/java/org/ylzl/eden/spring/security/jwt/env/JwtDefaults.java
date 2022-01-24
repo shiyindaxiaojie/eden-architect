@@ -28,24 +28,24 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class JwtDefaults {
 
-  public static class Authentication {
+	public static class Authentication {
 
-    public static final String base64Secret = null;
+		public static final String base64Secret = null;
 
-    public static final String secret = null;
+		public static final String secret = null;
 
-    public static final long tokenValidityInSeconds = 1800;
+		public static final long tokenValidityInSeconds = 1800;
 
-    public static final long tokenValidityInSecondsForRememberMe = 2592000;
-  }
+		public static final long tokenValidityInSecondsForRememberMe = 2592000;
+	}
 
-  public static class Authorization {
+	public static class Authorization {
 
-    public static final String header = "Authorization";
+		public static final String header = "Authorization";
 
-    public static class Server {
+		public static class Server {
 
-      public static final Boolean enabled = false;
-    }
-  }
+			public static final Boolean enabled = false;
+		}
+	}
 }

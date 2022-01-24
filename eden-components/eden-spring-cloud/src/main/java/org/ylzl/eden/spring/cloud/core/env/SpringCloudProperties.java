@@ -30,4 +30,5 @@ import org.ylzl.eden.spring.cloud.core.constant.SpringCloudConstants;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = SpringCloudConstants.PROP_PREFIX)
-public class SpringCloudProperties {}
+public class SpringCloudProperties {
+}

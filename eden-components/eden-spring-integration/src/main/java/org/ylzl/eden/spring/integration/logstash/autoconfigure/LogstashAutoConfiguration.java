@@ -52,52 +52,52 @@ import java.util.Map;
 @Configuration
 public class LogstashAutoConfiguration {
 
-  public static final String EXP_LOGSTASH_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
+	public static final String EXP_LOGSTASH_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
 
-  private static final String KEY_APP_NAME = "app_name";
+	private static final String KEY_APP_NAME = "app_name";
 
-  private static final String KEY_SERVER_PORT = "server_port";
+	private static final String KEY_SERVER_PORT = "server_port";
 
-  private static final String KEY_VERSION = "verison";
+	private static final String KEY_VERSION = "verison";
 
-  private static final String KEY_TIMESTAMP = "timestamp";
+	private static final String KEY_TIMESTAMP = "timestamp";
 
-  @Value(SpringFrameworkConstants.NAME_PATTERN)
-  private String applicationName;
+	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	private String applicationName;
 
-  public LogstashAutoConfiguration(
-      @Value(SpringFrameworkConstants.NAME_PATTERN) String applicationName,
-      @Value(SpringFrameworkConstants.PORT_PATTERN) String serverPort,
-      LogstashProperties logstashProperties,
-      ObjectProvider<MetricsProperties> metricsProperties,
-      ObjectProvider<BuildProperties> buildProperties,
-      ObjectMapper mapper)
-      throws JsonProcessingException {
+	public LogstashAutoConfiguration(
+		@Value(SpringFrameworkConstants.NAME_PATTERN) String applicationName,
+		@Value(SpringFrameworkConstants.PORT_PATTERN) String serverPort,
+		LogstashProperties logstashProperties,
+		ObjectProvider<MetricsProperties> metricsProperties,
+		ObjectProvider<BuildProperties> buildProperties,
+		ObjectMapper mapper)
+		throws JsonProcessingException {
 
-    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+		LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-    Map<String, String> map = Maps.newHashMap();
-    map.put(KEY_APP_NAME, applicationName);
-    map.put(KEY_SERVER_PORT, serverPort);
-    buildProperties.ifAvailable(it -> map.put(KEY_VERSION, it.getVersion()));
-    String customFields = mapper.writeValueAsString(map);
+		Map<String, String> map = Maps.newHashMap();
+		map.put(KEY_APP_NAME, applicationName);
+		map.put(KEY_SERVER_PORT, serverPort);
+		buildProperties.ifAvailable(it -> map.put(KEY_VERSION, it.getVersion()));
+		String customFields = mapper.writeValueAsString(map);
 
-    if (logstashProperties.isUseJsonFormat()) {
-      LogstashUtils.addJsonConsoleAppender(context, customFields);
-    }
-    if (logstashProperties.isEnabled()) {
-      LogstashUtils.addLogstashTcpSocketAppender(context, customFields, logstashProperties);
-    }
-    if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
-      LogstashUtils.addContextListener(context, customFields, logstashProperties);
-    }
-    metricsProperties.ifAvailable(
-        properties -> {
-          if (properties.getLogs().isEnabled()) {
-            LogstashUtils.setMetricsMarkerLogbackFilter(
-                context, logstashProperties.isUseJsonFormat());
-          }
-        });
-  }
+		if (logstashProperties.isUseJsonFormat()) {
+			LogstashUtils.addJsonConsoleAppender(context, customFields);
+		}
+		if (logstashProperties.isEnabled()) {
+			LogstashUtils.addLogstashTcpSocketAppender(context, customFields, logstashProperties);
+		}
+		if (logstashProperties.isUseJsonFormat() || logstashProperties.isEnabled()) {
+			LogstashUtils.addContextListener(context, customFields, logstashProperties);
+		}
+		metricsProperties.ifAvailable(
+			properties -> {
+				if (properties.getLogs().isEnabled()) {
+					LogstashUtils.setMetricsMarkerLogbackFilter(
+						context, logstashProperties.isUseJsonFormat());
+				}
+			});
+	}
 }

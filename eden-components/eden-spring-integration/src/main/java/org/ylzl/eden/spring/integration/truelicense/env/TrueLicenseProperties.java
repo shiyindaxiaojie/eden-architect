@@ -30,23 +30,23 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @Getter
 @Setter
 @ConfigurationProperties(
-    prefix = SpringIntegrationConstants.PROP_PREFIX + ".true-license",
-    ignoreUnknownFields = false)
+	prefix = SpringIntegrationConstants.PROP_PREFIX + ".true-license",
+	ignoreUnknownFields = false)
 public class TrueLicenseProperties {
 
-  private String subject;
+	private String subject;
 
-  private String licensePath;
+	private String licensePath;
 
-  private String storePass;
+	private String storePass;
 
-  private String keyPass;
+	private String keyPass;
 
-  private String privateKeysStorePath;
+	private String privateKeysStorePath;
 
-  private String privateAlias;
+	private String privateAlias;
 
-  private String publicKeysStorePath;
+	private String publicKeysStorePath;
 
-  private String publicAlias;
+	private String publicAlias;
 }

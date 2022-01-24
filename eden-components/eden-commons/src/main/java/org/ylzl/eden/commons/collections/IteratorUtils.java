@@ -25,4 +25,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {}
+public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {
+}

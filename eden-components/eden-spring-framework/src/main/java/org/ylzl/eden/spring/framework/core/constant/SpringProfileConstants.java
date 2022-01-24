@@ -28,18 +28,28 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class SpringProfileConstants {
 
-  /** 开发环境 */
-  public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+	/**
+	 * 开发环境
+	 */
+	public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
 
-  /** 生产环境 */
-  public static final String SPRING_PROFILE_PRODUCTION = "prod";
+	/**
+	 * 生产环境
+	 */
+	public static final String SPRING_PROFILE_PRODUCTION = "prod";
 
-  /** 预发布环境 */
-  public static final String SPRING_PROFILE_STAGING = "staging";
+	/**
+	 * 预发布环境
+	 */
+	public static final String SPRING_PROFILE_STAGING = "staging";
 
-  /** 测试环境 */
-  public static final String SPRING_PROFILE_TEST = "test";
+	/**
+	 * 测试环境
+	 */
+	public static final String SPRING_PROFILE_TEST = "test";
 
-  /** 演示环境 */
-  public static final String SPRING_PROFILE_DEMO = "demo";
+	/**
+	 * 演示环境
+	 */
+	public static final String SPRING_PROFILE_DEMO = "demo";
 }

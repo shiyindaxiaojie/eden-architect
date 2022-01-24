@@ -34,34 +34,34 @@ import java.util.List;
 @UtilityClass
 public final class SpringFrameworkDefaults {
 
-  public static class Cors {
+	public static class Cors {
 
-    public static final List<String> allowedOrigins = Collections.singletonList("*");
+		public static final List<String> allowedOrigins = Collections.singletonList("*");
 
-    public static final List<String> allowedMethods = Collections.singletonList("*");
+		public static final List<String> allowedMethods = Collections.singletonList("*");
 
-    public static final List<HttpMethod> resolvedMethods =
-        Arrays.asList(HttpMethod.GET, HttpMethod.POST);
+		public static final List<HttpMethod> resolvedMethods =
+			Arrays.asList(HttpMethod.GET, HttpMethod.POST);
 
-    public static final List<String> allowedHeaders = Collections.singletonList("*");
+		public static final List<String> allowedHeaders = Collections.singletonList("*");
 
-    public static final List<String> exposedHeaders =
-        Arrays.asList("Authorization", "Link", "X-Total-Count");
+		public static final List<String> exposedHeaders =
+			Arrays.asList("Authorization", "Link", "X-Total-Count");
 
-    public static final Boolean allowCredentials = true;
+		public static final Boolean allowCredentials = true;
 
-    public static final Long maxAge = 1800L;
-  }
+		public static final Long maxAge = 1800L;
+	}
 
-  public static class Http {
+	public static class Http {
 
-    public static final Version version = Version.V_1_1;
+		public static final Version version = Version.V_1_1;
 
-    public static final boolean useUndertowUserCipherSuitesOrder = true;
+		public static final boolean useUndertowUserCipherSuitesOrder = true;
 
-    public static class Cache {
+		public static class Cache {
 
-      public static final int timeToLiveInDays = 365;
-    }
-  }
+			public static final int timeToLiveInDays = 365;
+		}
+	}
 }

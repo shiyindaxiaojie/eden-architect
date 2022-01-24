@@ -33,11 +33,11 @@ import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
 @Configuration
 public class AuditorAwareConfiguration {
 
-  public static final String BEAN_NAME = "authorizedAuditorAware";
+	public static final String BEAN_NAME = "authorizedAuditorAware";
 
-  @ConditionalOnMissingBean
-  @Bean(BEAN_NAME)
-  public AuthorizedAuditorAware authorizedAuditorAware() {
-    return new AuthorizedAuditorAware();
-  }
+	@ConditionalOnMissingBean
+	@Bean(BEAN_NAME)
+	public AuthorizedAuditorAware authorizedAuditorAware() {
+		return new AuthorizedAuditorAware();
+	}
 }

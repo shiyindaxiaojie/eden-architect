@@ -27,20 +27,20 @@ import org.springframework.http.HttpStatus;
  */
 public class InvalidCredentialsException extends BadRequestAlertException {
 
-  public InvalidCredentialsException() {
-    super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
-  }
+	public InvalidCredentialsException() {
+		super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
+	}
 
-  public InvalidCredentialsException(String message) {
-    super(message);
-  }
+	public InvalidCredentialsException(String message) {
+		super(message);
+	}
 
-  public InvalidCredentialsException(String message, String description) {
-    super(message, description);
-  }
+	public InvalidCredentialsException(String message, String description) {
+		super(message, description);
+	}
 
-  @Override
-  public int getStatusCode() {
-    return HttpStatus.UNAUTHORIZED.value();
-  }
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.UNAUTHORIZED.value();
+	}
 }

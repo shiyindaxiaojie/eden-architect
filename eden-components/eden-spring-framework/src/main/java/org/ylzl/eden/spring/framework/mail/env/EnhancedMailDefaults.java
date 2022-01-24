@@ -29,9 +29,9 @@ import org.ylzl.eden.commons.lang.StringConstants;
 @UtilityClass
 public final class EnhancedMailDefaults {
 
-  public static final boolean enabled = false;
+	public static final boolean enabled = false;
 
-  public static final String from = StringConstants.EMPTY;
+	public static final String from = StringConstants.EMPTY;
 
-  public static final String baseUrl = StringConstants.EMPTY;
+	public static final String baseUrl = StringConstants.EMPTY;
 }

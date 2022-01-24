@@ -29,28 +29,28 @@ import org.apache.commons.io.IOUtils;
 @UtilityClass
 public class IOConstants {
 
-  public static final char DIR_SEPARATOR_UNIX = IOUtils.DIR_SEPARATOR_UNIX;
+	public static final char DIR_SEPARATOR_UNIX = IOUtils.DIR_SEPARATOR_UNIX;
 
-  public static final char DIR_SEPARATOR_WINDOWS = IOUtils.DIR_SEPARATOR_WINDOWS;
+	public static final char DIR_SEPARATOR_WINDOWS = IOUtils.DIR_SEPARATOR_WINDOWS;
 
-  public static final char DIR_SEPARATOR = IOUtils.DIR_SEPARATOR;
+	public static final char DIR_SEPARATOR = IOUtils.DIR_SEPARATOR;
 
-  public static final String DIR_SEPARATOR_UNIX_STR = String.valueOf(IOUtils.DIR_SEPARATOR_UNIX);
+	public static final String DIR_SEPARATOR_UNIX_STR = String.valueOf(IOUtils.DIR_SEPARATOR_UNIX);
 
-  public static final String DIR_SEPARATOR_WINDOWS_STR =
-      String.valueOf(IOUtils.DIR_SEPARATOR_WINDOWS);
+	public static final String DIR_SEPARATOR_WINDOWS_STR =
+		String.valueOf(IOUtils.DIR_SEPARATOR_WINDOWS);
 
-  public static final String DIR_SEPARATOR_STR = String.valueOf(IOUtils.DIR_SEPARATOR);
+	public static final String DIR_SEPARATOR_STR = String.valueOf(IOUtils.DIR_SEPARATOR);
 
-  public static final String LINE_SEPARATOR_UNIX = IOUtils.LINE_SEPARATOR_UNIX;
+	public static final String LINE_SEPARATOR_UNIX = IOUtils.LINE_SEPARATOR_UNIX;
 
-  public static final String LINE_SEPARATOR_WINDOWS = IOUtils.LINE_SEPARATOR_WINDOWS;
+	public static final String LINE_SEPARATOR_WINDOWS = IOUtils.LINE_SEPARATOR_WINDOWS;
 
-  public static final String PARENT_DIR_SEPARATOR = ".." + DIR_SEPARATOR;
+	public static final String PARENT_DIR_SEPARATOR = ".." + DIR_SEPARATOR;
 
-  public static final String RAF_MODE_READ = "r";
+	public static final String RAF_MODE_READ = "r";
 
-  public static final String RAF_MODE_WRTIE = "w";
+	public static final String RAF_MODE_WRTIE = "w";
 
-  public static final String RAF_MODE_READ_WRTIE = "rw";
+	public static final String RAF_MODE_READ_WRTIE = "rw";
 }

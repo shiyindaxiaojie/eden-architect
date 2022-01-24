@@ -25,4 +25,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public final class SpringCloudDefaults {}
+public final class SpringCloudDefaults {
+}

@@ -31,61 +31,61 @@ import java.io.IOException;
  */
 public class EmbeddedRedis extends ExternalResource {
 
-  private static final int DEFAULT_PORT = 6379;
+	private static final int DEFAULT_PORT = 6379;
 
-  private int port;
+	private int port;
 
-  private boolean suppressExceptions = false;
+	private boolean suppressExceptions = false;
 
-  private boolean closed = true;
+	private boolean closed = true;
 
-  private RedisServer redisServer;
+	private RedisServer redisServer;
 
-  public EmbeddedRedis() {
-    port = DEFAULT_PORT;
-  }
+	public EmbeddedRedis() {
+		port = DEFAULT_PORT;
+	}
 
-  public EmbeddedRedis(int port) {
-    this.port = port;
-  }
+	public EmbeddedRedis(int port) {
+		this.port = port;
+	}
 
-  public EmbeddedRedis(RedisProperties redisProperties) {
-    this.port = redisProperties.getPort();
-  }
+	public EmbeddedRedis(RedisProperties redisProperties) {
+		this.port = redisProperties.getPort();
+	}
 
-  public static EmbeddedRedis runningAt(Integer port) {
-    return new EmbeddedRedis(port != null ? port : DEFAULT_PORT);
-  }
+	public static EmbeddedRedis runningAt(Integer port) {
+		return new EmbeddedRedis(port != null ? port : DEFAULT_PORT);
+	}
 
-  @Override
-  public void before() throws IOException {
-    try {
-      this.redisServer = new RedisServer(port);
-      this.redisServer.start();
-      closed = false;
-    } catch (Exception e) {
-      if (!suppressExceptions) {
-        throw e;
-      }
-    }
-  }
+	@Override
+	public void before() throws IOException {
+		try {
+			this.redisServer = new RedisServer(port);
+			this.redisServer.start();
+			closed = false;
+		} catch (Exception e) {
+			if (!suppressExceptions) {
+				throw e;
+			}
+		}
+	}
 
-  @Override
-  public void after() {
-    if (!isOpen()) {
-      return;
-    }
-    try {
-      this.redisServer.stop();
-      closed = true;
-    } catch (Exception e) {
-      if (!suppressExceptions) {
-        throw e;
-      }
-    }
-  }
+	@Override
+	public void after() {
+		if (!isOpen()) {
+			return;
+		}
+		try {
+			this.redisServer.stop();
+			closed = true;
+		} catch (Exception e) {
+			if (!suppressExceptions) {
+				throw e;
+			}
+		}
+	}
 
-  public boolean isOpen() {
-    return !closed;
-  }
+	public boolean isOpen() {
+		return !closed;
+	}
 }

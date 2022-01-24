@@ -30,15 +30,15 @@ import java.util.List;
  */
 public abstract class AbstractSort implements Sort {
 
-  /**
-   * 排序列表
-   *
-   * @param unsorted - 未排序的列表
-   * @return 排序后的列表
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
-    return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
-  }
+	/**
+	 * 排序列表
+	 *
+	 * @param unsorted - 未排序的列表
+	 * @return 排序后的列表
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends Comparable<T>> List<T> sort(@NonNull List<T> unsorted) {
+		return Arrays.asList(sort(unsorted.toArray((T[]) new Comparable[unsorted.size()])));
+	}
 }

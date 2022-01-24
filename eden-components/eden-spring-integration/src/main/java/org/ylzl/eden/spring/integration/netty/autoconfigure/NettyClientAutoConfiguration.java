@@ -30,8 +30,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
-import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 import org.ylzl.eden.spring.integration.netty.bootstrap.NettyClient;
+import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 
 import java.util.List;
 
@@ -48,34 +48,34 @@ import java.util.List;
 @Configuration
 public class NettyClientAutoConfiguration {
 
-  public static final String EXP_NETTY_CLIENT_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".netty.client.enabled:false}";
+	public static final String EXP_NETTY_CLIENT_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".netty.client.enabled:false}";
 
-  private final NettyProperties.Client properties;
+	private final NettyProperties.Client properties;
 
-  public NettyClientAutoConfiguration(NettyProperties properties) {
-    this.properties = properties.getClient();
-  }
+	public NettyClientAutoConfiguration(NettyProperties properties) {
+		this.properties = properties.getClient();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public NettyClient nettyClient(
-      @Autowired(required = false) List<ChannelHandler> channelHandlers,
-      @Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
-    NettyClient nettyClient =
-        new NettyClient(properties.getName(), properties.getHost(), properties.getPort());
-    if (properties.getChannelThreads() != null) {
-      nettyClient.setChannelThreads(properties.getChannelThreads());
-    }
-    if (CollectionUtils.isNotEmpty(channelHandlers)) {
-      nettyClient.addAllChannelHandlers(channelHandlers);
-    }
-    if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
-      nettyClient.addAllChannelFutureListeners(channelFutureListeners);
-    }
-    if (properties.getAutoStartup()) {
-      nettyClient.setAutoStartup(properties.getAutoStartup());
-    }
-    return nettyClient;
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public NettyClient nettyClient(
+		@Autowired(required = false) List<ChannelHandler> channelHandlers,
+		@Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
+		NettyClient nettyClient =
+			new NettyClient(properties.getName(), properties.getHost(), properties.getPort());
+		if (properties.getChannelThreads() != null) {
+			nettyClient.setChannelThreads(properties.getChannelThreads());
+		}
+		if (CollectionUtils.isNotEmpty(channelHandlers)) {
+			nettyClient.addAllChannelHandlers(channelHandlers);
+		}
+		if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
+			nettyClient.addAllChannelFutureListeners(channelFutureListeners);
+		}
+		if (properties.getAutoStartup()) {
+			nettyClient.setAutoStartup(properties.getAutoStartup());
+		}
+		return nettyClient;
+	}
 }

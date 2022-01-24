@@ -30,15 +30,15 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 public interface ElasticsearchService<T, ID extends Serializable>
-    extends org.ylzl.eden.spring.data.repository.PagingAndSortingService<T, ID> {
+	extends org.ylzl.eden.spring.data.repository.PagingAndSortingService<T, ID> {
 
-  <S extends T> S index(S entity);
+	<S extends T> S index(S entity);
 
-  Iterable<T> search(QueryBuilder queryBuilder);
+	Iterable<T> search(QueryBuilder queryBuilder);
 
-  Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
+	Page<T> search(QueryBuilder queryBuilder, Pageable pageable);
 
-  Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
+	Page<T> searchSimilar(T entity, String[] var, Pageable pageable);
 
-  void refresh();
+	void refresh();
 }

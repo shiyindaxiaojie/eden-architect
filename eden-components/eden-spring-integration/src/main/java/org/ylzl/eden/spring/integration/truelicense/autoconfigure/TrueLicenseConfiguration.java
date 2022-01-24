@@ -37,18 +37,18 @@ import org.ylzl.eden.spring.integration.truelicense.manager.EnhancedLicenseManag
 @Configuration
 public class TrueLicenseConfiguration {
 
-  private static final String MSG_AUTOWIRED_TRUE_LICENSE_MANAGER = "Autowired TureLicense manager";
+	private static final String MSG_AUTOWIRED_TRUE_LICENSE_MANAGER = "Autowired TureLicense manager";
 
-  private final TrueLicenseProperties trueLicenseProperties;
+	private final TrueLicenseProperties trueLicenseProperties;
 
-  public TrueLicenseConfiguration(TrueLicenseProperties trueLicenseProperties) {
-    this.trueLicenseProperties = trueLicenseProperties;
-  }
+	public TrueLicenseConfiguration(TrueLicenseProperties trueLicenseProperties) {
+		this.trueLicenseProperties = trueLicenseProperties;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public LicenseManager licenseManager() {
-    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_MANAGER);
-    return new EnhancedLicenseManager(trueLicenseProperties);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public LicenseManager licenseManager() {
+		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_MANAGER);
+		return new EnhancedLicenseManager(trueLicenseProperties);
+	}
 }

@@ -41,14 +41,14 @@ import org.ylzl.eden.spring.cloud.zuul.endpoint.ZuulRouteEndpoint;
 @Configuration
 public class ZuulEndpointAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_ZUUL_ENDPOINT = "Autowired Zuul Endpoint";
+	private static final String MSG_AUTOWIRED_ZUUL_ENDPOINT = "Autowired Zuul Endpoint";
 
-  @ConditionalOnAvailableEndpoint
-  @ConditionalOnMissingBean
-  @Bean
-  public ZuulRouteEndpoint zuulRouteEndpoint(
-      RouteLocator routeLocator, DiscoveryClient discoveryClient) {
-    log.debug(MSG_AUTOWIRED_ZUUL_ENDPOINT);
-    return new ZuulRouteEndpoint(routeLocator, discoveryClient);
-  }
+	@ConditionalOnAvailableEndpoint
+	@ConditionalOnMissingBean
+	@Bean
+	public ZuulRouteEndpoint zuulRouteEndpoint(
+		RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+		log.debug(MSG_AUTOWIRED_ZUUL_ENDPOINT);
+		return new ZuulRouteEndpoint(routeLocator, discoveryClient);
+	}
 }

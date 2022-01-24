@@ -25,13 +25,13 @@ package org.ylzl.eden.spring.integration.zookeeper.support.lock;
  */
 public abstract class AbstractZooKeeperLock implements ZooKeeperLock {
 
-  @Override
-  public boolean lock(String path) {
-    return lock(path, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
-  }
+	@Override
+	public boolean lock(String path) {
+		return lock(path, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
+	}
 
-  @Override
-  public boolean lock(String path, int retryTimes) {
-    return lock(path, retryTimes, DEFAULT_SLEEP_MILLIS);
-  }
+	@Override
+	public boolean lock(String path, int retryTimes) {
+		return lock(path, retryTimes, DEFAULT_SLEEP_MILLIS);
+	}
 }

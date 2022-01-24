@@ -31,11 +31,12 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class SQLInjectionSafeValidator implements ConstraintValidator<SQLInjectionSafe, String> {
 
-  @Override
-  public void initialize(SQLInjectionSafe sqlInjectionSafe) {}
+	@Override
+	public void initialize(SQLInjectionSafe sqlInjectionSafe) {
+	}
 
-  @Override
-  public boolean isValid(String dataString, ConstraintValidatorContext cxt) {
-    return SqlSafeUtils.isSQLInjectionSafe(dataString);
-  }
+	@Override
+	public boolean isValid(String dataString, ConstraintValidatorContext cxt) {
+		return SqlSafeUtils.isSQLInjectionSafe(dataString);
+	}
 }

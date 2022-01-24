@@ -25,13 +25,13 @@ package org.ylzl.eden.commons.algorithms.searches;
  */
 public interface Search {
 
-  /**
-   * 查找
-   *
-   * @param array 数组
-   * @param key 查找关键字
-   * @param <T> 泛型
-   * @return 匹配值
-   */
-  <T extends Comparable<T>> int search(T[] array, T key);
+	/**
+	 * 查找
+	 *
+	 * @param array 数组
+	 * @param key   查找关键字
+	 * @param <T>   泛型
+	 * @return 匹配值
+	 */
+	<T extends Comparable<T>> int search(T[] array, T key);
 }

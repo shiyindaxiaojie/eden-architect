@@ -12,28 +12,30 @@ import org.ylzl.eden.commons.env.CharsetConstants;
 @Data
 public class FTPClientConfig {
 
-  private String host;
+	private String host;
 
-  private int port = 21;
+	private int port = 21;
 
-  private String username;
+	private String username;
 
-  private String password;
+	private String password;
 
-  private int connectTimeOut = 5000;
+	private int connectTimeOut = 5000;
 
-  private int dataTimeout = 60000;
+	private int dataTimeout = 60000;
 
-  private String controlEncoding = CharsetConstants.UTF_8_NAME;
+	private String controlEncoding = CharsetConstants.UTF_8_NAME;
 
-  private int controlKeepAliveReplyTimeout = 1000;
+	private int controlKeepAliveReplyTimeout = 1000;
 
-  private int bufferSize = 2 << 10;
+	private int bufferSize = 2 << 10;
 
-  private int fileType = 2;
+	private int fileType = 2;
 
-  private boolean useEPSVwithIPv4 = false;
+	private boolean useEPSVwithIPv4 = false;
 
-  /** 是否被动模式 */
-  private boolean passiveMode = true;
+	/**
+	 * 是否被动模式
+	 */
+	private boolean passiveMode = true;
 }

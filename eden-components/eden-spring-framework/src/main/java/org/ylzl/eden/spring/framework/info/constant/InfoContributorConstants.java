@@ -28,13 +28,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class InfoContributorConstants {
 
-  public static final String PROP_BUILD_ARTIFACT = "build.artifact";
+	public static final String PROP_BUILD_ARTIFACT = "build.artifact";
 
-  public static final String PROP_BUILD_GROUP = "build.group";
+	public static final String PROP_BUILD_GROUP = "build.group";
 
-  public static final String PROP_BUILD_NAME = "build.name";
+	public static final String PROP_BUILD_NAME = "build.name";
 
-  public static final String PROP_BUILD_TIME = "build.time";
+	public static final String PROP_BUILD_TIME = "build.time";
 
-  public static final String PROP_BUILD_VERSION = "build.version";
+	public static final String PROP_BUILD_VERSION = "build.version";
 }

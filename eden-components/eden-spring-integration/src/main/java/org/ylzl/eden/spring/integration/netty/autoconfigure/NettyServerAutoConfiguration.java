@@ -30,8 +30,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
-import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 import org.ylzl.eden.spring.integration.netty.bootstrap.NettyServer;
+import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 
 import java.util.List;
 
@@ -48,37 +48,37 @@ import java.util.List;
 @Configuration
 public class NettyServerAutoConfiguration {
 
-  public static final String EXP_NETTY_SERVER_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".netty.server.enabled:false}";
+	public static final String EXP_NETTY_SERVER_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".netty.server.enabled:false}";
 
-  private final NettyProperties.Server properties;
+	private final NettyProperties.Server properties;
 
-  public NettyServerAutoConfiguration(NettyProperties properties) {
-    this.properties = properties.getServer();
-  }
+	public NettyServerAutoConfiguration(NettyProperties properties) {
+		this.properties = properties.getServer();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public NettyServer nettyServer(
-      @Autowired(required = false) List<ChannelHandler> channelHandlers,
-      @Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
-    NettyServer nettyServer =
-        new NettyServer(properties.getName(), properties.getHost(), properties.getPort());
-    if (properties.getBossThreads() != null) {
-      nettyServer.setBossThreads(properties.getBossThreads());
-    }
-    if (properties.getWorkerThreads() != null) {
-      nettyServer.setWorkerThreads(properties.getWorkerThreads());
-    }
-    if (CollectionUtils.isNotEmpty(channelHandlers)) {
-      nettyServer.addAllChannelHandlers(channelHandlers);
-    }
-    if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
-      nettyServer.addAllChannelFutureListeners(channelFutureListeners);
-    }
-    if (properties.getAutoStartup()) {
-      nettyServer.setAutoStartup(properties.getAutoStartup());
-    }
-    return nettyServer;
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public NettyServer nettyServer(
+		@Autowired(required = false) List<ChannelHandler> channelHandlers,
+		@Autowired(required = false) List<ChannelFutureListener> channelFutureListeners) {
+		NettyServer nettyServer =
+			new NettyServer(properties.getName(), properties.getHost(), properties.getPort());
+		if (properties.getBossThreads() != null) {
+			nettyServer.setBossThreads(properties.getBossThreads());
+		}
+		if (properties.getWorkerThreads() != null) {
+			nettyServer.setWorkerThreads(properties.getWorkerThreads());
+		}
+		if (CollectionUtils.isNotEmpty(channelHandlers)) {
+			nettyServer.addAllChannelHandlers(channelHandlers);
+		}
+		if (CollectionUtils.isNotEmpty(channelFutureListeners)) {
+			nettyServer.addAllChannelFutureListeners(channelFutureListeners);
+		}
+		if (properties.getAutoStartup()) {
+			nettyServer.setAutoStartup(properties.getAutoStartup());
+		}
+		return nettyServer;
+	}
 }

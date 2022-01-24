@@ -31,26 +31,26 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClientAda
  */
 public class JwtSignatureVerifierClient extends SignatureVerifierClientAdapter {
 
-  private final LoadBalancerClientHelper loadBalancerClientHelper;
+	private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-  private final String publicKeyUriServiceId;
+	private final String publicKeyUriServiceId;
 
-  public JwtSignatureVerifierClient(
-      RestTemplate restTemplate,
-      OAuth2Properties oAuth2Properties,
-      LoadBalancerClientHelper loadBalancerClientHelper) {
-    super(restTemplate, oAuth2Properties);
-    this.loadBalancerClientHelper = loadBalancerClientHelper;
-    this.publicKeyUriServiceId =
-        oAuth2Properties.getAuthorization().getPublicTokenKeyUriServiceId();
-  }
+	public JwtSignatureVerifierClient(
+		RestTemplate restTemplate,
+		OAuth2Properties oAuth2Properties,
+		LoadBalancerClientHelper loadBalancerClientHelper) {
+		super(restTemplate, oAuth2Properties);
+		this.loadBalancerClientHelper = loadBalancerClientHelper;
+		this.publicKeyUriServiceId =
+			oAuth2Properties.getAuthorization().getPublicTokenKeyUriServiceId();
+	}
 
-  @Override
-  protected String getPublicKeyEndpointUri() {
-    String publicKeyEndpointUri = super.getPublicKeyEndpointUri();
-    if (StringUtils.isNotBlank(publicKeyUriServiceId)) {
-      return loadBalancerClientHelper.reconstructURI(publicKeyUriServiceId, publicKeyEndpointUri);
-    }
-    return publicKeyEndpointUri;
-  }
+	@Override
+	protected String getPublicKeyEndpointUri() {
+		String publicKeyEndpointUri = super.getPublicKeyEndpointUri();
+		if (StringUtils.isNotBlank(publicKeyUriServiceId)) {
+			return loadBalancerClientHelper.reconstructURI(publicKeyUriServiceId, publicKeyEndpointUri);
+		}
+		return publicKeyEndpointUri;
+	}
 }

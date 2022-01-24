@@ -23,4 +23,5 @@ package org.ylzl.eden.commons.algorithms.consistent;
  * @author gyl
  * @since 2.4.x
  */
-public class MurmurHash {}
+public class MurmurHash {
+}

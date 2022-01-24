@@ -31,11 +31,11 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2.4.x
  */
 public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler
-    implements LogoutSuccessHandler {
+	implements LogoutSuccessHandler {
 
-  @Override
-  public void onLogoutSuccess(
-      HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-    response.setStatus(HttpServletResponse.SC_OK);
-  }
+	@Override
+	public void onLogoutSuccess(
+		HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		response.setStatus(HttpServletResponse.SC_OK);
+	}
 }

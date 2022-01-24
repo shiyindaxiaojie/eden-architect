@@ -35,9 +35,9 @@ import java.lang.annotation.*;
 @Documented
 public @interface SQLInjectionSafe {
 
-  String message() default "{SQLInjectionSafe}";
+	String message() default "{SQLInjectionSafe}";
 
-  Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 }

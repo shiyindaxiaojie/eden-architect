@@ -31,13 +31,13 @@ import org.springframework.cglib.core.Converter;
 @UtilityClass
 public class BeanCopierHelper {
 
-  public static <S, T> T copy(@NonNull S source, @NonNull T target) {
-    return copy(source, target, null);
-  }
+	public static <S, T> T copy(@NonNull S source, @NonNull T target) {
+		return copy(source, target, null);
+	}
 
-  public static <S, T> T copy(@NonNull S source, @NonNull T target, Converter converter) {
-    BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), converter != null);
-    copier.copy(source, target, converter);
-    return target;
-  }
+	public static <S, T> T copy(@NonNull S source, @NonNull T target, Converter converter) {
+		BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), converter != null);
+		copier.copy(source, target, converter);
+		return target;
+	}
 }

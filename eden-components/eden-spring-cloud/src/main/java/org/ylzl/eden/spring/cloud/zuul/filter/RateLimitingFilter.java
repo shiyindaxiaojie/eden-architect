@@ -46,78 +46,78 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class RateLimitingFilter extends ZuulFilter {
 
-  private static final String MSG_API_RATE_EXCEEDED = "API 速率超过限制";
+	private static final String MSG_API_RATE_EXCEEDED = "API 速率超过限制";
 
-  private static final String CACHE_NAME_SUFFIX = "-rate-limiting";
-  private final PathMatcher pathMatcher = new AntPathMatcher();
-  private final ZuulProperties.RateLimiting properties;
-  private Cache<String, RateLimiter> cache;
+	private static final String CACHE_NAME_SUFFIX = "-rate-limiting";
+	private final PathMatcher pathMatcher = new AntPathMatcher();
+	private final ZuulProperties.RateLimiting properties;
+	private Cache<String, RateLimiter> cache;
 
-  public RateLimitingFilter(ZuulProperties zuulProperties, String applicationName) {
-    this.properties = zuulProperties.getRateLimiting();
+	public RateLimitingFilter(ZuulProperties zuulProperties, String applicationName) {
+		this.properties = zuulProperties.getRateLimiting();
 
-    CachingProvider cachingProvider = Caching.getCachingProvider();
-    CacheManager cacheManager = cachingProvider.getCacheManager();
-    CompleteConfiguration<String, RateLimiter> config =
-        new MutableConfiguration<String, RateLimiter>().setTypes(String.class, RateLimiter.class);
-    this.cache = cacheManager.createCache(applicationName + CACHE_NAME_SUFFIX, config);
-  }
+		CachingProvider cachingProvider = Caching.getCachingProvider();
+		CacheManager cacheManager = cachingProvider.getCacheManager();
+		CompleteConfiguration<String, RateLimiter> config =
+			new MutableConfiguration<String, RateLimiter>().setTypes(String.class, RateLimiter.class);
+		this.cache = cacheManager.createCache(applicationName + CACHE_NAME_SUFFIX, config);
+	}
 
-  @Override
-  public String filterType() {
-    return ZuulConstants.FILTER_TYPE_PRE;
-  }
+	@Override
+	public String filterType() {
+		return ZuulConstants.FILTER_TYPE_PRE;
+	}
 
-  @Override
-  public int filterOrder() {
-    return 10;
-  }
+	@Override
+	public int filterOrder() {
+		return 10;
+	}
 
-  @Override
-  public boolean shouldFilter() {
-    String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
-    String defaultIncludePattern = properties.getDefaultIncludePattern();
-    return pathMatcher.match(defaultIncludePattern, requestURI);
-  }
+	@Override
+	public boolean shouldFilter() {
+		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
+		String defaultIncludePattern = properties.getDefaultIncludePattern();
+		return pathMatcher.match(defaultIncludePattern, requestURI);
+	}
 
-  @Override
-  public Object run() {
-    try {
-      String key = getKey();
-      RateLimiter rateLimiter = getRateLimiter(key);
-      if (!rateLimiter.tryAcquire()) {
-        apiLimitExceeded();
-      }
-    } catch (Exception e) {
-      ReflectionUtils.rethrowRuntimeException(e);
-    }
-    return null;
-  }
+	@Override
+	public Object run() {
+		try {
+			String key = getKey();
+			RateLimiter rateLimiter = getRateLimiter(key);
+			if (!rateLimiter.tryAcquire()) {
+				apiLimitExceeded();
+			}
+		} catch (Exception e) {
+			ReflectionUtils.rethrowRuntimeException(e);
+		}
+		return null;
+	}
 
-  private String getKey() {
-    RequestContext context = RequestContext.getCurrentContext();
-    HttpServletRequest request = context.getRequest();
-    if (SpringSecurityUtils.getCurrentUserLogin() != null) {
-      return SpringSecurityUtils.getCurrentUserLogin();
-    }
-    return request.getRemoteAddr();
-  }
+	private String getKey() {
+		RequestContext context = RequestContext.getCurrentContext();
+		HttpServletRequest request = context.getRequest();
+		if (SpringSecurityUtils.getCurrentUserLogin() != null) {
+			return SpringSecurityUtils.getCurrentUserLogin();
+		}
+		return request.getRemoteAddr();
+	}
 
-  private RateLimiter getRateLimiter(String key) {
-    if (cache.containsKey(key)) {
-      return cache.get(key);
-    }
-    RateLimiter rateLimiter = RateLimiter.create(properties.getLimit());
-    cache.put(key, rateLimiter);
-    return rateLimiter;
-  }
+	private RateLimiter getRateLimiter(String key) {
+		if (cache.containsKey(key)) {
+			return cache.get(key);
+		}
+		RateLimiter rateLimiter = RateLimiter.create(properties.getLimit());
+		cache.put(key, rateLimiter);
+		return rateLimiter;
+	}
 
-  private void apiLimitExceeded() {
-    RequestContext ctx = RequestContext.getCurrentContext();
-    ctx.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
-    if (ctx.getResponseBody() == null) {
-      ctx.setResponseBody(MSG_API_RATE_EXCEEDED);
-      ctx.setSendZuulResponse(false);
-    }
-  }
+	private void apiLimitExceeded() {
+		RequestContext ctx = RequestContext.getCurrentContext();
+		ctx.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
+		if (ctx.getResponseBody() == null) {
+			ctx.setResponseBody(MSG_API_RATE_EXCEEDED);
+			ctx.setSendZuulResponse(false);
+		}
+	}
 }

@@ -30,89 +30,89 @@ import java.util.NoSuchElementException;
  */
 public class Bag<E> implements Iterable<E> {
 
-  private Node<E> firstNode;
+	private Node<E> firstNode;
 
-  private int size;
+	private int size;
 
-  @Override
-  public Iterator<E> iterator() {
-    return new Iterator<E>() {
+	@Override
+	public Iterator<E> iterator() {
+		return new Iterator<E>() {
 
-      private Node<E> currentNode = firstNode;
+			private Node<E> currentNode = firstNode;
 
-      @Override
-      public boolean hasNext() {
-        return firstNode != null;
-      }
+			@Override
+			public boolean hasNext() {
+				return firstNode != null;
+			}
 
-      @Override
-      public E next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException("背包没有元素可以取出");
-        }
-        E element = firstNode.element;
-        currentNode = firstNode.nextNode;
-        return element;
-      }
+			@Override
+			public E next() {
+				if (!hasNext()) {
+					throw new NoSuchElementException("背包没有元素可以取出");
+				}
+				E element = firstNode.element;
+				currentNode = firstNode.nextNode;
+				return element;
+			}
 
-      @Override
-      public void remove() {
-        throw new UnsupportedOperationException("不支持从背包移除元素");
-      }
-    };
-  }
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException("不支持从背包移除元素");
+			}
+		};
+	}
 
-  /**
-   * 背包元素个数
-   *
-   * @return
-   */
-  public int size() {
-    return size;
-  }
+	/**
+	 * 背包元素个数
+	 *
+	 * @return
+	 */
+	public int size() {
+		return size;
+	}
 
-  /**
-   * 背包是否为空
-   *
-   * @return
-   */
-  public boolean isEmpty() {
-    return firstNode == null;
-  }
+	/**
+	 * 背包是否为空
+	 *
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return firstNode == null;
+	}
 
-  /**
-   * 往背包添加元素
-   *
-   * @param element
-   */
-  public void add(@NonNull E element) {
-    Node<E> oldNode = firstNode;
-    firstNode = new Node<>();
-    firstNode.element = element;
-    firstNode.nextNode = oldNode;
-    size++;
-  }
+	/**
+	 * 往背包添加元素
+	 *
+	 * @param element
+	 */
+	public void add(@NonNull E element) {
+		Node<E> oldNode = firstNode;
+		firstNode = new Node<>();
+		firstNode.element = element;
+		firstNode.nextNode = oldNode;
+		size++;
+	}
 
-  /**
-   * 背包是否包含元素
-   *
-   * @param element
-   * @return
-   */
-  public boolean contains(@NonNull E element) {
-    Iterator<E> iterator = this.iterator();
-    while (iterator.hasNext()) {
-      if (iterator.next().equals(element)) {
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 * 背包是否包含元素
+	 *
+	 * @param element
+	 * @return
+	 */
+	public boolean contains(@NonNull E element) {
+		Iterator<E> iterator = this.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(element)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-  private static class Node<E> {
+	private static class Node<E> {
 
-    private E element;
+		private E element;
 
-    private Node<E> nextNode;
-  }
+		private Node<E> nextNode;
+	}
 }

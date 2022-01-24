@@ -34,13 +34,13 @@ import java.io.Serializable;
 @ToString
 public class Conditional implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private String key;
+	private String key;
 
-  private String value;
+	private String value;
 
-  private String valueType;
+	private String valueType;
 
-  private String condition;
+	private String condition;
 }

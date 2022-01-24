@@ -27,19 +27,19 @@ import java.util.List;
  */
 public interface Sort {
 
-  /**
-   * 排序数组
-   *
-   * @param array - 未排序的数组
-   * @return 排序后的数组
-   */
-  <T extends Comparable<T>> T[] sort(T[] array);
+	/**
+	 * 排序数组
+	 *
+	 * @param array - 未排序的数组
+	 * @return 排序后的数组
+	 */
+	<T extends Comparable<T>> T[] sort(T[] array);
 
-  /**
-   * 排序列表
-   *
-   * @param array - 未排序的列表
-   * @return 排序后的列表
-   */
-  <T extends Comparable<T>> List<T> sort(List<T> array);
+	/**
+	 * 排序列表
+	 *
+	 * @param array - 未排序的列表
+	 * @return 排序后的列表
+	 */
+	<T extends Comparable<T>> List<T> sort(List<T> array);
 }

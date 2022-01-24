@@ -38,7 +38,8 @@ import java.net.InetAddress;
 @Slf4j
 public abstract class SpringBootApplicationTemplate {
 
-	protected static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
+	protected static void run(
+		Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
 		System.setProperty("es.set.netty.runtime.available.processors", "false");
 
 		SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();

@@ -33,34 +33,34 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".metrics")
 public class MetricsProperties {
 
-  private final Jmx jmx = new Jmx();
+	private final Jmx jmx = new Jmx();
 
-  private final Logs logs = new Logs();
+	private final Logs logs = new Logs();
 
-  private final Prometheus prometheus = new Prometheus();
+	private final Prometheus prometheus = new Prometheus();
 
-  @Getter
-  @Setter
-  public static class Jmx {
+	@Getter
+	@Setter
+	public static class Jmx {
 
-    private boolean enabled = MetricsDefaults.Jmx.enabled;
-  }
+		private boolean enabled = MetricsDefaults.Jmx.enabled;
+	}
 
-  @Getter
-  @Setter
-  public static class Logs {
+	@Getter
+	@Setter
+	public static class Logs {
 
-    private boolean enabled = MetricsDefaults.Logs.enabled;
+		private boolean enabled = MetricsDefaults.Logs.enabled;
 
-    private long reportFrequency = MetricsDefaults.Logs.reportFrequency;
-  }
+		private long reportFrequency = MetricsDefaults.Logs.reportFrequency;
+	}
 
-  @Getter
-  @Setter
-  public static class Prometheus {
+	@Getter
+	@Setter
+	public static class Prometheus {
 
-    private boolean enabled = MetricsDefaults.Prometheus.enabled;
+		private boolean enabled = MetricsDefaults.Prometheus.enabled;
 
-    private String endpoint = MetricsDefaults.Prometheus.endpoint;
-  }
+		private String endpoint = MetricsDefaults.Prometheus.endpoint;
+	}
 }

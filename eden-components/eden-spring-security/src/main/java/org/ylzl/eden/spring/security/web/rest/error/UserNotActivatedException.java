@@ -27,13 +27,13 @@ import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestAlertException;
  */
 public class UserNotActivatedException extends BadRequestAlertException {
 
-  private static final String ERR_USER_NOT_ACTIVATED = "User is not activated";
+	private static final String ERR_USER_NOT_ACTIVATED = "User is not activated";
 
-  public UserNotActivatedException() {
-    super(ERR_USER_NOT_ACTIVATED);
-  }
+	public UserNotActivatedException() {
+		super(ERR_USER_NOT_ACTIVATED);
+	}
 
-  public UserNotActivatedException(String message) {
-    super(message);
-  }
+	public UserNotActivatedException(String message) {
+		super(message);
+	}
 }

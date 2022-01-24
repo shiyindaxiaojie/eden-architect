@@ -27,5 +27,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class FileConstants {
 
-  public static final String FILE_SEPARATOR = ".";
+	public static final String FILE_SEPARATOR = ".";
 }

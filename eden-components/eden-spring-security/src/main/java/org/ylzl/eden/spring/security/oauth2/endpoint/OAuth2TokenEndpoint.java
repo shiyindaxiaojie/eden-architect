@@ -48,41 +48,41 @@ import javax.validation.Valid;
 @RestController
 public class OAuth2TokenEndpoint {
 
-  private static final String MSG_LOGIN_USER = "OAuth2 Login user：{}";
+	private static final String MSG_LOGIN_USER = "OAuth2 Login user：{}";
 
-  private static final String MSG_LOGOUT_USER = "OAuth2 Logout user：{}";
+	private static final String MSG_LOGOUT_USER = "OAuth2 Logout user：{}";
 
-  private final TokenGrantClient tokenGrantClient;
+	private final TokenGrantClient tokenGrantClient;
 
-  private final OAuth2CookieHelper oAuth2CookieHelper;
+	private final OAuth2CookieHelper oAuth2CookieHelper;
 
-  public OAuth2TokenEndpoint(
-      TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
-    this.tokenGrantClient = tokenGrantClient;
-    this.oAuth2CookieHelper = oAuth2CookieHelper;
-  }
+	public OAuth2TokenEndpoint(
+		TokenGrantClient tokenGrantClient, OAuth2CookieHelper oAuth2CookieHelper) {
+		this.tokenGrantClient = tokenGrantClient;
+		this.oAuth2CookieHelper = oAuth2CookieHelper;
+	}
 
-  @PostMapping(
-      value = OAuth2Constants.ENDPOINT_LOGIN,
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<OAuth2AccessToken> login(
-      @Valid @RequestBody Login login, HttpServletRequest request, HttpServletResponse response) {
-    log.info(MSG_LOGIN_USER, login.getUsername());
-    OAuth2AccessToken oAuth2AccessToken =
-        tokenGrantClient.sendPasswordGrant(login.getUsername(), login.getPassword());
+	@PostMapping(
+		value = OAuth2Constants.ENDPOINT_LOGIN,
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<OAuth2AccessToken> login(
+		@Valid @RequestBody Login login, HttpServletRequest request, HttpServletResponse response) {
+		log.info(MSG_LOGIN_USER, login.getUsername());
+		OAuth2AccessToken oAuth2AccessToken =
+			tokenGrantClient.sendPasswordGrant(login.getUsername(), login.getPassword());
 
-    boolean rememberMe = BooleanUtils.toBoolean(login.getRememberMe());
-    OAuth2Cookies cookies = new OAuth2Cookies();
-    oAuth2CookieHelper.createCookies(request, oAuth2AccessToken, rememberMe, cookies);
-    cookies.addCookiesTo(response);
-    return ResponseEntity.ok(oAuth2AccessToken);
-  }
+		boolean rememberMe = BooleanUtils.toBoolean(login.getRememberMe());
+		OAuth2Cookies cookies = new OAuth2Cookies();
+		oAuth2CookieHelper.createCookies(request, oAuth2AccessToken, rememberMe, cookies);
+		cookies.addCookiesTo(response);
+		return ResponseEntity.ok(oAuth2AccessToken);
+	}
 
-  @PostMapping(value = OAuth2Constants.ENDPOINT_LOGOUT)
-  public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-    log.info(MSG_LOGOUT_USER, SecurityContextHolder.getContext().getAuthentication().getName());
-    oAuth2CookieHelper.clearCookies(request, response);
-    return ResponseEntity.noContent().build();
-  }
+	@PostMapping(value = OAuth2Constants.ENDPOINT_LOGOUT)
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+		log.info(MSG_LOGOUT_USER, SecurityContextHolder.getContext().getAuthentication().getName());
+		oAuth2CookieHelper.clearCookies(request, response);
+		return ResponseEntity.noContent().build();
+	}
 }

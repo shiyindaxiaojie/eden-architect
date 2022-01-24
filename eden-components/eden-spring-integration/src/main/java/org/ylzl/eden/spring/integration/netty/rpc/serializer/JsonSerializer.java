@@ -28,20 +28,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JsonSerializer implements Serializer {
 
-  private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-  public JsonSerializer() {
-    this.objectMapper = new ObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-  }
+	public JsonSerializer() {
+		this.objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	}
 
-  @Override
-  public <T> byte[] serialize(T obj) throws Exception {
-    return objectMapper.writeValueAsBytes(obj);
-  }
+	@Override
+	public <T> byte[] serialize(T obj) throws Exception {
+		return objectMapper.writeValueAsBytes(obj);
+	}
 
-  @Override
-  public <T> T deserialize(byte[] data, Class<T> clz) throws Exception {
-    return objectMapper.readValue(data, clz);
-  }
+	@Override
+	public <T> T deserialize(byte[] data, Class<T> clz) throws Exception {
+		return objectMapper.readValue(data, clz);
+	}
 }

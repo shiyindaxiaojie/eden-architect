@@ -35,23 +35,23 @@ import java.io.*;
 @UtilityClass
 public class BatikUtils {
 
-  public static void toPng(@NonNull String svgCode, @NonNull String destPath)
-      throws IOException, TranscoderException {
-    File file = new File(destPath);
-    file.createNewFile();
-    try (FileOutputStream out = new FileOutputStream(file); ) {
-      toPng(svgCode, out);
-    }
-  }
+	public static void toPng(@NonNull String svgCode, @NonNull String destPath)
+		throws IOException, TranscoderException {
+		File file = new File(destPath);
+		file.createNewFile();
+		try (FileOutputStream out = new FileOutputStream(file);) {
+			toPng(svgCode, out);
+		}
+	}
 
-  public static void toPng(@NonNull String svgCode, @NonNull OutputStream outputStream)
-      throws IOException, TranscoderException {
-    byte[] bytes = svgCode.getBytes(CharsetConstants.UTF_8);
-    PNGTranscoder transcoder = new PNGTranscoder();
-    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-    TranscoderInput input = new TranscoderInput(byteArrayInputStream);
-    TranscoderOutput output = new TranscoderOutput(outputStream);
-    transcoder.transcode(input, output);
-    outputStream.flush();
-  }
+	public static void toPng(@NonNull String svgCode, @NonNull OutputStream outputStream)
+		throws IOException, TranscoderException {
+		byte[] bytes = svgCode.getBytes(CharsetConstants.UTF_8);
+		PNGTranscoder transcoder = new PNGTranscoder();
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+		TranscoderInput input = new TranscoderInput(byteArrayInputStream);
+		TranscoderOutput output = new TranscoderOutput(outputStream);
+		transcoder.transcode(input, output);
+		outputStream.flush();
+	}
 }

@@ -37,46 +37,46 @@ import java.io.File;
 @Slf4j
 public class LicenseInstall implements InitializingBean, DisposableBean {
 
-  private final TrueLicenseProperties trueLicenseProperties;
+	private final TrueLicenseProperties trueLicenseProperties;
 
-  private final LicenseManager licenseManager;
+	private final LicenseManager licenseManager;
 
-  public LicenseInstall(
-      TrueLicenseProperties trueLicenseProperties, LicenseManager licenseManager) {
-    this.trueLicenseProperties = trueLicenseProperties;
-    this.licenseManager = licenseManager;
-  }
+	public LicenseInstall(
+		TrueLicenseProperties trueLicenseProperties, LicenseManager licenseManager) {
+		this.trueLicenseProperties = trueLicenseProperties;
+		this.licenseManager = licenseManager;
+	}
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    log.debug("Starting install license");
-    StopWatch watch = new StopWatch();
-    watch.start();
-    install();
-    watch.stop();
-    log.debug("Finished install license cost {} milliseconds", watch.getTotalTimeMillis());
-  }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		log.debug("Starting install license");
+		StopWatch watch = new StopWatch();
+		watch.start();
+		install();
+		watch.stop();
+		log.debug("Finished install license cost {} milliseconds", watch.getTotalTimeMillis());
+	}
 
-  @Override
-  public void destroy() throws Exception {
-    log.debug("Starting uninstall license");
-    licenseManager.uninstall();
-  }
+	@Override
+	public void destroy() throws Exception {
+		log.debug("Starting uninstall license");
+		licenseManager.uninstall();
+	}
 
-  public LicenseContent install() throws Exception {
-    File file = new File(trueLicenseProperties.getLicensePath());
-    LicenseContent licenseContent;
-    try {
-      licenseManager.uninstall();
-      licenseContent = licenseManager.install(file);
-    } catch (Exception e) {
-      log.error("Install license failed, caught exception: {}", e.getMessage(), e);
-      throw e;
-    }
-    log.info(
-        "Install license successed, valid from {} to {}",
-        DateUtils.toDateTimeString(licenseContent.getNotBefore()),
-        DateUtils.toDateTimeString(licenseContent.getNotAfter()));
-    return licenseContent;
-  }
+	public LicenseContent install() throws Exception {
+		File file = new File(trueLicenseProperties.getLicensePath());
+		LicenseContent licenseContent;
+		try {
+			licenseManager.uninstall();
+			licenseContent = licenseManager.install(file);
+		} catch (Exception e) {
+			log.error("Install license failed, caught exception: {}", e.getMessage(), e);
+			throw e;
+		}
+		log.info(
+			"Install license successed, valid from {} to {}",
+			DateUtils.toDateTimeString(licenseContent.getNotBefore()),
+			DateUtils.toDateTimeString(licenseContent.getNotAfter()));
+		return licenseContent;
+	}
 }

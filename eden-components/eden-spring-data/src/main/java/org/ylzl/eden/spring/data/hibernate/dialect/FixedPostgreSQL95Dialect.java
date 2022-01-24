@@ -30,16 +30,16 @@ import java.sql.Types;
  */
 public class FixedPostgreSQL95Dialect extends PostgreSQL95Dialect {
 
-  public FixedPostgreSQL95Dialect() {
-    super();
-    registerColumnType(Types.BLOB, "bytea");
-  }
+	public FixedPostgreSQL95Dialect() {
+		super();
+		registerColumnType(Types.BLOB, "bytea");
+	}
 
-  @Override
-  public SqlTypeDescriptor remapSqlTypeDescriptor(SqlTypeDescriptor sqlTypeDescriptor) {
-    if (sqlTypeDescriptor.getSqlType() == Types.BLOB) {
-      return BinaryTypeDescriptor.INSTANCE;
-    }
-    return super.remapSqlTypeDescriptor(sqlTypeDescriptor);
-  }
+	@Override
+	public SqlTypeDescriptor remapSqlTypeDescriptor(SqlTypeDescriptor sqlTypeDescriptor) {
+		if (sqlTypeDescriptor.getSqlType() == Types.BLOB) {
+			return BinaryTypeDescriptor.INSTANCE;
+		}
+		return super.remapSqlTypeDescriptor(sqlTypeDescriptor);
+	}
 }

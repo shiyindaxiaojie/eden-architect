@@ -25,4 +25,5 @@ import java.io.Serializable;
  * @author gyl
  * @since 2.4.x
  */
-public interface MongoDBService<T, ID extends Serializable> extends CrudService<T, ID> {}
+public interface MongoDBService<T, ID extends Serializable> extends CrudService<T, ID> {
+}

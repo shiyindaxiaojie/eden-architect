@@ -52,9 +52,9 @@ import java.util.concurrent.Executor;
  * @since 2.4.x
  */
 @AutoConfigureAfter({
-  DataSourceAutoConfiguration.class,
-  HibernateJpaAutoConfiguration.class,
-  AsyncTaskExecutorAutoConfiguration.class
+	DataSourceAutoConfiguration.class,
+	HibernateJpaAutoConfiguration.class,
+	AsyncTaskExecutorAutoConfiguration.class
 })
 @AutoConfigureBefore({LiquibaseAutoConfiguration.class})
 @ConditionalOnBean({DataSource.class})
@@ -65,47 +65,47 @@ import java.util.concurrent.Executor;
 @Configuration(proxyBeanMethods = false)
 public class AsyncLiquibaseAutoConfiguration {
 
-  public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
-  private static final String MSG_AUTOWIRED_LIQUIBASE = "Autowired SpringLiquibase";
-  private final LiquibaseProperties properties;
+	public static final String DEFAULT_CHANGE_LOG = "classpath:config/liquibase/master.xml";
+	private static final String MSG_AUTOWIRED_LIQUIBASE = "Autowired SpringLiquibase";
+	private final LiquibaseProperties properties;
 
-  private final Environment env;
+	private final Environment env;
 
-  public AsyncLiquibaseAutoConfiguration(LiquibaseProperties properties, Environment env) {
-    this.properties = properties;
-    this.env = env;
-  }
+	public AsyncLiquibaseAutoConfiguration(LiquibaseProperties properties, Environment env) {
+		this.properties = properties;
+		this.env = env;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public SpringLiquibase liquibase(
-      @Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) Executor taskExecutor,
-      @LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource,
-      LiquibaseProperties liquibaseProperties,
-      ObjectProvider<DataSource> dataSource,
-      DataSourceProperties dataSourceProperties,
-      @Value("${spring.liquibase.change-log:" + DEFAULT_CHANGE_LOG + "}") String changeLog) {
-    log.debug(MSG_AUTOWIRED_LIQUIBASE);
-    SpringLiquibase liquibase =
-        SpringLiquibaseUtils.createAsyncSpringLiquibase(
-            this.env,
-            taskExecutor,
-            liquibaseDataSource.getIfAvailable(),
-            liquibaseProperties,
-            dataSource.getIfUnique(),
-            dataSourceProperties);
-    liquibase.setContexts(liquibaseProperties.getContexts());
-    liquibase.setDefaultSchema(liquibaseProperties.getDefaultSchema());
-    liquibase.setLiquibaseSchema(liquibaseProperties.getLiquibaseSchema());
-    liquibase.setLiquibaseTablespace(liquibaseProperties.getLiquibaseTablespace());
-    liquibase.setDatabaseChangeLogLockTable(liquibaseProperties.getDatabaseChangeLogLockTable());
-    liquibase.setDatabaseChangeLogTable(liquibaseProperties.getDatabaseChangeLogTable());
-    liquibase.setDropFirst(liquibaseProperties.isDropFirst());
-    liquibase.setLabels(liquibaseProperties.getLabels());
-    liquibase.setChangeLogParameters(liquibaseProperties.getParameters());
-    liquibase.setRollbackFile(liquibaseProperties.getRollbackFile());
-    liquibase.setTestRollbackOnUpdate(liquibaseProperties.isTestRollbackOnUpdate());
-    liquibase.setChangeLog(changeLog);
-    return liquibase;
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public SpringLiquibase liquibase(
+		@Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) Executor taskExecutor,
+		@LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource,
+		LiquibaseProperties liquibaseProperties,
+		ObjectProvider<DataSource> dataSource,
+		DataSourceProperties dataSourceProperties,
+		@Value("${spring.liquibase.change-log:" + DEFAULT_CHANGE_LOG + "}") String changeLog) {
+		log.debug(MSG_AUTOWIRED_LIQUIBASE);
+		SpringLiquibase liquibase =
+			SpringLiquibaseUtils.createAsyncSpringLiquibase(
+				this.env,
+				taskExecutor,
+				liquibaseDataSource.getIfAvailable(),
+				liquibaseProperties,
+				dataSource.getIfUnique(),
+				dataSourceProperties);
+		liquibase.setContexts(liquibaseProperties.getContexts());
+		liquibase.setDefaultSchema(liquibaseProperties.getDefaultSchema());
+		liquibase.setLiquibaseSchema(liquibaseProperties.getLiquibaseSchema());
+		liquibase.setLiquibaseTablespace(liquibaseProperties.getLiquibaseTablespace());
+		liquibase.setDatabaseChangeLogLockTable(liquibaseProperties.getDatabaseChangeLogLockTable());
+		liquibase.setDatabaseChangeLogTable(liquibaseProperties.getDatabaseChangeLogTable());
+		liquibase.setDropFirst(liquibaseProperties.isDropFirst());
+		liquibase.setLabels(liquibaseProperties.getLabels());
+		liquibase.setChangeLogParameters(liquibaseProperties.getParameters());
+		liquibase.setRollbackFile(liquibaseProperties.getRollbackFile());
+		liquibase.setTestRollbackOnUpdate(liquibaseProperties.isTestRollbackOnUpdate());
+		liquibase.setChangeLog(changeLog);
+		return liquibase;
+	}
 }

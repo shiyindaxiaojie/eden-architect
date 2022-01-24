@@ -55,75 +55,75 @@ import java.util.Arrays;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @AutoConfigureBefore(MybatisAutoConfiguration.class)
 @ConditionalOnClass({
-  SqlSessionFactory.class,
-  SqlSessionFactoryBean.class,
-  tk.mybatis.mapper.common.Mapper.class
+	SqlSessionFactory.class,
+	SqlSessionFactoryBean.class,
+	tk.mybatis.mapper.common.Mapper.class
 })
 @ConditionalOnBean(DataSource.class)
 @EnableConfigurationProperties({MybatisProperties.class})
 @Slf4j
 @Configuration
 public class TKMybatisAutoConfiguration
-    extends MapperAutoConfiguration.AutoConfiguredMapperScannerRegistrar {
+	extends MapperAutoConfiguration.AutoConfiguredMapperScannerRegistrar {
 
-  private static final String MSG_AUTOWIRED_MYBATIS_MAPPER = "Autowired Mybatis Mapper";
+	private static final String MSG_AUTOWIRED_MYBATIS_MAPPER = "Autowired Mybatis Mapper";
 
-  private static final String EXP_AUTO_SCAN_DISABLED =
-      "Mybatis Mapper auto scan package disabled: {}";
+	private static final String EXP_AUTO_SCAN_DISABLED =
+		"Mybatis Mapper auto scan package disabled: {}";
 
-  private static final String PROP_MAPPERS = "mapper.mappers";
+	private static final String PROP_MAPPERS = "mapper.mappers";
 
-  private static final String PROP_NOT_EMPTY = "mapper.not-empty";
+	private static final String PROP_NOT_EMPTY = "mapper.not-empty";
 
-  private BeanFactory beanFactory;
+	private BeanFactory beanFactory;
 
-  private ResourceLoader resourceLoader;
+	private ResourceLoader resourceLoader;
 
-  private Environment environment;
+	private Environment environment;
 
-  @Override
-  public void registerBeanDefinitions(
-      AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-    log.debug(MSG_AUTOWIRED_MYBATIS_MAPPER);
+	@Override
+	public void registerBeanDefinitions(
+		AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+		log.debug(MSG_AUTOWIRED_MYBATIS_MAPPER);
 
-    FixedClassPathMapperScanner scanner = new FixedClassPathMapperScanner(registry);
+		FixedClassPathMapperScanner scanner = new FixedClassPathMapperScanner(registry);
 
-    // 设置默认值，简化配置
-    MapperProperties properties =
-        SpringBootBindUtil.bind(environment, MapperProperties.class, MapperProperties.PREFIX);
-    if (environment.getProperty(PROP_MAPPERS) == null) {
-      properties.setMappers(Arrays.asList(new Class[] {tk.mybatis.mapper.common.Mapper.class}));
-    }
-    if (environment.getProperty(PROP_NOT_EMPTY) == null) {
-      properties.setNotEmpty(false);
-    }
-    scanner.setMapperProperties(properties);
+		// 设置默认值，简化配置
+		MapperProperties properties =
+			SpringBootBindUtil.bind(environment, MapperProperties.class, MapperProperties.PREFIX);
+		if (environment.getProperty(PROP_MAPPERS) == null) {
+			properties.setMappers(Arrays.asList(new Class[]{tk.mybatis.mapper.common.Mapper.class}));
+		}
+		if (environment.getProperty(PROP_NOT_EMPTY) == null) {
+			properties.setNotEmpty(false);
+		}
+		scanner.setMapperProperties(properties);
 
-    try {
-      if (this.resourceLoader != null) {
-        scanner.setResourceLoader(this.resourceLoader);
-      }
+		try {
+			if (this.resourceLoader != null) {
+				scanner.setResourceLoader(this.resourceLoader);
+			}
 
-      scanner.setAnnotationClass(Mapper.class);
-      scanner.registerFilters();
-      scanner.doScan(StringUtils.toStringArray(AutoConfigurationPackages.get(this.beanFactory)));
-    } catch (IllegalStateException ex) {
-      log.error(EXP_AUTO_SCAN_DISABLED, ex.getMessage(), ex);
-    }
-  }
+			scanner.setAnnotationClass(Mapper.class);
+			scanner.registerFilters();
+			scanner.doScan(StringUtils.toStringArray(AutoConfigurationPackages.get(this.beanFactory)));
+		} catch (IllegalStateException ex) {
+			log.error(EXP_AUTO_SCAN_DISABLED, ex.getMessage(), ex);
+		}
+	}
 
-  @Override
-  public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-    this.beanFactory = beanFactory;
-  }
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		this.beanFactory = beanFactory;
+	}
 
-  @Override
-  public void setEnvironment(Environment environment) {
-    this.environment = environment;
-  }
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
+	}
 
-  @Override
-  public void setResourceLoader(ResourceLoader resourceLoader) {
-    this.resourceLoader = resourceLoader;
-  }
+	@Override
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		this.resourceLoader = resourceLoader;
+	}
 }

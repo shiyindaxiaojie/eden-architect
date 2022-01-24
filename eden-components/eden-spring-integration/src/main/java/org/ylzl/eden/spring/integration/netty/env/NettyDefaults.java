@@ -28,33 +28,33 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class NettyDefaults {
 
-  @UtilityClass
-  public static final class Client {
+	@UtilityClass
+	public static final class Client {
 
-    public static final Boolean enabled = false;
+		public static final Boolean enabled = false;
 
-    public static final Boolean autoStartup = false;
+		public static final Boolean autoStartup = false;
 
-    public static final String host = "127.0.0.1";
+		public static final String host = "127.0.0.1";
 
-    public static final Integer port = 8848;
+		public static final Integer port = 8848;
 
-    public static final Integer channelThreads = Runtime.getRuntime().availableProcessors();
-  }
+		public static final Integer channelThreads = Runtime.getRuntime().availableProcessors();
+	}
 
-  @UtilityClass
-  public static final class Server {
+	@UtilityClass
+	public static final class Server {
 
-    public static final Boolean enabled = false;
+		public static final Boolean enabled = false;
 
-    public static final Boolean autoStartup = false;
+		public static final Boolean autoStartup = false;
 
-    public static final String host = "127.0.0.1";
+		public static final String host = "127.0.0.1";
 
-    public static final Integer port = 8848;
+		public static final Integer port = 8848;
 
-    public static final Integer bossThreads = Runtime.getRuntime().availableProcessors();
+		public static final Integer bossThreads = Runtime.getRuntime().availableProcessors();
 
-    public static final Integer workerThreads = Runtime.getRuntime().availableProcessors();
-  }
+		public static final Integer workerThreads = Runtime.getRuntime().availableProcessors();
+	}
 }

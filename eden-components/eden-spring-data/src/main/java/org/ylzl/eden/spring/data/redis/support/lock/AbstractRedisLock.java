@@ -25,23 +25,23 @@ package org.ylzl.eden.spring.data.redis.support.lock;
  */
 public abstract class AbstractRedisLock implements RedisLock {
 
-  @Override
-  public boolean lock(String key) {
-    return lock(key, DEFAULT_SECONDS_TO_EXPIRE, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
-  }
+	@Override
+	public boolean lock(String key) {
+		return lock(key, DEFAULT_SECONDS_TO_EXPIRE, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
+	}
 
-  @Override
-  public boolean lock(String key, int retryTimes, long sleepMillis) {
-    return lock(key, DEFAULT_SECONDS_TO_EXPIRE, retryTimes, sleepMillis);
-  }
+	@Override
+	public boolean lock(String key, int retryTimes, long sleepMillis) {
+		return lock(key, DEFAULT_SECONDS_TO_EXPIRE, retryTimes, sleepMillis);
+	}
 
-  @Override
-  public boolean lock(String key, int secondsToExpire) {
-    return lock(key, secondsToExpire, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
-  }
+	@Override
+	public boolean lock(String key, int secondsToExpire) {
+		return lock(key, secondsToExpire, RETRY_TIMES, DEFAULT_SLEEP_MILLIS);
+	}
 
-  @Override
-  public boolean lock(String key, int secondsToExpire, int retryTimes) {
-    return lock(key, secondsToExpire, retryTimes, DEFAULT_SLEEP_MILLIS);
-  }
+	@Override
+	public boolean lock(String key, int secondsToExpire, int retryTimes) {
+		return lock(key, secondsToExpire, retryTimes, DEFAULT_SLEEP_MILLIS);
+	}
 }

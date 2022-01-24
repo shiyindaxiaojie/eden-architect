@@ -40,18 +40,18 @@ import org.ylzl.eden.spring.integration.easyexcel.write.EasyExcelWriter;
 @Configuration
 public class EasyExcelAutoConfiguration {
 
-  public static final String EXP_EASY_EXCEL_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
+	public static final String EXP_EASY_EXCEL_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
 
-  @ConditionalOnMissingBean
-  @Bean
-  public EasyExcelReader easyExcelReader() {
-    return new EasyExcelReader();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public EasyExcelReader easyExcelReader() {
+		return new EasyExcelReader();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public EasyExcelWriter easyExcelWriter() {
-    return new EasyExcelWriter();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public EasyExcelWriter easyExcelWriter() {
+		return new EasyExcelWriter();
+	}
 }

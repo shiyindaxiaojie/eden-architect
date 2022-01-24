@@ -25,21 +25,21 @@ package org.ylzl.eden.spring.data.redis.support.lock;
  */
 public interface RedisLock {
 
-  int DEFAULT_SECONDS_TO_EXPIRE = 60;
+	int DEFAULT_SECONDS_TO_EXPIRE = 60;
 
-  long DEFAULT_SLEEP_MILLIS = 500;
+	long DEFAULT_SLEEP_MILLIS = 500;
 
-  int RETRY_TIMES = Integer.MAX_VALUE;
+	int RETRY_TIMES = Integer.MAX_VALUE;
 
-  boolean lock(String key);
+	boolean lock(String key);
 
-  boolean lock(String key, int retryTimes, long sleepMillis);
+	boolean lock(String key, int retryTimes, long sleepMillis);
 
-  boolean lock(String key, int secondsToExpire);
+	boolean lock(String key, int secondsToExpire);
 
-  boolean lock(String key, int secondsToExpire, int retryTimes);
+	boolean lock(String key, int secondsToExpire, int retryTimes);
 
-  boolean lock(String key, int secondsToExpire, int retryTimes, long sleepMillis);
+	boolean lock(String key, int secondsToExpire, int retryTimes, long sleepMillis);
 
-  boolean unlock(String key);
+	boolean unlock(String key);
 }

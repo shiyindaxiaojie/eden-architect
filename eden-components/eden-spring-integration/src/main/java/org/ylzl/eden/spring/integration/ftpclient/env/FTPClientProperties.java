@@ -34,31 +34,31 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".ftpclient")
 public class FTPClientProperties {
 
-  private Boolean enabled = FTPClientDefaults.enabled;
+	private Boolean enabled = FTPClientDefaults.enabled;
 
-  private String host = FTPClientDefaults.host;
+	private String host = FTPClientDefaults.host;
 
-  private Integer port = FTPClientDefaults.port;
+	private Integer port = FTPClientDefaults.port;
 
-  private String username = FTPClientDefaults.username;
+	private String username = FTPClientDefaults.username;
 
-  private String password = FTPClientDefaults.password;
+	private String password = FTPClientDefaults.password;
 
-  private Integer connectTimeOut = FTPClientDefaults.connectTimeOut;
+	private Integer connectTimeOut = FTPClientDefaults.connectTimeOut;
 
-  private Integer dataTimeout = FTPClientDefaults.dataTimeout;
+	private Integer dataTimeout = FTPClientDefaults.dataTimeout;
 
-  private String controlEncoding = FTPClientDefaults.controlEncoding;
+	private String controlEncoding = FTPClientDefaults.controlEncoding;
 
-  private Integer controlKeepAliveReplyTimeout = FTPClientDefaults.controlKeepAliveReplyTimeout;
+	private Integer controlKeepAliveReplyTimeout = FTPClientDefaults.controlKeepAliveReplyTimeout;
 
-  private Integer bufferSize = FTPClientDefaults.bufferSize;
+	private Integer bufferSize = FTPClientDefaults.bufferSize;
 
-  private Integer fileType = FTPClientDefaults.fileType;
+	private Integer fileType = FTPClientDefaults.fileType;
 
-  private Boolean useEPSVwithIPv4 = FTPClientDefaults.useEPSVwithIPv4;
+	private Boolean useEPSVwithIPv4 = FTPClientDefaults.useEPSVwithIPv4;
 
-  private Boolean passiveMode = FTPClientDefaults.passiveMode;
+	private Boolean passiveMode = FTPClientDefaults.passiveMode;
 
-  private FTPClientPool2Config pool = new FTPClientPool2Config();
+	private FTPClientPool2Config pool = new FTPClientPool2Config();
 }

@@ -41,29 +41,29 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 @Configuration
 public class JwtWebSecurityConfiguration {
 
-  @ConditionalOnMissingBean
-  @Bean
-  public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(
-      JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-    return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter(
+		JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+		return new JwtWebSecurityConfigurer(jwtTokenProvider, jwtProperties);
+	}
 
-  protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
+	protected static class JwtWebSecurityConfigurer extends JwtWebSecurityConfigurerAdapter {
 
-    public JwtWebSecurityConfigurer(
-        JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-      super(jwtTokenProvider, jwtProperties);
-    }
+		public JwtWebSecurityConfigurer(
+			JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+			super(jwtTokenProvider, jwtProperties);
+		}
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-      super.configure(http);
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			super.configure(http);
 
-      http.authorizeRequests()
-          .antMatchers(JwtConstants.ENDPOINT_TOKEN)
-          .permitAll()
-          .anyRequest()
-          .authenticated();
-    }
-  }
+			http.authorizeRequests()
+				.antMatchers(JwtConstants.ENDPOINT_TOKEN)
+				.permitAll()
+				.anyRequest()
+				.authenticated();
+		}
+	}
 }

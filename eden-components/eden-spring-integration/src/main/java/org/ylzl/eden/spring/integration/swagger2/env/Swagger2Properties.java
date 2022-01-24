@@ -33,31 +33,31 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".swagger2")
 public class Swagger2Properties {
 
-  private Boolean enabled = true;
+	private Boolean enabled = true;
 
-  private String contactEmail = Swagger2Defaults.contactEmail;
+	private String contactEmail = Swagger2Defaults.contactEmail;
 
-  private String contactName = Swagger2Defaults.contactName;
+	private String contactName = Swagger2Defaults.contactName;
 
-  private String contactUrl = Swagger2Defaults.contactUrl;
+	private String contactUrl = Swagger2Defaults.contactUrl;
 
-  private String defaultIncludePattern = Swagger2Defaults.defaultIncludePattern;
+	private String defaultIncludePattern = Swagger2Defaults.defaultIncludePattern;
 
-  private String description = Swagger2Defaults.description;
+	private String description = Swagger2Defaults.description;
 
-  private String host = Swagger2Defaults.host;
+	private String host = Swagger2Defaults.host;
 
-  private String license = Swagger2Defaults.license;
+	private String license = Swagger2Defaults.license;
 
-  private String licenseUrl = Swagger2Defaults.licenseUrl;
+	private String licenseUrl = Swagger2Defaults.licenseUrl;
 
-  private String[] protocols = Swagger2Defaults.protocols;
+	private String[] protocols = Swagger2Defaults.protocols;
 
-  private String termsOfServiceUrl = Swagger2Defaults.termsOfServiceUrl;
+	private String termsOfServiceUrl = Swagger2Defaults.termsOfServiceUrl;
 
-  private String title = Swagger2Defaults.title;
+	private String title = Swagger2Defaults.title;
 
-  private Boolean useDefaultResponseMessages = Swagger2Defaults.useDefaultResponseMessages;
+	private Boolean useDefaultResponseMessages = Swagger2Defaults.useDefaultResponseMessages;
 
-  private String version = Swagger2Defaults.version;
+	private String version = Swagger2Defaults.version;
 }

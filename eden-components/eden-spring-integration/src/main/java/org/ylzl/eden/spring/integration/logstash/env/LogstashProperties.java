@@ -33,13 +33,13 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".logstash")
 public class LogstashProperties {
 
-  private boolean useJsonFormat = LogstashDefaults.useJsonFormat;
+	private boolean useJsonFormat = LogstashDefaults.useJsonFormat;
 
-  private boolean enabled = LogstashDefaults.enabled;
+	private boolean enabled = LogstashDefaults.enabled;
 
-  private String host = LogstashDefaults.host;
+	private String host = LogstashDefaults.host;
 
-  private int port = LogstashDefaults.port;
+	private int port = LogstashDefaults.port;
 
-  private int queueSize = LogstashDefaults.queueSize;
+	private int queueSize = LogstashDefaults.queueSize;
 }

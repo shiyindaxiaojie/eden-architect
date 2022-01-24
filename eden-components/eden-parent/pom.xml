@@ -46,7 +46,8 @@
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
-		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}</infinispan-protocol-parser-generator-maven-plugin.version>
+		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
+		</infinispan-protocol-parser-generator-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>

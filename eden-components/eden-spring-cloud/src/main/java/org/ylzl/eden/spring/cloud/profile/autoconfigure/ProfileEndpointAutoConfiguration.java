@@ -43,15 +43,13 @@ import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
 @Configuration
 public class ProfileEndpointAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_PROFILE_ENDPOINT = "Autowired Profile Endpoint";
+	private static final String MSG_AUTOWIRED_PROFILE_ENDPOINT = "Autowired Profile Endpoint";
 
-  @ConditionalOnAvailableEndpoint
-  @ConditionalOnMissingBean
-  @Bean
-  public ProfileEndpoint profileEndpoint(
-      Environment env,
-      ProfileProperties profileProperties) {
-    log.debug(MSG_AUTOWIRED_PROFILE_ENDPOINT);
-    return new ProfileEndpoint(env, profileProperties);
-  }
+	@ConditionalOnAvailableEndpoint
+	@ConditionalOnMissingBean
+	@Bean
+	public ProfileEndpoint profileEndpoint(Environment env, ProfileProperties profileProperties) {
+		log.debug(MSG_AUTOWIRED_PROFILE_ENDPOINT);
+		return new ProfileEndpoint(env, profileProperties);
+	}
 }

@@ -32,5 +32,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.FIELD})
 public @interface BeanAlias {
 
-  String value() default "";
+	String value() default "";
 }

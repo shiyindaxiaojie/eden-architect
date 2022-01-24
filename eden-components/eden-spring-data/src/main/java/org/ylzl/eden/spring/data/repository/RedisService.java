@@ -25,4 +25,5 @@ import java.io.Serializable;
  * @author gyl
  * @since 2.4.x
  */
-public interface RedisService<T, ID extends Serializable> extends CrudService<T, ID> {}
+public interface RedisService<T, ID extends Serializable> extends CrudService<T, ID> {
+}
