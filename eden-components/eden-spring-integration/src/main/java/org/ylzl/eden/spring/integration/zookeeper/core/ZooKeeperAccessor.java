@@ -31,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
  * ZooKeeper 会话
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class ZooKeeperAccessor implements InitializingBean, DisposableBean {
 

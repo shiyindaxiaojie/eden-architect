@@ -36,7 +36,6 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.ylzl.eden.spring.data.mybatis.autoconfigure.CustomMybatisAutoConfiguration;
 
 import javax.sql.DataSource;
 import java.util.List;

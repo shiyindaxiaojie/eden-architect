@@ -12,9 +12,9 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '8.x'
-      - name: Package application
+      - name: 构建
         run: |
           chmod +x mvnw
-          ./mvnw -ntp package -DskipTests -e -U -Pgithub
-#            - name: Verify application
-#              run: ./mvnw -ntp clean verify
+          ./mvnw -ntp -Pgithub clean package -DskipTests -e -U
+#            - name: 校验
+#              run: ./mvnw -ntp -Pgithub verify

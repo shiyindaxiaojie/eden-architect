@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.security.oauth2.token.TokenProcessor;
  * 客户端凭据令牌容器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class ClientCredentialsTokenHolder {

@@ -29,7 +29,7 @@ import org.springframework.web.filter.GenericFilterBean;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * JWT 令牌过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class JwtTokenFilter extends GenericFilterBean {
@@ -98,8 +98,8 @@ public class JwtTokenFilter extends GenericFilterBean {
   private String resolveToken(HttpServletRequest request) {
     String authorization = request.getHeader(properties.getHeader());
     if (StringUtils.isNotBlank(authorization)
-        && authorization.startsWith(SecurityConstants.BEARER_TOKEN)) {
-      return StringUtils.substringAfter(authorization, SecurityConstants.BEARER_TOKEN);
+        && authorization.startsWith(SpringSecurityConstants.BEARER_TOKEN)) {
+      return StringUtils.substringAfter(authorization, SpringSecurityConstants.BEARER_TOKEN);
     }
     return null;
   }

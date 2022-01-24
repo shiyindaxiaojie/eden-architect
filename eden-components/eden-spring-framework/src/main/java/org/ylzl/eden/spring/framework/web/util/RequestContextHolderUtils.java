@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * Spring 请求上下文工具
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class RequestContextHolderUtils {
 

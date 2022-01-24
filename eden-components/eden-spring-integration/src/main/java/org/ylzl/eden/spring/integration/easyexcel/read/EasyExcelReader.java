@@ -32,7 +32,7 @@ import java.util.List;
  * EasyExcel 读取器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class EasyExcelReader {
 

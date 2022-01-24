@@ -24,17 +24,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.ylzl.eden.spring.security.core.DefaultWebSecuirtyConfiguration;
+import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
+import org.ylzl.eden.spring.security.jwt.configurer.JwtWebSecurityConfigurerAdapter;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
-import org.ylzl.eden.spring.security.jwt.configurer.JwtWebSecurityConfigurerAdapter;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 
 /**
  * JWT WebSecurity 配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)
 @Slf4j

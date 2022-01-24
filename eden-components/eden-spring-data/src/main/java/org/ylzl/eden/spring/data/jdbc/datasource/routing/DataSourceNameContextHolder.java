@@ -22,7 +22,7 @@ import lombok.Getter;
  * 数据源名称上下文容器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class DataSourceNameContextHolder {
 

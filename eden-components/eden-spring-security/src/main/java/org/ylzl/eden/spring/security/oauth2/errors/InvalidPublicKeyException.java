@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
  * 无效的公钥
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class InvalidPublicKeyException extends InvalidTokenException {
 

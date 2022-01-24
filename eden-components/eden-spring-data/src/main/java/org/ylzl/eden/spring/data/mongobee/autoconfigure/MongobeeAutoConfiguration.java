@@ -37,14 +37,14 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.data.mongobee.async.AsyncMongobee;
 import org.ylzl.eden.spring.data.mongobee.env.MongobeeProperties;
-import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 import org.ylzl.eden.spring.framework.async.autoconfigure.AsyncTaskExecutorAutoConfiguration;
+import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 
 /**
  * MongoDB 配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @ConditionalOnClass({Mongobee.class})
 @ConditionalOnProperty(prefix = "mongobee", name = "enabled", matchIfMissing = true)

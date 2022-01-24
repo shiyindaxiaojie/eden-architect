@@ -17,7 +17,7 @@
 
 package org.ylzl.eden.spring.security.core.enums;
 
-import org.ylzl.eden.spring.security.core.SecurityConstants;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 
 import java.text.MessageFormat;
 
@@ -25,11 +25,11 @@ import java.text.MessageFormat;
  * 认证类型枚举
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public enum AuthenticationTypeEnum {
-  BASIC_AUTH(SecurityConstants.BASIC_AUTH + "{0}"),
-  BEARER_TOKEN(SecurityConstants.BEARER_TOKEN + "{0}"),
+  BASIC_AUTH(SpringSecurityConstants.BASIC_AUTH + "{0}"),
+  BEARER_TOKEN(SpringSecurityConstants.BEARER_TOKEN + "{0}"),
   DIGEST_AUTH(
       "Digest username=\"{0}\", realm=\"{1}\", nonce=\"{2}\", uri=\"/\", algorithm=\"{3}\", response=\"{4}\", opaque=\"{5}\""),
   HAWK_AUTHENTICATION("Hawk id=\"{0}\", ts=\"{1}\", nonce=\"{2}\", ext=\"{3}\", mac=\"{4}\""),
@@ -40,7 +40,7 @@ public enum AuthenticationTypeEnum {
   OAUTH1(
       "OAuth realm=\"{0}\",oauth_consumer_key=\"{1}\",oauth_token=\"{2}\",oauth_signature_method=\"{3}\",oauth_timestamp=\"{4}\","
           + "oauth_nonce=\"{5}\",oauth_version=\"1.0\",oauth_signature=\"{6}\""),
-  OATUH2(SecurityConstants.BEARER_TOKEN + "{0}");
+  OATUH2(SpringSecurityConstants.BEARER_TOKEN + "{0}");
 
   private String pattern;
 

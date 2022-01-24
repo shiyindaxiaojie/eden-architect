@@ -30,11 +30,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.cloud.loadbalancer.LoadBalancerClientAutoConfiguration;
+import org.ylzl.eden.spring.cloud.loadbalancer.autoconfigure.LoadBalancerClientAutoConfiguration;
 import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
-import org.ylzl.eden.spring.cloud.oauth2.token.CloudClientCredentialsResourceDetails;
-import org.ylzl.eden.spring.cloud.oauth2.token.CloudOAuth2AccessTokenClient;
-import org.ylzl.eden.spring.cloud.oauth2.token.jwt.CloudSignatureVerifierClient;
+import org.ylzl.eden.spring.cloud.oauth2.token.JwtClientCredentialsResourceDetails;
+import org.ylzl.eden.spring.cloud.oauth2.token.JwtOAuth2AccessTokenClient;
+import org.ylzl.eden.spring.cloud.oauth2.token.jwt.JwtSignatureVerifierClient;
 import org.ylzl.eden.spring.framework.web.RestAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
@@ -45,7 +45,7 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
  * 负载均衡的 OAuth2 授权客户端自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter({RestAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
@@ -79,7 +79,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @Bean
     public OAuth2AccessTokenClient oAuth2AccessTokenClient(RestTemplate restTemplate) {
       log.debug(MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT);
-      return new CloudOAuth2AccessTokenClient(
+      return new JwtOAuth2AccessTokenClient(
           restTemplate, oAuth2Properties, loadBalancerClientHelper);
     }
 
@@ -88,8 +88,8 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @Bean
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
       log.debug(MSG_AUTOWIRED_CLIENT_RESOURCE_DETAILS);
-      CloudClientCredentialsResourceDetails resourceDetails =
-          new CloudClientCredentialsResourceDetails(oAuth2Properties, loadBalancerClientHelper);
+      JwtClientCredentialsResourceDetails resourceDetails =
+          new JwtClientCredentialsResourceDetails(oAuth2Properties, loadBalancerClientHelper);
       resourceDetails.setAccessTokenUri(oAuth2Properties.getAuthorization().getAccessTokenUri());
       resourceDetails.setClientId(
           oAuth2Properties.getAuthorization().getClientCredentials().getClientId());
@@ -119,7 +119,7 @@ public class LoadBalancedOAuth2AuthorizationClientAutoConfiguration {
     @Bean
     public SignatureVerifierClient signatureVerifierClient(RestTemplate restTemplate) {
       log.debug(MSG_AUTOWIRED_SIGN_VERIFY_CLIENT);
-      return new CloudSignatureVerifierClient(
+      return new JwtSignatureVerifierClient(
           restTemplate, oAuth2Properties, loadBalancerClientHelper);
     }
   }

@@ -26,7 +26,7 @@ import java.io.Serializable;
  * 登录视图模型
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AllArgsConstructor
 @Builder

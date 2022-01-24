@@ -40,7 +40,7 @@ import java.util.Map;
  * 令牌授权客户端适配器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class TokenGrantClientAdapter implements TokenGrantClient {

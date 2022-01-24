@@ -23,13 +23,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ylzl.eden.template.start.SpringBootApplicationTemplate;
+import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
 
 /**
  * Spring Boot 引导类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RestController
 @Slf4j

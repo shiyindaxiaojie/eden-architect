@@ -31,7 +31,7 @@ import java.util.EnumSet;
  * 文件工具集
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {

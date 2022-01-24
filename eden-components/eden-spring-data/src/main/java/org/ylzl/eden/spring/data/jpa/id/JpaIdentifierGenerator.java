@@ -41,7 +41,7 @@ import java.util.Properties;
  * </ul>
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {
 

@@ -23,8 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.cloud.zuul.ZuulConstants;
-import org.ylzl.eden.spring.cloud.zuul.ZuulProperties;
+import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
+import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.Map;
  * 访问控制过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class AccessControlFilter extends ZuulFilter {

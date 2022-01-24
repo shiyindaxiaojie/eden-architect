@@ -29,7 +29,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.ylzl.eden.spring.security.core.DefaultWebSecuirtyConfiguration;
+import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
 import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2WebSecurityConfigurerAdapter;
 
 import javax.annotation.PostConstruct;

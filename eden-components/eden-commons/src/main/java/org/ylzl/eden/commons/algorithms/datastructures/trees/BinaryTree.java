@@ -24,7 +24,7 @@ import lombok.NonNull;
  * 二叉树
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class BinaryTree<T extends Comparable<T>> {
 

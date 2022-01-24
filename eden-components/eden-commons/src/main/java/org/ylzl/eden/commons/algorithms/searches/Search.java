@@ -21,7 +21,7 @@ package org.ylzl.eden.commons.algorithms.searches;
  * 查找接口
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface Search {
 

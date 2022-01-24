@@ -32,35 +32,19 @@
 	<name>eden-spring-cloud</name>
 	<description>Spring Cloud 扩展</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
+		<!-- 内部组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-data</artifactId>
+			<artifactId>eden-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -71,7 +55,7 @@
 			<artifactId>eden-spring-security</artifactId>
 		</dependency>
 
-		<!-- DevTool -->
+		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -89,47 +73,41 @@
 
 		<!-- Spring Cloud -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cloud-connectors</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>bcpkix-jdk15on</artifactId>
-					<groupId>org.bouncycastle</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-security</artifactId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.retry</groupId>
 			<artifactId>spring-retry</artifactId>
 		</dependency>
 
-		<!-- Spring Cloud Config -->
+		<!-- Spring Cloud Security -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>bcpkix-jdk15on</artifactId>
-					<groupId>org.bouncycastle</groupId>
-				</exclusion>
-			</exclusions>
-			<optional>true</optional>
+			<artifactId>spring-cloud-security</artifactId>
 		</dependency>
-		<dependency>
+
+		<!-- Spring Cloud Config -->
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 			<optional>true</optional>
-		</dependency>
+		</dependency>-->
 
 		<!-- Consul -->
+		<!--<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-consul-core</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-consul-binder</artifactId>
@@ -138,11 +116,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-consul-config</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-consul-core</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -169,23 +142,61 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
 			<optional>true</optional>
+		</dependency>-->
+
+		<!-- Openfeign -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-httpclient</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Eureka -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>xstream</artifactId>
-					<groupId>com.thoughtworks.xstream</groupId>
-				</exclusion>
-			</exclusions>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Ribbon -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Hystrix -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>HdrHistogram</artifactId>
+					<groupId>org.hdrhistogram</groupId>
+				</exclusion>
+			</exclusions>
+			<optional>true</optional>
+		</dependency>-->
+
+		<!-- Zuul -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -210,25 +221,7 @@
 			<artifactId>cache-api</artifactId>
 		</dependency>
 
-		<!-- Hystrix -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>HdrHistogram</artifactId>
-					<groupId>org.hdrhistogram</groupId>
-				</exclusion>
-			</exclusions>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- J2EE -->
+		<!-- Jakarta -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -271,25 +264,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Openfeign -->
-		<dependency>
-			<groupId>io.github.openfeign</groupId>
-			<artifactId>feign-httpclient</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Ribbon -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Swagger -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -310,13 +284,6 @@
 					<groupId>com.google.guava</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<!-- Zuul -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

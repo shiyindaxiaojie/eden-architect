@@ -24,7 +24,7 @@ import lombok.NonNull;
  * 基本类型枚举
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public enum PrimitiveTypeEnum {
   BOOLEAN(value -> value == null ? false : Boolean.parseBoolean(value), Boolean.class),

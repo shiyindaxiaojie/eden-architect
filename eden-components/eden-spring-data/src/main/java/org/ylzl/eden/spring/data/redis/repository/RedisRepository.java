@@ -26,7 +26,7 @@ import java.io.Serializable;
  * Redis 数据仓库
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @NoRepositoryBean
 public interface RedisRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {}

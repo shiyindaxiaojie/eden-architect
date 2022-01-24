@@ -26,7 +26,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  * Jackson 默认 XML 映射器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class DefaultXmlMapper extends XmlMapper {
 

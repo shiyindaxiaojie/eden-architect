@@ -23,7 +23,7 @@ import org.ylzl.eden.commons.env.CharsetConstants;
 import org.ylzl.eden.commons.env.OSUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.integration.truelicense.TrueLicenseProperties;
+import org.ylzl.eden.spring.integration.truelicense.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.keystore.CustomKeyStoreParam;
 import org.ylzl.eden.spring.integration.truelicense.manager.env.LicenseOS;
 
@@ -39,7 +39,7 @@ import java.util.prefs.Preferences;
  * 增强式许可证管理
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public final class EnhancedLicenseManager extends LicenseManager {

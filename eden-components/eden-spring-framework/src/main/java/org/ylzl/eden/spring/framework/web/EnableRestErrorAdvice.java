@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * 开启 REST 接口异常解析器配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Import(RestErrorAdviceConfiguration.class)
 @Target({ElementType.TYPE})

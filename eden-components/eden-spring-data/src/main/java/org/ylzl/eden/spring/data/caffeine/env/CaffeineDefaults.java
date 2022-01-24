@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * Caffeine 配置属性默认值
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public final class CaffeineDefaults {

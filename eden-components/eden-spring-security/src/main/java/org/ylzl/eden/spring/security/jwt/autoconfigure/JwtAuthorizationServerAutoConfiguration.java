@@ -25,10 +25,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.ylzl.eden.spring.security.core.DefaultWebSecuirtyConfiguration;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
+import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.jwt.endpoint.JwtTokenEndpoint;
+import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 
@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
  * JWT 授权服务端自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @EnableConfigurationProperties(JwtProperties.class)
 @ConditionalOnExpression(JwtAuthorizationServerAutoConfiguration.EXP_JWT_AUTHORIZATION_SERVER)
@@ -46,7 +46,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 public class JwtAuthorizationServerAutoConfiguration {
 
   public static final String EXP_JWT_AUTHORIZATION_SERVER =
-      "${" + SecurityConstants.PROP_PREFIX + ".jwt.authorization.server.enabled:false}";
+      "${" + SpringSecurityConstants.PROP_PREFIX + ".jwt.authorization.server.enabled:false}";
 
   private final JwtProperties jwtProperties;
 

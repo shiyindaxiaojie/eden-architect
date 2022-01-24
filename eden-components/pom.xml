@@ -43,6 +43,5 @@
 		<module>eden-spring-integration</module>
 		<module>eden-spring-security</module>
 		<module>eden-spring-test</module>
-		<module>eden-templates</module>
 	</modules>
 </project>

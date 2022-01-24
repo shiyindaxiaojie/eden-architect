@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
  * 邮件开关信息装饰器
  *
  * @author sion
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class MailEnabledInfoContributor implements InfoContributor {
 

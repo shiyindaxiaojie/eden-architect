@@ -22,7 +22,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  * 动态数据源代理
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 

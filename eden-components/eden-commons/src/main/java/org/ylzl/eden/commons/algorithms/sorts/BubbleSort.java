@@ -24,7 +24,7 @@ import org.ylzl.eden.commons.algorithms.SortUtils;
  * 冒泡排序
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class BubbleSort extends AbstractSort implements Sort {
 

@@ -35,10 +35,10 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.ylzl.eden.spring.security.core.DefaultWebSecuirtyConfiguration;
-import org.ylzl.eden.spring.security.core.SecurityConstants;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
+import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2AuthorizationServerConfigurerAdapter;
+import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.jwt.JwtTokenEnhancer;
 
 import java.security.KeyPair;
@@ -48,7 +48,7 @@ import java.util.List;
  * OAuth2 授权服务端自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
 @ConditionalOnExpression(OAuth2AuthorizationServerAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_SERVER)
@@ -60,7 +60,7 @@ import java.util.List;
 public class OAuth2AuthorizationServerAutoConfiguration {
 
   public static final String EXP_OAUTH2_AUTHORIZATION_SERVER =
-      "${" + SecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
+      "${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
 
   @ConditionalOnMissingBean
   @Bean

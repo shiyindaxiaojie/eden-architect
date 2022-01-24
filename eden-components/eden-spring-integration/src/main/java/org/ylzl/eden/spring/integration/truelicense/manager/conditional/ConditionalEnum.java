@@ -22,7 +22,7 @@ import org.ylzl.eden.commons.lang.type.PrimitiveTypeEnum;
  * 动态条件枚举
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public enum ConditionalEnum {
   EQ(

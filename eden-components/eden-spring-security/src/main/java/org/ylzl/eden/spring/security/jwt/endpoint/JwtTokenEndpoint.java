@@ -37,7 +37,7 @@ import javax.validation.Valid;
  * JWT 令牌服务端点
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 @RequestMapping

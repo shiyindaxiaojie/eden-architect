@@ -25,7 +25,7 @@ package org.ylzl.eden.commons.algorithms.searches;
  * <p>空间复杂度：最差为 O(1)
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class TernarySearch implements Search {
 

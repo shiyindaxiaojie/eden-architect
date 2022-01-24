@@ -29,7 +29,7 @@ import java.util.List;
  * 许可证校验服务
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class LicenseVerify {

@@ -28,7 +28,7 @@ import java.util.TreeMap;
  * 一致性哈希
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class ConsistentHash<T> {
 

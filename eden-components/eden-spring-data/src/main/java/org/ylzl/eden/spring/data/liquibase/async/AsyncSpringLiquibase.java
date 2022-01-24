@@ -57,7 +57,8 @@ public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 
   @Override
   public void afterPropertiesSet() throws LiquibaseException {
-    if (environment.acceptsProfiles(Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+    if (environment.acceptsProfiles(
+        Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
       try (Connection connection = getDataSource().getConnection()) {
         asyncTaskExecutor.execute(
             new Runnable() {

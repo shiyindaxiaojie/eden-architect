@@ -29,7 +29,7 @@ import java.util.List;
  * 框架默认属性值
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public final class SpringFrameworkDefaults {
@@ -41,12 +41,12 @@ public final class SpringFrameworkDefaults {
     public static final List<String> allowedMethods = Collections.singletonList("*");
 
     public static final List<HttpMethod> resolvedMethods =
-        Arrays.asList(new HttpMethod[] {HttpMethod.GET, HttpMethod.POST});
+        Arrays.asList(HttpMethod.GET, HttpMethod.POST);
 
     public static final List<String> allowedHeaders = Collections.singletonList("*");
 
     public static final List<String> exposedHeaders =
-        Arrays.asList(new String[] {"Authorization", "Link", "X-Total-Count"});
+        Arrays.asList("Authorization", "Link", "X-Total-Count");
 
     public static final Boolean allowCredentials = true;
 

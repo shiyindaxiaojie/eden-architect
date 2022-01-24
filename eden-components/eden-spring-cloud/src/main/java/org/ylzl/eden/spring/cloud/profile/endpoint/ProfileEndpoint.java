@@ -21,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.spring.cloud.configserver.ConfigServerProperties;
-import org.ylzl.eden.spring.cloud.profile.ProfileProperties;
+import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
 import org.ylzl.eden.spring.framework.core.util.SpringProfileUtils;
 
 import java.util.ArrayList;
@@ -51,22 +50,17 @@ public class ProfileEndpoint {
 
   private final ProfileProperties profileProperties;
 
-  private final ConfigServerProperties configServerProperties;
-
   public ProfileEndpoint(
       Environment env,
-      ProfileProperties profileProperties,
-      ConfigServerProperties configServerProperties) {
+      ProfileProperties profileProperties) {
     this.env = env;
     this.profileProperties = profileProperties;
-    this.configServerProperties = configServerProperties;
   }
 
   @ReadOperation
   public ProfileDescriptor profiles() {
     String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
-    return new ProfileDescriptor(
-        activeProfiles, getRibbonEnv(activeProfiles), configServerProperties.getComposite());
+    return new ProfileDescriptor(activeProfiles, getRibbonEnv(activeProfiles));
   }
 
   private String getRibbonEnv(String[] activeProfiles) {

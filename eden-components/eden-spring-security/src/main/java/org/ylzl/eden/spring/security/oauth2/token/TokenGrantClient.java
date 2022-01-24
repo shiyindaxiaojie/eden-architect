@@ -24,7 +24,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
  * 令牌授权客户端接口
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface TokenGrantClient {
 

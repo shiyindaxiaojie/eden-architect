@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * Curator 工具实现 ZooKeeper 分布式锁
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class CuratorZooKeeperLock extends AbstractZooKeeperLock {

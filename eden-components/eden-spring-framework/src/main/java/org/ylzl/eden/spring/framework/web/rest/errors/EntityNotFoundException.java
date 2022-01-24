@@ -23,7 +23,7 @@ import lombok.Getter;
  * 实体获取为空
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Getter
 public class EntityNotFoundException extends BadRequestAlertException {

@@ -25,7 +25,7 @@ import org.springframework.util.MultiValueMap;
  * OAuth2 访问令牌客户端
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface OAuth2AccessTokenClient {
 

@@ -23,7 +23,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
  * 日期格式化
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Getter
 public enum DateFormatEnum {

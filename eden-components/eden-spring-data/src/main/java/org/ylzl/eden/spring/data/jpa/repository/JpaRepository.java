@@ -26,7 +26,7 @@ import java.io.Serializable;
  * JPA 数据仓库
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @NoRepositoryBean
 public interface JpaRepository<T, ID extends Serializable>

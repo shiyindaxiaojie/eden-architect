@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * 缓存 HTTP 头部信息过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class CachingHttpHeadersFilter implements Filter {
 

@@ -29,7 +29,7 @@ import java.util.Date;
  * Jackson 时间序列化
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class TimeSerializer extends JsonSerializer<Date> {
 

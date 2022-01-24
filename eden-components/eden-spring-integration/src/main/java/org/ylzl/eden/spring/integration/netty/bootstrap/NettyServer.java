@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Netty 服务端
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class NettyServer implements InitializingBean, DisposableBean {

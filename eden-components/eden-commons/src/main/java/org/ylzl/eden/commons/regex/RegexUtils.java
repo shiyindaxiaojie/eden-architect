@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * 正则表达式工具类
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public class RegexUtils {

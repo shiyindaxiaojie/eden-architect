@@ -25,8 +25,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
-import org.ylzl.eden.spring.cloud.zuul.ZuulConstants;
-import org.ylzl.eden.spring.cloud.zuul.ZuulProperties;
+import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
+import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 import org.ylzl.eden.spring.security.core.util.SpringSecurityUtils;
 
 import javax.cache.Cache;
@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletRequest;
  * 速率限制过滤器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class RateLimitingFilter extends ZuulFilter {

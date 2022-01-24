@@ -39,7 +39,7 @@ import java.util.List;
  * 异常转换器
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RestControllerAdvice
 public class RestErrorAdvice {

@@ -26,7 +26,7 @@ import org.ylzl.eden.commons.lang.StringUtils;
  * Hibernate 配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public class HibernateConfiguration extends Configuration {
 

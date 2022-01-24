@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * ZooKeeper 模板
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class ZooKeeperTemplate extends ZooKeeperAccessor {

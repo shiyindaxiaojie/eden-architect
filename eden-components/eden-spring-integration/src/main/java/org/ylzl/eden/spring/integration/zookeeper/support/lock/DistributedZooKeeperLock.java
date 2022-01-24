@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.integration.zookeeper.core.ZooKeeperTemplate;
  * Redis 分布式锁
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class DistributedZooKeeperLock extends AbstractZooKeeperLock {

@@ -49,7 +49,7 @@ import java.util.concurrent.Executor;
  * Liquibase 自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter({
   DataSourceAutoConfiguration.class,

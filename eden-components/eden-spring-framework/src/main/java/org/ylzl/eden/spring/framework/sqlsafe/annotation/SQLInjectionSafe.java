@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * SQL 注入安全注解
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Constraint(validatedBy = SQLInjectionSafeValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})

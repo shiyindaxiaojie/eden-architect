@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.flywaydb.core.api.configuration.Configuration;
+import org.flywaydb.core.api.output.MigrateResult;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -71,7 +72,7 @@ public class AsyncFlyway extends Flyway {
   }
 
   @Override
-  public int migrate() throws FlywayException {
+  public MigrateResult migrate() throws FlywayException {
     if (environment.acceptsProfiles(Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
       try (Connection ignored = configuration.getDataSource().getConnection()) {
         asyncTaskExecutor.submit(
@@ -81,28 +82,29 @@ public class AsyncFlyway extends Flyway {
                 return initDb();
               } catch (FlywayException e) {
                 log.error(MSG_EXCEPTION, e.getMessage(), e);
-                return MIGRATION_FAILED_COUNT;
+				throw new FlywayException(e);
               }
             });
       } catch (SQLException e) {
         log.error(MSG_EXCEPTION, e.getMessage(), e);
+		throw new FlywayException(e);
       }
+	  return null;
     } else {
       log.debug(MSG_STARTING_SYNC);
       return initDb();
     }
-    return MIGRATION_FAILED_COUNT;
   }
 
-  protected int initDb() throws FlywayException {
+  protected MigrateResult initDb() throws FlywayException {
     StopWatch watch = new StopWatch(STOP_WATCH_ID);
     watch.start();
-    int migrationSuccessCount = super.migrate();
+    MigrateResult migrateResult = super.migrate();
     watch.stop();
     log.debug(MSG_STARTED, watch.getTotalTimeMillis());
     if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
       log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
     }
-    return migrationSuccessCount;
+    return migrateResult;
   }
 }

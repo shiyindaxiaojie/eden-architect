@@ -24,7 +24,7 @@ import org.ylzl.eden.commons.env.CharsetConstants;
  * 框架常量定义
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @UtilityClass
 public final class SpringFrameworkConstants {

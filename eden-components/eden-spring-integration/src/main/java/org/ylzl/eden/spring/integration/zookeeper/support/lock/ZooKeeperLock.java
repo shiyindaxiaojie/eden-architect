@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.integration.zookeeper.support.lock;
  * ZooKeeper 锁接口
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface ZooKeeperLock {
 

@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.security.web.authentication.UnauthorizedEntryPointAd
  * Web 安全自动配置
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 @Configuration

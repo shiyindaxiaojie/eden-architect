@@ -21,7 +21,7 @@ package org.ylzl.eden.spring.data.redis.support.lock;
  * 抽象 Redis 锁
  *
  * @author gyl
- * @since 1.0.0
+ * @since 2.4.x
  */
 public abstract class AbstractRedisLock implements RedisLock {
 
