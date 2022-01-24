@@ -69,7 +69,7 @@
 		<undertow.version>2.0.29.Final</undertow.version>
 
 		<!-- 日志 -->
-		<log4j2.version>2.17.0</log4j2.version>
+		<log4j2.version>2.17.1</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 
