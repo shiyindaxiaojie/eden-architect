@@ -27,20 +27,20 @@ import org.springframework.http.HttpStatus;
  */
 public class ForbiddenException extends BadRequestAlertException {
 
-  public ForbiddenException() {
-    super(ErrorEnum.FORBIDDEN.getMessage());
-  }
+	public ForbiddenException() {
+		super(ErrorEnum.FORBIDDEN.getMessage());
+	}
 
-  public ForbiddenException(String message) {
-    super(message);
-  }
+	public ForbiddenException(String message) {
+		super(message);
+	}
 
-  public ForbiddenException(String message, String description) {
-    super(message, description);
-  }
+	public ForbiddenException(String message, String description) {
+		super(message, description);
+	}
 
-  @Override
-  public int getStatusCode() {
-    return HttpStatus.FORBIDDEN.value();
-  }
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.FORBIDDEN.value();
+	}
 }

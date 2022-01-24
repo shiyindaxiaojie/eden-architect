@@ -45,68 +45,68 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class JwtWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-  private final JwtTokenProvider jwtTokenProvider;
-  private final JwtProperties jwtProperties;
+	private final JwtTokenProvider jwtTokenProvider;
+	private final JwtProperties jwtProperties;
 
-  @Value(SpringFrameworkConstants.NAME_PATTERN)
-  private String applicationName;
+	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	private String applicationName;
 
-  private AuthenticationEntryPoint authenticationEntryPoint;
-  private CorsFilter corsFilter;
+	private AuthenticationEntryPoint authenticationEntryPoint;
+	private CorsFilter corsFilter;
 
-  public JwtWebSecurityConfigurerAdapter(
-      JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
-    this.jwtTokenProvider = jwtTokenProvider;
-    this.jwtProperties = jwtProperties;
-  }
+	public JwtWebSecurityConfigurerAdapter(
+		JwtTokenProvider jwtTokenProvider, JwtProperties jwtProperties) {
+		this.jwtTokenProvider = jwtTokenProvider;
+		this.jwtProperties = jwtProperties;
+	}
 
-  @Override
-  public void configure(WebSecurity web) {
-    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-  }
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+	}
 
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
-    http.httpBasic()
-        .realmName(applicationName)
-        .and()
-        .csrf()
-        .disable()
-        .headers()
-        .frameOptions()
-        .disable()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .apply(jwtSecurityConfigurer());
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		http.httpBasic()
+			.realmName(applicationName)
+			.and()
+			.csrf()
+			.disable()
+			.headers()
+			.frameOptions()
+			.disable()
+			.and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+			.apply(jwtSecurityConfigurer());
 
-    if (authenticationEntryPoint != null) {
-      http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-    }
+		if (authenticationEntryPoint != null) {
+			http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+		}
 
-    if (corsFilter != null) {
-      http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-  }
+		if (corsFilter != null) {
+			http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
+		}
+	}
 
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-  @Autowired(required = false)
-  public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
-    this.authenticationEntryPoint = authenticationEntryPoint;
-  }
+	@Autowired(required = false)
+	public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
+		this.authenticationEntryPoint = authenticationEntryPoint;
+	}
 
-  @Autowired(required = false)
-  public void setCorsFilter(CorsFilter corsFilter) {
-    this.corsFilter = corsFilter;
-  }
+	@Autowired(required = false)
+	public void setCorsFilter(CorsFilter corsFilter) {
+		this.corsFilter = corsFilter;
+	}
 
-  protected JwtSecurityConfigurer jwtSecurityConfigurer() {
-    return new JwtSecurityConfigurer(jwtTokenProvider, jwtProperties);
-  }
+	protected JwtSecurityConfigurer jwtSecurityConfigurer() {
+		return new JwtSecurityConfigurer(jwtTokenProvider, jwtProperties);
+	}
 }

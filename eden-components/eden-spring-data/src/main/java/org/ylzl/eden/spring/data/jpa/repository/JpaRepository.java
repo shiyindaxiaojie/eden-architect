@@ -30,5 +30,6 @@ import java.io.Serializable;
  */
 @NoRepositoryBean
 public interface JpaRepository<T, ID extends Serializable>
-    extends org.springframework.data.jpa.repository.JpaRepository<T, ID>,
-        JpaSpecificationExecutor<T> {}
+	extends org.springframework.data.jpa.repository.JpaRepository<T, ID>,
+	JpaSpecificationExecutor<T> {
+}

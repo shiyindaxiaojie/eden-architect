@@ -30,35 +30,35 @@ import org.ylzl.eden.spring.framework.web.rest.vm.ErrorVM;
 @Getter
 public class BadRequestAlertException extends RuntimeException {
 
-  private static final long serialVersionUID = -4672286153615627725L;
+	private static final long serialVersionUID = -4672286153615627725L;
 
-  private final String message;
+	private final String message;
 
-  private final String description;
+	private final String description;
 
-  public BadRequestAlertException() {
-    super(ErrorEnum.BAD_REQUEST_ALERT.getMessage());
-    this.message = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
-    this.description = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
-  }
+	public BadRequestAlertException() {
+		super(ErrorEnum.BAD_REQUEST_ALERT.getMessage());
+		this.message = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
+		this.description = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
+	}
 
-  public BadRequestAlertException(String message) {
-    super(message);
-    this.message = message;
-    this.description = message;
-  }
+	public BadRequestAlertException(String message) {
+		super(message);
+		this.message = message;
+		this.description = message;
+	}
 
-  public BadRequestAlertException(String message, String description) {
-    super(message);
-    this.message = message;
-    this.description = description;
-  }
+	public BadRequestAlertException(String message, String description) {
+		super(message);
+		this.message = message;
+		this.description = description;
+	}
 
-  public int getStatusCode() {
-    return HttpStatus.BAD_REQUEST.value();
-  }
+	public int getStatusCode() {
+		return HttpStatus.BAD_REQUEST.value();
+	}
 
-  public ErrorVM getErrorVM() {
-    return ErrorVM.builder().message(message).description(description).build();
-  }
+	public ErrorVM getErrorVM() {
+		return ErrorVM.builder().message(message).description(description).build();
+	}
 }

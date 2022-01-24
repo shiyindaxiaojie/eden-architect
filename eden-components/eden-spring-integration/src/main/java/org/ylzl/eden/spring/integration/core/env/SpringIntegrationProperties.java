@@ -31,4 +31,5 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @Getter
 @Setter
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX)
-public class SpringIntegrationProperties {}
+public class SpringIntegrationProperties {
+}

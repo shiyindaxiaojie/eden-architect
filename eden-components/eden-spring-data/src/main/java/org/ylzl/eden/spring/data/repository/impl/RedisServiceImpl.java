@@ -30,12 +30,12 @@ import java.io.Serializable;
  */
 @SuppressWarnings("unchecked")
 public class RedisServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>
-    implements RedisService<T, ID> {
+	implements RedisService<T, ID> {
 
-  private final RedisRepository<T, ID> redisRepository;
+	private final RedisRepository<T, ID> redisRepository;
 
-  public RedisServiceImpl(RedisRepository<T, ID> redisRepository) {
-    super(redisRepository);
-    this.redisRepository = redisRepository;
-  }
+	public RedisServiceImpl(RedisRepository<T, ID> redisRepository) {
+		super(redisRepository);
+		this.redisRepository = redisRepository;
+	}
 }

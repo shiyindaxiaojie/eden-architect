@@ -26,5 +26,5 @@ import javax.naming.NamingException;
  */
 public interface DataSource extends javax.sql.DataSource {
 
-  javax.sql.DataSource getDataSource(String datasourceName) throws NamingException;
+	javax.sql.DataSource getDataSource(String datasourceName) throws NamingException;
 }

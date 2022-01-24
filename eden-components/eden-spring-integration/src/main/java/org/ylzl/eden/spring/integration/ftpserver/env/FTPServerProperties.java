@@ -33,5 +33,5 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".ftpserver")
 public class FTPServerProperties {
 
-  private Boolean enabled;
+	private Boolean enabled;
 }

@@ -22,4 +22,5 @@ package org.ylzl.eden.spring.security.core.env;
  * @author gyl
  * @since 2.4.x
  */
-public final class SpringSecurityDefaults {}
+public final class SpringSecurityDefaults {
+}

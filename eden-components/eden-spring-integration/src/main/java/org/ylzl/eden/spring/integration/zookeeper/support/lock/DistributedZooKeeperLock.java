@@ -32,66 +32,66 @@ import org.ylzl.eden.spring.integration.zookeeper.core.ZooKeeperTemplate;
 @Slf4j
 public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 
-  private static final byte[] empty = new byte[0];
+	private static final byte[] empty = new byte[0];
 
-  private final ZooKeeperTemplate zooKeeperTemplate;
+	private final ZooKeeperTemplate zooKeeperTemplate;
 
-  public DistributedZooKeeperLock(ZooKeeperTemplate zooKeeperTemplate) {
-    this.zooKeeperTemplate = zooKeeperTemplate;
-  }
+	public DistributedZooKeeperLock(ZooKeeperTemplate zooKeeperTemplate) {
+		this.zooKeeperTemplate = zooKeeperTemplate;
+	}
 
-  @Override
-  public boolean lock(String path, int retryTimes, long sleepMillis) {
-    log.debug("Curator client create zooKeeper node lock \"{}\"", path);
-    boolean isSuccess = this.create(path);
-    while ((!isSuccess) && retryTimes-- > 0) {
-      try {
-        Thread.sleep(sleepMillis);
-      } catch (InterruptedException e) {
-        log.error(
-            "Curator client create zooKeeper node lock \"{}\", catch InterruptedException: {}",
-            path,
-            e.getMessage(),
-            e);
-        return false;
-      }
-      isSuccess = this.create(path);
-    }
-    log.debug(
-        "Curator client create zooKeeper node lock \"{}\" {}",
-        path,
-        isSuccess ? "success" : "failed");
-    return isSuccess;
-  }
+	@Override
+	public boolean lock(String path, int retryTimes, long sleepMillis) {
+		log.debug("Curator client create zooKeeper node lock \"{}\"", path);
+		boolean isSuccess = this.create(path);
+		while ((!isSuccess) && retryTimes-- > 0) {
+			try {
+				Thread.sleep(sleepMillis);
+			} catch (InterruptedException e) {
+				log.error(
+					"Curator client create zooKeeper node lock \"{}\", catch InterruptedException: {}",
+					path,
+					e.getMessage(),
+					e);
+				return false;
+			}
+			isSuccess = this.create(path);
+		}
+		log.debug(
+			"Curator client create zooKeeper node lock \"{}\" {}",
+			path,
+			isSuccess ? "success" : "failed");
+		return isSuccess;
+	}
 
-  @Override
-  public boolean unlock(final String path) {
-    log.debug("Curator client remove zooKeeper node lock \"{}\"", path);
-    boolean isSuccess = false;
-    try {
-      zooKeeperTemplate.delete(path);
-      isSuccess = true;
-    } catch (KeeperException | InterruptedException e) {
-      log.error(
-          "Curator client remove zooKeeper node lock \"{}\", catch Exception: {}",
-          path,
-          e.getMessage(),
-          e);
-    }
-    log.debug(
-        "Curator client remove zooKeeper node lock \"{}\" {}",
-        path,
-        isSuccess ? "success" : "failed");
-    return isSuccess;
-  }
+	@Override
+	public boolean unlock(final String path) {
+		log.debug("Curator client remove zooKeeper node lock \"{}\"", path);
+		boolean isSuccess = false;
+		try {
+			zooKeeperTemplate.delete(path);
+			isSuccess = true;
+		} catch (KeeperException | InterruptedException e) {
+			log.error(
+				"Curator client remove zooKeeper node lock \"{}\", catch Exception: {}",
+				path,
+				e.getMessage(),
+				e);
+		}
+		log.debug(
+			"Curator client remove zooKeeper node lock \"{}\" {}",
+			path,
+			isSuccess ? "success" : "failed");
+		return isSuccess;
+	}
 
-  private boolean create(String path) {
-    try {
-      zooKeeperTemplate.create(
-          path, empty, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-    } catch (KeeperException | InterruptedException ignored) {
-      return false;
-    }
-    return true;
-  }
+	private boolean create(String path) {
+		try {
+			zooKeeperTemplate.create(
+				path, empty, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+		} catch (KeeperException | InterruptedException ignored) {
+			return false;
+		}
+		return true;
+	}
 }

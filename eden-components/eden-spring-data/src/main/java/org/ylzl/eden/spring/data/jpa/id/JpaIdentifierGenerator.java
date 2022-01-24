@@ -45,23 +45,24 @@ import java.util.Properties;
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {
 
-  public static final String NAME = "JPA_ID";
+	public static final String NAME = "JPA_ID";
 
-  public static final String STRATEGY = JpaIdentifierGenerator.class.getName();
+	public static final String STRATEGY = JpaIdentifierGenerator.class.getName();
 
-  private SnowflakeGenerator snowflakeGenerator;
+	private SnowflakeGenerator snowflakeGenerator;
 
-  public JpaIdentifierGenerator() {
-    snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).dataCenterId(0L).build();
-  }
+	public JpaIdentifierGenerator() {
+		snowflakeGenerator = SnowflakeGenerator.builder().workerId(0L).dataCenterId(0L).build();
+	}
 
-  @Override
-  public void configure(Type type, Properties properties, ServiceRegistry serviceRegistry)
-      throws MappingException {}
+	@Override
+	public void configure(Type type, Properties properties, ServiceRegistry serviceRegistry)
+		throws MappingException {
+	}
 
-  @Override
-  public Serializable generate(SharedSessionContractImplementor session, Object object)
-      throws HibernateException {
-    return snowflakeGenerator.nextId();
-  }
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object)
+		throws HibernateException {
+		return snowflakeGenerator.nextId();
+	}
 }

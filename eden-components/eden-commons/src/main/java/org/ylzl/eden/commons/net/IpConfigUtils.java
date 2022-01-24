@@ -36,54 +36,54 @@ import java.net.UnknownHostException;
 @UtilityClass
 public class IpConfigUtils {
 
-  /**
-   * 获取客户端请求的 IP 地址
-   *
-   * @param request
-   * @return
-   */
-  public static String getIpAddress(@NonNull HttpServletRequest request) {
-    String ip = request.getHeader("x-forwarded-for");
-    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
-      ip = request.getHeader("Proxy-Client-IP");
-    }
-    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
-      ip = request.getHeader("WL-Proxy-Client-IP");
-    }
-    if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
-      ip = request.getRemoteAddr();
-    }
-    return ip;
-  }
+	/**
+	 * 获取客户端请求的 IP 地址
+	 *
+	 * @param request
+	 * @return
+	 */
+	public static String getIpAddress(@NonNull HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
 
-  /**
-   * 获取 MAC 地址
-   *
-   * @return
-   * @throws SocketException
-   * @throws UnknownHostException
-   */
-  public static String getMacAddress() throws SocketException, UnknownHostException {
-    return getMacAddress(InetAddress.getLocalHost());
-  }
+	/**
+	 * 获取 MAC 地址
+	 *
+	 * @return
+	 * @throws SocketException
+	 * @throws UnknownHostException
+	 */
+	public static String getMacAddress() throws SocketException, UnknownHostException {
+		return getMacAddress(InetAddress.getLocalHost());
+	}
 
-  /**
-   * 获取MAC地址
-   *
-   * @param inetAddress
-   * @return
-   * @throws SocketException
-   */
-  public static String getMacAddress(@NonNull InetAddress inetAddress) throws SocketException {
-    byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < mac.length; i++) {
-      if (i != 0) {
-        sb.append(CharConstants.MINUS);
-      }
-      String s = Integer.toHexString(mac[i] & 0xFF);
-      sb.append(s.length() == 1 ? 0 + s : s);
-    }
-    return sb.toString().toUpperCase();
-  }
+	/**
+	 * 获取MAC地址
+	 *
+	 * @param inetAddress
+	 * @return
+	 * @throws SocketException
+	 */
+	public static String getMacAddress(@NonNull InetAddress inetAddress) throws SocketException {
+		byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < mac.length; i++) {
+			if (i != 0) {
+				sb.append(CharConstants.MINUS);
+			}
+			String s = Integer.toHexString(mac[i] & 0xFF);
+			sb.append(s.length() == 1 ? 0 + s : s);
+		}
+		return sb.toString().toUpperCase();
+	}
 }

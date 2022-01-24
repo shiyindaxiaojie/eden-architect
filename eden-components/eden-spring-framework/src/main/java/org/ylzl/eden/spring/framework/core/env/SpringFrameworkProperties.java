@@ -34,29 +34,29 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_PREFIX)
 public class SpringFrameworkProperties {
 
-  private final CorsConfiguration cors = new CorsConfiguration();
+	private final CorsConfiguration cors = new CorsConfiguration();
 
-  private final Http http = new Http();
+	private final Http http = new Http();
 
-  @Getter
-  @Setter
-  public static class Http {
+	@Getter
+	@Setter
+	public static class Http {
 
-    private final Cache cache = new Cache();
-    public Version version = SpringFrameworkDefaults.Http.version;
-    private boolean useUndertowUserCipherSuitesOrder =
-        SpringFrameworkDefaults.Http.useUndertowUserCipherSuitesOrder;
+		private final Cache cache = new Cache();
+		public Version version = SpringFrameworkDefaults.Http.version;
+		private boolean useUndertowUserCipherSuitesOrder =
+			SpringFrameworkDefaults.Http.useUndertowUserCipherSuitesOrder;
 
-    public enum Version {
-      V_1_1,
-      V_2_0;
-    }
+		public enum Version {
+			V_1_1,
+			V_2_0;
+		}
 
-    @Getter
-    @Setter
-    public static class Cache {
+		@Getter
+		@Setter
+		public static class Cache {
 
-      private int timeToLiveInDays = SpringFrameworkDefaults.Http.Cache.timeToLiveInDays;
-    }
-  }
+			private int timeToLiveInDays = SpringFrameworkDefaults.Http.Cache.timeToLiveInDays;
+		}
+	}
 }

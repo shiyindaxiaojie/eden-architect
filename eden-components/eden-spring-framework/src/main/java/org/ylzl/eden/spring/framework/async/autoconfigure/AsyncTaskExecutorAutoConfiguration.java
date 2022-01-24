@@ -45,33 +45,33 @@ import java.util.concurrent.Executor;
 @Configuration
 public class AsyncTaskExecutorAutoConfiguration implements AsyncConfigurer {
 
-  public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
+	public static final String BEAN_TASK_EXECUTOR = "asyncTaskExecutor";
 
-  private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
+	private static final String MSG_AUTOWIRED_EXECUTOR = "Autowired AsyncTaskExecutor";
 
-  private final AsyncProperties.TaskExecutor properties;
+	private final AsyncProperties.TaskExecutor properties;
 
-  @Value(SpringFrameworkConstants.NAME_PATTERN)
-  private String applicationName;
+	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	private String applicationName;
 
-  public AsyncTaskExecutorAutoConfiguration(AsyncProperties asyncProperties) {
-    this.properties = asyncProperties.getTaskExecutor();
-  }
+	public AsyncTaskExecutorAutoConfiguration(AsyncProperties asyncProperties) {
+		this.properties = asyncProperties.getTaskExecutor();
+	}
 
-  @Bean(name = BEAN_TASK_EXECUTOR)
-  @Override
-  public Executor getAsyncExecutor() {
-    log.debug(MSG_AUTOWIRED_EXECUTOR);
-    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-    executor.setCorePoolSize(properties.getCorePoolSize());
-    executor.setMaxPoolSize(properties.getMaxPoolSize());
-    executor.setQueueCapacity(properties.getQueueCapacity());
-    executor.setThreadNamePrefix(applicationName);
-    return new ExceptionHandlingAsyncTaskExecutor(executor);
-  }
+	@Bean(name = BEAN_TASK_EXECUTOR)
+	@Override
+	public Executor getAsyncExecutor() {
+		log.debug(MSG_AUTOWIRED_EXECUTOR);
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(properties.getCorePoolSize());
+		executor.setMaxPoolSize(properties.getMaxPoolSize());
+		executor.setQueueCapacity(properties.getQueueCapacity());
+		executor.setThreadNamePrefix(applicationName);
+		return new ExceptionHandlingAsyncTaskExecutor(executor);
+	}
 
-  @Override
-  public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-    return new SimpleAsyncUncaughtExceptionHandler();
-  }
+	@Override
+	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+		return new SimpleAsyncUncaughtExceptionHandler();
+	}
 }

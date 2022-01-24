@@ -31,31 +31,31 @@ import lombok.NonNull;
  */
 public class BinarySearch implements Search {
 
-  /**
-   * 查找
-   *
-   * @param array 数组
-   * @param key 查找关键字
-   * @return 匹配值
-   */
-  @Override
-  public <T extends Comparable<T>> int search(@NonNull T[] array, @NonNull T key) {
-    return search(array, key, 0, array.length);
-  }
+	/**
+	 * 查找
+	 *
+	 * @param array 数组
+	 * @param key   查找关键字
+	 * @return 匹配值
+	 */
+	@Override
+	public <T extends Comparable<T>> int search(@NonNull T[] array, @NonNull T key) {
+		return search(array, key, 0, array.length);
+	}
 
-  private <T extends Comparable<T>> int search(T[] array, T key, int left, int right) {
-    if (right < left) {
-      return -1;
-    }
+	private <T extends Comparable<T>> int search(T[] array, T key, int left, int right) {
+		if (right < left) {
+			return -1;
+		}
 
-    int median = (left + right) >>> 1;
-    int comp = key.compareTo(array[median]);
-    if (comp == 0) {
-      return median;
-    } else if (comp < 0) {
-      return search(array, key, left, --median);
-    } else {
-      return search(array, key, ++median, right);
-    }
-  }
+		int median = (left + right) >>> 1;
+		int comp = key.compareTo(array[median]);
+		if (comp == 0) {
+			return median;
+		} else if (comp < 0) {
+			return search(array, key, left, --median);
+		} else {
+			return search(array, key, ++median, right);
+		}
+	}
 }

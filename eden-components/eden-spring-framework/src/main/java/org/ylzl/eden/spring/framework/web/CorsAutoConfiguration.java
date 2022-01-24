@@ -50,22 +50,22 @@ import java.util.List;
 @Configuration
 public class CorsAutoConfiguration {
 
-  public static final String MSG_AUTOWIRED_CORSFILTER = "Autowired CorsFilter";
+	public static final String MSG_AUTOWIRED_CORSFILTER = "Autowired CorsFilter";
 
-  @ConditionalOnMissingBean
-  @Bean
-  public CorsFilter corsFilter(
-      SpringFrameworkProperties springFrameworkProperties,
-      ManagementServerProperties managementServerProperties) {
-    log.debug(MSG_AUTOWIRED_CORSFILTER);
-    CorsConfiguration corsConfiguration = springFrameworkProperties.getCors();
-    List<String> paths = new ArrayList<>();
-    if (corsConfiguration.getAllowedOrigins() != null
-        && !corsConfiguration.getAllowedOrigins().isEmpty()) {
-      paths.add(
-          managementServerProperties.getServlet().getContextPath()
-              + SpringPathMatcherConstants.ALL_CHILD_PATTERN);
-    }
-    return CorsFilterBuilder.builder().corsConfiguration(corsConfiguration).paths(paths).build();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public CorsFilter corsFilter(
+		SpringFrameworkProperties springFrameworkProperties,
+		ManagementServerProperties managementServerProperties) {
+		log.debug(MSG_AUTOWIRED_CORSFILTER);
+		CorsConfiguration corsConfiguration = springFrameworkProperties.getCors();
+		List<String> paths = new ArrayList<>();
+		if (corsConfiguration.getAllowedOrigins() != null
+			&& !corsConfiguration.getAllowedOrigins().isEmpty()) {
+			paths.add(
+				managementServerProperties.getServlet().getContextPath()
+					+ SpringPathMatcherConstants.ALL_CHILD_PATTERN);
+		}
+		return CorsFilterBuilder.builder().corsConfiguration(corsConfiguration).paths(paths).build();
+	}
 }

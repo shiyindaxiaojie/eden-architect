@@ -28,29 +28,29 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class Swagger2Defaults {
 
-  public static final String contactEmail = "1813986321@qq.com";
+	public static final String contactEmail = "1813986321@qq.com";
 
-  public static final String contactName = "梦想歌";
+	public static final String contactName = "梦想歌";
 
-  public static final String contactUrl = null;
+	public static final String contactUrl = null;
 
-  public static final String defaultIncludePattern = "/api/.*";
+	public static final String defaultIncludePattern = "/api/.*";
 
-  public static final String description = "API documentation";
+	public static final String description = "API documentation";
 
-  public static final String host = null;
+	public static final String host = null;
 
-  public static final String license = null;
+	public static final String license = null;
 
-  public static final String licenseUrl = null;
+	public static final String licenseUrl = null;
 
-  public static final String[] protocols = {};
+	public static final String[] protocols = {};
 
-  public static final String termsOfServiceUrl = null;
+	public static final String termsOfServiceUrl = null;
 
-  public static final String title = "Application API";
+	public static final String title = "Application API";
 
-  public static final boolean useDefaultResponseMessages = true;
+	public static final boolean useDefaultResponseMessages = true;
 
-  public static final String version = "2.0.0-SNAPSHOT";
+	public static final String version = "2.0.0-SNAPSHOT";
 }

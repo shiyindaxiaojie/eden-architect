@@ -30,15 +30,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class OAuth2CookieTokenExtractor extends BearerTokenExtractor {
 
-  @Override
-  protected String extractToken(HttpServletRequest request) {
-    String result;
-    Cookie accessTokenCookie = OAuth2CookieHelper.getAccessTokenCookie(request);
-    if (accessTokenCookie != null) {
-      result = accessTokenCookie.getValue();
-    } else {
-      result = super.extractToken(request);
-    }
-    return result;
-  }
+	@Override
+	protected String extractToken(HttpServletRequest request) {
+		String result;
+		Cookie accessTokenCookie = OAuth2CookieHelper.getAccessTokenCookie(request);
+		if (accessTokenCookie != null) {
+			result = accessTokenCookie.getValue();
+		} else {
+			result = super.extractToken(request);
+		}
+		return result;
+	}
 }

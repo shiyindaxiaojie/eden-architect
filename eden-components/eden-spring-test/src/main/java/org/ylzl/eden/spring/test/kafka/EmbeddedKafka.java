@@ -36,43 +36,43 @@ import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 @Slf4j
 public class EmbeddedKafka extends EmbeddedKafkaRule {
 
-  private static final int DEFAULT_PORT = 9092;
+	private static final int DEFAULT_PORT = 9092;
 
-  private int port;
+	private int port;
 
-  private boolean closed = true;
+	private boolean closed = true;
 
-  public EmbeddedKafka(int count) {
-    super(count);
-  }
+	public EmbeddedKafka(int count) {
+		super(count);
+	}
 
-  public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
-    super(count, controlledShutdown, topics);
-  }
+	public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
+		super(count, controlledShutdown, topics);
+	}
 
-  public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
-    super(count, controlledShutdown, partitions, topics);
-  }
+	public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
+		super(count, controlledShutdown, partitions, topics);
+	}
 
-  public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
-    super(1, true, topics);
-  }
+	public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
+		super(1, true, topics);
+	}
 
-  @Override
-  public void before() {
-    super.before();
-    closed = true;
-  }
+	@Override
+	public void before() {
+		super.before();
+		closed = true;
+	}
 
-  @Override
-  public void after() {
-    if (!isOpen()) {
-      return;
-    }
-    this.after();
-  }
+	@Override
+	public void after() {
+		if (!isOpen()) {
+			return;
+		}
+		this.after();
+	}
 
-  public boolean isOpen() {
-    return !closed;
-  }
+	public boolean isOpen() {
+		return !closed;
+	}
 }

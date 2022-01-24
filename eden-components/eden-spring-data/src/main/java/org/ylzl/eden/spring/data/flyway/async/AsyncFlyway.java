@@ -47,64 +47,65 @@ import java.sql.SQLException;
 @Slf4j
 public class AsyncFlyway extends Flyway {
 
-  public static final long SLOWNESS_THRESHOLD = 5;
-  private static final String MSG_STARTING_ASYNC = "Starting Flyway asynchronously";
-  private static final String MSG_STARTING_SYNC = "Starting Flyway synchronously";
-  private static final String MSG_EXCEPTION =
-      "Flyway could not start correctly, your database is not ready：{}";
-  private static final String MSG_STARTED = "Flyway has updated your database in {} ms";
-  private static final String MSG_SLOWNESS = "Flyway took more than {} seconds to start up!";
-  private static final String STOP_WATCH_ID = "flyway";
-  private static final int MIGRATION_FAILED_COUNT = 0;
+	public static final long SLOWNESS_THRESHOLD = 5;
+	private static final String MSG_STARTING_ASYNC = "Starting Flyway asynchronously";
+	private static final String MSG_STARTING_SYNC = "Starting Flyway synchronously";
+	private static final String MSG_EXCEPTION =
+		"Flyway could not start correctly, your database is not ready：{}";
+	private static final String MSG_STARTED = "Flyway has updated your database in {} ms";
+	private static final String MSG_SLOWNESS = "Flyway took more than {} seconds to start up!";
+	private static final String STOP_WATCH_ID = "flyway";
+	private static final int MIGRATION_FAILED_COUNT = 0;
 
-  private final Configuration configuration;
+	private final Configuration configuration;
 
-  private final AsyncTaskExecutor asyncTaskExecutor;
+	private final AsyncTaskExecutor asyncTaskExecutor;
 
-  private final Environment environment;
+	private final Environment environment;
 
-  public AsyncFlyway(
-      Configuration configuration, AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
-    super(configuration);
-    this.configuration = configuration;
-    this.asyncTaskExecutor = asyncTaskExecutor;
-    this.environment = environment;
-  }
+	public AsyncFlyway(
+		Configuration configuration, AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
+		super(configuration);
+		this.configuration = configuration;
+		this.asyncTaskExecutor = asyncTaskExecutor;
+		this.environment = environment;
+	}
 
-  @Override
-  public MigrateResult migrate() throws FlywayException {
-    if (environment.acceptsProfiles(Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
-      try (Connection ignored = configuration.getDataSource().getConnection()) {
-        asyncTaskExecutor.submit(
-            () -> {
-              try {
-                log.debug(MSG_STARTING_ASYNC);
-                return initDb();
-              } catch (FlywayException e) {
-                log.error(MSG_EXCEPTION, e.getMessage(), e);
+	@Override
+	public MigrateResult migrate() throws FlywayException {
+		if (environment.acceptsProfiles(
+			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+			try (Connection ignored = configuration.getDataSource().getConnection()) {
+				asyncTaskExecutor.submit(
+					() -> {
+						try {
+							log.debug(MSG_STARTING_ASYNC);
+							return initDb();
+						} catch (FlywayException e) {
+							log.error(MSG_EXCEPTION, e.getMessage(), e);
+							throw new FlywayException(e);
+						}
+					});
+			} catch (SQLException e) {
+				log.error(MSG_EXCEPTION, e.getMessage(), e);
 				throw new FlywayException(e);
-              }
-            });
-      } catch (SQLException e) {
-        log.error(MSG_EXCEPTION, e.getMessage(), e);
-		throw new FlywayException(e);
-      }
-	  return null;
-    } else {
-      log.debug(MSG_STARTING_SYNC);
-      return initDb();
-    }
-  }
+			}
+			return null;
+		} else {
+			log.debug(MSG_STARTING_SYNC);
+			return initDb();
+		}
+	}
 
-  protected MigrateResult initDb() throws FlywayException {
-    StopWatch watch = new StopWatch(STOP_WATCH_ID);
-    watch.start();
-    MigrateResult migrateResult = super.migrate();
-    watch.stop();
-    log.debug(MSG_STARTED, watch.getTotalTimeMillis());
-    if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-      log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
-    }
-    return migrateResult;
-  }
+	protected MigrateResult initDb() throws FlywayException {
+		StopWatch watch = new StopWatch(STOP_WATCH_ID);
+		watch.start();
+		MigrateResult migrateResult = super.migrate();
+		watch.stop();
+		log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+		if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
+			log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
+		}
+		return migrateResult;
+	}
 }

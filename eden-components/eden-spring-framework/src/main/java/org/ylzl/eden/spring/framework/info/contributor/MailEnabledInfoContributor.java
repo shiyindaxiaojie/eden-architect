@@ -30,12 +30,13 @@ import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
  */
 public class MailEnabledInfoContributor implements InfoContributor {
 
-  private static final String MAIL_ENABLED = "mailEnabled";
+	private static final String MAIL_ENABLED = "mailEnabled";
 
-  @Autowired private EnhancedMailProperties enhancedMailProperties;
+	@Autowired
+	private EnhancedMailProperties enhancedMailProperties;
 
-  @Override
-  public void contribute(Info.Builder builder) {
-    builder.withDetail(MAIL_ENABLED, enhancedMailProperties.isEnabled());
-  }
+	@Override
+	public void contribute(Info.Builder builder) {
+		builder.withDetail(MAIL_ENABLED, enhancedMailProperties.isEnabled());
+	}
 }

@@ -31,40 +31,40 @@ import java.io.*;
 @UtilityClass
 public class SerializableUtils {
 
-  public static Serializable deepCopy(@NonNull Serializable serializableObj)
-      throws IOException, ClassNotFoundException {
-    try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-        ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut); ) {
-      objectOut.writeObject(serializableObj);
-      try (ByteArrayInputStream byteArrayIn = new ByteArrayInputStream(byteArrayOut.toByteArray());
-          ObjectInputStream objectIn = new ObjectInputStream(byteArrayIn); ) {
-        return (Serializable) objectIn.readObject();
-      }
-    }
-  }
+	public static Serializable deepCopy(@NonNull Serializable serializableObj)
+		throws IOException, ClassNotFoundException {
+		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+			 ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut);) {
+			objectOut.writeObject(serializableObj);
+			try (ByteArrayInputStream byteArrayIn = new ByteArrayInputStream(byteArrayOut.toByteArray());
+				 ObjectInputStream objectIn = new ObjectInputStream(byteArrayIn);) {
+				return (Serializable) objectIn.readObject();
+			}
+		}
+	}
 
-  public long getSerializedSize(@NonNull Serializable serializableObj) throws IOException {
-    try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-        ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut); ) {
-      objectOut.writeObject(serializableObj);
-      objectOut.flush();
-      return byteArrayOut.size();
-    }
-  }
+	public long getSerializedSize(@NonNull Serializable serializableObj) throws IOException {
+		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+			 ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut);) {
+			objectOut.writeObject(serializableObj);
+			objectOut.flush();
+			return byteArrayOut.size();
+		}
+	}
 
-  public static byte[] toByte(@NonNull Serializable serializableObj) throws IOException {
-    try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-        ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut); ) {
-      objectOut.writeObject(serializableObj);
-      objectOut.flush();
-      return byteArrayOut.toByteArray();
-    }
-  }
+	public static byte[] toByte(@NonNull Serializable serializableObj) throws IOException {
+		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+			 ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut);) {
+			objectOut.writeObject(serializableObj);
+			objectOut.flush();
+			return byteArrayOut.toByteArray();
+		}
+	}
 
-  public static Object toObject(byte[] byteArr) throws IOException, ClassNotFoundException {
-    try (ByteArrayInputStream byteArrayIn = new ByteArrayInputStream(byteArr);
-        ObjectInputStream objectIn = new ObjectInputStream(byteArrayIn); ) {
-      return objectIn.readObject();
-    }
-  }
+	public static Object toObject(byte[] byteArr) throws IOException, ClassNotFoundException {
+		try (ByteArrayInputStream byteArrayIn = new ByteArrayInputStream(byteArr);
+			 ObjectInputStream objectIn = new ObjectInputStream(byteArrayIn);) {
+			return objectIn.readObject();
+		}
+	}
 }

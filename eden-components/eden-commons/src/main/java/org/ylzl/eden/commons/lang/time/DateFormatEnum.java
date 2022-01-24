@@ -27,39 +27,39 @@ import org.apache.commons.lang3.time.FastDateFormat;
  */
 @Getter
 public enum DateFormatEnum {
-  ISO_8601_EXTENDED_DATE_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATE),
-  ISO_8601_EXTENDED_TIME_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_TIME),
-  ISO_8601_EXTENDED_DATETIME_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATETIME),
-  ISO_8601_EXTENDED_DATE_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATE_NO_HYPHEN),
-  ISO_8601_EXTENDED_TIME_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_TIME_NO_HYPHEN),
-  ISO_8601_EXTENDED_DATETIME_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATETIME_NO_HYPHEN),
-  ISO_DATETIME_TIME_ZONE_FORMAT(DateFormatEnum.ISO_DATETIME_TIME_ZONE);
+	ISO_8601_EXTENDED_DATE_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATE),
+	ISO_8601_EXTENDED_TIME_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_TIME),
+	ISO_8601_EXTENDED_DATETIME_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATETIME),
+	ISO_8601_EXTENDED_DATE_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATE_NO_HYPHEN),
+	ISO_8601_EXTENDED_TIME_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_TIME_NO_HYPHEN),
+	ISO_8601_EXTENDED_DATETIME_NO_HYPHEN_FORMAT(DateFormatEnum.ISO_8601_EXTENDED_DATETIME_NO_HYPHEN),
+	ISO_DATETIME_TIME_ZONE_FORMAT(DateFormatEnum.ISO_DATETIME_TIME_ZONE);
 
-  public static final String ISO_8601_EXTENDED_DATE = "yyyy-MM-dd";
-  public static final String ISO_8601_EXTENDED_TIME = "HH:mm:ss";
-  public static final String ISO_8601_EXTENDED_DATETIME = "yyyy-MM-dd HH:mm:ss";
-  public static final String ISO_8601_EXTENDED_DATE_NO_HYPHEN = "yyyyMMdd";
-  public static final String ISO_8601_EXTENDED_TIME_NO_HYPHEN = "HHmmss";
-  public static final String ISO_8601_EXTENDED_DATETIME_NO_HYPHEN = "yyyyMMddHHmmss";
-  public static final String ISO_DATETIME_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+	public static final String ISO_8601_EXTENDED_DATE = "yyyy-MM-dd";
+	public static final String ISO_8601_EXTENDED_TIME = "HH:mm:ss";
+	public static final String ISO_8601_EXTENDED_DATETIME = "yyyy-MM-dd HH:mm:ss";
+	public static final String ISO_8601_EXTENDED_DATE_NO_HYPHEN = "yyyyMMdd";
+	public static final String ISO_8601_EXTENDED_TIME_NO_HYPHEN = "HHmmss";
+	public static final String ISO_8601_EXTENDED_DATETIME_NO_HYPHEN = "yyyyMMddHHmmss";
+	public static final String ISO_DATETIME_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-  public static final String DEFAULT_TIME_ZONE = "GMT+8";
+	public static final String DEFAULT_TIME_ZONE = "GMT+8";
 
-  private final String pattern;
+	private final String pattern;
 
-  private final FastDateFormat fastDateFormat;
+	private final FastDateFormat fastDateFormat;
 
-  DateFormatEnum(String pattern) {
-    this.pattern = pattern;
-    this.fastDateFormat = FastDateFormat.getInstance(pattern);
-  }
+	DateFormatEnum(String pattern) {
+		this.pattern = pattern;
+		this.fastDateFormat = FastDateFormat.getInstance(pattern);
+	}
 
-  public static FastDateFormat getFastDateFormat(String pattern) {
-    for (DateFormatEnum dateFormatEnum : DateFormatEnum.values()) {
-      if (dateFormatEnum.getPattern().equals(pattern)) {
-        return dateFormatEnum.getFastDateFormat();
-      }
-    }
-    throw new UnsupportedOperationException();
-  }
+	public static FastDateFormat getFastDateFormat(String pattern) {
+		for (DateFormatEnum dateFormatEnum : DateFormatEnum.values()) {
+			if (dateFormatEnum.getPattern().equals(pattern)) {
+				return dateFormatEnum.getFastDateFormat();
+			}
+		}
+		throw new UnsupportedOperationException();
+	}
 }

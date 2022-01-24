@@ -39,51 +39,82 @@ import java.util.Date;
 @ToString
 public class EnhancedLicenseContent implements Serializable {
 
-  private static final long serialVersionUID = 2321514142917945172L;
+	private static final long serialVersionUID = 2321514142917945172L;
 
-  /** 证书主题 */
-  private String subject;
+	/**
+	 * 证书主题
+	 */
+	private String subject;
 
-  /** 密钥别名 */
-  private String privateAlias;
+	/**
+	 * 密钥别名
+	 */
+	private String privateAlias;
 
-  /** 密钥密码 */
-  @NotBlank private String keyPass;
+	/**
+	 * 密钥密码
+	 */
+	@NotBlank
+	private String keyPass;
 
-  /** 访问秘钥库的密码 */
-  @NotBlank private String storePass;
+	/**
+	 * 访问秘钥库的密码
+	 */
+	@NotBlank
+	private String storePass;
 
-  /** 证书生成路径 */
-  @JsonIgnore private String licensePath;
+	/**
+	 * 证书生成路径
+	 */
+	@JsonIgnore
+	private String licensePath;
 
-  /** 密钥库存储路径 */
-  @JsonIgnore private String privateKeysStorePath;
+	/**
+	 * 密钥库存储路径
+	 */
+	@JsonIgnore
+	private String privateKeysStorePath;
 
-  /** 证书签发时间 */
-  @JsonIgnore private Date issued;
+	/**
+	 * 证书签发时间
+	 */
+	@JsonIgnore
+	private Date issued;
 
-  /** 证书生效时间 */
-  @JsonFormat(
-      pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
-      timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
-  private Date notBefore;
+	/**
+	 * 证书生效时间
+	 */
+	@JsonFormat(
+		pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
+		timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
+	private Date notBefore;
 
-  /** 证书到期时间 */
-  @JsonFormat(
-      pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
-      timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
-  private Date notAfter;
+	/**
+	 * 证书到期时间
+	 */
+	@JsonFormat(
+		pattern = DateFormatEnum.ISO_8601_EXTENDED_DATE,
+		timezone = DateFormatEnum.DEFAULT_TIME_ZONE)
+	private Date notAfter;
 
-  /** 用户类型 */
-  private String consumerType;
+	/**
+	 * 用户类型
+	 */
+	private String consumerType;
 
-  /** 用户数量 */
-  @Min(1)
-  private Integer consumerAmount;
+	/**
+	 * 用户数量
+	 */
+	@Min(1)
+	private Integer consumerAmount;
 
-  /** 描述信息 */
-  private String info;
+	/**
+	 * 描述信息
+	 */
+	private String info;
 
-  /** 授权扩展数据 */
-  private LicenseContentExtra licenseContentExtra;
+	/**
+	 * 授权扩展数据
+	 */
+	private LicenseContentExtra licenseContentExtra;
 }

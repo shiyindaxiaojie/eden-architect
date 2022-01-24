@@ -34,37 +34,37 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class NettyRpcClientHandler extends ChannelDuplexHandler {
 
-  private final Map<String, NettyRpcFuture> rpcFutureMap = new ConcurrentHashMap<>();
+	private final Map<String, NettyRpcFuture> rpcFutureMap = new ConcurrentHashMap<>();
 
-  @Override
-  public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
-      throws Exception {
-    if (msg instanceof RpcRequest) {
-      RpcRequest request = (RpcRequest) msg;
-      rpcFutureMap.putIfAbsent(request.getRequestId(), new NettyRpcFuture());
-    }
-    super.write(ctx, msg, promise);
-  }
+	@Override
+	public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
+		throws Exception {
+		if (msg instanceof RpcRequest) {
+			RpcRequest request = (RpcRequest) msg;
+			rpcFutureMap.putIfAbsent(request.getRequestId(), new NettyRpcFuture());
+		}
+		super.write(ctx, msg, promise);
+	}
 
-  @Override
-  public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    if (msg instanceof RpcResponse) {
-      RpcResponse response = (RpcResponse) msg;
-      NettyRpcFuture future = rpcFutureMap.get(response.getRequestId());
-      future.set(response);
-    }
-    super.channelRead(ctx, msg);
-  }
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		if (msg instanceof RpcResponse) {
+			RpcResponse response = (RpcResponse) msg;
+			NettyRpcFuture future = rpcFutureMap.get(response.getRequestId());
+			future.set(response);
+		}
+		super.channelRead(ctx, msg);
+	}
 
-  public RpcResponse get(String requestId, int timeout) {
-    if (!rpcFutureMap.containsKey(requestId)) {
-      return null;
-    }
-    try {
-      NettyRpcFuture future = rpcFutureMap.get(requestId);
-      return future.get(timeout);
-    } finally {
-      rpcFutureMap.remove(requestId);
-    }
-  }
+	public RpcResponse get(String requestId, int timeout) {
+		if (!rpcFutureMap.containsKey(requestId)) {
+			return null;
+		}
+		try {
+			NettyRpcFuture future = rpcFutureMap.get(requestId);
+			return future.get(timeout);
+		} finally {
+			rpcFutureMap.remove(requestId);
+		}
+	}
 }

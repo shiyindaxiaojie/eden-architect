@@ -30,19 +30,19 @@ import org.ylzl.eden.spring.integration.netty.rpc.serializer.Serializer;
  */
 public class RpcWriteEncoder extends MessageToByteEncoder {
 
-  private final Class<?> clazz;
+	private final Class<?> clazz;
 
-  private final Serializer serializer;
+	private final Serializer serializer;
 
-  public RpcWriteEncoder(Class<?> clazz, Serializer serializer) {
-    this.clazz = clazz;
-    this.serializer = serializer;
-  }
+	public RpcWriteEncoder(Class<?> clazz, Serializer serializer) {
+		this.clazz = clazz;
+		this.serializer = serializer;
+	}
 
-  @Override
-  protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
-    byte[] bytes = serializer.serialize(msg);
-    out.writeInt(bytes.length);
-    out.writeBytes(bytes);
-  }
+	@Override
+	protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+		byte[] bytes = serializer.serialize(msg);
+		out.writeInt(bytes.length);
+		out.writeBytes(bytes);
+	}
 }

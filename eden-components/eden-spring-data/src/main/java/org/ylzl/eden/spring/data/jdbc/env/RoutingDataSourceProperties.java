@@ -19,9 +19,9 @@ import java.util.List;
 @ConfigurationProperties(prefix = SpringDataConstants.PROP_PREFIX + ".routing-datasource")
 public class RoutingDataSourceProperties {
 
-  private Boolean enabled;
+	private Boolean enabled;
 
-  private String[] nodes;
+	private String[] nodes;
 
-  private List<DataSourceProperties> metadata;
+	private List<DataSourceProperties> metadata;
 }

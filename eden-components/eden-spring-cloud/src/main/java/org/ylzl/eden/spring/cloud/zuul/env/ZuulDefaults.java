@@ -31,22 +31,22 @@ import java.util.Map;
 @UtilityClass
 public final class ZuulDefaults {
 
-  public static class AccessControl {
+	public static class AccessControl {
 
-    public static final boolean enabled = true;
+		public static final boolean enabled = true;
 
-    public static final Map<String, List<String>> authorizedMicroservicesEndpoints =
-        Collections.emptyMap();
-  }
+		public static final Map<String, List<String>> authorizedMicroservicesEndpoints =
+			Collections.emptyMap();
+	}
 
-  public static class RateLimiting {
+	public static class RateLimiting {
 
-    public static final String defaultIncludePattern = null;
+		public static final String defaultIncludePattern = null;
 
-    public static final int durationInSeconds = 3_600;
+		public static final int durationInSeconds = 3_600;
 
-    public static final boolean enabled = true;
+		public static final boolean enabled = true;
 
-    public static final long limit = 100_000L;
-  }
+		public static final long limit = 100_000L;
+	}
 }

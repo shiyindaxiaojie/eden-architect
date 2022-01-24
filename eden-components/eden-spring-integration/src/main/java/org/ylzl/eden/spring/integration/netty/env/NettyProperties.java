@@ -35,47 +35,49 @@ import org.ylzl.eden.spring.integration.netty.channel.ChannelOptions;
 @ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".netty")
 public final class NettyProperties {
 
-  private final Client client = new Client();
+	private final Client client = new Client();
 
-  private final Server server = new Server();
+	private final Server server = new Server();
 
-  @Getter
-  @Setter
-  public static final class Client {
+	@Getter
+	@Setter
+	public static final class Client {
 
-    private Boolean enabled = NettyDefaults.Client.enabled;
+		private Boolean enabled = NettyDefaults.Client.enabled;
 
-    private Boolean autoStartup = NettyDefaults.Client.autoStartup;
+		private Boolean autoStartup = NettyDefaults.Client.autoStartup;
 
-    private String name;
+		private String name;
 
-    private String host = NettyDefaults.Client.host;
+		private String host = NettyDefaults.Client.host;
 
-    private Integer port = NettyDefaults.Client.port;
+		private Integer port = NettyDefaults.Client.port;
 
-    private Integer channelThreads = NettyDefaults.Client.channelThreads;
-  }
+		private Integer channelThreads = NettyDefaults.Client.channelThreads;
+	}
 
-  @Getter
-  @Setter
-  public static final class Server {
+	@Getter
+	@Setter
+	public static final class Server {
 
-    private Boolean enabled = NettyDefaults.Server.enabled;
+		private Boolean enabled = NettyDefaults.Server.enabled;
 
-    private Boolean autoStartup = NettyDefaults.Server.autoStartup;
+		private Boolean autoStartup = NettyDefaults.Server.autoStartup;
 
-    private String name;
+		private String name;
 
-    private String host = NettyDefaults.Server.host;
+		private String host = NettyDefaults.Server.host;
 
-    private Integer port = NettyDefaults.Server.port;
+		private Integer port = NettyDefaults.Server.port;
 
-    private Integer bossThreads = NettyDefaults.Server.bossThreads;
+		private Integer bossThreads = NettyDefaults.Server.bossThreads;
 
-    private Integer workerThreads = NettyDefaults.Server.workerThreads;
+		private Integer workerThreads = NettyDefaults.Server.workerThreads;
 
-    @NestedConfigurationProperty private ChannelOptions channelOptions;
+		@NestedConfigurationProperty
+		private ChannelOptions channelOptions;
 
-    @NestedConfigurationProperty private ChannelOptions childChannelOptions;
-  }
+		@NestedConfigurationProperty
+		private ChannelOptions childChannelOptions;
+	}
 }

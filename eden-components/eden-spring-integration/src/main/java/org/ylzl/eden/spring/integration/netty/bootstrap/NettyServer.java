@@ -46,170 +46,173 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 public class NettyServer implements InitializingBean, DisposableBean {
 
-  private final AtomicBoolean initialized = new AtomicBoolean(false);
+	private final AtomicBoolean initialized = new AtomicBoolean(false);
 
-  private final String name;
+	private final String name;
 
-  private final String host;
+	private final String host;
 
-  private final Integer port;
-  private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
-  private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
-  @Getter private final ChannelOptions channelOptions = new ChannelOptions();
-  @Getter private final ChannelOptions childChannelOptions = new ChannelOptions();
-  private int bossThreads;
-  private int workerThreads;
-  private int boundToPort = -1;
-  private EventLoopGroup bossEventLoopGroup;
-  private EventLoopGroup workerEventLoopGroup;
-  @Setter private Boolean autoStartup = false;
+	private final Integer port;
+	private final List<ChannelHandler> channelHandlers = Lists.newArrayList();
+	private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
+	@Getter
+	private final ChannelOptions channelOptions = new ChannelOptions();
+	@Getter
+	private final ChannelOptions childChannelOptions = new ChannelOptions();
+	private int bossThreads;
+	private int workerThreads;
+	private int boundToPort = -1;
+	private EventLoopGroup bossEventLoopGroup;
+	private EventLoopGroup workerEventLoopGroup;
+	@Setter
+	private Boolean autoStartup = false;
 
-  public NettyServer(String name, String host, int port) {
-    this.name = name;
-    this.host = host;
-    this.port = port;
-    this.bossThreads = Runtime.getRuntime().availableProcessors();
-    this.workerThreads = Runtime.getRuntime().availableProcessors();
-  }
+	public NettyServer(String name, String host, int port) {
+		this.name = name;
+		this.host = host;
+		this.port = port;
+		this.bossThreads = Runtime.getRuntime().availableProcessors();
+		this.workerThreads = Runtime.getRuntime().availableProcessors();
+	}
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    if (autoStartup) {
-      checkState().startup();
-    }
-  }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (autoStartup) {
+			checkState().startup();
+		}
+	}
 
-  @Override
-  public void destroy() throws Exception {
-    shutdown();
-  }
+	@Override
+	public void destroy() throws Exception {
+		shutdown();
+	}
 
-  public ListenableFuture<Void> startup() {
-    log.info(
-        "Starting Netty server `{}` with {} boss threads and {} worker threads",
-        name,
-        bossThreads,
-        workerThreads);
+	public ListenableFuture<Void> startup() {
+		log.info(
+			"Starting Netty server `{}` with {} boss threads and {} worker threads",
+			name,
+			bossThreads,
+			workerThreads);
 
-    final SettableFuture<Void> result = SettableFuture.create(); // 锁住返回结果
-    final ServerBootstrap bootstrap = checkState().createServerBootstrap();
-    final Channel channel = bootstrap.bind(host, port).syncUninterruptibly().channel();
+		final SettableFuture<Void> result = SettableFuture.create(); // 锁住返回结果
+		final ServerBootstrap bootstrap = checkState().createServerBootstrap();
+		final Channel channel = bootstrap.bind(host, port).syncUninterruptibly().channel();
 
-    new Thread(
-            () -> {
-              final InetSocketAddress boundTo = (InetSocketAddress) channel.localAddress();
-              final String hostAddress = boundTo.getAddress().getHostAddress();
+		new Thread(
+			() -> {
+				final InetSocketAddress boundTo = (InetSocketAddress) channel.localAddress();
+				final String hostAddress = boundTo.getAddress().getHostAddress();
 
-              boundToPort = boundTo.getPort();
-              log.info("Started Netty server `{}` @{}:{}", name, hostAddress, boundToPort);
+				boundToPort = boundTo.getPort();
+				log.info("Started Netty server `{}` @{}:{}", name, hostAddress, boundToPort);
 
-              result.set(null);
-              channel.closeFuture().syncUninterruptibly();
-            },
-            name)
-        .start();
+				result.set(null);
+				channel.closeFuture().syncUninterruptibly();
+			},
+			name)
+			.start();
 
-    return result;
-  }
+		return result;
+	}
 
-  public void shutdown() {
-    log.info("Stopping Netty server `{}`", name);
+	public void shutdown() {
+		log.info("Stopping Netty server `{}`", name);
 
-    workerEventLoopGroup.shutdownGracefully();
-    bossEventLoopGroup.shutdownGracefully();
+		workerEventLoopGroup.shutdownGracefully();
+		bossEventLoopGroup.shutdownGracefully();
 
-    workerEventLoopGroup.terminationFuture().syncUninterruptibly();
-    bossEventLoopGroup.terminationFuture().syncUninterruptibly();
-  }
+		workerEventLoopGroup.terminationFuture().syncUninterruptibly();
+		bossEventLoopGroup.terminationFuture().syncUninterruptibly();
+	}
 
-  public void addChannelHandler(final ChannelHandler channelHandler) {
-    checkState().channelHandlers.add(channelHandler);
-  }
+	public void addChannelHandler(final ChannelHandler channelHandler) {
+		checkState().channelHandlers.add(channelHandler);
+	}
 
-  public void addAllChannelHandlers(final List<ChannelHandler> channelHandlers) {
-    checkState().channelHandlers.addAll(channelHandlers);
-  }
+	public void addAllChannelHandlers(final List<ChannelHandler> channelHandlers) {
+		checkState().channelHandlers.addAll(channelHandlers);
+	}
 
-  public void addChannelFutureListener(final ChannelFutureListener channelFutureListener) {
-    checkState().channelFutureListeners.add(channelFutureListener);
-  }
+	public void addChannelFutureListener(final ChannelFutureListener channelFutureListener) {
+		checkState().channelFutureListeners.add(channelFutureListener);
+	}
 
-  public void addAllChannelFutureListeners(
-      final List<ChannelFutureListener> channelFutureListeners) {
-    checkState().channelFutureListeners.addAll(channelFutureListeners);
-  }
+	public void addAllChannelFutureListeners(
+		final List<ChannelFutureListener> channelFutureListeners) {
+		checkState().channelFutureListeners.addAll(channelFutureListeners);
+	}
 
-  public void setBossThreads(final int bossThreads) {
-    checkState().bossThreads = bossThreads > this.bossThreads ? this.bossThreads : bossThreads;
-  }
+	public void setBossThreads(final int bossThreads) {
+		checkState().bossThreads = bossThreads > this.bossThreads ? this.bossThreads : bossThreads;
+	}
 
-  public void setWorkerThreads(final int workerThreads) {
-    checkState().workerThreads =
-        workerThreads > this.workerThreads ? this.workerThreads : workerThreads;
-  }
+	public void setWorkerThreads(final int workerThreads) {
+		checkState().workerThreads =
+			workerThreads > this.workerThreads ? this.workerThreads : workerThreads;
+	}
 
-  public boolean isInitialized() {
-    return initialized.get();
-  }
+	public boolean isInitialized() {
+		return initialized.get();
+	}
 
-  private ServerBootstrap createServerBootstrap() {
-    bossEventLoopGroup = new NioEventLoopGroup(bossThreads);
-    workerEventLoopGroup = new NioEventLoopGroup(workerThreads);
+	private ServerBootstrap createServerBootstrap() {
+		bossEventLoopGroup = new NioEventLoopGroup(bossThreads);
+		workerEventLoopGroup = new NioEventLoopGroup(workerThreads);
 
-    final ServerBootstrap bootstrap = new ServerBootstrap();
-    bootstrap.group(bossEventLoopGroup, workerEventLoopGroup);
+		final ServerBootstrap bootstrap = new ServerBootstrap();
+		bootstrap.group(bossEventLoopGroup, workerEventLoopGroup);
 
-    setOptions(bootstrap);
-    initialized.set(true);
+		setOptions(bootstrap);
+		initialized.set(true);
 
-    return initServerBootstrap(bootstrap);
-  }
+		return initServerBootstrap(bootstrap);
+	}
 
-  private ServerBootstrap initServerBootstrap(final ServerBootstrap bootstrap) {
-    return bootstrap
-        .channel(NioServerSocketChannel.class)
-        .childHandler(
-            new ChannelInitializer<SocketChannel>() {
-              @Override
-              protected void initChannel(final SocketChannel socketChannel) {
-                initChannelHandlers(socketChannel);
-                initChannelFutureListeners(socketChannel);
-              }
-            })
-        .validate();
-  }
+	private ServerBootstrap initServerBootstrap(final ServerBootstrap bootstrap) {
+		return bootstrap
+			.channel(NioServerSocketChannel.class)
+			.childHandler(
+				new ChannelInitializer<SocketChannel>() {
+					@Override
+					protected void initChannel(final SocketChannel socketChannel) {
+						initChannelHandlers(socketChannel);
+						initChannelFutureListeners(socketChannel);
+					}
+				})
+			.validate();
+	}
 
-  private void initChannelHandlers(final SocketChannel channel) {
-    if (!channelHandlers.isEmpty()) {
-      final ChannelPipeline pipeline = channel.pipeline();
-      for (final ChannelHandler handler : channelHandlers) {
-        pipeline.addLast(handler);
-      }
-    }
-  }
+	private void initChannelHandlers(final SocketChannel channel) {
+		if (!channelHandlers.isEmpty()) {
+			final ChannelPipeline pipeline = channel.pipeline();
+			for (final ChannelHandler handler : channelHandlers) {
+				pipeline.addLast(handler);
+			}
+		}
+	}
 
-  private void initChannelFutureListeners(final SocketChannel channel) {
-    if (!channelFutureListeners.isEmpty()) {
-      for (final ChannelFutureListener listener : channelFutureListeners) {
-        channel.closeFuture().addListener(listener);
-      }
-    }
-  }
+	private void initChannelFutureListeners(final SocketChannel channel) {
+		if (!channelFutureListeners.isEmpty()) {
+			for (final ChannelFutureListener listener : channelFutureListeners) {
+				channel.closeFuture().addListener(listener);
+			}
+		}
+	}
 
-  private void setOptions(final ServerBootstrap bootstrap) {
-    for (final Map.Entry<ChannelOption, Object> entry : channelOptions.get().entrySet()) {
-      bootstrap.option(entry.getKey(), entry.getValue());
-    }
+	private void setOptions(final ServerBootstrap bootstrap) {
+		for (final Map.Entry<ChannelOption, Object> entry : channelOptions.get().entrySet()) {
+			bootstrap.option(entry.getKey(), entry.getValue());
+		}
 
-    for (final Map.Entry<ChannelOption, Object> entry : childChannelOptions.get().entrySet()) {
-      bootstrap.childOption(entry.getKey(), entry.getValue());
-    }
-  }
+		for (final Map.Entry<ChannelOption, Object> entry : childChannelOptions.get().entrySet()) {
+			bootstrap.childOption(entry.getKey(), entry.getValue());
+		}
+	}
 
-  private NettyServer checkState() {
-    if (initialized.get()) {
-      throw new IllegalStateException("Netty Server already initialized");
-    }
-    return this;
-  }
+	private NettyServer checkState() {
+		if (initialized.get()) {
+			throw new IllegalStateException("Netty Server already initialized");
+		}
+		return this;
+	}
 }

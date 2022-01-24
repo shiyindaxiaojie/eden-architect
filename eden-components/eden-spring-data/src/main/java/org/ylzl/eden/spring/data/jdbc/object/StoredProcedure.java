@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public abstract class StoredProcedure extends org.springframework.jdbc.object.StoredProcedure {
 
-  protected static final int TYPES_RESULT = -10;
+	protected static final int TYPES_RESULT = -10;
 
-  public abstract Map<String, Object> execute(String param);
+	public abstract Map<String, Object> execute(String param);
 }

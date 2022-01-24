@@ -30,9 +30,9 @@ import java.io.Serializable;
 @Data
 public class RpcResponse<T> implements Serializable {
 
-  private String requestId; // 调用编号
+	private String requestId; // 调用编号
 
-  private Throwable throwable; // 抛出的异常
+	private Throwable throwable; // 抛出的异常
 
-  private T result; // 返回结果
+	private T result; // 返回结果
 }

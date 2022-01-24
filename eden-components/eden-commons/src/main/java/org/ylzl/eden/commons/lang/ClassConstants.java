@@ -27,5 +27,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ClassConstants {
 
-  public static final String CLASS_DIR = "classpath:";
+	public static final String CLASS_DIR = "classpath:";
 }

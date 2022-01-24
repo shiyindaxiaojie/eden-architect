@@ -36,72 +36,77 @@ import java.util.Map;
 @Slf4j
 public abstract class AnalysisEventListenerAdapter<T> extends AnalysisEventListener<T> {
 
-  /** 批处理大小 */
-  private int batchSize = 1000;
+	/**
+	 * 批处理大小
+	 */
+	private int batchSize = 1000;
 
-  /** 发生异常时是否中断 */
-  private boolean isStopOnException = true;
+	/**
+	 * 发生异常时是否中断
+	 */
+	private boolean isStopOnException = true;
 
-  private List<T> datas = new ArrayList<>();
+	private List<T> datas = new ArrayList<>();
 
-  public AnalysisEventListenerAdapter() {}
+	public AnalysisEventListenerAdapter() {
+	}
 
-  public AnalysisEventListenerAdapter(int batchSize) {
-    this.batchSize = batchSize;
-  }
+	public AnalysisEventListenerAdapter(int batchSize) {
+		this.batchSize = batchSize;
+	}
 
-  public AnalysisEventListenerAdapter(int batchSize, boolean isStopOnException) {
-    this.batchSize = batchSize;
-    this.isStopOnException = isStopOnException;
-  }
+	public AnalysisEventListenerAdapter(int batchSize, boolean isStopOnException) {
+		this.batchSize = batchSize;
+		this.isStopOnException = isStopOnException;
+	}
 
-  @Override
-  public void invoke(T data, AnalysisContext analysisContext) {
-    datas.add(data);
+	@Override
+	public void invoke(T data, AnalysisContext analysisContext) {
+		datas.add(data);
 
-    if (datas.size() >= batchSize) {
-      readCallback(datas);
-      datas.clear();
-    }
-  }
+		if (datas.size() >= batchSize) {
+			readCallback(datas);
+			datas.clear();
+		}
+	}
 
-  @Override
-  public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-    readCallback(datas);
-    datas.clear();
-  }
+	@Override
+	public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+		readCallback(datas);
+		datas.clear();
+	}
 
-  @Override
-  public void invokeHead(Map<Integer, CellData> headMap, AnalysisContext context) {
-    super.invokeHead(headMap, context);
-  }
+	@Override
+	public void invokeHead(Map<Integer, CellData> headMap, AnalysisContext context) {
+		super.invokeHead(headMap, context);
+	}
 
-  @Override
-  public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-    super.invokeHeadMap(headMap, context);
-  }
+	@Override
+	public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
+		super.invokeHeadMap(headMap, context);
+	}
 
-  @Override
-  public void onException(Exception exception, AnalysisContext context) throws Exception {
-    log.error("读取 Excel 的数据发生异常：{}", exception.getMessage(), exception);
-    if (exception instanceof ExcelDataConvertException) {
-      ExcelDataConvertException excelDataConvertException = (ExcelDataConvertException) exception;
-      log.error(
-          "读取 Excel 发生异常的数据为第 {} 行，第 {} 列，内容为：{}",
-          excelDataConvertException.getRowIndex(),
-          excelDataConvertException.getColumnIndex(),
-          excelDataConvertException.getCellData());
-    }
+	@Override
+	public void onException(Exception exception, AnalysisContext context) throws Exception {
+		log.error("读取 Excel 的数据发生异常：{}", exception.getMessage(), exception);
+		if (exception instanceof ExcelDataConvertException) {
+			ExcelDataConvertException excelDataConvertException = (ExcelDataConvertException) exception;
+			log.error(
+				"读取 Excel 发生异常的数据为第 {} 行，第 {} 列，内容为：{}",
+				excelDataConvertException.getRowIndex(),
+				excelDataConvertException.getColumnIndex(),
+				excelDataConvertException.getCellData());
+		}
 
-    if (isStopOnException) {
-      super.onException(exception, context);
-    }
-  }
+		if (isStopOnException) {
+			super.onException(exception, context);
+		}
+	}
 
-  @Override
-  public boolean hasNext(AnalysisContext context) {
-    return super.hasNext(context);
-  }
+	@Override
+	public boolean hasNext(AnalysisContext context) {
+		return super.hasNext(context);
+	}
 
-  public abstract void readCallback(List<T> datas);
+	public abstract void readCallback(List<T> datas);
 }

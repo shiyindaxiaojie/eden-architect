@@ -25,4 +25,5 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 public interface MongoRepository<T, ID extends Serializable>
-    extends org.springframework.data.mongodb.repository.MongoRepository<T, ID> {}
+	extends org.springframework.data.mongodb.repository.MongoRepository<T, ID> {
+}

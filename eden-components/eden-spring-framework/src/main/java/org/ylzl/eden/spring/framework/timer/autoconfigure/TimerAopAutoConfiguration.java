@@ -16,9 +16,9 @@ import org.ylzl.eden.spring.framework.timer.TimerAspect;
 @Configuration
 public class TimerAopAutoConfiguration {
 
-  @ConditionalOnMissingBean
-  @Bean
-  public TimerAspect timerAspect() {
-    return new TimerAspect();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public TimerAspect timerAspect() {
+		return new TimerAspect();
+	}
 }

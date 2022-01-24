@@ -27,10 +27,10 @@ import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
  */
 public interface SignatureVerifierClient {
 
-  /**
-   * 创建签名验证
-   *
-   * @return
-   */
-  SignatureVerifier createSignatureVerifier();
+	/**
+	 * 创建签名验证
+	 *
+	 * @return
+	 */
+	SignatureVerifier createSignatureVerifier();
 }

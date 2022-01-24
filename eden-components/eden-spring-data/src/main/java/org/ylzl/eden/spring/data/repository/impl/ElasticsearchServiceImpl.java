@@ -32,37 +32,38 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 public class ElasticsearchServiceImpl<T, ID extends Serializable>
-    extends org.ylzl.eden.spring.data.repository.impl.PagingAndSortingServiceImpl<T, ID> implements ElasticsearchService<T, ID> {
+	extends org.ylzl.eden.spring.data.repository.impl.PagingAndSortingServiceImpl<T, ID>
+	implements ElasticsearchService<T, ID> {
 
-  private final ElasticsearchRepository<T, ID> elasticsearchRepository;
+	private final ElasticsearchRepository<T, ID> elasticsearchRepository;
 
-  public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
-    super(elasticsearchRepository);
-    this.elasticsearchRepository = elasticsearchRepository;
-  }
+	public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
+		super(elasticsearchRepository);
+		this.elasticsearchRepository = elasticsearchRepository;
+	}
 
-  @Override
-  public <S extends T> S index(S entity) {
-    return elasticsearchRepository.index(entity);
-  }
+	@Override
+	public <S extends T> S index(S entity) {
+		return elasticsearchRepository.index(entity);
+	}
 
-  @Override
-  public Iterable<T> search(QueryBuilder queryBuilder) {
-    return elasticsearchRepository.search(queryBuilder);
-  }
+	@Override
+	public Iterable<T> search(QueryBuilder queryBuilder) {
+		return elasticsearchRepository.search(queryBuilder);
+	}
 
-  @Override
-  public Page<T> search(QueryBuilder queryBuilder, Pageable pageable) {
-    return elasticsearchRepository.search(queryBuilder, pageable);
-  }
+	@Override
+	public Page<T> search(QueryBuilder queryBuilder, Pageable pageable) {
+		return elasticsearchRepository.search(queryBuilder, pageable);
+	}
 
-  @Override
-  public Page<T> searchSimilar(T entity, String[] var, Pageable pageable) {
-    return elasticsearchRepository.searchSimilar(entity, var, pageable);
-  }
+	@Override
+	public Page<T> searchSimilar(T entity, String[] var, Pageable pageable) {
+		return elasticsearchRepository.searchSimilar(entity, var, pageable);
+	}
 
-  @Override
-  public void refresh() {
-    elasticsearchRepository.refresh();
-  }
+	@Override
+	public void refresh() {
+		elasticsearchRepository.refresh();
+	}
 }

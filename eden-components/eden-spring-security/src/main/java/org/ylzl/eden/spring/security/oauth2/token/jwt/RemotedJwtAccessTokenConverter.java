@@ -35,65 +35,65 @@ import java.util.Map;
 @Slf4j
 public class RemotedJwtAccessTokenConverter extends JwtAccessTokenConverter {
 
-  private static final String MSG_EXPIRED_PUBLIC_KEY = "OAuth2 public key expired";
+	private static final String MSG_EXPIRED_PUBLIC_KEY = "OAuth2 public key expired";
 
-  private static final String MSG_REQ_PUBLIC_KEY =
-      "Public key retrieved from OAuth2 server to create SignatureVerifier";
+	private static final String MSG_REQ_PUBLIC_KEY =
+		"Public key retrieved from OAuth2 server to create SignatureVerifier";
 
-  private static final String MSG_REQ_PUBLIC_KEY_EXCEPTION =
-      "Could not get public key from OAuth2 server to create SignatureVerifier, caught exception: {}";
-  private final SignatureVerifierClient signatureVerifierClient;
-  private final OAuth2Properties.Authorization oAuth2Properties;
-  private long lastKeyFetchTimestamp = 0L;
+	private static final String MSG_REQ_PUBLIC_KEY_EXCEPTION =
+		"Could not get public key from OAuth2 server to create SignatureVerifier, caught exception: {}";
+	private final SignatureVerifierClient signatureVerifierClient;
+	private final OAuth2Properties.Authorization oAuth2Properties;
+	private long lastKeyFetchTimestamp = 0L;
 
-  public RemotedJwtAccessTokenConverter(
-      SignatureVerifierClient signatureVerifierClient, OAuth2Properties oAuth2Properties) {
-    this.signatureVerifierClient = signatureVerifierClient;
-    this.oAuth2Properties = oAuth2Properties.getAuthorization();
-  }
+	public RemotedJwtAccessTokenConverter(
+		SignatureVerifierClient signatureVerifierClient, OAuth2Properties oAuth2Properties) {
+		this.signatureVerifierClient = signatureVerifierClient;
+		this.oAuth2Properties = oAuth2Properties.getAuthorization();
+	}
 
-  @Override
-  protected Map<String, Object> decode(String token) {
-    try {
-      long ttl = oAuth2Properties.getPublicTokenKeyTtl();
-      if (ttl > 0L
-          && lastKeyFetchTimestamp > 0L
-          && System.currentTimeMillis() - lastKeyFetchTimestamp > ttl) {
-        throw new InvalidTokenException(MSG_EXPIRED_PUBLIC_KEY);
-      }
-      return super.decode(token);
-    } catch (InvalidTokenException ex) {
-      // 尝试获取公钥
-      if (tryCreateSignatureVerifier()) {
-        return super.decode(token);
-      }
-      throw ex;
-    }
-  }
+	@Override
+	protected Map<String, Object> decode(String token) {
+		try {
+			long ttl = oAuth2Properties.getPublicTokenKeyTtl();
+			if (ttl > 0L
+				&& lastKeyFetchTimestamp > 0L
+				&& System.currentTimeMillis() - lastKeyFetchTimestamp > ttl) {
+				throw new InvalidTokenException(MSG_EXPIRED_PUBLIC_KEY);
+			}
+			return super.decode(token);
+		} catch (InvalidTokenException ex) {
+			// 尝试获取公钥
+			if (tryCreateSignatureVerifier()) {
+				return super.decode(token);
+			}
+			throw ex;
+		}
+	}
 
-  @Override
-  public OAuth2Authentication extractAuthentication(Map<String, ?> claims) {
-    OAuth2Authentication authentication = super.extractAuthentication(claims);
-    authentication.setDetails(claims);
-    return authentication;
-  }
+	@Override
+	public OAuth2Authentication extractAuthentication(Map<String, ?> claims) {
+		OAuth2Authentication authentication = super.extractAuthentication(claims);
+		authentication.setDetails(claims);
+		return authentication;
+	}
 
-  private boolean tryCreateSignatureVerifier() {
-    long t = System.currentTimeMillis();
-    if (t - lastKeyFetchTimestamp < oAuth2Properties.getPublicTokenKeyRefreshRateLimit()) {
-      return false;
-    }
-    try {
-      SignatureVerifier verifier = signatureVerifierClient.createSignatureVerifier();
-      if (verifier != null) {
-        this.setVerifier(verifier);
-        lastKeyFetchTimestamp = t;
-        log.debug(MSG_REQ_PUBLIC_KEY);
-        return true;
-      }
-    } catch (Exception ex) {
-      log.error(MSG_REQ_PUBLIC_KEY_EXCEPTION, ex.getMessage(), ex);
-    }
-    return false;
-  }
+	private boolean tryCreateSignatureVerifier() {
+		long t = System.currentTimeMillis();
+		if (t - lastKeyFetchTimestamp < oAuth2Properties.getPublicTokenKeyRefreshRateLimit()) {
+			return false;
+		}
+		try {
+			SignatureVerifier verifier = signatureVerifierClient.createSignatureVerifier();
+			if (verifier != null) {
+				this.setVerifier(verifier);
+				lastKeyFetchTimestamp = t;
+				log.debug(MSG_REQ_PUBLIC_KEY);
+				return true;
+			}
+		} catch (Exception ex) {
+			log.error(MSG_REQ_PUBLIC_KEY_EXCEPTION, ex.getMessage(), ex);
+		}
+		return false;
+	}
 }

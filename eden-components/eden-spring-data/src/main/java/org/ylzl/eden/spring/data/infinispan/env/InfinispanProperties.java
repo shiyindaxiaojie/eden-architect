@@ -33,38 +33,38 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_PREFIX + ".infinispan")
 public class InfinispanProperties {
 
-  private final Distributed distributed = new Distributed();
-  private final Local local = new Local();
-  private final Replicated replicated = new Replicated();
-  private String configFile = InfinispanDefaults.configFile;
-  private boolean statsEnabled = InfinispanDefaults.statsEnabled;
+	private final Distributed distributed = new Distributed();
+	private final Local local = new Local();
+	private final Replicated replicated = new Replicated();
+	private String configFile = InfinispanDefaults.configFile;
+	private boolean statsEnabled = InfinispanDefaults.statsEnabled;
 
-  @Getter
-  @Setter
-  public static class Distributed {
+	@Getter
+	@Setter
+	public static class Distributed {
 
-    private int instanceCount = InfinispanDefaults.Distributed.instanceCount;
+		private int instanceCount = InfinispanDefaults.Distributed.instanceCount;
 
-    private long maxEntries = InfinispanDefaults.Distributed.maxEntries;
+		private long maxEntries = InfinispanDefaults.Distributed.maxEntries;
 
-    private long timeToLiveSeconds = InfinispanDefaults.Distributed.timeToLiveSeconds;
-  }
+		private long timeToLiveSeconds = InfinispanDefaults.Distributed.timeToLiveSeconds;
+	}
 
-  @Getter
-  @Setter
-  public static class Local {
+	@Getter
+	@Setter
+	public static class Local {
 
-    private long maxEntries = InfinispanDefaults.Local.maxEntries;
+		private long maxEntries = InfinispanDefaults.Local.maxEntries;
 
-    private long timeToLiveSeconds = InfinispanDefaults.Local.timeToLiveSeconds;
-  }
+		private long timeToLiveSeconds = InfinispanDefaults.Local.timeToLiveSeconds;
+	}
 
-  @Getter
-  @Setter
-  public static class Replicated {
+	@Getter
+	@Setter
+	public static class Replicated {
 
-    private long maxEntries = InfinispanDefaults.Replicated.maxEntries;
+		private long maxEntries = InfinispanDefaults.Replicated.maxEntries;
 
-    private long timeToLiveSeconds = InfinispanDefaults.Replicated.timeToLiveSeconds;
-  }
+		private long timeToLiveSeconds = InfinispanDefaults.Replicated.timeToLiveSeconds;
+	}
 }

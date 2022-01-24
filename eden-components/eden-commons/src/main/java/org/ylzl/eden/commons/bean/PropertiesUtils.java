@@ -42,54 +42,54 @@ import java.util.Properties;
 @UtilityClass
 public class PropertiesUtils {
 
-  public static Properties toProperties(@NonNull Object obj) {
-    Properties prop = new Properties();
-    List<Field> fields = ReflectionUtils.getDeclaredFields(obj.getClass());
-    for (Field field : fields) {
-      ReflectionUtils.setAccessible(field);
-      try {
-        prop.put(field.getName(), field.get(obj));
-      } catch (Exception e) {
-        // 可忽略的异常
-        prop.put(field.getName(), StringConstants.EMPTY);
-      }
-    }
-    return prop;
-  }
+	public static Properties toProperties(@NonNull Object obj) {
+		Properties prop = new Properties();
+		List<Field> fields = ReflectionUtils.getDeclaredFields(obj.getClass());
+		for (Field field : fields) {
+			ReflectionUtils.setAccessible(field);
+			try {
+				prop.put(field.getName(), field.get(obj));
+			} catch (Exception e) {
+				// 可忽略的异常
+				prop.put(field.getName(), StringConstants.EMPTY);
+			}
+		}
+		return prop;
+	}
 
-  public static Properties load(@NonNull String relativeResource) throws IOException {
-    InputStream inputStream = ClassUtils.getInputStreamFromResource(relativeResource);
-    if (inputStream == null) {
-      throw new IOException(MessageFormat.format("无效路径：{0}", relativeResource));
-    }
-    Properties prop = new Properties();
-    prop.load(inputStream);
-    return prop;
-  }
+	public static Properties load(@NonNull String relativeResource) throws IOException {
+		InputStream inputStream = ClassUtils.getInputStreamFromResource(relativeResource);
+		if (inputStream == null) {
+			throw new IOException(MessageFormat.format("无效路径：{0}", relativeResource));
+		}
+		Properties prop = new Properties();
+		prop.load(inputStream);
+		return prop;
+	}
 
-  public static Properties loadFromFile(@NonNull File file) throws IOException {
-    if (file.isDirectory()) {
-      throw new IOException(MessageFormat.format("无效路径：{0}", file.getPath()));
-    }
-    Properties prop = new Properties();
-    FileInputStream is = new FileInputStream(file);
-    prop.load(is);
-    return prop;
-  }
+	public static Properties loadFromFile(@NonNull File file) throws IOException {
+		if (file.isDirectory()) {
+			throw new IOException(MessageFormat.format("无效路径：{0}", file.getPath()));
+		}
+		Properties prop = new Properties();
+		FileInputStream is = new FileInputStream(file);
+		prop.load(is);
+		return prop;
+	}
 
-  public static Properties split(@NonNull String str, @NonNull String regex) {
-    Properties prop = new Properties();
-    if (!StringUtils.isBlank(str) && !StringUtils.isBlank(regex)) {
-      String[] arr = str.split(regex);
-      for (int i = 0; i < arr.length; ++i) {
-        String[] item = arr[i].split(StringConstants.EQ);
-        if (item.length == 1) {
-          prop.setProperty(item[0], StringConstants.EMPTY);
-        } else {
-          prop.setProperty(item[0], item[1]);
-        }
-      }
-    }
-    return prop;
-  }
+	public static Properties split(@NonNull String str, @NonNull String regex) {
+		Properties prop = new Properties();
+		if (!StringUtils.isBlank(str) && !StringUtils.isBlank(regex)) {
+			String[] arr = str.split(regex);
+			for (int i = 0; i < arr.length; ++i) {
+				String[] item = arr[i].split(StringConstants.EQ);
+				if (item.length == 1) {
+					prop.setProperty(item[0], StringConstants.EMPTY);
+				} else {
+					prop.setProperty(item[0], item[1]);
+				}
+			}
+		}
+		return prop;
+	}
 }

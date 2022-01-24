@@ -28,9 +28,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ZooKeeperDefaults {
 
-  public static final Boolean enabled = true;
+	public static final Boolean enabled = true;
 
-  public static final String connectString = "localhost:2181";
+	public static final String connectString = "localhost:2181";
 
-  public static final Integer sessionTimeout = 5000;
+	public static final Integer sessionTimeout = 5000;
 }

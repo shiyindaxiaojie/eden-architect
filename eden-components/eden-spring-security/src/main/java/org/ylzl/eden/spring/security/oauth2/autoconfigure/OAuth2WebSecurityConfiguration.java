@@ -52,53 +52,53 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class OAuth2WebSecurityConfiguration {
 
-  private static final String INIT_AUTHENTICATION_MANAGER =
-      "Initializing AuthenticationManager (OAuth2)";
+	private static final String INIT_AUTHENTICATION_MANAGER =
+		"Initializing AuthenticationManager (OAuth2)";
 
-  private static final String EXP_AUTHENTICATION_MANAGER =
-      "Initialize AuthenticationManager (OAuth2) caught exception";
+	private static final String EXP_AUTHENTICATION_MANAGER =
+		"Initialize AuthenticationManager (OAuth2) caught exception";
 
-  private static final String MSG_AUTOWIRED_AUTHENTICATION_MANAGER =
-      "Autowired AuthenticationManager (OAuth2)";
+	private static final String MSG_AUTOWIRED_AUTHENTICATION_MANAGER =
+		"Autowired AuthenticationManager (OAuth2)";
 
-  private final AuthenticationManagerBuilder authenticationManagerBuilder;
+	private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-  private final UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
-  private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
-  public OAuth2WebSecurityConfiguration(
-      AuthenticationManagerBuilder authenticationManagerBuilder,
-      UserDetailsService userDetailsService,
-      PasswordEncoder passwordEncoder) {
-    this.authenticationManagerBuilder = authenticationManagerBuilder;
-    this.userDetailsService = userDetailsService;
-    this.passwordEncoder = passwordEncoder;
-  }
+	public OAuth2WebSecurityConfiguration(
+		AuthenticationManagerBuilder authenticationManagerBuilder,
+		UserDetailsService userDetailsService,
+		PasswordEncoder passwordEncoder) {
+		this.authenticationManagerBuilder = authenticationManagerBuilder;
+		this.userDetailsService = userDetailsService;
+		this.passwordEncoder = passwordEncoder;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
-    return new OAuth2WebSecurityConfigurerAdapter();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public WebSecurityConfigurerAdapter webSecurityConfigurerAdapter() {
+		return new OAuth2WebSecurityConfigurerAdapter();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public AuthenticationManager authenticationManager(
-      WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
-    log.debug(MSG_AUTOWIRED_AUTHENTICATION_MANAGER);
-    return webSecurityConfigurerAdapter.authenticationManagerBean();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public AuthenticationManager authenticationManager(
+		WebSecurityConfigurerAdapter webSecurityConfigurerAdapter) throws Exception {
+		log.debug(MSG_AUTOWIRED_AUTHENTICATION_MANAGER);
+		return webSecurityConfigurerAdapter.authenticationManagerBean();
+	}
 
-  @PostConstruct
-  public void init() {
-    log.debug(INIT_AUTHENTICATION_MANAGER);
-    try {
-      authenticationManagerBuilder
-          .userDetailsService(userDetailsService)
-          .passwordEncoder(passwordEncoder);
-    } catch (Exception e) {
-      throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
-    }
-  }
+	@PostConstruct
+	public void init() {
+		log.debug(INIT_AUTHENTICATION_MANAGER);
+		try {
+			authenticationManagerBuilder
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(passwordEncoder);
+		} catch (Exception e) {
+			throw new BeanInitializationException(EXP_AUTHENTICATION_MANAGER, e);
+		}
+	}
 }

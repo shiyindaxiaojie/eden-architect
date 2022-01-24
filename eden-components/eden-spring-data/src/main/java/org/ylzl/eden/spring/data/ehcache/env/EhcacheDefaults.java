@@ -28,7 +28,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class EhcacheDefaults {
 
-  public static final long maxEntries = 100;
+	public static final long maxEntries = 100;
 
-  public static final int timeToLiveSeconds = 3600;
+	public static final int timeToLiveSeconds = 3600;
 }

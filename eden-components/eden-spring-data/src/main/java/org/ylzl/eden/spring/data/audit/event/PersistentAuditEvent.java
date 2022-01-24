@@ -29,19 +29,19 @@ import java.util.Map;
  */
 public interface PersistentAuditEvent extends Serializable {
 
-  String getPrincipal();
+	String getPrincipal();
 
-  void setPrincipal(String principal);
+	void setPrincipal(String principal);
 
-  Instant getEventDate();
+	Instant getEventDate();
 
-  void setEventDate(Instant eventDate);
+	void setEventDate(Instant eventDate);
 
-  String getEventType();
+	String getEventType();
 
-  void setEventType(String eventType);
+	void setEventType(String eventType);
 
-  Map<String, String> getData();
+	Map<String, String> getData();
 
-  void setData(Map<String, String> data);
+	void setData(Map<String, String> data);
 }

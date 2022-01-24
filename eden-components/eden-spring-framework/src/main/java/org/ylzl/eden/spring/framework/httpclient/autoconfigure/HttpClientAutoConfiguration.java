@@ -39,18 +39,18 @@ import org.ylzl.eden.spring.framework.httpclient.env.HttpClientProperties;
 @Configuration
 public class HttpClientAutoConfiguration {
 
-  private final HttpClientProperties httpClientProperties;
+	private final HttpClientProperties httpClientProperties;
 
-  public HttpClientAutoConfiguration(HttpClientProperties httpClientProperties) {
-    this.httpClientProperties = httpClientProperties;
-  }
+	public HttpClientAutoConfiguration(HttpClientProperties httpClientProperties) {
+		this.httpClientProperties = httpClientProperties;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public SimpleClientHttpRequestFactory simpleClientHttpRequestFactory() {
-    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-    clientHttpRequestFactory.setReadTimeout(httpClientProperties.getReadTimeout());
-    clientHttpRequestFactory.setConnectTimeout(httpClientProperties.getConnectTimeout());
-    return clientHttpRequestFactory;
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public SimpleClientHttpRequestFactory simpleClientHttpRequestFactory() {
+		SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+		clientHttpRequestFactory.setReadTimeout(httpClientProperties.getReadTimeout());
+		clientHttpRequestFactory.setConnectTimeout(httpClientProperties.getConnectTimeout());
+		return clientHttpRequestFactory;
+	}
 }

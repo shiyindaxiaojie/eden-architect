@@ -15,19 +15,19 @@ import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientPool;
  */
 public class FTPClientPool2 extends GenericObjectPool<FTPClient> implements FTPClientPool {
 
-  public FTPClientPool2(PooledObjectFactory<FTPClient> factory) {
-    super(factory);
-  }
+	public FTPClientPool2(PooledObjectFactory<FTPClient> factory) {
+		super(factory);
+	}
 
-  public FTPClientPool2(
-      PooledObjectFactory<FTPClient> factory, GenericObjectPoolConfig<FTPClient> config) {
-    super(factory, config);
-  }
+	public FTPClientPool2(
+		PooledObjectFactory<FTPClient> factory, GenericObjectPoolConfig<FTPClient> config) {
+		super(factory, config);
+	}
 
-  public FTPClientPool2(
-      PooledObjectFactory<FTPClient> factory,
-      GenericObjectPoolConfig<FTPClient> config,
-      AbandonedConfig abandonedConfig) {
-    super(factory, config, abandonedConfig);
-  }
+	public FTPClientPool2(
+		PooledObjectFactory<FTPClient> factory,
+		GenericObjectPoolConfig<FTPClient> config,
+		AbandonedConfig abandonedConfig) {
+		super(factory, config, abandonedConfig);
+	}
 }

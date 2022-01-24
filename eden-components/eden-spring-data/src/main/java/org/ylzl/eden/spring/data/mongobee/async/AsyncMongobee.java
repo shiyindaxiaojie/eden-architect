@@ -35,56 +35,56 @@ import org.ylzl.eden.spring.framework.core.constant.SpringProfileConstants;
 @Slf4j
 public class AsyncMongobee extends Mongobee {
 
-  public static final long SLOWNESS_THRESHOLD = 5;
-  private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
-  private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
-  private static final String MSG_EXCEPTION =
-      "Mongobee could not start correctly, your database is not ready：{}";
-  private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
-  private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
-  private static final String STOP_WATCH_ID = "mongobee";
-  private final TaskExecutor taskExecutor;
+	public static final long SLOWNESS_THRESHOLD = 5;
+	private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
+	private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
+	private static final String MSG_EXCEPTION =
+		"Mongobee could not start correctly, your database is not ready：{}";
+	private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
+	private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
+	private static final String STOP_WATCH_ID = "mongobee";
+	private final TaskExecutor taskExecutor;
 
-  private final Environment environment;
+	private final Environment environment;
 
-  public AsyncMongobee(
-      MongoClient mongoClient, Environment environment, TaskExecutor taskExecutor) {
-    super(mongoClient);
-    this.environment = environment;
-    this.taskExecutor = taskExecutor;
-  }
+	public AsyncMongobee(
+		MongoClient mongoClient, Environment environment, TaskExecutor taskExecutor) {
+		super(mongoClient);
+		this.environment = environment;
+		this.taskExecutor = taskExecutor;
+	}
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    if (environment.acceptsProfiles(
-        Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
-      taskExecutor.execute(
-          new Runnable() {
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (environment.acceptsProfiles(
+			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+			taskExecutor.execute(
+				new Runnable() {
 
-            @Override
-            public void run() {
-              try {
-                log.debug(MSG_STARTING_ASYNC);
-                initDb();
-              } catch (Exception e) {
-                log.error(MSG_EXCEPTION, e.getMessage(), e);
-              }
-            }
-          });
-    } else {
-      log.debug(MSG_STARTING_SYNC);
-      initDb();
-    }
-  }
+					@Override
+					public void run() {
+						try {
+							log.debug(MSG_STARTING_ASYNC);
+							initDb();
+						} catch (Exception e) {
+							log.error(MSG_EXCEPTION, e.getMessage(), e);
+						}
+					}
+				});
+		} else {
+			log.debug(MSG_STARTING_SYNC);
+			initDb();
+		}
+	}
 
-  protected void initDb() throws Exception {
-    StopWatch watch = new StopWatch();
-    watch.start(STOP_WATCH_ID);
-    super.afterPropertiesSet();
-    watch.stop();
-    log.debug(MSG_STARTED, watch.getTotalTimeMillis());
-    if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-      log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
-    }
-  }
+	protected void initDb() throws Exception {
+		StopWatch watch = new StopWatch();
+		watch.start(STOP_WATCH_ID);
+		super.afterPropertiesSet();
+		watch.stop();
+		log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+		if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
+			log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
+		}
+	}
 }

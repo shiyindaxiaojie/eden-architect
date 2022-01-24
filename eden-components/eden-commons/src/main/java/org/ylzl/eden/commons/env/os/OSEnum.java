@@ -28,36 +28,38 @@ import org.ylzl.eden.commons.regex.RegexUtils;
  * @since 2.4.x
  */
 public enum OSEnum {
-  AIX("AIX"),
-  DIGITAL_UNIX("Digital Unix"),
-  FREDD_BSD("FreeBSD"),
-  HP_UX("HP-UX"),
-  IRIX("Irix"),
-  LINUX("Linux"),
-  MAS_OS_X("Mac OS X"), // 设置在 Mac OS 之前遍历
-  MAS_OS("Mac OS"),
-  NET_WARE_411("NetWare"),
-  MPEIX("MPE/iX"),
-  OS2("OS/2"),
-  OS390("OS/390"),
-  OSF1("OSF1"),
-  OPEN_VMS("OpenVMS"),
-  SOLARIS("Solaris"),
-  SUN_OS("SunOS"),
-  WINDOWS("Windows");
+	AIX("AIX"),
+	DIGITAL_UNIX("Digital Unix"),
+	FREDD_BSD("FreeBSD"),
+	HP_UX("HP-UX"),
+	IRIX("Irix"),
+	LINUX("Linux"),
+	MAS_OS_X("Mac OS X"), // 设置在 Mac OS 之前遍历
+	MAS_OS("Mac OS"),
+	NET_WARE_411("NetWare"),
+	MPEIX("MPE/iX"),
+	OS2("OS/2"),
+	OS390("OS/390"),
+	OSF1("OSF1"),
+	OPEN_VMS("OpenVMS"),
+	SOLARIS("Solaris"),
+	SUN_OS("SunOS"),
+	WINDOWS("Windows");
 
-  @Getter @Setter private String name;
+	@Getter
+	@Setter
+	private String name;
 
-  OSEnum(String name) {
-    this.name = name;
-  }
+	OSEnum(String name) {
+		this.name = name;
+	}
 
-  public static OSEnum toOSEnum(@NonNull String name) {
-    for (OSEnum osEnum : OSEnum.values()) {
-      if (RegexUtils.find(osEnum.getName(), name)) {
-        return osEnum;
-      }
-    }
-    return null;
-  }
+	public static OSEnum toOSEnum(@NonNull String name) {
+		for (OSEnum osEnum : OSEnum.values()) {
+			if (RegexUtils.find(osEnum.getName(), name)) {
+				return osEnum;
+			}
+		}
+		return null;
+	}
 }

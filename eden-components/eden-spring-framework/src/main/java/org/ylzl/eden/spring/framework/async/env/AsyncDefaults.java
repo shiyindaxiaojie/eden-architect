@@ -28,12 +28,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class AsyncDefaults {
 
-  public static class TaskExecutor {
+	public static class TaskExecutor {
 
-    public static final int corePoolSize = 2;
+		public static final int corePoolSize = 2;
 
-    public static final int maxPoolSize = 50;
+		public static final int maxPoolSize = 50;
 
-    public static final int queueCapacity = 10000;
-  }
+		public static final int queueCapacity = 10000;
+	}
 }

@@ -44,35 +44,33 @@ import java.util.List;
 @Endpoint(id = ProfileEndpoint.ENDPOINT_ID)
 public class ProfileEndpoint {
 
-  public static final String ENDPOINT_ID = "profiles";
+	public static final String ENDPOINT_ID = "profiles";
 
-  private final Environment env;
+	private final Environment env;
 
-  private final ProfileProperties profileProperties;
+	private final ProfileProperties profileProperties;
 
-  public ProfileEndpoint(
-      Environment env,
-      ProfileProperties profileProperties) {
-    this.env = env;
-    this.profileProperties = profileProperties;
-  }
+	public ProfileEndpoint(Environment env, ProfileProperties profileProperties) {
+		this.env = env;
+		this.profileProperties = profileProperties;
+	}
 
-  @ReadOperation
-  public ProfileDescriptor profiles() {
-    String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
-    return new ProfileDescriptor(activeProfiles, getRibbonEnv(activeProfiles));
-  }
+	@ReadOperation
+	public ProfileDescriptor profiles() {
+		String[] activeProfiles = SpringProfileUtils.getActiveProfiles(env);
+		return new ProfileDescriptor(activeProfiles, getRibbonEnv(activeProfiles));
+	}
 
-  private String getRibbonEnv(String[] activeProfiles) {
-    if (activeProfiles != null) {
-      List<String> ribbonProfiles =
-          new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
-      List<String> springBootProfiles = Arrays.asList(activeProfiles);
-      ribbonProfiles.retainAll(springBootProfiles);
-      if (!ribbonProfiles.isEmpty()) {
-        return ribbonProfiles.get(0);
-      }
-    }
-    return null;
-  }
+	private String getRibbonEnv(String[] activeProfiles) {
+		if (activeProfiles != null) {
+			List<String> ribbonProfiles =
+				new ArrayList<>(Arrays.asList(profileProperties.getDisplayOnActiveProfiles()));
+			List<String> springBootProfiles = Arrays.asList(activeProfiles);
+			ribbonProfiles.retainAll(springBootProfiles);
+			if (!ribbonProfiles.isEmpty()) {
+				return ribbonProfiles.get(0);
+			}
+		}
+		return null;
+	}
 }

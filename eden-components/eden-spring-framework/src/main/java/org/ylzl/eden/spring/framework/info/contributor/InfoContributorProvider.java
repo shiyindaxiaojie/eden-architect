@@ -32,21 +32,21 @@ import org.ylzl.eden.commons.lang.StringConstants;
 @Data
 public class InfoContributorProvider {
 
-  private final BuildProperties buildProperties;
+	private final BuildProperties buildProperties;
 
-  public InfoContributorProvider(BuildProperties buildProperties) {
-    this.buildProperties = buildProperties;
-  }
+	public InfoContributorProvider(BuildProperties buildProperties) {
+		this.buildProperties = buildProperties;
+	}
 
-  public String resolvePackage(String suffix) {
-    StringBuilder packagStr = new StringBuilder();
-    packagStr
-        .append(buildProperties.getGroup())
-        .append(StringConstants.DOT)
-        .append(
-            buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT))
-        .append(StringConstants.DOT)
-        .append(suffix);
-    return packagStr.toString();
-  }
+	public String resolvePackage(String suffix) {
+		StringBuilder packagStr = new StringBuilder();
+		packagStr
+			.append(buildProperties.getGroup())
+			.append(StringConstants.DOT)
+			.append(
+				buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT))
+			.append(StringConstants.DOT)
+			.append(suffix);
+		return packagStr.toString();
+	}
 }

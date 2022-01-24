@@ -33,28 +33,28 @@ import java.util.UUID;
  */
 public class RpcClientProxy {
 
-  private final RpcClient rpcClient;
+	private final RpcClient rpcClient;
 
-  public RpcClientProxy(RpcClient rpcClient) {
-    this.rpcClient = rpcClient;
-  }
+	public RpcClientProxy(RpcClient rpcClient) {
+		this.rpcClient = rpcClient;
+	}
 
-  public <T> T newProxyInstance(Class<T> clazz, int timeout) {
-    return CglibProxy.newProxyInstance(
-        clazz,
-        (InvocationHandler)
-            (obj, method, args) -> {
-              RpcRequest request = new RpcRequest();
-              request.setRequestId(UUID.randomUUID().toString());
-              request.setClassName(method.getDeclaringClass().getName());
-              request.setMethodName(method.getName());
-              request.setParameterTypes(method.getParameterTypes());
-              request.setParameters(args);
-              RpcResponse rpcResponse = rpcClient.invoke(request, timeout);
-              if (rpcResponse.getThrowable() != null) {
-                throw rpcResponse.getThrowable();
-              }
-              return rpcResponse.getResult();
-            });
-  }
+	public <T> T newProxyInstance(Class<T> clazz, int timeout) {
+		return CglibProxy.newProxyInstance(
+			clazz,
+			(InvocationHandler)
+				(obj, method, args) -> {
+					RpcRequest request = new RpcRequest();
+					request.setRequestId(UUID.randomUUID().toString());
+					request.setClassName(method.getDeclaringClass().getName());
+					request.setMethodName(method.getName());
+					request.setParameterTypes(method.getParameterTypes());
+					request.setParameters(args);
+					RpcResponse rpcResponse = rpcClient.invoke(request, timeout);
+					if (rpcResponse.getThrowable() != null) {
+						throw rpcResponse.getThrowable();
+					}
+					return rpcResponse.getResult();
+				});
+	}
 }

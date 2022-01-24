@@ -32,7 +32,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "mongobee")
 public class MongobeeProperties {
 
-  private Boolean enabled;
+	private Boolean enabled;
 
-  private String changeLogsScanPackage;
+	private String changeLogsScanPackage;
 }

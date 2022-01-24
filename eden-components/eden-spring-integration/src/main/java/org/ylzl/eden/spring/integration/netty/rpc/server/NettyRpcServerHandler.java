@@ -36,31 +36,31 @@ import java.util.ServiceLoader;
 @ChannelHandler.Sharable
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
-  @Override
-  public void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
-    RpcResponse rpcResponse = new RpcResponse();
-    rpcResponse.setRequestId(msg.getRequestId());
-    try {
-      Object result = invoke(msg);
-      rpcResponse.setResult(result);
-    } catch (Throwable throwable) {
-      rpcResponse.setThrowable(throwable);
-      throwable.printStackTrace();
-    }
-    ctx.writeAndFlush(rpcResponse);
-  }
+	@Override
+	public void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
+		RpcResponse rpcResponse = new RpcResponse();
+		rpcResponse.setRequestId(msg.getRequestId());
+		try {
+			Object result = invoke(msg);
+			rpcResponse.setResult(result);
+		} catch (Throwable throwable) {
+			rpcResponse.setThrowable(throwable);
+			throwable.printStackTrace();
+		}
+		ctx.writeAndFlush(rpcResponse);
+	}
 
-  private Object invoke(RpcRequest request) throws Throwable {
-    Class<?> clazz = Class.forName(request.getClassName());
-    ServiceLoader<?> serviceProviders = ServiceLoader.load(clazz); // 这里用 SPI 实现，也可以切换为 Spring 管理
-    Object serviceImplBean = serviceProviders.iterator().next();
-    Class<?> serviceImplClass = serviceImplBean.getClass();
-    FastClass fastClass = FastClass.create(serviceImplClass);
+	private Object invoke(RpcRequest request) throws Throwable {
+		Class<?> clazz = Class.forName(request.getClassName());
+		ServiceLoader<?> serviceProviders = ServiceLoader.load(clazz); // 这里用 SPI 实现，也可以切换为 Spring 管理
+		Object serviceImplBean = serviceProviders.iterator().next();
+		Class<?> serviceImplClass = serviceImplBean.getClass();
+		FastClass fastClass = FastClass.create(serviceImplClass);
 
-    String methodName = request.getMethodName();
-    Class<?>[] parameterTypes = request.getParameterTypes();
-    Object[] parameters = request.getParameters();
-    FastMethod fastMethod = fastClass.getMethod(methodName, parameterTypes);
-    return fastMethod.invoke(serviceImplBean, parameters);
-  }
+		String methodName = request.getMethodName();
+		Class<?>[] parameterTypes = request.getParameterTypes();
+		Object[] parameters = request.getParameters();
+		FastMethod fastMethod = fastClass.getMethod(methodName, parameterTypes);
+		return fastMethod.invoke(serviceImplBean, parameters);
+	}
 }

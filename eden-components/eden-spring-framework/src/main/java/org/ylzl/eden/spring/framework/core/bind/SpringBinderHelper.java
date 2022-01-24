@@ -22,22 +22,22 @@ import java.util.Properties;
  */
 public class SpringBinderHelper {
 
-  private final Environment env;
+	private final Environment env;
 
-  public SpringBinderHelper(Environment env) {
-    this.env = env;
-  }
+	public SpringBinderHelper(Environment env) {
+		this.env = env;
+	}
 
-  public <T> T bind(String prefix, Class<T> type) {
-    Binder binder = Binder.get(env);
-    BindResult<T> bindResult = binder.bind(prefix, type);
-    return bindResult.get();
-  }
+	public <T> T bind(String prefix, Class<T> type) {
+		Binder binder = Binder.get(env);
+		BindResult<T> bindResult = binder.bind(prefix, type);
+		return bindResult.get();
+	}
 
-  public Properties getProperties(String prefix) {
-    Iterable<ConfigurationPropertySource> sources = ConfigurationPropertySources.get(env);
-    Binder binder = new Binder(sources);
-    BindResult<Properties> bindResult = binder.bind(prefix, Properties.class);
-    return bindResult.get();
-  }
+	public Properties getProperties(String prefix) {
+		Iterable<ConfigurationPropertySource> sources = ConfigurationPropertySources.get(env);
+		Binder binder = new Binder(sources);
+		BindResult<Properties> bindResult = binder.bind(prefix, Properties.class);
+		return bindResult.get();
+	}
 }

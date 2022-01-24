@@ -30,36 +30,36 @@ import org.ylzl.eden.commons.lang.StringConstants;
 @UtilityClass
 public class WebServerUtils {
 
-  public static boolean isTomcat() {
-    return WebServerEnum.TOMCAT.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isTomcat() {
+		return WebServerEnum.TOMCAT.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static boolean isUndertow() {
-    return WebServerEnum.UNDERTOW.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isUndertow() {
+		return WebServerEnum.UNDERTOW.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static boolean isJetty() {
-    return WebServerEnum.JETTY.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isJetty() {
+		return WebServerEnum.JETTY.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static boolean isJBoss() {
-    return WebServerEnum.JBOSS.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isJBoss() {
+		return WebServerEnum.JBOSS.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static boolean isWebLogic() {
-    return WebServerEnum.WEBLOGIC.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isWebLogic() {
+		return WebServerEnum.WEBLOGIC.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static boolean isWebSphere() {
-    return WebServerEnum.WEBSPHERE.name().equals(WebServerEnum.toWebServerEnum().name());
-  }
+	public static boolean isWebSphere() {
+		return WebServerEnum.WEBSPHERE.name().equals(WebServerEnum.toWebServerEnum().name());
+	}
 
-  public static String getHome() {
-    return System.getProperty(
-        StringUtils.join(WebServerEnum.toWebServerEnum().name(), "_HOME"), StringConstants.EMPTY);
-  }
+	public static String getHome() {
+		return System.getProperty(
+			StringUtils.join(WebServerEnum.toWebServerEnum().name(), "_HOME"), StringConstants.EMPTY);
+	}
 
-  public static String getLookup() {
-    return WebServerEnum.toWebServerEnum().getLookup();
-  }
+	public static String getLookup() {
+		return WebServerEnum.toWebServerEnum().getLookup();
+	}
 }

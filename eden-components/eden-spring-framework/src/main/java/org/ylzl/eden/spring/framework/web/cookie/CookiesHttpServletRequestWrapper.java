@@ -29,15 +29,15 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class CookiesHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-  private Cookie[] cookies;
+	private Cookie[] cookies;
 
-  public CookiesHttpServletRequestWrapper(HttpServletRequest request, Cookie[] cookies) {
-    super(request);
-    this.cookies = cookies;
-  }
+	public CookiesHttpServletRequestWrapper(HttpServletRequest request, Cookie[] cookies) {
+		super(request);
+		this.cookies = cookies;
+	}
 
-  @Override
-  public Cookie[] getCookies() {
-    return cookies;
-  }
+	@Override
+	public Cookie[] getCookies() {
+		return cookies;
+	}
 }

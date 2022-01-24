@@ -56,46 +56,46 @@ import java.util.Set;
 @Configuration
 public class RedisClusterAutoConfiguration {
 
-  @ConditionalOnClass({Jedis.class, JedisCluster.class})
-  @Configuration
-  public static class FixedJedisAutoConfiguration {
+	@ConditionalOnClass({Jedis.class, JedisCluster.class})
+	@Configuration
+	public static class FixedJedisAutoConfiguration {
 
-    @ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)
-    @ConditionalOnMissingBean
-    @Bean
-    public FixedJedisCluster jedisCluster(RedisProperties redisProperties) {
-      Set<HostAndPort> hostAndPorts = new HashSet<>();
-      for (String node : redisProperties.getCluster().getNodes()) {
-        String[] args = StringUtils.split(node, StringConstants.COMMA);
-        hostAndPorts.add(new HostAndPort(args[0], Integer.valueOf(args[1]).intValue()));
-      }
-      int maxAttempts = 3;
-      GenericObjectPoolConfig poolConfig = new JedisPoolConfig();
-      poolConfig.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
-      poolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
-      poolConfig.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
+		@ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)
+		@ConditionalOnMissingBean
+		@Bean
+		public FixedJedisCluster jedisCluster(RedisProperties redisProperties) {
+			Set<HostAndPort> hostAndPorts = new HashSet<>();
+			for (String node : redisProperties.getCluster().getNodes()) {
+				String[] args = StringUtils.split(node, StringConstants.COMMA);
+				hostAndPorts.add(new HostAndPort(args[0], Integer.valueOf(args[1]).intValue()));
+			}
+			int maxAttempts = 3;
+			GenericObjectPoolConfig poolConfig = new JedisPoolConfig();
+			poolConfig.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
+			poolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
+			poolConfig.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
 
-      return new FixedJedisCluster(
-          hostAndPorts,
-          redisProperties.getTimeout().getNano() / 1_000_000,
-          redisProperties.getTimeout().getNano() / 1_000_000,
-          maxAttempts,
-          redisProperties.getPassword(),
-          poolConfig);
-    }
+			return new FixedJedisCluster(
+				hostAndPorts,
+				redisProperties.getTimeout().getNano() / 1_000_000,
+				redisProperties.getTimeout().getNano() / 1_000_000,
+				maxAttempts,
+				redisProperties.getPassword(),
+				poolConfig);
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-      JedisTemplate redisTemplate = new JedisTemplate();
-      redisTemplate.setConnectionFactory(redisConnectionFactory);
-      return redisTemplate;
-    }
+		@ConditionalOnMissingBean
+		@Bean
+		public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+			JedisTemplate redisTemplate = new JedisTemplate();
+			redisTemplate.setConnectionFactory(redisConnectionFactory);
+			return redisTemplate;
+		}
 
-    @ConditionalOnMissingBean
-    @Bean
-    public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
-      return new DistributedRedisLock(redisTemplate);
-    }
-  }
+		@ConditionalOnMissingBean
+		@Bean
+		public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
+			return new DistributedRedisLock(redisTemplate);
+		}
+	}
 }

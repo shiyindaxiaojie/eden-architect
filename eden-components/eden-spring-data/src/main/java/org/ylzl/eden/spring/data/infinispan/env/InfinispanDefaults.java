@@ -28,30 +28,30 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class InfinispanDefaults {
 
-  public static final String configFile = "default-configs/default-jgroups-tcp.xml";
+	public static final String configFile = "default-configs/default-jgroups-tcp.xml";
 
-  public static final boolean statsEnabled = false;
+	public static final boolean statsEnabled = false;
 
-  public static class Local {
+	public static class Local {
 
-    public static final long maxEntries = 100;
+		public static final long maxEntries = 100;
 
-    public static final long timeToLiveSeconds = 60;
-  }
+		public static final long timeToLiveSeconds = 60;
+	}
 
-  public static class Distributed {
+	public static class Distributed {
 
-    public static final int instanceCount = 1;
+		public static final int instanceCount = 1;
 
-    public static final long maxEntries = 100;
+		public static final long maxEntries = 100;
 
-    public static final long timeToLiveSeconds = 60;
-  }
+		public static final long timeToLiveSeconds = 60;
+	}
 
-  public static class Replicated {
+	public static class Replicated {
 
-    public static final long maxEntries = 100;
+		public static final long maxEntries = 100;
 
-    public static final long timeToLiveSeconds = 60;
-  }
+		public static final long timeToLiveSeconds = 60;
+	}
 }

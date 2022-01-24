@@ -26,13 +26,14 @@ import lombok.Getter;
  */
 public class DataSourceNameContextHolder {
 
-  @Getter private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
+	@Getter
+	private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
-  public static void set(String dataSourceName) {
-    threadLocal.set(dataSourceName);
-  }
+	public static void set(String dataSourceName) {
+		threadLocal.set(dataSourceName);
+	}
 
-  public static String get() {
-    return threadLocal.get();
-  }
+	public static String get() {
+		return threadLocal.get();
+	}
 }

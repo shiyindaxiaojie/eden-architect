@@ -25,15 +25,15 @@ package org.ylzl.eden.spring.integration.zookeeper.support.lock;
  */
 public interface ZooKeeperLock {
 
-  long DEFAULT_SLEEP_MILLIS = 500;
+	long DEFAULT_SLEEP_MILLIS = 500;
 
-  int RETRY_TIMES = Integer.MAX_VALUE;
+	int RETRY_TIMES = Integer.MAX_VALUE;
 
-  boolean lock(String path);
+	boolean lock(String path);
 
-  boolean lock(String path, int retryTimes);
+	boolean lock(String path, int retryTimes);
 
-  boolean lock(String path, int retryTimes, long sleepMillis);
+	boolean lock(String path, int retryTimes, long sleepMillis);
 
-  boolean unlock(String path);
+	boolean unlock(String path);
 }

@@ -28,7 +28,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class HttpClientDefaults {
 
-  public static final int connectTimeout = 5000;
+	public static final int connectTimeout = 5000;
 
-  public static final int readTimeout = 5000;
+	public static final int readTimeout = 5000;
 }

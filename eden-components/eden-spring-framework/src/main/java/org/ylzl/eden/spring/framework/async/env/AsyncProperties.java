@@ -33,16 +33,16 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_PREFIX + ".async")
 public class AsyncProperties {
 
-  private final TaskExecutor taskExecutor = new TaskExecutor();
+	private final TaskExecutor taskExecutor = new TaskExecutor();
 
-  @Getter
-  @Setter
-  public static class TaskExecutor {
+	@Getter
+	@Setter
+	public static class TaskExecutor {
 
-    private int corePoolSize = AsyncDefaults.TaskExecutor.corePoolSize;
+		private int corePoolSize = AsyncDefaults.TaskExecutor.corePoolSize;
 
-    private int maxPoolSize = AsyncDefaults.TaskExecutor.maxPoolSize;
+		private int maxPoolSize = AsyncDefaults.TaskExecutor.maxPoolSize;
 
-    private int queueCapacity = AsyncDefaults.TaskExecutor.queueCapacity;
-  }
+		private int queueCapacity = AsyncDefaults.TaskExecutor.queueCapacity;
+	}
 }

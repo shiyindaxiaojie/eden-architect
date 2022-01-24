@@ -33,22 +33,23 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 @Slf4j
 public class JwtClientCredentialsResourceDetails extends ClientCredentialsResourceDetails {
 
-  private final LoadBalancerClientHelper loadBalancerClientHelper;
+	private final LoadBalancerClientHelper loadBalancerClientHelper;
 
-  @Getter private final String accessTokenUriServiceId;
+	@Getter
+	private final String accessTokenUriServiceId;
 
-  public JwtClientCredentialsResourceDetails(
-      OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
-    this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
-    this.loadBalancerClientHelper = loadBalancerClientHelper;
-  }
+	public JwtClientCredentialsResourceDetails(
+		OAuth2Properties oAuth2Properties, LoadBalancerClientHelper loadBalancerClientHelper) {
+		this.accessTokenUriServiceId = oAuth2Properties.getAuthorization().getAccessTokenUriServiceId();
+		this.loadBalancerClientHelper = loadBalancerClientHelper;
+	}
 
-  @Override
-  public String getAccessTokenUri() {
-    String accessTokenUri = super.getAccessTokenUri();
-    if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
-      return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
-    }
-    return accessTokenUri;
-  }
+	@Override
+	public String getAccessTokenUri() {
+		String accessTokenUri = super.getAccessTokenUri();
+		if (StringUtils.isNotBlank(accessTokenUriServiceId)) {
+			return loadBalancerClientHelper.reconstructURI(accessTokenUriServiceId, accessTokenUri);
+		}
+		return accessTokenUri;
+	}
 }

@@ -29,9 +29,13 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @UtilityClass
 public final class SpringDataConstants {
 
-  /** 当前配置属性前缀 */
-  public static final String PROP_PREFIX = SpringFrameworkConstants.PROP_EDEN_PREFIX + ".data";
+	/**
+	 * 当前配置属性前缀
+	 */
+	public static final String PROP_PREFIX = SpringFrameworkConstants.PROP_EDEN_PREFIX + ".data";
 
-  /** Spring 数据源配置属性前缀 */
-  public static final String PROP_DATASOURCE_PREFIX = "spring.datasource";
+	/**
+	 * Spring 数据源配置属性前缀
+	 */
+	public static final String PROP_DATASOURCE_PREFIX = "spring.datasource";
 }

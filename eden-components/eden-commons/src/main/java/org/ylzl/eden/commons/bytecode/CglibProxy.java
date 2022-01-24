@@ -28,11 +28,11 @@ import net.sf.cglib.proxy.Enhancer;
  */
 public class CglibProxy {
 
-  @SuppressWarnings("unchecked")
-  public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
-    Enhancer enhancer = new Enhancer();
-    enhancer.setSuperclass(clazz);
-    enhancer.setCallback(callback);
-    return (T) enhancer.create();
-  }
+	@SuppressWarnings("unchecked")
+	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
+		Enhancer enhancer = new Enhancer();
+		enhancer.setSuperclass(clazz);
+		enhancer.setCallback(callback);
+		return (T) enhancer.create();
+	}
 }

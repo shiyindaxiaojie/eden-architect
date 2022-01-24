@@ -59,56 +59,56 @@ import java.util.List;
 @Configuration
 public class CustomMybatisAutoConfiguration {
 
-  private static final String MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY =
-      "Autowired Mybatis SqlSessionFactory";
+	private static final String MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY =
+		"Autowired Mybatis SqlSessionFactory";
 
-  private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
+	private static final String DEFAULT_CONFIG_LOCATION = "config/mybatis/mybatis-config.xml";
 
-  private static final String[] DEFAULT_MAPPER_LOCATIONS =
-      new String[] {
-        ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "config/mybatis/mappers/**.xml"
-      };
+	private static final String[] DEFAULT_MAPPER_LOCATIONS =
+		new String[]{
+			ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "config/mybatis/mappers/**.xml"
+		};
 
-  private static final String DEFAULT_PACKAGE = "domain";
+	private static final String DEFAULT_PACKAGE = "domain";
 
-  private final MybatisProperties mybatisProperties;
+	private final MybatisProperties mybatisProperties;
 
-  public CustomMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
-    this.mybatisProperties = mybatisProperties;
-  }
+	public CustomMybatisAutoConfiguration(MybatisProperties mybatisProperties) {
+		this.mybatisProperties = mybatisProperties;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public SqlSessionFactoryBean sqlSessionFactoryBean(
-      DataSource dataSource,
-      InfoContributorProvider infoContributorProvider,
-      PathMatchingResourcePatternResolver resolver,
-      @Autowired(required = false) List<Interceptor> interceptors) {
-    log.debug(MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY);
-    SqlSessionFactoryBean sqlSessionFactoryBean = new FixedSqlSessionFactoryBean();
-    BeanCopierHelper.copy(mybatisProperties, sqlSessionFactoryBean);
-    sqlSessionFactoryBean.setDataSource(dataSource);
+	@ConditionalOnMissingBean
+	@Bean
+	public SqlSessionFactoryBean sqlSessionFactoryBean(
+		DataSource dataSource,
+		InfoContributorProvider infoContributorProvider,
+		PathMatchingResourcePatternResolver resolver,
+		@Autowired(required = false) List<Interceptor> interceptors) {
+		log.debug(MSG_AUTOWIRED_MYBATIS_SQL_SESSION_FACTORY);
+		SqlSessionFactoryBean sqlSessionFactoryBean = new FixedSqlSessionFactoryBean();
+		BeanCopierHelper.copy(mybatisProperties, sqlSessionFactoryBean);
+		sqlSessionFactoryBean.setDataSource(dataSource);
 
-    if (StringUtils.isBlank(mybatisProperties.getConfigLocation())) {
-      mybatisProperties.setConfigLocation(DEFAULT_CONFIG_LOCATION);
-    }
-    sqlSessionFactoryBean.setConfigLocation(
-        resolver.getResource(mybatisProperties.getConfigLocation()));
+		if (StringUtils.isBlank(mybatisProperties.getConfigLocation())) {
+			mybatisProperties.setConfigLocation(DEFAULT_CONFIG_LOCATION);
+		}
+		sqlSessionFactoryBean.setConfigLocation(
+			resolver.getResource(mybatisProperties.getConfigLocation()));
 
-    if (ObjectUtils.isNull(mybatisProperties.getMapperLocations())) {
-      mybatisProperties.setMapperLocations(DEFAULT_MAPPER_LOCATIONS);
-    }
-    sqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+		if (ObjectUtils.isNull(mybatisProperties.getMapperLocations())) {
+			mybatisProperties.setMapperLocations(DEFAULT_MAPPER_LOCATIONS);
+		}
+		sqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
 
-    if (StringUtils.isBlank((mybatisProperties.getTypeAliasesPackage()))) {
-      mybatisProperties.setTypeAliasesPackage(
-          infoContributorProvider.resolvePackage(DEFAULT_PACKAGE));
-    }
-    sqlSessionFactoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
+		if (StringUtils.isBlank((mybatisProperties.getTypeAliasesPackage()))) {
+			mybatisProperties.setTypeAliasesPackage(
+				infoContributorProvider.resolvePackage(DEFAULT_PACKAGE));
+		}
+		sqlSessionFactoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
 
-    if (interceptors != null && !interceptors.isEmpty()) {
-      sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[interceptors.size()]));
-    }
-    return sqlSessionFactoryBean;
-  }
+		if (interceptors != null && !interceptors.isEmpty()) {
+			sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[interceptors.size()]));
+		}
+		return sqlSessionFactoryBean;
+	}
 }

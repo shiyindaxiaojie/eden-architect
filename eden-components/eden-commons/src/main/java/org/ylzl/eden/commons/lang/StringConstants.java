@@ -27,41 +27,41 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StringConstants {
 
-  public static final String EMPTY = StringUtils.EMPTY;
+	public static final String EMPTY = StringUtils.EMPTY;
 
-  public static final String SPACE = " ";
+	public static final String SPACE = " ";
 
-  public static final String HARD_QUOTE = String.valueOf(CharConstants.HARD_QUOTE);
+	public static final String HARD_QUOTE = String.valueOf(CharConstants.HARD_QUOTE);
 
-  public static final String SOFT_QUOTE = String.valueOf(CharConstants.SOFT_QUOTE);
+	public static final String SOFT_QUOTE = String.valueOf(CharConstants.SOFT_QUOTE);
 
-  public static final String SLASH = String.valueOf(CharConstants.SLASH);
+	public static final String SLASH = String.valueOf(CharConstants.SLASH);
 
-  public static final String ESCAPE = String.valueOf(CharConstants.ESCAPE);
+	public static final String ESCAPE = String.valueOf(CharConstants.ESCAPE);
 
-  public static final String COMMA = String.valueOf(CharConstants.COMMA);
+	public static final String COMMA = String.valueOf(CharConstants.COMMA);
 
-  public static final String DOT = String.valueOf(CharConstants.DOT);
+	public static final String DOT = String.valueOf(CharConstants.DOT);
 
-  public static final String COLON = String.valueOf(CharConstants.COLON);
+	public static final String COLON = String.valueOf(CharConstants.COLON);
 
-  public static final String BRACE_PREFIX = String.valueOf(CharConstants.BRACE_PREFIX);
+	public static final String BRACE_PREFIX = String.valueOf(CharConstants.BRACE_PREFIX);
 
-  public static final String BRACE_SUFFIX = String.valueOf(CharConstants.BRACE_SUFFIX);
+	public static final String BRACE_SUFFIX = String.valueOf(CharConstants.BRACE_SUFFIX);
 
-  public static final String PLUS = String.valueOf(CharConstants.PLUS);
+	public static final String PLUS = String.valueOf(CharConstants.PLUS);
 
-  public static final String MINUS = String.valueOf(CharConstants.MINUS);
+	public static final String MINUS = String.valueOf(CharConstants.MINUS);
 
-  public static final String UNDERLINE = String.valueOf(CharConstants.UNDERLINE);
+	public static final String UNDERLINE = String.valueOf(CharConstants.UNDERLINE);
 
-  public static final String EQ = String.valueOf(CharConstants.EQ);
+	public static final String EQ = String.valueOf(CharConstants.EQ);
 
-  public static final String GT = String.valueOf(CharConstants.GT);
+	public static final String GT = String.valueOf(CharConstants.GT);
 
-  public static final String LT = String.valueOf(CharConstants.LT);
+	public static final String LT = String.valueOf(CharConstants.LT);
 
-  public static final String NULL = "null";
+	public static final String NULL = "null";
 
-  public static final String MSG_REPLACE = "%s";
+	public static final String MSG_REPLACE = "%s";
 }

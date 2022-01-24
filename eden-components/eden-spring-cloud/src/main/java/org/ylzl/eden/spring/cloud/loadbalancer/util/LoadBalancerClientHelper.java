@@ -33,37 +33,37 @@ import java.net.URISyntaxException;
 @Slf4j
 public class LoadBalancerClientHelper {
 
-  private static final String MSG_RECONSTRUCT_URI_UNREGIST_SERVER =
-      "Cannot reconstruct uri due to serviceId {} is started not yet";
+	private static final String MSG_RECONSTRUCT_URI_UNREGIST_SERVER =
+		"Cannot reconstruct uri due to serviceId {} is started not yet";
 
-  private static final String MSG_RECONSTRUCT_URI =
-      "Reconstruct uri from LoadBalancerClient：{}，serviceId: {}，serviceUri: {}";
+	private static final String MSG_RECONSTRUCT_URI =
+		"Reconstruct uri from LoadBalancerClient：{}，serviceId: {}，serviceUri: {}";
 
-  private static final String MSG_RECONSTRUCT_URI_EXP =
-      "Reconstruct uri from LoadBalancerClient caught exception: {}";
+	private static final String MSG_RECONSTRUCT_URI_EXP =
+		"Reconstruct uri from LoadBalancerClient caught exception: {}";
 
-  private final LoadBalancerClient loadBalancerClient;
+	private final LoadBalancerClient loadBalancerClient;
 
-  public LoadBalancerClientHelper(LoadBalancerClient loadBalancerClient) {
-    this.loadBalancerClient = loadBalancerClient;
-  }
+	public LoadBalancerClientHelper(LoadBalancerClient loadBalancerClient) {
+		this.loadBalancerClient = loadBalancerClient;
+	}
 
-  public String reconstructURI(String serviceId, String serviceUri) {
-    ServiceInstance serviceInstance = loadBalancerClient.choose(serviceId);
-    if (serviceInstance == null) {
-      log.warn(MSG_RECONSTRUCT_URI_UNREGIST_SERVER, serviceId);
-      return null;
-    }
+	public String reconstructURI(String serviceId, String serviceUri) {
+		ServiceInstance serviceInstance = loadBalancerClient.choose(serviceId);
+		if (serviceInstance == null) {
+			log.warn(MSG_RECONSTRUCT_URI_UNREGIST_SERVER, serviceId);
+			return null;
+		}
 
-    String loadBalancerUri;
-    try {
-      loadBalancerUri =
-          loadBalancerClient.reconstructURI(serviceInstance, new URI(serviceUri)).toString();
-    } catch (URISyntaxException e) {
-      log.error(MSG_RECONSTRUCT_URI_EXP, e.getMessage(), e);
-      return null;
-    }
-    log.debug(MSG_RECONSTRUCT_URI, loadBalancerUri, serviceId, serviceUri);
-    return loadBalancerUri;
-  }
+		String loadBalancerUri;
+		try {
+			loadBalancerUri =
+				loadBalancerClient.reconstructURI(serviceInstance, new URI(serviceUri)).toString();
+		} catch (URISyntaxException e) {
+			log.error(MSG_RECONSTRUCT_URI_EXP, e.getMessage(), e);
+			return null;
+		}
+		log.debug(MSG_RECONSTRUCT_URI, loadBalancerUri, serviceId, serviceUri);
+		return loadBalancerUri;
+	}
 }

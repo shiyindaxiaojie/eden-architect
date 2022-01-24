@@ -32,31 +32,31 @@ import java.util.List;
  */
 public class RpcReadDecoder extends ByteToMessageDecoder {
 
-  private final Class<?> clazz;
+	private final Class<?> clazz;
 
-  private final Serializer serializer;
+	private final Serializer serializer;
 
-  public RpcReadDecoder(Class<?> clazz, Serializer serializer) {
-    this.clazz = clazz;
-    this.serializer = serializer;
-  }
+	public RpcReadDecoder(Class<?> clazz, Serializer serializer) {
+		this.clazz = clazz;
+		this.serializer = serializer;
+	}
 
-  @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-    if (in.readableBytes() < 4) {
-      return;
-    }
+	@Override
+	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+		if (in.readableBytes() < 4) {
+			return;
+		}
 
-    in.markReaderIndex();
-    int dataLength = in.readInt();
-    if (in.readableBytes() < dataLength) {
-      in.resetReaderIndex();
-      return;
-    }
-    byte[] data = new byte[dataLength];
-    in.readBytes(data);
+		in.markReaderIndex();
+		int dataLength = in.readInt();
+		if (in.readableBytes() < dataLength) {
+			in.resetReaderIndex();
+			return;
+		}
+		byte[] data = new byte[dataLength];
+		in.readBytes(data);
 
-    Object obj = serializer.deserialize(data, clazz);
-    out.add(obj);
-  }
+		Object obj = serializer.deserialize(data, clazz);
+		out.add(obj);
+	}
 }

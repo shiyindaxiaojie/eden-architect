@@ -45,12 +45,12 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 @Configuration
 public class OAuth2ResourceServerAutoConfiguration {
 
-  public static final String EXP_OAUTH2_RESOURCE_SERVER =
-      "${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
+	public static final String EXP_OAUTH2_RESOURCE_SERVER =
+		"${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.resource.server.enabled:false}";
 
-  @ConditionalOnMissingBean
-  @Bean
-  public ResourceServerConfigurer resourceServerConfigurer(TokenStore tokenStore) {
-    return new OAuth2ResourceServerConfigurerAdapter(tokenStore);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public ResourceServerConfigurer resourceServerConfigurer(TokenStore tokenStore) {
+		return new OAuth2ResourceServerConfigurerAdapter(tokenStore);
+	}
 }

@@ -40,44 +40,44 @@ import java.util.Map;
 @Slf4j
 public class SignatureVerifierClientAdapter implements SignatureVerifierClient {
 
-  public static final String SIGNATURE_VERIFIER_KEY = "value";
-  private static final String MSG_NONE_PROP_PUBLIC_KEY_ENDPOINT =
-      "No public key endpoint configured in oauth properties";
-  private final RestTemplate restTemplate;
+	public static final String SIGNATURE_VERIFIER_KEY = "value";
+	private static final String MSG_NONE_PROP_PUBLIC_KEY_ENDPOINT =
+		"No public key endpoint configured in oauth properties";
+	private final RestTemplate restTemplate;
 
-  private final OAuth2Properties.Authorization oAuth2Properties;
+	private final OAuth2Properties.Authorization oAuth2Properties;
 
-  public SignatureVerifierClientAdapter(
-      RestTemplate restTemplate, OAuth2Properties oAuth2Properties) {
-    this.restTemplate = restTemplate;
-    this.oAuth2Properties = oAuth2Properties.getAuthorization();
-  }
+	public SignatureVerifierClientAdapter(
+		RestTemplate restTemplate, OAuth2Properties oAuth2Properties) {
+		this.restTemplate = restTemplate;
+		this.oAuth2Properties = oAuth2Properties.getAuthorization();
+	}
 
-  @Override
-  public SignatureVerifier createSignatureVerifier() {
-    String publicKeyEndpointUri = getPublicKeyEndpointUri();
-    if (StringUtils.isNotBlank(publicKeyEndpointUri)) {
-      try {
-        HttpEntity<Void> request = new HttpEntity<Void>(new HttpHeaders());
-        String key =
-            (String)
-                restTemplate
-                    .exchange(publicKeyEndpointUri, HttpMethod.GET, request, Map.class)
-                    .getBody()
-                    .get(SIGNATURE_VERIFIER_KEY);
-        return new RsaVerifier(key);
-      } catch (Exception ex) {
-        throw new InvalidPublicKeyException(ex.getMessage());
-      }
-    }
-    return null;
-  }
+	@Override
+	public SignatureVerifier createSignatureVerifier() {
+		String publicKeyEndpointUri = getPublicKeyEndpointUri();
+		if (StringUtils.isNotBlank(publicKeyEndpointUri)) {
+			try {
+				HttpEntity<Void> request = new HttpEntity<Void>(new HttpHeaders());
+				String key =
+					(String)
+						restTemplate
+							.exchange(publicKeyEndpointUri, HttpMethod.GET, request, Map.class)
+							.getBody()
+							.get(SIGNATURE_VERIFIER_KEY);
+				return new RsaVerifier(key);
+			} catch (Exception ex) {
+				throw new InvalidPublicKeyException(ex.getMessage());
+			}
+		}
+		return null;
+	}
 
-  protected String getPublicKeyEndpointUri() {
-    String publicKeyEndpointUri = oAuth2Properties.getPublicTokenKeyUri();
-    if (publicKeyEndpointUri == null) {
-      throw new InvalidClientException(MSG_NONE_PROP_PUBLIC_KEY_ENDPOINT);
-    }
-    return publicKeyEndpointUri;
-  }
+	protected String getPublicKeyEndpointUri() {
+		String publicKeyEndpointUri = oAuth2Properties.getPublicTokenKeyUri();
+		if (publicKeyEndpointUri == null) {
+			throw new InvalidClientException(MSG_NONE_PROP_PUBLIC_KEY_ENDPOINT);
+		}
+		return publicKeyEndpointUri;
+	}
 }

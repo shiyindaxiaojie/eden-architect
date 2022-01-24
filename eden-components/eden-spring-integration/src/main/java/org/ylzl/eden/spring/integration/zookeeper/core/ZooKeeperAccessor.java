@@ -35,36 +35,40 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ZooKeeperAccessor implements InitializingBean, DisposableBean {
 
-  private final String connectString;
-  private final int sessionTimeout;
-  private CountDownLatch semaphore = new CountDownLatch(1);
-  @Getter @Setter private ZooKeeper zookeeper;
+	private final String connectString;
+	private final int sessionTimeout;
+	private CountDownLatch semaphore = new CountDownLatch(1);
+	@Getter
+	@Setter
+	private ZooKeeper zookeeper;
 
-  public ZooKeeperAccessor(String connectString, int sessionTimeout) {
-    this.connectString = connectString;
-    this.sessionTimeout = sessionTimeout;
-  }
+	public ZooKeeperAccessor(String connectString, int sessionTimeout) {
+		this.connectString = connectString;
+		this.sessionTimeout = sessionTimeout;
+	}
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    this.zookeeper = new ZooKeeper(connectString, sessionTimeout, new ZooKeeperWatcher());
-    semaphore.await(); // 由于 ZooKeeper 是异步创建会话的，通过计数器同步连接状态
-  }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		this.zookeeper = new ZooKeeper(connectString, sessionTimeout, new ZooKeeperWatcher());
+		semaphore.await(); // 由于 ZooKeeper 是异步创建会话的，通过计数器同步连接状态
+	}
 
-  @Override
-  public void destroy() throws Exception {
-    if (zookeeper != null) {
-      zookeeper.close();
-    }
-  }
+	@Override
+	public void destroy() throws Exception {
+		if (zookeeper != null) {
+			zookeeper.close();
+		}
+	}
 
-  /** ZooKeeper 监视器 */
-  private class ZooKeeperWatcher implements Watcher {
+	/**
+	 * ZooKeeper 监视器
+	 */
+	private class ZooKeeperWatcher implements Watcher {
 
-    public void process(WatchedEvent event) {
-      if (Event.KeeperState.SyncConnected == event.getState()) {
-        semaphore.countDown();
-      }
-    }
-  }
+		public void process(WatchedEvent event) {
+			if (Event.KeeperState.SyncConnected == event.getState()) {
+				semaphore.countDown();
+			}
+		}
+	}
 }

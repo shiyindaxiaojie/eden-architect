@@ -30,4 +30,5 @@ import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = SpringSecurityConstants.PROP_PREFIX)
-public class SpringSecurityProperties {}
+public class SpringSecurityProperties {
+}

@@ -34,9 +34,9 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 @ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_SPRING_PREFIX + ".mail")
 public class EnhancedMailProperties extends MailProperties {
 
-  private boolean enabled = EnhancedMailDefaults.enabled;
+	private boolean enabled = EnhancedMailDefaults.enabled;
 
-  private String from = EnhancedMailDefaults.from;
+	private String from = EnhancedMailDefaults.from;
 
-  private String baseUrl = EnhancedMailDefaults.baseUrl;
+	private String baseUrl = EnhancedMailDefaults.baseUrl;
 }

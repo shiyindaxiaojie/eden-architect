@@ -28,13 +28,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class LogstashDefaults {
 
-  public static final boolean useJsonFormat = false;
+	public static final boolean useJsonFormat = false;
 
-  public static final boolean enabled = false;
+	public static final boolean enabled = false;
 
-  public static final String host = "localhost";
+	public static final String host = "localhost";
 
-  public static final int port = 5000;
+	public static final int port = 5000;
 
-  public static final int queueSize = 512;
+	public static final int queueSize = 512;
 }

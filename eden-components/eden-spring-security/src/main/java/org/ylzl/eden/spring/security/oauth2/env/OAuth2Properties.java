@@ -34,159 +34,160 @@ import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 @ConfigurationProperties(prefix = SpringSecurityConstants.PROP_PREFIX + ".oauth2")
 public class OAuth2Properties {
 
-  private final Authentication authentication = new Authentication();
+	private final Authentication authentication = new Authentication();
 
-  private final Authorization authorization = new Authorization();
+	private final Authorization authorization = new Authorization();
 
-  private final KeyStore keyStore = new KeyStore();
+	private final KeyStore keyStore = new KeyStore();
 
-  private final Resource resource = new Resource();
+	private final Resource resource = new Resource();
 
-  @Getter
-  @Setter
-  public static class Authentication {}
+	@Getter
+	@Setter
+	public static class Authentication {
+	}
 
-  @Getter
-  @Setter
-  public static class Authorization {
+	@Getter
+	@Setter
+	public static class Authorization {
 
-    private final ClientCredentials clientCredentials = new ClientCredentials();
-    private final Code code = new Code();
-    private final Implicit implicit = new Implicit();
-    private final Password password = new Password();
-    private final RefreshToken refreshToken = new RefreshToken();
-    private final Client Client = new Client();
-    private final Server server = new Server();
-    private String header = OAuth2Defaults.Authorization.header;
-    ;
-    private String accessTokenUri = OAuth2Defaults.Authorization.accessTokenUri;
-    private String accessTokenUriServiceId = OAuth2Defaults.Authorization.accessTokenUriServiceId;
-    private String publicTokenKeyUri = OAuth2Defaults.Authorization.publicTokenKeyUri;
-    private String publicTokenKeyUriServiceId =
-        OAuth2Defaults.Authorization.publicTokenKeyUriServiceId;
-    private Long publicTokenKeyRefreshRateLimit =
-        OAuth2Defaults.Authorization.publicTokenKeyRefreshRateLimit;
-    private Long publicTokenKeyTtl = OAuth2Defaults.Authorization.publicTokenKeyTtl;
-    private String cookieDomain = OAuth2Defaults.Authorization.cookieDomain;
-    private Integer sessionTimeoutSeconds = OAuth2Defaults.Authorization.sessionTimeoutSeconds;
+		private final ClientCredentials clientCredentials = new ClientCredentials();
+		private final Code code = new Code();
+		private final Implicit implicit = new Implicit();
+		private final Password password = new Password();
+		private final RefreshToken refreshToken = new RefreshToken();
+		private final Client Client = new Client();
+		private final Server server = new Server();
+		private String header = OAuth2Defaults.Authorization.header;
+		;
+		private String accessTokenUri = OAuth2Defaults.Authorization.accessTokenUri;
+		private String accessTokenUriServiceId = OAuth2Defaults.Authorization.accessTokenUriServiceId;
+		private String publicTokenKeyUri = OAuth2Defaults.Authorization.publicTokenKeyUri;
+		private String publicTokenKeyUriServiceId =
+			OAuth2Defaults.Authorization.publicTokenKeyUriServiceId;
+		private Long publicTokenKeyRefreshRateLimit =
+			OAuth2Defaults.Authorization.publicTokenKeyRefreshRateLimit;
+		private Long publicTokenKeyTtl = OAuth2Defaults.Authorization.publicTokenKeyTtl;
+		private String cookieDomain = OAuth2Defaults.Authorization.cookieDomain;
+		private Integer sessionTimeoutSeconds = OAuth2Defaults.Authorization.sessionTimeoutSeconds;
 
-    public enum TokenStore {
-      IN_MEMORY,
-      JDBC,
-      JWK,
-      JWT,
-      REDIS;
-    }
+		public enum TokenStore {
+			IN_MEMORY,
+			JDBC,
+			JWK,
+			JWT,
+			REDIS;
+		}
 
-    @Getter
-    @Setter
-    public static class Client {
+		@Getter
+		@Setter
+		public static class Client {
 
-      private Boolean enabled = OAuth2Defaults.Authorization.Client.enabled;
-    }
+			private Boolean enabled = OAuth2Defaults.Authorization.Client.enabled;
+		}
 
-    @Getter
-    @Setter
-    public static class Server {
+		@Getter
+		@Setter
+		public static class Server {
 
-      private Boolean enabled = OAuth2Defaults.Authorization.Server.enabled;
-    }
+			private Boolean enabled = OAuth2Defaults.Authorization.Server.enabled;
+		}
 
-    @Getter
-    @Setter
-    public static class ClientCredentials {
+		@Getter
+		@Setter
+		public static class ClientCredentials {
 
-      private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;
+			private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;
 
-      private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;
+			private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;
 
-      private Integer accessTokenValiditySeconds =
-          OAuth2Defaults.Authorization.ClientCredentials.accessTokenValiditySeconds;
+			private Integer accessTokenValiditySeconds =
+				OAuth2Defaults.Authorization.ClientCredentials.accessTokenValiditySeconds;
 
-      private String[] scopes = OAuth2Defaults.Authorization.ClientCredentials.scopes;
-    }
+			private String[] scopes = OAuth2Defaults.Authorization.ClientCredentials.scopes;
+		}
 
-    @Getter
-    @Setter
-    public static class Code {
+		@Getter
+		@Setter
+		public static class Code {
 
-      private String clientId = OAuth2Defaults.Authorization.Code.clientId;
+			private String clientId = OAuth2Defaults.Authorization.Code.clientId;
 
-      private String clientSecret = OAuth2Defaults.Authorization.Code.clientSecret;
+			private String clientSecret = OAuth2Defaults.Authorization.Code.clientSecret;
 
-      private Integer accessTokenValiditySeconds =
-          OAuth2Defaults.Authorization.Code.accessTokenValiditySeconds;
+			private Integer accessTokenValiditySeconds =
+				OAuth2Defaults.Authorization.Code.accessTokenValiditySeconds;
 
-      private Integer refreshTokenValiditySeconds =
-          OAuth2Defaults.Authorization.Code.refreshTokenValiditySeconds;
+			private Integer refreshTokenValiditySeconds =
+				OAuth2Defaults.Authorization.Code.refreshTokenValiditySeconds;
 
-      private String[] scopes = OAuth2Defaults.Authorization.Code.scopes;
+			private String[] scopes = OAuth2Defaults.Authorization.Code.scopes;
 
-      private String[] registeredRedirectUris =
-          OAuth2Defaults.Authorization.Code.registeredRedirectUris;
-    }
+			private String[] registeredRedirectUris =
+				OAuth2Defaults.Authorization.Code.registeredRedirectUris;
+		}
 
-    @Getter
-    @Setter
-    public static class Implicit {
+		@Getter
+		@Setter
+		public static class Implicit {
 
-      private String[] scopes = OAuth2Defaults.Authorization.Implicit.scopes;
+			private String[] scopes = OAuth2Defaults.Authorization.Implicit.scopes;
 
-      private Integer accessTokenValiditySeconds =
-          OAuth2Defaults.Authorization.Implicit.accessTokenValiditySeconds;
-    }
+			private Integer accessTokenValiditySeconds =
+				OAuth2Defaults.Authorization.Implicit.accessTokenValiditySeconds;
+		}
 
-    @Getter
-    @Setter
-    public static class Password {
+		@Getter
+		@Setter
+		public static class Password {
 
-      private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;
-      ;
+			private String clientId = OAuth2Defaults.Authorization.ClientCredentials.clientId;
+			;
 
-      private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;
-      ;
+			private String clientSecret = OAuth2Defaults.Authorization.ClientCredentials.clientSecret;
+			;
 
-      private Integer accessTokenValiditySeconds =
-          OAuth2Defaults.Authorization.Password.accessTokenValiditySeconds;
+			private Integer accessTokenValiditySeconds =
+				OAuth2Defaults.Authorization.Password.accessTokenValiditySeconds;
 
-      private Integer refreshTokenValiditySeconds =
-          OAuth2Defaults.Authorization.Password.refreshTokenValiditySeconds;
+			private Integer refreshTokenValiditySeconds =
+				OAuth2Defaults.Authorization.Password.refreshTokenValiditySeconds;
 
-      private String[] scopes = OAuth2Defaults.Authorization.Password.scopes;
-    }
+			private String[] scopes = OAuth2Defaults.Authorization.Password.scopes;
+		}
 
-    @Getter
-    @Setter
-    public static class RefreshToken {
+		@Getter
+		@Setter
+		public static class RefreshToken {
 
-      private String clientId = OAuth2Defaults.Authorization.RefreshToken.clientId;
+			private String clientId = OAuth2Defaults.Authorization.RefreshToken.clientId;
 
-      private String clientSecret = OAuth2Defaults.Authorization.RefreshToken.clientSecret;
-    }
-  }
+			private String clientSecret = OAuth2Defaults.Authorization.RefreshToken.clientSecret;
+		}
+	}
 
-  @Getter
-  @Setter
-  public static class Resource {
+	@Getter
+	@Setter
+	public static class Resource {
 
-    private final Server server = new Server();
+		private final Server server = new Server();
 
-    @Getter
-    @Setter
-    public static class Server {
+		@Getter
+		@Setter
+		public static class Server {
 
-      private Boolean enabled = OAuth2Defaults.Resource.Server.enabled;
-    }
-  }
+			private Boolean enabled = OAuth2Defaults.Resource.Server.enabled;
+		}
+	}
 
-  @Getter
-  @Setter
-  public static class KeyStore {
+	@Getter
+	@Setter
+	public static class KeyStore {
 
-    private String alias;
+		private String alias;
 
-    private String name;
+		private String name;
 
-    private String password;
-  }
+		private String password;
+	}
 }

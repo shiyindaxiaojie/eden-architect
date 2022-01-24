@@ -32,33 +32,33 @@ import org.ylzl.eden.spring.security.oauth2.token.TokenProcessor;
 @Slf4j
 public class ClientCredentialsTokenHolder {
 
-  private final TokenProcessor tokenProcessor;
-  private final TokenGrantClient tokenGrantClient;
-  private OAuth2AccessToken oAuth2AccessToken;
+	private final TokenProcessor tokenProcessor;
+	private final TokenGrantClient tokenGrantClient;
+	private OAuth2AccessToken oAuth2AccessToken;
 
-  public ClientCredentialsTokenHolder(
-      TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
-    this.tokenProcessor = tokenProcessor;
-    this.tokenGrantClient = tokenGrantClient;
-  }
+	public ClientCredentialsTokenHolder(
+		TokenProcessor tokenProcessor, TokenGrantClient tokenGrantClient) {
+		this.tokenProcessor = tokenProcessor;
+		this.tokenGrantClient = tokenGrantClient;
+	}
 
-  public OAuth2AccessToken get() {
-    if (oAuth2AccessToken == null) {
-      return retrieveNewAccessToken();
-    }
+	public OAuth2AccessToken get() {
+		if (oAuth2AccessToken == null) {
+			return retrieveNewAccessToken();
+		}
 
-    int exp = tokenProcessor.getExp(oAuth2AccessToken.getValue());
-    int now = (int) (System.currentTimeMillis() / 1000L);
-    if (exp < now) {
-      return retrieveNewAccessToken();
-    }
+		int exp = tokenProcessor.getExp(oAuth2AccessToken.getValue());
+		int now = (int) (System.currentTimeMillis() / 1000L);
+		if (exp < now) {
+			return retrieveNewAccessToken();
+		}
 
-    return oAuth2AccessToken;
-  }
+		return oAuth2AccessToken;
+	}
 
-  @Synchronized
-  private OAuth2AccessToken retrieveNewAccessToken() {
-    oAuth2AccessToken = tokenGrantClient.sendClientCredentialsGrant();
-    return oAuth2AccessToken;
-  }
+	@Synchronized
+	private OAuth2AccessToken retrieveNewAccessToken() {
+		oAuth2AccessToken = tokenGrantClient.sendClientCredentialsGrant();
+		return oAuth2AccessToken;
+	}
 }

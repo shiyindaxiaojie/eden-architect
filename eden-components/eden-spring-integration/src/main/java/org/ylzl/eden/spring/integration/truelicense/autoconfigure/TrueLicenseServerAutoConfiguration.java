@@ -39,22 +39,22 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseStore;
 @Configuration
 public class TrueLicenseServerAutoConfiguration {
 
-  public static final String EXP_TRUE_LICENSE_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
+	public static final String EXP_TRUE_LICENSE_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".true-license.server.enabled:false}";
 
-  private static final String MSG_AUTOWIRED_TRUE_LICENSE_STORE =
-      "Autowired TureLicense storing service";
+	private static final String MSG_AUTOWIRED_TRUE_LICENSE_STORE =
+		"Autowired TureLicense storing service";
 
-  private final LicenseManager licenseManager;
+	private final LicenseManager licenseManager;
 
-  public TrueLicenseServerAutoConfiguration(LicenseManager licenseManager) {
-    this.licenseManager = licenseManager;
-  }
+	public TrueLicenseServerAutoConfiguration(LicenseManager licenseManager) {
+		this.licenseManager = licenseManager;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public LicenseStore licenseStore() {
-    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_STORE);
-    return new LicenseStore(licenseManager);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public LicenseStore licenseStore() {
+		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_STORE);
+		return new LicenseStore(licenseManager);
+	}
 }

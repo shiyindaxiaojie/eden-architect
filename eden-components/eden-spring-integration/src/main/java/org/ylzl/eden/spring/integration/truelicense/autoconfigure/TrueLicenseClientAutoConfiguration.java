@@ -41,32 +41,32 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
 @Configuration
 public class TrueLicenseClientAutoConfiguration {
 
-  public static final String EXP_TRUE_LICENSE_ENABLED =
-      "${" + SpringIntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
+	public static final String EXP_TRUE_LICENSE_ENABLED =
+		"${" + SpringIntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
 
-  private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =
-      "Autowired TureLicense install service";
+	private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =
+		"Autowired TureLicense install service";
 
-  private static final String MSG_AUTOWIRED_TRUE_LICENSE_VERIFY =
-      "Autowired TureLicense verify service";
+	private static final String MSG_AUTOWIRED_TRUE_LICENSE_VERIFY =
+		"Autowired TureLicense verify service";
 
-  private final LicenseManager licenseManager;
+	private final LicenseManager licenseManager;
 
-  public TrueLicenseClientAutoConfiguration(LicenseManager licenseManager) {
-    this.licenseManager = licenseManager;
-  }
+	public TrueLicenseClientAutoConfiguration(LicenseManager licenseManager) {
+		this.licenseManager = licenseManager;
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public LicenseInstall licenseInstall(TrueLicenseProperties trueLicenseProperties) {
-    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_INSTALL);
-    return new LicenseInstall(trueLicenseProperties, licenseManager);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public LicenseInstall licenseInstall(TrueLicenseProperties trueLicenseProperties) {
+		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_INSTALL);
+		return new LicenseInstall(trueLicenseProperties, licenseManager);
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public LicenseVerify licenseVerify() {
-    log.debug(MSG_AUTOWIRED_TRUE_LICENSE_VERIFY);
-    return new LicenseVerify(licenseManager);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public LicenseVerify licenseVerify() {
+		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_VERIFY);
+		return new LicenseVerify(licenseManager);
+	}
 }

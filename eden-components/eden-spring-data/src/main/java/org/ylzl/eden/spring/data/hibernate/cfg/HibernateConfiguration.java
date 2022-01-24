@@ -30,32 +30,33 @@ import org.ylzl.eden.commons.lang.StringUtils;
  */
 public class HibernateConfiguration extends Configuration {
 
-  private String hibernateConfigFile = StandardServiceRegistryBuilder.DEFAULT_CFG_RESOURCE_NAME;
+	private String hibernateConfigFile = StandardServiceRegistryBuilder.DEFAULT_CFG_RESOURCE_NAME;
 
-  public HibernateConfiguration() {}
+	public HibernateConfiguration() {
+	}
 
-  public HibernateConfiguration(
-      String dialect, String url, String driverClass, String username, String password) {
-    super.configure(hibernateConfigFile);
-    super.setProperty(Environment.DIALECT, dialect);
-    super.setProperty(Environment.URL, url);
-    super.setProperty(Environment.DRIVER, driverClass);
-    super.setProperty(Environment.USER, username);
-    super.setProperty(Environment.PASS, password);
-  }
+	public HibernateConfiguration(
+		String dialect, String url, String driverClass, String username, String password) {
+		super.configure(hibernateConfigFile);
+		super.setProperty(Environment.DIALECT, dialect);
+		super.setProperty(Environment.URL, url);
+		super.setProperty(Environment.DRIVER, driverClass);
+		super.setProperty(Environment.USER, username);
+		super.setProperty(Environment.PASS, password);
+	}
 
-  public HibernateConfiguration(String dialect, String datasourceName) {
-    super.configure(hibernateConfigFile);
-    super.setProperty(Environment.DIALECT, dialect);
-    super.setProperty(
-        Environment.DATASOURCE, StringUtils.join(WebServerUtils.getLookup(), datasourceName));
-  }
+	public HibernateConfiguration(String dialect, String datasourceName) {
+		super.configure(hibernateConfigFile);
+		super.setProperty(Environment.DIALECT, dialect);
+		super.setProperty(
+			Environment.DATASOURCE, StringUtils.join(WebServerUtils.getLookup(), datasourceName));
+	}
 
-  public String getHibernateConfigFile() {
-    return hibernateConfigFile;
-  }
+	public String getHibernateConfigFile() {
+		return hibernateConfigFile;
+	}
 
-  public void setHibernateConfigFile(String hibernateConfigFile) {
-    this.hibernateConfigFile = hibernateConfigFile;
-  }
+	public void setHibernateConfigFile(String hibernateConfigFile) {
+		this.hibernateConfigFile = hibernateConfigFile;
+	}
 }

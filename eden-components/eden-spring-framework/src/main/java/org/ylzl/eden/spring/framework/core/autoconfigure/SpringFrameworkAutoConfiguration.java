@@ -44,27 +44,27 @@ import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 @Configuration
 public class SpringFrameworkAutoConfiguration {
 
-  @ConditionalOnMissingBean
-  @Bean
-  public PathMatcher pathMatcher() {
-    return new AntPathMatcher();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public PathMatcher pathMatcher() {
+		return new AntPathMatcher();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public UrlPathHelper urlPathHelper() {
-    return new UrlPathHelper();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public UrlPathHelper urlPathHelper() {
+		return new UrlPathHelper();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
-    return new PathMatchingResourcePatternResolver();
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver() {
+		return new PathMatchingResourcePatternResolver();
+	}
 
-  @ConditionalOnMissingBean
-  @Bean
-  public SpringBinderHelper springBinderHelper(Environment environment) {
-    return new SpringBinderHelper(environment);
-  }
+	@ConditionalOnMissingBean
+	@Bean
+	public SpringBinderHelper springBinderHelper(Environment environment) {
+		return new SpringBinderHelper(environment);
+	}
 }

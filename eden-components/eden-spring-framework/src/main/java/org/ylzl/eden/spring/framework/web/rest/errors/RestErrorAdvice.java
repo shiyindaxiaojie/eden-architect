@@ -44,151 +44,151 @@ import java.util.List;
 @RestControllerAdvice
 public class RestErrorAdvice {
 
-  /**
-   * 处理参数校验无效异常
-   *
-   * @param ex 方法参数校验无效异常
-   * @return
-   */
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
-  public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
-    BindingResult result = ex.getBindingResult();
-    List<FieldError> fieldErrors = result.getFieldErrors();
-    FieldErrorVM errorVM =
-        FieldErrorVM.builder()
-            .message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage())
-            .description(ex.getMessage())
-            .build();
-    for (FieldError fieldError : fieldErrors) {
-      errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
-    }
-    return errorVM;
-  }
+	/**
+	 * 处理参数校验无效异常
+	 *
+	 * @param ex 方法参数校验无效异常
+	 * @return
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public FieldErrorVM processValidationException(MethodArgumentNotValidException ex) {
+		BindingResult result = ex.getBindingResult();
+		List<FieldError> fieldErrors = result.getFieldErrors();
+		FieldErrorVM errorVM =
+			FieldErrorVM.builder()
+				.message(ErrorEnum.METHOD_ARGUMENT_NOT_VALID.getMessage())
+				.description(ex.getMessage())
+				.build();
+		for (FieldError fieldError : fieldErrors) {
+			errorVM.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
+		}
+		return errorVM;
+	}
 
-  /**
-   * 处理不支持的请求方法异常
-   *
-   * @param ex 不支持的请求方法异常
-   * @return
-   */
-  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-  @ResponseBody
-  @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-  public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-    return ErrorVM.builder()
-        .message(ErrorEnum.METHOD_NOT_SUPPORTED.getMessage())
-        .description(ex.getMessage())
-        .build();
-  }
+	/**
+	 * 处理不支持的请求方法异常
+	 *
+	 * @param ex 不支持的请求方法异常
+	 * @return
+	 */
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	@ResponseBody
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+		return ErrorVM.builder()
+			.message(ErrorEnum.METHOD_NOT_SUPPORTED.getMessage())
+			.description(ex.getMessage())
+			.build();
+	}
 
-  /**
-   * 处理服务器内部异常
-   *
-   * @param ex 服务器内部异常
-   * @return
-   */
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorVM> processException(Exception ex) {
-    BodyBuilder builder;
-    ErrorVM errorVM;
-    ResponseStatus responseStatus =
-        AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
-    if (responseStatus != null) {
-      builder = ResponseEntity.status(responseStatus.value());
-      errorVM =
-          ErrorVM.builder()
-              .message(responseStatus.reason())
-              .description(responseStatus.toString())
-              .build();
-    } else {
-      builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-      errorVM =
-          ErrorVM.builder()
-              .message(ErrorEnum.INTERNAL_SERVER_ERROR.getMessage())
-              .description(ex.getMessage())
-              .build();
-    }
-    return builder.body(errorVM);
-  }
+	/**
+	 * 处理服务器内部异常
+	 *
+	 * @param ex 服务器内部异常
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorVM> processException(Exception ex) {
+		BodyBuilder builder;
+		ErrorVM errorVM;
+		ResponseStatus responseStatus =
+			AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
+		if (responseStatus != null) {
+			builder = ResponseEntity.status(responseStatus.value());
+			errorVM =
+				ErrorVM.builder()
+					.message(responseStatus.reason())
+					.description(responseStatus.toString())
+					.build();
+		} else {
+			builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			errorVM =
+				ErrorVM.builder()
+					.message(ErrorEnum.INTERNAL_SERVER_ERROR.getMessage())
+					.description(ex.getMessage())
+					.build();
+		}
+		return builder.body(errorVM);
+	}
 
-  /**
-   * 处理自定义参数异常
-   *
-   * @param ex 自定义参数异常
-   * @return
-   */
-  @ExceptionHandler(CustomParameterizedException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
-  public ParameterizedErrorVM processParameterizedValidationException(
-      CustomParameterizedException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理自定义参数异常
+	 *
+	 * @param ex 自定义参数异常
+	 * @return
+	 */
+	@ExceptionHandler(CustomParameterizedException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ParameterizedErrorVM processParameterizedValidationException(
+		CustomParameterizedException ex) {
+		return ex.getErrorVM();
+	}
 
-  /**
-   * 处理错误请求异常
-   *
-   * @param ex 错误请求异常
-   * @return
-   */
-  @ExceptionHandler(BadRequestAlertException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
-  public ErrorVM processBadRequestAlertException(BadRequestAlertException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理错误请求异常
+	 *
+	 * @param ex 错误请求异常
+	 * @return
+	 */
+	@ExceptionHandler(BadRequestAlertException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorVM processBadRequestAlertException(BadRequestAlertException ex) {
+		return ex.getErrorVM();
+	}
 
-  /**
-   * 处理实体获取为空异常
-   *
-   * @param ex 实体获取为空异常
-   * @return
-   */
-  @ExceptionHandler(EntityNotFoundException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
-  public ErrorVM processEntityNotFoundException(EntityNotFoundException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理实体获取为空异常
+	 *
+	 * @param ex 实体获取为空异常
+	 * @return
+	 */
+	@ExceptionHandler(EntityNotFoundException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorVM processEntityNotFoundException(EntityNotFoundException ex) {
+		return ex.getErrorVM();
+	}
 
-  /**
-   * 处理无效主键异常
-   *
-   * @param ex 无效主键异常
-   * @return
-   */
-  @ExceptionHandler(InvalidPrimaryKeyException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
-  public ErrorVM processInvalidPrimaryKeyException(InvalidPrimaryKeyException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理无效主键异常
+	 *
+	 * @param ex 无效主键异常
+	 * @return
+	 */
+	@ExceptionHandler(InvalidPrimaryKeyException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorVM processInvalidPrimaryKeyException(InvalidPrimaryKeyException ex) {
+		return ex.getErrorVM();
+	}
 
-  /**
-   * 处理非法访问异常
-   *
-   * @param ex 非法访问异常
-   * @return
-   */
-  @ExceptionHandler(ForbiddenException.class)
-  @ResponseStatus(HttpStatus.FORBIDDEN)
-  @ResponseBody
-  public ErrorVM processForbiddenException(ForbiddenException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理非法访问异常
+	 *
+	 * @param ex 非法访问异常
+	 * @return
+	 */
+	@ExceptionHandler(ForbiddenException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ResponseBody
+	public ErrorVM processForbiddenException(ForbiddenException ex) {
+		return ex.getErrorVM();
+	}
 
-  /**
-   * 处理请求未认证异常
-   *
-   * @param ex 请求未认证异常
-   * @return
-   */
-  @ExceptionHandler(UnauthorizedException.class)
-  @ResponseStatus(HttpStatus.UNAUTHORIZED)
-  @ResponseBody
-  public ErrorVM processUnauthorizedException(UnauthorizedException ex) {
-    return ex.getErrorVM();
-  }
+	/**
+	 * 处理请求未认证异常
+	 *
+	 * @param ex 请求未认证异常
+	 * @return
+	 */
+	@ExceptionHandler(UnauthorizedException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ResponseBody
+	public ErrorVM processUnauthorizedException(UnauthorizedException ex) {
+		return ex.getErrorVM();
+	}
 }

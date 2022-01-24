@@ -26,4 +26,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {}
+public class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
+}

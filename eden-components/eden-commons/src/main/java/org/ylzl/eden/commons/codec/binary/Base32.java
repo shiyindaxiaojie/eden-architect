@@ -26,4 +26,5 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.x
  */
 @UtilityClass
-public class Base32 extends org.apache.commons.codec.binary.Base32 {}
+public class Base32 extends org.apache.commons.codec.binary.Base32 {
+}
