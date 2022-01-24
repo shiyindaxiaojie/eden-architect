@@ -140,7 +140,7 @@
 		<zookeeper.version>3.4.11</zookeeper.version>
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>4.1.0</curator.version>
-		<xxl-job.version>1.9.1</xxl-job.version>
+		<xxl-job.version>2.3.0</xxl-job.version>
 		<grpc.version>1.30.2</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
