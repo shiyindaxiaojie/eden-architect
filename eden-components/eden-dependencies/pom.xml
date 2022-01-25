@@ -56,8 +56,8 @@
 		<!-- Web -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
 		<knife4j.version>2.0.3</knife4j.version>
-		<resteasy.version>3.0.7.Final</resteasy.version>
-		<resteasy-spring-boot.version>1.0.1.Final</resteasy-spring-boot.version>
+		<resteasy.version>5.0.2.Final</resteasy.version>
+		<resteasy-spring-boot.version>5.0.0.Final</resteasy-spring-boot.version>
 		<springfox.version>2.9.2</springfox.version>
 		<swagger.version>1.6.3</swagger.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
@@ -69,7 +69,7 @@
 		<undertow.version>2.0.29.Final</undertow.version>
 
 		<!-- 日志 -->
-		<log4j2.version>2.17.0</log4j2.version>
+		<log4j2.version>2.17.1</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 
@@ -138,10 +138,10 @@
 		<!-- 分布式组件 -->
 		<dubbo.version>3.0.5</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
-		<zookeeper.version>3.4.11</zookeeper.version>
+		<zookeeper.version>3.7.0</zookeeper.version>
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>4.1.0</curator.version>
-		<xxl-job.version>1.9.1</xxl-job.version>
+		<xxl-job.version>2.3.0</xxl-job.version>
 		<grpc.version>1.30.2</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
