@@ -137,11 +137,11 @@
 			<distributionManagement>
 				<repository>
 					<id>coding</id>
-					<url>https://shiyindaxiaojie.pkg.coding.net/repository/platform/maven/</url>
+					<url>https://shiyindaxiaojie-maven.pkg.coding.net/repository/eden-lab/maven/</url>
 				</repository>
 				<snapshotRepository>
 					<id>coding</id>
-					<url>https://shiyindaxiaojie.pkg.coding.net/repository/platform/maven/</url>
+					<url>https://shiyindaxiaojie-maven.pkg.coding.net/repository/eden-lab/maven/</url>
 				</snapshotRepository>
 			</distributionManagement>
 		</profile>
