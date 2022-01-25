@@ -39,7 +39,7 @@ pipeline {
             "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}",
             "CODING_ARTIFACT_VERSION=${CODING_ARTIFACT_VERSION}"
           ]) {
-            sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -DskipTests -s settings.xml'
+            sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -DskipTests -s ./.coding/settings.xml'
           }
         }
       }
@@ -57,7 +57,7 @@ pipeline {
             "CODING_ARTIFACTS_USERNAME=${CODING_ARTIFACTS_USERNAME}",
             "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}"
           ]) {
-            sh 'mvn -Pcoding deploy -DskipTests -s settings.xml'
+            sh 'mvn -Pcoding deploy -DskipTests -s ./.coding/settings.xml'
           }
         }
       }

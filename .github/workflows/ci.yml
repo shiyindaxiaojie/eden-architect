@@ -15,6 +15,6 @@ jobs:
       - name: 构建
         run: |
           chmod +x mvnw
-          ./mvnw -ntp -Pgithub clean package -DskipTests -e -U
+          ./mvnw -ntp -Pgithub clean install -DskipTests -e -U
 #            - name: 校验
 #              run: ./mvnw -ntp -Pgithub verify
