@@ -1,12 +1,12 @@
-package com.puyiwm.spring.boot.xxljob.autoconfigure;
+package org.ylzl.eden.spring.boot.xxljob.autoconfigure;
 
-import com.puyiwm.spring.boot.xxljob.env.XxlJobProperties;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
 
 /**
  * XXLJob 自动配置
@@ -32,7 +32,7 @@ public class XxlJobAutoCofiguration {
 		XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
 		xxlJobExecutor.setAccessToken(xxlJobProperties.getAccessToken());
 		xxlJobExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
-		xxlJobExecutor.setAppName(xxlJobProperties.getExecutor().getAppName());
+		xxlJobExecutor.setAppname(xxlJobProperties.getExecutor().getAppName());
 		xxlJobExecutor.setIp(xxlJobProperties.getExecutor().getIp());
 		xxlJobExecutor.setPort(xxlJobProperties.getExecutor().getPort());
 		xxlJobExecutor.setLogPath(xxlJobProperties.getExecutor().getLogPath());

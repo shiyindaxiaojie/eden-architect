@@ -1,4 +1,4 @@
-package com.puyiwm.spring.boot.xxljob.env;
+package org.ylzl.eden.spring.boot.xxljob.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
