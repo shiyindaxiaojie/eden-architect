@@ -19,14 +19,14 @@ pipeline {
     stage('编译') {
       steps {
         script {
-					if (env.TAG_NAME ==~ /.*/ ) {
-						CODING_ARTIFACT_VERSION = "${env.TAG_NAME}"
-					} else if (env.MR_SOURCE_BRANCH ==~ /.*/ ) {
-						CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}"
-					} else {
-						CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}"
-					}
-				}
+          if (env.TAG_NAME ==~ /.*/ ) {
+	          CODING_ARTIFACT_VERSION = "${env.TAG_NAME}"
+          } else if (env.MR_SOURCE_BRANCH ==~ /.*/ ) {
+	          CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}"
+          } else {
+	          CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}"
+          }
+        }
         withCredentials([
           usernamePassword(
             credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID,

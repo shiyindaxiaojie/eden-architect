@@ -13,7 +13,7 @@
 	<artifactId>eden-swagger3-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-swagger3-spring-boot-starter</name>
-	<description>Eden* Swagger3 Spring Boot Starter</description>
+	<description>Swagger3 Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

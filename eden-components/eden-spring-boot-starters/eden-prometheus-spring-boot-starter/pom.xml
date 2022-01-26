@@ -13,7 +13,7 @@
 	<artifactId>eden-prometheus-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-prometheus-spring-boot-starter</name>
-	<description>Eden* PrometheusSpring Boot Starter</description>
+	<description>Prometheus Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

@@ -13,7 +13,7 @@
 	<artifactId>eden-kafka-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-kafka-spring-boot-starter</name>
-	<description>Eden* Kafka Spring Boot Starter</description>
+	<description>Kafka Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

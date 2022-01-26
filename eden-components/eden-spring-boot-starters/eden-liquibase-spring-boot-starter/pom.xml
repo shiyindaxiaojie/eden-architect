@@ -13,7 +13,7 @@
 	<artifactId>eden-liquibase-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-liquibase-spring-boot-starter</name>
-	<description>Eden* Liquibase Spring Boot Starter</description>
+	<description>Liquibase Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

@@ -13,7 +13,7 @@
 	<artifactId>eden-redis-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-redis-spring-boot-starter</name>
-	<description>Eden* Redis Spring Boot Starter</description>
+	<description>Redis Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

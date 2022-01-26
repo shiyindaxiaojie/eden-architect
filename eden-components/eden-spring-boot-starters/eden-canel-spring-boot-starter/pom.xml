@@ -13,7 +13,7 @@
 	<artifactId>eden-canel-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-canel-spring-boot-starter</name>
-	<description>Eden* Canel Spring Boot Starter</description>
+	<description>Canel Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

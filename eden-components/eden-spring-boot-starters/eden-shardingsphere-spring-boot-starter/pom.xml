@@ -13,7 +13,7 @@
 	<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-shardingsphere-spring-boot-starter</name>
-	<description>Eden* Sharding Sphere Spring Boot Starter</description>
+	<description>Sharding Sphere Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

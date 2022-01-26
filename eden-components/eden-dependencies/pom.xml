@@ -255,11 +255,6 @@
 			<!-- Eden* Spring Boot Starter -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-apt-spring-boot-starter</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-boot-starter</artifactId>
 				<version>${revision}</version>
 			</dependency>
@@ -276,6 +271,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dubbo-spring-boot-starter</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
@@ -386,6 +386,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-swagger3-spring-boot-starter</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>

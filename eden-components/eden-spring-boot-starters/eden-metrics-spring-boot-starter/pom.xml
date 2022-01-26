@@ -13,7 +13,7 @@
 	<artifactId>eden-metrics-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-metrics-spring-boot-starter</name>
-	<description>Eden* Metrics Spring Boot Starter</description>
+	<description>Metrics Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

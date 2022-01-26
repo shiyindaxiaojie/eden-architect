@@ -52,10 +52,10 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ```xml
 <parent>
-	<groupId>org.ylzl</groupId>
-	<artifactId>eden-parent</artifactId>
-	<version>2.4.13.RELEASE</version>
-	<relativePath/>
+    <groupId>org.ylzl</groupId>
+    <artifactId>eden-parent</artifactId>
+    <version>2.4.13.RELEASE</version>
+    <relativePath/>
 </parent>
 ```
 
@@ -63,8 +63,8 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ```xml
 <dependency>
-	<groupId>org.ylzl</groupId>
-	<artifactId>eden-mybatis-spring-boot-starter</artifactId>
+    <groupId>org.ylzl</groupId>
+    <artifactId>eden-mybatis-spring-boot-starter</artifactId>
 </dependency>
 ```
 

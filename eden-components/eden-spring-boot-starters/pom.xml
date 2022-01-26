@@ -33,11 +33,11 @@
 	<description>Spring Boot Starters For Eden*</description>
 
 	<modules>
-		<module>eden-apt-spring-boot-starter</module>
 		<module>eden-apollo-spring-boot-starter</module>
 		<module>eden-caffeine-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
 		<module>eden-dubbo-spring-boot-starter</module>
+		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
 		<module>eden-hikaricp-spring-boot-starter</module>
@@ -60,6 +60,7 @@
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
+		<module>eden-xxljob-spring-boot-starter</module>
 		<module>eden-zookeeper-spring-boot-starter</module>
 	</modules>
 </project>

@@ -13,7 +13,7 @@
 	<artifactId>eden-logstash-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-logstash-spring-boot-starter</name>
-	<description>Eden* Logstash Spring Boot Starter</description>
+	<description>Logstash Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

@@ -13,7 +13,7 @@
 	<artifactId>eden-mongodb-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-mongodb-spring-boot-starter</name>
-	<description>MongoDB 自定义配置</description>
+	<description>MongoDB Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

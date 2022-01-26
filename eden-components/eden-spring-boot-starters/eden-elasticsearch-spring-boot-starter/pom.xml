@@ -13,7 +13,7 @@
 	<artifactId>eden-elasticsearch-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-elasticsearch-spring-boot-starter</name>
-	<description>Eden* Elasticsearch Spring Boot Starter</description>
+	<description>Elasticsearch Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

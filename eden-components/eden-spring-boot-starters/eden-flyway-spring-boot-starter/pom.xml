@@ -13,7 +13,7 @@
 	<artifactId>eden-flyway-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-flyway-spring-boot-starter</name>
-	<description>Eden* Flyway Spring Boot Starter</description>
+	<description>Flyway Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

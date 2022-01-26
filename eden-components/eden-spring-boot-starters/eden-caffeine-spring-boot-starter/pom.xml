@@ -13,7 +13,7 @@
 	<artifactId>eden-caffeine-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-caffeine-spring-boot-starter</name>
-	<description>Eden* Caffeine Spring Boot Starter</description>
+	<description>Caffeine Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

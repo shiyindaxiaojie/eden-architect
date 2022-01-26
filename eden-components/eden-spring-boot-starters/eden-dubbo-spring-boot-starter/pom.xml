@@ -13,7 +13,7 @@
 	<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-dubbo-spring-boot-starter</name>
-	<description>Eden* Dubbo Spring Boot Starter</description>
+	<description>Dubbo Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

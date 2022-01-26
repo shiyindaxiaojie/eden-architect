@@ -13,7 +13,7 @@
 	<artifactId>eden-nacos-config-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-nacos-config-spring-boot-starter</name>
-	<description>Nacos Config 自定义配置</description>
+	<description>Nacos Config Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

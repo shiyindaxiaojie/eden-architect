@@ -13,7 +13,7 @@
 	<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-hikaricp-spring-boot-starter</name>
-	<description>Eden* HikariCP Spring Boot Starter</description>
+	<description>HikariCP Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

@@ -13,7 +13,7 @@
 	<artifactId>eden-nacos-discovery-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-nacos-discovery-spring-boot-starter</name>
-	<description>Nacos Discovery 自定义配置</description>
+	<description>Nacos Discovery Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

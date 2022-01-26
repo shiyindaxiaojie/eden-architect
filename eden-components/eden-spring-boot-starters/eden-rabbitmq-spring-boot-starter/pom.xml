@@ -13,7 +13,7 @@
 	<artifactId>eden-rabbitmq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-rabbitmq-spring-boot-starter</name>
-	<description>Eden* abbitMQ Spring Boot Starter</description>
+	<description>RabbitMQ Spring Boot Starter</description>
 
 	<dependencies>
 	</dependencies>

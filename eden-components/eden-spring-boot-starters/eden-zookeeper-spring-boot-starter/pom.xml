@@ -13,7 +13,7 @@
 	<artifactId>eden-zookeeper-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-zookeeper-spring-boot-starter</name>
-	<description>Eden* Zookeeper Spring Boot Starter</description>
+	<description>Zookeeper Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

@@ -10,26 +10,42 @@
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-apt-spring-boot-starter</artifactId>
+	<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-apt-spring-boot-starter</name>
-	<description>Annotation Processer Tool 自定义配置</description>
+	<name>eden-xxljob-spring-boot-starter</name>
+	<description>XxlJob Spring Boot Starter</description>
 
 	<dependencies>
-		<!-- Mapstruct 实体映射 -->
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
-		<!-- Lombok 实体简化 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
-		<!-- Spring Boot 配置处理器 -->
+
+		<!-- 开发框架 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-integration</artifactId>
+		</dependency>
+
+		<!-- 任务调度 -->
+		<dependency>
+			<groupId>com.xuxueli</groupId>
+			<artifactId>xxl-job-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>

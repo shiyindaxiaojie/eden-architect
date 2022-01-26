@@ -13,7 +13,7 @@
 	<artifactId>eden-jwt-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-jwt-spring-boot-starter</name>
-	<description>Eden* JWT Spring Boot Starter</description>
+	<description>JWT Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

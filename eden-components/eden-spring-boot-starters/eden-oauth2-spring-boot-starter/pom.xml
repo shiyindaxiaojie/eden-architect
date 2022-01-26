@@ -13,7 +13,7 @@
 	<artifactId>eden-oauth2-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-oauth2-spring-boot-starter</name>
-	<description>Eden* OAuth2 Spring Boot Starter</description>
+	<description>OAuth2 Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

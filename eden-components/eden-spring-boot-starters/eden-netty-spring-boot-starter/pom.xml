@@ -13,7 +13,7 @@
 	<artifactId>eden-netty-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-netty-spring-boot-starter</name>
-	<description>Eden* Netty Spring Boot Starter</description>
+	<description>Netty Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

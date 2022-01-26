@@ -13,7 +13,7 @@
 	<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-rockmq-spring-boot-starter</name>
-	<description>Eden* RocketMQ Spring Boot Starter</description>
+	<description>RocketMQ Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

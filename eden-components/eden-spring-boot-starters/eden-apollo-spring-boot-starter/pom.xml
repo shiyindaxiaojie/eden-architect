@@ -13,7 +13,7 @@
 	<artifactId>eden-apollo-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-apollo-spring-boot-starter</name>
-	<description>Apollo 自定义配置</description>
+	<description>Apollo Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

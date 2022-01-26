@@ -13,7 +13,7 @@
 	<artifactId>eden-mongobee-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-mongobee-spring-boot-starter</name>
-	<description>Eden* Mongobee Spring Boot Starter</description>
+	<description>Mongobee Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>
