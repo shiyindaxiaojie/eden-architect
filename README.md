@@ -80,7 +80,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 项目的版本号格式为 x.x.x 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 0.x.x 的格式。
 
-由于 `Spring Boot 1.5.x` 和 `Spring Boot 2.4.x` 在架构层面有很大的变更，因此我们采取跟 SpringBoot 版本号一致的版本:
+由于 `Spring Boot 1.5.x` 和 `Spring Boot 2.4.x` 在架构层面有很大的变更，因此我们采取跟 Spring Boot 版本号一致的版本:
 
 * 1.5.x 版本适用于 `Spring Boot 1.5.x`
 * 2.4.x 版本适用于 `Spring Boot 2.4.x`
