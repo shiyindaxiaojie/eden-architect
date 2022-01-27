@@ -21,17 +21,16 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>eden-tests</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-tests</name>
-	<description>测试集合</description>
-
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
 		<version>${revision}</version>
 		<relativePath>../eden-components/eden-parent/pom.xml</relativePath>
 	</parent>
+	<artifactId>eden-tests</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-tests</name>
+	<description>测试集合</description>
 
 	<modules>
 		<module>eden-deployment-tests</module>
