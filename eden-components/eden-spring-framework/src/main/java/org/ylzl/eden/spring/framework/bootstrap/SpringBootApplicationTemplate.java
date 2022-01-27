@@ -33,7 +33,7 @@ import java.net.InetAddress;
  * 应用启动入口模板方法
  *
  * @author gyl
- * @since 2021-12-25
+ * @since 2.4.x
  */
 @Slf4j
 public abstract class SpringBootApplicationTemplate {
