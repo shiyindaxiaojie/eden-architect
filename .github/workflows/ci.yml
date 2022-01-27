@@ -6,15 +6,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SPRING_OUTPUT_ANSI_ENABLED: DETECT
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
         with:
           java-version: '8.x'
-      - name: 构建
+      - name: Package application
         run: |
+          echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
           chmod +x mvnw
-          ./mvnw -ntp -Pgithub clean install -DskipTests -e -U
-#            - name: 校验
-#              run: ./mvnw -ntp -Pgithub verify
+          ./mvnw -ntp package -DskipTests -e -U
+      - name: Deploy application
+        run: |
+          ./mvnw -ntp deploy -DskipTests -e -U
