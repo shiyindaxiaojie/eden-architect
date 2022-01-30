@@ -47,7 +47,7 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClientAda
 import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHolder;
 
 /**
- * OAuth2 授权客户端自动配置
+ * OAuth2 授权客户端自动装配
  *
  * @author gyl
  * @since 2.4.x

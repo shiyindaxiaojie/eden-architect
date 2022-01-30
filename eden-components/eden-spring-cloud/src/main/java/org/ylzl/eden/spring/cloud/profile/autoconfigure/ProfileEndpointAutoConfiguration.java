@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.cloud.profile.endpoint.ProfileEndpoint;
 import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
 
 /**
- * Profile 端点自动配置
+ * Profile 端点自动装配
  *
  * @author gyl
  * @since 2.4.x

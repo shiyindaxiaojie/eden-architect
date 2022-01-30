@@ -25,18 +25,10 @@ import org.springframework.http.HttpStatus;
  * @author gyl
  * @since 2.4.x
  */
-public class ForbiddenException extends BadRequestAlertException {
+public class ForbiddenException extends AbstractException {
 
 	public ForbiddenException() {
-		super(ErrorEnum.FORBIDDEN.getMessage());
-	}
-
-	public ForbiddenException(String message) {
-		super(message);
-	}
-
-	public ForbiddenException(String message, String description) {
-		super(message, description);
+		super(ErrorEnum.A0403);
 	}
 
 	@Override

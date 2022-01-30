@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
 
 /**
- * 邮件发送自动配置
+ * 邮件发送自动装配
  *
  * @author gyl
  * @since 2.4.x

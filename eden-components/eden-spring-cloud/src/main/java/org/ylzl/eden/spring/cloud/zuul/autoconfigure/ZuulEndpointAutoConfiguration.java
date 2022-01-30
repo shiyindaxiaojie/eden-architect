@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.zuul.endpoint.ZuulRouteEndpoint;
 
 /**
- * Zuul 端点自动配置
+ * Zuul 端点自动装配
  *
  * @author gyl
  * @since 2.4.x

@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.framework.web.rest.errors.RestErrorAdvice;
 
 /**
- * REST 错误自动配置
+ * REST 错误自动装配
  *
  * @author gyl
  * @since 2.4.x

@@ -45,7 +45,7 @@ import java.security.KeyPair;
 import java.util.List;
 
 /**
- * OAuth2 授权服务端自动配置
+ * OAuth2 授权服务端自动装配
  *
  * @author gyl
  * @since 2.4.x

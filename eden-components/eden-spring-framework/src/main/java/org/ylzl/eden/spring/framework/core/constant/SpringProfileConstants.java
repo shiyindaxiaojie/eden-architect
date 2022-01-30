@@ -29,6 +29,11 @@ import lombok.experimental.UtilityClass;
 public final class SpringProfileConstants {
 
 	/**
+	 * 本地环境
+	 */
+	public static final String SPRING_PROFILE_LOCALHOST = "local";
+
+	/**
 	 * 开发环境
 	 */
 	public static final String SPRING_PROFILE_DEVELOPMENT = "dev";

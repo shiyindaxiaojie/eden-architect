@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 import java.util.List;
 
 /**
- * Netty 服务端自动配置
+ * Netty 服务端自动装配
  *
  * @author gyl
  * @since 2.4.x

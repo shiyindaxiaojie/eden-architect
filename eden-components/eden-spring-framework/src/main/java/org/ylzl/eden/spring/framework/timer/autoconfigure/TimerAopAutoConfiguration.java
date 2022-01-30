@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.framework.timer.TimerAspect;
 
 /**
- * 耗时统计切面自动配置类
+ * 耗时统计切面自动装配类
  *
  * @author gyl
  * @since 0.0.1

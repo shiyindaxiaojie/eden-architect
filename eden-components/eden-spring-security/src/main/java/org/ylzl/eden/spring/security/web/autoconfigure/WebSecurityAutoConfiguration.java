@@ -25,7 +25,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.ylzl.eden.spring.security.web.authentication.UnauthorizedEntryPointAdapter;
 
 /**
- * Web 安全自动配置
+ * Web 安全自动装配
  *
  * @author gyl
  * @since 2.4.x

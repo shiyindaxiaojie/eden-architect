@@ -16,6 +16,7 @@
  */
 package org.ylzl.eden.spring.data.jdbc.autoconfigure;
 
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.MutablePropertyValues;
@@ -39,7 +40,6 @@ import org.ylzl.eden.spring.data.core.constant.SpringDataConstants;
 import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
 import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
-import org.ylzl.eden.spring.data.mybatis.autoconfigure.MybatisPageHelperAutoConfiguration;
 import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
 
 import javax.sql.DataSource;
@@ -65,7 +65,8 @@ import java.util.Map;
 	HibernateJpaAutoConfiguration.class,
 	BatchJdbcTemplateAutoConfiguration.class,
 	AsyncLiquibaseAutoConfiguration.class,
-	MybatisPageHelperAutoConfiguration.class
+	MybatisPlusAutoConfiguration.class,
+
 })
 @EnableConfigurationProperties({DataSourceProperties.class, RoutingDataSourceProperties.class})
 @Slf4j

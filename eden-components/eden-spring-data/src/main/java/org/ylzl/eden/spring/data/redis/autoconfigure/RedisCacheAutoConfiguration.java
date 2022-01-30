@@ -36,7 +36,7 @@ import org.springframework.data.redis.core.RedisOperations;
 import java.lang.reflect.Method;
 
 /**
- * Redis 缓存自动配置
+ * Redis 缓存自动装配
  *
  * <p>变更日志：Spring Boot 升级 1.X 到 2.X
  *

@@ -46,7 +46,7 @@ import javax.sql.DataSource;
 import java.util.concurrent.Executor;
 
 /**
- * Liquibase 自动配置
+ * Liquibase 自动装配
  *
  * @author gyl
  * @since 2.4.x

@@ -28,7 +28,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.ylzl.eden.spring.framework.httpclient.env.HttpClientProperties;
 
 /**
- * HttpClient 自动配置
+ * HttpClient 自动装配
  *
  * @author gyl
  * @since 2.4.x

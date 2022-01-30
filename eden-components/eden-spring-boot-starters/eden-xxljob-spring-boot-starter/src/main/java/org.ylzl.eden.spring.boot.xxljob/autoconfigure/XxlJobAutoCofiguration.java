@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
 
 /**
- * XXLJob 自动配置
+ * XXLJob 自动装配
  *
  * @author gyl
  * @since 2.4.x

@@ -25,18 +25,14 @@ import org.springframework.http.HttpStatus;
  * @author gyl
  * @since 2.4.x
  */
-public class UnauthorizedException extends BadRequestAlertException {
+public class UnauthorizedException extends AbstractException {
 
 	public UnauthorizedException() {
-		super(ErrorEnum.UNAUTHORIZED.getMessage());
+		super(ErrorEnum.A0401);
 	}
 
 	public UnauthorizedException(String message) {
-		super(message);
-	}
-
-	public UnauthorizedException(String message, String description) {
-		super(message, description);
+		super(ErrorEnum.A0401.getErrCode(), message);
 	}
 
 	@Override

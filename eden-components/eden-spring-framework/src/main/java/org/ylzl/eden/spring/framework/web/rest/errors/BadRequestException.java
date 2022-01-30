@@ -15,46 +15,35 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.vm;
+package org.ylzl.eden.spring.framework.web.rest.errors;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-
-import java.io.Serializable;
+import lombok.Getter;
+import com.alibaba.cola.dto.Response;
+import org.springframework.http.HttpStatus;
 
 /**
- * 数据列表视图模型
+ * 错误请求
  *
  * @author gyl
  * @since 2.4.x
  */
-@AllArgsConstructor
-@Builder(toBuilder = true)
-@Data
-@EqualsAndHashCode
-@NoArgsConstructor
-@ToString
-@ApiModel(description = "数据列表视图模型")
-public class DatasVM<T> implements Serializable {
+@Getter
+public class BadRequestException extends AbstractException {
 
-	private static final long serialVersionUID = -6062447811540513140L;
+	public BadRequestException() {
+		super(ErrorEnum.A0001);
+	}
 
-	/**
-	 * 消息
-	 */
-	@ApiModelProperty(value = "消息")
-	private String message;
+	public BadRequestException(ErrorEnum errorEnum) {
+		super(errorEnum);
+	}
 
-	/**
-	 * 数据
-	 */
-	@ApiModelProperty(value = "数据")
-	private T data;
+	public BadRequestException(String errCode, String errMessage) {
+		super(errCode, errMessage);
+	}
 
-	/**
-	 * 统计
-	 */
-	@ApiModelProperty(value = "统计")
-	private Long count;
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.BAD_REQUEST.value();
+	}
 }

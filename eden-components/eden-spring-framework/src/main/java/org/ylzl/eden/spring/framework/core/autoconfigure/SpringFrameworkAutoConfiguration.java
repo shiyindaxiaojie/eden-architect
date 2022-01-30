@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
 import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 
 /**
- * 框架自动配置
+ * 框架自动装配
  *
  * @author gyl
  * @since 2.4.x

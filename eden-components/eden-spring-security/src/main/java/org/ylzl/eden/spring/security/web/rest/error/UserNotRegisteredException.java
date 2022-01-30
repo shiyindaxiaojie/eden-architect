@@ -15,25 +15,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.security.web.rest.error;
+
+import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestException;
+import org.ylzl.eden.spring.framework.web.rest.errors.ErrorEnum;
 
 /**
- * 无效主键
+ * 用户未注册
  *
  * @author gyl
  * @since 2.4.x
  */
-public class InvalidPrimaryKeyException extends BadRequestAlertException {
+public class UserNotRegisteredException extends BadRequestException {
 
-	public InvalidPrimaryKeyException() {
-		super(ErrorEnum.INVALID_PRIMARY_KEY.getMessage());
-	}
-
-	public InvalidPrimaryKeyException(String message) {
-		super(message);
-	}
-
-	public InvalidPrimaryKeyException(String message, String description) {
-		super(message, description);
+	public UserNotRegisteredException() {
+		super(ErrorEnum.A0201);
 	}
 }

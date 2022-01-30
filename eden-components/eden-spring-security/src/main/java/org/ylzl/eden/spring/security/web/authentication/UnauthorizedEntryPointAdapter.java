@@ -39,6 +39,6 @@ public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
 	public void commence(
 		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorEnum.UNAUTHORIZED.getMessage());
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorEnum.A0401.getErrMessage());
 	}
 }

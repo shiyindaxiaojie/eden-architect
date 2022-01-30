@@ -34,7 +34,7 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 import java.util.concurrent.Executor;
 
 /**
- * 异步执行自动配置
+ * 异步执行自动装配
  *
  * @author gyl
  * @since 2.4.x

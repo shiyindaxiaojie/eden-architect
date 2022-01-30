@@ -1,5 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.spring.data.h2.autoconfigure.H2AutoConfiguration,\
   org.ylzl.eden.spring.data.jdbc.autoconfigure.BatchJdbcTemplateAutoConfiguration,\
   org.ylzl.eden.spring.data.jdbc.autoconfigure.RoutingDataSourceAutoConfiguration,\
   org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration,\

@@ -287,6 +287,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- H2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Swagger -->
 		<dependency>
 			<groupId>io.springfox</groupId>

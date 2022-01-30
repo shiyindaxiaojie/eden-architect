@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import java.util.List;
 
 /**
- * 基于负载均衡的 REST 自动配置
+ * 基于负载均衡的 REST 自动装配
  *
  * @author gyl
  * @since 2.4.x

@@ -19,7 +19,7 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
 import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Factory;
 
 /**
- * FTPClient 自动配置
+ * FTPClient 自动装配
  *
  * @author gyl
  * @since 2.0.0

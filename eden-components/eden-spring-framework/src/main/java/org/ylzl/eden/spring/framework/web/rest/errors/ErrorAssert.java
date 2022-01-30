@@ -16,97 +16,97 @@ public interface ErrorAssert extends Error {
 
 	default void doesNotContain(@NonNull String textToSearch, String substring) {
 		try {
-			Assert.doesNotContain(textToSearch, substring, getMessage());
+			Assert.doesNotContain(textToSearch, substring, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void hasLength(@NonNull String expression) {
 		try {
-			Assert.hasLength(expression, getMessage());
+			Assert.hasLength(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void hasText(String text) {
 		try {
-			Assert.hasText(text, getMessage());
+			Assert.hasText(text, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void isInstanceOf(Class<?> type, @NonNull Object obj) {
 		try {
-			Assert.isInstanceOf(type, obj, getMessage());
+			Assert.isInstanceOf(type, obj, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void isNull(Object object) {
 		try {
-			Assert.isNull(object, getMessage());
+			Assert.isNull(object, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void isTrue(boolean expression) {
 		try {
-			Assert.isTrue(expression, getMessage());
+			Assert.isTrue(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void noNullElements(@NonNull Collection<?> collection) {
 		try {
-			Assert.noNullElements(collection, getMessage());
+			Assert.noNullElements(collection, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void notEmpty(@NonNull Object[] array) {
 		try {
-			Assert.notEmpty(array, getMessage());
+			Assert.notEmpty(array, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void notEmpty(@NonNull Collection<?> collection) {
 		try {
-			Assert.notEmpty(collection, getMessage());
+			Assert.notEmpty(collection, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void notEmpty(@NonNull Map<?, ?> map) {
 		try {
-			Assert.notEmpty(map, getMessage());
+			Assert.notEmpty(map, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void isAssignable(Class<?> superType, @NonNull Class<?> subType) {
 		try {
-			Assert.isAssignable(superType, subType, getMessage());
+			Assert.isAssignable(superType, subType, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 
 	default void state(boolean expression) {
 		try {
-			Assert.state(expression, getMessage());
+			Assert.state(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestAlertException(getMessage(), e.getMessage());
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}
 	}
 }

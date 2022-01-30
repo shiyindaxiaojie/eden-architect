@@ -40,7 +40,7 @@ import org.ylzl.eden.spring.integration.metrics.env.MetricsProperties;
 import java.util.Map;
 
 /**
- * Logstash 自动配置
+ * Logstash 自动装配
  *
  * @author gyl
  * @since 2.4.x

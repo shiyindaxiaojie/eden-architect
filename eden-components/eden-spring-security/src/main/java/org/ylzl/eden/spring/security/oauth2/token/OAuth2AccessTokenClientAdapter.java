@@ -77,7 +77,7 @@ public class OAuth2AccessTokenClientAdapter implements OAuth2AccessTokenClient {
 		} catch (HttpClientErrorException e) {
 			log.error(MSG_REQ_TOKEN_EXCEPTION, e.getMessage(), e);
 			if (e.getStatusCode().is4xxClientError()) {
-				throw new UnauthorizedException();
+				throw new UnauthorizedException(e.getMessage());
 			}
 			throw e;
 		} catch (Exception e) {

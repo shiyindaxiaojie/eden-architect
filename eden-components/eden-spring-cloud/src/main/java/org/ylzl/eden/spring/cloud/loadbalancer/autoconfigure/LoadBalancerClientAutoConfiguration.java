@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
 import org.ylzl.eden.spring.framework.web.RestAutoConfiguration;
 
 /**
- * 负载均衡客户端自动配置
+ * 负载均衡客户端自动装配
  *
  * @author gyl
  * @since 2.4.x

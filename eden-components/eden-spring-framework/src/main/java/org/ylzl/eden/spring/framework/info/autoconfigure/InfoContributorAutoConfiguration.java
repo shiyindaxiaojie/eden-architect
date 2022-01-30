@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributor;
 
 /**
- * InfoContributor 自动配置
+ * InfoContributor 自动装配
  *
  * <p>从 Spring Boot 1.X 升级到 2.X
  *

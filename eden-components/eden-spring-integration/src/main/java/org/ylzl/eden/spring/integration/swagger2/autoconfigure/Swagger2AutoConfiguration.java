@@ -53,7 +53,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Swagger 自动配置
+ * Swagger 自动装配
  *
  * <p>从 Spring Boot 1.X 升级到 2.X
  *

@@ -42,7 +42,7 @@ import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClient;
 import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
 
 /**
- * 负载均衡的 OAuth2 授权客户端自动配置
+ * 负载均衡的 OAuth2 授权客户端自动装配
  *
  * @author gyl
  * @since 2.4.x

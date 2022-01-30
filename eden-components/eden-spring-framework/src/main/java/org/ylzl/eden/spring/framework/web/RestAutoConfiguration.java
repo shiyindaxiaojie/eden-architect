@@ -37,7 +37,7 @@ import org.ylzl.eden.commons.env.CharsetConstants;
 import java.util.List;
 
 /**
- * REST 自动配置
+ * REST 自动装配
  *
  * @author gyl
  * @since 2.4.x

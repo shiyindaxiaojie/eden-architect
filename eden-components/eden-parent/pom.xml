@@ -99,6 +99,9 @@
 		<asciidoctor.pdf.output.directory>${project.build.directory}/asciidoc/pdf</asciidoctor.pdf.output.directory>
 		<asciidoctorj-diagram.version>1.5.18</asciidoctorj-diagram.version>
 		<asciidoctorj-pdf.version>1.5.0-alpha.10.1</asciidoctorj-pdf.version>
+		<docker.image/>
+		<docker.username/>
+		<docker.password/>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf
 		</gatling.configFolder>
 		<graphvizDot/>

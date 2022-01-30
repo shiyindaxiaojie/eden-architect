@@ -45,7 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Redis 自动配置
+ * Redis 自动装配
  *
  * @author gyl
  * @since 2.4.x

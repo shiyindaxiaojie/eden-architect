@@ -15,32 +15,48 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.rest.vm;
 
-import org.springframework.http.HttpStatus;
+import com.alibaba.cola.dto.Response;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 错误凭证
+ * 字段错误视图模型
  *
  * @author gyl
  * @since 2.4.x
  */
-public class InvalidCredentialsException extends BadRequestAlertException {
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@ToString(callSuper = true)
+public class FieldErrorResponse extends Response {
 
-	public InvalidCredentialsException() {
-		super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
+	private List<FieldError> fieldErrors;
+
+	public void add(String objectName, String field, String message) {
+		if (fieldErrors == null) {
+			fieldErrors = new ArrayList<>();
+		}
+		fieldErrors.add(
+			FieldError.builder().objectName(objectName).field(field).message(message).build());
 	}
 
-	public InvalidCredentialsException(String message) {
-		super(message);
-	}
+	@SuperBuilder(toBuilder = true)
+	@Data
+	@EqualsAndHashCode
+	@ToString
+	public static class FieldError {
 
-	public InvalidCredentialsException(String message, String description) {
-		super(message, description);
-	}
+		private String objectName;
 
-	@Override
-	public int getStatusCode() {
-		return HttpStatus.UNAUTHORIZED.value();
+		private String field;
+
+		private String message;
 	}
 }

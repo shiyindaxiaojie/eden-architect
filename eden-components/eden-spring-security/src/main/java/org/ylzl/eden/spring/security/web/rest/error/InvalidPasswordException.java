@@ -16,7 +16,8 @@
  */
 package org.ylzl.eden.spring.security.web.rest.error;
 
-import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestAlertException;
+import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestException;
+import org.ylzl.eden.spring.framework.web.rest.errors.ErrorEnum;
 
 /**
  * 无效密码异常
@@ -24,15 +25,9 @@ import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestAlertException;
  * @author gyl
  * @since 2.4.x
  */
-public class InvalidPasswordException extends BadRequestAlertException {
-
-	public static final String ERR_INVALID_PASSWORD = "Incorrect password";
+public class InvalidPasswordException extends BadRequestException {
 
 	public InvalidPasswordException() {
-		super(ERR_INVALID_PASSWORD);
-	}
-
-	public InvalidPasswordException(String message) {
-		super(message);
+		super(ErrorEnum.A0210);
 	}
 }
