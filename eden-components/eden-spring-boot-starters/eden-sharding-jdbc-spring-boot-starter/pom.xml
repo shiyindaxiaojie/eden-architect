@@ -10,10 +10,10 @@
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
+	<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-shardingsphere-spring-boot-starter</name>
-	<description>Sharding Sphere Spring Boot Starter</description>
+	<name>eden-sharding-jdbc-spring-boot-starter</name>
+	<description>Sharding JDBC Spring Boot Starter</description>
 
 	<dependencies>
 		<dependency>

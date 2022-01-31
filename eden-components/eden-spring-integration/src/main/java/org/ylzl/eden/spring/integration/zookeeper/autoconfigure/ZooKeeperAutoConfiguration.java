@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.integration.zookeeper.support.lock.DistributedZooKee
 import org.ylzl.eden.spring.integration.zookeeper.support.lock.ZooKeeperLock;
 
 /**
- * ZooKeeper 自动配置
+ * ZooKeeper 自动装配
  *
  * @author gyl
  * @since 2.4.x

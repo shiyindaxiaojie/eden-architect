@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * Mybatis 分页插件自动配置
+ * Mybatis 分页插件自动装配
  *
  * @author gyl
  * @since 1.0.0

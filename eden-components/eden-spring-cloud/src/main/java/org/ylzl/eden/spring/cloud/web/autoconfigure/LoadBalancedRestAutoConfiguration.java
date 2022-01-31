@@ -29,19 +29,19 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.cloud.web.authentication.AuthorizedClientHttpRequestInterceptor;
-import org.ylzl.eden.spring.framework.web.RestAutoConfiguration;
+import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 
 import java.util.List;
 
 /**
- * 基于负载均衡的 REST 自动配置
+ * 基于负载均衡的 REST 自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@AutoConfigureAfter(RestAutoConfiguration.class)
+@AutoConfigureAfter(RestTemplateAutoConfiguration.class)
 @ConditionalOnClass({
 	RestTemplate.class,
 	LoadBalanced.class,

@@ -15,25 +15,24 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
+
+import org.springframework.http.HttpStatus;
 
 /**
- * 无效主键
+ * 非法访问
  *
  * @author gyl
  * @since 2.4.x
  */
-public class InvalidPrimaryKeyException extends BadRequestAlertException {
+public class ForbiddenException extends AbstractException {
 
-	public InvalidPrimaryKeyException() {
-		super(ErrorEnum.INVALID_PRIMARY_KEY.getMessage());
+	public ForbiddenException() {
+		super(ErrorEnum.A0301);
 	}
 
-	public InvalidPrimaryKeyException(String message) {
-		super(message);
-	}
-
-	public InvalidPrimaryKeyException(String message, String description) {
-		super(message, description);
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.FORBIDDEN.value();
 	}
 }

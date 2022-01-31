@@ -15,21 +15,28 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.errors;
 
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import org.springframework.http.HttpStatus;
 
 /**
- * 开启 REST 接口异常解析器配置
+ * 请求未认证
  *
  * @author gyl
  * @since 2.4.x
  */
-@Import(RestErrorAdviceConfiguration.class)
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface EnableRestErrorAdvice {
+public class UnauthorizedException extends AbstractException {
+
+	public UnauthorizedException() {
+		super(ErrorEnum.A0230);
+	}
+
+	public UnauthorizedException(String message) {
+		super(ErrorEnum.A0230.getErrCode(), message);
+	}
+
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.UNAUTHORIZED.value();
+	}
 }

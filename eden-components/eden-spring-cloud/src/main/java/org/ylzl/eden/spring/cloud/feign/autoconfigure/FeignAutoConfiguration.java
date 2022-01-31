@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Feign 自动配置
+ * Feign 自动装配
  *
  * @author gyl
  * @since 2.4.x

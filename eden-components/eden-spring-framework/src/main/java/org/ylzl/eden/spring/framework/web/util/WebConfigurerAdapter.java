@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
@@ -30,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistra
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
+import org.ylzl.eden.spring.framework.web.annotation.EnableRestExceptionHandler;
 
 import javax.servlet.ServletContext;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +55,7 @@ import java.util.concurrent.TimeUnit;
  * @author gyl
  * @since 2.0.0
  */
-@EnableRestErrorAdvice
+@EnableRestExceptionHandler
 @Slf4j
 public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextInitializer {
 

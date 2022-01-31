@@ -26,7 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
-import org.ylzl.eden.spring.framework.web.rest.errors.InvalidCredentialsException;
+import org.ylzl.eden.spring.framework.web.errors.UnauthorizedException;
 import org.ylzl.eden.spring.security.core.login.Login;
 
 /**
@@ -81,7 +81,7 @@ public class JwtTokenService {
 			return JwtToken.builder().value(token).build();
 		} catch (BadCredentialsException ex) {
 			log.error(EXP_AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);
-			throw new InvalidCredentialsException(ex.getMessage());
+			throw new UnauthorizedException(ex.getMessage());
 		} catch (Exception ex) {
 			log.error(EXP_AUTHENTICATE_EXCEPTION, ex.getMessage(), ex);
 			throw ex;

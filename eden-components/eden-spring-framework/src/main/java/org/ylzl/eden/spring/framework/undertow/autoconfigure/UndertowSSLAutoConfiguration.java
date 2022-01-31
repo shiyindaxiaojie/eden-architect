@@ -25,7 +25,7 @@ import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFa
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Undertow SSL 自动配置类
+ * Undertow SSL 自动装配类
  *
  * @author gyl
  * @since 2.0.0

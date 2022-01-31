@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.swagger.filter.SwaggerBasePathRewritingFilter;
 
 /**
- * 基于 Zuul 的 Swagger 自动配置
+ * 基于 Zuul 的 Swagger 自动装配
  *
  * @author gyl
  * @since 2.4.x

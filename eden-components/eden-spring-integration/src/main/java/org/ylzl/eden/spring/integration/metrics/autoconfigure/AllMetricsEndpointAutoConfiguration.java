@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.integration.metrics.endpoint.AllMetricsEndpoint;
 
 /**
- * 增强 Metrics 端点自动配置
+ * 增强 Metrics 端点自动装配
  *
  * @author gyl
  * @since 2.4.x

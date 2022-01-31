@@ -15,46 +15,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.vm;
+package org.ylzl.eden.spring.security.web.rest.error;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-
-import java.io.Serializable;
+import org.ylzl.eden.spring.framework.web.errors.BadRequestException;
+import org.ylzl.eden.spring.framework.web.errors.ErrorEnum;
 
 /**
- * 数据列表视图模型
+ * 用户未注册
  *
  * @author gyl
  * @since 2.4.x
  */
-@AllArgsConstructor
-@Builder(toBuilder = true)
-@Data
-@EqualsAndHashCode
-@NoArgsConstructor
-@ToString
-@ApiModel(description = "数据列表视图模型")
-public class DatasVM<T> implements Serializable {
+public class UserNotRegisteredException extends BadRequestException {
 
-	private static final long serialVersionUID = -6062447811540513140L;
-
-	/**
-	 * 消息
-	 */
-	@ApiModelProperty(value = "消息")
-	private String message;
-
-	/**
-	 * 数据
-	 */
-	@ApiModelProperty(value = "数据")
-	private T data;
-
-	/**
-	 * 统计
-	 */
-	@ApiModelProperty(value = "统计")
-	private Long count;
+	public UserNotRegisteredException() {
+		super(ErrorEnum.A0201);
+	}
 }

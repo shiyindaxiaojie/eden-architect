@@ -13,7 +13,7 @@ import java.util.Arrays;
  * 耗时统计切面
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @Aspect
 public class TimerAspect {

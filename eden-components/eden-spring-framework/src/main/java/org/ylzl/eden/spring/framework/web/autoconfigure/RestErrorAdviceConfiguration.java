@@ -15,32 +15,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.autoconfigure;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.framework.web.errors.RestExceptionHandler;
 
 /**
- * 错误凭证
+ * REST 错误自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-public class InvalidCredentialsException extends BadRequestAlertException {
+@Configuration
+public class RestErrorAdviceConfiguration {
 
-	public InvalidCredentialsException() {
-		super(ErrorEnum.INVALID_CREDENTIALS.getMessage());
-	}
-
-	public InvalidCredentialsException(String message) {
-		super(message);
-	}
-
-	public InvalidCredentialsException(String message, String description) {
-		super(message, description);
-	}
-
-	@Override
-	public int getStatusCode() {
-		return HttpStatus.UNAUTHORIZED.value();
+	@ConditionalOnMissingBean
+	@Bean
+	public RestExceptionHandler restErrorAdvice() {
+		return new RestExceptionHandler();
 	}
 }

@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.data.jdbc.namedparam.BatchNamedParameterJdbcTemplate
 import javax.sql.DataSource;
 
 /**
- * Jdbc 模板自动配置
+ * Jdbc 模板自动装配
  *
  * @author gyl
  * @since 2.4.x

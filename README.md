@@ -13,7 +13,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus` 和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
 * **数据分片能力封装**：提供了 `Sharding JDBC` 的封装，兼容 `Mybatis Plus`、`DynamicDataSource` 组件。
 * **常用组件集成**：提供了 `Kafka`、`XXLJob`、`CAT`、`Zookeeper`、`EasyExcel`、`Sentinel` 等组件的集成，并提供 `Spring Boot Starter` 能力。
-* **腾讯云组件集成**：提供了腾讯云产品常用的 `COS 对象存储`、`VOD 云点播`、`TMS 敏感词过滤`、`TPNS 推送`、`CMQ 消息队列`等组件的集成，引入相关 `Spring Boot Starter` 开启自动配置能力。
+* **腾讯云组件集成**：提供了腾讯云产品常用的 `COS 对象存储`、`VOD 云点播`、`TMS 敏感词过滤`、`TPNS 推送`、`CMQ 消息队列`等组件的集成，引入相关 `Spring Boot Starter` 开启自动装配能力。
 
 ## 组件构成
 
@@ -23,7 +23,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **eden-dependencies**: 依赖管理组件
 * **eden-parent**: 构建管理组件
 * **eden-commons**: 基础工具组件，集成了 `Apache Commons`、`Google Guava` 、`HuTool`...
-* **eden-spring-boot-starters**: 自动配置组件
+* **eden-spring-boot-starters**: 自动装配组件
 * **eden-spring-framework**: 基础框架组件
 * **eden-spring-cloud**: 微服务框架组件，集成了 `Nacos`、`Sentinel`、`Apollo`...
 * **eden-spring-data**: 数据仓库组件，集成了 `Mybatis`、`Redis`、`Flyway`、`Liquibase`...

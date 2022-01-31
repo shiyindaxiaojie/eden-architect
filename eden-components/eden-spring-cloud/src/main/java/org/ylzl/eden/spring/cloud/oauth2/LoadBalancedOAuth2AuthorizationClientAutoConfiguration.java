@@ -35,19 +35,19 @@ import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtClientCredentialsResourceDetails;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtOAuth2AccessTokenClient;
 import org.ylzl.eden.spring.cloud.oauth2.token.jwt.JwtSignatureVerifierClient;
-import org.ylzl.eden.spring.framework.web.RestAutoConfiguration;
+import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClient;
 import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
 
 /**
- * 负载均衡的 OAuth2 授权客户端自动配置
+ * 负载均衡的 OAuth2 授权客户端自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@AutoConfigureAfter({RestAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
+@AutoConfigureAfter({RestTemplateAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
 @ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})

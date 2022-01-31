@@ -47,7 +47,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 
 /**
- * Mybatis Mapper 自动配置
+ * TKMybatis 自动装配
  *
  * @author gyl
  * @since 2.4.x

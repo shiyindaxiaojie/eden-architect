@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.framework.web.rest.vm.ErrorVM;
 
 /**
  * 错误请求
@@ -28,37 +27,22 @@ import org.ylzl.eden.spring.framework.web.rest.vm.ErrorVM;
  * @since 2.4.x
  */
 @Getter
-public class BadRequestAlertException extends RuntimeException {
+public class BadRequestException extends AbstractException {
 
-	private static final long serialVersionUID = -4672286153615627725L;
-
-	private final String message;
-
-	private final String description;
-
-	public BadRequestAlertException() {
-		super(ErrorEnum.BAD_REQUEST_ALERT.getMessage());
-		this.message = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
-		this.description = ErrorEnum.BAD_REQUEST_ALERT.getMessage();
+	public BadRequestException() {
+		super(ErrorEnum.A0001);
 	}
 
-	public BadRequestAlertException(String message) {
-		super(message);
-		this.message = message;
-		this.description = message;
+	public BadRequestException(ErrorEnum errorEnum) {
+		super(errorEnum);
 	}
 
-	public BadRequestAlertException(String message, String description) {
-		super(message);
-		this.message = message;
-		this.description = description;
+	public BadRequestException(String errCode, String errMessage) {
+		super(errCode, errMessage);
 	}
 
+	@Override
 	public int getStatusCode() {
 		return HttpStatus.BAD_REQUEST.value();
-	}
-
-	public ErrorVM getErrorVM() {
-		return ErrorVM.builder().message(message).description(description).build();
 	}
 }

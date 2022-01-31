@@ -24,7 +24,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
 
 /**
- * AuditorAware 自动配置
+ * AuditorAware 自动装配
  *
  * @author gyl
  * @since 2.4.x

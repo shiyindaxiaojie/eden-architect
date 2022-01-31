@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * 自定义 Redis 数据仓库
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @Slf4j
 @Repository

@@ -15,32 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.annotation;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.framework.web.autoconfigure.RestErrorAdviceConfiguration;
+
+import java.lang.annotation.*;
 
 /**
- * 请求未认证
+ * 开启 REST 接口异常解析器配置
  *
  * @author gyl
  * @since 2.4.x
  */
-public class UnauthorizedException extends BadRequestAlertException {
-
-	public UnauthorizedException() {
-		super(ErrorEnum.UNAUTHORIZED.getMessage());
-	}
-
-	public UnauthorizedException(String message) {
-		super(message);
-	}
-
-	public UnauthorizedException(String message, String description) {
-		super(message, description);
-	}
-
-	@Override
-	public int getStatusCode() {
-		return HttpStatus.UNAUTHORIZED.value();
-	}
+@Import(RestErrorAdviceConfiguration.class)
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface EnableRestExceptionHandler {
 }

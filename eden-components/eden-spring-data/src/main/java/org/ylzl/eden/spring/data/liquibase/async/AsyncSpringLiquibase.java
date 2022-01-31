@@ -59,18 +59,14 @@ public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 	public void afterPropertiesSet() throws LiquibaseException {
 		if (environment.acceptsProfiles(
 			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
-			try (Connection connection = getDataSource().getConnection()) {
+			try (Connection ignored = getDataSource().getConnection()) {
 				asyncTaskExecutor.execute(
-					new Runnable() {
-
-						@Override
-						public void run() {
-							try {
-								log.debug(MSG_STARTING_ASYNC);
-								initDb();
-							} catch (LiquibaseException e) {
-								log.error(MSG_EXCEPTION, e.getMessage(), e);
-							}
+					() -> {
+						try {
+							log.debug(MSG_STARTING_ASYNC);
+							initDb();
+						} catch (LiquibaseException e) {
+							log.error(MSG_EXCEPTION, e.getMessage(), e);
 						}
 					});
 			} catch (SQLException e) {

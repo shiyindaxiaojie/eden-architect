@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * MongoDB 自动配置
+ * MongoDB 自动装配
  *
  * @author gyl
  * @since 2.4.x

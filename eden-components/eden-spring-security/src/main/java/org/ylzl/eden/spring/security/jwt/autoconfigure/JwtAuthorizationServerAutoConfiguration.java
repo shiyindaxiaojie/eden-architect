@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 
 /**
- * JWT 授权服务端自动配置
+ * JWT 授权服务端自动装配
  *
  * @author gyl
  * @since 2.4.x

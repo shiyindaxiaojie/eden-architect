@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.data.audit.event.AuditEventConverter;
 
 /**
- * AuditEvent 自动配置
+ * AuditEvent 自动装配
  *
  * @author gyl
  * @see org.springframework.boot.actuate.audit.AuditEvent

@@ -55,6 +55,16 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- COLA Framework -->
+		<dependency>
+			<groupId>com.alibaba.cola</groupId>
+			<artifactId>cola-component-dto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.cola</groupId>
+			<artifactId>cola-component-exception</artifactId>
+		</dependency>
+
 		<!-- Spring Framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -174,7 +184,7 @@
 		</dependency>
 
 		<!-- Log4j 日志框架 -->
-		<!-- 使用 log4j2 日志自动配置-->
+		<!-- 使用 log4j2 日志自动装配-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>

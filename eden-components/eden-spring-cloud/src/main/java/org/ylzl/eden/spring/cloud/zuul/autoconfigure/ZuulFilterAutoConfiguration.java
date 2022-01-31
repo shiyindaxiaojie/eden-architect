@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
 import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 
 /**
- * Zuul 过滤器自动配置
+ * Zuul 过滤器自动装配
  *
  * @author gyl
  * @since 2.4.x

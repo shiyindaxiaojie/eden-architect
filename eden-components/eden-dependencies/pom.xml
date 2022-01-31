@@ -380,7 +380,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
+				<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
