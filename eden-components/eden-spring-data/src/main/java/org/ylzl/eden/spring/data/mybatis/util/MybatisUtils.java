@@ -15,7 +15,7 @@ import java.util.List;
  * Mybatis 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @UtilityClass
 public class MybatisUtils {

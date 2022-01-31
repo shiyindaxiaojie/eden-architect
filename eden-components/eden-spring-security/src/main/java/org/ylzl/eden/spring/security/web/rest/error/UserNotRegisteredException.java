@@ -17,8 +17,8 @@
 
 package org.ylzl.eden.spring.security.web.rest.error;
 
-import org.ylzl.eden.spring.framework.web.rest.errors.BadRequestException;
-import org.ylzl.eden.spring.framework.web.rest.errors.ErrorEnum;
+import org.ylzl.eden.spring.framework.web.errors.BadRequestException;
+import org.ylzl.eden.spring.framework.web.errors.ErrorEnum;
 
 /**
  * 用户未注册

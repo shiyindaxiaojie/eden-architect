@@ -15,25 +15,34 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.errors;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.web.rest.errors.RestErrorAdvice;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
- * REST 错误自动装配
+ * 错误请求
  *
  * @author gyl
  * @since 2.4.x
  */
-@Configuration
-public class RestErrorAdviceConfiguration {
+@Getter
+public class BadRequestException extends AbstractException {
 
-	@ConditionalOnMissingBean
-	@Bean
-	public RestErrorAdvice restErrorAdvice() {
-		return new RestErrorAdvice();
+	public BadRequestException() {
+		super(ErrorEnum.A0001);
+	}
+
+	public BadRequestException(ErrorEnum errorEnum) {
+		super(errorEnum);
+	}
+
+	public BadRequestException(String errCode, String errMessage) {
+		super(errCode, errMessage);
+	}
+
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.BAD_REQUEST.value();
 	}
 }

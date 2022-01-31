@@ -12,7 +12,7 @@ import java.util.Set;
  * Redis 数据仓库接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 public interface CustomRedisRepository {
 

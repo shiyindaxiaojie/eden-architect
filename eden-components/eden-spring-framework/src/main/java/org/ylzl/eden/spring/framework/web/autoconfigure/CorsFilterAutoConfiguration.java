@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
@@ -48,7 +48,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class CorsAutoConfiguration {
+public class CorsFilterAutoConfiguration {
 
 	public static final String MSG_AUTOWIRED_CORSFILTER = "Autowired CorsFilter";
 

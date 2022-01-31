@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
 
 import com.alibaba.cola.dto.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.ylzl.eden.spring.framework.web.rest.vm.FieldErrorResponse;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ import java.util.List;
  * @since 2.4.x
  */
 @RestControllerAdvice
-public class RestErrorAdvice {
+public class RestExceptionHandler {
 
 	/**
 	 * 处理服务器内部异常
@@ -74,17 +74,11 @@ public class RestErrorAdvice {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public FieldErrorResponse processValidationException(MethodArgumentNotValidException ex) {
+	public Response processValidationException(MethodArgumentNotValidException ex) {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
-		FieldErrorResponse response = new FieldErrorResponse();
-		response.setSuccess(false);
-		response.setErrCode(ErrorEnum.A0400.getErrCode());
-		response.setErrMessage(ErrorEnum.A0400.getErrMessage());
-		for (FieldError fieldError : fieldErrors) {
-			response.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
-		}
-		return response;
+		String message = StringUtils.join(fieldErrors.toArray(), ",");
+		return Response.buildFailure(ErrorEnum.A0001.getErrCode(), message);
 	}
 
 	/**
@@ -97,7 +91,7 @@ public class RestErrorAdvice {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	public Response processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-		return Response.buildFailure(ErrorEnum.A0405.getErrCode(), ErrorEnum.A0405.getErrMessage());
+		return Response.buildFailure(ErrorEnum.A0001.getErrCode(), "不支持的请求方法");
 	}
 
 	/**

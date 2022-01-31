@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.framework.web.rest.util;
+package org.ylzl.eden.spring.framework.web.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpHeaders;

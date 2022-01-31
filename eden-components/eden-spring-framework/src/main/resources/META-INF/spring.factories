@@ -7,5 +7,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.framework.mail.autoconfigure.EnhancedMailSenderAutoConfiguration,\
   org.ylzl.eden.spring.framework.async.autoconfigure.AsyncTaskExecutorAutoConfiguration,\
   org.ylzl.eden.spring.framework.undertow.autoconfigure.UndertowSSLAutoConfiguration,\
-  org.ylzl.eden.spring.framework.web.CorsAutoConfiguration,\
-  org.ylzl.eden.spring.framework.web.RestAutoConfiguration
+  org.ylzl.eden.spring.framework.web.autoconfigure.CorsFilterAutoConfiguration,\
+  org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration

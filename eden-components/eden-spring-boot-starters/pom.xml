@@ -58,7 +58,7 @@
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
-		<module>eden-shardingsphere-spring-boot-starter</module>
+		<module>eden-sharding-jdbc-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
 		<module>eden-zookeeper-spring-boot-starter</module>

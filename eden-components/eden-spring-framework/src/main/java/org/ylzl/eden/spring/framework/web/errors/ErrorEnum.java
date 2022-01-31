@@ -1,16 +1,17 @@
-package org.ylzl.eden.spring.framework.web.rest.errors;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+package org.ylzl.eden.spring.framework.web.errors;
 
 /**
- * 错误标准化枚举
+ * 标准错误码
+ *
+ * <ul> 参考《阿里巴巴Java开发手册》错误码
+ * <li>A____：表示错误来自于用户</li>
+ * <li>B____：表示错误来自于当前系统</li>
+ * <li>C____：表示错误来自于第三方服务</li>
+ * </ul>
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
-@Getter
-@AllArgsConstructor
 public enum ErrorEnum implements ErrorAssert {
 
 	OK("处理成功"),
@@ -72,11 +73,8 @@ public enum ErrorEnum implements ErrorAssert {
 	A0341("RSA 签名错误"),
 
 	A0400("用户请求参数错误"),
-	A0401("请求未认证"),
+	A0401("包含非法恶意跳转链接"),
 	A0402("无效的用户输入"),
-	A0403("禁止访问"),
-	A0404("请求目标不存在"),
-	A0405("不支持的请求方法"),
 	A0410("请求必填参数为空"),
 	A0411("用户订单号为空"),
 	A0412("订购数量为空"),
@@ -220,12 +218,26 @@ public enum ErrorEnum implements ErrorAssert {
 		this.errMessage = errMessage;
 	}
 
+	ErrorEnum(String errCode, String errMessage) {
+		this.errCode = errCode;
+		this.errMessage = errMessage;
+	}
+
+	public String getErrCode() {
+		if (OK.getErrCode().equals(errCode)) {
+			// 表示处理成功
+			return "00000";
+		}
+		return errCode;
+	}
+
 	@Override
-	public String toString() {
+	public String getErrMessage() {
 		return errMessage;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(ErrorEnum.OK);
+	@Override
+	public String toString() {
+		return errMessage;
 	}
 }

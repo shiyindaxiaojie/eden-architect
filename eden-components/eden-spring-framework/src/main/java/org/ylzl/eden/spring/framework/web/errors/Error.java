@@ -1,10 +1,10 @@
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
 
 /**
  * 错误信息接口
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 public interface Error {
 

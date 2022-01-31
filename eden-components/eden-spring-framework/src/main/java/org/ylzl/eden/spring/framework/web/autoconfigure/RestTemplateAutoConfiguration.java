@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class RestAutoConfiguration {
+public class RestTemplateAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";
 

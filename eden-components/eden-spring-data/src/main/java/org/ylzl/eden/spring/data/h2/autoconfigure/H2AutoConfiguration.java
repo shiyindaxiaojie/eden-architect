@@ -38,7 +38,7 @@ public class H2AutoConfiguration {
 	@Bean(initMethod = "start", destroyMethod = "stop")
 	public Object h2TCPServer() throws SQLException {
 		int port = getValidPortForH2();
-		log.debug("H2 database is available on port {}", port);
+		log.info("H2 database is available on port {}", port);
 		return H2ConfigurationHelper.createServer(port);
 	}
 

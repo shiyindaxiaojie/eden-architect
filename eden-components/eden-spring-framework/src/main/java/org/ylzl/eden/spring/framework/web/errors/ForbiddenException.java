@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
 
 import org.springframework.http.HttpStatus;
 
@@ -28,7 +28,7 @@ import org.springframework.http.HttpStatus;
 public class ForbiddenException extends AbstractException {
 
 	public ForbiddenException() {
-		super(ErrorEnum.A0403);
+		super(ErrorEnum.A0301);
 	}
 
 	@Override

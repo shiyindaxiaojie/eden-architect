@@ -26,7 +26,7 @@ import java.net.InetSocketAddress;
  * Logstash 工具集
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @Slf4j
 @UtilityClass

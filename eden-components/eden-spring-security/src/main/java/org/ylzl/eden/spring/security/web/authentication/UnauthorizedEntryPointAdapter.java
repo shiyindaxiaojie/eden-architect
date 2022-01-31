@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.security.web.authentication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.web.rest.errors.ErrorEnum;
+import org.ylzl.eden.spring.framework.web.errors.ErrorEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

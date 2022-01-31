@@ -15,35 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.annotation;
 
-import lombok.Getter;
-import com.alibaba.cola.dto.Response;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.framework.web.autoconfigure.RestErrorAdviceConfiguration;
+
+import java.lang.annotation.*;
 
 /**
- * 错误请求
+ * 开启 REST 接口异常解析器配置
  *
  * @author gyl
  * @since 2.4.x
  */
-@Getter
-public class BadRequestException extends AbstractException {
-
-	public BadRequestException() {
-		super(ErrorEnum.A0001);
-	}
-
-	public BadRequestException(ErrorEnum errorEnum) {
-		super(errorEnum);
-	}
-
-	public BadRequestException(String errCode, String errMessage) {
-		super(errCode, errMessage);
-	}
-
-	@Override
-	public int getStatusCode() {
-		return HttpStatus.BAD_REQUEST.value();
-	}
+@Import(RestErrorAdviceConfiguration.class)
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface EnableRestExceptionHandler {
 }

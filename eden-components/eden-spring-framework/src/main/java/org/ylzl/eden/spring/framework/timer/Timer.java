@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * 耗时统计注解
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -15,48 +15,28 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.vm;
+package org.ylzl.eden.spring.framework.web.errors;
 
-import com.alibaba.cola.dto.Response;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.http.HttpStatus;
 
 /**
- * 字段错误视图模型
+ * 请求未认证
  *
  * @author gyl
  * @since 2.4.x
  */
-@AllArgsConstructor
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@ToString(callSuper = true)
-public class FieldErrorResponse extends Response {
+public class UnauthorizedException extends AbstractException {
 
-	private List<FieldError> fieldErrors;
-
-	public void add(String objectName, String field, String message) {
-		if (fieldErrors == null) {
-			fieldErrors = new ArrayList<>();
-		}
-		fieldErrors.add(
-			FieldError.builder().objectName(objectName).field(field).message(message).build());
+	public UnauthorizedException() {
+		super(ErrorEnum.A0230);
 	}
 
-	@SuperBuilder(toBuilder = true)
-	@Data
-	@EqualsAndHashCode
-	@ToString
-	public static class FieldError {
+	public UnauthorizedException(String message) {
+		super(ErrorEnum.A0230.getErrCode(), message);
+	}
 
-		private String objectName;
-
-		private String field;
-
-		private String message;
+	@Override
+	public int getStatusCode() {
+		return HttpStatus.UNAUTHORIZED.value();
 	}
 }

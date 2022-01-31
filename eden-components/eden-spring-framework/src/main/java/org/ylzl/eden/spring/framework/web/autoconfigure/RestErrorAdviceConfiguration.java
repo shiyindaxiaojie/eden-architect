@@ -15,21 +15,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web;
+package org.ylzl.eden.spring.framework.web.autoconfigure;
 
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.framework.web.errors.RestExceptionHandler;
 
 /**
- * 开启 REST 接口异常解析器配置
+ * REST 错误自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@Import(RestErrorAdviceConfiguration.class)
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface EnableRestErrorAdvice {
+@Configuration
+public class RestErrorAdviceConfiguration {
+
+	@ConditionalOnMissingBean
+	@Bean
+	public RestExceptionHandler restErrorAdvice() {
+		return new RestExceptionHandler();
+	}
 }

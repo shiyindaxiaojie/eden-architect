@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.framework.web.rest.errors;
+package org.ylzl.eden.spring.framework.web.errors;
 
 import com.alibaba.cola.dto.Response;
 

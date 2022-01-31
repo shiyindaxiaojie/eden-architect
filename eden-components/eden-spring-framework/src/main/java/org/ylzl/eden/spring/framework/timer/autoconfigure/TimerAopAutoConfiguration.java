@@ -10,7 +10,7 @@ import org.ylzl.eden.spring.framework.timer.TimerAspect;
  * 耗时统计切面自动装配类
  *
  * @author gyl
- * @since 0.0.1
+ * @since 2.4.x
  */
 @Slf4j
 @Configuration
