@@ -1,7 +1,7 @@
 package org.ylzl.eden.spring.framework.web.errors;
 
 /**
- * 标准错误码
+ * 业务统一错误码
  *
  * <ul> 参考《阿里巴巴Java开发手册》错误码
  * <li>A____：表示错误来自于用户</li>
@@ -13,8 +13,6 @@ package org.ylzl.eden.spring.framework.web.errors;
  * @since 2.4.x
  */
 public enum ErrorEnum implements ErrorAssert {
-
-	OK("处理成功"),
 
 	A0001("用户端错误"),
 	A0100("用户注册错误"),
@@ -224,10 +222,6 @@ public enum ErrorEnum implements ErrorAssert {
 	}
 
 	public String getErrCode() {
-		if (OK.getErrCode().equals(errCode)) {
-			// 表示处理成功
-			return "00000";
-		}
 		return errCode;
 	}
 
@@ -239,5 +233,8 @@ public enum ErrorEnum implements ErrorAssert {
 	@Override
 	public String toString() {
 		return errMessage;
+	}
+
+	public static void main(String[] args) {
 	}
 }

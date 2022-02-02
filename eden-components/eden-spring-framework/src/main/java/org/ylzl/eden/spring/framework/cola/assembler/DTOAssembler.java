@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.framework.cola;
+package org.ylzl.eden.spring.framework.cola.assembler;
 
 /**
  * 数据传输对象组装器(数据传输对象 <-> 领域对象)

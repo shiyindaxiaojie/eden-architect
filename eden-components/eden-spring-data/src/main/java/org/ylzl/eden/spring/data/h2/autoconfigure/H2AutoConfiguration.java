@@ -2,6 +2,7 @@ package org.ylzl.eden.spring.data.h2.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -20,6 +21,7 @@ import java.util.Objects;
  * @since 2.4.x
  */
 @ConditionalOnExpression(H2AutoConfiguration.EXP_H2_ENABLED)
+@EnableConfigurationProperties(H2Properties.class)
 @Slf4j
 @Configuration
 public class H2AutoConfiguration {

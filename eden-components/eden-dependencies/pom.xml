@@ -40,7 +40,7 @@
 		<spring.profiles.active>prod</spring.profiles.active>
 
 		<!-- 基础框架 -->
-		<cola.version>4.1.0-SNAPSHOT</cola.version>
+		<cola.version>4.1.0</cola.version>
 		<spring-boot.version>2.4.13</spring-boot.version>
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
 
@@ -97,7 +97,6 @@
 		<truelicense.version>1.33</truelicense.version>
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		<mvel.version>2.4.8.Final</mvel.version>
-		<reflections.version>0.9.12</reflections.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.20</mysql.version>
@@ -142,7 +141,7 @@
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>4.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<grpc.version>1.30.2</grpc.version>
+		<grpc.version>1.31.1</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
@@ -654,12 +653,6 @@
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
 				<version>${hibernate-validator.version}</version>
-			</dependency>
-			<!-- Reflections -->
-			<dependency>
-				<groupId>org.reflections</groupId>
-				<artifactId>reflections</artifactId>
-				<version>${reflections.version}</version>
 			</dependency>
 			<!-- EasyExcel -->
 			<dependency>

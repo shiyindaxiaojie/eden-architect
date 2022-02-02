@@ -21,7 +21,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
- * 错误请求
+ * HTTP 400 错误（客户端不正确的请求）
  *
  * @author gyl
  * @since 2.4.x

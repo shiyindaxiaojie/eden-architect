@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.data.redis.autoconfigure;
+package org.ylzl.eden.spring.boot.redis.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,7 +55,7 @@ import java.lang.reflect.Method;
 @Configuration
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
-	private static final String MSG_AUTOWIRED_REDIS_CACHE_MANAGER = "Autowired RedisCacheManager";
+	public static final String AUTOWIRED_REDIS_CACHE_MANAGER = "Autowired RedisCacheManager";
 
 	private static final String BEAN_REDIS_CACHE_MGR = "redisCacheManager";
 
@@ -70,7 +70,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 	@Bean
 	@Override
 	public CacheManager cacheManager() {
-		log.debug(MSG_AUTOWIRED_REDIS_CACHE_MANAGER);
+		log.debug(AUTOWIRED_REDIS_CACHE_MANAGER);
 		return RedisCacheManager.create(redisConnectionFactory);
 	}
 

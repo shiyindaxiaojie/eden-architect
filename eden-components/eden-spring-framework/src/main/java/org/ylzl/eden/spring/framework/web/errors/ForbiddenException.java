@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.web.errors;
 import org.springframework.http.HttpStatus;
 
 /**
- * 非法访问
+ * HTTP 403 错误（非法访问）
  *
  * @author gyl
  * @since 2.4.x

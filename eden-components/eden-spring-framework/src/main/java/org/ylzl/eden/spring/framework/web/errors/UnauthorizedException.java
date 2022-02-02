@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.web.errors;
 import org.springframework.http.HttpStatus;
 
 /**
- * 请求未认证
+ * HTTP 401 错误（未认证）
  *
  * @author gyl
  * @since 2.4.x

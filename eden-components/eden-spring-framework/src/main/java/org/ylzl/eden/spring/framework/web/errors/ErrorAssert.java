@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * 错误断言接口
+ * 针对可能发生的错误进行断言
  *
  * @author gyl
  * @since 2.4.x
@@ -49,6 +49,14 @@ public interface ErrorAssert extends Error {
 	default void isNull(Object object) {
 		try {
 			Assert.isNull(object, getErrMessage());
+		} catch (IllegalArgumentException e) {
+			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+		}
+	}
+
+	default void notNull(Object object) {
+		try {
+			Assert.notNull(object, getErrMessage());
 		} catch (IllegalArgumentException e) {
 			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
 		}

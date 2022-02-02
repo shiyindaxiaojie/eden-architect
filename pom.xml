@@ -66,6 +66,7 @@
 			<email>shiyindaxiaojie@gmail.com</email>
 			<roles>
 				<role>Developer</role>
+				<role>Architect</role>
 			</roles>
 		</developer>
 		<developer>
@@ -73,6 +74,7 @@
 			<name>欣熙林林</name>
 			<roles>
 				<role>Developer</role>
+				<role>CI/SCM Engineer</role>
 			</roles>
 		</developer>
 	</developers>

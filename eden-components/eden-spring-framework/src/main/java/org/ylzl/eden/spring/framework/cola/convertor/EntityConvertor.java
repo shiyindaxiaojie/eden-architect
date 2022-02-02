@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.framework.cola;
+package org.ylzl.eden.spring.framework.cola.convertor;
 
 import org.mapstruct.MappingTarget;
 
