@@ -19,7 +19,6 @@ package org.ylzl.eden.spring.framework.info.autoconfigure;
 
 import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,9 +42,7 @@ import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributo
  * @author gyl
  * @since 2.0.0
  */
-@ConditionalOnProperty(havingValue = "management.info")
-@AutoConfigureAfter(
-	org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
+@AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
 @Configuration("extendsInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 

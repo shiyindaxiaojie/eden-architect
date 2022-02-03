@@ -17,16 +17,19 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-cloud</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>javassist</artifactId>
+					<groupId>org.javassist</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

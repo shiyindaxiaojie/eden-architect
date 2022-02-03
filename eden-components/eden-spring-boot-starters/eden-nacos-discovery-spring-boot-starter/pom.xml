@@ -17,22 +17,31 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-cloud</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 			<exclusions>
 				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>jsr311-api</artifactId>
+					<artifactId>archaius-core</artifactId>
+					<groupId>com.netflix.archaius</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsr305</artifactId>
+					<groupId>com.google.code.findbugs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>rxjava</artifactId>
+					<groupId>io.reactivex</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>servo-core</artifactId>
+					<groupId>com.netflix.servo</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-client</artifactId>
 		</dependency>
 	</dependencies>
 </project>

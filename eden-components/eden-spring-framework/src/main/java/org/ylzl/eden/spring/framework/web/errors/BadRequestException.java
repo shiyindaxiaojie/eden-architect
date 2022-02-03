@@ -17,7 +17,6 @@
 
 package org.ylzl.eden.spring.framework.web.errors;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -26,7 +25,6 @@ import org.springframework.http.HttpStatus;
  * @author gyl
  * @since 2.4.x
  */
-@Getter
 public class BadRequestException extends AbstractException {
 
 	public BadRequestException() {

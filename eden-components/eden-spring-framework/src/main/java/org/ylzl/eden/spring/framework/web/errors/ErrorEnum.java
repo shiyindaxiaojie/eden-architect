@@ -12,7 +12,7 @@ package org.ylzl.eden.spring.framework.web.errors;
  * @author gyl
  * @since 2.4.x
  */
-public enum ErrorEnum implements ErrorAssert {
+public enum ErrorEnum implements AssertError {
 
 	A0001("用户端错误"),
 	A0100("用户注册错误"),
@@ -216,11 +216,7 @@ public enum ErrorEnum implements ErrorAssert {
 		this.errMessage = errMessage;
 	}
 
-	ErrorEnum(String errCode, String errMessage) {
-		this.errCode = errCode;
-		this.errMessage = errMessage;
-	}
-
+	@Override
 	public String getErrCode() {
 		return errCode;
 	}
@@ -235,6 +231,8 @@ public enum ErrorEnum implements ErrorAssert {
 		return errMessage;
 	}
 
-	public static void main(String[] args) {
+	@Override
+	public void throwNewException(Throwable e) {
+		throw new BadRequestException(this);
 	}
 }

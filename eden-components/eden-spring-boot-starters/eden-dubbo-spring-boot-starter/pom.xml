@@ -17,12 +17,31 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-cloud</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-registry-nacos</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dubbo-rpc-api</artifactId>
+					<groupId>org.apache.dubbo</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

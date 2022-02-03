@@ -12,13 +12,15 @@ import java.util.Map;
  * @author gyl
  * @since 2.4.x
  */
-public interface ErrorAssert extends Error {
+public interface AssertError extends Error {
+
+	void throwNewException(Throwable e);
 
 	default void doesNotContain(@NonNull String textToSearch, String substring) {
 		try {
 			Assert.doesNotContain(textToSearch, substring, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -26,7 +28,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.hasLength(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -34,7 +36,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.hasText(text, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -42,7 +44,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.isInstanceOf(type, obj, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -50,7 +52,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.isNull(object, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -58,7 +60,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.notNull(object, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -66,7 +68,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.isTrue(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -74,7 +76,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.noNullElements(collection, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -82,7 +84,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.notEmpty(array, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -90,7 +92,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.notEmpty(collection, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -98,7 +100,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.notEmpty(map, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -106,7 +108,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.isAssignable(superType, subType, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 
@@ -114,7 +116,7 @@ public interface ErrorAssert extends Error {
 		try {
 			Assert.state(expression, getErrMessage());
 		} catch (IllegalArgumentException e) {
-			throw new BadRequestException(ErrorEnum.A0400.getErrCode(), getErrMessage());
+			throwNewException(e);
 		}
 	}
 }

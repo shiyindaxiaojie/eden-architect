@@ -8,5 +8,7 @@ package org.ylzl.eden.spring.framework.web.errors;
  */
 public interface Error {
 
+	String getErrCode();
+
 	String getErrMessage();
 }
