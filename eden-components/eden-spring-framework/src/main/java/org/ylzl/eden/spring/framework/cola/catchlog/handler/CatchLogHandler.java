@@ -15,30 +15,31 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.framework.cola.catchlog.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
+import org.ylzl.eden.spring.framework.cola.exception.BaseException;
 
 /**
- * 未认证处理适配器
+ * TODO
  *
  * @author gyl
  * @since 2.4.x
  */
 @Slf4j
-public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
+public class CatchLogHandler {
 
-	@Override
-	public void commence(
-		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ClientErrorType.A0401.getErrMessage());
+	public static Object response(Class<?> returnType, BaseException e) {
+		try {
+			Response response = (Response) returnType.newInstance();
+			response.setSuccess(false);
+			response.setErrCode(e.getErrCode());
+			response.setErrMessage(e.getErrMessage());
+			return response;
+		} catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			return null;
+		}
 	}
 }

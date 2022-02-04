@@ -15,30 +15,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.framework.cola.exception.http;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.http.HttpStatus;
+import org.ylzl.eden.spring.framework.cola.exception.BaseException;
 import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
- * 未认证处理适配器
+ * HTTP 401 错误（未认证）
  *
  * @author gyl
  * @since 2.4.x
  */
-@Slf4j
-public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
+public class UnauthorizedException extends BaseException {
 
-	@Override
-	public void commence(
-		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ClientErrorType.A0401.getErrMessage());
+	public UnauthorizedException(String errMessage) {
+		super(ClientErrorType.A0230.getErrCode(), errMessage, HttpStatus.UNAUTHORIZED.value());
 	}
 }

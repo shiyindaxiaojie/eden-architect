@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.framework.web.errors.UnauthorizedException;
+import org.ylzl.eden.spring.framework.cola.exception.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 
 /**

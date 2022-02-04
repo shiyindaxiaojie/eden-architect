@@ -14,31 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.ylzl.eden.spring.framework.cola.catchlog.annotation;
 
-package org.ylzl.eden.spring.security.web.authentication;
+import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.CatchLogAutoConfiguration;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.lang.annotation.*;
 
 /**
- * 未认证处理适配器
+ * 开启日志切面自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@Slf4j
-public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
-
-	@Override
-	public void commence(
-		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ClientErrorType.A0401.getErrMessage());
-	}
+@Import(CatchLogAutoConfiguration.class)
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface EnableCatchLog {
 }

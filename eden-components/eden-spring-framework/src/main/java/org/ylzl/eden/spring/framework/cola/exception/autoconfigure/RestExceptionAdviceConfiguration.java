@@ -15,30 +15,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.framework.cola.exception.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.framework.cola.exception.handler.RestExceptionHandler;
 
 /**
- * 未认证处理适配器
+ * REST 错误自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
-@Slf4j
-public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
+@Configuration
+public class RestExceptionAdviceConfiguration {
 
-	@Override
-	public void commence(
-		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ClientErrorType.A0401.getErrMessage());
+	@ConditionalOnMissingBean
+	@Bean
+	public RestExceptionHandler restExceptionHandler() {
+		return new RestExceptionHandler();
 	}
 }

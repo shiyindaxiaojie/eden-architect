@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.data.mongobee.async.AsyncMongobee;
 import org.ylzl.eden.spring.data.mongobee.env.MongobeeProperties;
-import org.ylzl.eden.spring.framework.async.autoconfigure.AsyncTaskExecutorAutoConfiguration;
 import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 
 /**
@@ -79,7 +79,7 @@ public class MongobeeAutoConfiguration {
 
 	@Bean
 	public Mongobee mongobee(
-		@Qualifier(AsyncTaskExecutorAutoConfiguration.BEAN_TASK_EXECUTOR) TaskExecutor taskExecutor,
+		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) TaskExecutor taskExecutor,
 		InfoContributorProvider infoContributorProvider,
 		MongoClient mongoClient,
 		MongoTemplate mongoTemplate,

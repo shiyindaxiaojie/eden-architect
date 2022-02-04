@@ -15,30 +15,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.framework.cola.catchlog.annotation;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 未认证处理适配器
+ * 日志切面注解
  *
+ * @author Frank Zhang
  * @author gyl
  * @since 2.4.x
  */
-@Slf4j
-public class UnauthorizedEntryPointAdapter implements AuthenticationEntryPoint {
-
-	@Override
-	public void commence(
-		HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ClientErrorType.A0401.getErrMessage());
-	}
-}
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CatchLog {}

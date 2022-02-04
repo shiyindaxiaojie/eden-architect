@@ -55,12 +55,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- COLA Framework -->
-		<dependency>
-			<groupId>com.alibaba.cola</groupId>
-			<artifactId>cola-component-dto</artifactId>
-		</dependency>
-
 		<!-- Spring Framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
