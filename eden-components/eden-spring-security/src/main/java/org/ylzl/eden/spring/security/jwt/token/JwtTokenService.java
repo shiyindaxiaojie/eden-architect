@@ -26,7 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
-import org.ylzl.eden.spring.framework.web.errors.UnauthorizedException;
+import org.ylzl.eden.spring.framework.cola.exception.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.core.login.Login;
 
 /**

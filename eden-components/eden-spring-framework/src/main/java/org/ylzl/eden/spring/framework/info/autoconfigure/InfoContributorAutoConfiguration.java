@@ -42,8 +42,7 @@ import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributo
  * @author gyl
  * @since 2.0.0
  */
-@AutoConfigureAfter(
-	org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
+@AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
 @Configuration("extendsInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 

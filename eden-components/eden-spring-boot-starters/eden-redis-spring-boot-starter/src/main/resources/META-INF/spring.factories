@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.spring.boot.redis.autoconfigure.RedisCacheAutoConfiguration,\
+  org.ylzl.eden.spring.boot.redis.autoconfigure.RedisClusterAutoConfiguration

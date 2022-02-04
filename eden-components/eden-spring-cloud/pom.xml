@@ -45,14 +45,17 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-data</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-integration</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-security</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -93,6 +96,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-security</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Spring Cloud Config -->

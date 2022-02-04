@@ -55,16 +55,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- COLA Framework -->
-		<dependency>
-			<groupId>com.alibaba.cola</groupId>
-			<artifactId>cola-component-dto</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.cola</groupId>
-			<artifactId>cola-component-exception</artifactId>
-		</dependency>
-
 		<!-- Spring Framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -209,6 +199,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+		<!-- 增加对 log4j2.yml 的支持 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
 
 		<!-- Logback (不推荐)-->
