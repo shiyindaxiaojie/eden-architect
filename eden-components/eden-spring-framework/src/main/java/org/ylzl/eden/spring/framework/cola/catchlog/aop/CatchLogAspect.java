@@ -46,6 +46,19 @@ public class CatchLogAspect {
 
 	public static final String UNKNOWN_ERROR = "UNKNOWN_ERROR";
 
+	public static final String UNKNOWN_CAUSE = "UNKNOWN_CAUSE";
+
+	public static final String UNKNOWN_EXCEPTION = "UnknownException";
+
+	public static final String ERROR_LOG = "{} in {}() with cause = '{}' and exception = '{}'";
+
+	public static final String ERROR_LOG_WITH_ARGS = "{} in {}() with argument[s] = {} " +
+		"and cause = '{}' and exception = '{}'";
+
+	public static final String ENTER_LOG = "Enter: {}() with argument[s] = {}";
+
+	public static final String EXIT_LOG = "Exit: {}() with result = {}";
+
 	@Pointcut("@within(org.ylzl.eden.spring.framework.cola.catchlog.annotation.CatchLog) && execution(public * *(..))")
 	public void catchLogPointcut() {
 	}
@@ -53,19 +66,16 @@ public class CatchLogAspect {
 	@Around("catchLogPointcut()")
 	public Object logAround(ProceedingJoinPoint joinPoint) {
 		if (log.isDebugEnabled()) {
-			log.debug("Enter: {}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(), Arrays.toString(joinPoint.getArgs()));
+			log.debug(ENTER_LOG, joinPoint.getSignature().getDeclaringTypeName(), Arrays.toString(joinPoint.getArgs()));
 		}
 		Object response = null;
 		try {
 			response = joinPoint.proceed();
-		}
-		catch (Throwable e){
+		} catch (Throwable e) {
 			response = handleException(joinPoint, e);
-		}
-		finally {
+		} finally {
 			if (log.isDebugEnabled()) {
-				log.debug("Exit: {}() with result = {}",
-					joinPoint.getSignature().getDeclaringTypeName(), response);
+				log.debug(EXIT_LOG, joinPoint.getSignature().getDeclaringTypeName(), response);
 			}
 		}
 		return response;
@@ -75,15 +85,26 @@ public class CatchLogAspect {
 		MethodSignature ms = (MethodSignature) joinPoint.getSignature();
 		Class<?> returnType = ms.getReturnType();
 
+		String errorTag;
+		BaseException baseException;
 		if (e instanceof ClientException || e instanceof ServerException ||
 			e instanceof ThirdServiceException) {
-			log.error("{} in {}() with cause = '{}' and exception = '{}'", e.getClass().getSimpleName(),
-				joinPoint.getSignature().getDeclaringTypeName(), e.getCause() != null ? e.getCause() : "NULL", e.getMessage(), e);
-			return CatchLogHandler.response(returnType, (BaseException) e);
+			errorTag = e.getClass().getSimpleName();
+			baseException = (BaseException) e;
+		} else {
+			errorTag = UNKNOWN_EXCEPTION;
+			baseException = new BaseException(UNKNOWN_ERROR, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
 		}
 
-		BaseException baseException = new BaseException(UNKNOWN_ERROR, e.getMessage(),
-			HttpStatus.INTERNAL_SERVER_ERROR.value());
+		String cause = e.getCause() != null ? e.getCause().toString() : UNKNOWN_CAUSE;
+		if (log.isDebugEnabled()) {
+			log.error(ERROR_LOG, errorTag, joinPoint.getSignature().getDeclaringTypeName(),
+				cause, e.getMessage(), e);
+		} else {
+			// 记录抛出异常信息的参数
+			log.error(ERROR_LOG_WITH_ARGS, errorTag, joinPoint.getSignature().getDeclaringTypeName(),
+				Arrays.toString(joinPoint.getArgs()), cause, e.getMessage(), e);
+		}
 		return CatchLogHandler.response(returnType, baseException);
 	}
 }
