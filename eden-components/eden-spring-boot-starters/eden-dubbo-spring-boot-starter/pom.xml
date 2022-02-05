@@ -55,8 +55,12 @@
 					<groupId>log4j</groupId>
 				</exclusion>
 				<exclusion>
-					<artifactId>dubbo-rpc-api</artifactId>
 					<groupId>org.apache.dubbo</groupId>
+					<artifactId>dubbo-rpc-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.dubbo</groupId>
+					<artifactId>dubbo-common</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
