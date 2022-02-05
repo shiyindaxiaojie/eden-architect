@@ -16,8 +16,8 @@
  */
 package org.ylzl.eden.spring.data.mybatis.factory;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -65,8 +65,7 @@ public class FixedSqlSessionFactoryBean extends SqlSessionFactoryBean {
 
 	@Override
 	public void setTypeAliasesPackage(String typeAliasesPackage) {
-		ResourcePatternResolver resolver =
-			(ResourcePatternResolver) new PathMatchingResourcePatternResolver();
+		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
 		String resourcePath = ClassUtils.convertClassNameToResourcePath(typeAliasesPackage);
 

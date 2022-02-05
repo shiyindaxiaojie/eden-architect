@@ -59,6 +59,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Elasticsearch -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
