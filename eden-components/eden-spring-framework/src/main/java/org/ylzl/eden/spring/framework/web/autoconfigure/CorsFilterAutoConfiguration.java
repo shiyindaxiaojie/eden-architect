@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.web.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,7 @@ import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 import org.ylzl.eden.spring.framework.core.util.SpringPathMatcherConstants;
 import org.ylzl.eden.spring.framework.web.filter.CorsFilterBuilder;
 
+import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ import java.util.List;
  * @author gyl
  * @since 2.0.0
  */
+@ConditionalOnClass(Filter.class)
 @Slf4j
 @Configuration
 public class CorsFilterAutoConfiguration {

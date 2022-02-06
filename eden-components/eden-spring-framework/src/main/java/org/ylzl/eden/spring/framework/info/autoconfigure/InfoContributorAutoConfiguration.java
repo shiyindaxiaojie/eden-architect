@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.info.autoconfigure;
 
 import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +44,7 @@ import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributo
  * @since 2.0.0
  */
 @AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
-@Configuration("extendsInfoContributorAutoConfiguration")
+@Configuration("enhancedInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 
 	@ConditionalOnEnabledInfoContributor("management.info.active-profiles.enabled")
@@ -59,6 +60,7 @@ public class InfoContributorAutoConfiguration {
 		return new MailEnabledInfoContributor();
 	}
 
+	@ConditionalOnBean(BuildProperties.class)
 	@Bean
 	public InfoContributorProvider infoContributorProvider(BuildProperties buildProperties) {
 		return new InfoContributorProvider(buildProperties);

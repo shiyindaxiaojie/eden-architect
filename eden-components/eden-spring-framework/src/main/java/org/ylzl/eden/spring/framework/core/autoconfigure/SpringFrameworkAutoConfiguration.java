@@ -18,6 +18,7 @@
 package org.ylzl.eden.spring.framework.core.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,12 +33,15 @@ import org.springframework.web.util.UrlPathHelper;
 import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
 import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 
+import javax.servlet.http.HttpServlet;
+
 /**
  * 框架自动装配
  *
  * @author gyl
  * @since 2.4.x
  */
+@ConditionalOnClass(HttpServlet.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(SpringFrameworkProperties.class)
 @Slf4j
