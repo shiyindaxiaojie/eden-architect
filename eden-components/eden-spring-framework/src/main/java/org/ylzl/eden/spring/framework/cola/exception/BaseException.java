@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.cola.dto.Response;
 /**
  * 异常抽象
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Setter

@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.netty.rpc;
 /**
  * RPC 服务端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public interface RpcServer {

@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * BatchNamedParameterJdbcTemplate
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {

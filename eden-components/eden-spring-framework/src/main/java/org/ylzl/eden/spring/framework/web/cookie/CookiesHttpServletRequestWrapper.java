@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 /**
  * Cookies Http Servlet 请求包装类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class CookiesHttpServletRequestWrapper extends HttpServletRequestWrapper {

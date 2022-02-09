@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 路径匹配常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

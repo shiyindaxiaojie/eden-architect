@@ -21,7 +21,7 @@ import javax.naming.NamingException;
 /**
  * 自定义数据源接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface DataSource extends javax.sql.DataSource {

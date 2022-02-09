@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 /**
  * Zuul 过滤器自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass(ZuulFilter.class)

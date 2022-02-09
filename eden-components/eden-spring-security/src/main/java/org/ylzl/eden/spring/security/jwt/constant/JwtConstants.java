@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
 /**
  * JWT 常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

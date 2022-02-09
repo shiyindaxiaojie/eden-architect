@@ -25,7 +25,7 @@ import java.io.Serializable;
 /**
  * 登录视图模型
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AllArgsConstructor

@@ -25,7 +25,7 @@ import java.sql.Types;
 /**
  * PostgreSQL82 方言类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FixedPostgreSQL82Dialect extends PostgreSQL82Dialect {

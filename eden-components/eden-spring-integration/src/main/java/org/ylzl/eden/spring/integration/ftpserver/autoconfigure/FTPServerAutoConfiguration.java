@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.ftpserver.env.FTPServerProperties;
 /**
  * FtpServer 配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass(FtpServer.class)

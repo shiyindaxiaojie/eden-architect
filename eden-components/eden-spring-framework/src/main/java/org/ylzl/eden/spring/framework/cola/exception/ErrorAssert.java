@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * 针对可能发生的错误进行断言
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface ErrorAssert extends Error {

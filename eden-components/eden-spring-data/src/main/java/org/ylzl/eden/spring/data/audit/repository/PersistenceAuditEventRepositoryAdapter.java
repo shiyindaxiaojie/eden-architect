@@ -42,7 +42,7 @@ import java.util.Map;
  *   <li>{@code find(String principal, Date after)} 被移除
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @SuppressWarnings("unchecked")

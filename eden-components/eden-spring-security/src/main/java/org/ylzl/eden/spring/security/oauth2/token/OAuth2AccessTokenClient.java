@@ -24,7 +24,7 @@ import org.springframework.util.MultiValueMap;
 /**
  * OAuth2 访问令牌客户端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface OAuth2AccessTokenClient {

@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.data.redis.support.lock;
 /**
  * Redis 锁接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface RedisLock {

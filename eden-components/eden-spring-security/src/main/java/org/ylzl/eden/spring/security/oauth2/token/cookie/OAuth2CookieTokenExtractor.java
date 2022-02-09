@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Cookies 令牌提取器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class OAuth2CookieTokenExtractor extends BearerTokenExtractor {

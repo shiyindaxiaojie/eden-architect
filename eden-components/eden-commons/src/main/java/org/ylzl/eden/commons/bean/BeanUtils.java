@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * 对象实体工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

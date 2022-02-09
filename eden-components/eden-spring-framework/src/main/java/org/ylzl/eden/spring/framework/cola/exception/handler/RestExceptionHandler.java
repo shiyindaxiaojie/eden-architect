@@ -48,7 +48,7 @@ import java.util.List;
 /**
  * 异常转换器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

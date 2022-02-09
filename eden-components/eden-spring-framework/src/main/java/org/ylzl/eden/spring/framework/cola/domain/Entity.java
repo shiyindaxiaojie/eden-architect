@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * 实体（非线程安全）
  *
  * @author Frank Zhang
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Inherited

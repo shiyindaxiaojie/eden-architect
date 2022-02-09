@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * EasyExcel 读取器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class EasyExcelReader {

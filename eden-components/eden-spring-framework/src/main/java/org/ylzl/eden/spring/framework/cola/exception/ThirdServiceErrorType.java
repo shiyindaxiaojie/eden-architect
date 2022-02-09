@@ -30,7 +30,7 @@ import org.springframework.http.HttpStatus;
  *
  * @see ClientErrorType
  * @see ServerErrorType
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum ThirdServiceErrorType implements ErrorAssert {

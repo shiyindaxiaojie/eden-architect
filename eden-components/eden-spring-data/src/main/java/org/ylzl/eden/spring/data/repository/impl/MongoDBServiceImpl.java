@@ -25,7 +25,7 @@ import java.io.Serializable;
 /**
  * MongoDB 业务实现
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class MongoDBServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>

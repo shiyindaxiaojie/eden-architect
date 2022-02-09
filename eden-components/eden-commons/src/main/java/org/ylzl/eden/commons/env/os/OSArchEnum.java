@@ -25,7 +25,7 @@ import org.ylzl.eden.commons.regex.RegexUtils;
 /**
  * 操作系统架构枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum OSArchEnum {

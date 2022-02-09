@@ -36,7 +36,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * Swagger Base Path 过滤器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

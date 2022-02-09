@@ -22,7 +22,7 @@ import org.apache.commons.net.ftp.FTPClient;
 /**
  * FTPClient 连接池接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public interface FTPClientPool {

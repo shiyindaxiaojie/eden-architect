@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Curator 工具实现 ZooKeeper 分布式锁
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Undertow SSL 自动装配类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @ConditionalOnProperty({"server.ssl.ciphers", "server.ssl.key-store"})

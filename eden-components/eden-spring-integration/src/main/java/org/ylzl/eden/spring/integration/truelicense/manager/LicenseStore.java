@@ -31,7 +31,7 @@ import java.util.Date;
 /**
  * 许可证服务
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

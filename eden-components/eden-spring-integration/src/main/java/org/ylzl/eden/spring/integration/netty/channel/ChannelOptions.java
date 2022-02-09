@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * 通道选项
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public final class ChannelOptions implements Supplier<Map<ChannelOption, Object>> {

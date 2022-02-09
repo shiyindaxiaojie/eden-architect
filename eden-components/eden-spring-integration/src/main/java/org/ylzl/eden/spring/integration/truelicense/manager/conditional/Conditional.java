@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * 动态条件
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AllArgsConstructor

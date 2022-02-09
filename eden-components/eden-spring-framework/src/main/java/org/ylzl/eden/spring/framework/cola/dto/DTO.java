@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 数据传输对象
  *
  * @author Frank Zhang
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @NoArgsConstructor

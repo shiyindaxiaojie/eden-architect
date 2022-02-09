@@ -40,7 +40,7 @@ import javax.validation.Valid;
 /**
  * OAuth2 令牌端点
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

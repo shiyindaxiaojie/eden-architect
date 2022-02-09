@@ -21,7 +21,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 /**
  * 无效的公钥
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class InvalidPublicKeyException extends InvalidTokenException {

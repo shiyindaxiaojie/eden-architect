@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.security.oauth2.token;
 /**
  * 令牌处理器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface TokenProcessor {

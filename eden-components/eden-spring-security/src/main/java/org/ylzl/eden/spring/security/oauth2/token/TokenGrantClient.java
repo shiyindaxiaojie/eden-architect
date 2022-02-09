@@ -23,7 +23,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 /**
  * 令牌授权客户端接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface TokenGrantClient {

@@ -23,7 +23,7 @@ import org.ylzl.eden.commons.algorithms.SortUtils;
 /**
  * 选择排序
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class SelectionSort extends AbstractSort implements Sort {

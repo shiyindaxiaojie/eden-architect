@@ -25,7 +25,7 @@ import java.lang.annotation.*;
 /**
  * 开启审计配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Import(AuditorAwareConfiguration.class)

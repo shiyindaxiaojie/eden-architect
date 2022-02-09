@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * 基于负载均衡的 REST 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter(RestTemplateAutoConfiguration.class)

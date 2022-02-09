@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.cola.dto;
 /**
  * 数据传输对象组装器(数据传输对象 <-> 领域对象)
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface DTOAssembler<DTO, Entity> {

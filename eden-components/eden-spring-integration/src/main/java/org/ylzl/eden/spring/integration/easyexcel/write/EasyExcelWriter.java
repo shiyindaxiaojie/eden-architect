@@ -30,7 +30,7 @@ import java.util.Set;
 /**
  * EasyExcel 写入器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class EasyExcelWriter {

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 浏览器枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum BrowserEnum {

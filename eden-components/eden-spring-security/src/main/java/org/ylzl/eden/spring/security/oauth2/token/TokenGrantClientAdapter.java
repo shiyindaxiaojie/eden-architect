@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * 令牌授权客户端适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

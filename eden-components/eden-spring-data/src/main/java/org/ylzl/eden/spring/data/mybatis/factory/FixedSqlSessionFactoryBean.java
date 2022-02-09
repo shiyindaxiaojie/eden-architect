@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * 修复 SqlSessionFactoryBean
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

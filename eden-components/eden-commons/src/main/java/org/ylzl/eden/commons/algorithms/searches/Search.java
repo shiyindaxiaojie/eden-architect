@@ -20,7 +20,7 @@ package org.ylzl.eden.commons.algorithms.searches;
 /**
  * 查找接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface Search {

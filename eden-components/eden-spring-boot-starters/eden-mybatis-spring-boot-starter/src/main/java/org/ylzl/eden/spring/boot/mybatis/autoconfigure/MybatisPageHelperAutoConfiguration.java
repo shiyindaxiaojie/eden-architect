@@ -33,7 +33,7 @@ import java.util.Properties;
 /**
  * Mybatis 分页插件自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 1.0.0
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)

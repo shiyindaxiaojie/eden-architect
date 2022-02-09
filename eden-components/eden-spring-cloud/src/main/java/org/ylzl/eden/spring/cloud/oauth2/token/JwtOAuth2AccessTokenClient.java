@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClientAdapter
 /**
  * OAuth2 访问令牌客户端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class JwtOAuth2AccessTokenClient extends OAuth2AccessTokenClientAdapter {

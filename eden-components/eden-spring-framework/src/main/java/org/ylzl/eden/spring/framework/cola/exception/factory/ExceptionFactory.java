@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.cola.exception.*;
 /**
  * 异常工厂
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

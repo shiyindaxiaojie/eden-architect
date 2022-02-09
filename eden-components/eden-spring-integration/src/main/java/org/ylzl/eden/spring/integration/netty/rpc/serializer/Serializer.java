@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.netty.rpc.serializer;
 /**
  * 序列化器接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public interface Serializer {

@@ -39,7 +39,7 @@ import java.util.concurrent.Executor;
  *
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableAsync

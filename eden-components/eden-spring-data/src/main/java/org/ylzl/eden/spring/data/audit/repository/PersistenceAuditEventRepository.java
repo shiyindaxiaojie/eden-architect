@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * 持久化审计事件数据仓库接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @NoRepositoryBean

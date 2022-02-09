@@ -26,7 +26,7 @@ import java.sql.SQLException;
 /**
  * Flyway SQLite 数据源
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FlywaySQLiteDataSource extends SQLiteDataSource {

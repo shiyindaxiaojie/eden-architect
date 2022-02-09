@@ -32,7 +32,7 @@ import java.net.InetAddress;
 /**
  * 应用启动入口模板方法
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

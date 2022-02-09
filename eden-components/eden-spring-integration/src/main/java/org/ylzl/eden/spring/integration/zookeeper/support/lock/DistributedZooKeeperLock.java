@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.integration.zookeeper.core.ZooKeeperTemplate;
 /**
  * Redis 分布式锁
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

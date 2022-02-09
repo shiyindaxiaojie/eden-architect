@@ -34,7 +34,7 @@ import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
 /**
  * Profile 端点自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnBean({RouteLocator.class, DiscoveryClient.class})

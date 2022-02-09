@@ -25,7 +25,7 @@ import java.util.Collection;
 /**
  * 断言工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class SpringAssert extends Assert {

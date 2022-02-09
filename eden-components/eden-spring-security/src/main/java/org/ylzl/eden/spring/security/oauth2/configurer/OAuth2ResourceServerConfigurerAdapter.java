@@ -37,7 +37,7 @@ import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieHelper;
 /**
  * OAuth2 资源服务器配置适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableResourceServer

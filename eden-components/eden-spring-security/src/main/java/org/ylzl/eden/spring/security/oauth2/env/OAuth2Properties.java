@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 /**
  * OAuth2 配置属性
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @SuppressWarnings("unchecked")

@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.integration.zookeeper.support.lock.ZooKeeperLock;
 /**
  * ZooKeeper 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass(ZooKeeper.class)

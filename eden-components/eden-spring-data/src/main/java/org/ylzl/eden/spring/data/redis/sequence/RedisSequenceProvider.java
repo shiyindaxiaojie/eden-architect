@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis 序列提供类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class RedisSequenceProvider {

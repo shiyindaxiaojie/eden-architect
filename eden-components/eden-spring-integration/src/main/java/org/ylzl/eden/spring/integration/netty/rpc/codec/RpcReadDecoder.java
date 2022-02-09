@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 读取数据时将字节解码为消息对象
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class RpcReadDecoder extends ByteToMessageDecoder {

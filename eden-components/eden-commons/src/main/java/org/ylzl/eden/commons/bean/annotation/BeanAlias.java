@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * 别名注解
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Retention(RetentionPolicy.RUNTIME)

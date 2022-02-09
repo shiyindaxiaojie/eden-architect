@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 /**
  * JWT WebSecurity 配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter(DefaultWebSecuirtyConfiguration.class)

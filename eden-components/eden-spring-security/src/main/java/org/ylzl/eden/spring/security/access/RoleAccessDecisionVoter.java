@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * 角色访问决策适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class RoleAccessDecisionVoter implements AccessDecisionVoter<Object> {

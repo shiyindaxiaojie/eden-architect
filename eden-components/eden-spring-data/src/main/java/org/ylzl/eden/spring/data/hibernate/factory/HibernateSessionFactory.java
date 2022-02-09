@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.data.hibernate.cfg.HibernateConfiguration;
 /**
  * Hibernate Session 工厂类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class HibernateSessionFactory {

@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * JPA 业务接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public interface JpaService<T, ID extends Serializable>

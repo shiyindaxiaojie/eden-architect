@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.integration.metrics.endpoint.AllMetricsEndpoint;
 /**
  * 增强 Metrics 端点自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnBean(MeterRegistry.class)

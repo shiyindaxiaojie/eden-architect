@@ -25,7 +25,7 @@ import java.io.Serializable;
 /**
  * Redis 业务实现
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @SuppressWarnings("unchecked")

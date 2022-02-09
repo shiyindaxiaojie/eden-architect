@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.cola.exception;
 /**
  * 第三方服务异常
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ThirdServiceException extends BaseException {

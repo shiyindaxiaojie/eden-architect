@@ -41,7 +41,7 @@ import java.sql.SQLException;
  *   <li>Flyway 构造函数新增 {@link Configuration} 为必须参数
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @Slf4j

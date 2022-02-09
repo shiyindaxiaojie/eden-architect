@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfigur
 /**
  * 负载均衡客户端自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter(LoadBalancerAutoConfiguration.class)

@@ -27,7 +27,7 @@ import java.security.Key;
 /**
  * 加密解密工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

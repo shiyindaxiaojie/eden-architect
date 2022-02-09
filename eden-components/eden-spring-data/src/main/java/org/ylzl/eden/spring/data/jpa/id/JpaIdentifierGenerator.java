@@ -40,7 +40,7 @@ import java.util.Properties;
  *       {@code generate(SharedSessionContractImplementor session, Object object)}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class JpaIdentifierGenerator implements IdentifierGenerator, Configurable {

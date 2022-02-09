@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.integration.netty.channel.ChannelOptions;
 /**
  * Metrics 配置属性
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Getter

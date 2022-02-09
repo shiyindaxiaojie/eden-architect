@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * 存储过程实现
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ListStoredProcedure extends StoredProcedure {

@@ -44,7 +44,7 @@ import javax.annotation.PostConstruct;
  *       {@link AuthenticationConfiguration}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @AutoConfigureAfter({DefaultWebSecuirtyConfiguration.class, AuthenticationConfiguration.class})

@@ -28,7 +28,7 @@ import java.util.Date;
 /**
  * Jackson 日期序列化
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class DateSerializer extends JsonSerializer<Date> {

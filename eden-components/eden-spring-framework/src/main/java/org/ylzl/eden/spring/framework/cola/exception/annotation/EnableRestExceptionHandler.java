@@ -25,7 +25,7 @@ import java.lang.annotation.*;
 /**
  * 开启 REST 接口异常解析器自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Import(RestExceptionAdviceConfiguration.class)

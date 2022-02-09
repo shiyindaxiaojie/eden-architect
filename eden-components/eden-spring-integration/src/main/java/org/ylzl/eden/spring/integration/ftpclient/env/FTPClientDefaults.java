@@ -22,7 +22,7 @@ import org.ylzl.eden.commons.env.CharsetConstants;
 /**
  * FTPClient 默认属性
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FTPClientDefaults {

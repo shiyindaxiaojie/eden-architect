@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientPool;
 /**
  * FTP 客户端连接池
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class FTPClientPool2 extends GenericObjectPool<FTPClient> implements FTPClientPool {

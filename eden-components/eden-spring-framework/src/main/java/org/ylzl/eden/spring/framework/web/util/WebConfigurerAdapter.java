@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit;
  *       迁移到 {@link UndertowServletWebServerFactory}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @EnableRestExceptionHandler

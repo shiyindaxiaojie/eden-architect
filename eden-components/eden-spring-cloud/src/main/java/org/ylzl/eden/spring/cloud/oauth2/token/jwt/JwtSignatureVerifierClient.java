@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClientAda
 /**
  * 签名验证客户端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class JwtSignatureVerifierClient extends SignatureVerifierClientAdapter {

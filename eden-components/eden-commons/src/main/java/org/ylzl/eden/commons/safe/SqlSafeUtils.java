@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 /**
  * SQL 安全工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
 /**
  * XXLJob 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnExpression("${xxl.job.enabled:false}")

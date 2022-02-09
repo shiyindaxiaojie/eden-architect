@@ -25,7 +25,7 @@ import org.springframework.cglib.core.Converter;
 /**
  * Bean 拷贝工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

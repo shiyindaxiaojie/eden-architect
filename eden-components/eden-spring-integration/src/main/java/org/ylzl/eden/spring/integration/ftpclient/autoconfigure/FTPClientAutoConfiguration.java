@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Factory;
 /**
  * FTPClient 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @ConditionalOnClass(FTPClient.class)

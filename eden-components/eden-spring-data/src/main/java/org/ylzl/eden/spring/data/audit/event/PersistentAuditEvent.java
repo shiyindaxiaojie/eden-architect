@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * 持久化审计事件接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public interface PersistentAuditEvent extends Serializable {

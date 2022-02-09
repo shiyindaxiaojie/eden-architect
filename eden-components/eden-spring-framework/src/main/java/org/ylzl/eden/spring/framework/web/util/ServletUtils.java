@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 /**
  * Servlet 工具类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

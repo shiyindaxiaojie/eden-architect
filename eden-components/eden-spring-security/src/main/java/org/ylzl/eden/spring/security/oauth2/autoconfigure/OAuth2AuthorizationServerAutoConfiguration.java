@@ -47,7 +47,7 @@ import java.util.List;
 /**
  * OAuth2 授权服务端自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass(EnableAuthorizationServer.class)
