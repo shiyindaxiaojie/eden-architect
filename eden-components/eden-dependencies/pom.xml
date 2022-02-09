@@ -180,10 +180,12 @@
 		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
 		<!-- 腾讯云组件 -->
-		<cos_api.version>5.6.38</cos_api.version>
+		<cos_apicos_api.version>5.6.38</cos_apicos_api.version>
 		<vod_api.version>2.1.4</vod_api.version>
 		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
 		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
+
+		<!-- 聚合支付组件 -->
 		<ijpay.version>2.7.9</ijpay.version>
 	</properties>
 
@@ -1282,7 +1284,7 @@
 				<version>${tencentcloud-sdk-java.version}</version>
 			</dependency>
 
-			<!-- 第三方组件 -->
+			<!-- 聚合组件 -->
 			<!-- AliPay -->
 			<dependency>
 				<groupId>com.github.javen205</groupId>

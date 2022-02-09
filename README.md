@@ -18,7 +18,6 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus` 和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
 * **数据分片能力封装**：提供了 `Sharding JDBC` 的封装，兼容 `Mybatis Plus`、`DynamicDataSource` 组件。
 * **常用组件集成**：提供了 `Kafka`、`XXLJob`、`CAT`、`Zookeeper`、`EasyExcel`、`Sentinel` 等组件的集成，并提供 `Spring Boot Starter` 能力。
-* **腾讯云组件集成**：提供了腾讯云产品常用的 `COS 对象存储`、`VOD 云点播`、`TMS 敏感词过滤`、`TPNS 推送`、`CMQ 消息队列`等组件的集成，引入相关 `Spring Boot Starter` 开启自动装配能力。
 
 ## 组件构成
 
@@ -78,8 +77,9 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 ## 代码演示
 
 为了演示如何使用，我们提供了两种不同架构风格的 Demo
-* 面向数据模型的分层架构，代码实例请查看 [eden-demo-layer](https://github.com/eden-lab/eden-demo-layer)
 * 面向领域模型的 COLA 架构，代码实例可以查看 [eden-demo-cola](https://github.com/eden-lab/eden-demo-cola)
+* 面向单机模型的 MVC 架构，代码实例可以查看 [eden-demo-mvc](https://github.com/eden-lab/eden-demo-mvc)
+* 面向数据模型的分层架构，代码实例请查看 [eden-demo-layer](https://github.com/eden-lab/eden-demo-layer)
 
 ## 版本规范
 
