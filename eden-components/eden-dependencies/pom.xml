@@ -180,7 +180,7 @@
 		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
 		<!-- 腾讯云组件 -->
-		<cos_apicos_api.version>5.6.38</cos_apicos_api.version>
+		<cos_api.version>5.6.38</cos_api.version>
 		<vod_api.version>2.1.4</vod_api.version>
 		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
 		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
