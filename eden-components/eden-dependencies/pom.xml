@@ -191,6 +191,46 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- Spring Framework 依赖 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Data 依赖 -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-bom</artifactId>
+				<version>${spring-data-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Integration 依赖 -->
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-bom</artifactId>
+				<version>${spring-integration.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Security 依赖 -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-bom</artifactId>
+				<version>${spring-security.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Session 依赖 -->
+			<dependency>
+				<groupId>org.springframework.session</groupId>
+				<artifactId>spring-session-bom</artifactId>
+				<version>${spring-session-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<!-- Spring Cloud 依赖 -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -204,14 +244,6 @@
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
 				<version>${spring-cloud-alibaba.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Integration 依赖 -->
-			<dependency>
-				<groupId>org.springframework.integration</groupId>
-				<artifactId>spring-integration-bom</artifactId>
-				<version>${spring-integration.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
