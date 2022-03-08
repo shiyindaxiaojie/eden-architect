@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 /**
  * 已认证的 Feign 配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass({Feign.class})

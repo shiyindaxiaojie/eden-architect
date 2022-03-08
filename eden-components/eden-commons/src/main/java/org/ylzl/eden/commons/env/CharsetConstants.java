@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 字符集常量
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

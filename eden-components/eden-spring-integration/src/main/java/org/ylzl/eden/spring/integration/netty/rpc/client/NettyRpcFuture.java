@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.integration.netty.rpc.RpcResponse;
 /**
  * Netty RPC 异步调用结果
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class NettyRpcFuture {

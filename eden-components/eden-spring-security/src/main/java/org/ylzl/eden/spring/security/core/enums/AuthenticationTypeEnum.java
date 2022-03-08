@@ -24,7 +24,7 @@ import java.text.MessageFormat;
 /**
  * 认证类型枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum AuthenticationTypeEnum {

@@ -63,7 +63,7 @@ import java.util.function.Consumer;
 /**
  * Mybatis Plus 自定义自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)

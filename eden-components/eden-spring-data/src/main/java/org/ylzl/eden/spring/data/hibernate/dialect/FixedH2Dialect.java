@@ -23,7 +23,7 @@ import java.sql.Types;
 /**
  * H2 方言类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FixedH2Dialect extends H2Dialect {

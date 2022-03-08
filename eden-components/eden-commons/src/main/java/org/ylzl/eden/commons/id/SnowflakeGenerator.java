@@ -24,7 +24,7 @@ import lombok.Synchronized;
  *
  * <p>总共 64 位，0 + 41 位时间戳 + 10 位机器 ID（5 位机器 ID + 5 位数据中心 ID）+ 12 位序列号
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class SnowflakeGenerator {

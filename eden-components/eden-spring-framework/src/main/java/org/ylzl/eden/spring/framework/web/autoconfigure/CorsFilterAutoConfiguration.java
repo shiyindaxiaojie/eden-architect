@@ -45,7 +45,7 @@ import java.util.List;
  *       managementServerProperties.getServlet().getContextPath()}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @ConditionalOnClass(Filter.class)

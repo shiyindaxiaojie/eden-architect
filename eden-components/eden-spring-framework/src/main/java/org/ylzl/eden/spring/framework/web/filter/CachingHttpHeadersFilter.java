@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 缓存 HTTP 头部信息过滤器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class CachingHttpHeadersFilter implements Filter {

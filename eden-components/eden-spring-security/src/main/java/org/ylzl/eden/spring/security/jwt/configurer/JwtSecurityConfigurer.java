@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 /**
  * JWT 安全配置器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class JwtSecurityConfigurer

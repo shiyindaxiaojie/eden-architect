@@ -30,7 +30,7 @@ import java.util.ServiceLoader;
 /**
  * Netty RPC 服务端处理器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @ChannelHandler.Sharable

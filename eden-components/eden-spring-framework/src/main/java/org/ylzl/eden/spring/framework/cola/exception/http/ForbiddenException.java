@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.cola.exception.BaseException;
 /**
  * HTTP 403 错误（非法访问）
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ForbiddenException extends BaseException {

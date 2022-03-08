@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 /**
  * JWT 授权服务端自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableConfigurationProperties(JwtProperties.class)

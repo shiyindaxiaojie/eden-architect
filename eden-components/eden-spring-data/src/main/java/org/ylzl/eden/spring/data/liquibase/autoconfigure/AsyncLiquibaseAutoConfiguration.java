@@ -49,7 +49,7 @@ import java.util.concurrent.Executor;
 /**
  * Liquibase 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter({

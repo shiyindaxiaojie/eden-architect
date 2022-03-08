@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
 /**
  * TrueLicense 客户端配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnExpression(TrueLicenseClientAutoConfiguration.EXP_TRUE_LICENSE_ENABLED)

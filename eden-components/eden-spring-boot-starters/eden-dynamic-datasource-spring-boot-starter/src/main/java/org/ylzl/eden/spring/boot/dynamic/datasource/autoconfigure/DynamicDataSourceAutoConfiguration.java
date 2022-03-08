@@ -34,7 +34,7 @@ import javax.sql.DataSource;
 /**
  * 多数据源组合配置（sharding-jdbc、baomidou-dynamic）
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2021-12-28
  */
 @ConditionalOnClass(DynamicDataSourceProvider.class)

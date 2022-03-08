@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * 读取数据分析事件监听适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

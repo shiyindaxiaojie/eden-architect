@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.zookeeper.support.lock;
 /**
  * 抽象 ZooKeeper 锁
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public abstract class AbstractZooKeeperLock implements ZooKeeperLock {

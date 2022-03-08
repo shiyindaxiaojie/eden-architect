@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 /**
  * Feign 认证请求拦截器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class AuthorizedRequestInterceptor implements RequestInterceptor {

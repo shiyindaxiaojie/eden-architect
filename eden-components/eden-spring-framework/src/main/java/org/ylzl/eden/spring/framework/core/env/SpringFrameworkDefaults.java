@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 框架默认属性值
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

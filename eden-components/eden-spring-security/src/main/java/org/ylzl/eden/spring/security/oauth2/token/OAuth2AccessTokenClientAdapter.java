@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 /**
  * OAuth2 访问令牌提供器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

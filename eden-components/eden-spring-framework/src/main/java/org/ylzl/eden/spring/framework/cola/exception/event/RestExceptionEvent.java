@@ -24,7 +24,7 @@ import org.springframework.context.ApplicationEvent;
 /**
  * Rest 异常事件
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Builder

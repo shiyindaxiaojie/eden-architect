@@ -20,7 +20,7 @@ package org.ylzl.eden.template.mybatis;
 /**
  * 排序规则枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum SortRuleEnum {

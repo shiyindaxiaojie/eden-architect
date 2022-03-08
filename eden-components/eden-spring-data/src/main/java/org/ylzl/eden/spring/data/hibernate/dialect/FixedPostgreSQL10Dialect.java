@@ -25,7 +25,7 @@ import java.sql.Types;
 /**
  * PostgreSQL10 方言类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FixedPostgreSQL10Dialect extends PostgreSQL10Dialect {

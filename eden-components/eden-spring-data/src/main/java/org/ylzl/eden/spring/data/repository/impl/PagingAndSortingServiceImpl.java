@@ -28,7 +28,7 @@ import java.io.Serializable;
 /**
  * 查询分页排序业务实现
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class PagingAndSortingServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>

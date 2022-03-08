@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * 断言增强版
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class AssertEnhancer extends Assert {

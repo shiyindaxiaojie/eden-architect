@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * IO 常量
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

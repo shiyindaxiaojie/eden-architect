@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
 /**
  * 邮件发送自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableConfigurationProperties(EnhancedMailProperties.class)

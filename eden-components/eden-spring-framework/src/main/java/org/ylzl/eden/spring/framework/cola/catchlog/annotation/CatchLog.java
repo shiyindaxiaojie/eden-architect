@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * 日志切面注解
  *
  * @author Frank Zhang
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Target({ElementType.METHOD, ElementType.TYPE})

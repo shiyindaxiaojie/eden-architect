@@ -22,7 +22,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 /**
  * 日期格式化
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Getter

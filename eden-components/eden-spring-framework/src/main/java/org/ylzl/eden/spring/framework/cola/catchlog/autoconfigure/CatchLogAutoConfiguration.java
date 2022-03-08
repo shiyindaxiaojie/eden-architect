@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.cola.catchlog.aop.CatchLogAspect;
 /**
  * 日志切面自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ComponentScan(basePackageClasses = CatchLogAspect.class)

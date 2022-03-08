@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 网关路由视图模型
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Data

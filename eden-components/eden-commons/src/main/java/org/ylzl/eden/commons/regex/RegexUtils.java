@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * 正则表达式工具类
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

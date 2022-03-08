@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.integration.netty.rpc.serializer.Serializer;
 /**
  * 写入数据时将消息对象编码为字节
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class RpcWriteEncoder extends MessageToByteEncoder {

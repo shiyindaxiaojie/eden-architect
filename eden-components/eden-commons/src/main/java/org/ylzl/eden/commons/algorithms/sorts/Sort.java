@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 排序接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface Sort {

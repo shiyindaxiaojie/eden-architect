@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.integration.easyexcel.write.EasyExcelWriter;
 /**
  * EasyExcel 配置
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass(EasyExcel.class)

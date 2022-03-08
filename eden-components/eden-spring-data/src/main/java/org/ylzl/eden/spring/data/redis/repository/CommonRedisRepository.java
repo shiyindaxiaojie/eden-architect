@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * 自定义 Redis 数据仓库
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

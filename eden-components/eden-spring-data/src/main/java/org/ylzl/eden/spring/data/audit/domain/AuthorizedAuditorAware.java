@@ -30,7 +30,7 @@ import java.util.Optional;
 /**
  * 认证的审计装饰器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class AuthorizedAuditorAware implements AuditorAware<String> {

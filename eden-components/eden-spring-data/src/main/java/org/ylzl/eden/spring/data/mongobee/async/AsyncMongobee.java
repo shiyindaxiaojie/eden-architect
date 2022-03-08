@@ -29,7 +29,7 @@ import org.ylzl.eden.spring.framework.core.constant.SpringProfileConstants;
 /**
  * 异步 Mongobee
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @Slf4j

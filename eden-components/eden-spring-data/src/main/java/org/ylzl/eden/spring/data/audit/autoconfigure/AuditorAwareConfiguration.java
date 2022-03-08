@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
 /**
  * AuditorAware 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableJpaAuditing(auditorAwareRef = AuditorAwareConfiguration.BEAN_NAME)

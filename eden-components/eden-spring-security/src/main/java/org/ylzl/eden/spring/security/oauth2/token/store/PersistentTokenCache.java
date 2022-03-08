@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * 持久化令牌缓存
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class PersistentTokenCache<T> {
@@ -87,7 +87,7 @@ public class PersistentTokenCache<T> {
 	/**
 	 * 令牌值对象
 	 *
-	 * @author gyl
+	 * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
 	 * @since 2.4.x
 	 */
 	private class Value {

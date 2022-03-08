@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.cloud.core.constant.SpringCloudConstants;
 /**
  * Spring Cloud 属性文件
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Getter

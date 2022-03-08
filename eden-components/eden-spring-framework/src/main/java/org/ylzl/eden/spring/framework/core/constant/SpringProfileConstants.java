@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Profile 常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

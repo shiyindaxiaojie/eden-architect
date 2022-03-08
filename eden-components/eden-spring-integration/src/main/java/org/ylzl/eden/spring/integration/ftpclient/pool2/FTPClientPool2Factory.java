@@ -31,7 +31,7 @@ import java.io.IOException;
 /**
  * FTP 客户端工厂
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @Slf4j

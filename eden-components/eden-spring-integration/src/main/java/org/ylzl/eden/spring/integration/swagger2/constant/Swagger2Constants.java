@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.web.Swagger2Controller;
 /**
  * Swagger2 常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

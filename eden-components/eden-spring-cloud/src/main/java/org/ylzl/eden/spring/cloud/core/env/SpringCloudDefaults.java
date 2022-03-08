@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Spring Cloud 默认属性值
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

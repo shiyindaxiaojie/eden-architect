@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Spring 请求上下文工具
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class RequestContextHolderUtils {

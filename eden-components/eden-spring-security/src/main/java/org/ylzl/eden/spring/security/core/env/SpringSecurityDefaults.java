@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.security.core.env;
 /**
  * Security 默认属性值
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public final class SpringSecurityDefaults {

@@ -34,7 +34,7 @@ import java.util.Properties;
  *   <li>org.springframework.boot.bind.RelaxedPropertyResolver 变更为 {@link Binder}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class SpringBinderHelper {

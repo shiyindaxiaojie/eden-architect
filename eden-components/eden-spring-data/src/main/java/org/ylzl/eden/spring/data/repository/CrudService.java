@@ -23,7 +23,7 @@ import java.util.Optional;
 /**
  * 增删查改业务接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface CrudService<T, ID extends Serializable> {

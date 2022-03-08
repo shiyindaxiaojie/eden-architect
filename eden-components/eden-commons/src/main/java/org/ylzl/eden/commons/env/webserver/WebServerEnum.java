@@ -21,7 +21,7 @@ import lombok.Getter;
 /**
  * Web 服务器枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum WebServerEnum {

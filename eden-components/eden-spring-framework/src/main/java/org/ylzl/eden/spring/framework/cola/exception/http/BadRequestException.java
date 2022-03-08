@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
 /**
  * HTTP 400 错误（客户端不正确的请求）
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class BadRequestException extends BaseException {

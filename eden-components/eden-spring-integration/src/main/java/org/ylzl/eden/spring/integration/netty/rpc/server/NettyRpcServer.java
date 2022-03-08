@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.netty.rpc.serializer.Serializer;
 /**
  * Netty RPC 服务端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class NettyRpcServer implements RpcServer {

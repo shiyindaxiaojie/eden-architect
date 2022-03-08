@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * RPC 请求
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @Data

@@ -21,7 +21,7 @@ import lombok.Getter;
 /**
  * 数据源名称上下文容器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class DataSourceNameContextHolder {

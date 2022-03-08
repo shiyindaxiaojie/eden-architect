@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * REST 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

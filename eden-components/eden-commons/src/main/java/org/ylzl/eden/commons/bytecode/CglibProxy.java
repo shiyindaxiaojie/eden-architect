@@ -23,7 +23,7 @@ import net.sf.cglib.proxy.Enhancer;
 /**
  * Cglib 代理
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 public class CglibProxy {

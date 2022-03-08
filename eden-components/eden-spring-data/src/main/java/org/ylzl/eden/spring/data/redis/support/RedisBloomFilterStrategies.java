@@ -25,7 +25,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 /**
  * Redis 布隆过滤器策略
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {

@@ -23,7 +23,7 @@ import lombok.NonNull;
 /**
  * 二叉树
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class BinaryTree<T extends Comparable<T>> {

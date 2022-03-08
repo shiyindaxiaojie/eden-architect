@@ -23,7 +23,7 @@ import lombok.*;
 /**
  * JWT 令牌
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ApiModel(description = "JWT 令牌")

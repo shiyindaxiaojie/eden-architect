@@ -27,7 +27,7 @@ import java.util.Collections;
  * 响应（分页查询结果集）
  *
  * @author Frank Zhang
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @NoArgsConstructor

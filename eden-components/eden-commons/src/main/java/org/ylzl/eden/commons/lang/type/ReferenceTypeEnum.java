@@ -20,7 +20,7 @@ package org.ylzl.eden.commons.lang.type;
 /**
  * 引用类型枚举
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public enum ReferenceTypeEnum {}

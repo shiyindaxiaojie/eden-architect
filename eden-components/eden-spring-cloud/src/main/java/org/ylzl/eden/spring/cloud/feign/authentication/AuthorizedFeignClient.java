@@ -32,7 +32,7 @@ import java.lang.annotation.*;
  *   <li>org.springframework.cloud.netflix.feign.FeignClient 迁移到 {@link FeignClient}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Retention(RetentionPolicy.RUNTIME)

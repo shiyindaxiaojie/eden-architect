@@ -29,7 +29,7 @@ import java.util.concurrent.Future;
  * 异步任务执行异常处理类
  *
  * @link https://github.com/jhipster/jhipster-bom/blob/main/jhipster-framework/src/main/java/tech/jhipster/async/ExceptionHandlingAsyncTaskExecutor.java
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

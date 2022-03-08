@@ -29,7 +29,7 @@ import java.io.IOException;
 /**
  * 未认证处理适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

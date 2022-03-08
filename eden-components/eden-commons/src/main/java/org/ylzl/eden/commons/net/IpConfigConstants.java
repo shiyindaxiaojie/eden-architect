@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
 /**
  * IP 配置常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @UtilityClass

@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * Redis 业务接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface RedisService<T, ID extends Serializable> extends CrudService<T, ID> {

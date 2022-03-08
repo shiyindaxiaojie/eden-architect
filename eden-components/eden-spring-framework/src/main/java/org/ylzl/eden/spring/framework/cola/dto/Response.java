@@ -23,7 +23,7 @@ import lombok.*;
  * 响应
  *
  * @author Frank Zhang
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @NoArgsConstructor

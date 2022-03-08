@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.cloud.swagger.filter.SwaggerBasePathRewritingFilter;
 /**
  * 基于 Zuul 的 Swagger 自动装配
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @ConditionalOnClass({ZuulFilter.class, Swagger.class})

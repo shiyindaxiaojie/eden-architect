@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * OAuth2 授权服务器配置适配器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @AutoConfigureAfter(OAuth2WebSecurityConfiguration.class)

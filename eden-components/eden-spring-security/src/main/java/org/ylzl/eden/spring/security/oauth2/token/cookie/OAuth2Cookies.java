@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * OAuth2 Cookies
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class OAuth2Cookies {

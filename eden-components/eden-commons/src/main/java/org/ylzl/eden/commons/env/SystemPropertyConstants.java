@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Java 内置配置属性常量
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass

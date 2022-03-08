@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * Jedis 槽位连接处理器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class FixedJedisSlotBasedConnectionHandler extends JedisSlotBasedConnectionHandler {

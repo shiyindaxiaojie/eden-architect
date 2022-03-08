@@ -22,7 +22,7 @@ import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
 /**
  * 签名验证客户端接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface SignatureVerifierClient {

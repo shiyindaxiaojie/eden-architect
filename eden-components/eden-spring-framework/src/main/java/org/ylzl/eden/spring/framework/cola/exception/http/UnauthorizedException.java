@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
 /**
  * HTTP 401 错误（未认证）
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class UnauthorizedException extends BaseException {

@@ -26,7 +26,7 @@ import java.io.*;
 /**
  * 增强式密钥库参数
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class CustomKeyStoreParam extends AbstractKeyStoreParam {

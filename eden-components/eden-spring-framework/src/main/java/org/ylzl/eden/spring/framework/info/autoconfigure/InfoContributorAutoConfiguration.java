@@ -40,7 +40,7 @@ import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributo
  *       {@link ConditionalOnEnabledInfoContributor}
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)

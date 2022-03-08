@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 /**
  * SpringLiquibase 工具集
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @UtilityClass

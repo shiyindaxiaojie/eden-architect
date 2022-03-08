@@ -38,7 +38,7 @@ import java.util.prefs.Preferences;
 /**
  * 增强式许可证管理
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

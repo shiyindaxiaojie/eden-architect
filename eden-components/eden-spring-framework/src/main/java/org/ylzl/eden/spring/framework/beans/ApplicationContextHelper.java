@@ -24,7 +24,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * Spring 依赖查找工具
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ApplicationContextHelper implements ApplicationContextAware {

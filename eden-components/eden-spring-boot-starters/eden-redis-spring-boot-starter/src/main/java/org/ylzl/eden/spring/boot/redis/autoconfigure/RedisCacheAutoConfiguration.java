@@ -45,7 +45,7 @@ import java.lang.reflect.Method;
  *   <li>{@link RedisCacheManager} 使用 {@code create()} 创建实例
  * </ul>
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)

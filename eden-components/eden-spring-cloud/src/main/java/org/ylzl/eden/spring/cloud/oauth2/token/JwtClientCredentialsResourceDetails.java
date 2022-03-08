@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 /**
  * 客户端凭据资源详情
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
