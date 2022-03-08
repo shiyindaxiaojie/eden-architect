@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.cloud.loadbalancer.autoconfigure.LoadBalancerClientAutoConfiguration;
+import org.ylzl.eden.spring.cloud.loadbalancer.autoconfigure.LoadBalancerClientHelperAutoConfiguration;
 import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtClientCredentialsResourceDetails;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtOAuth2AccessTokenClient;
@@ -47,7 +47,7 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@AutoConfigureAfter({RestTemplateAutoConfiguration.class, LoadBalancerClientAutoConfiguration.class})
+@AutoConfigureAfter({RestTemplateAutoConfiguration.class, LoadBalancerClientHelperAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
 @ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})
