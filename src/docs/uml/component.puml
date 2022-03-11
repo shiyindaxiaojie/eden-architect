@@ -11,5 +11,6 @@
 [eden-spring-cloud] --> [eden-spring-security]
 [eden-spring-test] --> [eden-spring-framework]
 [eden-spring-test] --> [eden-spring-integration]
-
+[eden-spring-boot-starters] --> [eden-parent]
+[eden-spring-cloud-starters] --> [eden-parent]
 @enduml
