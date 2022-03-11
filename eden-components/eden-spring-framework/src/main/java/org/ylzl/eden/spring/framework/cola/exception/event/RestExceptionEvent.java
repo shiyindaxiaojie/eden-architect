@@ -17,9 +17,12 @@
 
 package org.ylzl.eden.spring.framework.cola.exception.event;
 
-import org.ylzl.eden.spring.framework.cola.dto.Response;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.context.ApplicationEvent;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
 
 /**
  * Rest 异常事件

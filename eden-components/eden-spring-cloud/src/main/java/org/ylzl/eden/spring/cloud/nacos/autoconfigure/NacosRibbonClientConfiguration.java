@@ -3,7 +3,6 @@ package org.ylzl.eden.spring.cloud.nacos.autoconfigure;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.ServerList;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.netflix.ribbon.PropertiesFactory;
 import org.springframework.context.annotation.Bean;

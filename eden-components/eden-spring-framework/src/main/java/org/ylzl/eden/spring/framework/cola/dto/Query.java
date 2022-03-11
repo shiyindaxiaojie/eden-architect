@@ -17,8 +17,10 @@
 
 package org.ylzl.eden.spring.framework.cola.dto;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * 查询（CQRS）

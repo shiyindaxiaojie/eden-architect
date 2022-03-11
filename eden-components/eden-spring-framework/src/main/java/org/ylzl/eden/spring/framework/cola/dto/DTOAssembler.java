@@ -17,8 +17,6 @@
 
 package org.ylzl.eden.spring.framework.cola.dto;
 
-import java.util.List;
-
 /**
  * 数据传输对象组装器(数据传输对象 <-> 领域对象)
  *
