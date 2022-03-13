@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.template.mybatis;
+package org.ylzl.eden.spring.data.mybatis.util;
 
 /**
  * 排序规则枚举

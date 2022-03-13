@@ -30,18 +30,18 @@ import tk.mybatis.spring.mapper.MapperFactoryBean;
 import java.util.Set;
 
 /**
- * 修复 FixedClassPathMapperScanner
+ * 增强 ClassPathMapperScanner，支持模糊 package
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
-public class FixedClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {
+public class EnhancedClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {
 
 	@Getter
-	private MapperHelper mapperHelper = new MapperHelper();
+	private final MapperHelper mapperHelper = new MapperHelper();
 
-	public FixedClassPathMapperScanner(BeanDefinitionRegistry registry) {
+	public EnhancedClassPathMapperScanner(BeanDefinitionRegistry registry) {
 		super(registry);
 	}
 
@@ -53,7 +53,6 @@ public class FixedClassPathMapperScanner extends org.mybatis.spring.mapper.Class
 	}
 
 	protected void doAfterScan(Set<BeanDefinitionHolder> beanDefinitions) {
-		// 如果没有注册过接口，就注册默认的Mapper接口
 		this.mapperHelper.ifEmptyRegisterDefaultInterface();
 		GenericBeanDefinition definition;
 		for (BeanDefinitionHolder holder : beanDefinitions) {

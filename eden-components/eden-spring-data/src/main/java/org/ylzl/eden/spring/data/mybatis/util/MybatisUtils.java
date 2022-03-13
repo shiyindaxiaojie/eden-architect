@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.template.mybatis;
+package org.ylzl.eden.spring.data.mybatis.util;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -82,8 +82,7 @@ public class MybatisUtils {
 		Page<T> page = new Page(pageNum, pageSize);
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
 			String[] sortColumns = sortColumn.split(StringConstants.COLON);
-			List<OrderItem> orderItems =
-				org.ylzl.eden.template.mybatis.SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
+			List<OrderItem> orderItems = SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
 					? OrderItem.ascs(sortColumns)
 					: OrderItem.descs(sortColumns);
 			page.addOrder(orderItems);
@@ -116,7 +115,7 @@ public class MybatisUtils {
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
 			sql.append(" ORDER BY ");
 			String rule =
-				Arrays.stream(org.ylzl.eden.template.mybatis.SortRuleEnum.values())
+				Arrays.stream(SortRuleEnum.values())
 					.filter(sortRuleEnum -> sortRuleEnum.name().equalsIgnoreCase(sortRule))
 					.findFirst()
 					.get()
