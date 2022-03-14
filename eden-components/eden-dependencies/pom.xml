@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-components</artifactId>
-		<version>${revision}</version>
+		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-dependencies</artifactId>
@@ -252,184 +252,196 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-commons</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-framework</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-cloud</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-data</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-integration</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-security</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-test</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Eden* Spring Boot Starter -->
+			<!-- Eden* Spring Boot Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-caffeine-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-distributelock-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dubbo-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-elasticsearch-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-flyway-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-jwt-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-kafka-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-liquibase-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-logstash-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-metrics-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-mongobee-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-mongodb-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-mybatis-spring-boot-starter</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-nacos-config-spring-boot-starter</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-nacos-discovery-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-netty-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-oauth2-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-openfeign-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-prometheus-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-rabbitmq-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-redis-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-swagger3-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-xxljob-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-zookeeper-spring-boot-starter</artifactId>
-				<version>${revision}</version>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+
+			<!-- Eden* Spring Cloud Starters -->
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
 			<!-- 基础框架 -->
@@ -831,6 +843,11 @@
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
 				<version>${mybatis-plus.version}</version>
 			</dependency>
 			<dependency>

@@ -28,6 +28,7 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -81,6 +82,8 @@ import java.util.function.Consumer;
 @Configuration
 public class MybatisPlusAutoConfiguration {
 
+
+
 	@ConditionalOnMissingBean
 	@Bean
 	public ConfigurationCustomizer configurationCustomizer() {
@@ -88,7 +91,7 @@ public class MybatisPlusAutoConfiguration {
 	}
 
 	@Configuration
-	public static class InnerMybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration {
+	public static class CustomMybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration {
 
 		public static final String AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY = "Autowired MybatisPlus SqlSessionFactory";
 
@@ -115,7 +118,7 @@ public class MybatisPlusAutoConfiguration {
 
 		private final ApplicationContext applicationContext;
 
-		public InnerMybatisPlusAutoConfiguration(
+		public CustomMybatisPlusAutoConfiguration(
 			MybatisPlusProperties properties,
 			ObjectProvider<Interceptor[]> interceptorsProvider,
 			ObjectProvider<TypeHandler[]> typeHandlersProvider,

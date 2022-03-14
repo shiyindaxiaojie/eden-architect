@@ -1,7 +1,8 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.cloud.feign.autoconfigure.FeignAutoConfiguration,\
-  org.ylzl.eden.spring.cloud.loadbalancer.autoconfigure.LoadBalancerClientAutoConfiguration,\
+  org.ylzl.eden.spring.cloud.loadbalancer.autoconfigure.LoadBalancerClientHelperAutoConfiguration,\
+  org.ylzl.eden.spring.cloud.nacos.autoconfigure.RibbonNacosAutoConfiguration,\
   org.ylzl.eden.spring.cloud.oauth2.LoadBalancedOAuth2AuthorizationClientAutoConfiguration,\
   org.ylzl.eden.spring.cloud.profile.autoconfigure.ProfileEndpointAutoConfiguration,\
   org.ylzl.eden.spring.cloud.swagger.autoconfigure.DiscoverySwaggerAutoConfiguration,\

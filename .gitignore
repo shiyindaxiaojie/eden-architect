@@ -1,3 +1,12 @@
+# Intellij
+.idea/
+*.ids
+*.iml
+*.ipr
+*.iws
+*.orig
+classes/
+
 # Eclipse
 .classpath
 .factorypath
@@ -15,22 +24,8 @@ log/
 local.properties
 .log
 
-# ESLint
-.eslintcache
-
-# Gradle
-!gradle/wrapper/gradle-wrapper.jar
-.gradle/
-build/
-
-# Intellij
-.idea/
-*.ids
-*.iml
-*.ipr
-*.iws
-*.orig
-classes/
+# Visual Studio Code
+.vscode/
 
 # Java
 *.class
@@ -42,18 +37,19 @@ classes/
 # JRebel
 rebel.xml
 
-# Mac OSX
-.DS_Store
-
 # Maven
 !.mvn/wrapper/maven-wrapper.jar
 !maven/wrapper/maven-wrapper.jar
-bin/
 maven/
 node/
 target/
 .flattened-pom.xml
 *.flattened-pom.xml
+
+# Gradle
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/
+build/
 
 # Node.js
 node/
@@ -62,21 +58,17 @@ node_modules/
 npm-debug.log.*
 package-lock.json
 
+# ESLint
+.eslintcache
+
 # SASS
 .sass-cache/
 
 # SVN
 .svn/
 
-# Others
-.buildpath
-.cproject
-.externalToolBuilders/**
-.Spotlight-V100
-.Trashes
-
-# Visual Studio Code
-.vscode/
+# Mac OSX
+.DS_Store
 
 # Windows
 ._*
@@ -86,3 +78,10 @@ package-lock.json
 Desktop.ini
 Thumbs.db
 logs/
+
+# Others
+.buildpath
+.cproject
+.externalToolBuilders/**
+.Spotlight-V100
+.Trashes

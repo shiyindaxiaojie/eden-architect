@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
 import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
 
 /**
- * 负载均衡客户端自动装配
+ * 负载均衡客户端工具自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -40,10 +40,10 @@ import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfigur
 @ConditionalOnBean(LoadBalancerClient.class)
 @Slf4j
 @Configuration
-public class LoadBalancerClientAutoConfiguration {
+public class LoadBalancerClientHelperAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_LB_CLIENT_HELPER =
-		"Autowired LoadBalancerClient helper";
+		"Autowired LoadBalancerClient Helper";
 
 	@ConditionalOnMissingBean
 	@Bean

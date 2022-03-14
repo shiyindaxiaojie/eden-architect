@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.template.elasticsearch;
+package org.ylzl.eden.spring.data.elasticsearch.util;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.NonNull;
@@ -27,7 +27,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.ylzl.eden.template.mybatis.SortRuleEnum;
+import org.ylzl.eden.spring.data.mybatis.util.SortRuleEnum;
 
 /**
  * Mybatis 工具集
