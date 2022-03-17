@@ -124,6 +124,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Redisson -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Zookeeper -->
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
@@ -320,11 +327,5 @@
 			<artifactId>hessian</artifactId>
 			<optional>true</optional>
 		</dependency>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.15.2</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 </project>
