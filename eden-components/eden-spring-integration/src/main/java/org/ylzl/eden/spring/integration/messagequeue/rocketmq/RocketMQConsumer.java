@@ -1,5 +1,9 @@
 package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
 
+import com.puyiwm.spring.integration.messagequeue.annotation.MessageQueueListener;
+import com.puyiwm.spring.integration.messagequeue.consumer.MessageListener;
+import com.puyiwm.spring.integration.messagequeue.consumer.MessageQueueConsumer;
+import com.puyiwm.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -10,15 +14,11 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
 
 import java.util.List;
 
 /**
- * RocketMQ 消费
+ * RocketMQ 消费者
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -31,7 +31,7 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 
 	private static final String DESTROY_ROCKETMQ_CONSUMER = "Destroy RocketMQConsumer";
 
-	private static final String ROCKET_MQCONSUMER_CONSUME_ERROR = "RocketMQConsumer consume error: {}";
+	private static final String ROCKETMQ_CONSUMER_CONSUME_ERROR = "RocketMQConsumer consume error: {}";
 
 	private final List<MessageListener> messageListeners;
 
@@ -66,7 +66,7 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 				consumer.start();
 			}
 		} catch (MQClientException e) {
-			log.error(ROCKET_MQCONSUMER_CONSUME_ERROR, e.getMessage(), e);
+			log.error(ROCKETMQ_CONSUMER_CONSUME_ERROR, e.getMessage(), e);
 			throw new MessageQueueConsumerException(e.getMessage());
 		}
 	}
