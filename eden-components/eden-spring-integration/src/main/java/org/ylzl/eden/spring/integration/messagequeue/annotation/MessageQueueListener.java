@@ -1,6 +1,7 @@
 package org.ylzl.eden.spring.integration.messagequeue.annotation;
 
-import org.ylzl.eden.spring.integration.messagequeue.MessageQueueType;
+
+import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
 
 import java.lang.annotation.*;
 
@@ -19,9 +20,9 @@ public @interface MessageQueueListener {
 	 * 消息队列类型
 	 *
 	 * @return 消息队列类型
-	 * @see MessageQueueType#name()
+	 * @see MessageQueueType
 	 */
-	MessageQueueType type();
+	String type() default MessageQueueType.ROCKETMQ;
 
 	/**
 	 * 设置消息主题

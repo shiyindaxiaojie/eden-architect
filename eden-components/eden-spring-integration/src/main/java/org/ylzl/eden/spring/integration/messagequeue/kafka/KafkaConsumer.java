@@ -22,14 +22,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * RocketMQ 消费
+ * RocketMQ 消费者
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j
-public class KafkaConsumer<K, V> implements InitializingBean, DisposableBean {
+public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, DisposableBean {
+
+	private static final String KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR = "KafkaConsumerProcessor consume error: {}";
 
 	public static final String INITIALIZING_KAFKA_CONSUMER = "Initializing KafkaConsumer";
 
@@ -39,18 +41,14 @@ public class KafkaConsumer<K, V> implements InitializingBean, DisposableBean {
 
 	private final KafkaProperties kafkaProperties;
 
-	private final ConsumerFactory<K, V> consumerFactory;
+	private final ConsumerFactory<String, String> consumerFactory;
 
 	private final TaskExecutor taskExecutor;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		log.debug(INITIALIZING_KAFKA_CONSUMER);
-		for (MessageListener listener : messageListeners) {
-			Consumer<K, V> consumer = consumerFactory.createConsumer(kafkaProperties.getConsumer().getGroupId(),
-				kafkaProperties.getClientId());
-			taskExecutor.execute(new KafkaConsumerProcessor<>(consumer, listener));
-		}
+		consume();
 	}
 
 	@Override
@@ -58,58 +56,40 @@ public class KafkaConsumer<K, V> implements InitializingBean, DisposableBean {
 		log.debug(DESTROY_KAFKA_CONSUMER);
 	}
 
-	private String topic(MessageListener messageListener) {
+	@Override
+	public void consume() throws MessageQueueConsumerException {
+		for (MessageListener messageListener : messageListeners) {
+			taskExecutor.execute(() -> {
+				Consumer<String, String> consumer = consumerFactory.createConsumer(
+					kafkaProperties.getConsumer().getGroupId(),
+					kafkaProperties.getClientId());
+				consumer.subscribe(Collections.singleton(topic(messageListener)));
+				while (true) {
+					try {
+						ConsumerRecords<String, String> consumerRecords =
+							consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
+						if (consumerRecords == null || consumerRecords.isEmpty()) {
+							continue;
+						}
+						Map<TopicPartition, OffsetAndMetadata> offsets =
+							Maps.newHashMapWithExpectedSize(kafkaProperties.getConsumer().getMaxPollRecords());
+						consumerRecords.forEach(record -> {
+							offsets.put(new TopicPartition(record.topic(), record.partition()),
+								new OffsetAndMetadata(record.offset() + 1));
+							// TODO
+							messageListener.consume(record.topic(), () -> consumer.commitSync(offsets));
+						});
+					} catch (Exception e) {
+						log.error(KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR, e.getMessage(), e);
+					}
+				}
+			});
+		}
+	}
+
+	private static String topic(MessageListener messageListener) {
 		Class<? extends MessageListener> clazz = messageListener.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
 		return annotation.topic();
-	}
-
-	@Slf4j
-	private class KafkaConsumerProcessor<K, V> extends Thread implements MessageQueueConsumer {
-
-		private static final String KAFKA_CONSUMER_PROCESSOR_PREFIX = "kafka-consumer-processor-";
-
-		private static final String KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR = "KafkaConsumerProcessor consume error: {}";
-
-		private final Consumer<K, V> consumer;
-
-		private final MessageListener messageListener;
-
-		private KafkaConsumerProcessor(Consumer<K, V> consumer, MessageListener messageListener) {
-			this.consumer = consumer;
-			this.messageListener = messageListener;
-			String topic = topic(messageListener);
-			setDaemon(true);
-			setName(KAFKA_CONSUMER_PROCESSOR_PREFIX + topic);
-			consumer.subscribe(Collections.singleton(topic));
-		}
-
-		@Override
-		public void run() {
-			consume();
-		}
-
-		@Override
-		public void consume() throws MessageQueueConsumerException {
-			while (true) {
-				try {
-					ConsumerRecords<K, V> consumerRecords =
-						this.consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
-					if (consumerRecords == null || consumerRecords.isEmpty()) {
-						continue;
-					}
-					Map<TopicPartition, OffsetAndMetadata> offsets =
-						Maps.newHashMapWithExpectedSize(kafkaProperties.getConsumer().getMaxPollRecords());
-					consumerRecords.forEach(record -> {
-						offsets.put(new TopicPartition(record.topic(), record.partition()),
-							new OffsetAndMetadata(record.offset() + 1));
-						// TODO
-						messageListener.consume(record.topic(), () -> this.consumer.commitSync(offsets));
-					});
-				} catch (Exception e) {
-					log.error(KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR, e.getMessage(), e);
-				}
-			}
-		}
 	}
 }

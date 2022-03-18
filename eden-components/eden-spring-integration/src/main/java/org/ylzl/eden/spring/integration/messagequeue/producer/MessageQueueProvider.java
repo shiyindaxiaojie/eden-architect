@@ -8,5 +8,21 @@ package org.ylzl.eden.spring.integration.messagequeue.producer;
  */
 public interface MessageQueueProvider {
 
-	void send(Message message) throws MessageQueueProducerException;
+	/**
+	 * 同步发送消息
+	 *
+	 * @param message
+	 * @return
+	 * @throws MessageQueueProducerException
+	 */
+	MessageSendResult syncSend(Message message) throws MessageQueueProducerException;
+
+	/**
+	 * 异步发送消息
+	 *
+	 * @param message
+	 * @param messageCallback
+	 * @throws MessageQueueProducerException
+	 */
+	void asyncSend(Message message, MessageSendCallback messageCallback) throws MessageQueueProducerException;
 }

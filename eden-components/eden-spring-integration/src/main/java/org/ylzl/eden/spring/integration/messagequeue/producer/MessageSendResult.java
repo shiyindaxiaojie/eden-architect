@@ -4,10 +4,10 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 消息模型
+ * 消息发送结果
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 1.0.0
  */
 @Accessors(chain = true)
 @Builder
@@ -16,17 +16,25 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 @ToString
 @Data
-public class Message {
+public class MessageSendResult {
 
+	/**
+	 * 主题
+	 */
 	private String topic;
 
-	private String key;
+	/**
+	 * 分区
+	 */
+	private Integer partition;
 
-	private String tags;
+	/**
+	 * 偏移量
+	 */
+	private Long offset;
 
-	private String body;
-
-	private Integer delayTimeLevel;
-
+	/**
+	 * 事务ID
+	 */
 	private String transactionId;
 }
