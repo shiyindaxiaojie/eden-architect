@@ -1,9 +1,5 @@
 package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
 
-import com.puyiwm.spring.integration.messagequeue.annotation.MessageQueueListener;
-import com.puyiwm.spring.integration.messagequeue.consumer.MessageListener;
-import com.puyiwm.spring.integration.messagequeue.consumer.MessageQueueConsumer;
-import com.puyiwm.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -14,6 +10,10 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
+import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
+import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;
+import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
 
 import java.util.List;
 

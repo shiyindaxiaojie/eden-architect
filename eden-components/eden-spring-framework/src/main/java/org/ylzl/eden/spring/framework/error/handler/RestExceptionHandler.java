@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception.handler;
+package org.ylzl.eden.spring.framework.error.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,14 +34,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.ylzl.eden.spring.framework.cola.dto.Response;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
-import org.ylzl.eden.spring.framework.cola.exception.ClientException;
-import org.ylzl.eden.spring.framework.cola.exception.ServerException;
-import org.ylzl.eden.spring.framework.cola.exception.ThirdServiceException;
-import org.ylzl.eden.spring.framework.cola.exception.event.RestExceptionEvent;
-import org.ylzl.eden.spring.framework.cola.exception.http.BadRequestException;
-import org.ylzl.eden.spring.framework.cola.exception.http.ForbiddenException;
-import org.ylzl.eden.spring.framework.cola.exception.http.UnauthorizedException;
+import org.ylzl.eden.spring.framework.error.event.RestExceptionEvent;
+import org.ylzl.eden.spring.framework.error.http.BadRequestException;
+import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
+import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
+import org.ylzl.eden.spring.framework.error.ClientException;
+import org.ylzl.eden.spring.framework.error.ServerException;
+import org.ylzl.eden.spring.framework.error.ThirdServiceException;
 
 import java.util.List;
 
@@ -78,10 +77,10 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 			AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
 		if (responseStatus != null) {
 			builder = ResponseEntity.status(responseStatus.value());
-			response = Response.buildFailure(ClientErrorType.A0500.getErrCode(), responseStatus.reason());
+			response = Response.buildFailure("B0001", responseStatus.reason());
 		} else {
 			builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-			response = Response.buildFailure(ClientErrorType.A0500.getErrCode(), ClientErrorType.A0500.getErrMessage());
+			response = Response.buildFailure("B0001");
 		}
 		this.process(ex, response);
 		return builder.body(response);
@@ -100,7 +99,7 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		String message = StringUtils.join(fieldErrors.toArray(), ",");
-		Response response = Response.buildFailure(ClientErrorType.A0001.getErrCode(), message);
+		Response response = Response.buildFailure("A0001", message);
 		this.process(ex, response);
 		return response;
 	}
@@ -112,10 +111,10 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	@ResponseBody
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	@ResponseBody
 	public Response processMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-		Response response = Response.buildFailure(ClientErrorType.A0001.getErrCode(), "不支持的请求方法");
+		Response response = Response.buildFailure("A0001", "不支持的请求方法");
 		this.process(ex, response);
 		return response;
 	}
@@ -172,11 +171,12 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(ClientException.class)
-	public ResponseEntity<Response> processClientException(ClientException ex) {
-		BodyBuilder builder = ResponseEntity.status(ex.getHttpStatusCode());
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Response processClientException(ClientException ex) {
 		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage());
 		this.process(ex, response);
-		return builder.body(response);
+		return response;
 	}
 
 	/**
@@ -186,11 +186,12 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(ServerException.class)
-	public ResponseEntity<Response> processServerException(ServerException ex) {
-		BodyBuilder builder = ResponseEntity.status(ex.getHttpStatusCode());
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Response processServerException(ServerException ex) {
 		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage());
 		this.process(ex, response);
-		return builder.body(response);
+		return response;
 	}
 
 	/**
@@ -200,11 +201,12 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(ThirdServiceException.class)
-	public ResponseEntity<Response> processThirdServiceException(ThirdServiceException ex) {
-		BodyBuilder builder = ResponseEntity.status(ex.getHttpStatusCode());
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Response processThirdServiceException(ThirdServiceException ex) {
 		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage());
 		this.process(ex, response);
-		return builder.body(response);
+		return response;
 	}
 
 	/**

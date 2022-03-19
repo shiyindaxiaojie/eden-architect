@@ -15,21 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception.http;
+package org.ylzl.eden.spring.framework.error.annotation;
 
-import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.framework.cola.exception.BaseException;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
+import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.framework.error.autoconfigure.RestExceptionAdviceConfiguration;
+
+import java.lang.annotation.*;
 
 /**
- * HTTP 401 错误（未认证）
+ * 开启 REST 接口异常解析器自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class UnauthorizedException extends BaseException {
-
-	public UnauthorizedException(String errMessage) {
-		super(ClientErrorType.A0230.getErrCode(), errMessage, HttpStatus.UNAUTHORIZED.value());
-	}
+@Import(RestExceptionAdviceConfiguration.class)
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface EnableRestExceptionHandler {
 }

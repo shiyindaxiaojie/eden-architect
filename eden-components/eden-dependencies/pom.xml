@@ -187,6 +187,9 @@
 
 		<!-- 聚合支付组件 -->
 		<ijpay.version>2.7.9</ijpay.version>
+
+		<!-- IDEA -->
+		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
 	</properties>
 
 	<dependencyManagement>
@@ -1398,6 +1401,13 @@
 				<groupId>de.flapdoodle.embed</groupId>
 				<artifactId>de.flapdoodle.embed.mongo</artifactId>
 				<version>${embedded-mongo.version}</version>
+			</dependency>
+
+			<!-- IDEA -->
+			<dependency>
+				<groupId>org.jetbrains</groupId>
+				<artifactId>annotations</artifactId>
+				<version>${jetbrains-annotations.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

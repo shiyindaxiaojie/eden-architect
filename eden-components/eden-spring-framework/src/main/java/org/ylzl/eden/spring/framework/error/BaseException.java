@@ -15,19 +15,36 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception;
+package org.ylzl.eden.spring.framework.error;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.jetbrains.annotations.PropertyKey;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
 
 /**
- * 错误信息接口
+ * 异常抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface Error {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class BaseException extends RuntimeException {
 
-	String getErrCode();
+	private String errCode;
 
-	String getErrMessage();
+	private String errMessage;
 
-	int getHttpStatusCode();
+	public BaseException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage) {
+		super(errMessage);
+		this.errCode = errCode;
+		this.errMessage = errMessage;
+	}
+
+	public Response getResponse() {
+		return Response.buildFailure(errCode, errMessage);
+	}
 }

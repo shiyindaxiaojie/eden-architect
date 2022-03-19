@@ -15,21 +15,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception;
+package org.ylzl.eden.spring.framework.error.http;
+
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
- * 服务端异常
+ * HTTP 401 错误（未认证）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ServerException extends BaseException {
+public class UnauthorizedException extends BaseException {
 
-	public ServerException(ServerErrorType serverErrorType) {
-		super(serverErrorType.getErrCode(), serverErrorType.getErrMessage(), serverErrorType.getHttpStatusCode());
-	}
-
-	public ServerException(String errCode, String errMessage, int httpStatusCode) {
-		super(errCode, errMessage, httpStatusCode);
+	public UnauthorizedException(String errMessage) {
+		super("A0320", errMessage);
 	}
 }

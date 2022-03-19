@@ -15,21 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception;
+package org.ylzl.eden.spring.framework.error;
+
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * 第三方服务异常
+ * 服务端异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ThirdServiceException extends BaseException {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ServerException extends BaseException {
 
-	public ThirdServiceException(ThirdServiceErrorType thirdServiceErrorType) {
-		super(thirdServiceErrorType.getErrCode(), thirdServiceErrorType.getErrMessage(), thirdServiceErrorType.getHttpStatusCode());
-	}
-
-	public ThirdServiceException(String errCode, String errMessage, int httpStatusCode) {
-		super(errCode, errMessage, httpStatusCode);
+	public ServerException(String errCode, String errMessage) {
+		super(errCode, errMessage);
 	}
 }

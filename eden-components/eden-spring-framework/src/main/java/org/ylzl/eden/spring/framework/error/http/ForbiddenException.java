@@ -15,29 +15,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception.factory;
+package org.ylzl.eden.spring.framework.error.http;
 
-import lombok.experimental.UtilityClass;
-import org.ylzl.eden.spring.framework.cola.exception.*;
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
- * 异常工厂
+ * HTTP 403 错误（非法访问）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@UtilityClass
-public class ExceptionFactory {
+public class ForbiddenException extends BaseException {
 
-	public static ClientException clientException(ClientErrorType clientErrorType) {
-		return new ClientException(clientErrorType);
-	}
-
-	public static ServerException serverException(ServerErrorType serverErrorType) {
-		return new ServerException(serverErrorType);
-	}
-
-	public static ThirdServiceException thirdServiceException(ThirdServiceErrorType thirdServiceErrorType) {
-		return new ThirdServiceException(thirdServiceErrorType);
+	public ForbiddenException(String errMessage) {
+		super("A0320", errMessage);
 	}
 }

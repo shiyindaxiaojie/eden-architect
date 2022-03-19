@@ -15,22 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception.annotation;
+package org.ylzl.eden.spring.framework.error;
 
-import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.framework.cola.exception.autoconfigure.RestExceptionAdviceConfiguration;
-
-import java.lang.annotation.*;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * 开启 REST 接口异常解析器自动装配
+ * 第三方服务异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Import(RestExceptionAdviceConfiguration.class)
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface EnableRestExceptionHandler {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ThirdServiceException extends BaseException {
+
+	public ThirdServiceException(String errCode, String errMessage) {
+		super(errCode, errMessage);
+	}
 }

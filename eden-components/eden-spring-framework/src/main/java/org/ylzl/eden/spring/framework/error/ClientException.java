@@ -15,21 +15,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception.http;
+package org.ylzl.eden.spring.framework.error;
 
-import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.framework.cola.exception.BaseException;
-import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * HTTP 403 错误（非法访问）
+ * 客户端异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ForbiddenException extends BaseException {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ClientException extends BaseException {
 
-	public ForbiddenException(String errMessage) {
-		super(ClientErrorType.A0320.getErrCode(), errMessage, HttpStatus.FORBIDDEN.value());
+	public ClientException(String errCode, String errMessage) {
+		super(errCode, errMessage);
 	}
 }

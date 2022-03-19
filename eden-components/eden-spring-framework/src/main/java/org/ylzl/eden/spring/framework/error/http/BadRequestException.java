@@ -15,21 +15,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.exception;
+package org.ylzl.eden.spring.framework.error.http;
+
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
- * 客户端异常
+ * HTTP 400 错误（客户端不正确的请求）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ClientException extends BaseException {
+public class BadRequestException extends BaseException {
 
-	public ClientException(ClientErrorType clientErrorType) {
-		super(clientErrorType.getErrCode(), clientErrorType.getErrMessage(), clientErrorType.getHttpStatusCode());
-	}
-
-	public ClientException(String errCode, String errMessage, int httpStatusCode) {
-		super(errCode, errMessage, httpStatusCode);
+	public BadRequestException(String errMessage) {
+		super("A0001", errMessage);
 	}
 }

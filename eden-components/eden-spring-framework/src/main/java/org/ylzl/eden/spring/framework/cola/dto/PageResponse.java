@@ -18,6 +18,9 @@
 package org.ylzl.eden.spring.framework.cola.dto;
 
 import lombok.*;
+import org.jetbrains.annotations.PropertyKey;
+import org.slf4j.helpers.MessageFormatter;
+import org.ylzl.eden.spring.framework.error.ErrorConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -77,11 +80,21 @@ public class PageResponse<T> extends Response {
 		return response;
 	}
 
-	public static PageResponse buildFailure(String errCode, String errMessage) {
+	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											  Object... params) {
 		PageResponse response = new PageResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(errMessage);
+		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		return response;
+	}
+
+	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											  String errMessage, Object... params) {
+		PageResponse response = new PageResponse();
+		response.setSuccess(false);
+		response.setErrCode(errCode);
+		response.setErrMessage(MessageFormatter.arrayFormat(errMessage, params).getMessage());
 		return response;
 	}
 
