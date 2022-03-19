@@ -186,7 +186,7 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(ServerException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Response processServerException(ServerException ex) {
 		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage());
@@ -201,7 +201,7 @@ public class RestExceptionHandler implements ApplicationEventPublisherAware {
 	 * @return
 	 */
 	@ExceptionHandler(ThirdServiceException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Response processThirdServiceException(ThirdServiceException ex) {
 		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage());
