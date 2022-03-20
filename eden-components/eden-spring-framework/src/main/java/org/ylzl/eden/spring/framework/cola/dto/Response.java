@@ -18,6 +18,9 @@
 package org.ylzl.eden.spring.framework.cola.dto;
 
 import lombok.*;
+import org.jetbrains.annotations.PropertyKey;
+import org.slf4j.helpers.MessageFormatter;
+import org.ylzl.eden.spring.framework.error.ErrorConfig;
 
 /**
  * 响应
@@ -47,11 +50,21 @@ public class Response extends DTO {
 		return response;
 	}
 
-	public static Response buildFailure(String errCode, String errMessage) {
+	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											 Object... params) {
 		Response response = new Response();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(errMessage);
+		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		return response;
+	}
+
+	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											 String errMessage, Object... params) {
+		Response response = new Response();
+		response.setSuccess(false);
+		response.setErrCode(errCode);
+		response.setErrMessage(MessageFormatter.arrayFormat(errMessage, params).getMessage());
 		return response;
 	}
 }

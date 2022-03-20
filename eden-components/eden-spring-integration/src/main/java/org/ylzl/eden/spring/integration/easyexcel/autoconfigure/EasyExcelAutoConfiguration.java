@@ -24,7 +24,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.easyexcel.read.EasyExcelReader;
 import org.ylzl.eden.spring.integration.easyexcel.write.EasyExcelWriter;
 
@@ -41,7 +41,7 @@ import org.ylzl.eden.spring.integration.easyexcel.write.EasyExcelWriter;
 public class EasyExcelAutoConfiguration {
 
 	public static final String EXP_EASY_EXCEL_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".easy-excel.enabled:true}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".easy-excel.enabled:true}";
 
 	@ConditionalOnMissingBean
 	@Bean

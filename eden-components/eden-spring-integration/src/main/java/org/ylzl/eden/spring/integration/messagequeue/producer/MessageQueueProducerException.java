@@ -1,8 +1,6 @@
 package org.ylzl.eden.spring.integration.messagequeue.producer;
 
-import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.framework.cola.exception.BaseException;
-import org.ylzl.eden.spring.framework.cola.exception.ThirdServiceErrorType;
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
  * 消息队列生产者异常
@@ -13,6 +11,6 @@ import org.ylzl.eden.spring.framework.cola.exception.ThirdServiceErrorType;
 public class MessageQueueProducerException extends BaseException {
 
 	public MessageQueueProducerException(String errMessage) {
-		super(ThirdServiceErrorType.C0121.getErrCode(), errMessage, HttpStatus.INTERNAL_SERVER_ERROR.value());
+		super("C0121", errMessage);
 	}
 }

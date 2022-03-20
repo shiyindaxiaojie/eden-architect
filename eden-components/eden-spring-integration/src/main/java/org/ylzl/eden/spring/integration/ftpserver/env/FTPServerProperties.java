@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.ftpserver.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * FtpServer 配置属性
@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".ftpserver")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".ftpserver")
 public class FTPServerProperties {
 
 	private Boolean enabled;

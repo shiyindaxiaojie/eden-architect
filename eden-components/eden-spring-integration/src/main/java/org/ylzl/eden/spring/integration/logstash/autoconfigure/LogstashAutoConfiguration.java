@@ -31,8 +31,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.logstash.env.LogstashProperties;
 import org.ylzl.eden.spring.integration.logstash.util.LogstashUtils;
 import org.ylzl.eden.spring.integration.metrics.env.MetricsProperties;
@@ -53,7 +53,7 @@ import java.util.Map;
 public class LogstashAutoConfiguration {
 
 	public static final String EXP_LOGSTASH_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".logstash.enabled:true}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".logstash.enabled:true}";
 
 	private static final String KEY_APP_NAME = "app_name";
 
@@ -63,12 +63,12 @@ public class LogstashAutoConfiguration {
 
 	private static final String KEY_TIMESTAMP = "timestamp";
 
-	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	@Value(GlobalConstants.NAME_PATTERN)
 	private String applicationName;
 
 	public LogstashAutoConfiguration(
-		@Value(SpringFrameworkConstants.NAME_PATTERN) String applicationName,
-		@Value(SpringFrameworkConstants.PORT_PATTERN) String serverPort,
+		@Value(GlobalConstants.NAME_PATTERN) String applicationName,
+		@Value(GlobalConstants.PORT_PATTERN) String serverPort,
 		LogstashProperties logstashProperties,
 		ObjectProvider<MetricsProperties> metricsProperties,
 		ObjectProvider<BuildProperties> buildProperties,

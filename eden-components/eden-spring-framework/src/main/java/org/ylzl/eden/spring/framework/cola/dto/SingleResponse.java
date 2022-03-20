@@ -21,6 +21,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jetbrains.annotations.PropertyKey;
+import org.slf4j.helpers.MessageFormatter;
+import org.ylzl.eden.spring.framework.error.ErrorConfig;
 
 /**
  * 响应（单条记录）
@@ -45,11 +48,21 @@ public class SingleResponse<T> extends Response {
 		return response;
 	}
 
-	public static SingleResponse buildFailure(String errCode, String errMessage) {
+	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+										Object... params) {
 		SingleResponse response = new SingleResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(errMessage);
+		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		return response;
+	}
+
+	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											  String errMessage, Object... params) {
+		SingleResponse response = new SingleResponse();
+		response.setSuccess(false);
+		response.setErrCode(errCode);
+		response.setErrMessage(MessageFormatter.arrayFormat(errMessage, params).getMessage());
 		return response;
 	}
 

@@ -19,10 +19,10 @@ package org.ylzl.eden.spring.framework.cola.catchlog.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.spring.framework.cola.dto.Response;
-import org.ylzl.eden.spring.framework.cola.exception.BaseException;
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
- * TODO
+ * 异常处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

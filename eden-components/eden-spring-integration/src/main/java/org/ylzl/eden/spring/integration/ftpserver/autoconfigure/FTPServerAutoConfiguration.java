@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.ftpserver.env.FTPServerProperties;
 
 /**
@@ -43,7 +43,7 @@ import org.ylzl.eden.spring.integration.ftpserver.env.FTPServerProperties;
 public class FTPServerAutoConfiguration {
 
 	public static final String EXP_FTP_SERVER_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".ftpserver.enabled:true}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".ftpserver.enabled:true}";
 
 	private static final String MSG_AUTOWIRED_FTP_SERVER = "Autowired FTPServer";
 

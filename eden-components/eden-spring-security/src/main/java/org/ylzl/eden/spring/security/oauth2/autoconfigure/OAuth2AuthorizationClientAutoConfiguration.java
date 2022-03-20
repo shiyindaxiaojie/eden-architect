@@ -33,8 +33,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.client.RestTemplate;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
-import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.oauth2.endpoint.OAuth2TokenEndpoint;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.*;
@@ -61,7 +61,7 @@ import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHo
 public class OAuth2AuthorizationClientAutoConfiguration {
 
 	public static final String EXP_OAUTH2_AUTHORIZATION_CLIENT =
-		"${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.client.enabled:false}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".oauth2.authorization.client.enabled:false}";
 
 	private static final String MSG_AUTOWIRED_OAUTH2_ACCESS_TOKEN_CLIENT =
 		"Autowired OAuth2AccessTokenClient";

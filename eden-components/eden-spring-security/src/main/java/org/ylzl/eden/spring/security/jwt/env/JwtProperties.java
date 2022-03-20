@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.security.jwt.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * JWT 配置属性
@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringSecurityConstants.PROP_PREFIX + ".jwt")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".jwt")
 public class JwtProperties {
 
 	private final Authentication authentication = new Authentication();

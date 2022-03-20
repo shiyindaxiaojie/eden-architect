@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.data.core.constant.SpringDataConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringDataConstants.PROP_PREFIX + ".routing-datasource")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".routing-datasource")
 public class RoutingDataSourceProperties {
 
 	private Boolean enabled;

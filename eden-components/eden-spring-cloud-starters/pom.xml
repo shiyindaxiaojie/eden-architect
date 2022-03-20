@@ -36,5 +36,6 @@
 		<module>eden-nacos-config-spring-cloud-starter</module>
 		<module>eden-nacos-discovery-spring-cloud-starter</module>
 		<module>eden-sentinel-spring-cloud-starter</module>
+		<module>eden-zookeeper-spring-cloud-starter</module>
 	</modules>
 </project>

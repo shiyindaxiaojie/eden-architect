@@ -35,8 +35,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
-import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2AuthorizationServerConfigurerAdapter;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.jwt.JwtTokenEnhancer;
@@ -60,7 +60,7 @@ import java.util.List;
 public class OAuth2AuthorizationServerAutoConfiguration {
 
 	public static final String EXP_OAUTH2_AUTHORIZATION_SERVER =
-		"${" + SpringSecurityConstants.PROP_PREFIX + ".oauth2.authorization.server.enabled:false}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".oauth2.authorization.server.enabled:false}";
 
 	@ConditionalOnMissingBean
 	@Bean

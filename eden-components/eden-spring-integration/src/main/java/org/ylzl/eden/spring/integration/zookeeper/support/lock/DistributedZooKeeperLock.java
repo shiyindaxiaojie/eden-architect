@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
-import org.ylzl.eden.spring.integration.zookeeper.core.ZooKeeperTemplate;
+import org.ylzl.eden.spring.integration.zookeeper.core.ZookeeperTemplate;
 
 /**
  * Redis 分布式锁
@@ -34,9 +34,9 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 
 	private static final byte[] empty = new byte[0];
 
-	private final ZooKeeperTemplate zooKeeperTemplate;
+	private final ZookeeperTemplate zooKeeperTemplate;
 
-	public DistributedZooKeeperLock(ZooKeeperTemplate zooKeeperTemplate) {
+	public DistributedZooKeeperLock(ZookeeperTemplate zooKeeperTemplate) {
 		this.zooKeeperTemplate = zooKeeperTemplate;
 	}
 

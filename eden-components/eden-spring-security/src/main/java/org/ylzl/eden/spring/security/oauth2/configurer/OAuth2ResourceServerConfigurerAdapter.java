@@ -30,7 +30,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.oauth2.token.TokenGrantClient;
 import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieHelper;
 
@@ -46,7 +46,7 @@ public class OAuth2ResourceServerConfigurerAdapter extends ResourceServerConfigu
 
 	private final TokenStore tokenStore;
 
-	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	@Value(GlobalConstants.NAME_PATTERN)
 	private String applicationName;
 
 	@Autowired(required = false)

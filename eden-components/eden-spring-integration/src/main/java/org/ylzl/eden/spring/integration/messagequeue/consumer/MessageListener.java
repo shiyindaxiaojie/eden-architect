@@ -1,5 +1,7 @@
 package org.ylzl.eden.spring.integration.messagequeue.consumer;
 
+import java.util.List;
+
 /**
  * 消息监听器接口
  *
@@ -11,17 +13,7 @@ public interface MessageListener {
 	/**
 	 * 消费消息
 	 *
-	 * @param message
+	 * @param messages
 	 */
-	default void consume(String message){
-		consume(message, () -> {});
-	}
-
-	/**
-	 * 消费消息
-	 *
-	 * @param message
-	 * @param acknowledgement
-	 */
-	void consume(String message, Acknowledgement acknowledgement);
+	void consume(List<String> messages, Acknowledgement ack);
 }

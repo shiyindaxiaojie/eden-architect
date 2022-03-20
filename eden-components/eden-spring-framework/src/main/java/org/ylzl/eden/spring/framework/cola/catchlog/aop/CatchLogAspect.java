@@ -23,13 +23,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.spring.framework.cola.catchlog.handler.CatchLogHandler;
-import org.ylzl.eden.spring.framework.cola.exception.BaseException;
-import org.ylzl.eden.spring.framework.cola.exception.ClientException;
-import org.ylzl.eden.spring.framework.cola.exception.ServerException;
-import org.ylzl.eden.spring.framework.cola.exception.ThirdServiceException;
+import org.ylzl.eden.spring.framework.error.BaseException;
+import org.ylzl.eden.spring.framework.error.ClientException;
+import org.ylzl.eden.spring.framework.error.ServerException;
+import org.ylzl.eden.spring.framework.error.ThirdServiceException;
 
 import java.util.Arrays;
 
@@ -93,7 +92,7 @@ public class CatchLogAspect {
 			baseException = (BaseException) e;
 		} else {
 			errorTag = UNKNOWN_EXCEPTION;
-			baseException = new BaseException(UNKNOWN_ERROR, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+			baseException = new BaseException(UNKNOWN_ERROR, e.getMessage());
 		}
 
 		String cause = e.getCause() != null ? e.getCause().toString() : UNKNOWN_CAUSE;

@@ -25,8 +25,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.StringConstants;
-import org.ylzl.eden.spring.framework.cola.exception.http.UnauthorizedException;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.core.login.Login;
 
 /**
@@ -77,7 +77,7 @@ public class JwtTokenService {
 			boolean rememberMe = (login.getRememberMe() == null) ? false : login.getRememberMe();
 			String token =
 				jwtTokenProvider.build(
-					login.getUsername(), SpringFrameworkConstants.SYSTEM, claim.toString(), rememberMe);
+					login.getUsername(), GlobalConstants.SYSTEM, claim.toString(), rememberMe);
 			return JwtToken.builder().value(token).build();
 		} catch (BadCredentialsException ex) {
 			log.error(EXP_AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);

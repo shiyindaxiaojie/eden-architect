@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,7 +78,7 @@ public final class ResponseUtils {
 			HttpHeaders.CONTENT_DISPOSITION,
 			MessageFormat.format(
 				CONTENT_DISPOSITION_ATTACH,
-				URLEncoder.encode(fileName, SpringFrameworkConstants.DEFAULT_ENCODING)));
+				URLEncoder.encode(fileName, GlobalConstants.DEFAULT_ENCODING)));
 
 		String contentType = request.getServletContext().getMimeType(fileName);
 		response.setContentType(contentType);

@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.integration.truelicense.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * 许可证配置属性
@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants
 @Getter
 @Setter
 @ConfigurationProperties(
-	prefix = SpringIntegrationConstants.PROP_PREFIX + ".true-license",
+	prefix = GlobalConstants.PROP_EDEN_PREFIX + ".true-license",
 	ignoreUnknownFields = false)
 public class TrueLicenseProperties {
 

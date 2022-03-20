@@ -1,6 +1,7 @@
 package org.ylzl.eden.spring.integration.messagequeue.annotation;
 
 
+import org.springframework.stereotype.Component;
 import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
 
 import java.lang.annotation.*;
@@ -11,6 +12,7 @@ import java.lang.annotation.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@Component
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

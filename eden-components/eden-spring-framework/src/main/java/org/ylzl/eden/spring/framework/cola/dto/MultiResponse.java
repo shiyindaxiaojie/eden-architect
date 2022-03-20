@@ -21,6 +21,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jetbrains.annotations.PropertyKey;
+import org.slf4j.helpers.MessageFormatter;
+import org.ylzl.eden.spring.framework.error.ErrorConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,11 +69,21 @@ public class MultiResponse<T> extends Response {
 		return response;
 	}
 
-	public static MultiResponse buildFailure(String errCode, String errMessage) {
+	public static MultiResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											Object... params) {
 		MultiResponse response = new MultiResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(errMessage);
+		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		return response;
+	}
+
+	public static MultiResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+											String errMessage, Object... params) {
+		MultiResponse response = new MultiResponse();
+		response.setSuccess(false);
+		response.setErrCode(errCode);
+		response.setErrMessage(MessageFormatter.arrayFormat(errMessage, params).getMessage());
 		return response;
 	}
 

@@ -24,7 +24,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.truelicense.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.manager.LicenseInstall;
 import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
@@ -42,7 +42,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
 public class TrueLicenseClientAutoConfiguration {
 
 	public static final String EXP_TRUE_LICENSE_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".true-license.client.enabled:false}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".true-license.client.enabled:false}";
 
 	private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =
 		"Autowired TureLicense install service";

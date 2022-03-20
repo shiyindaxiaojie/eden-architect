@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.integration.messagequeue.kafka;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;
@@ -37,9 +39,9 @@ public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, Di
 
 	public static final String DESTROY_KAFKA_CONSUMER = "Destroy KafkaConsumer";
 
-	private final List<MessageListener> messageListeners;
-
 	private final KafkaProperties kafkaProperties;
+
+	private final List<MessageListener> messageListeners;
 
 	private final ConsumerFactory<String, String> consumerFactory;
 
@@ -58,12 +60,15 @@ public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, Di
 
 	@Override
 	public void consume() throws MessageQueueConsumerException {
+		if (CollectionUtils.isEmpty(messageListeners)) {
+			return;
+		}
 		for (MessageListener messageListener : messageListeners) {
+			Consumer<String, String> consumer = consumerFactory.createConsumer(
+				kafkaProperties.getConsumer().getGroupId(),
+				kafkaProperties.getClientId());
+			consumer.subscribe(Collections.singleton(topic(messageListener)));
 			taskExecutor.execute(() -> {
-				Consumer<String, String> consumer = consumerFactory.createConsumer(
-					kafkaProperties.getConsumer().getGroupId(),
-					kafkaProperties.getClientId());
-				consumer.subscribe(Collections.singleton(topic(messageListener)));
 				while (true) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
@@ -73,12 +78,12 @@ public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, Di
 						}
 						Map<TopicPartition, OffsetAndMetadata> offsets =
 							Maps.newHashMapWithExpectedSize(kafkaProperties.getConsumer().getMaxPollRecords());
+						List<String> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
 						consumerRecords.forEach(record -> {
-							offsets.put(new TopicPartition(record.topic(), record.partition()),
-								new OffsetAndMetadata(record.offset() + 1));
-							// TODO
-							messageListener.consume(record.topic(), () -> consumer.commitSync(offsets));
+							messages.add(record.value());
+							offsets.put(new TopicPartition(record.topic(), record.partition()), new OffsetAndMetadata(record.offset() + 1));
 						});
+						messageListener.consume(messages, () -> consumer.commitSync(offsets));
 					} catch (Exception e) {
 						log.error(KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR, e.getMessage(), e);
 					}
