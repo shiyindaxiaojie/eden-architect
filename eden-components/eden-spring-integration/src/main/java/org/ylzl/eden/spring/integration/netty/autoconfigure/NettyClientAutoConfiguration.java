@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.commons.collections.CollectionUtils;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.netty.bootstrap.NettyClient;
 import org.ylzl.eden.spring.integration.netty.env.NettyProperties;
 
@@ -49,7 +49,7 @@ import java.util.List;
 public class NettyClientAutoConfiguration {
 
 	public static final String EXP_NETTY_CLIENT_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".netty.client.enabled:false}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".netty.client.enabled:false}";
 
 	private final NettyProperties.Client properties;
 

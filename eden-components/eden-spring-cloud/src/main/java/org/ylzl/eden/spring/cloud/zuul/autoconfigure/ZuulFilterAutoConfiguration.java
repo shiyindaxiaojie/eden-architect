@@ -28,12 +28,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.cloud.core.constant.SpringCloudConstants;
 import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 import org.ylzl.eden.spring.cloud.zuul.filter.AccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.RateLimitingFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * Zuul 过滤器自动装配
@@ -48,10 +47,10 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 public class ZuulFilterAutoConfiguration {
 
 	public static final String EXP_ACCESS_CONTROL_ENABLED =
-		"${" + SpringCloudConstants.PROP_PREFIX + ".zuul.access-control.enabled:true}";
+		"${" + GlobalConstants.PROP_SPRING_PREFIX + ".zuul.access-control.enabled:true}";
 
 	public static final String EXP_RATE_LIMITING_ENABLED =
-		"${" + SpringCloudConstants.PROP_PREFIX + ".zuul.rate-limiting.enabled:false}";
+		"${" + GlobalConstants.PROP_SPRING_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
 	private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER =
 		"Autowired Zuul AccessControl filter";
@@ -79,7 +78,7 @@ public class ZuulFilterAutoConfiguration {
 	@ConditionalOnMissingBean
 	@Bean
 	public RateLimitingFilter rateLimitingFilter(
-		@Value(SpringFrameworkConstants.NAME_PATTERN) String applicationName) {
+		@Value(GlobalConstants.NAME_PATTERN) String applicationName) {
 		log.debug(MSG_AUTOWIRED_RATE_LIMIT_FILTER);
 		return new RateLimitingFilter(zuulProperties, applicationName);
 	}

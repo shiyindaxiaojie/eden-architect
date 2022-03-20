@@ -31,7 +31,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 
@@ -48,7 +48,7 @@ public class JwtWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 	private final JwtTokenProvider jwtTokenProvider;
 	private final JwtProperties jwtProperties;
 
-	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	@Value(GlobalConstants.NAME_PATTERN)
 	private String applicationName;
 
 	private AuthenticationEntryPoint authenticationEntryPoint;

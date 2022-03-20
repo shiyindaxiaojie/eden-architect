@@ -18,8 +18,8 @@
 package org.ylzl.eden.spring.security.core.login;
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

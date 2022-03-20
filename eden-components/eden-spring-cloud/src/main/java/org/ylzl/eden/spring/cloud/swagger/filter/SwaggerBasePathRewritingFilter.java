@@ -25,7 +25,7 @@ import org.ylzl.eden.commons.io.IOUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import springfox.documentation.swagger2.web.Swagger2Controller;
 
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
 	public Object run() {
 		RequestContext context = RequestContext.getCurrentContext();
 		if (!context.getResponseGZipped()) {
-			context.getResponse().setCharacterEncoding(SpringFrameworkConstants.DEFAULT_ENCODING);
+			context.getResponse().setCharacterEncoding(GlobalConstants.DEFAULT_ENCODING);
 		}
 		String rewrittenResponse = rewriteBasePath(context);
 		if (rewrittenResponse != null) {
@@ -88,7 +88,7 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
 				responseDataStream = new GZIPInputStream(context.getResponseDataStream());
 			}
 			String response =
-				IOUtils.toString(responseDataStream, SpringFrameworkConstants.DEFAULT_ENCODING);
+				IOUtils.toString(responseDataStream, GlobalConstants.DEFAULT_ENCODING);
 			if (StringUtils.isNotBlank(response)) {
 				LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
 				String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, StringConstants.EMPTY);

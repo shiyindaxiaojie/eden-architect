@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.security.oauth2.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * OAuth2 配置属性
@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.security.core.constant.SpringSecurityConstants;
 @SuppressWarnings("unchecked")
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringSecurityConstants.PROP_PREFIX + ".oauth2")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".oauth2")
 public class OAuth2Properties {
 
 	private final Authentication authentication = new Authentication();

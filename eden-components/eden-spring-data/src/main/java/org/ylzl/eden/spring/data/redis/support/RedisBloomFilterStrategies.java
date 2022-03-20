@@ -28,7 +28,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
+public enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
 	MURMUR128_MITZ_32() {
 		@Override
 		public <T> boolean put(

@@ -1,21 +1,23 @@
 package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
 
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * RocketMQ 消费者
@@ -33,9 +35,9 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 
 	private static final String ROCKETMQ_CONSUMER_CONSUME_ERROR = "RocketMQConsumer consume error: {}";
 
-	private final List<MessageListener> messageListeners;
-
 	private final RocketMQProperties rocketMQProperties;
+
+	private final List<MessageListener> messageListeners;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -50,6 +52,9 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 
 	@Override
 	public void consume() throws MessageQueueConsumerException {
+		if (CollectionUtils.isEmpty(messageListeners)) {
+			return;
+		}
 		try {
 			for (MessageListener listener : messageListeners) {
 				Class<? extends MessageListener> clazz = listener.getClass();
@@ -58,10 +63,17 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 				consumer.setNamesrvAddr(rocketMQProperties.getNameServer());
 				consumer.subscribe(annotation.topic(), annotation.tags());
 				consumer.registerMessageListener((MessageListenerConcurrently) (messageExts, context) -> {
-					for (MessageExt messageExt : messageExts) {
-						listener.consume(new String(messageExt.getBody()));
-					}
-					return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+					AtomicReference<ConsumeConcurrentlyStatus> status = new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
+					List<String> messages = Lists.newArrayListWithCapacity(messageExts.size());
+					messageExts.forEach(messageExt -> messages.add(new String(messageExt.getBody())));
+					listener.consume(messages,
+						() -> {
+							if (status.get() != ConsumeConcurrentlyStatus.CONSUME_SUCCESS) {
+								status.set(ConsumeConcurrentlyStatus.CONSUME_SUCCESS);
+							}
+						}
+					);
+					return status.get();
 				});
 				consumer.start();
 			}

@@ -36,11 +36,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.data.core.constant.SpringDataConstants;
 import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
 import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -75,7 +75,7 @@ public class RoutingDataSourceAutoConfiguration
 	implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
 	private static final String PROP_ROUTING_DATA_SOURCE_PREFIX =
-		SpringDataConstants.PROP_PREFIX + ".routing-datasource";
+		GlobalConstants.PROP_SPRING_PREFIX + ".routing-datasource";
 
 	public static final String ROUTING_DATASOURCE_ENABLED =
 		PROP_ROUTING_DATA_SOURCE_PREFIX + ".enabled";
@@ -87,6 +87,8 @@ public class RoutingDataSourceAutoConfiguration
 	private static final String DEFAULT_BEAN_NAME = "dataSource";
 
 	private static final String DEFAULT_DATASOURCE_NAME = "default";
+
+	private static final String SPRING_DATASOURCE = "spring.datasource";
 
 	private Environment env;
 
@@ -126,7 +128,7 @@ public class RoutingDataSourceAutoConfiguration
 	private DataSource getDefaultTargetDataSource() {
 		DataSourceProperties dataSourceProperties =
 			springBinderHelper.bind(
-				StringUtils.join(SpringDataConstants.PROP_DATASOURCE_PREFIX, StringConstants.DOT),
+				StringUtils.join(SPRING_DATASOURCE, StringConstants.DOT),
 				DataSourceProperties.class);
 		return this.buildDataSource(dataSourceProperties);
 	}

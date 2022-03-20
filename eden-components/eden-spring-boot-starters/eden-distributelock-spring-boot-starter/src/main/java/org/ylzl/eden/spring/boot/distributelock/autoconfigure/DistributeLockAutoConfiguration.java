@@ -18,10 +18,7 @@
 package org.ylzl.eden.spring.boot.distributelock.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -31,10 +28,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.distributelock.env.DistributedLockProperties;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
-import org.ylzl.eden.spring.integration.distributelock.core.DistributedLockManager;
-import org.ylzl.eden.spring.integration.distributelock.curator.CuratorDistributedLockManager;
-import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistributedLockManager;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.integration.distributelock.core.DistributedLock;
+import org.ylzl.eden.spring.integration.distributelock.curator.CuratorDistributedLock;
+import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistributedLock;
 
 /**
  * 分布式锁自动装配
@@ -47,21 +44,19 @@ import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistribu
 @Configuration
 public class DistributeLockAutoConfiguration {
 
-	@ConditionalOnProperty(value = SpringIntegrationConstants.PROP_PREFIX + ".distribute-lock", havingValue = "redisson")
+	@ConditionalOnProperty(value = GlobalConstants.PROP_EDEN_PREFIX + ".distribute-lock.type", havingValue = "Redisson")
 	@ConditionalOnClass(Redisson.class)
 	@ConditionalOnBean(RedissonClient.class)
 	@Bean
-	public DistributedLockManager distributedLockManager(RedissonClient redissonClient) {
-		return new RedissonDistributedLockManager(redissonClient);
+	public DistributedLock distributedLock(RedissonClient redissonClient) {
+		return new RedissonDistributedLock(redissonClient);
 	}
 
-	@ConditionalOnProperty(value = SpringIntegrationConstants.PROP_PREFIX + ".distribute-lock", havingValue = "curator")
+	@ConditionalOnProperty(value = GlobalConstants.PROP_EDEN_PREFIX + ".distribute-lock.type", havingValue = "Curator")
 	@ConditionalOnClass(CuratorFramework.class)
+	@ConditionalOnBean(CuratorFramework.class)
 	@Bean
-	public DistributedLockManager distributedLockManager() {
-		RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-		CuratorFramework curatorFramework = CuratorFrameworkFactory.newClient(
-			"", retryPolicy);
-		return new CuratorDistributedLockManager(curatorFramework);
+	public DistributedLock distributedLock(CuratorFramework curatorFramework) {
+		return new CuratorDistributedLock(curatorFramework);
 	}
 }

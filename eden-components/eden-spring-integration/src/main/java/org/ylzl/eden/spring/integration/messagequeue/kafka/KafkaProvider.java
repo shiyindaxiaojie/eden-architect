@@ -83,7 +83,7 @@ public class KafkaProvider implements MessageQueueProvider {
 		RecordMetadata recordMetadata = sendResult.getRecordMetadata();
 		return MessageSendResult.builder()
 			.topic(producerRecord.topic())
-			.partition(producerRecord.partition())
+			.partition(recordMetadata.partition())
 			.offset(recordMetadata.offset())
 			.build();
 	}

@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.ftpclient.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
 
 /**
@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".ftpclient")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".ftpclient")
 public class FTPClientProperties {
 
 	private Boolean enabled = FTPClientDefaults.enabled;

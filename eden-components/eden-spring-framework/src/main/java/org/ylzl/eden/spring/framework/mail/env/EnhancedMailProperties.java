@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * Mail 配置属性
@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_SPRING_PREFIX + ".mail")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_SPRING_PREFIX + ".mail")
 public class EnhancedMailProperties extends MailProperties {
 
 	private boolean enabled = EnhancedMailDefaults.enabled;

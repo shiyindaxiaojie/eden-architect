@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.security.core.constant;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
 
 /**
  * Security 常量定义
@@ -28,11 +27,6 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
  */
 @UtilityClass
 public final class SpringSecurityConstants {
-
-	/**
-	 * 自定义属性前缀
-	 */
-	public static final String PROP_PREFIX = SpringFrameworkConstants.PROP_EDEN_PREFIX + ".security";
 
 	// 角色
 

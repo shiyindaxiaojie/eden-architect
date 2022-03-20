@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.httpclient.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 /**
  * HttpClient 配置属性
@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringFrameworkConstants.PROP_PREFIX + ".http-client")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".http-client")
 public class HttpClientProperties {
 
 	private int connectTimeout = HttpClientDefaults.connectTimeout;

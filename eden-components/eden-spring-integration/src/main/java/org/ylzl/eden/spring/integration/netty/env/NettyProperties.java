@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.netty.channel.ChannelOptions;
 
 /**
@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.netty.channel.ChannelOptions;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringIntegrationConstants.PROP_PREFIX + ".netty")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".netty")
 public final class NettyProperties {
 
 	private final Client client = new Client();

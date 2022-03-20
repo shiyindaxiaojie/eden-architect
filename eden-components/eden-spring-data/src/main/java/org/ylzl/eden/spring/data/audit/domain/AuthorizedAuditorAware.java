@@ -21,7 +21,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.framework.core.util.SpringAssert;
 import org.ylzl.eden.spring.framework.web.util.RequestContextHolderUtils;
 
@@ -53,6 +53,6 @@ public class AuthorizedAuditorAware implements AuditorAware<String> {
 			authorizedUsername = RequestContextHolderUtils.getRemoteUser();
 		}
 		SpringAssert.notNull(authorizedUsername);
-		return Optional.of(Optional.of(authorizedUsername).orElse(SpringFrameworkConstants.SYSTEM));
+		return Optional.of(Optional.of(authorizedUsername).orElse(GlobalConstants.SYSTEM));
 	}
 }

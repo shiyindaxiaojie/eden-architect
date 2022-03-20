@@ -31,8 +31,8 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.core.constant.SpringFrameworkConstants;
-import org.ylzl.eden.spring.integration.core.constant.SpringIntegrationConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.swagger2.customizer.DefaultSwagger2Customizer;
 import org.ylzl.eden.spring.integration.swagger2.customizer.Swagger2Customizer;
 import org.ylzl.eden.spring.integration.swagger2.env.Swagger2Properties;
@@ -83,7 +83,7 @@ import java.util.List;
 public class Swagger2AutoConfiguration {
 
 	public static final String EXP_SWAGGER_ENABLED =
-		"${" + SpringIntegrationConstants.PROP_PREFIX + ".swagger2.enabled:true}";
+		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".swagger2.enabled:true}";
 
 	public static final String DEFAULT_GROUP_NAME = "management";
 
@@ -93,7 +93,7 @@ public class Swagger2AutoConfiguration {
 	private final Swagger2Properties properties;
 	private final ManagementServerProperties managementServerProperties;
 
-	@Value(SpringFrameworkConstants.NAME_PATTERN)
+	@Value(GlobalConstants.NAME_PATTERN)
 	private String applicationName;
 
 	public Swagger2AutoConfiguration(

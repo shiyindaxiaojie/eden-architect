@@ -139,7 +139,7 @@
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<zkclient.version>0.1</zkclient.version>
-		<curator.version>4.1.0</curator.version>
+		<curator.version>5.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
 		<grpc.version>1.31.1</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
@@ -356,6 +356,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-messagequeue-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-metrics-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -424,11 +429,6 @@
 				<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-zookeeper-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
 
 			<!-- Eden* Spring Cloud Starters -->
 			<dependency>
@@ -444,6 +444,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-zookeeper-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 

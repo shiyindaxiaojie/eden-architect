@@ -26,7 +26,8 @@ public class Message {
 
 	private String body;
 
-	private Integer delayTimeLevel;
+	@Builder.Default
+	private Integer delayTimeLevel = 0;
 
 	private String transactionId;
 }

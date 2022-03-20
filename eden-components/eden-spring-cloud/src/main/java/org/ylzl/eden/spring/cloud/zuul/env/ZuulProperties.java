@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.cloud.zuul.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.cloud.core.constant.SpringCloudConstants;
+import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = SpringCloudConstants.PROP_PREFIX + ".zuul")
+@ConfigurationProperties(prefix = GlobalConstants.PROP_SPRING_PREFIX + ".zuul")
 public class ZuulProperties {
 
 	private final AccessControl accessControl = new AccessControl();
