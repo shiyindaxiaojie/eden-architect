@@ -3,6 +3,7 @@ package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
@@ -60,10 +61,14 @@ public class RocketMQConsumer implements MessageQueueConsumer, InitializingBean,
 				Class<? extends MessageListener> clazz = listener.getClass();
 				MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
 				DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(annotation.consumerGroup());
+				if (StringUtils.isNotBlank(annotation.namespace())) {
+					consumer.setNamespace(annotation.namespace());
+				}
 				consumer.setNamesrvAddr(rocketMQProperties.getNameServer());
 				consumer.subscribe(annotation.topic(), annotation.tags());
 				consumer.registerMessageListener((MessageListenerConcurrently) (messageExts, context) -> {
-					AtomicReference<ConsumeConcurrentlyStatus> status = new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
+					AtomicReference<ConsumeConcurrentlyStatus> status =
+						new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
 					List<String> messages = Lists.newArrayListWithCapacity(messageExts.size());
 					messageExts.forEach(messageExt -> messages.add(new String(messageExt.getBody())));
 					listener.consume(messages,

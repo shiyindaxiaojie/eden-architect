@@ -38,7 +38,7 @@ public @interface MessageQueueListener {
 	 *
 	 * @return 消费者组名称
 	 */
-	String consumerGroup() default "default-consumer-group";
+	String consumerGroup() default "${spring.application.name:default-consumer-group}";
 
 	/**
 	 * 消费标签
@@ -46,4 +46,11 @@ public @interface MessageQueueListener {
 	 * @return 标签名称
 	 */
 	String tags() default "*";
+
+	/**
+	 * 命名空间
+	 *
+	 * @return
+	 */
+	String namespace() default "";
 }
