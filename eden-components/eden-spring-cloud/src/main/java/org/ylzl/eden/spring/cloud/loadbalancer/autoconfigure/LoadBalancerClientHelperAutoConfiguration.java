@@ -27,7 +27,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
-import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
+import org.ylzl.eden.spring.framework.web.autoconfigure.CustomRestTemplateAutoConfiguration;
 
 /**
  * 负载均衡客户端工具自动装配
@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfigur
  * @since 2.4.x
  */
 @AutoConfigureAfter(LoadBalancerAutoConfiguration.class)
-@AutoConfigureBefore(RestTemplateAutoConfiguration.class)
+@AutoConfigureBefore(CustomRestTemplateAutoConfiguration.class)
 @ConditionalOnBean(LoadBalancerClient.class)
 @Slf4j
 @Configuration

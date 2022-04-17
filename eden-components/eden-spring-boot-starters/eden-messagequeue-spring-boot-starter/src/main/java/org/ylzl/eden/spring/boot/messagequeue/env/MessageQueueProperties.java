@@ -2,7 +2,7 @@ package org.ylzl.eden.spring.boot.messagequeue.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 /**
  * 分布式锁配置

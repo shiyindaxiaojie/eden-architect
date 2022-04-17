@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.security.jwt.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 /**
  * JWT 配置属性

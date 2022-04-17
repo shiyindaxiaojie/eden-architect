@@ -25,7 +25,7 @@ import org.ylzl.eden.commons.io.IOUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import springfox.documentation.swagger2.web.Swagger2Controller;
 
 import java.io.IOException;

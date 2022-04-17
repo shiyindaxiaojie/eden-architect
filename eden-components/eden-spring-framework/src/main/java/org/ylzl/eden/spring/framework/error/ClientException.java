@@ -30,7 +30,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class ClientException extends BaseException {
 
-	public ClientException(String errCode, String errMessage) {
-		super(errCode, errMessage);
+	public ClientException(String errCode, String errMessage, Object... params) {
+		super(errCode, errMessage, params);
 	}
 }

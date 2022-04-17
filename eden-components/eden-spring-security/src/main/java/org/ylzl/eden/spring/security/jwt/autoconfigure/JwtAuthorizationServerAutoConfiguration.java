@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.core.autoconfigure.DefaultWebSecuirtyConfiguration;
 import org.ylzl.eden.spring.security.jwt.endpoint.JwtTokenEndpoint;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;

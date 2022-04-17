@@ -1,18 +1,18 @@
 package org.ylzl.eden.spring.integration.distributelock.redisson;
 
+import com.puyiwm.spring.integration.disrtibutedlock.core.DistributedLock;
+import com.puyiwm.spring.integration.disrtibutedlock.core.DistributedLockException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.ylzl.eden.spring.integration.distributelock.core.DistributedLock;
-import org.ylzl.eden.spring.integration.distributelock.core.DistributedLockException;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * Redisson 分布式锁
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @author <a href="mailto:guoyuanlu@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @RequiredArgsConstructor

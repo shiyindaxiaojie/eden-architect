@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.oauth2.configurer.OAuth2ResourceServerConfigurerAdapter;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 

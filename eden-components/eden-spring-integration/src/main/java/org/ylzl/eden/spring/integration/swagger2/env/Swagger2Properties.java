@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.swagger2.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 /**
  * Swagger2 配置属性

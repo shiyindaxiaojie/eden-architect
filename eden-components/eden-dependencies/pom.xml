@@ -148,12 +148,16 @@
 		<nacos.version>2.0.2</nacos.version>
 		<sentinel.version>1.8.2</sentinel.version>
 		<zipkin2.version>2.19.3</zipkin2.version>
+		<brave.version>5.13.7</brave.version>
+		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
+		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
 
 		<!-- 授权认证 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+		<spring-security-oauth2-autoconfigure.version>2.4.13</spring-security-oauth2-autoconfigure.version>
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
@@ -175,21 +179,26 @@
 		<gatling.version>3.2.1</gatling.version>
 		<jmh.version>1.23</jmh.version>
 		<junit.version>4.13.1</junit.version>
-
-		<!-- 阿里云组件 -->
-		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-
-		<!-- 腾讯云组件 -->
-		<cos_api.version>5.6.38</cos_api.version>
-		<vod_api.version>2.1.4</vod_api.version>
-		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
-		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
+		<spock.version>1.3-groovy-2.4</spock.version>
+		<groovy.version>2.4.21</groovy.version>
 
 		<!-- 聚合支付组件 -->
 		<ijpay.version>2.7.9</ijpay.version>
 
 		<!-- IDEA -->
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
+
+		<!-- 阿里云组件 -->
+		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+		<aliyun-spring-boot.version>1.0.0</aliyun-spring-boot.version>
+		<aliyun-sms.version>2.0.9</aliyun-sms.version>
+		<aliyun-tea.version>0.2.2</aliyun-tea.version>
+
+		<!-- 腾讯云组件 -->
+		<cos_api.version>5.6.38</cos_api.version>
+		<vod_api.version>2.1.4</vod_api.version>
+		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
+		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
 	</properties>
 
 	<dependencyManagement>
@@ -250,6 +259,22 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- Aliyun Spring Boot 依赖 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>aliyun-spring-boot-dependencies</artifactId>
+				<version>${aliyun-spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Zipkin 依赖 -->
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-bom</artifactId>
+				<version>${brave.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
 			<!-- Eden* Components -->
 			<dependency>
@@ -259,7 +284,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-spring-framework</artifactId>
+				<artifactId>eden-business</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -270,6 +295,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-data</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-spring-framework</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -302,6 +332,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-curator-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>

@@ -21,7 +21,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.framework.core.util.SpringAssert;
 import org.ylzl.eden.spring.framework.web.util.RequestContextHolderUtils;
 

@@ -31,7 +31,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.ylzl.eden.spring.boot.messagequeue.env.MessageQueueProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
 import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;

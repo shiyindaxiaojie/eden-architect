@@ -31,7 +31,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 

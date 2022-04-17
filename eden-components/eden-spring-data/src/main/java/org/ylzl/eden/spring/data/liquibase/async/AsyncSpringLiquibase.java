@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringL
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.core.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
 
 import java.sql.Connection;
 import java.sql.SQLException;

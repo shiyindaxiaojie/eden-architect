@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 import org.ylzl.eden.spring.cloud.zuul.filter.AccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.RateLimitingFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 /**
  * Zuul 过滤器自动装配

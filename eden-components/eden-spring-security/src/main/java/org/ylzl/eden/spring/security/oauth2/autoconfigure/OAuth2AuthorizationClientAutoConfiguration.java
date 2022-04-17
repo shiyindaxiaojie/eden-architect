@@ -33,8 +33,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
-import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.web.autoconfigure.CustomRestTemplateAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.endpoint.OAuth2TokenEndpoint;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.*;
@@ -52,7 +52,7 @@ import org.ylzl.eden.spring.security.oauth2.token.store.ClientCredentialsTokenHo
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@AutoConfigureAfter(RestTemplateAutoConfiguration.class)
+@AutoConfigureAfter(CustomRestTemplateAutoConfiguration.class)
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration.class)
 @ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})

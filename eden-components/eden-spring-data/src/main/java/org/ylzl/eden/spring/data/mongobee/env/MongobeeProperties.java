@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "mongobee")
+@ConfigurationProperties(prefix = "spring.mongobee")
 public class MongobeeProperties {
 
 	private Boolean enabled;

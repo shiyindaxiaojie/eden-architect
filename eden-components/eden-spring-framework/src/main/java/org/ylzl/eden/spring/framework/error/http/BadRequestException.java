@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  */
 public class BadRequestException extends BaseException {
 
-	public BadRequestException(String errMessage) {
-		super("A0001", errMessage);
+	public BadRequestException(String errMessage, Object... params) {
+		super("A0001", errMessage, params);
 	}
 }

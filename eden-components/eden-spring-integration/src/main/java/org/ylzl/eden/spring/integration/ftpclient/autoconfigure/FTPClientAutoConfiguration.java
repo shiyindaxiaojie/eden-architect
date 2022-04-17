@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientConfig;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientPool;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientTemplate;

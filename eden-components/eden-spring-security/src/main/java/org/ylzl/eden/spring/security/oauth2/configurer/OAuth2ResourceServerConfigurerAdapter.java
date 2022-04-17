@@ -30,7 +30,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.security.oauth2.token.TokenGrantClient;
 import org.ylzl.eden.spring.security.oauth2.token.cookie.OAuth2CookieHelper;
 

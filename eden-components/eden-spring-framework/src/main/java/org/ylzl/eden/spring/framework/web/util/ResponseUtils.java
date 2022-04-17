@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

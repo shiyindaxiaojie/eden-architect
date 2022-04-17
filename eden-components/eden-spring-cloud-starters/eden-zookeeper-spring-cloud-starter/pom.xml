@@ -63,14 +63,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zookeeper</artifactId>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- Curator 组件 -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

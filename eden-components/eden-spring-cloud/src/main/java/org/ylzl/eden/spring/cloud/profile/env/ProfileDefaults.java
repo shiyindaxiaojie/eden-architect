@@ -17,7 +17,7 @@
 package org.ylzl.eden.spring.cloud.profile.env;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.spring.framework.core.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
 
 /**
  * Profile 属性默认值

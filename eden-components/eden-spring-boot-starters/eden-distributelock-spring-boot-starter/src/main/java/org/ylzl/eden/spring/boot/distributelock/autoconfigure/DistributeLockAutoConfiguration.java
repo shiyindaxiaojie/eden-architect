@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.distributelock.env.DistributedLockProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.distributelock.core.DistributedLock;
 import org.ylzl.eden.spring.integration.distributelock.curator.CuratorDistributedLock;
 import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistributedLock;

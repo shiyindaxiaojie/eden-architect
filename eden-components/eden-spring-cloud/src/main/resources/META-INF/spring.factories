@@ -6,6 +6,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.cloud.oauth2.LoadBalancedOAuth2AuthorizationClientAutoConfiguration,\
   org.ylzl.eden.spring.cloud.profile.autoconfigure.ProfileEndpointAutoConfiguration,\
   org.ylzl.eden.spring.cloud.swagger.autoconfigure.DiscoverySwaggerAutoConfiguration,\
-  org.ylzl.eden.spring.cloud.web.autoconfigure.LoadBalancedRestAutoConfiguration,\
+  org.ylzl.eden.spring.cloud.rest.autoconfigure.LoadBalancedRestAutoConfiguration,\
   org.ylzl.eden.spring.cloud.zuul.autoconfigure.ZuulEndpointAutoConfiguration,\
   org.ylzl.eden.spring.cloud.zuul.autoconfigure.ZuulFilterAutoConfiguration

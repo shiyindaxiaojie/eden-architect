@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtClientCredentialsResourceDetails;
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtOAuth2AccessTokenClient;
 import org.ylzl.eden.spring.cloud.oauth2.token.jwt.JwtSignatureVerifierClient;
-import org.ylzl.eden.spring.framework.web.autoconfigure.RestTemplateAutoConfiguration;
+import org.ylzl.eden.spring.framework.web.autoconfigure.CustomRestTemplateAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
 import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClient;
@@ -47,7 +47,7 @@ import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@AutoConfigureAfter({RestTemplateAutoConfiguration.class, LoadBalancerClientHelperAutoConfiguration.class})
+@AutoConfigureAfter({CustomRestTemplateAutoConfiguration.class, LoadBalancerClientHelperAutoConfiguration.class})
 @AutoConfigureBefore(OAuth2AuthorizationClientAutoConfiguration.class)
 @ConditionalOnExpression(OAuth2AuthorizationClientAutoConfiguration.EXP_OAUTH2_AUTHORIZATION_CLIENT)
 @EnableConfigurationProperties({OAuth2Properties.class})

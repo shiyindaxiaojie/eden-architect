@@ -1,0 +1,302 @@
+package org.ylzl.eden.spring.data.redis.core;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.ylzl.eden.commons.json.JacksonUtils;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+/**
+ * Redis Repository 通用接口
+ *
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @since 2.4.x
+ **/
+@SuppressWarnings("unchecked")
+@RequiredArgsConstructor
+@Slf4j
+public class CustomRedisTemplateImpl implements CustomRedisTemplate {
+
+	private final StringRedisTemplate redisTemplate;
+
+	/* RedisObject 操作 */
+
+	/**
+	 * 判断 Key 是否存在
+	 *
+	 * @param key Redis 键
+	 * @return Boolean
+	 */
+	@Override
+	public boolean hasKey(String key) {
+		return redisTemplate.hasKey(key);
+	}
+
+	/**
+	 * 设置过期时间（秒）
+	 *
+	 * @param key
+	 * @param timeout
+	 */
+	@Override
+	public void expire(String key, long timeout) {
+		redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 删除 Key
+	 *
+	 * @param key
+	 */
+	@Override
+	public void delete(String key) {
+		redisTemplate.delete(key);
+	}
+
+	/* String 操作 */
+
+	/**
+	 * 根据 key 获取值对象，并转换为 JSON
+	 *
+	 * @param key   Redis 键
+	 * @param clazz 目标类型
+	 * @param <T>   泛型
+	 * @return Optional<T>
+	 */
+	@Override
+	public <T> Optional<T> get(String key, Class<T> clazz) {
+		String value = redisTemplate.opsForValue().get(key);
+		return toObject(value, clazz);
+	}
+
+	/**
+	 * 根据 key 获取值对象列表，并转换为 JSON
+	 *
+	 * @param key   Redis 键
+	 * @param clazz 目标类型
+	 * @return Optional<List < T>>
+	 */
+	@Override
+	public <T> Optional<List<T>> getForList(String key, Class<T> clazz) {
+		String value = redisTemplate.opsForValue().get(key);
+		if (!StringUtils.isEmpty(value)) {
+			return Optional.empty();
+		}
+		try {
+			return Optional.of(JacksonUtils.toList(value, clazz));
+		} catch (IOException e) {
+			throw new RuntimeException("Redis JSON 串转化为对象异常");
+		}
+	}
+
+	/**
+	 * 根据 key 设置值对象
+	 *
+	 * @param key     Redis 键
+	 * @param data    目标类型
+	 * @param timeout 超时（秒）
+	 * @param <T>
+	 */
+	@Override
+	public <T> void set(String key, T data, long timeout) {
+		this.set(key, data, timeout, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 根据 key 设置值对象
+	 *
+	 * @param key     Redis 键
+	 * @param data    目标类型
+	 * @param timeout 超时
+	 * @param unit    单位
+	 * @param <T>
+	 */
+	@Override
+	public <T> void set(String key, T data, long timeout, TimeUnit unit) {
+		String value;
+		try {
+			value = JacksonUtils.toJSONString(data);
+		} catch (JsonProcessingException e) {
+			log.error(e.getMessage(), e);
+			throw new RuntimeException("Redis 转换为 JSON 异常！");
+		}
+		redisTemplate.opsForValue().set(key, value, timeout, unit);
+	}
+
+	/* Hash 操作 */
+
+	/**
+	 * 根据 key 的 hashKey 获取值对象，并解析 JSON 对象
+	 *
+	 * @param key     Redis 键
+	 * @param hashKey 哈希键
+	 * @param clazz   目标类型
+	 * @param <T>
+	 * @return
+	 */
+	@Override
+	public <T> Optional<T> hget(String key, String hashKey, Class<T> clazz) {
+		Object hashValue = redisTemplate.opsForHash().get(key, hashKey);
+		return toObject(String.valueOf(hashValue), clazz);
+	}
+
+	/**
+	 * 根据 key 的 hash 值列表，并解析为 JSON 对象
+	 *
+	 * @param key
+	 * @return
+	 */
+	@Override
+	public Optional<Map<Object, Object>> hgetAll(String key) {
+		Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
+		return Optional.ofNullable(entries);
+	}
+
+	/**
+	 * 根据 key 的 hashKey 设置 hash 值
+	 *
+	 * @param key
+	 * @param hashKey
+	 * @param hashValue
+	 */
+	@Override
+	public <T> void hset(String key, String hashKey, String hashValue) {
+		redisTemplate.opsForHash().put(key, hashKey, hashValue);
+	}
+
+	/**
+	 * 根据 key 设置多个键值对
+	 *
+	 * @param key
+	 * @param map
+	 */
+	@Override
+	public <T> void hset(String key, Map<?, ?> map) {
+		redisTemplate.opsForHash().putAll(key, map);
+	}
+
+	/**
+	 * 删除 key 的多个键值对
+	 *
+	 * @param key
+	 * @param hashKeys
+	 */
+	@Override
+	public void hdelete(String key, Object... hashKeys) {
+		redisTemplate.opsForHash().delete(key, hashKeys);
+	}
+
+	/* List 操作 */
+
+	/**
+	 * 获取 key 的列表
+	 *
+	 * @param key
+	 * @param start
+	 * @param end
+	 * @param <T>
+	 */
+	@Override
+	public <T> Optional<List<T>> range(String key, long start, long end, Class<T> clazz) {
+		List<String> list = redisTemplate.opsForList().range(key, start, end);
+		if (CollectionUtils.isEmpty(list)) {
+			return Optional.empty();
+		}
+		return Optional.of(list.stream()
+			.map(
+				str -> {
+					try {
+						return JacksonUtils.toObject(str, clazz);
+					} catch (IOException e) {
+						throw new RuntimeException("Redis 转换为 JSON 异常！");
+					}
+				})
+			.collect(Collectors.toList()));
+	}
+
+	/**
+	 * 添加列表到 key 的列表右端
+	 *
+	 * @param key
+	 * @param data
+	 * @param <T>
+	 */
+	@Override
+	public <T> void rightPushAll(String key, List<T> data) {
+		String[] values = new String[data.size()];
+		for (int i = 0; i < values.length; i++) {
+			try {
+				values[i] = JacksonUtils.toJSONString(data.get(i));
+			} catch (JsonProcessingException e) {
+				log.error(e.getMessage(), e);
+				throw new RuntimeException("Redis 转换为 JSON 异常！");
+			}
+		}
+		redisTemplate.opsForList().rightPushAll(key, values);
+	}
+
+	/* Set 操作 */
+
+	/**
+	 * 获取 key 的集合
+	 *
+	 * @param key
+	 * @return
+	 */
+	@Override
+	public Optional<Set<String>> members(String key) {
+		return Optional.ofNullable(redisTemplate.opsForSet().members(key));
+	}
+
+	/**
+	 * 添加列表到 key 的集合
+	 *
+	 * @param key
+	 * @param data
+	 * @param <T>
+	 */
+	@Override
+	public <T> void add(String key, List<T> data) {
+		String[] values = new String[data.size()];
+		for (int i = 0; i < values.length; i++) {
+			try {
+				values[i] = JacksonUtils.toJSONString(data.get(i));
+			} catch (JsonProcessingException e) {
+				log.error(e.getMessage(), e);
+				throw new RuntimeException("Redis 转换为 JSON 异常！");
+			}
+		}
+		redisTemplate.opsForSet().add(key, values);
+	}
+
+	/* 私有方法 */
+
+	/**
+	 * JSON 转化为对象
+	 *
+	 * @param value
+	 * @param clazz
+	 * @return Optional<T>
+	 */
+	private <T> Optional<T> toObject(String value, Class<T> clazz) {
+		Optional optional = Optional.ofNullable(value).filter(StringUtils::isNotBlank);
+		if (!optional.isPresent()) {
+			return optional;
+		}
+		try {
+			return Optional.of(JacksonUtils.toObject(value, clazz));
+		} catch (IOException e) {
+			throw new RuntimeException("JSON 转化为对象异常");
+		}
+	}
+}

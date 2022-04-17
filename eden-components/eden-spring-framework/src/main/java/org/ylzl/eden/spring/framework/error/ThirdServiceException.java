@@ -30,7 +30,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class ThirdServiceException extends BaseException {
 
-	public ThirdServiceException(String errCode, String errMessage) {
-		super(errCode, errMessage);
+	public ThirdServiceException(String errCode, String errMessage, Object... params) {
+		super(errCode, errMessage, params);
 	}
 }
