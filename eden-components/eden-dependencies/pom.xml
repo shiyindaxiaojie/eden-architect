@@ -157,7 +157,7 @@
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
-		<spring-security-oauth2-autoconfigure.version>2.4.13</spring-security-oauth2-autoconfigure.version>
+		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
@@ -1074,6 +1074,11 @@
 				<artifactId>spring-security-oauth2</artifactId>
 				<version>${spring-security-oauth2.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.security.oauth.boot</groupId>
+				<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+				<version>${spring-security-oauth2-autoconfigure.version}</version>
+			</dependency>
 
 			<!-- 分布式组件 -->
 			<!-- Dubbo -->
@@ -1347,7 +1352,7 @@
 
 			<!-- 阿里云组件 -->
 			<!-- 短信 -->
-			<dependency>
+			<!--<dependency>
 				<groupId>com.aliyun</groupId>
 				<artifactId>tea-openapi</artifactId>
 				<version>${aliyun-tea.version}</version>
@@ -1356,7 +1361,7 @@
 				<groupId>com.aliyun</groupId>
 				<artifactId>dysmsapi20170525</artifactId>
 				<version>${aliyun-sms.version}</version>
-			</dependency>
+			</dependency>-->
 
 			<!-- 腾讯云组件 -->
 			<!-- COS 对象存储 -->

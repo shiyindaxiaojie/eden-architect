@@ -1,3 +1,3 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.spring.boot.curator.autoconfigure.CuratorDistributedLockAutoConfiguration
+  org.ylzl.eden.spring.boot.curator.autoconfigure.CuratorDistributedLockAutoConfiguration

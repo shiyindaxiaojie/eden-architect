@@ -135,6 +135,17 @@
 
 	<profiles>
 		<profile>
+			<id>codeup</id>
+			<properties>
+				<altReleaseDeploymentRepository>
+					rdc-releases::default::https://packages.aliyun.com/maven/repository/2217416-release-RhHnxN/
+				</altReleaseDeploymentRepository>
+				<altSnapshotDeploymentRepository>
+					rdc-snapshots::default::https://packages.aliyun.com/maven/repository/2217416-snapshot-GlJpHp/
+				</altSnapshotDeploymentRepository>
+			</properties>
+		</profile>
+		<profile>
 			<id>coding</id>
 			<distributionManagement>
 				<repository>

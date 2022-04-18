@@ -30,8 +30,8 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.cloud.rest.authentication.AuthorizedClientHttpRequestInterceptor;
 import org.ylzl.eden.spring.framework.web.autoconfigure.CustomRestTemplateAutoConfiguration;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.jwt.env.JwtProperties;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
 
 import java.util.List;
 

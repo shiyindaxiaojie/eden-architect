@@ -36,10 +36,10 @@ import org.ylzl.eden.spring.cloud.oauth2.token.JwtClientCredentialsResourceDetai
 import org.ylzl.eden.spring.cloud.oauth2.token.JwtOAuth2AccessTokenClient;
 import org.ylzl.eden.spring.cloud.oauth2.token.jwt.JwtSignatureVerifierClient;
 import org.ylzl.eden.spring.framework.web.autoconfigure.CustomRestTemplateAutoConfiguration;
-import org.ylzl.eden.spring.security.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
-import org.ylzl.eden.spring.security.oauth2.token.OAuth2AccessTokenClient;
-import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClient;
+import org.ylzl.eden.spring.security.old.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.oauth2.token.OAuth2AccessTokenClient;
+import org.ylzl.eden.spring.security.old.oauth2.token.jwt.SignatureVerifierClient;
 
 /**
  * 负载均衡的 OAuth2 授权客户端自动装配

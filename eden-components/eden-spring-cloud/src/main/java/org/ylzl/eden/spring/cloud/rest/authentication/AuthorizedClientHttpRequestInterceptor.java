@@ -25,8 +25,8 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.ylzl.eden.spring.security.core.util.SpringSecurityUtils;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.jwt.env.JwtProperties;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
 
 import java.io.IOException;
 

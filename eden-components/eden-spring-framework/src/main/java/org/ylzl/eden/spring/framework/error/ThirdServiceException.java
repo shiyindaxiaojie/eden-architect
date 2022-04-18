@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.error;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.jetbrains.annotations.PropertyKey;
 
 /**
  * 第三方服务异常
@@ -30,7 +31,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class ThirdServiceException extends BaseException {
 
-	public ThirdServiceException(String errCode, String errMessage, Object... params) {
+	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+								 String errMessage, Object... params) {
 		super(errCode, errMessage, params);
 	}
 }

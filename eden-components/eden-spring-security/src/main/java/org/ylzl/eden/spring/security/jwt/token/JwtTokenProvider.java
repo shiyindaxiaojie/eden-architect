@@ -1,113 +1,61 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.ylzl.eden.spring.security.jwt.token;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Base64Utils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
+import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 
-import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
+import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.text.MessageFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * JWT 令牌提供器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 1.0.0
  */
+@RequiredArgsConstructor
 @Slf4j
-public class JwtTokenProvider {
+public class JwtTokenProvider implements InitializingBean {
 
-	private static final String MSG_INVALID_SIGNATURE =
-		"JWT signature are invalid, caught exception: {0}";
+	private static final String INVALID_TOKEN = "Invalid JWT token, caught exception: {}";
 
-	private static final String MSG_INVALID_TOKEN = "JWT token are invalid, caught exception: {0}";
+	private final JwtConfig jwtConfig;
 
-	private static final String MSG_EXPIRED_TOKEN = "JWT token are expired, caught exception: {0}";
+	private JwtParser jwtParser;
 
-	private static final String MSG_UNSUPPORTED_TOKEN =
-		"JWT token are unsupported, caught exception: {0}";
+	private Key key;
 
-	private static final String MSG_HANDLE_EXCEPTION =
-		"JWT token compact of handler are invalid, caught exception: {0}";
-	private final JwtProperties.Authentication jwtProperties;
-	private String secretKey;
 	private long tokenValidityInMilliseconds;
+
 	private long tokenValidityInMillisecondsForRememberMe;
 
-	public JwtTokenProvider(JwtProperties jwtProperties) {
-		this.jwtProperties = jwtProperties.getAuthentication();
+	@Override
+	public void afterPropertiesSet() {
+		byte[] keyBytes = jwtConfig.getBase64Secret() != null ?
+			Decoders.BASE64.decode(jwtConfig.getBase64Secret()) :
+			DatatypeConverter.parseBase64Binary(jwtConfig.getSecret());
+		key = Keys.hmacShaKeyFor(keyBytes);
+		this.jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
+		this.tokenValidityInMilliseconds = 1000 * jwtConfig.getTokenValidityInSeconds();
+		this.tokenValidityInMillisecondsForRememberMe = 1000 * jwtConfig.getTokenValidityInSecondsForRememberMe();
 	}
 
-	/**
-	 * 初始化 JWT 配置
-	 */
-	@PostConstruct
-	public void init() {
-		this.secretKey =
-			jwtProperties.getBase64Secret() != null
-				? jwtProperties.getBase64Secret()
-				: Base64Utils.encodeToString(
-				jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
-		this.tokenValidityInMilliseconds = 1000 * jwtProperties.getTokenValidityInSeconds();
-		this.tokenValidityInMillisecondsForRememberMe =
-			1000 * jwtProperties.getTokenValidityInSecondsForRememberMe();
-	}
-
-	/**
-	 * 构建令牌
-	 *
-	 * @param subject    主题
-	 * @param issuer     签发者
-	 * @param claim      自定义串
-	 * @param expiration 有效期
-	 * @return 令牌
-	 */
-	public String build(String subject, String issuer, String claim, Date expiration) {
-		byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-		Key key = Keys.hmacShaKeyFor(keyBytes);
-		return Jwts.builder()
-			.setSubject(subject)
-			.claim(JwtConstants.CLAIM_KEY, claim)
-			.setIssuedAt(new Date())
-			.setIssuer(issuer)
-			.setExpiration(expiration)
-			.signWith(key)
-			.compact();
-	}
-
-	/**
-	 * 构建令牌
-	 *
-	 * @param subject    主题
-	 * @param issuer     签发者
-	 * @param claim      自定义串
-	 * @param rememberMe 记住我
-	 * @return 令牌
-	 */
-	public String build(String subject, String issuer, String claim, boolean rememberMe) {
+	public String createToken(Authentication authentication, boolean rememberMe, Map<String, Object> claims) {
 		long now = (new Date()).getTime();
 		Date expiration;
 		if (rememberMe) {
@@ -115,38 +63,64 @@ public class JwtTokenProvider {
 		} else {
 			expiration = new Date(now + this.tokenValidityInMilliseconds);
 		}
-		return build(subject, issuer, claim, expiration);
+
+		if (CollectionUtils.isNotEmpty(authentication.getAuthorities())) {
+			String authorities = authentication.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority).collect(Collectors.joining(StringConstants.COMMA));
+			claims.put(JwtConstants.AUTHORITIES_KEY, authorities);
+		}
+
+		return Jwts
+			.builder()
+			.setSubject(authentication.getName())
+			.addClaims(claims)
+			.signWith(key, SignatureAlgorithm.HS512)
+			.setExpiration(expiration)
+			.compact();
 	}
 
-	/**
-	 * 解析令牌
-	 *
-	 * @param token
-	 * @return
-	 * @throws SecurityException        JWT 签名异常
-	 * @throws MalformedJwtException    JWT 令牌无效
-	 * @throws ExpiredJwtException      JWT 令牌失效
-	 * @throws UnsupportedJwtException  不支持的 JWT 令牌
-	 * @throws IllegalArgumentException 处理 JWT 令牌异常
-	 */
-	public Claims parse(String token)
-		throws SecurityException, MalformedJwtException, ExpiredJwtException, UnsupportedJwtException,
-		IllegalArgumentException {
+	public void validateToken(String token) {
 		try {
-			return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-		} catch (SecurityException e) {
-			throw new SecurityException(MessageFormat.format(MSG_INVALID_SIGNATURE, e.getMessage()), e);
-		} catch (MalformedJwtException e) {
-			throw new MalformedJwtException(MessageFormat.format(MSG_INVALID_TOKEN, e.getMessage()), e);
+			jwtParser.parseClaimsJws(token);
 		} catch (ExpiredJwtException e) {
-			throw new ExpiredJwtException(
-				null, null, MessageFormat.format(MSG_EXPIRED_TOKEN, e.getMessage()), e);
+			log.debug(e.getMessage(), e);
+			throw new UnauthorizedException("令牌已失效");
 		} catch (UnsupportedJwtException e) {
-			throw new UnsupportedJwtException(
-				MessageFormat.format(MSG_UNSUPPORTED_TOKEN, e.getMessage()), e);
+			log.debug(e.getMessage(), e);
+			throw new UnauthorizedException("不支持的令牌");
+		} catch (MalformedJwtException e) {
+			log.debug(e.getMessage(), e);
+			throw new UnauthorizedException("令牌格式错误");
+		} catch (SecurityException e) {
+			log.debug(e.getMessage(), e);
+			throw new UnauthorizedException("校验令牌不通过");
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException(
-				MessageFormat.format(MSG_HANDLE_EXCEPTION, e.getMessage()), e);
+			log.error(e.getMessage(), e);
+			throw new UnauthorizedException("校验令牌异常");
 		}
+	}
+
+	public Authentication getAuthentication(String token) {
+		Claims claims = parseClaims(token);
+
+		Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
+		if (claims.containsKey(JwtConstants.AUTHORITIES_KEY)) {
+			authorities = Arrays
+				.stream(claims.get(JwtConstants.AUTHORITIES_KEY).toString().split(StringConstants.COMMA))
+				.filter(auth -> !auth.trim().isEmpty())
+				.map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+		}
+
+		User principal = new User(claims.getSubject(), StringConstants.EMPTY, authorities);
+		return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+	}
+
+	public Claims parseClaims(String token) {
+		return jwtParser.parseClaimsJws(token).getBody();
+	}
+
+	public JwtConfig getConfig() {
+		return jwtConfig;
 	}
 }

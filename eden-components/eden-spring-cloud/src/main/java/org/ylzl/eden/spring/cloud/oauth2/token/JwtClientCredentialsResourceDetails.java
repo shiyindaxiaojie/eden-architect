@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
 
 /**
  * 客户端凭据资源详情

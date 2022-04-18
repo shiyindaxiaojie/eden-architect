@@ -25,8 +25,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.feign.authentication.AuthorizedRequestInterceptor;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.jwt.env.JwtProperties;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
 
 /**
  * 已认证的 Feign 配置

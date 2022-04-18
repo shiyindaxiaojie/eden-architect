@@ -27,7 +27,6 @@ import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
 import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
 import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
-import org.ylzl.eden.spring.security.core.util.SpringSecurityUtils;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;

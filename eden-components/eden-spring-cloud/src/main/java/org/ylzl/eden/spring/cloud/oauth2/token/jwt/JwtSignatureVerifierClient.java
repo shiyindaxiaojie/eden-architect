@@ -20,8 +20,8 @@ package org.ylzl.eden.spring.cloud.oauth2.token.jwt;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.cloud.loadbalancer.util.LoadBalancerClientHelper;
-import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
-import org.ylzl.eden.spring.security.oauth2.token.jwt.SignatureVerifierClientAdapter;
+import org.ylzl.eden.spring.security.old.oauth2.env.OAuth2Properties;
+import org.ylzl.eden.spring.security.old.oauth2.token.jwt.SignatureVerifierClientAdapter;
 
 /**
  * 签名验证客户端
