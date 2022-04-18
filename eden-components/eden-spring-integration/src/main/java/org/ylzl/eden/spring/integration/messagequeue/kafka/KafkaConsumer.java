@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
@@ -13,11 +15,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.commons.collections.CollectionUtils;
-import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageQueueConsumerException;
+import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, DisposableBean {
+public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private static final String KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR = "KafkaConsumerProcessor consume error: {}";
 
@@ -39,51 +40,46 @@ public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, Di
 
 	public static final String DESTROY_KAFKA_CONSUMER = "Destroy KafkaConsumer";
 
+	public static final String CREATE_CONSUMER_FROM_CONSUMER_FACTORY_GROUP_TOPIC = "Create consumer from consumerFactory, group: {}, topic: {}";
+
+	private final List<Consumer<String, String>> consumers = Lists.newArrayList();
+
 	private final KafkaProperties kafkaProperties;
 
-	private final List<MessageListener> messageListeners;
+	private final List<MessageQueueConsumer> messageQueueConsumers;
 
 	private final ConsumerFactory<String, String> consumerFactory;
 
 	private final TaskExecutor taskExecutor;
 
+	@SuppressWarnings("InfiniteLoopStatement")
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		log.debug(INITIALIZING_KAFKA_CONSUMER);
-		consume();
-	}
-
-	@Override
-	public void destroy() throws Exception {
-		log.debug(DESTROY_KAFKA_CONSUMER);
-	}
-
-	@Override
-	public void consume() throws MessageQueueConsumerException {
-		if (CollectionUtils.isEmpty(messageListeners)) {
+		if (CollectionUtils.isEmpty(messageQueueConsumers)) {
 			return;
 		}
-		for (MessageListener messageListener : messageListeners) {
-			Consumer<String, String> consumer = consumerFactory.createConsumer(
-				kafkaProperties.getConsumer().getGroupId(),
-				kafkaProperties.getClientId());
-			consumer.subscribe(Collections.singleton(topic(messageListener)));
+		for (MessageQueueConsumer messageQueueConsumer : messageQueueConsumers) {
+			Consumer<String, String> consumer = createConsumer(messageQueueConsumer);
+			if (consumer == null) {
+				continue;
+			}
+			consumers.add(consumer);
 			taskExecutor.execute(() -> {
 				while (true) {
 					try {
-						ConsumerRecords<String, String> consumerRecords =
-							consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
+						ConsumerRecords<String, String> consumerRecords = consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
 						if (consumerRecords == null || consumerRecords.isEmpty()) {
 							continue;
 						}
-						Map<TopicPartition, OffsetAndMetadata> offsets =
-							Maps.newHashMapWithExpectedSize(kafkaProperties.getConsumer().getMaxPollRecords());
+						int maxPollRecords = kafkaProperties.getConsumer().getMaxPollRecords();
+						Map<TopicPartition, OffsetAndMetadata> offsets = Maps.newHashMapWithExpectedSize(maxPollRecords);
 						List<String> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
 						consumerRecords.forEach(record -> {
-							messages.add(record.value());
 							offsets.put(new TopicPartition(record.topic(), record.partition()), new OffsetAndMetadata(record.offset() + 1));
+							messages.add(record.value());
 						});
-						messageListener.consume(messages, () -> consumer.commitSync(offsets));
+						messageQueueConsumer.consume(messages, () -> consumer.commitSync(offsets));
 					} catch (Exception e) {
 						log.error(KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR, e.getMessage(), e);
 					}
@@ -92,9 +88,34 @@ public class KafkaConsumer implements MessageQueueConsumer, InitializingBean, Di
 		}
 	}
 
-	private static String topic(MessageListener messageListener) {
-		Class<? extends MessageListener> clazz = messageListener.getClass();
+	@Override
+	public void destroy() throws Exception {
+		log.debug(DESTROY_KAFKA_CONSUMER);
+		consumers.forEach(Consumer::unsubscribe);
+	}
+
+	private Consumer<String, String> createConsumer(MessageQueueConsumer messageQueueConsumer) {
+		Class<? extends MessageQueueConsumer> clazz = messageQueueConsumer.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
-		return annotation.topic();
+
+		if (StringUtils.isNotBlank(annotation.messageQueueType()) &&
+			!MessageQueueType.KAFKA.equalsIgnoreCase(annotation.messageQueueType())) {
+			return null;
+		}
+
+		String topic = annotation.topic();
+
+		String group = null;
+		if (StringUtils.isNotBlank(annotation.group())) {
+			group = annotation.group();
+		} else if (StringUtils.isNotBlank(kafkaProperties.getConsumer().getGroupId())) {
+			group = kafkaProperties.getConsumer().getGroupId() + StringConstants.UNDERLINE + topic;
+		}
+
+		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaProperties.getClientId());
+		consumer.subscribe(Collections.singleton(topic));
+
+		log.debug(CREATE_CONSUMER_FROM_CONSUMER_FACTORY_GROUP_TOPIC, group, topic);
+		return consumer;
 	}
 }

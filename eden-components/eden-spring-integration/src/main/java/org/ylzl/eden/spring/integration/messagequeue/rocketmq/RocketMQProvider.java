@@ -2,10 +2,16 @@ package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.ylzl.eden.spring.integration.messagequeue.producer.*;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.Message;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageQueueProducerException;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendCallback;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendResult;
 
 import java.nio.charset.StandardCharsets;
 
@@ -22,6 +28,8 @@ public class RocketMQProvider implements MessageQueueProvider {
 	private static final String ROCKETMQ_PROVIDER_CONSUME_ERROR = "RocketMQProvider send error: {}";
 
 	private final RocketMQTemplate rocketMQTemplate;
+
+	private final FixedRocketMQProducerProperties fixedRocketMQProducerProperties;
 
 	/**
 	 * 同步发送消息
@@ -50,8 +58,14 @@ public class RocketMQProvider implements MessageQueueProvider {
 	 */
 	@Override
 	public void asyncSend(Message message, MessageSendCallback messageCallback) throws MessageQueueProducerException {
+		DefaultMQProducer producer = rocketMQTemplate.getProducer();
+		if (StringUtils.isNotBlank(message.getNamespace())) {
+			producer.setNamespace(message.getNamespace());
+		} else if (StringUtils.isNotBlank(fixedRocketMQProducerProperties.getNamespace())) {
+			producer.setNamespace(fixedRocketMQProducerProperties.getNamespace());
+		}
 		try {
-			rocketMQTemplate.getProducer().send(transfer(message), new SendCallback() {
+			producer.send(transfer(message), new SendCallback() {
 
 				@Override
 				public void onSuccess(SendResult sendResult) {

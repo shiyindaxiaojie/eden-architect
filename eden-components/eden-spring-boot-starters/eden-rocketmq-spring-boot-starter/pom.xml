@@ -30,9 +30,27 @@
 	<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-rockmq-spring-boot-starter</name>
-	<description>RocketMQ Spring Boot Starter</description>
+	<description>Spring Boot Starter For RocketMQ</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-integration</artifactId>
+		</dependency>
+
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- RocketMQ -->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
 			<artifactId>rocketmq-spring-boot-starter</artifactId>

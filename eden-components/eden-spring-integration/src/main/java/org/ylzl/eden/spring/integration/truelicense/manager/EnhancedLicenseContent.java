@@ -19,10 +19,10 @@ package org.ylzl.eden.spring.integration.truelicense.manager;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
 import org.ylzl.eden.commons.lang.time.DateFormatEnum;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 

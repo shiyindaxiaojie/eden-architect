@@ -103,6 +103,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Netty -->
 		<dependency>
 			<groupId>io.netty</groupId>

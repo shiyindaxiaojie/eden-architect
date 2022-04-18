@@ -156,7 +156,7 @@ public class Swagger2AutoConfiguration {
 			.select()
 			.paths(
 				PathSelectors.regex(
-					StringUtils.join(managementServerProperties.getServlet().getContextPath(), ".*")))
+					StringUtils.join(managementServerProperties.getBasePath(), ".*")))
 			.build();
 	}
 

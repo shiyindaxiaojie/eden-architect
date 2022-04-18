@@ -8,7 +8,11 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
-import org.ylzl.eden.spring.integration.messagequeue.producer.*;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.Message;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageQueueProducerException;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendCallback;
+import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendResult;
 
 /**
  * Kafka 生产者

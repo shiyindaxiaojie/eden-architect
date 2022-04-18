@@ -27,7 +27,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.core.util.SpringAssert;
+import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
 import org.ylzl.eden.spring.security.core.enums.AuthenticationTypeEnum;
 import org.ylzl.eden.spring.security.oauth2.constant.OAuth2Constants;
 import org.ylzl.eden.spring.security.oauth2.env.OAuth2Properties;
@@ -99,9 +99,9 @@ public class TokenGrantClientAdapter implements TokenGrantClient {
 		HttpHeaders headers = new HttpHeaders();
 		this.addAuthentication(headers, params);
 		String client = oAuth2Properties.getPassword().getClientId();
-		SpringAssert.hasText(client, MSG_NONE_PROP_PASSWORD_CLIENT);
+		AssertEnhancer.hasText(client, MSG_NONE_PROP_PASSWORD_CLIENT);
 		String secret = oAuth2Properties.getPassword().getClientSecret();
-		SpringAssert.hasText(secret, MSG_NONE_PROP_PASSWORD_SECRET);
+		AssertEnhancer.hasText(secret, MSG_NONE_PROP_PASSWORD_SECRET);
 		this.addAuthentication(headers, client, secret);
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -125,9 +125,9 @@ public class TokenGrantClientAdapter implements TokenGrantClient {
 		HttpHeaders headers = new HttpHeaders();
 		this.addAuthentication(headers, params);
 		String client = oAuth2Properties.getRefreshToken().getClientId();
-		SpringAssert.hasText(client, MSG_NONE_PROP_REFRESH_CLIENT);
+		AssertEnhancer.hasText(client, MSG_NONE_PROP_REFRESH_CLIENT);
 		String secret = oAuth2Properties.getRefreshToken().getClientSecret();
-		SpringAssert.hasText(secret, MSG_NONE_PROP_REFRESH_SECRET);
+		AssertEnhancer.hasText(secret, MSG_NONE_PROP_REFRESH_SECRET);
 		this.addAuthentication(headers, client, secret);
 
 		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
@@ -148,9 +148,9 @@ public class TokenGrantClientAdapter implements TokenGrantClient {
 		HttpHeaders headers = new HttpHeaders();
 		this.addAuthentication(headers, params);
 		String client = oAuth2Properties.getClientCredentials().getClientId();
-		SpringAssert.hasText(client, MSG_NONE_PROP_CLIENT_CLIENT);
+		AssertEnhancer.hasText(client, MSG_NONE_PROP_CLIENT_CLIENT);
 		String secret = oAuth2Properties.getClientCredentials().getClientSecret();
-		SpringAssert.hasText(secret, MSG_NONE_PROP_CLIENT_SECRET);
+		AssertEnhancer.hasText(secret, MSG_NONE_PROP_CLIENT_SECRET);
 		this.addAuthentication(headers, client, secret);
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

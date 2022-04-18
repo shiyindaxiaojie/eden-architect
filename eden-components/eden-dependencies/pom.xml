@@ -141,13 +141,13 @@
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>5.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<grpc.version>1.31.1</grpc.version>
+		<grpc.version>1.44.1</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
 		<nacos.version>2.0.2</nacos.version>
 		<sentinel.version>1.8.2</sentinel.version>
-		<zipkin2.version>2.19.3</zipkin2.version>
+		<zipkin2.version>2.23.16</zipkin2.version>
 		<brave.version>5.13.7</brave.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
@@ -341,11 +341,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-distributelock-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -387,11 +382,6 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-logstash-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-messagequeue-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -603,7 +593,7 @@
 				<version>${tomcat.version}</version>
 			</dependency>
 			<!-- Resteasy -->
-			<dependency>
+			<!--<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-jaxrs</artifactId>
 				<version>${resteasy.version}</version>
@@ -627,7 +617,7 @@
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-netty</artifactId>
 				<version>${resteasy.version}</version>
-			</dependency>
+			</dependency>-->
 
 			<!-- 日志 -->
 			<!-- Log4j2 -->
@@ -922,7 +912,7 @@
 				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 				<version>${shardingsphere.version}</version>
 			</dependency>
-			<dependency>
+			<!--<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-transaction-xa-core</artifactId>
 				<version>${shardingsphere.version}</version>
@@ -931,7 +921,7 @@
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-transaction-base-seata-at</artifactId>
 				<version>${shardingsphere.version}</version>
-			</dependency>
+			</dependency>-->
 			<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-core-api</artifactId>
@@ -1037,11 +1027,11 @@
 				<artifactId>kafka-clients</artifactId>
 				<version>${kafka.version}</version>
 			</dependency>
-			<dependency>
+			<!--<dependency>
 				<groupId>org.springframework.integration</groupId>
 				<artifactId>spring-integration-kafka</artifactId>
 				<version>${spring-integration-kafka.version}</version>
-			</dependency>
+			</dependency>-->
 			<!-- RocketMQ -->
 			<dependency>
 				<groupId>org.apache.rocketmq</groupId>
@@ -1265,6 +1255,11 @@
 				<artifactId>zipkin</artifactId>
 				<version>${zipkin2.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>${spring-cloud-starter-zipkin.version}</version>
+			</dependency>
 
 			<!-- 网络 -->
 			<dependency>
@@ -1348,6 +1343,19 @@
 				<groupId>net.bull.javamelody</groupId>
 				<artifactId>javamelody-core</artifactId>
 				<version>${javamelody.version}</version>
+			</dependency>
+
+			<!-- 阿里云组件 -->
+			<!-- 短信 -->
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>tea-openapi</artifactId>
+				<version>${aliyun-tea.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>dysmsapi20170525</artifactId>
+				<version>${aliyun-sms.version}</version>
 			</dependency>
 
 			<!-- 腾讯云组件 -->
@@ -1441,6 +1449,30 @@
 				<groupId>de.flapdoodle.embed</groupId>
 				<artifactId>de.flapdoodle.embed.mongo</artifactId>
 				<version>${embedded-mongo.version}</version>
+			</dependency>
+			<!-- Spock -->
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-core</artifactId>
+				<version>${spock.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-spring</artifactId>
+				<version>${spock.version}</version>
+			</dependency>
+			<!-- Groovy -->
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-bom</artifactId>
+				<version>${groovy.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+				<version>${groovy.version}</version>
 			</dependency>
 
 			<!-- IDEA -->
