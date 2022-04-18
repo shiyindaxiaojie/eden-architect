@@ -217,6 +217,10 @@
 					<artifactId>servo-core</artifactId>
 					<groupId>com.netflix.servo</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>commons-configuration</artifactId>
+					<groupId>commons-configuration</groupId>
+				</exclusion>
 			</exclusions>
 			<optional>true</optional>
 		</dependency>

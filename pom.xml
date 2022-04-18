@@ -132,31 +132,4 @@
 			<url>https://maven.pkg.github.com/eden-lab/eden-architect</url>
 		</repository>
 	</distributionManagement>
-
-	<profiles>
-		<profile>
-			<id>codeup</id>
-			<properties>
-				<altReleaseDeploymentRepository>
-					rdc-releases::default::https://packages.aliyun.com/maven/repository/2217416-release-RhHnxN/
-				</altReleaseDeploymentRepository>
-				<altSnapshotDeploymentRepository>
-					rdc-snapshots::default::https://packages.aliyun.com/maven/repository/2217416-snapshot-GlJpHp/
-				</altSnapshotDeploymentRepository>
-			</properties>
-		</profile>
-		<profile>
-			<id>coding</id>
-			<distributionManagement>
-				<repository>
-					<id>coding</id>
-					<url>https://shiyindaxiaojie-maven.pkg.coding.net/repository/eden-lab/maven/</url>
-				</repository>
-				<snapshotRepository>
-					<id>coding</id>
-					<url>https://shiyindaxiaojie-maven.pkg.coding.net/repository/eden-lab/maven/</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>
-	</profiles>
 </project>

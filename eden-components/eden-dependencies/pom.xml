@@ -191,8 +191,7 @@
 		<!-- 阿里云组件 -->
 		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 		<aliyun-spring-boot.version>1.0.0</aliyun-spring-boot.version>
-		<aliyun-sms.version>2.0.9</aliyun-sms.version>
-		<aliyun-tea.version>0.2.2</aliyun-tea.version>
+		<aliyun-sms-spring-boot-starter.version>1.0.0</aliyun-sms-spring-boot-starter.version>
 
 		<!-- 腾讯云组件 -->
 		<cos_api.version>5.6.38</cos_api.version>
@@ -1352,16 +1351,11 @@
 
 			<!-- 阿里云组件 -->
 			<!-- 短信 -->
-			<!--<dependency>
-				<groupId>com.aliyun</groupId>
-				<artifactId>tea-openapi</artifactId>
-				<version>${aliyun-tea.version}</version>
-			</dependency>
 			<dependency>
-				<groupId>com.aliyun</groupId>
-				<artifactId>dysmsapi20170525</artifactId>
-				<version>${aliyun-sms.version}</version>
-			</dependency>-->
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>aliyun-sms-spring-boot-starter</artifactId>
+				<version>${aliyun-sms-spring-boot-starter.version}</version>
+			</dependency>
 
 			<!-- 腾讯云组件 -->
 			<!-- COS 对象存储 -->

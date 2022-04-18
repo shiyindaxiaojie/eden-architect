@@ -57,6 +57,19 @@ public class SecurityUtils {
 	}
 
 	/**
+	 * 获取认证信息
+	 *
+	 * @return
+	 */
+	public static Authentication getAuthentication() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		if (securityContext.getAuthentication() != null) {
+			return securityContext.getAuthentication();
+		}
+		return null;
+	}
+
+	/**
 	 * 解析权限
 	 *
 	 * @param authentication
