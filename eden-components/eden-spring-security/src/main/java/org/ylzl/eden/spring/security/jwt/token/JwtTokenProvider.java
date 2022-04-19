@@ -17,7 +17,7 @@ import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 
-import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,7 +48,7 @@ public class JwtTokenProvider implements InitializingBean {
 	public void afterPropertiesSet() {
 		byte[] keyBytes = jwtConfig.getBase64Secret() != null ?
 			Decoders.BASE64.decode(jwtConfig.getBase64Secret()) :
-			DatatypeConverter.parseBase64Binary(jwtConfig.getSecret());
+		    jwtConfig.getSecret().getBytes(StandardCharsets.UTF_8);
 		key = Keys.hmacShaKeyFor(keyBytes);
 		this.jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
 		this.tokenValidityInMilliseconds = 1000 * jwtConfig.getTokenValidityInSeconds();

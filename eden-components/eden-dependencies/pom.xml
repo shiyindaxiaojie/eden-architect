@@ -97,6 +97,7 @@
 		<truelicense.version>1.33</truelicense.version>
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		<mvel.version>2.4.8.Final</mvel.version>
+		<json-lib.version>2.4</json-lib.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.20</mysql.version>
@@ -141,7 +142,7 @@
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>5.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<grpc.version>1.44.1</grpc.version>
+		<grpc.version>1.45.1</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
@@ -158,6 +159,7 @@
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
 		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
+		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
@@ -275,7 +277,7 @@
 				<scope>import</scope>
 			</dependency>
 
-			<!-- Eden* Components -->
+			<!-- Components For Eden* -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-commons</artifactId>
@@ -317,7 +319,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Eden* Spring Boot Starters -->
+			<!-- Spring Boot Starters For Eden* -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-boot-starter</artifactId>
@@ -454,7 +456,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Eden* Spring Cloud Starters -->
+			<!-- Spring Cloud Starters For Eden* -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
@@ -1077,6 +1079,21 @@
 				<groupId>org.springframework.security.oauth.boot</groupId>
 				<artifactId>spring-security-oauth2-autoconfigure</artifactId>
 				<version>${spring-security-oauth2-autoconfigure.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-oauth2-authorization-server</artifactId>
+				<version>${spring-security-oauth2-authorization-server.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-oauth2-client</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-oauth2-resource-server</artifactId>
+				<version>${spring-boot.version}</version>
 			</dependency>
 
 			<!-- 分布式组件 -->

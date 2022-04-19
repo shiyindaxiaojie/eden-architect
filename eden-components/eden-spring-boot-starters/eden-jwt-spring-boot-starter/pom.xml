@@ -30,7 +30,7 @@
 	<artifactId>eden-jwt-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-jwt-spring-boot-starter</name>
-	<description>JWT Spring Boot Starter</description>
+	<description>Spring Boot Starter For JWT</description>
 
 	<dependencies>
 		<!-- 开发框架 -->

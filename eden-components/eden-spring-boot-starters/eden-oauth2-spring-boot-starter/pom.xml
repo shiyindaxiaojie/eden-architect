@@ -30,28 +30,42 @@
 	<artifactId>eden-oauth2-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-oauth2-spring-boot-starter</name>
-	<description>OAuth2 Spring Boot Starter</description>
+	<description>Spring Boot Starter For OAuth2</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-security</artifactId>
 		</dependency>
+
+		<!-- 开发工具 -->
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-		</dependency>
+
+		<!-- OAuth2 -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-authorization-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-oauth2-resource-server</artifactId>
 		</dependency>
 	</dependencies>
 </project>
