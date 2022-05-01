@@ -17,10 +17,8 @@
 
 package org.ylzl.eden.spring.framework.info.contributor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
-import org.ylzl.eden.spring.framework.mail.env.EnhancedMailProperties;
 
 /**
  * 邮件开关信息装饰器
@@ -32,11 +30,8 @@ public class MailEnabledInfoContributor implements InfoContributor {
 
 	private static final String MAIL_ENABLED = "mailEnabled";
 
-	@Autowired
-	private EnhancedMailProperties enhancedMailProperties;
-
 	@Override
 	public void contribute(Info.Builder builder) {
-		builder.withDetail(MAIL_ENABLED, enhancedMailProperties.isEnabled());
+		builder.withDetail(MAIL_ENABLED, true);
 	}
 }

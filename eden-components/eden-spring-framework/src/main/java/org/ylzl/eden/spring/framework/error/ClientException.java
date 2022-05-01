@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.error;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.jetbrains.annotations.PropertyKey;
 
 /**
  * 客户端异常
@@ -30,7 +31,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class ClientException extends BaseException {
 
-	public ClientException(String errCode, String errMessage) {
-		super(errCode, errMessage);
+	public ClientException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage,
+						   Object... params) {
+		super(errCode, errMessage, params);
 	}
 }

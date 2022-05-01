@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.framework.web.filter;
 
 import org.apache.http.HttpHeaders;
-import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -33,16 +32,18 @@ import java.util.concurrent.TimeUnit;
 public class CachingHttpHeadersFilter implements Filter {
 
 	private static final long LAST_MODIFIED = System.currentTimeMillis();
-	private final SpringFrameworkProperties.Http properties;
+
 	private long cacheTimeToLive = TimeUnit.DAYS.toMillis(365L);
 
-	public CachingHttpHeadersFilter(SpringFrameworkProperties springFrameworkProperties) {
-		this.properties = springFrameworkProperties.getHttp();
+	private final int timeToLiveInDays;
+
+	public CachingHttpHeadersFilter(int timeToLiveInDays) {
+		this.timeToLiveInDays = timeToLiveInDays;
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) {
-		cacheTimeToLive = TimeUnit.DAYS.toMillis(properties.getCache().getTimeToLiveInDays());
+		cacheTimeToLive = TimeUnit.DAYS.toMillis(timeToLiveInDays);
 	}
 
 	@Override

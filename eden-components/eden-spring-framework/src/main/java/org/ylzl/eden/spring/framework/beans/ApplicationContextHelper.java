@@ -36,6 +36,7 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 		ApplicationContextHelper.applicationContext = applicationContext;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {
 		T beanInstance = null;
 		try {

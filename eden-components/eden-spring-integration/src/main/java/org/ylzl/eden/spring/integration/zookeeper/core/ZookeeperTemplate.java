@@ -22,7 +22,7 @@ import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.zookeeper.config.ZookeeperConfig;
 
 import java.io.UnsupportedEncodingException;

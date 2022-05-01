@@ -39,8 +39,8 @@ import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
 import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
-import org.ylzl.eden.spring.framework.core.bind.SpringBinderHelper;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.bind.BinderHelper;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -92,12 +92,12 @@ public class RoutingDataSourceAutoConfiguration
 
 	private Environment env;
 
-	private SpringBinderHelper springBinderHelper;
+	private BinderHelper binderHelper;
 
 	@Override
 	public void setEnvironment(Environment env) {
 		this.env = env;
-		this.springBinderHelper = new SpringBinderHelper(env);
+		this.binderHelper = new BinderHelper(env);
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class RoutingDataSourceAutoConfiguration
 
 	private DataSource getDefaultTargetDataSource() {
 		DataSourceProperties dataSourceProperties =
-			springBinderHelper.bind(
+			binderHelper.bind(
 				StringUtils.join(SPRING_DATASOURCE, StringConstants.DOT),
 				DataSourceProperties.class);
 		return this.buildDataSource(dataSourceProperties);
@@ -135,7 +135,7 @@ public class RoutingDataSourceAutoConfiguration
 
 	private Map<String, DataSource> getTargetDataSources() {
 		RoutingDataSourceProperties properties =
-			springBinderHelper.bind(
+			binderHelper.bind(
 				StringUtils.join(PROP_ROUTING_DATA_SOURCE_PREFIX, StringConstants.DOT),
 				RoutingDataSourceProperties.class);
 		if (properties.getNodes() == null) {

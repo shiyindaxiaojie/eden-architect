@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.integration.ftpclient.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.commons.env.CharsetConstants;
 import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
 
 /**
@@ -31,34 +31,34 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".ftpclient")
+@ConfigurationProperties(prefix = "ftpclient")
 public class FTPClientProperties {
 
-	private Boolean enabled = FTPClientDefaults.enabled;
+	private boolean enabled = false;
 
-	private String host = FTPClientDefaults.host;
+	private String host;
 
-	private Integer port = FTPClientDefaults.port;
+	private int port = 21;
 
-	private String username = FTPClientDefaults.username;
+	private String username;
 
-	private String password = FTPClientDefaults.password;
+	private String password;
 
-	private Integer connectTimeOut = FTPClientDefaults.connectTimeOut;
+	private int connectTimeOut = 5000;
 
-	private Integer dataTimeout = FTPClientDefaults.dataTimeout;
+	private int dataTimeout = 60000;
 
-	private String controlEncoding = FTPClientDefaults.controlEncoding;
+	private String controlEncoding = CharsetConstants.UTF_8_NAME;
 
-	private Integer controlKeepAliveReplyTimeout = FTPClientDefaults.controlKeepAliveReplyTimeout;
+	private int controlKeepAliveReplyTimeout = 1000;
 
-	private Integer bufferSize = FTPClientDefaults.bufferSize;
+	private int bufferSize = 2 << 10;
 
-	private Integer fileType = FTPClientDefaults.fileType;
+	private int fileType = 2;
 
-	private Boolean useEPSVwithIPv4 = FTPClientDefaults.useEPSVwithIPv4;
+	private boolean useEPSVwithIPv4 = false;
 
-	private Boolean passiveMode = FTPClientDefaults.passiveMode;
+	private boolean passiveMode = true;
 
 	private FTPClientPool2Config pool = new FTPClientPool2Config();
 }

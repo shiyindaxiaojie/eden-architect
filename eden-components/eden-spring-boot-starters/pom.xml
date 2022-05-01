@@ -36,7 +36,7 @@
 		<module>eden-apollo-spring-boot-starter</module>
 		<module>eden-caffeine-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
-		<module>eden-distributelock-spring-boot-starter</module>
+		<module>eden-curator-spring-boot-starter</module>
 		<module>eden-dubbo-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
@@ -46,7 +46,6 @@
 		<module>eden-kafka-spring-boot-starter</module>
 		<module>eden-liquibase-spring-boot-starter</module>
 		<module>eden-logstash-spring-boot-starter</module>
-		<module>eden-messagequeue-spring-boot-starter</module>
 		<module>eden-metrics-spring-boot-starter</module>
 		<module>eden-mongobee-spring-boot-starter</module>
 		<module>eden-mongodb-spring-boot-starter</module>
@@ -57,8 +56,10 @@
 		<module>eden-prometheus-spring-boot-starter</module>
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>
+		<module>eden-redisson-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-sharding-jdbc-spring-boot-starter</module>
+		<module>eden-spock-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
 	</modules>

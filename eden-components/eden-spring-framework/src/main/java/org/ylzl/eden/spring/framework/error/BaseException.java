@@ -38,13 +38,17 @@ public class BaseException extends RuntimeException {
 
 	private String errMessage;
 
-	public BaseException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage) {
+	private Object[] params;
+
+	public BaseException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+						 String errMessage, Object... params) {
 		super(errMessage);
 		this.errCode = errCode;
 		this.errMessage = errMessage;
+		this.params = params;
 	}
 
 	public Response getResponse() {
-		return Response.buildFailure(errCode, errMessage);
+		return Response.buildFailure(errCode, errMessage, params);
 	}
 }

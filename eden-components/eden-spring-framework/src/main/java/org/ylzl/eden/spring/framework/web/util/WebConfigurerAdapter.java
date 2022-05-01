@@ -24,13 +24,11 @@ import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFa
 import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.core.env.Environment;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.ylzl.eden.spring.framework.error.annotation.EnableRestExceptionHandler;
-import org.ylzl.eden.spring.framework.core.env.SpringFrameworkProperties;
 
 import javax.servlet.ServletContext;
 import java.util.concurrent.TimeUnit;
@@ -64,13 +62,10 @@ public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextIni
 	};
 	protected static final String[] RESOURCE_PATHS = {"/app/*", "/content/*", "/i18n/*"};
 
-	private final SpringFrameworkProperties properties;
+	private final int timeToLiveInDays;
 
-	private final Environment env;
-
-	public WebConfigurerAdapter(SpringFrameworkProperties properties, Environment env) {
-		this.properties = properties;
-		this.env = env;
+	public WebConfigurerAdapter(int timeToLiveInDays) {
+		this.timeToLiveInDays = timeToLiveInDays;
 	}
 
 	@Override
@@ -88,7 +83,6 @@ public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextIni
 	}
 
 	protected CacheControl getCacheControl() {
-		return CacheControl.maxAge(properties.getHttp().getCache().getTimeToLiveInDays(), TimeUnit.DAYS)
-			.cachePublic();
+		return CacheControl.maxAge(timeToLiveInDays, TimeUnit.DAYS).cachePublic();
 	}
 }

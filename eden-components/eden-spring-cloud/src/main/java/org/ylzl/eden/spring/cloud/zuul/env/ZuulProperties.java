@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.cloud.zuul.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.core.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 import java.util.List;
 import java.util.Map;

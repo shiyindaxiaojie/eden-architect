@@ -97,6 +97,7 @@
 		<truelicense.version>1.33</truelicense.version>
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		<mvel.version>2.4.8.Final</mvel.version>
+		<json-lib.version>2.4</json-lib.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.20</mysql.version>
@@ -141,19 +142,25 @@
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>5.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<grpc.version>1.31.1</grpc.version>
+		<grpc.version>1.45.1</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
 		<nacos.version>2.0.2</nacos.version>
 		<sentinel.version>1.8.2</sentinel.version>
-		<zipkin2.version>2.19.3</zipkin2.version>
+		<zipkin2.version>2.23.16</zipkin2.version>
+		<brave.version>5.13.7</brave.version>
+		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
+		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
+		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
 		<!-- 授权认证 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
+		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
@@ -175,18 +182,8 @@
 		<gatling.version>3.2.1</gatling.version>
 		<jmh.version>1.23</jmh.version>
 		<junit.version>4.13.1</junit.version>
-
-		<!-- 阿里云组件 -->
-		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-
-		<!-- 腾讯云组件 -->
-		<cos_api.version>5.6.38</cos_api.version>
-		<vod_api.version>2.1.4</vod_api.version>
-		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
-		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
-
-		<!-- 聚合支付组件 -->
-		<ijpay.version>2.7.9</ijpay.version>
+		<spock.version>1.3-groovy-2.4</spock.version>
+		<groovy.version>2.4.21</groovy.version>
 
 		<!-- IDEA -->
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
@@ -250,16 +247,19 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- Zipkin 依赖 -->
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-bom</artifactId>
+				<version>${brave.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
-			<!-- Eden* Components -->
+			<!-- 基础组件 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-commons</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-spring-framework</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -270,6 +270,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-data</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-spring-framework</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -288,7 +293,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Eden* Spring Boot Starters -->
+			<!-- 自定义 Spring Boot Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-boot-starter</artifactId>
@@ -306,7 +311,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-distributelock-spring-boot-starter</artifactId>
+				<artifactId>eden-curator-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -336,6 +341,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-javamail-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-jwt-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -352,11 +362,6 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-logstash-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-messagequeue-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -411,12 +416,22 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-redisson-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-spock-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -430,7 +445,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Eden* Spring Cloud Starters -->
+			<!-- 自定义 Spring Cloud Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
@@ -444,6 +459,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -568,7 +588,7 @@
 				<version>${tomcat.version}</version>
 			</dependency>
 			<!-- Resteasy -->
-			<dependency>
+			<!--<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-jaxrs</artifactId>
 				<version>${resteasy.version}</version>
@@ -592,7 +612,7 @@
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-netty</artifactId>
 				<version>${resteasy.version}</version>
-			</dependency>
+			</dependency>-->
 
 			<!-- 日志 -->
 			<!-- Log4j2 -->
@@ -887,7 +907,7 @@
 				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 				<version>${shardingsphere.version}</version>
 			</dependency>
-			<dependency>
+			<!--<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-transaction-xa-core</artifactId>
 				<version>${shardingsphere.version}</version>
@@ -896,7 +916,7 @@
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-transaction-base-seata-at</artifactId>
 				<version>${shardingsphere.version}</version>
-			</dependency>
+			</dependency>-->
 			<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
 				<artifactId>sharding-core-api</artifactId>
@@ -1002,11 +1022,11 @@
 				<artifactId>kafka-clients</artifactId>
 				<version>${kafka.version}</version>
 			</dependency>
-			<dependency>
+			<!--<dependency>
 				<groupId>org.springframework.integration</groupId>
 				<artifactId>spring-integration-kafka</artifactId>
 				<version>${spring-integration-kafka.version}</version>
-			</dependency>
+			</dependency>-->
 			<!-- RocketMQ -->
 			<dependency>
 				<groupId>org.apache.rocketmq</groupId>
@@ -1048,6 +1068,26 @@
 				<groupId>org.springframework.security.oauth</groupId>
 				<artifactId>spring-security-oauth2</artifactId>
 				<version>${spring-security-oauth2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security.oauth.boot</groupId>
+				<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+				<version>${spring-security-oauth2-autoconfigure.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-oauth2-authorization-server</artifactId>
+				<version>${spring-security-oauth2-authorization-server.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-oauth2-client</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-oauth2-resource-server</artifactId>
+				<version>${spring-boot.version}</version>
 			</dependency>
 
 			<!-- 分布式组件 -->
@@ -1230,6 +1270,11 @@
 				<artifactId>zipkin</artifactId>
 				<version>${zipkin2.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>${spring-cloud-starter-zipkin.version}</version>
+			</dependency>
 
 			<!-- 网络 -->
 			<dependency>
@@ -1315,46 +1360,6 @@
 				<version>${javamelody.version}</version>
 			</dependency>
 
-			<!-- 腾讯云组件 -->
-			<!-- COS 对象存储 -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>cos_api</artifactId>
-				<version>${cos_api.version}</version>
-			</dependency>
-			<!-- VOD 云点播 -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>vod_api</artifactId>
-				<version>${vod_api.version}</version>
-			</dependency>
-			<!-- QCloud SDK -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>qcloud-java-sdk</artifactId>
-				<version>${qcloud-java-sdk.version}</version>
-			</dependency>
-			<!-- TencentCloud SDK -->
-			<dependency>
-				<groupId>com.tencentcloudapi</groupId>
-				<artifactId>tencentcloud-sdk-java</artifactId>
-				<version>${tencentcloud-sdk-java.version}</version>
-			</dependency>
-
-			<!-- 聚合组件 -->
-			<!-- AliPay -->
-			<dependency>
-				<groupId>com.github.javen205</groupId>
-				<artifactId>IJPay-AliPay</artifactId>
-				<version>${ijpay.version}</version>
-			</dependency>
-			<!-- WxPay -->
-			<dependency>
-				<groupId>com.github.javen205</groupId>
-				<artifactId>IJPay-WxPay</artifactId>
-				<version>${ijpay.version}</version>
-			</dependency>
-
 			<!-- 测试 -->
 			<!-- Junit -->
 			<dependency>
@@ -1406,6 +1411,30 @@
 				<groupId>de.flapdoodle.embed</groupId>
 				<artifactId>de.flapdoodle.embed.mongo</artifactId>
 				<version>${embedded-mongo.version}</version>
+			</dependency>
+			<!-- Spock -->
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-core</artifactId>
+				<version>${spock.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.spockframework</groupId>
+				<artifactId>spock-spring</artifactId>
+				<version>${spock.version}</version>
+			</dependency>
+			<!-- Groovy -->
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-bom</artifactId>
+				<version>${groovy.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+				<version>${groovy.version}</version>
 			</dependency>
 
 			<!-- IDEA -->

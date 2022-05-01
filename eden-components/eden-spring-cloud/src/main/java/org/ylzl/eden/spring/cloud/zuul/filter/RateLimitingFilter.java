@@ -27,7 +27,7 @@ import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
 import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
 import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
-import org.ylzl.eden.spring.security.core.util.SpringSecurityUtils;
+import org.ylzl.eden.spring.security.core.util.SecurityUtils;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
@@ -97,8 +97,8 @@ public class RateLimitingFilter extends ZuulFilter {
 	private String getKey() {
 		RequestContext context = RequestContext.getCurrentContext();
 		HttpServletRequest request = context.getRequest();
-		if (SpringSecurityUtils.getCurrentUserLogin() != null) {
-			return SpringSecurityUtils.getCurrentUserLogin();
+		if (SecurityUtils.getPrincipal().isPresent()) {
+			return SecurityUtils.getPrincipal().get();
 		}
 		return request.getRemoteAddr();
 	}

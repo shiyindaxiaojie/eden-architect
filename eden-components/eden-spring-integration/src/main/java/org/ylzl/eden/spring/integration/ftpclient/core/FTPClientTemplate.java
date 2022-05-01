@@ -40,7 +40,7 @@ public class FTPClientTemplate {
 
 	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
 
-	private FTPClientPool pool;
+	private final FTPClientPool pool;
 
 	public FTPClientTemplate(FTPClientPool pool) {
 		this.pool = pool;

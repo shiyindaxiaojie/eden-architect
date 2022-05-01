@@ -1,59 +1,95 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.ylzl.eden.spring.boot.xxljob.autoconfigure;
 
-import com.xxl.job.core.executor.XxlJobExecutor;
+import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
+import com.xxl.job.core.util.IpUtil;
+import com.xxl.job.core.util.NetUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
 
+import java.io.File;
+
 /**
- * XXLJob 自动装配
+ * XXLJob 自动配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@ConditionalOnExpression("${xxl.job.enabled:false}")
 @EnableConfigurationProperties(XxlJobProperties.class)
 @Slf4j
 @Configuration
 public class XxlJobAutoCofiguration {
 
+	private static final String AUTOWIRED_XXL_JOB_SPRING_EXECUTOR = "Autowired XxlJobSpringExecutor";
+
+	private static final int MAX_PORT = 65535;
+
+	private final Environment environment;
+
 	private final XxlJobProperties xxlJobProperties;
 
-	public XxlJobAutoCofiguration(XxlJobProperties xxlJobProperties) {
+	public XxlJobAutoCofiguration(Environment environment, XxlJobProperties xxlJobProperties) {
+		this.environment = environment;
 		this.xxlJobProperties = xxlJobProperties;
 	}
 
-	@Bean(initMethod = "start", destroyMethod = "destroy")
-	public XxlJobExecutor xxlJobExecutor() {
-		log.info("Autowired XxlJobExecutor");
-		XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
-		xxlJobExecutor.setAccessToken(xxlJobProperties.getAccessToken());
-		xxlJobExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
-		xxlJobExecutor.setAppname(xxlJobProperties.getExecutor().getAppName());
-		xxlJobExecutor.setIp(xxlJobProperties.getExecutor().getIp());
-		xxlJobExecutor.setPort(xxlJobProperties.getExecutor().getPort());
-		xxlJobExecutor.setLogPath(xxlJobProperties.getExecutor().getLogPath());
-		xxlJobExecutor.setLogRetentionDays(xxlJobProperties.getExecutor().getLogRetentionDays());
-		return xxlJobExecutor;
+	@ConditionalOnProperty(name = "xxl-job.enable", havingValue = "true")
+	@Bean
+	public XxlJobSpringExecutor xxlJobSpringExecutor() {
+		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
+		XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+		xxlJobSpringExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
+		if (StringUtils.isNotBlank(xxlJobProperties.getAdmin().getAccessToken())) {
+			xxlJobSpringExecutor.setAccessToken(xxlJobProperties.getAdmin().getAccessToken());
+		}
+
+		String appName = resolveAppName(xxlJobProperties.getExecutor().getAppName());
+		xxlJobSpringExecutor.setAppname(appName);
+		xxlJobSpringExecutor.setIp(resolveIp(xxlJobProperties.getExecutor().getIp()));
+		xxlJobSpringExecutor.setPort(resolvePort(xxlJobProperties.getExecutor().getPort()));
+		xxlJobSpringExecutor.setLogPath(resolveLogPath(xxlJobProperties.getExecutor().getLogPath(), appName));
+		xxlJobSpringExecutor.setLogRetentionDays(xxlJobProperties.getExecutor().getLogRetentionDays());
+		return xxlJobSpringExecutor;
+	}
+
+	private String resolveAppName(String appName) {
+		if (StringUtils.isNotBlank(appName)) {
+			return appName;
+		}
+
+		return environment.getProperty("spring.application.name");
+	}
+
+	private String resolveIp(String ip) {
+		if (StringUtils.isNotBlank(ip)) {
+			return ip;
+		}
+
+		ip = IpUtil.getIp();
+		log.warn("XxlJob auto get address: {}", ip);
+		return ip;
+	}
+
+	private int resolvePort(Integer port) {
+		if (port != null) {
+			return port;
+		}
+		port = NetUtil.findAvailablePort(MAX_PORT);
+		log.warn("XxlJob auto get port: {}", port);
+		return port;
+	}
+
+	private String resolveLogPath(String logPath, String appName) {
+		if (StringUtils.isNotBlank(logPath)) {
+			return logPath;
+		}
+		String userHome = environment.getProperty("user.home");
+		return StringUtils.join(userHome, File.separator, "logs", File.separator,
+			"xxl-job", File.separator, appName);
 	}
 }

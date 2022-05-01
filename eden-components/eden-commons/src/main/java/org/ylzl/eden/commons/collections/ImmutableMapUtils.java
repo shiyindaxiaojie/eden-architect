@@ -41,13 +41,7 @@ import java.util.Objects;
 public class ImmutableMapUtils {
 
 	private static final Function DEFAULT_FUNCTION =
-		new Function() {
-
-			@Override
-			public Object apply(Object object) {
-				return object;
-			}
-		};
+		object -> object;
 
 	public static <T, K, V> HashMap<K, V> buildHashMap(
 		@NonNull T[] objects, @NonNull Function<T, K> keyFn) {

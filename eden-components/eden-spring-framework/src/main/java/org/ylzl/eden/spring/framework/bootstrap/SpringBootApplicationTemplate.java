@@ -25,7 +25,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.math.NumberUtils;
-import org.ylzl.eden.spring.framework.core.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
 
 import java.net.InetAddress;
 

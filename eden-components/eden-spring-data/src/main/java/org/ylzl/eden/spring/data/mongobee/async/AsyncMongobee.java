@@ -24,7 +24,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.core.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
 
 /**
  * 异步 Mongobee

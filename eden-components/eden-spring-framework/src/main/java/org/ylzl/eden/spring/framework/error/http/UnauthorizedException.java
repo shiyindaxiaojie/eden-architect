@@ -27,7 +27,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  */
 public class UnauthorizedException extends BaseException {
 
-	public UnauthorizedException(String errMessage) {
-		super("A0320", errMessage);
+	public UnauthorizedException(String errMessage, Object... params) {
+		super("A0230", errMessage, params);
 	}
 }

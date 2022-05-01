@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Curator 分布式锁
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @author <a href="mailto:guoyuanlu@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @RequiredArgsConstructor
@@ -37,9 +37,9 @@ public class CuratorDistributedLock implements DistributedLock {
 			throw new DistributedLockException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);
-		interProcessMutexThreadLocal.set(interProcessMutex);
 		try {
 			interProcessMutex.acquire();
+			interProcessMutexThreadLocal.set(interProcessMutex);
 		} catch (Exception e) {
 			log.error("Curator create lock: {}, catch exception: {}", key, e.getMessage(), e);
 		}
@@ -60,13 +60,17 @@ public class CuratorDistributedLock implements DistributedLock {
 			throw new DistributedLockException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);
-		interProcessMutexThreadLocal.set(interProcessMutex);
+		boolean isSuccess;
 		try {
-			return interProcessMutex.acquire(waitTime, timeUnit);
+			isSuccess = interProcessMutex.acquire(waitTime, timeUnit);
 		} catch (Exception e) {
 			log.error("Curator create lock: {}, waitTime: {}, catch exception: {}", key, waitTime, e.getMessage(), e);
 			throw new DistributedLockException(e.getMessage());
 		}
+		if (isSuccess) {
+			interProcessMutexThreadLocal.set(interProcessMutex);
+		}
+		return isSuccess;
 	}
 
 	/**
