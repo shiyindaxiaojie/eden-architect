@@ -15,41 +15,44 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.ftpclient.env;
+package org.ylzl.eden.spring.integration.ftpclient.config;
 
+import lombok.Data;
 import org.ylzl.eden.commons.env.CharsetConstants;
 
 /**
- * FTPClient 默认属性
+ * FTP 客户端配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.0.0
  */
-public class FTPClientDefaults {
+@Data
+public class FTPClientConfig {
 
-	public static final boolean enabled = false;
+	private String host;
 
-	public static final String host = null;
+	private int port = 21;
 
-	public static final int port = 21;
+	private String username;
 
-	public static final String username = null;
+	private String password;
 
-	public static final String password = null;
+	private int connectTimeOut = 5000;
 
-	public static final int connectTimeOut = 5000;
+	private int dataTimeout = 60000;
 
-	public static final int dataTimeout = 60000;
+	private String controlEncoding = CharsetConstants.UTF_8_NAME;
 
-	public static final String controlEncoding = CharsetConstants.UTF_8_NAME;
+	private int controlKeepAliveReplyTimeout = 1000;
 
-	public static final int controlKeepAliveReplyTimeout = 1000;
+	private int bufferSize = 2 << 10;
 
-	public static final int bufferSize = 2 << 10;
+	private int fileType = 2;
 
-	public static final int fileType = 2;
+	private boolean useEPSVwithIPv4 = false;
 
-	public static final boolean useEPSVwithIPv4 = false;
-
-	public static final boolean passiveMode = true;
+	/**
+	 * 是否被动模式
+	 */
+	private boolean passiveMode = true;
 }

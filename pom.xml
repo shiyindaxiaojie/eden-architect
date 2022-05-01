@@ -124,12 +124,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub Owner Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/eden-lab/eden-architect</url>
-		</repository>
-	</distributionManagement>
 </project>

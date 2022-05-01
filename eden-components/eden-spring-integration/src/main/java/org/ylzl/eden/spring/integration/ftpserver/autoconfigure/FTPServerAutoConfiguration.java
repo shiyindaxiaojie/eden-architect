@@ -21,12 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.config.spring.factorybeans.FtpServerFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.integration.ftpserver.env.FTPServerProperties;
 
 /**
@@ -35,15 +34,12 @@ import org.ylzl.eden.spring.integration.ftpserver.env.FTPServerProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@ConditionalOnProperty(value = "ftpserver.enabled", matchIfMissing = true)
 @ConditionalOnClass(FtpServer.class)
-@ConditionalOnExpression(FTPServerAutoConfiguration.EXP_FTP_SERVER_ENABLED)
 @EnableConfigurationProperties(FTPServerProperties.class)
 @Slf4j
 @Configuration
 public class FTPServerAutoConfiguration {
-
-	public static final String EXP_FTP_SERVER_ENABLED =
-		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".ftpserver.enabled:true}";
 
 	private static final String MSG_AUTOWIRED_FTP_SERVER = "Autowired FTPServer";
 

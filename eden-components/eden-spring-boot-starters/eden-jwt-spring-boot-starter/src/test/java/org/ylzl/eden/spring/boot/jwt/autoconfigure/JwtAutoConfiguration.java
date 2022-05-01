@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.ylzl.eden.spring.boot.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
-import org.ylzl.eden.spring.security.jwt.env.JwtProperties;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 

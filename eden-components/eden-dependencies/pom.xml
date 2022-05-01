@@ -153,6 +153,7 @@
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
 		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
+		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
 		<!-- 授权认证 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
@@ -184,22 +185,8 @@
 		<spock.version>1.3-groovy-2.4</spock.version>
 		<groovy.version>2.4.21</groovy.version>
 
-		<!-- 聚合支付组件 -->
-		<ijpay.version>2.7.9</ijpay.version>
-
 		<!-- IDEA -->
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
-
-		<!-- 阿里云组件 -->
-		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-		<aliyun-spring-boot.version>1.0.0</aliyun-spring-boot.version>
-		<aliyun-sms-spring-boot-starter.version>1.0.0</aliyun-sms-spring-boot-starter.version>
-
-		<!-- 腾讯云组件 -->
-		<cos_api.version>5.6.38</cos_api.version>
-		<vod_api.version>2.1.4</vod_api.version>
-		<qcloud-java-sdk.version>2.0.6</qcloud-java-sdk.version>
-		<tencentcloud-sdk-java.version>3.1.373</tencentcloud-sdk-java.version>
 	</properties>
 
 	<dependencyManagement>
@@ -260,14 +247,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- Aliyun Spring Boot 依赖 -->
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>aliyun-spring-boot-dependencies</artifactId>
-				<version>${aliyun-spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<!-- Zipkin 依赖 -->
 			<dependency>
 				<groupId>io.zipkin.brave</groupId>
@@ -277,15 +256,10 @@
 				<scope>import</scope>
 			</dependency>
 
-			<!-- Components For Eden* -->
+			<!-- 基础组件 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-commons</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-business</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -319,7 +293,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Spring Boot Starters For Eden* -->
+			<!-- 自定义 Spring Boot Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-boot-starter</artifactId>
@@ -363,6 +337,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-javamail-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -437,12 +416,22 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-redisson-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-spock-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -456,7 +445,7 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Spring Cloud Starters For Eden* -->
+			<!-- 自定义 Spring Cloud Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
@@ -470,6 +459,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1364,54 +1358,6 @@
 				<groupId>net.bull.javamelody</groupId>
 				<artifactId>javamelody-core</artifactId>
 				<version>${javamelody.version}</version>
-			</dependency>
-
-			<!-- 阿里云组件 -->
-			<!-- 短信 -->
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>aliyun-sms-spring-boot-starter</artifactId>
-				<version>${aliyun-sms-spring-boot-starter.version}</version>
-			</dependency>
-
-			<!-- 腾讯云组件 -->
-			<!-- COS 对象存储 -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>cos_api</artifactId>
-				<version>${cos_api.version}</version>
-			</dependency>
-			<!-- VOD 云点播 -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>vod_api</artifactId>
-				<version>${vod_api.version}</version>
-			</dependency>
-			<!-- QCloud SDK -->
-			<dependency>
-				<groupId>com.qcloud</groupId>
-				<artifactId>qcloud-java-sdk</artifactId>
-				<version>${qcloud-java-sdk.version}</version>
-			</dependency>
-			<!-- TencentCloud SDK -->
-			<dependency>
-				<groupId>com.tencentcloudapi</groupId>
-				<artifactId>tencentcloud-sdk-java</artifactId>
-				<version>${tencentcloud-sdk-java.version}</version>
-			</dependency>
-
-			<!-- 聚合组件 -->
-			<!-- AliPay -->
-			<dependency>
-				<groupId>com.github.javen205</groupId>
-				<artifactId>IJPay-AliPay</artifactId>
-				<version>${ijpay.version}</version>
-			</dependency>
-			<!-- WxPay -->
-			<dependency>
-				<groupId>com.github.javen205</groupId>
-				<artifactId>IJPay-WxPay</artifactId>
-				<version>${ijpay.version}</version>
 			</dependency>
 
 			<!-- 测试 -->

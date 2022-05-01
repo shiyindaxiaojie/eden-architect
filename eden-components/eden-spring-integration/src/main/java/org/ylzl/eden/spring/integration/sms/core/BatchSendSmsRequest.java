@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 相同内容群发短信请求
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
  * @since 2.4.x
  */
 @Builder
@@ -17,12 +17,7 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @Data
-public class SendBatchSmsRequest implements Serializable {
-
-	/**
-	 * 短信签名
-	 */
-	private String signName;
+public class BatchSendSmsRequest implements Serializable {
 
 	/**
 	 * 手机号码
@@ -35,7 +30,17 @@ public class SendBatchSmsRequest implements Serializable {
 	private String smsContent;
 
 	/**
-	 * 自定义ID
+	 * 自定义短信ID
 	 */
-	private String customId;
+	private String customSmsId;
+
+	/**
+	 * 扩展代码
+	 */
+	private String extendedCode;
+
+	/**
+	 * 定时发送时间（值为空表示立即发送）
+	 */
+	private String timerTime;
 }

@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class SendMailException extends BaseException {
 
 	public SendMailException(String errMessage) {
-		super("C0503", errMessage);
+		super("B0001", errMessage);
 	}
 }

@@ -1,13 +1,13 @@
-package org.ylzl.eden.spring.integration.sms.core;
+package org.ylzl.eden.spring.integration.mail.core;
 
 import lombok.*;
 
 import java.io.Serializable;
 
 /**
- * 个性化群发短信响应
+ * 批量发送个性化邮件响应
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
  * @since 2.4.x
  */
 @Builder
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 @Data
-public class SendMultiSmsResponse implements Serializable {
+public class MultiSendMailResponse implements Serializable {
 
 	/**
 	 * 处理成功

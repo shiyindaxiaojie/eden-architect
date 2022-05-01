@@ -21,13 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
-import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientConfig;
+import org.ylzl.eden.spring.integration.ftpclient.config.FTPClientConfig;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientPool;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientTemplate;
 import org.ylzl.eden.spring.integration.ftpclient.env.FTPClientProperties;
@@ -41,15 +40,12 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Factory;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
+@ConditionalOnProperty(value = "ftpclient.enabled", matchIfMissing = true)
 @ConditionalOnClass(FTPClient.class)
-@ConditionalOnExpression(FTPClientAutoConfiguration.EXP_FTP_CLIENT_ENABLED)
 @EnableConfigurationProperties(FTPClientProperties.class)
 @Slf4j
 @Configuration
 public class FTPClientAutoConfiguration {
-
-	public static final String EXP_FTP_CLIENT_ENABLED =
-		"${" + GlobalConstants.PROP_EDEN_PREFIX + ".ftpclient.enabled:false}";
 
 	private static final String MSG_AUTOWIRED_FTP_CLIENT = "Autowired FTPClientTemplate";
 
@@ -89,8 +85,8 @@ public class FTPClientAutoConfiguration {
 			config.setControlEncoding(properties.getControlEncoding());
 			config.setBufferSize(properties.getBufferSize());
 			config.setFileType(properties.getFileType());
-			config.setUseEPSVwithIPv4(properties.getUseEPSVwithIPv4());
-			config.setPassiveMode(properties.getPassiveMode());
+			config.setUseEPSVwithIPv4(properties.isUseEPSVwithIPv4());
+			config.setPassiveMode(properties.isPassiveMode());
 			return new FTPClientPool2Factory(config);
 		}
 

@@ -24,7 +24,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
-import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientConfig;
+import org.ylzl.eden.spring.integration.ftpclient.config.FTPClientConfig;
 
 import java.io.IOException;
 

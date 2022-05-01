@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 发送模板短信请求
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
  * @since 2.4.x
  */
 @Builder
@@ -26,33 +26,17 @@ public class SendTemplateSmsRequest implements Serializable {
 	private String signName;
 
 	/**
-	 * 模板短信
+	 * 手机号码
 	 */
-	private TemplateSms templateSms;
+	private List<String> phoneNumbers;
 
+	/**
+	 * 短信模板编号
+	 */
+	private String templateCode;
 
-
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@EqualsAndHashCode
-	@ToString
-	@Data
-	public static class TemplateSms {
-
-		/**
-		 * 手机号码
-		 */
-		private List<String> phoneNumbers;
-
-		/**
-		 * 短信模板编号
-		 */
-		private String templateCode;
-
-		/**
-		 * 短信模板参数
-		 */
-		private Map<String, String> templateParam;
-	}
+	/**
+	 * 短信模板参数
+	 */
+	private Map<String, String> templateParam;
 }

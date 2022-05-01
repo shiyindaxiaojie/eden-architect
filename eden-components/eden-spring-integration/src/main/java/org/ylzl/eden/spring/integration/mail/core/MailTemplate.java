@@ -9,10 +9,18 @@ package org.ylzl.eden.spring.integration.mail.core;
 public interface MailTemplate {
 
 	/**
-	 * 发送邮件
+	 * 单条发送邮件
 	 *
-	 * @param sendMailRequest 发送邮件请求
+	 * @param request 发送邮件请求
 	 * @return 发送邮件响应
 	 */
-	SendMailResponse send(SendMailRequest sendMailRequest);
+	SingleSendMailResponse singleSend(SingleSendMailRequest request);
+
+	/**
+	 * 批量发送个性化邮件
+	 *
+	 * @param request 发送邮件请求
+	 * @return 发送邮件响应
+	 */
+	MultiSendMailResponse multiSend(MultiSendMailRequest request);
 }

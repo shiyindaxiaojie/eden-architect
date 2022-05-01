@@ -1,23 +1,23 @@
 package org.ylzl.eden.spring.integration.mail.core;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 发送邮件请求
+ * 简单邮件
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @since 1.0.0
  */
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Data
-public class SendMailRequest implements Serializable {
+public class SimpleMail {
 
 	private String from;
 
