@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.sqlsafe.annotation;
+package org.ylzl.eden.commons.safe.sql.annotation;
 
-import org.ylzl.eden.spring.framework.sqlsafe.validator.SQLInjectionSafeValidator;
+
+import org.ylzl.eden.commons.safe.sql.validator.SQLInjectionSafeValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
