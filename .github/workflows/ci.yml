@@ -2,7 +2,7 @@ name: build
 on: [ push, pull_request ]
 jobs:
   applications:
-    name: application test suite
+    name: application ci/cd
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -13,11 +13,11 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '8.x'
-      - name: Package application
+      - name: Packaging application...
         run: |
           echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
           chmod +x mvnw
           ./mvnw -ntp clean package -Pgithub -DskipTests -e -U
-      - name: Deploy application
+      - name: Deploying application...
         run: |
           ./mvnw -ntp deploy -Pgithub -DskipTests -e -U
