@@ -124,4 +124,35 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>github</id>
+			<properties>
+				<altReleaseDeploymentRepository>
+					github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-architect
+				</altReleaseDeploymentRepository>
+				<altSnapshotDeploymentRepository>
+					github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-architect
+				</altSnapshotDeploymentRepository>
+			</properties>
+			<repositories>
+				<repository>
+					<id>central</id>
+					<url>https://repo1.maven.org/maven2/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>github</id>
+					<name>GitHub OWNER Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/shiyindaxiaojie/eden-architect</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 </project>
