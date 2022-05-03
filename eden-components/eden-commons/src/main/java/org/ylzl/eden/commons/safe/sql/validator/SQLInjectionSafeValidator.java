@@ -14,5 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// SQL 注入安全防护
-package org.ylzl.eden.spring.framework.sqlsafe;
+
+package org.ylzl.eden.commons.safe.sql.validator;
+
+import org.ylzl.eden.commons.safe.SqlSafeUtils;
+import org.ylzl.eden.commons.safe.sql.annotation.SQLInjectionSafe;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+/**
+ * SQL 注入安全校验器
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
+public class SQLInjectionSafeValidator implements ConstraintValidator<SQLInjectionSafe, String> {
+
+	@Override
+	public void initialize(SQLInjectionSafe sqlInjectionSafe) {
+	}
+
+	@Override
+	public boolean isValid(String dataString, ConstraintValidatorContext cxt) {
+		return SqlSafeUtils.isSQLInjectionSafe(dataString);
+	}
+}

@@ -28,6 +28,14 @@ import net.sf.cglib.proxy.Enhancer;
  */
 public class CglibProxy {
 
+	/**
+	 * 生成代理
+	 *
+	 * @param clazz
+	 * @param callback
+	 * @return
+	 * @param <T>
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
 		Enhancer enhancer = new Enhancer();

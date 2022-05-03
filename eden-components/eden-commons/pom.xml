@@ -56,6 +56,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
 		<!-- CGlib -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -210,5 +216,5 @@
 			<artifactId>dom4j</artifactId>
 			<optional>true</optional>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>

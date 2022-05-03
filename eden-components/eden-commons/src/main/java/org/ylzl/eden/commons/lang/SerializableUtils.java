@@ -31,6 +31,14 @@ import java.io.*;
 @UtilityClass
 public class SerializableUtils {
 
+	/**
+	 * 深拷贝
+	 *
+	 * @param serializableObj
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static Serializable deepCopy(@NonNull Serializable serializableObj)
 		throws IOException, ClassNotFoundException {
 		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
@@ -43,6 +51,13 @@ public class SerializableUtils {
 		}
 	}
 
+	/**
+	 * 获取序列化对象大小
+	 *
+	 * @param serializableObj
+	 * @return
+	 * @throws IOException
+	 */
 	public long getSerializedSize(@NonNull Serializable serializableObj) throws IOException {
 		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
 			 ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut);) {
@@ -52,6 +67,13 @@ public class SerializableUtils {
 		}
 	}
 
+	/**
+	 * 将序列化对象转化为字节数组
+	 *
+	 * @param serializableObj
+	 * @return
+	 * @throws IOException
+	 */
 	public static byte[] toByte(@NonNull Serializable serializableObj) throws IOException {
 		try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
 			 ObjectOutputStream objectOut = new ObjectOutputStream(byteArrayOut);) {
@@ -61,6 +83,14 @@ public class SerializableUtils {
 		}
 	}
 
+	/**
+	 * 将字节数组转化为对象
+	 *
+	 * @param byteArr
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static Object toObject(byte[] byteArr) throws IOException, ClassNotFoundException {
 		try (ByteArrayInputStream byteArrayIn = new ByteArrayInputStream(byteArr);
 			 ObjectInputStream objectIn = new ObjectInputStream(byteArrayIn);) {
