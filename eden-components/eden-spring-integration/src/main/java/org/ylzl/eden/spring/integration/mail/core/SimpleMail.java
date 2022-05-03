@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 简单邮件
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 1.0.0
  */
 @SuperBuilder

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 个性化群发短信请求
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Builder

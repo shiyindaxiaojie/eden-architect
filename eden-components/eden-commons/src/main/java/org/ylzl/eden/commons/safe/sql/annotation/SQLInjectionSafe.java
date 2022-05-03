@@ -17,7 +17,6 @@
 
 package org.ylzl.eden.commons.safe.sql.annotation;
 
-
 import org.ylzl.eden.commons.safe.sql.validator.SQLInjectionSafeValidator;
 
 import javax.validation.Constraint;
