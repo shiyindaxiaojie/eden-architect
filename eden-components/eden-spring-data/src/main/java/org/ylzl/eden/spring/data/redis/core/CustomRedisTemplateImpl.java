@@ -1,6 +1,5 @@
 package org.ylzl.eden.spring.data.redis.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -8,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.commons.json.JacksonUtils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -92,11 +90,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 		if (!StringUtils.isEmpty(value)) {
 			return Optional.empty();
 		}
-		try {
-			return Optional.of(JacksonUtils.toList(value, clazz));
-		} catch (IOException e) {
-			throw new RuntimeException("Redis JSON 串转化为对象异常");
-		}
+		return Optional.of(JacksonUtils.toList(value, clazz));
 	}
 
 	/**
@@ -123,13 +117,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	 */
 	@Override
 	public <T> void set(String key, T data, long timeout, TimeUnit unit) {
-		String value;
-		try {
-			value = JacksonUtils.toJSONString(data);
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage(), e);
-			throw new RuntimeException("Redis 转换为 JSON 异常！");
-		}
+		String value = JacksonUtils.toJSONString(data);
 		redisTemplate.opsForValue().set(key, value, timeout, unit);
 	}
 
@@ -213,14 +201,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 			return Optional.empty();
 		}
 		return Optional.of(list.stream()
-			.map(
-				str -> {
-					try {
-						return JacksonUtils.toObject(str, clazz);
-					} catch (IOException e) {
-						throw new RuntimeException("Redis 转换为 JSON 异常！");
-					}
-				})
+			.map(str -> JacksonUtils.toObject(str, clazz))
 			.collect(Collectors.toList()));
 	}
 
@@ -235,12 +216,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void rightPushAll(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			try {
-				values[i] = JacksonUtils.toJSONString(data.get(i));
-			} catch (JsonProcessingException e) {
-				log.error(e.getMessage(), e);
-				throw new RuntimeException("Redis 转换为 JSON 异常！");
-			}
+			values[i] = JacksonUtils.toJSONString(data.get(i));
 		}
 		redisTemplate.opsForList().rightPushAll(key, values);
 	}
@@ -269,12 +245,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void add(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			try {
-				values[i] = JacksonUtils.toJSONString(data.get(i));
-			} catch (JsonProcessingException e) {
-				log.error(e.getMessage(), e);
-				throw new RuntimeException("Redis 转换为 JSON 异常！");
-			}
+			values[i] = JacksonUtils.toJSONString(data.get(i));
 		}
 		redisTemplate.opsForSet().add(key, values);
 	}
@@ -293,10 +264,6 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 		if (!optional.isPresent()) {
 			return optional;
 		}
-		try {
-			return Optional.of(JacksonUtils.toObject(value, clazz));
-		} catch (IOException e) {
-			throw new RuntimeException("JSON 转化为对象异常");
-		}
+		return Optional.of(JacksonUtils.toObject(value, clazz));
 	}
 }
