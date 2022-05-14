@@ -17,7 +17,6 @@
 
 package org.ylzl.eden.spring.data.redis.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ import org.ylzl.eden.commons.json.JacksonUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -84,13 +82,7 @@ public class CommonRedisRepository implements CustomRedisRepository {
 	 */
 	@Override
 	public <T> void set(String key, T data, long timeout) {
-		String value = null;
-		try {
-			value = JacksonUtils.toJSONString(data);
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage(), e);
-			throw new RuntimeException("JSON 转换异常！");
-		}
+		String value = JacksonUtils.toJSONString(data);
 		redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
 	}
 
@@ -160,13 +152,8 @@ public class CommonRedisRepository implements CustomRedisRepository {
 			return null;
 		}
 		return list.stream()
-			.map(
-				str -> {
-					try {
-						return JacksonUtils.toObject(str, clazz);
-					} catch (IOException e) {
-						throw new RuntimeException("JSON 转换异常！");
-					}
+			.map(str -> {
+					return JacksonUtils.toObject(str, clazz);
 				})
 			.collect(Collectors.toList());
 	}
@@ -182,12 +169,7 @@ public class CommonRedisRepository implements CustomRedisRepository {
 	public <T> void rightPushAll(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			try {
-				values[i] = JacksonUtils.toJSONString(data.get(i));
-			} catch (JsonProcessingException e) {
-				log.error(e.getMessage(), e);
-				throw new RuntimeException("JSON 转换异常！");
-			}
+			values[i] = JacksonUtils.toJSONString(data.get(i));
 		}
 		redisTemplate.opsForList().rightPushAll(key, values);
 	}
@@ -202,12 +184,7 @@ public class CommonRedisRepository implements CustomRedisRepository {
 	public <T> void add(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			try {
-				values[i] = JacksonUtils.toJSONString(data.get(i));
-			} catch (JsonProcessingException e) {
-				log.error(e.getMessage(), e);
-				throw new RuntimeException("JSON 转换异常！");
-			}
+			values[i] = JacksonUtils.toJSONString(data.get(i));
 		}
 		redisTemplate.opsForSet().add(key, values);
 	}
