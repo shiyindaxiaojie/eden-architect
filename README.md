@@ -24,17 +24,17 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 ![](https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/eden-architect/component.png)
 
 * **eden-components**: 组件集
-* **eden-dependencies**: 依赖管理组件
-* **eden-parent**: 构建管理组件
+* **eden-dependencies**: 依赖管理组件，管理所有依赖的版本
+* **eden-parent**: 构建管理组件，管理所有插件的版本，提供开箱即用的配置
 * **eden-commons**: 基础工具组件，集成了 `Apache Commons`、`Google Guava` 、`HuTool`...
 * **eden-spring-boot-starters**: 常用组件自动装配
-* **eden-spring-framework**: 基础框架组件
+* **eden-spring-framework**: 基础框架组件，提供自定义错误码、统一异常解析器支持
 * **eden-spring-cloud**: 微服务框架组件，集成了 `Nacos`、`Sentinel`、`Apollo`...
 * **eden-spring-cloud-starters**: 微服务框架组件自动装配
 * **eden-spring-data**: 数据仓库组件，集成了 `Mybatis`、`Redis`、`Flyway`、`Liquibase`...
 * **eden-spring-integration**: 第三方集成组件，集成了 `RocketMQ`、`Kafka`、`Netty`、`Swagger`...
-* **eden-spring-security**: 授权认证组件，集成了 `Spring Security OAuth2`、`Jwt`...
-* **eden-spring-test**: 单元测试、集成测试组件
+* **eden-spring-security**: 授权认证组件，集成了 `Spring Security OAuth2`、`Jwt`、`Shiro`...
+* **eden-spring-test**: 单元测试和集成测试组件，集成了 `Spock`、`Embedded Redis`、`Embedded Kafka`...
 
 ## 如何构建
 * master 分支对应的是 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
@@ -77,10 +77,10 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ## 代码演示
 
-为了演示如何使用，我们提供了两种不同架构风格的 Demo
+为了演示如何使用，我们提供了 3 种不同架构风格的 Demo
 * 面向领域模型的 COLA 架构，代码实例可以查看 [eden-demo-cola](https://github.com/eden-lab/eden-demo-cola)
+* 面向数据模型的分层架构（阿里巴巴示例工程），代码实例请查看 [eden-demo-layer](https://github.com/eden-lab/eden-demo-layer)
 * 面向单机模型的 MVC 架构，代码实例可以查看 [eden-demo-mvc](https://github.com/eden-lab/eden-demo-mvc)
-* 面向数据模型的分层架构，代码实例请查看 [eden-demo-layer](https://github.com/eden-lab/eden-demo-layer)
 
 ## 版本规范
 
