@@ -9,8 +9,9 @@ import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 import org.ylzl.eden.spring.framework.error.ClientErrorType;
 import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
-import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 import org.ylzl.eden.spring.security.core.constant.AuthenticationConstants;
+import org.ylzl.eden.spring.security.core.token.AccessToken;
+import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -39,30 +40,30 @@ public class JwtFilter extends GenericFilterBean {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		if (!isAnonymousUrls(request)) {
-			String jwt = resolveToken(request);
+			AccessToken accessToken = resolveToken(request);
 			try {
-				ClientErrorType.notNull(jwt,"A0220");
-				this.jwtTokenProvider.validateToken(jwt);
+				ClientErrorType.notNull(accessToken,"A0220");
+				this.jwtTokenProvider.validateToken(accessToken);
 			} catch (Exception e) {
 				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED,"A0220", e.getMessage());
 				return;
 			}
-			Authentication authentication = this.jwtTokenProvider.getAuthentication(jwt);
+			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 		filterChain.doFilter(servletRequest, servletResponse);
 	}
 
-	private String resolveToken(HttpServletRequest request) {
-		String bearerToken = request.getHeader(jwtTokenProvider.getConfig().getHeader());
+	private AccessToken resolveToken(HttpServletRequest request) {
+		String bearerToken = request.getHeader(jwtTokenProvider.getJwtConfig().getHeader());
 		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith(AuthenticationConstants.BEARER_PREFIX)) {
-			return bearerToken.substring(AuthenticationConstants.BEARER_PREFIX.length());
+			return AccessToken.builder().value(bearerToken.substring(AuthenticationConstants.BEARER_PREFIX.length())).build();
 		}
 		return null;
 	}
 
 	private boolean isAnonymousUrls(HttpServletRequest request) {
-		List<String> anonymousUrls = jwtTokenProvider.getConfig().getAnonymousUrls();
+		List<String> anonymousUrls = jwtTokenProvider.getJwtConfig().getAnonymousUrls();
 		if (CollectionUtils.isEmpty(anonymousUrls)) {
 			return false;
 		}

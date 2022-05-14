@@ -11,8 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
-import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 import org.ylzl.eden.spring.security.core.entity.LoginUserDetails;
+import org.ylzl.eden.spring.security.core.token.AccessToken;
+import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class JwtTokenService {
 	 * @param claims
 	 * @return
 	 */
-	public JwtToken authenticate(LoginUserDetails login, Map<String, Object> claims) {
+	public AccessToken authenticate(LoginUserDetails login, Map<String, Object> claims) {
 		try {
 			UsernamePasswordAuthenticationToken authenticationToken =
 				new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
@@ -60,8 +61,7 @@ public class JwtTokenService {
 				claims.put(JwtConstants.AUTHORITIES_KEY, authorities);
 			}
 
-			String token = jwtTokenProvider.createToken(authentication, login.isRememberMe(), claims);
-			return JwtToken.builder().value(token).build();
+			return jwtTokenProvider.createToken(authentication, login.isRememberMe(), claims);
 		} catch (BadCredentialsException ex) {
 			log.error(AUTHENTICATE_BAD_CREDENTIALS, ex.getMessage(), ex);
 			throw new UnauthorizedException(ex.getMessage());

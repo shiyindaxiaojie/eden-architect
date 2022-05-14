@@ -17,6 +17,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
+import org.ylzl.eden.spring.integration.messagequeue.core.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueListener;
 
@@ -68,16 +69,23 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 			taskExecutor.execute(() -> {
 				while (true) {
 					try {
-						ConsumerRecords<String, String> consumerRecords = consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
+						ConsumerRecords<String, String> consumerRecords =
+							consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
 						if (consumerRecords == null || consumerRecords.isEmpty()) {
 							continue;
 						}
 						int maxPollRecords = kafkaProperties.getConsumer().getMaxPollRecords();
 						Map<TopicPartition, OffsetAndMetadata> offsets = Maps.newHashMapWithExpectedSize(maxPollRecords);
-						List<String> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
+						List<Message> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
 						consumerRecords.forEach(record -> {
-							offsets.put(new TopicPartition(record.topic(), record.partition()), new OffsetAndMetadata(record.offset() + 1));
-							messages.add(record.value());
+							offsets.put(new TopicPartition(record.topic(), record.partition()),
+								new OffsetAndMetadata(record.offset() + 1));
+
+							messages.add(Message.builder()
+									.topic(record.topic())
+									.partition(record.partition())
+									.key(record.key())
+									.body(record.value()).build());
 						});
 						messageQueueConsumer.consume(messages, () -> consumer.commitSync(offsets));
 					} catch (Exception e) {

@@ -1,9 +1,9 @@
-package org.ylzl.eden.spring.security.jwt.token;
+package org.ylzl.eden.spring.security.core.token;
 
 import lombok.*;
 
 /**
- * 令牌
+ * 刷新令牌
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -14,10 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Data
-public class JwtToken {
+public class RefreshToken {
 
-	/**
-	 * 令牌
-	 */
 	private String value;
 }

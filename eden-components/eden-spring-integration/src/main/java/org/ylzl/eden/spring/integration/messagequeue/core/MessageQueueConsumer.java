@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.integration.messagequeue.core;
 
+
 import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface MessageQueueConsumer {
 	 *
 	 * @param messages
 	 */
-	void consume(List<String> messages, Acknowledgement ack);
+	void consume(List<Message> messages, Acknowledgement ack);
 }

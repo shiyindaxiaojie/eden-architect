@@ -23,6 +23,7 @@ public @interface MessageQueueListener {
 	 * 消息队列类型
 	 *
 	 * @return 消息队列类型
+	 * @see org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType
 	 */
 	String messageQueueType() default StringConstants.EMPTY;
 

@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.messagequeue.core.producer;
+package org.ylzl.eden.spring.integration.messagequeue.core;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -27,6 +27,11 @@ public class Message {
 	 * 主题
 	 */
 	private String topic;
+
+	/**
+	 * 分区/队列
+	 */
+	private Integer partition;
 
 	/**
 	 * 分区键

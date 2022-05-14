@@ -1,6 +1,5 @@
 package org.ylzl.eden.spring.integration.messagequeue.core.consumer;
 
-
 import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**

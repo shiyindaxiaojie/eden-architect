@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.messagequeue.rocketmq;
+package org.ylzl.eden.spring.integration.messagequeue.rocketmq.env;
 
 import lombok.Data;
 import org.apache.rocketmq.common.topic.TopicValidator;
