@@ -18,9 +18,11 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.integration.messagequeue.common.MessageQueueType;
+import org.ylzl.eden.spring.integration.messagequeue.core.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueListener;
 import org.ylzl.eden.spring.integration.messagequeue.core.consumer.MessageQueueConsumerException;
+import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQConsumerProperties;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -66,8 +68,17 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 				consumers.add(consumer);
 				consumer.registerMessageListener((MessageListenerConcurrently) (messageExts, context) -> {
 					AtomicReference<ConsumeConcurrentlyStatus> status = new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
-					List<String> messages = Lists.newArrayListWithCapacity(messageExts.size());
-					messageExts.forEach(messageExt -> messages.add(new String(messageExt.getBody())));
+					List<Message> messages = Lists.newArrayListWithCapacity(messageExts.size());
+					messageExts.forEach(messageExt -> messages.add(
+						Message.builder()
+							.topic(messageExt.getTopic())
+							.partition(messageExt.getQueueId())
+							.key(messageExt.getKeys())
+							.tags(messageExt.getTags())
+							.delayTimeLevel(messageExt.getDelayTimeLevel())
+							.body(new String(messageExt.getBody()))
+							.build()));
+
 					messageQueueConsumer.consume(messages,
 						() -> {
 							if (status.get() != ConsumeConcurrentlyStatus.CONSUME_SUCCESS) {

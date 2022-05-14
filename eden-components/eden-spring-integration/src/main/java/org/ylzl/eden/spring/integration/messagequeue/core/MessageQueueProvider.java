@@ -1,6 +1,5 @@
 package org.ylzl.eden.spring.integration.messagequeue.core;
 
-import org.ylzl.eden.spring.integration.messagequeue.core.producer.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageQueueProducerException;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendCallback;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendResult;

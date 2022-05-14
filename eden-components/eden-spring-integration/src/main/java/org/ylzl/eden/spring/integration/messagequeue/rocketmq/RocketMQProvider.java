@@ -7,11 +7,12 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.ylzl.eden.spring.integration.messagequeue.core.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
-import org.ylzl.eden.spring.integration.messagequeue.core.producer.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageQueueProducerException;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendCallback;
 import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendResult;
+import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQProducerProperties;
 
 import java.nio.charset.StandardCharsets;
 

@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.FixedRocketMQConsumerProperties;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.FixedRocketMQProducerProperties;
 import org.ylzl.eden.spring.integration.messagequeue.rocketmq.RocketMQConsumer;
 import org.ylzl.eden.spring.integration.messagequeue.rocketmq.RocketMQProvider;
+import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQConsumerProperties;
+import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQProducerProperties;
 
 import java.util.List;
 

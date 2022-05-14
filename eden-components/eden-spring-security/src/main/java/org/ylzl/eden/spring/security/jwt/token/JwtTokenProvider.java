@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * JWT 令牌提供器
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 1.0.0
  */
 @RequiredArgsConstructor
