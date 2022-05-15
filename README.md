@@ -1,16 +1,16 @@
 <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/icon.png" align="right" />
 
 [license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
-[github-action]:https://github.com/eden-lab/eden-architect/actions
-[sonarcloud-dashboard]:https://sonarcloud.io/dashboard?id=eden-lab_eden-architect
+[github-action]:https://github.com/shiyindaxiaojie/eden-architect/actions
+[sonarcloud-dashboard]:https://sonarcloud.io/dashboard?id=shiyindaxiaojie_eden-architect
 
 # Eden* Architect 
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/eden-lab/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-architect&metric=alert_status)][sonarcloud-dashboard]
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
 
 Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将 Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
 
-> 参考文档请查看 [WIKI](https://github.com/eden-lab/eden-architect/wiki) 。
+> 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki) 。
 
 ## 主要功能
 
@@ -78,9 +78,9 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 ## 代码演示
 
 为了演示如何使用，我们提供了 3 种不同架构风格的 Demo
-* 面向领域模型的 COLA 架构，代码实例可以查看 [eden-demo-cola](https://github.com/eden-lab/eden-demo-cola)
-* 面向数据模型的分层架构（阿里巴巴示例工程），代码实例请查看 [eden-demo-layer](https://github.com/eden-lab/eden-demo-layer)
-* 面向单机模型的 MVC 架构，代码实例可以查看 [eden-demo-mvc](https://github.com/eden-lab/eden-demo-mvc)
+* 面向领域模型的 COLA 架构，代码实例可以查看 [eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola)
+* 面向数据模型的分层架构，代码实例请查看 [eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)
+* 面向单机模型的 MVC 架构，代码实例可以查看 [eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)
 
 ## 版本规范
 
