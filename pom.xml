@@ -48,15 +48,15 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/eden-lab/eden-architect</url>
-		<connection>scm:git:git://github.com/eden-lab/eden-architect.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/eden-lab/eden-architect.git
+		<url>https://github.com/shiyindaxiaojie/eden-architect</url>
+		<connection>scm:git:git://github.com/shiyindaxiaojie/eden-architect.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/shiyindaxiaojie/eden-architect.git
 		</developerConnection>
 	</scm>
 
 	<issueManagement>
 		<system>Github</system>
-		<url>https://github.com/eden-lab/eden-architect/issues</url>
+		<url>https://github.com/shiyindaxiaojie/eden-architect/issues</url>
 	</issueManagement>
 
 	<developers>
