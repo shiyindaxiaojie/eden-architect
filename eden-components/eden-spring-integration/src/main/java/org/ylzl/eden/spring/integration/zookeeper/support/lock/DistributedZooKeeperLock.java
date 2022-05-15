@@ -53,7 +53,7 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 					path,
 					e.getMessage(),
 					e);
-				return false;
+				Thread.currentThread().interrupt();
 			}
 			isSuccess = this.create(path);
 		}
@@ -71,12 +71,15 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 		try {
 			zooKeeperTemplate.delete(path);
 			isSuccess = true;
-		} catch (KeeperException | InterruptedException e) {
+		} catch (KeeperException e) {
 			log.error(
 				"Curator client remove zooKeeper node lock \"{}\", catch Exception: {}",
 				path,
 				e.getMessage(),
 				e);
+		} catch (InterruptedException e) {
+			log.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
 		}
 		log.debug(
 			"Curator client remove zooKeeper node lock \"{}\" {}",
@@ -89,8 +92,11 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 		try {
 			zooKeeperTemplate.create(
 				path, empty, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-		} catch (KeeperException | InterruptedException ignored) {
+		} catch (KeeperException ignored) {
 			return false;
+		} catch (InterruptedException e) {
+			log.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
 		}
 		return true;
 	}

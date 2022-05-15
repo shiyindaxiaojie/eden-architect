@@ -55,7 +55,7 @@ public class DistributedRedisLock extends AbstractRedisLock {
 			try {
 				Thread.sleep(sleepMillis);
 			} catch (InterruptedException e) {
-				return false;
+				Thread.currentThread().interrupt();
 			}
 			result = set(key, secondsToExpire);
 		}

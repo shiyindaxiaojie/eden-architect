@@ -49,7 +49,7 @@ public class NettyRpcFuture {
 		synchronized (lock) {
 			this.rpcResponse = response;
 			this.isSucceed = true;
-			lock.notify();
+			lock.notifyAll();
 		}
 	}
 }

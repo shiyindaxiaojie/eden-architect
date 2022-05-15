@@ -26,6 +26,8 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class RocketMQProvider implements MessageQueueProvider {
 
+	private static final String ROCKETMQ_PROVIDER_SEND_INTERRUPTED = "RocketMQProvider send interrupted: {}";
+
 	private static final String ROCKETMQ_PROVIDER_CONSUME_ERROR = "RocketMQProvider send error: {}";
 
 	private final RocketMQTemplate rocketMQTemplate;
@@ -44,6 +46,10 @@ public class RocketMQProvider implements MessageQueueProvider {
 		try {
 			SendResult sendResult = rocketMQTemplate.getProducer().send(transfer(message));
 			return transfer(sendResult);
+		} catch (InterruptedException e) {
+			log.error(ROCKETMQ_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new MessageQueueProducerException(e.getMessage());
 		} catch (Exception e) {
 			log.error(ROCKETMQ_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
 			throw new MessageQueueProducerException(e.getMessage());
@@ -78,6 +84,10 @@ public class RocketMQProvider implements MessageQueueProvider {
 					messageCallback.onFailed(e);
 				}
 			});
+		} catch (InterruptedException e) {
+			log.error(ROCKETMQ_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new MessageQueueProducerException(e.getMessage());
 		} catch (Exception e) {
 			log.error(ROCKETMQ_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
 			throw new MessageQueueProducerException(e.getMessage());
