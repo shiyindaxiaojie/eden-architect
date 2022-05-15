@@ -58,7 +58,7 @@ public class ElasticsearchUtils {
 	 */
 	public static void sort(
 		NativeSearchQueryBuilder queryBuilder, String sortColumn, String sortRule) {
-		if (StringUtils.isBlank(sortRule) || StringUtils.isBlank(sortRule)) {
+		if (StringUtils.isBlank(sortColumn) || StringUtils.isBlank(sortRule)) {
 			return;
 		}
 		queryBuilder.withSort(

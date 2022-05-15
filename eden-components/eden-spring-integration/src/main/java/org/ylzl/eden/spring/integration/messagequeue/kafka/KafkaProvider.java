@@ -24,6 +24,7 @@ import org.ylzl.eden.spring.integration.messagequeue.core.producer.MessageSendRe
 @Slf4j
 public class KafkaProvider implements MessageQueueProvider {
 
+	private static final String KAFKA_PROVIDER_SEND_INTERRUPTED = "KafkaProvider send interrupted: {}";
 	private static final String KAFKA_PROVIDER_CONSUME_ERROR = "KafkaProvider send error: {}";
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
@@ -41,6 +42,10 @@ public class KafkaProvider implements MessageQueueProvider {
 			ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
 			SendResult<String, String> sendResult = future.get();
 			return transfer(sendResult);
+		} catch (InterruptedException e) {
+			log.error(KAFKA_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new MessageQueueProducerException(e.getMessage());
 		} catch (Exception e) {
 			log.error(KAFKA_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
 			throw new MessageQueueProducerException(e.getMessage());
