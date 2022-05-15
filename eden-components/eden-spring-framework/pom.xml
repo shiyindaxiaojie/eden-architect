@@ -237,6 +237,17 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
+		<!-- 增加 log4j2.yml 解析 Spring Boot 配置的支持 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-spring-cloud-config-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-cloud-bus</artifactId>
+					<groupId>org.springframework.cloud</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<!-- Logback (不推荐)-->
 		<dependency>
