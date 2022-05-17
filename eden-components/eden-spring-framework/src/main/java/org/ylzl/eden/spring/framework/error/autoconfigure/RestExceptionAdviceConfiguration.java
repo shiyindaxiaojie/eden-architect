@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.error.autoconfigure;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.error.handler.RestExceptionHandler;
+import org.ylzl.eden.spring.framework.error.resolver.RestExceptionResolver;
 
 /**
  * REST 错误自动装配
@@ -33,7 +33,7 @@ public class RestExceptionAdviceConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public RestExceptionHandler restExceptionHandler() {
-		return new RestExceptionHandler();
+	public RestExceptionResolver restExceptionHandler() {
+		return new RestExceptionResolver();
 	}
 }

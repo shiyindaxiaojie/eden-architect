@@ -28,7 +28,6 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -82,8 +81,6 @@ import java.util.function.Consumer;
 @Configuration
 public class MybatisPlusAutoConfiguration {
 
-
-
 	@ConditionalOnMissingBean
 	@Bean
 	public ConfigurationCustomizer configurationCustomizer() {
@@ -104,7 +101,7 @@ public class MybatisPlusAutoConfiguration {
 
 		private final Interceptor[] interceptors;
 
-		private final TypeHandler[] typeHandlers;
+		private final TypeHandler<?>[] typeHandlers;
 
 		private final LanguageDriver[] languageDrivers;
 
@@ -113,8 +110,6 @@ public class MybatisPlusAutoConfiguration {
 		private final DatabaseIdProvider databaseIdProvider;
 
 		private final List<ConfigurationCustomizer> configurationCustomizers;
-
-		private final List<MybatisPlusPropertiesCustomizer> mybatisPlusPropertiesCustomizers;
 
 		private final ApplicationContext applicationContext;
 
@@ -146,8 +141,6 @@ public class MybatisPlusAutoConfiguration {
 			this.resourceLoader = resourceLoader;
 			this.databaseIdProvider = databaseIdProvider.getIfAvailable();
 			this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
-			this.mybatisPlusPropertiesCustomizers =
-				mybatisPlusPropertiesCustomizerProvider.getIfAvailable();
 			this.applicationContext = applicationContext;
 			if (properties.getMapperLocations() == null || properties.getMapperLocations().length == 0) {
 				properties.setMapperLocations(new String[]{DEFAULT_MAPPER_LOCATION});
