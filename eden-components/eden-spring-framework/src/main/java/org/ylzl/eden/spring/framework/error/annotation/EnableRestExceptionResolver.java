@@ -32,5 +32,5 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnableRestExceptionHandler {
+public @interface EnableRestExceptionResolver {
 }

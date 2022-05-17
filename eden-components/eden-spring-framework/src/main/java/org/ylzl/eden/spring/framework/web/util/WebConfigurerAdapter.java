@@ -28,7 +28,7 @@ import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.ylzl.eden.spring.framework.error.annotation.EnableRestExceptionHandler;
+import org.ylzl.eden.spring.framework.error.annotation.EnableRestExceptionResolver;
 
 import javax.servlet.ServletContext;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
-@EnableRestExceptionHandler
+@EnableRestExceptionResolver
 @Slf4j
 public class WebConfigurerAdapter implements WebMvcConfigurer, ServletContextInitializer {
 

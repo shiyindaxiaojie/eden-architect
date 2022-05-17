@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.error.handler;
+package org.ylzl.eden.spring.framework.error.resolver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,14 +45,14 @@ import org.ylzl.eden.spring.framework.error.ThirdServiceException;
 import java.util.List;
 
 /**
- * 异常转换器
+ * Rest 异常解析器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
 @RestControllerAdvice
-public class RestExceptionHandler implements ApplicationEventPublisherAware {
+public class RestExceptionResolver implements ApplicationEventPublisherAware {
 
 	private static final String EXCEPTION_HANDLER_CATCH = "ExceptionHandler catch: {}";
 
