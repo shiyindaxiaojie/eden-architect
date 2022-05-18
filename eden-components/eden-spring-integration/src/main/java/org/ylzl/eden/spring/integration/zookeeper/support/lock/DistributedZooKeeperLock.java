@@ -78,8 +78,8 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 				e.getMessage(),
 				e);
 		} catch (InterruptedException e) {
-			log.error(e.getMessage(), e);
 			Thread.currentThread().interrupt();
+			log.error(e.getMessage(), e);
 		}
 		log.debug(
 			"Curator client remove zooKeeper node lock \"{}\" {}",
@@ -95,8 +95,8 @@ public class DistributedZooKeeperLock extends AbstractZooKeeperLock {
 		} catch (KeeperException ignored) {
 			return false;
 		} catch (InterruptedException e) {
-			log.error(e.getMessage(), e);
 			Thread.currentThread().interrupt();
+			log.error(e.getMessage(), e);
 		}
 		return true;
 	}
