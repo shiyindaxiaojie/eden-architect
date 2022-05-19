@@ -21,6 +21,7 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -72,6 +73,6 @@ public class RedisSequenceProvider {
 	}
 
 	private RedisAtomicLong getRedisAtomicLong(String key) {
-		return new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+		return new RedisAtomicLong(key, Objects.requireNonNull(redisTemplate.getConnectionFactory()));
 	}
 }

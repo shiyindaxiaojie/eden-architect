@@ -27,6 +27,7 @@ import org.springframework.data.redis.serializer.SerializationException;
  * @since 2.4.x
  */
 public enum LongRedisSerializer implements RedisSerializer<Long> {
+
 	INSTANCE;
 
 	@Override
@@ -40,7 +41,7 @@ public enum LongRedisSerializer implements RedisSerializer<Long> {
 
 	@Override
 	public Long deserialize(byte[] bytes) throws SerializationException {
-		if (bytes.length > 0) {
+		if (bytes != null && bytes.length > 0) {
 			return Long.parseLong(new String(bytes));
 		} else {
 			return null;

@@ -26,10 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.spring.data.redis.jedis.JedisTemplate;
-import org.ylzl.eden.spring.data.redis.support.lock.DistributedRedisLock;
-import org.ylzl.eden.spring.data.redis.support.lock.RedisLock;
 
 /**
  * Redis 自动装配
@@ -49,12 +46,6 @@ public class RedisClusterAutoConfiguration {
 		JedisTemplate redisTemplate = new JedisTemplate();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		return redisTemplate;
-	}
-
-	@ConditionalOnMissingBean
-	@Bean
-	public RedisLock redisLock(RedisTemplate<String, Object> redisTemplate) {
-		return new DistributedRedisLock(redisTemplate);
 	}
 
 	/*@ConditionalOnClass({Jedis.class, JedisCluster.class})

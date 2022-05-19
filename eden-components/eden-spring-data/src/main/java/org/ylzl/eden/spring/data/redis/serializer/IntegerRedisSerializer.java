@@ -27,6 +27,7 @@ import org.springframework.data.redis.serializer.SerializationException;
  * @since 2.4.x
  */
 public enum IntegerRedisSerializer implements RedisSerializer<Integer> {
+
 	INSTANCE;
 
 	@Override
@@ -40,7 +41,7 @@ public enum IntegerRedisSerializer implements RedisSerializer<Integer> {
 
 	@Override
 	public Integer deserialize(byte[] bytes) throws SerializationException {
-		if (bytes.length > 0) {
+		if (bytes != null && bytes.length > 0) {
 			return Integer.parseInt(new String(bytes));
 		} else {
 			return null;

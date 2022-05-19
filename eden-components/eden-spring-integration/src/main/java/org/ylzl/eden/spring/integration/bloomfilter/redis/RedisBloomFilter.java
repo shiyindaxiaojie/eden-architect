@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.data.redis.support;
+package org.ylzl.eden.spring.integration.bloomfilter.redis;
 
 import com.google.common.hash.Funnel;
 import org.springframework.data.redis.core.RedisTemplate;
