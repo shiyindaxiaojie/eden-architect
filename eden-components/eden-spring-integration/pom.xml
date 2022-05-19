@@ -131,6 +131,18 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Redisson -->
 		<dependency>
 			<groupId>org.redisson</groupId>
@@ -144,6 +156,8 @@
 			<artifactId>zookeeper</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Curator -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>

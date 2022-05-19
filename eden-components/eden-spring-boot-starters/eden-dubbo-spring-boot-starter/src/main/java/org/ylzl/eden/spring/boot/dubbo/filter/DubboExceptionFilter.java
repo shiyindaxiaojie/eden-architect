@@ -7,7 +7,6 @@ import org.apache.dubbo.common.logger.LoggerFactory;
 import org.apache.dubbo.common.utils.ReflectUtils;
 import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.rpc.*;
-import org.apache.dubbo.rpc.filter.ExceptionFilter;
 import org.apache.dubbo.rpc.service.GenericService;
 import org.ylzl.eden.spring.framework.error.BaseException;
 
@@ -22,7 +21,7 @@ import java.lang.reflect.Method;
 @Activate(group = CommonConstants.PROVIDER, order = -1)
 public class DubboExceptionFilter implements Filter, Filter.Listener {
 
-	private Logger logger = LoggerFactory.getLogger(ExceptionFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(DubboExceptionFilter.class);
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.data.redis.support;
+package org.ylzl.eden.spring.integration.bloomfilter.redis;
 
 import com.google.common.hash.Funnel;
 import com.google.common.hash.Hashing;
@@ -46,9 +46,9 @@ public enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
 				if (combinedHash < 0) {
 					combinedHash = ~combinedHash;
 				}
-				if (!redisTemplate
+				if (Boolean.FALSE.equals(redisTemplate
 					.opsForValue()
-					.setBit(key, combinedHash, true)) { // 通过合并 hash 值对 bit 的长度取模，所以数组的下标只能在 [0, bitSize) 区间
+					.setBit(key, combinedHash, true))) { // 通过合并 hash 值对 bit 的长度取模，所以数组的下标只能在 [0, bitSize) 区间
 					return false;
 				}
 			}
@@ -71,7 +71,7 @@ public enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
 				if (combinedHash < 0) {
 					combinedHash = ~combinedHash;
 				}
-				if (!redisTemplate.opsForValue().getBit(key, combinedHash)) {
+				if (Boolean.FALSE.equals(redisTemplate.opsForValue().getBit(key, combinedHash))) {
 					return false;
 				}
 			}
@@ -93,9 +93,9 @@ public enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
 			boolean bitsChanged = false;
 			long combinedHash = hash1;
 			for (int i = 0; i < numHashFunctions; i++) {
-				if (!redisTemplate
+				if (Boolean.FALSE.equals(redisTemplate
 					.opsForValue()
-					.setBit(key, combinedHash, true)) { // 通过合并 hash 值对 bit 的长度取模，所以数组的下标只能在 [0, bitSize) 区间
+					.setBit(key, combinedHash, true))) { // 通过合并 hash 值对 bit 的长度取模，所以数组的下标只能在 [0, bitSize) 区间
 					return false;
 				}
 				combinedHash += hash2;
@@ -116,7 +116,7 @@ public enum RedisBloomFilterStrategies implements RedisBloomFilter.Strategy {
 
 			long combinedHash = hash1;
 			for (int i = 0; i < numHashFunctions; i++) {
-				if (!redisTemplate.opsForValue().getBit(key, combinedHash)) {
+				if (Boolean.FALSE.equals(redisTemplate.opsForValue().getBit(key, combinedHash))) {
 					return false;
 				}
 				combinedHash += hash2;

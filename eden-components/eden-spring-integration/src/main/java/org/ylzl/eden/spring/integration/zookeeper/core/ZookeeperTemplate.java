@@ -38,9 +38,12 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 
-	private final CountDownLatch countDownLatch = new CountDownLatch(1);
+	private static final String CONNECTION_ZOOKEEPER_URL = "Connection zookeeper, url:{}";
+	private static final String CONNECTION_ZOOKEEPER_SUCCESS = "Connection zookeeper success";
 
 	private ZooKeeper zookeeper;
+
+	private final CountDownLatch countDownLatch = new CountDownLatch(1);
 
 	private final ZookeeperConfig zookeeperConfig;
 
@@ -50,8 +53,15 @@ public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.zookeeper = new ZooKeeper(zookeeperConfig.getConnectString(),
-			zookeeperConfig.getSessionTimeout().getNano(), new ZookeeperWatcher());
+		String url = zookeeperConfig.getConnectString();
+		log.debug(CONNECTION_ZOOKEEPER_URL, url);
+		this.zookeeper = new ZooKeeper(url,
+			zookeeperConfig.getSessionTimeout().getNano(), event -> {
+			if (Watcher.Event.KeeperState.SyncConnected == event.getState()) {
+				log.debug(CONNECTION_ZOOKEEPER_SUCCESS);
+				countDownLatch.countDown();
+			}
+		});
 		// 由于 ZooKeeper 是异步创建会话的，通过计数器同步连接状态
 		countDownLatch.await();
 	}
@@ -63,34 +73,59 @@ public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 		}
 	}
 
-	public String create(String path, byte[] data, ArrayList<ACL> acl, CreateMode createMode)
-		throws KeeperException, InterruptedException {
-		return zookeeper.create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+	public String create(String path, byte[] data, ArrayList<ACL> acl, CreateMode createMode) {
+		try {
+			return zookeeper.create(path, data, acl, createMode);
+		} catch (InterruptedException e) {
+			log.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new ZookeeperException("Create path '" + path + "' interrupted");
+		} catch (KeeperException e) {
+			log.error(e.getMessage(), e);
+			throw new ZookeeperException("Create path '" + path + "' failed");
+		}
 	}
 
-	public void delete(String path) throws KeeperException, InterruptedException {
-		zookeeper.delete(path, -1);
+	public String create(String path, byte[] data) {
+		return create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 	}
 
-	public byte[] getData(String path) throws KeeperException, InterruptedException {
-		return zookeeper.getData(path, true, null);
+	public void delete(String path) {
+		try {
+			zookeeper.delete(path, -1);
+		} catch (InterruptedException e) {
+			log.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new ZookeeperException("Delete path '" + path + "' interrupted");
+		} catch (KeeperException e) {
+			log.error(e.getMessage(), e);
+			throw new ZookeeperException("Delete path '" + path + "' failed");
+		}
 	}
 
-	public String getDataString(String path)
-		throws KeeperException, InterruptedException, UnsupportedEncodingException {
+	public byte[] getData(String path) {
+		try {
+			return zookeeper.getData(path, true, null);
+		} catch (InterruptedException e) {
+			log.error(e.getMessage(), e);
+			Thread.currentThread().interrupt();
+			throw new ZookeeperException("Get data from path '" + path + "' interrupted");
+		} catch (KeeperException e) {
+			log.error(e.getMessage(), e);
+			throw new ZookeeperException("Get data from path '" + path + "' failed");
+		}
+	}
+
+	public String getDataString(String path) {
 		byte[] data = getData(path);
-		return data == null ? null : new String(data, GlobalConstants.DEFAULT_ENCODING);
-	}
-
-	/**
-	 * ZooKeeper 监视器
-	 */
-	private class ZookeeperWatcher implements Watcher {
-
-		public void process(WatchedEvent event) {
-			if (Event.KeeperState.SyncConnected == event.getState()) {
-				countDownLatch.countDown();
-			}
+		if (data == null) {
+			return null;
+		}
+		try {
+			return new String(data, GlobalConstants.DEFAULT_ENCODING);
+		} catch (UnsupportedEncodingException e) {
+			log.error(e.getMessage(), e);
+			throw new ZookeeperException("Get data from path '" + path + "' failed");
 		}
 	}
 }
