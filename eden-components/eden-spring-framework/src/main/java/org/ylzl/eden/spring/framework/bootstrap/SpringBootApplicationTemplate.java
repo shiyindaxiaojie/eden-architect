@@ -22,6 +22,7 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.math.NumberUtils;
@@ -46,7 +47,8 @@ public abstract class SpringBootApplicationTemplate {
 		SpringProfileUtils.addDefaultProfile(app);
 		app.setBannerMode(Banner.Mode.OFF);
 
-		Environment env = app.run(args).getEnvironment();
+		ConfigurableApplicationContext context = app.run(args);
+		Environment env = context.getEnvironment();
 		logApplicationServerAfterRunning(env);
 	}
 
