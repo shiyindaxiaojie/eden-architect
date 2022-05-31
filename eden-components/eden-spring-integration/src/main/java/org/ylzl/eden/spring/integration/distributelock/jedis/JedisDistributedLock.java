@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Jedis 分布式锁
  *
- * @author <a href="mailto:guoyuanlu@gmail.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Deprecated
