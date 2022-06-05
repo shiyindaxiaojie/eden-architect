@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.bpc.process.util;
+package org.ylzl.eden.spring.integration.bpc.factory;
 
 /**
  * TODO
@@ -6,7 +6,5 @@ package org.ylzl.eden.spring.integration.bpc.process.util;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ProcessUtils {
-
-
+public class ProcessContextFactory {
 }

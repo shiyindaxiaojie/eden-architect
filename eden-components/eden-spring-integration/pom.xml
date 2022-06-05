@@ -348,5 +348,12 @@
 			<artifactId>hessian</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Dom4J -->
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<optional>true</optional>
+		</dependency>
     </dependencies>
 </project>

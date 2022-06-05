@@ -19,9 +19,11 @@ package org.ylzl.eden.commons.collections;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Maps;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -68,10 +70,10 @@ public class ImmutableMapUtils {
 	}
 
 	public static <T, K, V> ImmutableMap<K, V> build(
-		@NonNull T[] objects, @NonNull Function<T, K> keyFn)
+		@NonNull T[] objects, java.util.function.Function<T, @Nullable K> keyFn)
 		throws NoSuchMethodException, InstantiationException, IllegalAccessException,
 		InvocationTargetException {
-		return build(objects, keyFn, DEFAULT_FUNCTION);
+		return build(objects, keyFn::apply, DEFAULT_FUNCTION);
 	}
 
 	public static <T, K, V> ImmutableMap<K, V> build(
@@ -92,7 +94,7 @@ public class ImmutableMapUtils {
 		@NonNull List<T> objects, @NonNull Function<T, K> keyFn, @NonNull Function<T, V> valueFn)
 		throws InvocationTargetException, NoSuchMethodException, InstantiationException,
 		IllegalAccessException {
-		ImmutableMap.Builder<K, V> builder = builderWithExpectedSize(objects.size());
+		Builder<K, V> builder = builderWithExpectedSize(objects.size());
 		for (T object : objects) {
 			K key = Objects.requireNonNull(keyFn.apply(object));
 			V value = Objects.requireNonNull(valueFn.apply(object));
@@ -101,11 +103,11 @@ public class ImmutableMapUtils {
 		return builder.build();
 	}
 
-	private static <K, V> ImmutableMap.Builder<K, V> builderWithExpectedSize(int size)
+	private static <K, V> Builder<K, V> builderWithExpectedSize(int size)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException {
-		Constructor<ImmutableMap.Builder> constructor =
-			ImmutableMap.Builder.class.getDeclaredConstructor(int.class);
+		Constructor<Builder> constructor =
+			Builder.class.getDeclaredConstructor(int.class);
 		constructor.setAccessible(true);
 		return constructor.newInstance(size);
 	}

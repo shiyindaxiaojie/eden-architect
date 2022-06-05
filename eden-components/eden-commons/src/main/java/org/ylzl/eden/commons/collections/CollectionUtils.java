@@ -19,8 +19,6 @@ package org.ylzl.eden.commons.collections;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Collection;
-
 /**
  * 集合工具集
  *
@@ -28,13 +26,6 @@ import java.util.Collection;
  * @since 2.4.x
  */
 @UtilityClass
-public class CollectionUtils {
+public class CollectionUtils extends org.apache.commons.collections4.CollectionUtils {
 
-	public static boolean isEmpty(final Collection<?> coll) {
-		return org.apache.commons.collections4.CollectionUtils.isEmpty(coll);
-	}
-
-	public static boolean isNotEmpty(final Collection<?> coll) {
-		return !isEmpty(coll);
-	}
 }

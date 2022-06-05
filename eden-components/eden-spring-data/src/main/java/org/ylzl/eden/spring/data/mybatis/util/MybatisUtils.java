@@ -152,7 +152,7 @@ public class MybatisUtils {
 	 */
 	private void checkSQLInjection(String str) {
 		if (!SqlSafeUtils.isSQLInjectionSafe(str)) {
-			throw new RuntimeException("检测到 SQL 注入：" + str);
+			throw new RuntimeException("Found sql injection: " + str);
 		}
 	}
 
