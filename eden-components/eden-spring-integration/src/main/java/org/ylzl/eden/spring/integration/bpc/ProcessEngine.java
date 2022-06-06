@@ -1,6 +1,7 @@
 package org.ylzl.eden.spring.integration.bpc;
 
-import org.ylzl.eden.spring.integration.bpc.node.ProcessContextFactory;
+import org.ylzl.eden.spring.integration.bpc.node.ProcessContext;
+import org.ylzl.eden.spring.integration.bpc.node.factory.ProcessContextFactory;
 
 /**
  * 流程引擎
@@ -15,5 +16,9 @@ public class ProcessEngine {
 
 	public ProcessEngine(ProcessContextFactory factory) {
 		this.factory = factory;
+	}
+
+	public ProcessContext getContext(String name) {
+		return factory.getContext(name);
 	}
 }
