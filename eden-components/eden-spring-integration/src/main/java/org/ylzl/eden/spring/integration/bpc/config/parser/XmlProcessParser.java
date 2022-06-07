@@ -2,10 +2,9 @@ package org.ylzl.eden.spring.integration.bpc.config.parser;
 
 import com.google.common.collect.Lists;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.ylzl.eden.spring.integration.bpc.config.model.ProcessModel;
-import org.ylzl.eden.spring.integration.bpc.config.model.ProcessNodeModel;
+import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
+import org.ylzl.eden.spring.integration.bpc.config.env.ProcessNodeConfig;
 
 import java.util.List;
 
@@ -32,34 +31,33 @@ public abstract class XmlProcessParser implements ProcessParser {
 	 * @throws Exception
 	 */
 	@Override
-	public List<ProcessModel> parse() throws Exception {
+	public List<ProcessConfig> parse() {
 		Document document = getDocument();
 		Element rootElement = document.getRootElement();
 		List<Element> processElements = rootElement.elements();
-		List<ProcessModel> processModels = Lists.newArrayList();
+		List<ProcessConfig> processConfigs = Lists.newArrayList();
 		for (Element process : processElements) {
-			ProcessModel model = new ProcessModel();
+			ProcessConfig model = new ProcessConfig();
 			model.setName(process.attributeValue(PROCESS_NAME));
 			List<Element> elements = process.elements();
 			for (Element node : elements) {
-				ProcessNodeModel processNodeModel = new ProcessNodeModel();
-				processNodeModel.setName(node.attributeValue(PROCESS_NODE_NAME));
-				processNodeModel.setClassName(node.attributeValue(PROCESS_NODE_CLASS));
+				ProcessNodeConfig processNodeConfig = new ProcessNodeConfig();
+				processNodeConfig.setName(node.attributeValue(PROCESS_NODE_NAME));
+				processNodeConfig.setClassName(node.attributeValue(PROCESS_NODE_CLASS));
 
 				String next = node.attributeValue(PROCESS_NODE_NEXT);
 				if (next != null) {
-					processNodeModel.setNextNode(next);
+					processNodeConfig.setNextNode(next);
 				}
 			}
 		}
-		return processModels;
+		return processConfigs;
 	}
 
 	/**
 	 * 获取 XML 文档对象
 	 *
 	 * @return
-	 * @throws DocumentException
 	 */
-	protected abstract Document getDocument() throws DocumentException;
+	protected abstract Document getDocument();
 }

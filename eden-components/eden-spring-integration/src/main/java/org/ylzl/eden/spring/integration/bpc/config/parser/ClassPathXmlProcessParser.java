@@ -24,12 +24,15 @@ public class ClassPathXmlProcessParser extends XmlProcessParser {
 	 * 获取 XML 文档对象
 	 *
 	 * @return
-	 * @throws DocumentException
 	 */
 	@Override
-	protected Document getDocument() throws DocumentException {
+	protected Document getDocument() {
 		InputStream resourceAsStream = getClass().getResourceAsStream(file);
 		SAXReader saxReader = new SAXReader();
-		return saxReader.read(resourceAsStream);
+		try {
+			return saxReader.read(resourceAsStream);
+		} catch (DocumentException e) {
+			throw new ProcessParseException("ClassPathXmlProcessParser parse '" + file + "' error");
+		}
 	}
 }

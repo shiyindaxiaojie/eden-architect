@@ -22,12 +22,15 @@ public class StringXmlProcessParser extends XmlProcessParser {
 	 * 获取 XML 文档对象
 	 *
 	 * @return
-	 * @throws DocumentException
 	 */
 	@Override
-	protected Document getDocument() throws DocumentException {
+	protected Document getDocument() {
 		SAXReader saxReader = new SAXReader();
 		StringReader reader = new StringReader(xmlConfig);
-		return saxReader.read(reader);
+		try {
+			return saxReader.read(reader);
+		} catch (DocumentException e) {
+			throw new ProcessParseException("StringXmlProcessParser parse '" + xmlConfig + "' error");
+		}
 	}
 }

@@ -4,7 +4,7 @@
 		   xmlns="http://www.w3school.com.cn"
 		   elementFormDefault="qualified">
 
-	<xs:element name="process-context">
+	<xs:element name="context">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:choice minOccurs="0" maxOccurs="unbounded">

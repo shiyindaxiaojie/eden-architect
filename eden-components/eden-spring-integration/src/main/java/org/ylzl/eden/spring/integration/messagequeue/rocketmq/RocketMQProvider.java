@@ -71,6 +71,7 @@ public class RocketMQProvider implements MessageQueueProvider {
 		} else if (StringUtils.isNotBlank(fixedRocketMQProducerProperties.getNamespace())) {
 			producer.setNamespace(fixedRocketMQProducerProperties.getNamespace());
 		}
+
 		try {
 			producer.send(transfer(message), new SendCallback() {
 

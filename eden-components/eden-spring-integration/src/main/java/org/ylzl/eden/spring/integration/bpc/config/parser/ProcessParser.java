@@ -1,6 +1,6 @@
 package org.ylzl.eden.spring.integration.bpc.config.parser;
 
-import org.ylzl.eden.spring.integration.bpc.config.model.ProcessModel;
+import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface ProcessParser {
 	 * @return
 	 * @throws Exception
 	 */
-	List<ProcessModel> parse() throws Exception;
+	List<ProcessConfig> parse();
 }
