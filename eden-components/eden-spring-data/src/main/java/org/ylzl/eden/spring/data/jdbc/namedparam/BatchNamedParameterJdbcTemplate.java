@@ -212,12 +212,12 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 
 	private <T> String getTableName(Class<T> clazz) {
 		if (!clazz.isAnnotationPresent(Table.class)) {
-			throw new RuntimeException("java.persistence.Table 注解未找到");
+			throw new RuntimeException("java.persistence.@Table not found");
 		}
 
 		Table table = clazz.getAnnotation(Table.class);
 		if (ObjectUtils.isNull(table)) {
-			throw new RuntimeException("java.persistence.Table 注解为空");
+			throw new RuntimeException("java.persistence.@Table's value must be given");
 		}
 		return table.name();
 	}

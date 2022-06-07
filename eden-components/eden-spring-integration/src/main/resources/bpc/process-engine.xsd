@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   targetNamespace="http://www.w3school.com.cn"
+		   xmlns="http://www.w3school.com.cn"
+		   elementFormDefault="qualified">
+
+	<xs:element name="context">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="process"/>
+					<xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="process">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="node"/>
+					<xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="node">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="class" type="xs:string" use="required"/>
+			<xs:attribute name="begin" type="xs:boolean" default="false"/>
+			<xs:attribute name="next" type="xs:string"/>
+			<xs:attribute name="async" type="xs:boolean" default="false"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
