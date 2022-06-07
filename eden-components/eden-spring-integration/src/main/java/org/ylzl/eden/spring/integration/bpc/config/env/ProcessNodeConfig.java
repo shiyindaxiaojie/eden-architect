@@ -1,10 +1,10 @@
-package org.ylzl.eden.spring.integration.bpc.config.model;
+package org.ylzl.eden.spring.integration.bpc.config.env;
 
 import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 流程节点模型
+ * 流程节点配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 @ToString
 @Data
-public class ProcessNodeModel {
+public class ProcessNodeConfig {
 
 	private String name;
 
@@ -26,5 +26,5 @@ public class ProcessNodeModel {
 
 	private boolean begin = false;
 
-	private boolean asyncInvokeNextNode = false;
+	private boolean syncInvokeNextNode = true;
 }

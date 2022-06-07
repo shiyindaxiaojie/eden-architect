@@ -1,7 +1,7 @@
 package org.ylzl.eden.spring.integration.bpc;
 
-import org.ylzl.eden.spring.integration.bpc.node.ProcessContext;
-import org.ylzl.eden.spring.integration.bpc.node.factory.ProcessContextFactory;
+import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
+import org.ylzl.eden.spring.integration.bpc.process.factory.ProcessContextFactory;
 
 /**
  * 流程引擎
