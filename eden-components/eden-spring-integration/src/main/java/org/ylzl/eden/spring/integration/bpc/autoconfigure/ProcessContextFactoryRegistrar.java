@@ -1,12 +1,12 @@
-package org.ylzl.eden.spring.integration.bpc.config.annotation;
+package org.ylzl.eden.spring.integration.bpc.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.spring.integration.bpc.config.autoconfigure.ProcessFactoryAutoConfiguration;
 import org.ylzl.eden.spring.integration.bpc.config.parser.ClassPathXmlProcessParser;
 import org.ylzl.eden.spring.integration.bpc.process.factory.ProcessContextFactory;
 
@@ -23,7 +23,7 @@ public class ProcessContextFactoryRegistrar implements ImportBeanDefinitionRegis
 
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
-										BeanDefinitionRegistry beanDefinitionRegistry) {
+										@NotNull BeanDefinitionRegistry beanDefinitionRegistry) {
 		String classPathXml = (String) Objects.requireNonNull(annotationMetadata.getAnnotationAttributes(
 			EnableBusinessProcessEngine.class.getName())).get("value");
 		ClassPathXmlProcessParser parser = new ClassPathXmlProcessParser(classPathXml);

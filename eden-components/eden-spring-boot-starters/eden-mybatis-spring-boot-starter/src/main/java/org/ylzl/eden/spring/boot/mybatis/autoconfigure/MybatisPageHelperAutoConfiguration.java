@@ -34,7 +34,7 @@ import java.util.Properties;
  * Mybatis 分页插件自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties({MybatisProperties.class})

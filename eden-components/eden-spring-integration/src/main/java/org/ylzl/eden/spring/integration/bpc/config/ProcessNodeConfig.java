@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.bpc.config.env;
+package org.ylzl.eden.spring.integration.bpc.config;
 
 import lombok.*;
 import lombok.experimental.Accessors;

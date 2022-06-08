@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.security.core.token.TokenStore;
  * Jwt 基于内存自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @ConditionalOnExpression(JwtAutoConfiguration.SECURITY_JWT_ENABLED)
 @EnableConfigurationProperties(JwtProperties.class)

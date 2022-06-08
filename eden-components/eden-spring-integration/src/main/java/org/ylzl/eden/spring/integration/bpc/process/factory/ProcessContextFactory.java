@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
+import org.ylzl.eden.spring.integration.bpc.config.ProcessConfig;
 import org.ylzl.eden.spring.integration.bpc.config.parser.ProcessParser;
 import org.ylzl.eden.spring.integration.bpc.executor.factory.ProcessorFactory;
 import org.ylzl.eden.spring.integration.bpc.executor.factory.ReflectProcessorFactory;
@@ -18,8 +18,8 @@ import java.util.Map;
 /**
  * 流程上下文工厂
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
  */
 @Slf4j
 public class ProcessContextFactory {
@@ -37,18 +37,17 @@ public class ProcessContextFactory {
 	private ProcessParser processParser;
 
 	public ProcessContextFactory(ProcessParser processParser) {
-		this.processorFactory = DEFAULT_PROCESSOR_FACTORY;
-		this.asyncTaskExecutor = DEFAULT_ASYNC_TASK_EXECUTOR;
-		this.processParser = processParser;
+		this(DEFAULT_PROCESSOR_FACTORY, DEFAULT_ASYNC_TASK_EXECUTOR, processParser);
 	}
 
 	public ProcessContextFactory(ProcessorFactory processorFactory, AsyncTaskExecutor asyncTaskExecutor, ProcessParser processParser) {
 		this.processorFactory = processorFactory;
 		this.asyncTaskExecutor = asyncTaskExecutor;
 		this.processParser = processParser;
+		init();
 	}
 
-	public void init() throws Exception {
+	public void init() {
 		List<ProcessConfig> processConfigs = processParser.parse();
 		for (ProcessConfig processConfig : processConfigs) {
 			processConfig.check();

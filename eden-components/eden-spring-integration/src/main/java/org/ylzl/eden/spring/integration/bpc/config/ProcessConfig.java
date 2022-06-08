@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.bpc.config.env;
+package org.ylzl.eden.spring.integration.bpc.config;
 
 import com.google.common.collect.Maps;
 import lombok.*;
@@ -65,13 +65,12 @@ public class ProcessConfig {
 				}
 			}
 
-			if (processNodeConfig.isBegin() && startNodeCount++ > 1) {
-				break;
+			if (processNodeConfig.isBegin()) {
+				startNodeCount++;
+				if (startNodeCount > 1) {
+					throw new ProcessConfigException("Invalid process node due to more than one start-node");
+				}
 			}
-		}
-
-		if (startNodeCount != 1) {
-			throw new ProcessConfigException("Invalid process node due to more than one start-node");
 		}
 	}
 
@@ -82,14 +81,19 @@ public class ProcessConfig {
 	 * @return
 	 * @throws Exception
 	 */
-	public ProcessDefinition build(ProcessorFactory factory) throws Exception {
+	public ProcessDefinition build(ProcessorFactory factory) {
 		Map<String, ProcessNode> processNodeMap = new HashMap<>();
 		ProcessDefinition processDefinition = new ProcessDefinition();
 		processDefinition.setName(name);
 
 		for (ProcessNodeConfig processNodeConfig : nodes.values()) {
 			String className = processNodeConfig.getClassName();
-			Processor processor = factory.newInstance(className, processNodeConfig.getName());
+			Processor processor;
+			try {
+				processor = factory.newInstance(className, processNodeConfig.getName());
+			} catch (Exception e) {
+				throw new ProcessConfigException(e.getMessage());
+			}
 			ProcessNode processNode = new ProcessNode();
 			processNode.setProcessor(processor);
 			processNode.setName(processNodeConfig.getName());
