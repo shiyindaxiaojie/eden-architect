@@ -23,7 +23,7 @@ import java.util.Map;
 @Slf4j
 public class ProcessContext {
 
-	private final Map<String, Object> params = Maps.newHashMapWithExpectedSize(16);
+	private final Map<String, Object> variables = Maps.newHashMapWithExpectedSize(16);
 
 	private final Deque<RollbackProcessor> rollbackProcessors = Queues.newArrayDeque();
 
@@ -32,12 +32,12 @@ public class ProcessContext {
 	private final AsyncTaskExecutor asyncTaskExecutor;
 
 	public void set(String key, Object value) {
-		params.put(key, value);
+		variables.put(key, value);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T get(String key) {
-		return (T) params.get(key);
+		return (T) variables.get(key);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class ProcessContext {
 			processor.execute(this);
 		} catch (Exception e) {
 			log.error("Execute process node '{}' failed, context: {}, caught exception: {}",
-				nodeName, params.values(), e.getMessage(), e);
+				nodeName, variables.values(), e.getMessage(), e);
 
 			RollbackProcessor rollbackProcessor;
 			while (!rollbackProcessors.isEmpty()) {

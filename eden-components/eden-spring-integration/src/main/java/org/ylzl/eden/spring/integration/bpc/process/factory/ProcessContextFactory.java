@@ -1,12 +1,13 @@
 package org.ylzl.eden.spring.integration.bpc.process.factory;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
+import org.ylzl.eden.spring.integration.bpc.config.parser.ProcessParser;
 import org.ylzl.eden.spring.integration.bpc.executor.factory.ProcessorFactory;
+import org.ylzl.eden.spring.integration.bpc.executor.factory.ReflectProcessorFactory;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessDefinition;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessDefinitionException;
@@ -20,9 +21,12 @@ import java.util.Map;
  * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
  * @since 1.0.0
  */
-@AllArgsConstructor
 @Slf4j
 public class ProcessContextFactory {
+
+	private static final ProcessorFactory DEFAULT_PROCESSOR_FACTORY = new ReflectProcessorFactory();
+
+	private static final AsyncTaskExecutor DEFAULT_ASYNC_TASK_EXECUTOR = new SimpleAsyncTaskExecutor();
 
 	private final Map<String, ProcessDefinition> processDefinitionMap = Maps.newConcurrentMap();
 
@@ -30,9 +34,22 @@ public class ProcessContextFactory {
 
 	private final AsyncTaskExecutor asyncTaskExecutor;
 
-	private List<ProcessConfig> processConfigs = Lists.newCopyOnWriteArrayList();
+	private ProcessParser processParser;
+
+	public ProcessContextFactory(ProcessParser processParser) {
+		this.processorFactory = DEFAULT_PROCESSOR_FACTORY;
+		this.asyncTaskExecutor = DEFAULT_ASYNC_TASK_EXECUTOR;
+		this.processParser = processParser;
+	}
+
+	public ProcessContextFactory(ProcessorFactory processorFactory, AsyncTaskExecutor asyncTaskExecutor, ProcessParser processParser) {
+		this.processorFactory = processorFactory;
+		this.asyncTaskExecutor = asyncTaskExecutor;
+		this.processParser = processParser;
+	}
 
 	public void init() throws Exception {
+		List<ProcessConfig> processConfigs = processParser.parse();
 		for (ProcessConfig processConfig : processConfigs) {
 			processConfig.check();
 			ProcessDefinition processDefinition = processConfig.build(processorFactory);
@@ -40,10 +57,11 @@ public class ProcessContextFactory {
 		}
 	}
 
-	public void refresh(List<ProcessConfig> processConfigs) throws Exception {
-		this.processConfigs.clear();
-		this.processConfigs.addAll(processConfigs);
-		init();
+	public void refresh(ProcessParser processParser) throws Exception {
+		synchronized (this) {
+			this.processParser = processParser;
+			init();
+		}
 	}
 
 	public ProcessContext getContext(String name) {

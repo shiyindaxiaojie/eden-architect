@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.integration.bpc;
 
+import org.ylzl.eden.spring.integration.bpc.config.parser.ProcessParser;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 import org.ylzl.eden.spring.integration.bpc.process.factory.ProcessContextFactory;
 
@@ -11,14 +12,13 @@ import org.ylzl.eden.spring.integration.bpc.process.factory.ProcessContextFactor
  */
 public class ProcessEngine {
 
-	private final ProcessContextFactory factory;
+	private final ProcessContextFactory processContextFactory;
 
-
-	public ProcessEngine(ProcessContextFactory factory) {
-		this.factory = factory;
+	public ProcessEngine(ProcessParser processParser) {
+		this.processContextFactory = new ProcessContextFactory(processParser);;
 	}
 
 	public ProcessContext getContext(String name) {
-		return factory.getContext(name);
+		return processContextFactory.getContext(name);
 	}
 }

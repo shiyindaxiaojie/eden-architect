@@ -18,5 +18,5 @@ public interface ProcessParser {
 	 * @return
 	 * @throws Exception
 	 */
-	List<ProcessConfig> parse() throws Exception;
+	List<ProcessConfig> parse();
 }

@@ -2,7 +2,6 @@ package org.ylzl.eden.spring.integration.bpc.config.parser;
 
 import com.google.common.collect.Lists;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
 import org.ylzl.eden.spring.integration.bpc.config.env.ProcessNodeConfig;
@@ -32,7 +31,7 @@ public abstract class XmlProcessParser implements ProcessParser {
 	 * @throws Exception
 	 */
 	@Override
-	public List<ProcessConfig> parse() throws Exception {
+	public List<ProcessConfig> parse() {
 		Document document = getDocument();
 		Element rootElement = document.getRootElement();
 		List<Element> processElements = rootElement.elements();
@@ -59,7 +58,6 @@ public abstract class XmlProcessParser implements ProcessParser {
 	 * 获取 XML 文档对象
 	 *
 	 * @return
-	 * @throws DocumentException
 	 */
-	protected abstract Document getDocument() throws DocumentException;
+	protected abstract Document getDocument();
 }
