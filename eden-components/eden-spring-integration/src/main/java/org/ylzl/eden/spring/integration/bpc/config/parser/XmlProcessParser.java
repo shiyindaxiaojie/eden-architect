@@ -24,6 +24,10 @@ public abstract class XmlProcessParser implements ProcessParser {
 
 	public static final String PROCESS_NODE_NEXT = "next";
 
+	public static final String PROCESS_NODE_BEGIN = "begin";
+
+	public static final String PROCESS_NODE_ASYNC = "async";
+
 	/**
 	 * 解析流程模型
 	 *
@@ -37,8 +41,8 @@ public abstract class XmlProcessParser implements ProcessParser {
 		List<Element> processElements = rootElement.elements();
 		List<ProcessConfig> processConfigs = Lists.newArrayList();
 		for (Element process : processElements) {
-			ProcessConfig model = new ProcessConfig();
-			model.setName(process.attributeValue(PROCESS_NAME));
+			ProcessConfig processConfig = new ProcessConfig();
+			processConfig.setName(process.attributeValue(PROCESS_NAME));
 			List<Element> elements = process.elements();
 			for (Element node : elements) {
 				ProcessNodeConfig processNodeConfig = new ProcessNodeConfig();
@@ -49,7 +53,16 @@ public abstract class XmlProcessParser implements ProcessParser {
 				if (next != null) {
 					processNodeConfig.setNextNode(next);
 				}
+
+				String begin = node.attributeValue(PROCESS_NODE_BEGIN);
+				processNodeConfig.setBegin(Boolean.parseBoolean(begin));
+
+				String async = node.attributeValue(PROCESS_NODE_ASYNC);
+				processNodeConfig.setSyncInvokeNextNode(Boolean.parseBoolean(async));
+
+				processConfig.addNode(processNodeConfig);
 			}
+			processConfigs.add(processConfig);
 		}
 		return processConfigs;
 	}

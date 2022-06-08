@@ -37,18 +37,17 @@ public class ProcessContextFactory {
 	private ProcessParser processParser;
 
 	public ProcessContextFactory(ProcessParser processParser) {
-		this.processorFactory = DEFAULT_PROCESSOR_FACTORY;
-		this.asyncTaskExecutor = DEFAULT_ASYNC_TASK_EXECUTOR;
-		this.processParser = processParser;
+		this(DEFAULT_PROCESSOR_FACTORY, DEFAULT_ASYNC_TASK_EXECUTOR, processParser);
 	}
 
 	public ProcessContextFactory(ProcessorFactory processorFactory, AsyncTaskExecutor asyncTaskExecutor, ProcessParser processParser) {
 		this.processorFactory = processorFactory;
 		this.asyncTaskExecutor = asyncTaskExecutor;
 		this.processParser = processParser;
+		init();
 	}
 
-	public void init() throws Exception {
+	public void init() {
 		List<ProcessConfig> processConfigs = processParser.parse();
 		for (ProcessConfig processConfig : processConfigs) {
 			processConfig.check();

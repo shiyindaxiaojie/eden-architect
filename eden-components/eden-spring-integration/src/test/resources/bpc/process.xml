@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context xmlns="http://www.w3school.com.cn"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://www.w3school.com.cn business-process.xsd">
+
+	<process name="test">
+		<node name="node1" class="org.ylzl.eden.spring.integration.bpc.StandardProcessorTest" next="node2" begin="true" />
+		<node name="node2" class="org.ylzl.eden.spring.integration.bpc.RollbackProcessorTest" next="node3"/>
+		<node name="node3" class="org.ylzl.eden.spring.integration.bpc.DynamicProcessorTest" next="node4,node5"/>
+		<node name="node4" class="org.ylzl.eden.spring.integration.bpc.StandardProcessorTest"/>
+		<node name="node5" class="org.ylzl.eden.spring.integration.bpc.RollbackProcessorTest"/>
+	</process>
+
+</context>
