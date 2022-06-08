@@ -1,7 +1,6 @@
-package org.ylzl.eden.spring.integration.bpc.config.annotation;
+package org.ylzl.eden.spring.integration.bpc.autoconfigure;
 
 import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.integration.bpc.config.autoconfigure.ProcessFactoryAutoConfiguration;
 
 import java.lang.annotation.*;
 
@@ -14,7 +13,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ProcessFactoryAutoConfiguration.class, ProcessFactoryAutoConfiguration.class})
+@Import({ProcessFactoryAutoConfiguration.class, ProcessContextFactoryRegistrar.class})
 public @interface EnableBusinessProcessEngine {
 
 	/**

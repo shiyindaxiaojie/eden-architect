@@ -13,7 +13,7 @@ import java.io.IOException;
  * 无访问权限处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Slf4j
 public class ForbiddenAccessDeniedHandler implements AccessDeniedHandler {

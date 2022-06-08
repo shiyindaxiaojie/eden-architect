@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
-import org.ylzl.eden.spring.integration.bpc.config.env.ProcessNodeConfig;
+import org.ylzl.eden.spring.integration.bpc.config.ProcessNodeConfig;
 
 import java.util.List;
 

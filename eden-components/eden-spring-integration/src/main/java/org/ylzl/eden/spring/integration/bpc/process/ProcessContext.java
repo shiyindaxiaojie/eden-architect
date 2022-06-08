@@ -16,8 +16,8 @@ import java.util.Map;
 /**
  * 流程上下文
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

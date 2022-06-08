@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.bpc.config.autoconfigure;
+package org.ylzl.eden.spring.integration.bpc.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
