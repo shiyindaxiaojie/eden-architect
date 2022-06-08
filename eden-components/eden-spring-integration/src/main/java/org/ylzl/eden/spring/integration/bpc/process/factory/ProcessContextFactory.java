@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
+import org.ylzl.eden.spring.integration.bpc.config.ProcessConfig;
 import org.ylzl.eden.spring.integration.bpc.config.parser.ProcessParser;
 import org.ylzl.eden.spring.integration.bpc.executor.factory.ProcessorFactory;
 import org.ylzl.eden.spring.integration.bpc.executor.factory.ReflectProcessorFactory;

@@ -1,6 +1,6 @@
 package org.ylzl.eden.spring.integration.bpc.config.parser;
 
-import org.ylzl.eden.spring.integration.bpc.config.env.ProcessConfig;
+import org.ylzl.eden.spring.integration.bpc.config.ProcessConfig;
 
 import java.util.List;
 
