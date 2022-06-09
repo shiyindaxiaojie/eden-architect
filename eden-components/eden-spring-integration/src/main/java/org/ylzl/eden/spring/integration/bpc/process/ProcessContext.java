@@ -45,7 +45,7 @@ public class ProcessContext {
 	 */
 	public void start() {
 		ProcessNode firstProcessNode = processDefinition.getFirstProcessNode();
-		String nodeName = firstProcessNode.getName() ;
+		String nodeName = firstProcessNode.getName();
 		log.debug("Started process node '{}}'", nodeName);
 		process(firstProcessNode);
 		log.debug("Finished process node '{}'", nodeName);

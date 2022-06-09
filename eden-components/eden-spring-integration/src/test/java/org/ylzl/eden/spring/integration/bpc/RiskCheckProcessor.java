@@ -6,14 +6,14 @@ import org.ylzl.eden.spring.integration.bpc.executor.StandardProcessor;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 
 /**
- * 标准流程测试
+ * 风控检查
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
 @Component
-public class StandardProcessorTest extends StandardProcessor {
+public class RiskCheckProcessor extends StandardProcessor {
 
 	/**
 	 * 执行流程
@@ -22,6 +22,7 @@ public class StandardProcessorTest extends StandardProcessor {
 	 */
 	@Override
 	protected void process(ProcessContext context) {
-		System.out.println("StandardProcessor execute, id: " + context.get("id"));
+		Long orderNo = context.get("orderNo");
+		log.info("风控检查, orderNo: {}", orderNo);
 	}
 }

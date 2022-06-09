@@ -6,14 +6,14 @@ import org.ylzl.eden.spring.integration.bpc.executor.RollbackProcessor;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 
 /**
- * 回滚流程测试
+ * 保存订单
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
 @Component
-public class RollbackProcessorTest extends RollbackProcessor {
+public class SaveOrderProcessor extends RollbackProcessor {
 
 	/**
 	 * 执行流程
@@ -22,7 +22,9 @@ public class RollbackProcessorTest extends RollbackProcessor {
 	 */
 	@Override
 	protected void process(ProcessContext context) {
-		System.out.println("RollbackProcessor execute, id: " + context.get("id"));
+		Long orderNo = context.get("orderNo");
+		log.info("保存订单, orderNo: {}", orderNo);
+		context.get("orderNo1").toString(); // 故意报错
 	}
 
 	/**
@@ -32,6 +34,7 @@ public class RollbackProcessorTest extends RollbackProcessor {
 	 */
 	@Override
 	public void rollback(ProcessContext context) {
-		System.out.println("RollBackProcessor Rollback, id: " + context.get("id"));
+		Long orderNo = context.get("orderNo");
+		log.info("保存订单失败，回滚订单数据, orderNo: {}", orderNo);
 	}
 }

@@ -26,5 +26,5 @@ public class ProcessNodeConfig {
 
 	private boolean begin = false;
 
-	private boolean syncInvokeNextNode = true;
+	private boolean isSyncInvokeNextNode = true;
 }

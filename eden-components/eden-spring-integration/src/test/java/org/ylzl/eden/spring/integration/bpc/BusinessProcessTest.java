@@ -1,6 +1,7 @@
 package org.ylzl.eden.spring.integration.bpc;
 
 import org.junit.Test;
+import org.ylzl.eden.commons.id.SnowflakeGenerator;
 import org.ylzl.eden.spring.integration.bpc.config.parser.ClassPathXmlProcessParser;
 import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 
@@ -15,8 +16,9 @@ public class BusinessProcessTest {
 	@Test
 	public void assertThat() {
 		ProcessEngine processEngine = new ProcessEngine(new ClassPathXmlProcessParser("/bpc/process.xml"));
-		ProcessContext processContext = processEngine.getContext("test");
-		processContext.set("nextId", "node4");
+		ProcessContext processContext = processEngine.getContext("order");
+		processContext.set("orderNo", SnowflakeGenerator.builder().dataCenterId(1L).workerId(1L).build().nextId());
+		processContext.set("stock", 1000);
 		processContext.start();
 	}
 }
