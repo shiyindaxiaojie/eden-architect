@@ -37,14 +37,14 @@ public class ProcessNode {
 	private Processor processor;
 
 	/**
+	 * 是否异步调用
+	 */
+	private boolean async = false;
+
+	/**
 	 * 下一个流程节点集合
 	 */
 	private Map<String, ProcessNode> nextNodes = Maps.newHashMapWithExpectedSize(16);
-
-	/**
-	 * 是否同步调用下一个流程节点
-	 */
-	private boolean isSyncInvokeNextNode = true;
 
 	/**
 	 * 下一个同步的流程节点只能出现一次
@@ -65,13 +65,13 @@ public class ProcessNode {
 			throw new ProcessNodeException("Node '" + name + "' is already exists with next nodes");
 		}
 
-		boolean isSync = processNode.isSyncInvokeNextNode();
+		boolean isAsync = processNode.isAsync();
 		boolean isDynamic = processor instanceof DynamicProcessor;
-		if (hasSyncNextNode && !isDynamic && isSync) {
+		if (hasSyncNextNode && !isDynamic && !isAsync) {
 			throw new ProcessNodeException("Node '" + name + "' has synchronously called successor");
 		}
 
-		if (isSync) {
+		if (!isAsync) {
 			hasSyncNextNode = true;
 		}
 		nextNodes.put(processNode.getName(), processNode);

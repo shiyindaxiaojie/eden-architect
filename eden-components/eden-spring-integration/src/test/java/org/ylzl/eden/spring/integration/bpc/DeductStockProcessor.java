@@ -25,6 +25,7 @@ public class DeductStockProcessor extends RollbackProcessor {
 		Long orderNo = context.get("orderNo");
 		Integer stock = context.get("stock");
 		stock--;
+		context.set("stock", stock);
 		log.info("锁定库存, orderNo: {}, stock: {}", orderNo, stock);
 	}
 
@@ -38,6 +39,7 @@ public class DeductStockProcessor extends RollbackProcessor {
 		Long orderNo = context.get("orderNo");
 		Integer stock = context.get("stock");
 		stock++;
+		context.set("stock", stock);
 		log.info("释放库存, orderNo: {}, stock: {}", orderNo, stock);
 	}
 }

@@ -14,11 +14,13 @@ import org.ylzl.eden.spring.integration.bpc.process.ProcessContext;
 public class BusinessProcessTest {
 
 	@Test
-	public void assertThat() {
+	public void assertThatClassPathXml() throws InterruptedException {
 		ProcessEngine processEngine = new ProcessEngine(new ClassPathXmlProcessParser("/bpc/process.xml"));
 		ProcessContext processContext = processEngine.getContext("order");
 		processContext.set("orderNo", SnowflakeGenerator.builder().dataCenterId(1L).workerId(1L).build().nextId());
 		processContext.set("stock", 1000);
 		processContext.start();
+		Integer stock = processContext.get("stock");
+		System.out.println(stock);
 	}
 }

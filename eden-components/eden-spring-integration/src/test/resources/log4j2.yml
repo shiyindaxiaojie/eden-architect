@@ -16,13 +16,13 @@ Configuration:
 
   Loggers:
     Root:
-      level: INFO
+      level: DEBUG
       includeLocation: true
       AppenderRef:
         - ref: CONSOLE
     Logger:
       - name: org.ylzl
-        level: INFO
+        level: DEBUG
       - name: com.ibatis
         level: INFO
       - name: com.alibaba

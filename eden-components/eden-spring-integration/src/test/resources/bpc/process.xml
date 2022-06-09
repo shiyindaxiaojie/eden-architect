@@ -4,13 +4,16 @@
 				 xsi:schemaLocation="http://www.w3school.com.cn business-process.xsd">
 
 	<process name="order">
-		<node name="createOrder" class="org.ylzl.eden.spring.integration.bpc.CreateOrderProcessor" next="riskCheck"
+		<node name="createOrder" class="org.ylzl.eden.spring.integration.bpc.CreateOrderProcessor"
+			  next="riskCheck"
 			  begin="true"/>
 		<node name="riskCheck" class="org.ylzl.eden.spring.integration.bpc.RiskCheckProcessor"
-			  next="lockCoupon"/>
-		<node name="lockCoupon" class="org.ylzl.eden.spring.integration.bpc.LockCouponProcessor" next="deductStock" async="true"/>
-		<node name="deductStock" class="org.ylzl.eden.spring.integration.bpc.DeductStockProcessor" next="saveOrder" async="true"/>
-		<node name="saveOrder" class="org.ylzl.eden.spring.integration.bpc.SaveOrderProcessor"/>
+			  next="lockCoupon,deductStock"/>
+		<node name="lockCoupon" class="org.ylzl.eden.spring.integration.bpc.LockCouponProcessor"
+			  async="true"/>
+		<node name="deductStock" class="org.ylzl.eden.spring.integration.bpc.DeductStockProcessor"
+			  next="saveOrder" />
+		<node name="saveOrder" class="org.ylzl.eden.spring.integration.bpc.SaveOrderProcessor" />
 	</process>
 
 </context>

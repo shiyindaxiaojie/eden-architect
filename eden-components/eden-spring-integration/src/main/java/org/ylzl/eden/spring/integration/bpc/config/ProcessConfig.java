@@ -68,7 +68,7 @@ public class ProcessConfig {
 			if (processNodeConfig.isBegin()) {
 				startNodeCount++;
 				if (startNodeCount > 1) {
-					throw new ProcessConfigException("Invalid process node due to more than one start-node");
+					throw new ProcessConfigException("Invalid process node due to more than one begin node");
 				}
 			}
 		}
@@ -86,22 +86,22 @@ public class ProcessConfig {
 		ProcessDefinition processDefinition = new ProcessDefinition();
 		processDefinition.setName(name);
 
-		for (ProcessNodeConfig processNodeConfig : nodes.values()) {
-			String className = processNodeConfig.getClassName();
+		for (ProcessNodeConfig config : nodes.values()) {
+			String className = config.getClassName();
 			Processor processor;
 			try {
-				processor = factory.newInstance(className, processNodeConfig.getName());
+				processor = factory.newInstance(className, config.getName());
 			} catch (Exception e) {
 				throw new ProcessConfigException(e.getMessage());
 			}
 			ProcessNode processNode = new ProcessNode();
 			processNode.setProcessor(processor);
-			processNode.setName(processNodeConfig.getName());
-			if (processNodeConfig.isBegin()) {
+			processNode.setName(config.getName());
+			if (config.isBegin()) {
 				processDefinition.setFirst(processNode);
 			}
-			processNode.setSyncInvokeNextNode(processNodeConfig.isSyncInvokeNextNode());
-			processNodeMap.put(processNodeConfig.getName(), processNode);
+			processNode.setAsync(config.isAsync());
+			processNodeMap.put(config.getName(), processNode);
 		}
 
 		for (ProcessNode processNode : processNodeMap.values()) {

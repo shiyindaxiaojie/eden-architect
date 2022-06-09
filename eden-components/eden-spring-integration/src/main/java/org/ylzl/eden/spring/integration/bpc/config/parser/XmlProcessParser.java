@@ -58,7 +58,7 @@ public abstract class XmlProcessParser implements ProcessParser {
 				processNodeConfig.setBegin(Boolean.parseBoolean(begin));
 
 				String async = node.attributeValue(PROCESS_NODE_ASYNC);
-				processNodeConfig.setSyncInvokeNextNode(!Boolean.parseBoolean(async));
+				processNodeConfig.setAsync(Boolean.parseBoolean(async));
 
 				processConfig.addNode(processNodeConfig);
 			}
