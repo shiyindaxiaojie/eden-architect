@@ -14,13 +14,13 @@ public class SpringBeanProcessorFactory implements ProcessorFactory {
 	/**
 	 * 实例化
 	 *
-	 * @param className 类名
-	 * @param name      名称
+	 * @param className   类名
+	 * @param processName 名称
 	 * @return
 	 * @throws Exception
 	 */
 	@Override
-	public Processor newInstance(String className, String name) throws Exception {
+	public Processor newInstance(String className, String processName) throws Exception {
 		Class<?> clazz = Class.forName(className);
 		Object bean = ApplicationContextHelper.getBean(clazz);
 		if (!(bean instanceof Processor)) {
@@ -28,7 +28,7 @@ public class SpringBeanProcessorFactory implements ProcessorFactory {
 		}
 
 		Processor processor = (Processor) bean;
-		processor.setName(name);
-		return (Processor) bean;
+		processor.setName(processName);
+		return processor;
 	}
 }

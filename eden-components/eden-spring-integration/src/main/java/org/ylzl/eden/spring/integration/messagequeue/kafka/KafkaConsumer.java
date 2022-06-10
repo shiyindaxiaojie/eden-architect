@@ -97,7 +97,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 	}
 
 	@Override
-	public void destroy() throws Exception {
+	public void destroy() {
 		log.debug(DESTROY_KAFKA_CONSUMER);
 		consumers.forEach(Consumer::unsubscribe);
 	}

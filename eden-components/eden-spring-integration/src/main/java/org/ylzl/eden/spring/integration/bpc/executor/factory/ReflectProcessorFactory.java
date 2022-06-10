@@ -13,13 +13,13 @@ public class ReflectProcessorFactory implements ProcessorFactory {
 	/**
 	 * 实例化
 	 *
-	 * @param className 类名
-	 * @param name      名称
+	 * @param className    类名
+	 * @param processName  名称
 	 * @return
 	 * @throws Exception
 	 */
 	@Override
-	public Processor newInstance(String className, String name) throws Exception {
+	public Processor newInstance(String className, String processName) throws Exception {
 		Class<?> clazz = Class.forName(className);
 		Object obj = clazz.newInstance();
 		if (!(obj instanceof Processor)) {
@@ -27,7 +27,7 @@ public class ReflectProcessorFactory implements ProcessorFactory {
 		}
 
 		Processor processor = (Processor) obj;
-		processor.setName(name);
-		return (Processor) obj;
+		processor.setName(processName);
+		return processor;
 	}
 }
