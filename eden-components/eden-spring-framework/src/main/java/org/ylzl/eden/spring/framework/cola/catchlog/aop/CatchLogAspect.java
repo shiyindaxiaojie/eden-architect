@@ -43,8 +43,6 @@ import java.util.Arrays;
 @Aspect
 public class CatchLogAspect {
 
-	public static final String UNKNOWN_ERROR = "UNKNOWN_ERROR";
-
 	public static final String UNKNOWN_CAUSE = "UNKNOWN_CAUSE";
 
 	public static final String UNKNOWN_EXCEPTION = "UnknownException";
@@ -92,7 +90,7 @@ public class CatchLogAspect {
 			baseException = (BaseException) e;
 		} else {
 			errorTag = UNKNOWN_EXCEPTION;
-			baseException = new BaseException(UNKNOWN_ERROR, e.getMessage());
+			baseException = new BaseException("B0001", e.getMessage());
 		}
 
 		String cause = e.getCause() != null ? e.getCause().toString() : UNKNOWN_CAUSE;

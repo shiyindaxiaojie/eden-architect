@@ -17,25 +17,50 @@
 
 package org.ylzl.eden.spring.framework.beans;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
+import org.springframework.context.*;
+import org.springframework.core.ResolvableType;
+import org.ylzl.eden.commons.lang.ArrayUtils;
+
+import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
- * Spring 依赖查找工具
+ * Spring 依赖注册/查找工具
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ApplicationContextHelper implements ApplicationContextAware {
+public class ApplicationContextHelper implements ApplicationContextAware, BeanFactoryPostProcessor {
 
+	private static final String SPRING_APPLICATION_NAME = "spring.application.name";
 	private static ApplicationContext applicationContext;
 
+	private static ConfigurableListableBeanFactory beanFactory;
+
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+	public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
 		ApplicationContextHelper.applicationContext = applicationContext;
 	}
 
+	@Override
+	public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		ApplicationContextHelper.beanFactory = beanFactory;
+	}
+
+	/**
+	 * 获取 Bean
+	 *
+	 * @param clazz
+	 * @return
+	 * @param <T>
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {
 		T beanInstance = null;
@@ -52,20 +77,191 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 		return beanInstance;
 	}
 
+	/**
+	 * 获取 Bean
+	 *
+	 * @param name
+	 * @return
+	 * @param <T>
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name) {
 		return (T) applicationContext.getBean(name);
 	}
 
+	/**
+	 * 获取 Bean
+	 *
+	 * @param name
+	 * @param clazz
+	 * @return
+	 * @param <T>
+	 */
 	public static <T> T getBean(String name, Class<T> clazz) {
 		return applicationContext.getBean(name, clazz);
 	}
 
+	/**
+	 * 获取 Bean
+	 *
+	 * @param clazz
+	 * @param params
+	 * @return
+	 * @param <T>
+	 */
 	public static <T> T getBean(Class<T> clazz, Object... params) {
 		return applicationContext.getBean(clazz, params);
 	}
 
+	/**
+	 * 根据参数类型获取 Bean
+	 *
+	 * @param parameterizedType
+	 * @return
+	 * @param <T>
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T getBean(ParameterizedType parameterizedType) {
+		final Class<T> rawType = (Class<T>) parameterizedType.getRawType();
+		final Class<?>[] genericTypes = Arrays.stream(parameterizedType.getActualTypeArguments()).map(type -> (Class<?>) type).toArray(Class[]::new);
+		final String[] beanNames = getBeanFactory().getBeanNamesForType(ResolvableType.forClassWithGenerics(rawType, genericTypes));
+		return getBean(beanNames[0], rawType);
+	}
+
+	/**
+	 * 获取类的 Bean 集合
+	 *
+	 * @param type
+	 * @return
+	 * @param <T>
+	 */
+	public static <T> Map<String, T> getBeansOfType(Class<T> type) {
+		return getBeanFactory().getBeansOfType(type);
+	}
+
+	/**
+	 * 获取实例的 Bean 名称
+	 *
+	 * @param type
+	 * @return
+	 */
+	public static String[] getBeanNamesForType(Class<?> type) {
+		return getBeanFactory().getBeanNamesForType(type);
+	}
+
+	/**
+	 * 获取属性
+	 *
+	 * @return
+	 */
+	public static String getProperty(String key) {
+		if (null == applicationContext) {
+			return null;
+		}
+		return applicationContext.getEnvironment().getProperty(key);
+	}
+
+	/**
+	 * 获取应用名
+	 *
+	 * @return
+	 */
+	public static String getApplicationName() {
+		return getProperty(SPRING_APPLICATION_NAME);
+	}
+
+	/**
+	 * 获取运行环境
+	 *
+	 * @return
+	 */
+	public static String[] getActiveProfiles() {
+		if (null == applicationContext) {
+			return null;
+		}
+		return applicationContext.getEnvironment().getActiveProfiles();
+	}
+
+	/**
+	 * 获取运行环境
+	 *
+	 * @return
+	 */
+	public static String getActiveProfile() {
+		final String[] activeProfiles = getActiveProfiles();
+		return ArrayUtils.isNotEmpty(activeProfiles) ? activeProfiles[0] : null;
+	}
+
+	/**
+	 * 注册 Bean
+	 *
+	 * @param beanName
+	 * @param bean
+	 * @param <T>
+	 */
+	public static <T> void registerBean(String beanName, T bean) {
+		final ConfigurableListableBeanFactory factory = getConfigurableBeanFactory();
+		factory.autowireBean(bean);
+		factory.registerSingleton(beanName, bean);
+	}
+
+	/**
+	 * 销毁 Bean
+	 *
+	 * @param beanName
+	 */
+	public static void destroyBean(String beanName) {
+		final ConfigurableListableBeanFactory factory = getConfigurableBeanFactory();
+		if (!(factory instanceof DefaultSingletonBeanRegistry)) {
+			throw new ApplicationContextException("Can not destroy bean, the factory is not a DefaultSingletonBeanRegistry");
+		}
+		DefaultSingletonBeanRegistry registry = (DefaultSingletonBeanRegistry) factory;
+		registry.destroySingleton(beanName);
+	}
+
+	/**
+	 * 发布事件
+	 *
+	 * @param event
+	 */
+	public static void publishEvent(ApplicationEvent event) {
+		if (applicationContext != null) {
+			applicationContext.publishEvent(event);
+		}
+	}
+
+	/**
+	 * 获取 ApplicationContext
+	 *
+	 * @return
+	 */
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
+	}
+
+	/**
+	 * 获取 BeanFactory
+	 *
+	 * @return
+	 */
+	public static ListableBeanFactory getBeanFactory() {
+		return beanFactory == null? applicationContext : beanFactory;
+	}
+
+	/**
+	 * 获取 ConfigurableListableBeanFactory
+	 *
+	 * @return
+	 */
+	public static ConfigurableListableBeanFactory getConfigurableBeanFactory() {
+		final ConfigurableListableBeanFactory factory;
+		if (null != beanFactory) {
+			factory = beanFactory;
+		} else if (applicationContext instanceof ConfigurableApplicationContext) {
+			factory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
+		} else {
+			throw new ApplicationContextException("No ConfigurableListableBeanFactory from context!");
+		}
+		return factory;
 	}
 }

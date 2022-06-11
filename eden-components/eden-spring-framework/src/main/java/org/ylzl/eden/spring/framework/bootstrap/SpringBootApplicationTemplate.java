@@ -39,9 +39,8 @@ import java.net.InetAddress;
 @Slf4j
 public abstract class SpringBootApplicationTemplate {
 
-	protected static void run(
-		Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
-		System.setProperty("es.set.netty.runtime.available.processors", "false");
+	protected static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
+		fixedMiddlewareError();
 
 		SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
 		SpringProfileUtils.addDefaultProfile(app);
@@ -50,6 +49,15 @@ public abstract class SpringBootApplicationTemplate {
 		ConfigurableApplicationContext context = app.run(args);
 		Environment env = context.getEnvironment();
 		logApplicationServerAfterRunning(env);
+	}
+
+	private static void fixedMiddlewareError() {
+		// Fixed elasticsearch error: availableProcessors is already set to [], rejecting []
+		System.setProperty("es.set.netty.runtime.available.processors", "false");
+		// Fixed dubbo error: No such any registry to refer service in consumer xxx.xxx.xxx.xxx use dubbo version 2.x.x
+		System.setProperty("java.net.preferIPv4Stack", "true");
+		// Fixed zookeeper error: java.io.IOException: Unreasonable length = 1048575
+		System.setProperty("jute.maxbuffer", String.valueOf(8192 * 1024));
 	}
 
 	protected static void logApplicationServerAfterRunning(Environment env) {
