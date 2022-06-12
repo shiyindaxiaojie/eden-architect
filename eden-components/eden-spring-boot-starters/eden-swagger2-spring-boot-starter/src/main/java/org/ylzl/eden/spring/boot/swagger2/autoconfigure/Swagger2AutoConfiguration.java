@@ -33,7 +33,7 @@ import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.swagger2.env.DefaultSwagger2Customizer;
 import org.ylzl.eden.spring.boot.swagger2.env.Swagger2Properties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 import org.ylzl.eden.spring.integration.swagger2.customizer.Swagger2Customizer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.PathSelectors;
@@ -88,7 +88,7 @@ public class Swagger2AutoConfiguration {
 	private final Swagger2Properties properties;
 	private final ManagementServerProperties managementServerProperties;
 
-	@Value(GlobalConstants.NAME_PATTERN)
+	@Value(SpringPropertiesConstants.NAME_PATTERN)
 	private String applicationName;
 
 	public Swagger2AutoConfiguration(

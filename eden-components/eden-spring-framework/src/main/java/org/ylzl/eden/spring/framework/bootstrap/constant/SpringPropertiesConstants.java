@@ -18,39 +18,39 @@
 package org.ylzl.eden.spring.framework.bootstrap.constant;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.CharsetConstants;
 
 /**
- * 全局常量定义
+ * Spring Properties 常量定义
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @UtilityClass
-public final class GlobalConstants {
+public final class SpringPropertiesConstants {
 
 	/**
-	 * 默认编码
+	 * Spring Boot 读取应用程序名称
 	 */
-	public static final String DEFAULT_ENCODING = CharsetConstants.UTF_8_NAME;
+	public static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
 	/**
-	 * 默认语言
+	 * Spring Boot 读取应用程序名称
+	 *
+	 * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
 	 */
-	public static final String DEFAULT_LANGUAGE = "zh-cn";
+	public static final String NAME_PATTERN =
+		"${spring.application.name:${vcap.application.name:${spring.config.name:application}}}";
 
 	/**
-	 * 默认字体
+	 * Spring Boot 读取应用程序启动端口
 	 */
-	public static final String DEFAULT_FONT_NAME = "simsun";
+	public static final String PORT_PATTERN = "${server.port}";
 
 	/**
-	 * 系统用户
+	 * Spring Boot 读取应用程序索引
+	 *
+	 * @see org.springframework.boot.context.ContextIdApplicationContextInitializer
 	 */
-	public static final String SYSTEM = "system";
-
-	/**
-	 * 匿名用户
-	 */
-	public static final String ANONYMOUS_USER = "anonymoususer";
+	public static final String INDEX_PATTERN =
+		"${vcap.application.instance_index:${spring.application.index:${server.port:${PORT:null}}}}";
 }

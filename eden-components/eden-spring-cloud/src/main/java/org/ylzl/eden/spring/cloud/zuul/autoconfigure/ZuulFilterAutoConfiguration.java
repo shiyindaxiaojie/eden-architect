@@ -22,8 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 import org.ylzl.eden.spring.cloud.zuul.filter.AccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.RateLimitingFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 
 /**
  * Zuul 过滤器自动装配
@@ -40,17 +40,12 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@ConditionalOnProperty(name = ZuulProperties.PREFIX + ".enable", havingValue = "true")
 @ConditionalOnClass(ZuulFilter.class)
 @EnableConfigurationProperties(ZuulProperties.class)
 @Slf4j
 @Configuration
 public class ZuulFilterAutoConfiguration {
-
-	public static final String EXP_ACCESS_CONTROL_ENABLED =
-		"${" + GlobalConstants.PROP_SPRING_PREFIX + ".zuul.access-control.enabled:true}";
-
-	public static final String EXP_RATE_LIMITING_ENABLED =
-		"${" + GlobalConstants.PROP_SPRING_PREFIX + ".zuul.rate-limiting.enabled:false}";
 
 	private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER =
 		"Autowired Zuul AccessControl filter";
@@ -65,8 +60,8 @@ public class ZuulFilterAutoConfiguration {
 		this.zuulProperties = zuulProperties;
 	}
 
+	@ConditionalOnProperty(name = ZuulProperties.PREFIX + "access-control.enable", havingValue = "true")
 	@ConditionalOnBean(RouteLocator.class)
-	@ConditionalOnExpression(EXP_ACCESS_CONTROL_ENABLED)
 	@ConditionalOnMissingBean
 	@Bean
 	public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
@@ -74,11 +69,11 @@ public class ZuulFilterAutoConfiguration {
 		return new AccessControlFilter(zuulProperties, routeLocator);
 	}
 
-	@ConditionalOnExpression(EXP_RATE_LIMITING_ENABLED)
+	@ConditionalOnProperty(name = ZuulProperties.PREFIX + "rate-limiting.enable", havingValue = "false")
 	@ConditionalOnMissingBean
 	@Bean
 	public RateLimitingFilter rateLimitingFilter(
-		@Value(GlobalConstants.NAME_PATTERN) String applicationName) {
+		@Value(SpringPropertiesConstants.NAME_PATTERN) String applicationName) {
 		log.debug(MSG_AUTOWIRED_RATE_LIMIT_FILTER);
 		return new RateLimitingFilter(zuulProperties, applicationName);
 	}

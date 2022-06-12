@@ -19,7 +19,6 @@ package org.ylzl.eden.spring.cloud.profile.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
 
 /**
@@ -30,8 +29,10 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = GlobalConstants.PROP_EDEN_PREFIX + ".profile")
+@ConfigurationProperties(prefix = ProfileProperties.PREFIX)
 public class ProfileProperties {
+
+	public static final String PREFIX = "spring.profile";
 
 	private String[] displayOnActiveProfiles = {
 		SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT,
