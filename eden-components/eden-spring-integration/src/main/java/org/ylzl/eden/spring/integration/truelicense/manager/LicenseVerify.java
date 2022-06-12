@@ -20,10 +20,6 @@ package org.ylzl.eden.spring.integration.truelicense.manager;
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.spring.integration.truelicense.manager.conditional.Conditional;
-import org.ylzl.eden.spring.integration.truelicense.manager.conditional.ConditionalUtils;
-
-import java.util.List;
 
 /**
  * 许可证校验服务
@@ -57,17 +53,6 @@ public class LicenseVerify {
 		} catch (Exception e) {
 			log.error("证书校验无效！异常：{}", e.getMessage(), e);
 			return false;
-		}
-		LicenseContentExtra extra = (LicenseContentExtra) licenseContent.getExtra();
-		if (extra != null) {
-			List<Conditional> conditionals = extra.getConditionals();
-			if (conditionals != null && !conditionals.isEmpty()) {
-				for (Conditional conditional : conditionals) {
-					if (conditional.getKey().equals(key)) {
-						return ConditionalUtils.validate(conditional, value);
-					}
-				}
-			}
 		}
 		return true;
 	}

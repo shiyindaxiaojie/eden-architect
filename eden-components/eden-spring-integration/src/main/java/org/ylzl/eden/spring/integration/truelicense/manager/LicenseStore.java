@@ -48,52 +48,52 @@ public class LicenseStore {
 		this.licenseManager = licenseManager;
 	}
 
-	public boolean store(EnhancedLicenseContent enhancedLicenseContent) {
+	public boolean store(CustomLicenseContent customLicenseContent) {
 		// 如果没有设置类型，按用户类型设置
-		if (StringUtils.isNull(enhancedLicenseContent.getConsumerType())) {
-			enhancedLicenseContent.setConsumerType(DEFAULT_CONSUMER_TYPE);
+		if (StringUtils.isNull(customLicenseContent.getConsumerType())) {
+			customLicenseContent.setConsumerType(DEFAULT_CONSUMER_TYPE);
 		}
 
 		// 签发时间默认为当前系统时间
-		enhancedLicenseContent.setIssued(new Date());
+		customLicenseContent.setIssued(new Date());
 
 		// 如果没有设置生效时间，按签发时间生效
-		if (ObjectUtils.isNull(enhancedLicenseContent.getNotBefore())) {
-			enhancedLicenseContent.setNotBefore(enhancedLicenseContent.getIssued());
+		if (ObjectUtils.isNull(customLicenseContent.getNotBefore())) {
+			customLicenseContent.setNotBefore(customLicenseContent.getIssued());
 		}
 
 		// 如果没有设置到期时间，默认为 1 个月有效期
-		if (ObjectUtils.isNull(enhancedLicenseContent.getNotAfter())) {
-			enhancedLicenseContent.setNotAfter(
-				DateUtils.addMonths(enhancedLicenseContent.getNotBefore(), 1));
+		if (ObjectUtils.isNull(customLicenseContent.getNotAfter())) {
+			customLicenseContent.setNotAfter(
+				DateUtils.addMonths(customLicenseContent.getNotBefore(), 1));
 		}
 
 		LicenseContent licenseContent = new LicenseContent();
 		licenseContent.setHolder(DEFAULT_HOLDER_AND_ISSUER);
 		licenseContent.setIssuer(DEFAULT_HOLDER_AND_ISSUER);
-		if (enhancedLicenseContent.getSubject() != null) {
-			licenseContent.setSubject(enhancedLicenseContent.getSubject());
+		if (customLicenseContent.getSubject() != null) {
+			licenseContent.setSubject(customLicenseContent.getSubject());
 		}
-		if (enhancedLicenseContent.getIssued() != null) {
-			licenseContent.setIssued(enhancedLicenseContent.getIssued());
+		if (customLicenseContent.getIssued() != null) {
+			licenseContent.setIssued(customLicenseContent.getIssued());
 		}
-		if (enhancedLicenseContent.getNotBefore() != null) {
-			licenseContent.setNotBefore(enhancedLicenseContent.getNotBefore());
+		if (customLicenseContent.getNotBefore() != null) {
+			licenseContent.setNotBefore(customLicenseContent.getNotBefore());
 		}
-		if (enhancedLicenseContent.getNotAfter() != null) {
-			licenseContent.setNotAfter(enhancedLicenseContent.getNotAfter());
+		if (customLicenseContent.getNotAfter() != null) {
+			licenseContent.setNotAfter(customLicenseContent.getNotAfter());
 		}
-		if (enhancedLicenseContent.getConsumerType() != null) {
-			licenseContent.setConsumerType(enhancedLicenseContent.getConsumerType());
+		if (customLicenseContent.getConsumerType() != null) {
+			licenseContent.setConsumerType(customLicenseContent.getConsumerType());
 		}
-		if (enhancedLicenseContent.getConsumerAmount() != null) {
-			licenseContent.setConsumerAmount(enhancedLicenseContent.getConsumerAmount());
+		if (customLicenseContent.getConsumerAmount() != null) {
+			licenseContent.setConsumerAmount(customLicenseContent.getConsumerAmount());
 		}
-		if (enhancedLicenseContent.getInfo() != null) {
-			licenseContent.setInfo(enhancedLicenseContent.getInfo());
+		if (customLicenseContent.getInfo() != null) {
+			licenseContent.setInfo(customLicenseContent.getInfo());
 		}
 
-		File file = new File(enhancedLicenseContent.getLicensePath());
+		File file = new File(customLicenseContent.getLicensePath());
 		try {
 			licenseManager.store(licenseContent, file);
 		} catch (Exception e) {

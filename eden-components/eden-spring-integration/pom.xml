@@ -186,8 +186,6 @@
 			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
 
-		<!-- Logback (不推荐)-->
-
 		<!-- Logstash -->
 		<dependency>
 			<groupId>net.logstash.logback</groupId>
@@ -239,7 +237,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Swagger -->
+		<!-- Swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-bean-validators</artifactId>
@@ -322,6 +320,8 @@
 			<artifactId>ftpserver-core</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Ftp Client -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>

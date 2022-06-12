@@ -24,7 +24,7 @@ public class NacosServerIntrospector extends DefaultServerIntrospector {
 	@Override
 	public boolean isSecure(Server server) {
 		if (server instanceof NacosServer) {
-			return Boolean.valueOf(((NacosServer) server).getMetadata().get("secure"));
+			return Boolean.parseBoolean(((NacosServer) server).getMetadata().get("secure"));
 		}
 
 		return super.isSecure(server);

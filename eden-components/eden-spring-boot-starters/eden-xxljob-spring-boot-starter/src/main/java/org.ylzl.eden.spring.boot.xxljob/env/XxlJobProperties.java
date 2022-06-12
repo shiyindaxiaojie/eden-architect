@@ -17,7 +17,7 @@ public class XxlJobProperties {
 
 	private final Executor executor = new Executor();
 
-	private Boolean enabled;
+	private boolean enabled;
 
 	@Data
 	public static class Admin {
@@ -34,10 +34,10 @@ public class XxlJobProperties {
 
 		private String ip;
 
-		private Integer port;
+		private int port;
 
 		private String logPath;
 
-		private Integer logRetentionDays = 30;
+		private int logRetentionDays = 30;
 	}
 }

@@ -17,11 +17,9 @@
 package org.ylzl.eden.spring.integration.truelicense.manager;
 
 import lombok.*;
-import org.ylzl.eden.spring.integration.truelicense.manager.conditional.Conditional;
 import org.ylzl.eden.spring.integration.truelicense.manager.env.LicenseOS;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 许可证内容扩展
@@ -40,6 +38,4 @@ public class LicenseContentExtra implements Serializable {
 	private static final long serialVersionUID = 1281541768858257351L;
 
 	private LicenseOS licenseOS;
-
-	private List<Conditional> conditionals;
 }

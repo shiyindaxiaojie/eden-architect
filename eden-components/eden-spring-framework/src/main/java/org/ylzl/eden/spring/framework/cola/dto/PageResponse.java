@@ -25,6 +25,7 @@ import org.ylzl.eden.spring.framework.error.ErrorConfig;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 响应（分页查询结果集）
@@ -56,6 +57,16 @@ public class PageResponse<T> extends Response {
 
 	public void setPageIndex(int pageIndex) {
 		this.pageIndex = Math.max(pageIndex, 1);
+	}
+
+	public Collection<T> getData() {
+		if (null == data) {
+			return Collections.emptyList();
+		}
+		if (data instanceof List) {
+			return data;
+		}
+		return new ArrayList<>(data);
 	}
 
 	public void setData(Collection<T> data) {

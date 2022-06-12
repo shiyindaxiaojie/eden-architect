@@ -29,6 +29,7 @@ public @interface ConsistencyTask {
 	 *
 	 * @return
 	 */
+	@AliasFor("value")
 	String id() default "";
 
 	/**

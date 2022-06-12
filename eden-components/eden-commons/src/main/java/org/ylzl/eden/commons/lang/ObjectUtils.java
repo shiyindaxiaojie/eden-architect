@@ -23,7 +23,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.ylzl.eden.commons.json.JacksonUtils;
 import org.ylzl.eden.commons.lang.math.NumberUtils;
-import org.ylzl.eden.commons.lang.type.PrimitiveTypeEnum;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -95,10 +94,10 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 		String value = trimToString(object);
 		if (clazz.isPrimitive() || ClassUtils.isWrapClass(clazz)) { // 基本类型或者包装类型
 			String simpleName = clazz.getSimpleName();
-			for (PrimitiveTypeEnum primitiveTypeEnum : PrimitiveTypeEnum.values()) {
-				if (primitiveTypeEnum.name().equalsIgnoreCase(simpleName)
-					|| clazz.equals(primitiveTypeEnum.getWrapperClass())) {
-					return primitiveTypeEnum.getHandler().cast(value);
+			for (PrimitiveType primitiveType : PrimitiveType.values()) {
+				if (primitiveType.name().equalsIgnoreCase(simpleName)
+					|| clazz.equals(primitiveType.getWrapperClass())) {
+					return primitiveType.getHandler().cast(value);
 				}
 			}
 		} else if (object == null) { // 引用类型

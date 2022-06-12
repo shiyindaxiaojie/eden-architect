@@ -36,11 +36,11 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
 	public static Date toDate(@NonNull String dateStr, @NonNull String pattern)
 		throws ParseException {
-		return DateFormatEnum.getFastDateFormat(pattern).parse(dateStr);
+		return DateFormat.getFastDateFormat(pattern).parse(dateStr);
 	}
 
 	public static Date toDate(@NonNull String dateStr) throws ParseException {
-		return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().parse(dateStr);
+		return DateFormat.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().parse(dateStr);
 	}
 
 	public static Date toDate(@NonNull Timestamp timestamp) {
@@ -65,19 +65,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	public static String toDateString(@NonNull Date date, @NonNull String pattern) {
-		return DateFormatEnum.getFastDateFormat(pattern).format(date);
+		return DateFormat.getFastDateFormat(pattern).format(date);
 	}
 
 	public static String toDateString(@NonNull Date date) {
-		return DateFormatEnum.ISO_8601_EXTENDED_DATE_FORMAT.getFastDateFormat().format(date);
+		return DateFormat.ISO_8601_EXTENDED_DATE_FORMAT.getFastDateFormat().format(date);
 	}
 
 	public static String toDateTimeString(@NonNull Date date) {
-		return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().format(date);
+		return DateFormat.ISO_8601_EXTENDED_DATETIME_FORMAT.getFastDateFormat().format(date);
 	}
 
 	public static String toTimeString(@NonNull Date date) {
-		return DateFormatEnum.ISO_8601_EXTENDED_TIME_FORMAT.getFastDateFormat().format(date);
+		return DateFormat.ISO_8601_EXTENDED_TIME_FORMAT.getFastDateFormat().format(date);
 	}
 
 	public static String toDateString(@NonNull Calendar calendar, @NonNull String pattern) {
@@ -121,7 +121,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	public static String getDateTimeString() {
-		return DateFormatEnum.ISO_8601_EXTENDED_DATETIME_FORMAT
+		return DateFormat.ISO_8601_EXTENDED_DATETIME_FORMAT
 			.getFastDateFormat()
 			.format(Calendar.getInstance());
 	}

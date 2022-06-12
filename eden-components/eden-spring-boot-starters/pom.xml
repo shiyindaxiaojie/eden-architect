@@ -41,6 +41,8 @@
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
+		<module>eden-ftpclient-spring-boot-starter</module>
+		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hikaricp-spring-boot-starter</module>
 		<module>eden-jwt-spring-boot-starter</module>
 		<module>eden-kafka-spring-boot-starter</module>
@@ -60,7 +62,9 @@
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-sharding-jdbc-spring-boot-starter</module>
 		<module>eden-spock-spring-boot-starter</module>
+		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
+		<module>eden-truelicense-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
 	</modules>
 </project>

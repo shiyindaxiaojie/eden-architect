@@ -1,6 +1,7 @@
 package org.ylzl.eden.spring.integration.businessprocess.autoconfigure;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -18,6 +19,17 @@ public @interface EnableBusinessProcessEngine {
 
 	/**
 	 * 配置文件
+	 *
+	 * @return
 	 */
-	String value();
+	@AliasFor("configPath")
+	String[] value();
+
+	/**
+	 * 配置文件
+	 *
+	 * @return
+	 */
+	@AliasFor("value")
+	String configPath();
 }
