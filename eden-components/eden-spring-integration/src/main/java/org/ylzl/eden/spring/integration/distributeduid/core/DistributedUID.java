@@ -10,7 +10,17 @@ import java.util.List;
  */
 public interface DistributedUID {
 
+	/**
+	 * 生成 UID
+	 *
+	 * @return
+	 */
 	long generateUID();
 
+	/**
+	 * 批量生成 UID
+	 *
+	 * @return
+	 */
 	List<Long> generateUIDs();
 }

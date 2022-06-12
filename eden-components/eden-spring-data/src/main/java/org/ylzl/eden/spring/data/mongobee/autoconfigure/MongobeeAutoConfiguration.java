@@ -94,7 +94,7 @@ public class MongobeeAutoConfiguration {
 			mongobee.setChangeLogsScanPackage(
 				infoContributorProvider.resolvePackage(DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX));
 		}
-		mongobee.setEnabled(mongobeeProperties.getEnabled());
+		mongobee.setEnabled(mongobeeProperties.isEnabled());
 		return mongobee;
 	}
 }

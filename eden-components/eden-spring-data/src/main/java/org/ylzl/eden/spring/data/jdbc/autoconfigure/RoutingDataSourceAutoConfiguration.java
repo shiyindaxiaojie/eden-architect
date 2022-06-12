@@ -43,7 +43,7 @@ import org.ylzl.eden.spring.framework.bootstrap.bind.BinderHelper;
 import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 import javax.sql.DataSource;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -104,7 +104,7 @@ public class RoutingDataSourceAutoConfiguration
 	public void registerBeanDefinitions(
 		AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		if (!env.containsProperty(ROUTING_DATASOURCE_ENABLED)
-			|| !env.getProperty(ROUTING_DATASOURCE_ENABLED, Boolean.class)) {
+			|| Boolean.FALSE.equals(env.getProperty(ROUTING_DATASOURCE_ENABLED, Boolean.class))) {
 			return;
 		}
 
@@ -139,7 +139,7 @@ public class RoutingDataSourceAutoConfiguration
 				StringUtils.join(PROP_ROUTING_DATA_SOURCE_PREFIX, StringConstants.DOT),
 				RoutingDataSourceProperties.class);
 		if (properties.getNodes() == null) {
-			return Collections.EMPTY_MAP;
+			return new HashMap<>();
 		}
 
 		Map<String, DataSource> targetDataSources = Maps.newHashMap();

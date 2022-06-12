@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "mybatis-plus.extension")
 public class MybatisPlusExtensionProperties {
 
-	private Boolean sqlLog = true;
+	private boolean sqlLog = true;
 
-	private Boolean autoFill = true;
+	private boolean autoFill = true;
 }

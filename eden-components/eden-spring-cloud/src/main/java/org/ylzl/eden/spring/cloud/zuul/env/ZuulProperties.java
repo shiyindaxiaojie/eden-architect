@@ -21,6 +21,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,22 +44,21 @@ public class ZuulProperties {
 	@Setter
 	public static class AccessControl {
 
-		private Map<String, List<String>> authorizedMicroservicesEndpoints =
-			ZuulDefaults.AccessControl.authorizedMicroservicesEndpoints;
+		private Map<String, List<String>> authorizedMicroservicesEndpoints = Collections.emptyMap();
 
-		private boolean enabled = ZuulDefaults.AccessControl.enabled;
+		private boolean enabled = true;
 	}
 
 	@Getter
 	@Setter
 	public static class RateLimiting {
 
-		private String defaultIncludePattern = ZuulDefaults.RateLimiting.defaultIncludePattern;
+		private String defaultIncludePattern = null;
 
-		private int durationInSeconds = ZuulDefaults.RateLimiting.durationInSeconds;
+		private int durationInSeconds = 3_600;
 
-		private boolean enabled = ZuulDefaults.RateLimiting.enabled;
+		private boolean enabled = true;
 
-		private long limit = ZuulDefaults.RateLimiting.limit;
+		private long limit = 100_000L;
 	}
 }

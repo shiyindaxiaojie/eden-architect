@@ -24,7 +24,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.commons.lang.time.DateUtils;
-import org.ylzl.eden.spring.integration.truelicense.env.TrueLicenseProperties;
+import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 
 import java.io.File;
 
@@ -37,20 +37,22 @@ import java.io.File;
 @Slf4j
 public class LicenseInstall implements InitializingBean, DisposableBean {
 
-	private final TrueLicenseProperties trueLicenseProperties;
+	private static final String STOP_WATCH_ID = "true-license";
+
+	private final TrueLicenseConfig trueLicenseConfig;
 
 	private final LicenseManager licenseManager;
 
 	public LicenseInstall(
-		TrueLicenseProperties trueLicenseProperties, LicenseManager licenseManager) {
-		this.trueLicenseProperties = trueLicenseProperties;
+		TrueLicenseConfig trueLicenseConfig, LicenseManager licenseManager) {
+		this.trueLicenseConfig = trueLicenseConfig;
 		this.licenseManager = licenseManager;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		log.debug("Starting install license");
-		StopWatch watch = new StopWatch();
+		StopWatch watch = new StopWatch(STOP_WATCH_ID);
 		watch.start();
 		install();
 		watch.stop();
@@ -64,7 +66,7 @@ public class LicenseInstall implements InitializingBean, DisposableBean {
 	}
 
 	public LicenseContent install() throws Exception {
-		File file = new File(trueLicenseProperties.getLicensePath());
+		File file = new File(trueLicenseConfig.getLicensePath());
 		LicenseContent licenseContent;
 		try {
 			licenseManager.uninstall();

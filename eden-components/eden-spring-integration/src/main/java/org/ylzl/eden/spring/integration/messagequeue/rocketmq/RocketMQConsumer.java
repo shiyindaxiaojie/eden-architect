@@ -97,7 +97,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 	}
 
 	@Override
-	public void destroy() throws Exception {
+	public void destroy() {
 		log.debug(DESTROY_ROCKETMQ_CONSUMER);
 		consumers.forEach(DefaultMQPushConsumer::shutdown);
 	}

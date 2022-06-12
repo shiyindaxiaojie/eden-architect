@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<property name="version" value="2.4.13"/>
+
+	<changeSet id="${version}" author="sion">
+		<createTable tableName="consistency_task" remarks="用户表">
+			<column name="id" type="bigint" remarks="主键" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="task_id" type="varchar(20)" remarks="任务ID">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="task_status" type="boolean" valueBoolean="false" remarks="执行状态"/>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

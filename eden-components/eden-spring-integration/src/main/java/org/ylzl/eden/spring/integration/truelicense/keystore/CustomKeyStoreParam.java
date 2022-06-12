@@ -22,6 +22,7 @@ import org.ylzl.eden.commons.lang.ClassConstants;
 import org.ylzl.eden.commons.lang.StringConstants;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /**
  * 增强式密钥库参数
@@ -31,13 +32,13 @@ import java.io.*;
  */
 public class CustomKeyStoreParam extends AbstractKeyStoreParam {
 
-	private String storePath;
+	private final String storePath;
 
-	private String alias;
+	private final String alias;
 
-	private String storePwd;
+	private final String storePwd;
 
-	private String keyPwd;
+	private final String keyPwd;
 
 	public CustomKeyStoreParam(
 		Class clazz, String resource, String alias, String storePwd, String keyPwd) {
@@ -73,7 +74,7 @@ public class CustomKeyStoreParam extends AbstractKeyStoreParam {
 			}
 			inputStream = this.getClass().getResourceAsStream(path);
 		} else {
-			inputStream = new FileInputStream(new File(storePath));
+			inputStream = Files.newInputStream(new File(storePath).toPath());
 		}
 		if (inputStream == null) {
 			throw new FileNotFoundException(storePath);

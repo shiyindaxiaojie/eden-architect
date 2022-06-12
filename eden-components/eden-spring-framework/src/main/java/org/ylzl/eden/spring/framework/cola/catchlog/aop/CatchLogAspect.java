@@ -23,6 +23,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.spring.framework.cola.catchlog.handler.CatchLogHandler;
 import org.ylzl.eden.spring.framework.error.BaseException;
@@ -38,12 +39,11 @@ import java.util.Arrays;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@Order(1)
 @Slf4j
 @Component
 @Aspect
 public class CatchLogAspect {
-
-	public static final String UNKNOWN_ERROR = "UNKNOWN_ERROR";
 
 	public static final String UNKNOWN_CAUSE = "UNKNOWN_CAUSE";
 
@@ -92,7 +92,7 @@ public class CatchLogAspect {
 			baseException = (BaseException) e;
 		} else {
 			errorTag = UNKNOWN_EXCEPTION;
-			baseException = new BaseException(UNKNOWN_ERROR, e.getMessage());
+			baseException = new BaseException("B0001", e.getMessage());
 		}
 
 		String cause = e.getCause() != null ? e.getCause().toString() : UNKNOWN_CAUSE;

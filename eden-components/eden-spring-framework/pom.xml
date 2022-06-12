@@ -250,21 +250,6 @@
 		</dependency>
 
 		<!-- Logback (不推荐)-->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.logback-extensions</groupId>
-			<artifactId>logback-ext-spring</artifactId>
-			<optional>true</optional>
-		</dependency>
 
 		<!-- Jakarta EE 组件 -->
 		<dependency>
