@@ -10,8 +10,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.4.x
  **/
 @Data
-@ConfigurationProperties(prefix = "xxl-job")
+@ConfigurationProperties(prefix = XxlJobProperties.PREFIX)
 public class XxlJobProperties {
+
+	public static final String PREFIX = "xxl-job";
 
 	private final Admin admin = new Admin();
 

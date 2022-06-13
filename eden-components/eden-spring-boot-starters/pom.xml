@@ -46,6 +46,7 @@
 		<module>eden-hikaricp-spring-boot-starter</module>
 		<module>eden-jwt-spring-boot-starter</module>
 		<module>eden-kafka-spring-boot-starter</module>
+		<module>eden-leaf-spring-boot-starter</module>
 		<module>eden-liquibase-spring-boot-starter</module>
 		<module>eden-logstash-spring-boot-starter</module>
 		<module>eden-metrics-spring-boot-starter</module>
@@ -64,7 +65,9 @@
 		<module>eden-spock-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
+		<module>eden-tinyid-spring-boot-starter</module>
 		<module>eden-truelicense-spring-boot-starter</module>
+		<module>eden-uid-generator-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
 	</modules>
 </project>

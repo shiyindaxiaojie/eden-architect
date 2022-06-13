@@ -40,7 +40,6 @@ import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
 import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.framework.bootstrap.bind.BinderHelper;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -74,11 +73,7 @@ import java.util.Map;
 public class RoutingDataSourceAutoConfiguration
 	implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
-	private static final String PROP_ROUTING_DATA_SOURCE_PREFIX =
-		GlobalConstants.PROP_SPRING_PREFIX + ".routing-datasource";
-
-	public static final String ROUTING_DATASOURCE_ENABLED =
-		PROP_ROUTING_DATA_SOURCE_PREFIX + ".enabled";
+	public static final String ROUTING_DATASOURCE_ENABLED = RoutingDataSourceProperties.PREFIX + ".enabled";
 
 	private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
 
@@ -136,7 +131,7 @@ public class RoutingDataSourceAutoConfiguration
 	private Map<String, DataSource> getTargetDataSources() {
 		RoutingDataSourceProperties properties =
 			binderHelper.bind(
-				StringUtils.join(PROP_ROUTING_DATA_SOURCE_PREFIX, StringConstants.DOT),
+				StringUtils.join(RoutingDataSourceProperties.PREFIX, StringConstants.DOT),
 				RoutingDataSourceProperties.class);
 		if (properties.getNodes() == null) {
 			return new HashMap<>();

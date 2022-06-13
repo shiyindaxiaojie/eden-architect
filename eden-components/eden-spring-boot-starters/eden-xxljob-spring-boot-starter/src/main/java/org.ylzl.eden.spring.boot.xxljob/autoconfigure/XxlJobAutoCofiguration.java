@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 
 import java.io.File;
 
@@ -20,6 +21,7 @@ import java.io.File;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@ConditionalOnProperty(name = XxlJobProperties.PREFIX + ".enable", havingValue = "true")
 @EnableConfigurationProperties(XxlJobProperties.class)
 @Slf4j
 @Configuration
@@ -38,7 +40,6 @@ public class XxlJobAutoCofiguration {
 		this.xxlJobProperties = xxlJobProperties;
 	}
 
-	@ConditionalOnProperty(name = "xxl-job.enable", havingValue = "true")
 	@Bean
 	public XxlJobSpringExecutor xxlJobSpringExecutor() {
 		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
@@ -62,7 +63,7 @@ public class XxlJobAutoCofiguration {
 			return appName;
 		}
 
-		return environment.getProperty("spring.application.name");
+		return environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);
 	}
 
 	private String resolveIp(String ip) {
