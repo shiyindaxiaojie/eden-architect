@@ -30,7 +30,6 @@ import org.ylzl.eden.spring.framework.error.ErrorConfig;
  * @since 2.4.x
  */
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
@@ -43,6 +42,13 @@ public class Response extends DTO {
 	private String errCode;
 
 	private String errMessage;
+
+	public Response(boolean success,
+					@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage) {
+		this.success = success;
+		this.errCode = errCode;
+		this.errMessage = errMessage;
+	}
 
 	public static Response buildSuccess() {
 		Response response = new Response();

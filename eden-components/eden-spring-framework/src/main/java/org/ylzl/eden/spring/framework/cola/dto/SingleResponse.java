@@ -17,10 +17,7 @@
 
 package org.ylzl.eden.spring.framework.cola.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.jetbrains.annotations.PropertyKey;
 import org.slf4j.helpers.MessageFormatter;
 import org.ylzl.eden.spring.framework.error.ErrorConfig;
@@ -33,6 +30,7 @@ import org.ylzl.eden.spring.framework.error.ErrorConfig;
  * @since 2.4.x
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
