@@ -71,7 +71,7 @@
 		<!-- 代码质量 -->
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 		<!-- 单元测试 -->
-		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 		<surefireArgLine/>
 		<skipUnitTest>false</skipUnitTest>
 		<!-- 集成测试 -->
@@ -137,6 +137,7 @@
 		<!-- 其他编程语言 -->
 		<scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
 		<kotlin-maven-plugin.version>${kotlin.version}</kotlin-maven-plugin.version>
+		<gmavenplus-plugin.version>1.12.0</gmavenplus-plugin.version>
 		<!-- 其他 -->
 		<maven-help-plugin.version>3.2.0</maven-help-plugin.version>
 		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
@@ -276,6 +277,30 @@
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
 					<version>${jacoco-maven-plugin.version}</version>
+					<configuration>
+						<rules>
+							<rule implementation="org.jacoco.maven.RuleConfiguration">
+								<element>BUNDLE</element>
+								<limits>
+									<limit implementation="org.jacoco.report.check.Limit">
+										<counter>BRANCH</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>0.50</minimum>
+									</limit>
+									<limit implementation="org.jacoco.report.check.Limit">
+										<counter>METHOD</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>0.50</minimum>
+									</limit>
+									<limit implementation="org.jacoco.report.check.Limit">
+										<counter>CLASS</counter>
+										<value>MISSEDCOUNT</value>
+										<maximum>0</maximum>
+									</limit>
+								</limits>
+							</rule>
+						</rules>
+					</configuration>
 				</plugin>
 				<!-- 代码分析 -->
 				<plugin>
@@ -289,11 +314,23 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
 					<configuration>
-						<excludes>
-							<exclude>**/*IT*</exclude>
-							<exclude>**/*IntTest*</exclude>
-						</excludes>
+						<useModulePath>false</useModulePath>
+						<useFile>false</useFile>
+						<parallel>methods</parallel>
+						<threadCount>10</threadCount>
+						<testFailureIgnore>true</testFailureIgnore>
+						<includes>
+							<include>**/*Test</include>
+							<include>**/*Spec</include>
+						</includes>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit47</artifactId>
+							<version>${maven-surefire-plugin.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<!-- 集成测试 -->
 				<plugin>
@@ -667,6 +704,20 @@
 							<goals>
 								<goal>compile</goal>
 								<goal>compile-custom</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- Groovy 编译支持 -->
+				<plugin>
+					<groupId>org.codehaus.gmavenplus</groupId>
+					<artifactId>gmavenplus-plugin</artifactId>
+					<version>${gmavenplus-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>compileTests</goal>
 							</goals>
 						</execution>
 					</executions>
