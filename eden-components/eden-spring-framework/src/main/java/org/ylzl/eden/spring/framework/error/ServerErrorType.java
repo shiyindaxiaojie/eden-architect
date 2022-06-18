@@ -33,9 +33,9 @@ import java.util.Map;
  * <li>C____：表示错误来自于第三方服务</li>
  * </ul>
  *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @see ClientErrorType
  * @see ThirdServiceErrorType
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ServerErrorType {

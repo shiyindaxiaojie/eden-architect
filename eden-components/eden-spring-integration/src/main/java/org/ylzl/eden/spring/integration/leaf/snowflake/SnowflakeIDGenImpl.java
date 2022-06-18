@@ -14,7 +14,7 @@ import java.util.Random;
 @Slf4j
 public class SnowflakeIDGenImpl implements IDGen {
 
-//	private final long twepoch;
+	//	private final long twepoch;
 	private final long workerIdBits = 10L;
 
 	private final long maxWorkerId = ~(-1L << workerIdBits);

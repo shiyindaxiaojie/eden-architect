@@ -153,8 +153,8 @@ public class CommonRedisRepository implements CustomRedisRepository {
 		}
 		return list.stream()
 			.map(str -> {
-					return JacksonUtils.toObject(str, clazz);
-				})
+				return JacksonUtils.toObject(str, clazz);
+			})
 			.collect(Collectors.toList());
 	}
 

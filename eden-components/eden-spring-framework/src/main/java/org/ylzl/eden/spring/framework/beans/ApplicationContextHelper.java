@@ -58,8 +58,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * 获取 Bean
 	 *
 	 * @param clazz
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {
@@ -81,8 +81,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * 获取 Bean
 	 *
 	 * @param name
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name) {
@@ -94,8 +94,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 *
 	 * @param name
 	 * @param clazz
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	public static <T> T getBean(String name, Class<T> clazz) {
 		return applicationContext.getBean(name, clazz);
@@ -106,8 +106,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 *
 	 * @param clazz
 	 * @param params
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	public static <T> T getBean(Class<T> clazz, Object... params) {
 		return applicationContext.getBean(clazz, params);
@@ -117,8 +117,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * 根据参数类型获取 Bean
 	 *
 	 * @param parameterizedType
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(ParameterizedType parameterizedType) {
@@ -132,8 +132,8 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * 获取类的 Bean 集合
 	 *
 	 * @param type
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	public static <T> Map<String, T> getBeansOfType(Class<T> type) {
 		return getBeanFactory().getBeansOfType(type);
@@ -245,7 +245,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * @return
 	 */
 	public static ListableBeanFactory getBeanFactory() {
-		return beanFactory == null? applicationContext : beanFactory;
+		return beanFactory == null ? applicationContext : beanFactory;
 	}
 
 	/**

@@ -23,15 +23,15 @@ public interface DistributedLock {
 	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
-	 * @throws DistributedLockException
 	 * @return
+	 * @throws DistributedLockException
 	 */
 	boolean lock(String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException;
 
 	/**
 	 * 释放锁
 	 *
-	 * @param key      锁对象
+	 * @param key 锁对象
 	 * @throws DistributedLockException
 	 */
 	void unlock(String key) throws DistributedLockException;

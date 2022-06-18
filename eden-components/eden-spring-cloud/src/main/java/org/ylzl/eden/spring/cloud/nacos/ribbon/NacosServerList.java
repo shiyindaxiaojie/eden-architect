@@ -41,8 +41,7 @@ public class NacosServerList extends AbstractServerList<NacosServer> {
 			List<Instance> instances = discoveryProperties.namingServiceInstance()
 				.selectInstances(serviceId, group, true);
 			return instancesToServerList(instances);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException(
 				"Can not get service instances from nacos, serviceId=" + serviceId,
 				e);

@@ -21,6 +21,6 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
 		log.error("用户未认证: {}", e.getMessage(), e);
-		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED,"A0220", "用户未认证");
+		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "A0220", "用户未认证");
 	}
 }

@@ -28,8 +28,8 @@ import java.util.concurrent.Future;
 /**
  * 异步任务执行异常处理类
  *
- * @link https://github.com/jhipster/jhipster-bom/blob/main/jhipster-framework/src/main/java/tech/jhipster/async/ExceptionHandlingAsyncTaskExecutor.java
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @link https://github.com/jhipster/jhipster-bom/blob/main/jhipster-framework/src/main/java/tech/jhipster/async/ExceptionHandlingAsyncTaskExecutor.java
  * @since 2.4.x
  */
 @Slf4j
@@ -55,13 +55,13 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, In
 
 	private <T> Callable<T> createCallable(final Callable<T> task) {
 		return () -> {
-				try {
-					return task.call();
-				} catch (Exception e) {
-					handle(e);
-					throw e;
-				}
-			};
+			try {
+				return task.call();
+			} catch (Exception e) {
+				handle(e);
+				throw e;
+			}
+		};
 	}
 
 	private Runnable createWrappedRunnable(final Runnable task) {

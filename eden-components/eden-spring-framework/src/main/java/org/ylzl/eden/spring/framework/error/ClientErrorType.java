@@ -33,15 +33,15 @@ import java.util.Map;
  * <li>C____：表示错误来自于第三方服务</li>
  * </ul>
  *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @see ServerErrorType
  * @see ThirdServiceErrorType
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ClientErrorType {
 
 	public static void doesNotContain(@NonNull String textToSearch, String substring,
-								@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+									  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.doesNotContain(textToSearch, substring, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -50,7 +50,7 @@ public class ClientErrorType {
 	}
 
 	public static void hasLength(@NonNull String expression,
-						   @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+								 @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.hasLength(expression, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -59,7 +59,7 @@ public class ClientErrorType {
 	}
 
 	public static void hasText(String text,
-						 @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+							   @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.hasText(text, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -68,7 +68,7 @@ public class ClientErrorType {
 	}
 
 	public static void isInstanceOf(Class<?> type, @NonNull Object obj,
-							  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+									@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.isInstanceOf(type, obj, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -77,7 +77,7 @@ public class ClientErrorType {
 	}
 
 	public static void isNull(Object object,
-						@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+							  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.isNull(object, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -86,7 +86,7 @@ public class ClientErrorType {
 	}
 
 	public static void notNull(Object object,
-						 @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+							   @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.notNull(object, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -95,7 +95,7 @@ public class ClientErrorType {
 	}
 
 	public static void isTrue(boolean expression,
-						@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+							  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.isTrue(expression, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -104,7 +104,7 @@ public class ClientErrorType {
 	}
 
 	public static void noNullElements(@NonNull Collection<?> collection,
-								@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+									  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.noNullElements(collection, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -113,7 +113,7 @@ public class ClientErrorType {
 	}
 
 	public static void notEmpty(@NonNull Object[] array,
-						  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+								@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.notEmpty(array, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -122,7 +122,7 @@ public class ClientErrorType {
 	}
 
 	public static void notEmpty(@NonNull Collection<?> collection,
-						  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+								@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.notEmpty(collection, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -131,7 +131,7 @@ public class ClientErrorType {
 	}
 
 	public static void notEmpty(@NonNull Map<?, ?> map,
-						  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+								@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.notEmpty(map, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -140,7 +140,7 @@ public class ClientErrorType {
 	}
 
 	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType,
-							  @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+									@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.isAssignable(superType, subType, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
@@ -149,7 +149,7 @@ public class ClientErrorType {
 	}
 
 	public static void state(boolean expression,
-					   @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
+							 @PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Object... params) {
 		try {
 			AssertEnhancer.state(expression, ErrorConfig.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {

@@ -140,7 +140,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 		RPCHook rpcHook = null;
 		if (StringUtils.isNotBlank(fixedRocketMQConsumerProperties.getAccessKey()) &&
 			StringUtils.isNotBlank(fixedRocketMQConsumerProperties.getSecretKey())) {
-			rpcHook =  new AclClientRPCHook(new SessionCredentials(
+			rpcHook = new AclClientRPCHook(new SessionCredentials(
 				fixedRocketMQConsumerProperties.getAccessKey(),
 				fixedRocketMQConsumerProperties.getSecretKey()));
 		}

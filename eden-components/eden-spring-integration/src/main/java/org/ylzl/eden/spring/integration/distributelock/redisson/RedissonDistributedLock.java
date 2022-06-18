@@ -47,8 +47,8 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
-	 * @throws DistributedLockException
 	 * @return
+	 * @throws DistributedLockException
 	 */
 	@Override
 	public boolean lock(String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException {

@@ -82,10 +82,10 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 								new OffsetAndMetadata(record.offset() + 1));
 
 							messages.add(Message.builder()
-									.topic(record.topic())
-									.partition(record.partition())
-									.key(record.key())
-									.body(record.value()).build());
+								.topic(record.topic())
+								.partition(record.partition())
+								.key(record.key())
+								.body(record.value()).build());
 						});
 						messageQueueConsumer.consume(messages, () -> consumer.commitSync(offsets));
 					} catch (Exception e) {

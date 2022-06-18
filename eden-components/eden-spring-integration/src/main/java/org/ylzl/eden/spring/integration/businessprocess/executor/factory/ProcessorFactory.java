@@ -13,8 +13,8 @@ public interface ProcessorFactory {
 	/**
 	 * 实例化
 	 *
-	 * @param className    类名
-	 * @param processName  名称
+	 * @param className   类名
+	 * @param processName 名称
 	 * @return
 	 * @throws Exception
 	 */

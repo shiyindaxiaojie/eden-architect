@@ -15,7 +15,8 @@ public class ProcessEngine {
 	private final ProcessContextFactory processContextFactory;
 
 	public ProcessEngine(ProcessParser processParser) {
-		this.processContextFactory = new ProcessContextFactory(processParser);;
+		this.processContextFactory = new ProcessContextFactory(processParser);
+		;
 	}
 
 	public <T> ProcessContext<T> getContext(String name) {

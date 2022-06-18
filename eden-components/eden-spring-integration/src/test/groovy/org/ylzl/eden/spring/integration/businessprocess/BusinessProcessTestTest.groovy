@@ -7,19 +7,19 @@ import org.junit.jupiter.api.Test
 @CompileStatic
 class BusinessProcessTestTest {
 
-    private BusinessProcessTest businessProcessTestUnderTest
+	private BusinessProcessTest businessProcessTestUnderTest
 
-    @BeforeEach
-    void setUp() {
-        businessProcessTestUnderTest = new BusinessProcessTest()
-    }
+	@BeforeEach
+	void setUp() {
+		businessProcessTestUnderTest = new BusinessProcessTest()
+	}
 
-    @Test
-    void testAssertThatClassPathXml() {
-        // Setup
-        // Run the test
-        businessProcessTestUnderTest.assertThatClassPathXml()
+	@Test
+	void testAssertThatClassPathXml() {
+		// Setup
+		// Run the test
+		businessProcessTestUnderTest.assertThatClassPathXml()
 
-        // Verify the results
-    }
+		// Verify the results
+	}
 }

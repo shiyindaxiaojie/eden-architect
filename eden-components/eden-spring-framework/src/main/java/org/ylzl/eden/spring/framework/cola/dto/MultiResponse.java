@@ -76,7 +76,7 @@ public class MultiResponse<T> extends Response {
 	}
 
 	public static MultiResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											Object... params) {
+											 Object... params) {
 		MultiResponse response = new MultiResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
@@ -85,7 +85,7 @@ public class MultiResponse<T> extends Response {
 	}
 
 	public static MultiResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											String errMessage, Object... params) {
+											 String errMessage, Object... params) {
 		MultiResponse response = new MultiResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);

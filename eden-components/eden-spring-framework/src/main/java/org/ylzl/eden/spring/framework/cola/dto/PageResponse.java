@@ -92,7 +92,7 @@ public class PageResponse<T> extends Response {
 	}
 
 	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											  Object... params) {
+											Object... params) {
 		PageResponse response = new PageResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
@@ -101,7 +101,7 @@ public class PageResponse<T> extends Response {
 	}
 
 	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											  String errMessage, Object... params) {
+											String errMessage, Object... params) {
 		PageResponse response = new PageResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);

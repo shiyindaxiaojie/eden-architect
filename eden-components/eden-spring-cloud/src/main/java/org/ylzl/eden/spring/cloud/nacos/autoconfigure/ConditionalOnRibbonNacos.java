@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @since 2.4.x
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @ConditionalOnProperty(value = "ribbon.nacos.enabled", matchIfMissing = true)
 public @interface ConditionalOnRibbonNacos {
 }

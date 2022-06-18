@@ -1,10 +1,12 @@
 <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/icon.png" align="right" />
 
 [license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
+
 [github-action]:https://github.com/shiyindaxiaojie/eden-architect/actions
+
 [sonarcloud-dashboard]:https://sonarcloud.io/dashboard?id=shiyindaxiaojie_eden-architect
 
-# Eden* Architect 
+# Eden* Architect
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
 
@@ -14,8 +16,10 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ## 主要功能
 
-* **Maven 依赖和插件封装**：解决了主流技术组件集成产生的依赖冲突问题，并提供相关组件的 `Spring Boot Starter`，为开发者减少在组件集成消耗的时间。另外，提供了各种 Maven 插件（几乎覆盖市面上 99% 的组件），降低了各种 Maven 插件集成的复杂度，开发者只需要直接引入插件就可以实现灵活的构建操作。
-* **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus` 和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
+* **Maven 依赖和插件封装**：解决了主流技术组件集成产生的依赖冲突问题，并提供相关组件的 `Spring Boot Starter`，为开发者减少在组件集成消耗的时间。另外，提供了各种 Maven 插件（几乎覆盖市面上 99%
+  的组件），降低了各种 Maven 插件集成的复杂度，开发者只需要直接引入插件就可以实现灵活的构建操作。
+* **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus`
+  和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
 * **数据分片能力封装**：提供了 `Sharding JDBC` 的封装，兼容 `Mybatis Plus`、`DynamicDataSource` 组件。
 * **常用组件集成**：提供了 `Kafka`、`XXLJob`、`CAT`、`Zookeeper`、`EasyExcel`、`Sentinel` 等组件的集成，并提供 `Spring Boot Starter` 能力。
 
@@ -37,6 +41,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **eden-spring-test**: 单元测试和集成测试组件，集成了 `Spock`、`Embedded Redis`、`Embedded Kafka`...
 
 ## 如何构建
+
 * master 分支对应的是 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
 * 1.5.x 分支对应的是 `Spring Boot 1.5.x`，最低支持 JDK 1.8。
 * 2.4.x 分支对应的是 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
@@ -78,6 +83,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 ## 代码演示
 
 为了演示如何使用，我们提供了 3 种不同架构风格的 Demo
+
 * 面向领域模型的 COLA 架构，代码实例可以查看 [eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola)
 * 面向数据模型的分层架构，代码实例请查看 [eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)
 * 面向单机模型的 MVC 架构，代码实例可以查看 [eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)

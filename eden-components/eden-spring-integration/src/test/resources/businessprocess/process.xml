@@ -12,8 +12,8 @@
 		<node name="lockCoupon" class="org.ylzl.eden.spring.integration.businessprocess.LockCouponProcessor"
 			  next="deductStock"/>
 		<node name="deductStock" class="org.ylzl.eden.spring.integration.businessprocess.DeductStockProcessor"
-			  next="saveOrder"  />
-		<node name="saveOrder" class="org.ylzl.eden.spring.integration.businessprocess.SaveOrderProcessor" />
+			  next="saveOrder"/>
+		<node name="saveOrder" class="org.ylzl.eden.spring.integration.businessprocess.SaveOrderProcessor"/>
 	</process>
 
 </context>
