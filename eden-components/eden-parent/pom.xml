@@ -323,8 +323,8 @@
 					<version>${maven-failsafe-plugin.version}</version>
 					<configuration>
 						<includes>
-							<include>**/*IT*</include>
-							<include>**/*IntTest*</include>
+							<include>**/*IT</include>
+							<include>**/*ITCase</include>
 						</includes>
 					</configuration>
 				</plugin>
@@ -841,7 +841,7 @@
 							</includes>
 							<excludes>
 								<exclude>**/*IT</exclude>
-								<exclude>**/*IntTest</exclude>
+								<exclude>**/*ITCase</exclude>
 							</excludes>
 						</configuration>
 					</plugin>
@@ -951,7 +951,7 @@
 							<threadCount>10</threadCount>
 							<includes>
 								<include>**/*IT</include>
-								<include>**/*IntCase</include>
+								<include>**/*ITCase</include>
 							</includes>
 							<!--<excludes>
 								<exclude>**/*Test</exclude>

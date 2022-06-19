@@ -14,23 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.ylzl.eden.spring.framework.error.annotation;
+package org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure;
 
 import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.framework.error.autoconfigure.RestExceptionAdviceConfiguration;
 
 import java.lang.annotation.*;
 
 /**
- * 开启 REST 接口异常解析器自动装配
+ * 开启日志切面自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Import(RestExceptionAdviceConfiguration.class)
+@Import(CatchLogRegistrar.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnableRestExceptionResolver {
+public @interface EnableCatchLog {
 }

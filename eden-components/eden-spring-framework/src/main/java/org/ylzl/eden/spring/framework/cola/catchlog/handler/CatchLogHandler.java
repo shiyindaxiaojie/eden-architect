@@ -30,7 +30,14 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 @Slf4j
 public class CatchLogHandler {
 
-	public static Object response(Class<?> returnType, BaseException e) {
+	/**
+	 * 封装响应报文
+	 *
+	 * @param returnType
+	 * @param e
+	 * @return
+	 */
+	public static Object wrap(Class<?> returnType, BaseException e) {
 		try {
 			Response response = (Response) returnType.newInstance();
 			response.setSuccess(false);

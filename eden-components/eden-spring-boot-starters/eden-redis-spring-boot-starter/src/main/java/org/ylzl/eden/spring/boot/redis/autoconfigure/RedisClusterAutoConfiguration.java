@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.ylzl.eden.spring.data.redis.jedis.JedisTemplate;
+import redis.clients.jedis.JedisCluster;
 
 /**
  * Redis 自动装配
@@ -35,14 +36,14 @@ import org.ylzl.eden.spring.data.redis.jedis.JedisTemplate;
  * @since 2.4.x
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnClass({RedisOperations.class})
+@ConditionalOnClass({RedisOperations.class, JedisCluster.class})
 @Slf4j
 @Configuration
 public class RedisClusterAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public JedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	public JedisTemplate jedisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		JedisTemplate redisTemplate = new JedisTemplate();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		return redisTemplate;

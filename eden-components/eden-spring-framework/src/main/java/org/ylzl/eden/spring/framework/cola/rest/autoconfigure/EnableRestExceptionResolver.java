@@ -15,21 +15,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.catchlog.annotation;
+package org.ylzl.eden.spring.framework.cola.rest.autoconfigure;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * 日志切面注解
+ * 开启 REST 接口异常解析器自动装配
  *
- * @author Frank Zhang
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Import(RestExceptionAdviceConfiguration.class)
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CatchLog {
+@Documented
+public @interface EnableRestExceptionResolver {
 }

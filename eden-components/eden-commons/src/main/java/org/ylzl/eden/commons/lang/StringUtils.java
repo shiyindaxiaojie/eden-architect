@@ -71,7 +71,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		return sb.toString();
 	}
 
-	public List<String> toStringList(String str, String split) {
+	public static List<String> toStringList(String str, String split) {
 		return Arrays.asList(str.split(split));
 	}
+
+
 }

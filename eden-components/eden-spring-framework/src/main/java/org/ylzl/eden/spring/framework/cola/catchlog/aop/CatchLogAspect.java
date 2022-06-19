@@ -58,7 +58,7 @@ public class CatchLogAspect {
 
 	public static final String EXIT_LOG = "Exit: {}() with result = {}";
 
-	@Pointcut("@within(org.ylzl.eden.spring.framework.cola.catchlog.annotation.CatchLog) && execution(public * *(..))")
+	@Pointcut("@within(org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.CatchLog) && execution(public * *(..))")
 	public void catchLogPointcut() {
 	}
 
@@ -104,6 +104,6 @@ public class CatchLogAspect {
 			log.error(ERROR_LOG_WITH_ARGS, errorTag, joinPoint.getSignature().getDeclaringTypeName(),
 				Arrays.toString(joinPoint.getArgs()), cause, e.getMessage(), e);
 		}
-		return CatchLogHandler.response(returnType, baseException);
+		return CatchLogHandler.wrap(returnType, baseException);
 	}
 }

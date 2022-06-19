@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.framework.error.util;
 
 import lombok.NonNull;
-import org.slf4j.helpers.MessageFormatter;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
@@ -34,54 +33,54 @@ public class AssertEnhancer extends Assert {
 
 	public static void doesNotContain(@NonNull String textToSearch, String substring, String message,
 									  Object... placeholders) {
-		doesNotContain(textToSearch, substring, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		doesNotContain(textToSearch, substring, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void hasLength(@NonNull String expression, String message, Object... placeholders) {
-		hasLength(expression, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		hasLength(expression, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void hasText(String text, String message, Object... placeholders) {
-		hasText(text, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		hasText(text, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void isInstanceOf(Class<?> type, @NonNull Object obj, String message, Object... placeholders) {
-		isInstanceOf(type, obj, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		isInstanceOf(type, obj, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void isNull(Object object, String message, Object... placeholders) {
-		isNull(object, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		isNull(object, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void notNull(Object object, String message, Object... placeholders) {
-		notNull(object, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		notNull(object, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void isTrue(boolean expression, String message, Object... placeholders) {
-		isTrue(expression, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		isTrue(expression, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void noNullElements(@NonNull Collection<?> collection, String message, Object... placeholders) {
-		noNullElements(collection, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		noNullElements(collection, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void notEmpty(@NonNull Object[] array, String message, Object... placeholders) {
-		notEmpty(array, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		notEmpty(array, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void notEmpty(@NonNull Collection<?> collection, String message, Object... placeholders) {
-		notEmpty(collection, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		notEmpty(collection, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void notEmpty(@NonNull Map<?, ?> map, String message, Object... placeholders) {
-		notEmpty(map, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		notEmpty(map, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType, String message, Object... placeholders) {
-		isAssignable(superType, subType, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		isAssignable(superType, subType, MessageFormatUtils.format(message, placeholders));
 	}
 
 	public static void state(boolean expression, String message, Object... placeholders) {
-		state(expression, MessageFormatter.arrayFormat(message, placeholders).getMessage());
+		state(expression, MessageFormatUtils.format(message, placeholders));
 	}
 }

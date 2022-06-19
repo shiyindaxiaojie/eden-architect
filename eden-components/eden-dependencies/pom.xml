@@ -177,7 +177,8 @@
 		<cucumber.version>3.0.2</cucumber.version>
 		<dbunit.version>2.7.2</dbunit.version>
 		<embedded-mongo.version>2.2.0</embedded-mongo.version>
-		<embedded-redis.version>0.7.2</embedded-redis.version>
+		<embedded-redis.version>0.11.0</embedded-redis.version>
+		<testcontainers.version>2.2.2</testcontainers.version>
 		<gatling.version>3.2.1</gatling.version>
 		<jmh.version>1.23</jmh.version>
 		<junit.version>4.13.1</junit.version>
@@ -1409,6 +1410,18 @@
 				<artifactId>cucumber-spring</artifactId>
 				<version>${cucumber.version}</version>
 			</dependency>
+			<!-- Embedded Redis -->
+			<dependency>
+				<groupId>com.github.codemonstur</groupId>
+				<artifactId>embedded-redis</artifactId>
+				<version>${embedded-redis.version}</version>
+			</dependency>
+			<!-- Embedded MongoDB -->
+			<dependency>
+				<groupId>de.flapdoodle.embed</groupId>
+				<artifactId>de.flapdoodle.embed.mongo</artifactId>
+				<version>${embedded-mongo.version}</version>
+			</dependency>
 			<!-- Gatling -->
 			<dependency>
 				<groupId>io.gatling</groupId>
@@ -1425,23 +1438,53 @@
 				<artifactId>gatling-charts-highcharts</artifactId>
 				<version>${gatling.version}</version>
 			</dependency>
-			<!-- Embedded Redis -->
+			<!-- Embedded Elasticsearch -->
 			<dependency>
-				<groupId>it.ozimov</groupId>
-				<artifactId>embedded-redis</artifactId>
-				<version>${embedded-redis.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>guava</artifactId>
-						<groupId>com.google.guava</groupId>
-					</exclusion>
-				</exclusions>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-elasticsearch</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded Kafka -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-kafka</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded MariaDB -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-mariadb</artifactId>
+				<version>${testcontainers.version}</version>
 			</dependency>
 			<!-- Embedded MongoDB -->
 			<dependency>
-				<groupId>de.flapdoodle.embed</groupId>
-				<artifactId>de.flapdoodle.embed.mongo</artifactId>
-				<version>${embedded-mongo.version}</version>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-mongodb</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded MySQL -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-mysql</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded Pulsar -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-pulsar</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded RabbitMQ -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-rabbitmq</artifactId>
+				<version>${testcontainers.version}</version>
+			</dependency>
+			<!-- Embedded Redis -->
+			<dependency>
+				<groupId>com.playtika.testcontainers</groupId>
+				<artifactId>embedded-redis</artifactId>
+				<version>${testcontainers.version}</version>
 			</dependency>
 			<!-- Groovy -->
 			<dependency>
