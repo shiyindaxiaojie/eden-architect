@@ -41,26 +41,30 @@ public abstract class AbstractProcessor<T> implements Processor<T> {
 	 * @param throwable 异常
 	 */
 	@Override
-	public void onException(ProcessContext<T> context, Throwable throwable) {}
+	public void onException(ProcessContext<T> context, Throwable throwable) {
+	}
 
 	/**
 	 * 执行流程前置处理
 	 *
 	 * @param context 上下文
 	 */
-	protected void beforeProcess(ProcessContext<T> context) {}
+	protected void beforeProcess(ProcessContext<T> context) {
+	}
 
 	/**
 	 * 执行流程
 	 *
 	 * @param context 上下文
 	 */
-	protected void process(ProcessContext<T> context) {}
+	protected void process(ProcessContext<T> context) {
+	}
 
 	/**
 	 * 执行流程后置处理
 	 *
 	 * @param context 上下文
 	 */
-	protected void afterProcess(ProcessContext<T> context) {}
+	protected void afterProcess(ProcessContext<T> context) {
+	}
 }

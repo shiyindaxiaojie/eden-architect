@@ -21,6 +21,6 @@ public class ForbiddenAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException {
 		log.error("无访问权限: {}", e.getMessage(), e);
-		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED,"A0220", "登录失败");
+		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "A0220", "登录失败");
 	}
 }

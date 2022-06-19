@@ -379,5 +379,5 @@
 			<artifactId>groovy-sql</artifactId>
 			<scope>test</scope>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

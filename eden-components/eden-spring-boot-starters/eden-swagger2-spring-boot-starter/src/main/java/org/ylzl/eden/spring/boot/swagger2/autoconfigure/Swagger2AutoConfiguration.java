@@ -92,7 +92,7 @@ public class Swagger2AutoConfiguration {
 	private String applicationName;
 
 	public Swagger2AutoConfiguration(
-            Swagger2Properties properties, ManagementServerProperties managementServerProperties) {
+		Swagger2Properties properties, ManagementServerProperties managementServerProperties) {
 		this.properties = properties;
 		this.managementServerProperties = managementServerProperties;
 	}

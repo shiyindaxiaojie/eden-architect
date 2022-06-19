@@ -74,6 +74,7 @@
 		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 		<surefireArgLine/>
 		<skipUnitTest>false</skipUnitTest>
+		<junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
 		<!-- 集成测试 -->
 		<maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
 		<failsafeArgLine/>
@@ -149,7 +150,8 @@
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
-		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}</infinispan-protocol-parser-generator-maven-plugin.version>
+		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
+		</infinispan-protocol-parser-generator-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
 	</properties>
@@ -313,24 +315,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
-					<configuration>
-						<useModulePath>false</useModulePath>
-						<useFile>false</useFile>
-						<parallel>methods</parallel>
-						<threadCount>10</threadCount>
-						<testFailureIgnore>true</testFailureIgnore>
-						<includes>
-							<include>**/*Test</include>
-							<include>**/*Spec</include>
-						</includes>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.surefire</groupId>
-							<artifactId>surefire-junit47</artifactId>
-							<version>${maven-surefire-plugin.version}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 				<!-- 集成测试 -->
 				<plugin>
@@ -339,8 +323,8 @@
 					<version>${maven-failsafe-plugin.version}</version>
 					<configuration>
 						<includes>
-							<include>**/*IT*</include>
-							<include>**/*IntTest*</include>
+							<include>**/*IT</include>
+							<include>**/*ITCase</include>
 						</includes>
 					</configuration>
 				</plugin>
@@ -814,56 +798,118 @@
 		</profile>
 
 		<profile>
-			<id>unit-test</id>
-			<properties>
-				<skipUnitTest>false</skipUnitTest>
-			</properties>
+			<id>code-review</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.sonarsource.scanner.maven</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>unit-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>compileTests</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
-							<argLine>${surefireArgLine}
-							</argLine>
-							<skipTests>${skipUnitTest}
-							</skipTests>
+							<skipTests>false</skipTests>
+							<useModulePath>false</useModulePath>
+							<useFile>false</useFile>
+							<parallel>methods</parallel>
+							<threadCount>10</threadCount>
+							<testFailureIgnore>true</testFailureIgnore>
+							<includes>
+								<include>**/*Test</include>
+								<include>**/*Spec</include>
+							</includes>
 							<excludes>
-								<exclude>**/*IT*</exclude>
-								<exclude>**/*IntTest*</exclude>
+								<exclude>**/*IT</exclude>
+								<exclude>**/*ITCase</exclude>
 							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<skipTests>true</skipTests>
 						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
+						<configuration>
+							<destFile>
+								${project.build.directory}/jacoco-ut.exec
+							</destFile>
+							<dataFile>
+								${project.build.directory}/jacoco-ut.exec
+							</dataFile>
+							<rules>
+								<rule
+									implementation="org.jacoco.maven.RuleConfiguration">
+									<element>BUNDLE</element>
+									<limits>　　
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>METHOD</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.50</minimum>
+										</limit>
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.50</minimum>
+										</limit>
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>CLASS</counter>
+											<value>MISSEDCOUNT</value>
+											<maximum>0</maximum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
 						<executions>
 							<execution>
-								<id>pre-unit-test</id>
+								<id>prepare-agent</id>
+								<phase>generate-test-resources</phase>
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
-								<configuration>
-									<destFile>
-										${project.build.directory}/coverage-reports/jacoco-ut.exec
-									</destFile>
-									<propertyName>surefireArgLine</propertyName>
-								</configuration>
 							</execution>
 							<execution>
-								<id>post-unit-test</id>
+								<id>report</id>
 								<phase>test</phase>
 								<goals>
 									<goal>report</goal>
 								</goals>
-								<configuration>
-									<dataFile>
-										${project.build.directory}/coverage-reports/jacoco-ut.exec
-									</dataFile>
-									<outputDirectory>
-										${project.reporting.outputDirectory}/jacoco-ut
-									</outputDirectory>
-								</configuration>
+							</execution>
+							<execution>
+								<id>report-aggregate</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>report-aggregate</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
@@ -873,77 +919,129 @@
 
 		<profile>
 			<id>integration-test</id>
-			<properties>
-				<skipIntTest>false</skipIntTest>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>integration-tests</id>
 								<goals>
-									<goal>verify</goal>
-									<goal>integration-test</goal>
+									<goal>compile</goal>
+									<goal>compileTests</goal>
 								</goals>
-								<configuration>
-									<argLine>${failsafeArgLine}</argLine>
-									<skipTests>${skipIntTest}</skipTests>
-									<includes>
-										<include>**/*IT*</include>
-										<include>**/*IntTest*</include>
-									</includes>
-								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<configuration>
+							<skipTests>false</skipTests>
+							<useModulePath>false</useModulePath>
+							<useFile>false</useFile>
+							<parallel>methods</parallel>
+							<threadCount>10</threadCount>
+							<includes>
+								<include>**/*IT</include>
+								<include>**/*ITCase</include>
+							</includes>
+							<!--<excludes>
+								<exclude>**/*Test</exclude>
+								<exclude>**/*Spec</exclude>
+							</excludes>-->
+						</configuration>
+						<executions>
+							<execution>
+								<id>integration</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>verify</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>org.junit.jupiter</groupId>
+								<artifactId>junit-jupiter-engine</artifactId>
+								<version>${junit-jupiter-engine.version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
+						<configuration>
+							<destFile>
+								${project.build.directory}/jacoco-it.exec
+							</destFile>
+							<dataFile>
+								${project.build.directory}/jacoco-it.exec
+							</dataFile>
+							<rules>
+								<rule
+									implementation="org.jacoco.maven.RuleConfiguration">
+									<element>BUNDLE</element>
+									<limits>　　
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>METHOD</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.50</minimum>
+										</limit>
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.50</minimum>
+										</limit>
+										<limit
+											implementation="org.jacoco.report.check.Limit">
+											<counter>CLASS</counter>
+											<value>MISSEDCOUNT</value>
+											<maximum>0</maximum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
 						<executions>
 							<execution>
-								<id>pre-integration-test</id>
+								<id>prepare-agent-integration</id>
 								<phase>pre-integration-test</phase>
 								<goals>
-									<goal>prepare-agent</goal>
+									<goal>prepare-agent-integration</goal>
 								</goals>
-								<configuration>
-									<destFile>
-										${project.build.directory}/coverage-reports/jacoco-it.exec
-									</destFile>
-									<propertyName>failsafeArgLine</propertyName>
-								</configuration>
 							</execution>
 							<execution>
-								<id>post-integration-test</id>
+								<id>report-integration</id>
 								<phase>post-integration-test</phase>
 								<goals>
-									<goal>report</goal>
+									<goal>report-integration</goal>
 								</goals>
-								<configuration>
-									<dataFile>
-										${project.build.directory}/coverage-reports/jacoco-it.exec
-									</dataFile>
-									<outputDirectory>
-										${project.reporting.outputDirectory}/jacoco-it
-									</outputDirectory>
-								</configuration>
+							</execution>
+							<execution>
+								<id>report-aggregate</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>report-aggregate</goal>
+								</goals>
 							</execution>
 						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>code-review</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.sonarsource.scanner.maven</groupId>
-						<artifactId>sonar-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>

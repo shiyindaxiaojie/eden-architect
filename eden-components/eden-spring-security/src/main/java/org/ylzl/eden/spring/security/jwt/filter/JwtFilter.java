@@ -42,10 +42,10 @@ public class JwtFilter extends GenericFilterBean {
 		if (!isAnonymousUrls(request)) {
 			AccessToken accessToken = resolveToken(request);
 			try {
-				ClientErrorType.notNull(accessToken,"A0220");
+				ClientErrorType.notNull(accessToken, "A0220");
 				this.jwtTokenProvider.validateToken(accessToken);
 			} catch (Exception e) {
-				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED,"A0220", e.getMessage());
+				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "A0220", e.getMessage());
 				return;
 			}
 			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);

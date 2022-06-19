@@ -83,8 +83,8 @@ public class MybatisUtils {
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
 			String[] sortColumns = sortColumn.split(StringConstants.COLON);
 			List<OrderItem> orderItems = SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
-					? OrderItem.ascs(sortColumns)
-					: OrderItem.descs(sortColumns);
+				? OrderItem.ascs(sortColumns)
+				: OrderItem.descs(sortColumns);
 			page.addOrder(orderItems);
 		}
 		return page;

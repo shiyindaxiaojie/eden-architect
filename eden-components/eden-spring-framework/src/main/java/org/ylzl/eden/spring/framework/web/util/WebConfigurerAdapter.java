@@ -28,7 +28,7 @@ import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.ylzl.eden.spring.framework.error.annotation.EnableRestExceptionResolver;
+import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptionResolver;
 
 import javax.servlet.ServletContext;
 import java.util.concurrent.TimeUnit;

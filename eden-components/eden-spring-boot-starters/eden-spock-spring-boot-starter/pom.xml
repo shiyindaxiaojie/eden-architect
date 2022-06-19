@@ -16,6 +16,43 @@
 	<description>Spring Boot Starter For Spock</description>
 
 	<dependencies>
+		<!-- 测试组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-test</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>checker-qual</artifactId>
+					<groupId>org.checkerframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jopt-simple</artifactId>
+					<groupId>net.sf.jopt-simple</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>scala-java8-compat_2.12</artifactId>
+					<groupId>org.scala-lang.modules</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>scala-reflect</artifactId>
+					<groupId>org.scala-lang</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>config</artifactId>
+					<groupId>com.typesafe</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>error_prone_annotations</artifactId>
+					<groupId>com.google.errorprone</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>scala-library</artifactId>
+					<groupId>org.scala-lang</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Spring 测试组件 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -26,6 +63,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- Spock 测试组件 -->
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
@@ -46,9 +85,37 @@
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-sql</artifactId>
 		</dependency>
+
+		<!-- H2 测试组件 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- Embedded Redis -->
+		<dependency>
+			<groupId>com.github.codemonstur</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>config</artifactId>
+					<groupId>com.typesafe</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>error_prone_annotations</artifactId>
+					<groupId>com.google.errorprone</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>scala-library</artifactId>
+					<groupId>org.scala-lang</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Embedded MongoDB -->
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 		</dependency>
 	</dependencies>
 </project>

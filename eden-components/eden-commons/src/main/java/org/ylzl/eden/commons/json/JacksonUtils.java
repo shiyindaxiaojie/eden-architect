@@ -135,7 +135,7 @@ public class JacksonUtils {
 		}
 	}
 
-	public static String toXMLString(Object object)  {
+	public static String toXMLString(Object object) {
 		return toXMLString(object, getDefaultXmlMapper());
 	}
 
@@ -161,7 +161,7 @@ public class JacksonUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <K, V> Map<K, V> toMap(String jsonString, ObjectMapper objectMapper){
+	public static <K, V> Map<K, V> toMap(String jsonString, ObjectMapper objectMapper) {
 		try {
 			return objectMapper.readValue(jsonString, Map.class);
 		} catch (JsonProcessingException e) {
@@ -176,7 +176,8 @@ public class JacksonUtils {
 	public static <T> List<T> toList(String jsonString, Class<T> cls, ObjectMapper objectMapper) {
 		List<Map<Object, Object>> list;
 		try {
-			list = objectMapper.readValue(jsonString, new TypeReference<List<Map<Object, Object>>>() {});
+			list = objectMapper.readValue(jsonString, new TypeReference<List<Map<Object, Object>>>() {
+			});
 		} catch (JsonProcessingException e) {
 			throw new JacksonException(e);
 		}

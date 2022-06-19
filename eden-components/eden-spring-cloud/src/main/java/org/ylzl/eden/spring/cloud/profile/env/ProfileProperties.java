@@ -36,7 +36,7 @@ public class ProfileProperties {
 
 	private String[] displayOnActiveProfiles = {
 		SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT,
-			SpringProfileConstants.SPRING_PROFILE_TEST,
-			SpringProfileConstants.SPRING_PROFILE_DEMO
+		SpringProfileConstants.SPRING_PROFILE_TEST,
+		SpringProfileConstants.SPRING_PROFILE_DEMO
 	};
 }

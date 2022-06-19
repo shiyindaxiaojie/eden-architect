@@ -15,30 +15,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.error.event;
+package org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.springframework.context.ApplicationEvent;
-import org.ylzl.eden.spring.framework.cola.dto.Response;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Rest 异常事件
+ * 日志切面注解
  *
+ * @author Frank Zhang
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Builder
-@EqualsAndHashCode(callSuper = false)
-@ToString
-@Data
-public class RestExceptionEvent extends ApplicationEvent {
-
-	private Response response;
-
-	public RestExceptionEvent(Object source) {
-		super(source);
-	}
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CatchLog {
 }

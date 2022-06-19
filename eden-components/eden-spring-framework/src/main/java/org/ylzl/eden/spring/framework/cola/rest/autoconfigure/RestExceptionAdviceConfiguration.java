@@ -14,22 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.framework.cola.catchlog.annotation;
 
-import org.springframework.context.annotation.Import;
-import org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.CatchLogAutoConfiguration;
+package org.ylzl.eden.spring.framework.cola.rest.autoconfigure;
 
-import java.lang.annotation.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.framework.cola.rest.resolver.RestExceptionResolver;
 
 /**
- * 开启日志切面自动装配
+ * REST 错误自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Import(CatchLogAutoConfiguration.class)
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface EnableCatchLog {
+@Configuration
+public class RestExceptionAdviceConfiguration {
+
+	@ConditionalOnMissingBean
+	@Bean
+	public RestExceptionResolver restExceptionHandler() {
+		return new RestExceptionResolver();
+	}
 }

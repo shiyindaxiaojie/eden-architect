@@ -15,25 +15,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.error.autoconfigure;
+package org.ylzl.eden.spring.framework.cola.rest.event;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.error.resolver.RestExceptionResolver;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.springframework.context.ApplicationEvent;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
 
 /**
- * REST 错误自动装配
+ * Rest 异常事件
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Configuration
-public class RestExceptionAdviceConfiguration {
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@ToString
+@Data
+public class RestExceptionEvent extends ApplicationEvent {
 
-	@ConditionalOnMissingBean
-	@Bean
-	public RestExceptionResolver restExceptionHandler() {
-		return new RestExceptionResolver();
+	private Response response;
+
+	public RestExceptionEvent(Object source) {
+		super(source);
 	}
 }

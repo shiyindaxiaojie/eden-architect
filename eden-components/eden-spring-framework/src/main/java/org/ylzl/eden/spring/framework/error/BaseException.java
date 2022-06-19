@@ -21,7 +21,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.jetbrains.annotations.PropertyKey;
-import org.ylzl.eden.spring.framework.cola.dto.Response;
 
 /**
  * 异常抽象
@@ -46,9 +45,5 @@ public class BaseException extends RuntimeException {
 		this.errCode = errCode;
 		this.errMessage = errMessage;
 		this.params = params;
-	}
-
-	public Response getResponse() {
-		return Response.buildFailure(errCode, errMessage, params);
 	}
 }

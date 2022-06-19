@@ -18,10 +18,8 @@
 package org.ylzl.eden.spring.test.redis;
 
 import org.junit.rules.ExternalResource;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import redis.embedded.RedisServer;
-
-import java.io.IOException;
+import redis.embedded.core.RedisServerBuilder;
 
 /**
  * 嵌入式的 Redis
@@ -31,42 +29,48 @@ import java.io.IOException;
  */
 public class EmbeddedRedis extends ExternalResource {
 
+	private static final String DEFAULT_BIND = "0.0.0.0";
+
 	private static final int DEFAULT_PORT = 6379;
 
-	private int port;
+	private static final String DEFAULT_MAX_HEAP = "maxheap 256MB";
 
-	private boolean suppressExceptions = false;
-
-	private boolean closed = true;
+	private final RedisServerBuilder redisServerBuilder;
 
 	private RedisServer redisServer;
 
+	private boolean closed = true;
+
 	public EmbeddedRedis() {
-		port = DEFAULT_PORT;
+		this.redisServerBuilder = new RedisServerBuilder()
+			.bind(DEFAULT_BIND)
+			.port(DEFAULT_PORT)
+			.setting(DEFAULT_MAX_HEAP);
 	}
 
 	public EmbeddedRedis(int port) {
-		this.port = port;
+		this.redisServerBuilder = new RedisServerBuilder()
+			.bind(DEFAULT_BIND)
+			.port(port)
+			.setting(DEFAULT_MAX_HEAP);
 	}
 
-	public EmbeddedRedis(RedisProperties redisProperties) {
-		this.port = redisProperties.getPort();
+	public void addConfigLine(String configLine) {
+		this.redisServerBuilder.setting(configLine);
 	}
 
-	public static EmbeddedRedis runningAt(Integer port) {
-		return new EmbeddedRedis(port != null ? port : DEFAULT_PORT);
+	public void addRequirePass(String requirepass) {
+		this.redisServerBuilder.setting("requirepass " + requirepass);
 	}
 
 	@Override
-	public void before() throws IOException {
+	public void before() {
 		try {
-			this.redisServer = new RedisServer(port);
+			this.redisServer = redisServerBuilder.build();
 			this.redisServer.start();
 			closed = false;
 		} catch (Exception e) {
-			if (!suppressExceptions) {
-				throw e;
-			}
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -79,9 +83,7 @@ public class EmbeddedRedis extends ExternalResource {
 			this.redisServer.stop();
 			closed = true;
 		} catch (Exception e) {
-			if (!suppressExceptions) {
-				throw e;
-			}
+			throw new RuntimeException(e);
 		}
 	}
 

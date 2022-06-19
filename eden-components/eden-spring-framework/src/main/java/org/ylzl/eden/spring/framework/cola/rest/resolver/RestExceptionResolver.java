@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.error.resolver;
+package org.ylzl.eden.spring.framework.cola.rest.resolver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,13 +34,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.ylzl.eden.spring.framework.cola.dto.Response;
-import org.ylzl.eden.spring.framework.error.event.RestExceptionEvent;
-import org.ylzl.eden.spring.framework.error.http.BadRequestException;
-import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
-import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.framework.error.ClientException;
 import org.ylzl.eden.spring.framework.error.ServerException;
 import org.ylzl.eden.spring.framework.error.ThirdServiceException;
+import org.ylzl.eden.spring.framework.cola.rest.event.RestExceptionEvent;
+import org.ylzl.eden.spring.framework.error.http.BadRequestException;
+import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
+import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 
 import java.util.List;
 
@@ -129,7 +129,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public Response processBadRequestException(BadRequestException ex) {
-		Response response = ex.getResponse();
+		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage(), ex.getParams());
 		this.process(ex, response);
 		return response;
 	}
@@ -144,7 +144,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	@ResponseBody
 	public Response processUnauthorizedException(UnauthorizedException ex) {
-		Response response = ex.getResponse();
+		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage(), ex.getParams());
 		this.process(ex, response);
 		return response;
 	}
@@ -159,7 +159,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	@ResponseBody
 	public Response processForbiddenException(ForbiddenException ex) {
-		Response response = ex.getResponse();
+		Response response = Response.buildFailure(ex.getErrCode(), ex.getErrMessage(), ex.getParams());
 		this.process(ex, response);
 		return response;
 	}

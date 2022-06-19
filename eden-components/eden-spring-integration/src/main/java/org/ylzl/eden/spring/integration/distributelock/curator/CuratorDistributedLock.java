@@ -48,7 +48,8 @@ public class CuratorDistributedLock implements DistributedLock {
 
 	/**
 	 * 加锁
-	 *  @param key      锁对象
+	 *
+	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
 	 * @return

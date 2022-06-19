@@ -17,7 +17,10 @@
 
 package org.ylzl.eden.spring.framework.cola.dto;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.jetbrains.annotations.PropertyKey;
 import org.slf4j.helpers.MessageFormatter;
 import org.ylzl.eden.spring.framework.error.ErrorConfig;
@@ -57,7 +60,7 @@ public class Response extends DTO {
 	}
 
 	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											 Object... params) {
+										Object... params) {
 		Response response = new Response();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
@@ -66,7 +69,7 @@ public class Response extends DTO {
 	}
 
 	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											 String errMessage, Object... params) {
+										String errMessage, Object... params) {
 		Response response = new Response();
 		response.setSuccess(false);
 		response.setErrCode(errCode);

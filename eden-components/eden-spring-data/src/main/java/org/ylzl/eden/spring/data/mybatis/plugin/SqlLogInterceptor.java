@@ -68,7 +68,7 @@ public class SqlLogInterceptor implements Interceptor {
 		if (DRUID_POOLED_PREPARED_STATEMENT.equals(stmtClassName)) {
 			try {
 				if (druidGetSqlMethod == null) {
-					synchronized(SqlLogInterceptor.class) {
+					synchronized (SqlLogInterceptor.class) {
 						if (druidGetSqlMethod == null) {
 							Class<?> clazz = Class.forName(DRUID_POOLED_PREPARED_STATEMENT);
 							druidGetSqlMethod = clazz.getMethod("getSql");

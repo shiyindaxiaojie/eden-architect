@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.boot.redis.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -19,12 +20,16 @@ import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplateImpl;
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class})
+@Slf4j
 @Configuration
 public class CustomRedisTemplateAutoConfiguration {
+
+	public static final String AUTOWIRED_CUSTOM_REDIS_TEMPLATE = "Autowired CustomRedisTemplate";
 
 	@ConditionalOnMissingBean
 	@Bean
 	public CustomRedisTemplate customRedisTemplate(StringRedisTemplate redisTemplate) {
+		log.debug(AUTOWIRED_CUSTOM_REDIS_TEMPLATE);
 		return new CustomRedisTemplateImpl(redisTemplate);
 	}
 }

@@ -58,8 +58,7 @@ public class NacosRule extends AbstractLoadBalancerRule {
 					.collect(Collectors.toList());
 				if (!CollectionUtils.isEmpty(sameClusterInstances)) {
 					instancesToChoose = sameClusterInstances;
-				}
-				else {
+				} else {
 					log.warn(
 						"A cross-cluster call occurs，name = {}, clusterName = {}, instance = {}",
 						name, clusterName, instances);
@@ -69,8 +68,7 @@ public class NacosRule extends AbstractLoadBalancerRule {
 			Instance instance = ExtendBalancer.getHostByRandomWeightExtend(instancesToChoose);
 
 			return new NacosServer(instance);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			log.warn("NacosRule error", e);
 			return null;
 		}
@@ -83,5 +81,6 @@ public class NacosRule extends AbstractLoadBalancerRule {
 	 * @param clientConfig
 	 */
 	@Override
-	public void initWithNiwsConfig(IClientConfig clientConfig) {}
+	public void initWithNiwsConfig(IClientConfig clientConfig) {
+	}
 }

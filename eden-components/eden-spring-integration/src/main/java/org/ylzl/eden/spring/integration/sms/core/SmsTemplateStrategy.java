@@ -13,7 +13,7 @@ public class SmsTemplateStrategy {
 
 	public SmsTemplate getExecutor(String beanName) {
 		SmsTemplate smsTemplate = ApplicationContextHelper.getBean(beanName, SmsTemplate.class);
-		ClientErrorType.notNull(smsTemplate,"B0001", "SmsTemplate beanDefinition named '" + beanName + "' not found");
+		ClientErrorType.notNull(smsTemplate, "B0001", "SmsTemplate beanDefinition named '" + beanName + "' not found");
 		return smsTemplate;
 	}
 }

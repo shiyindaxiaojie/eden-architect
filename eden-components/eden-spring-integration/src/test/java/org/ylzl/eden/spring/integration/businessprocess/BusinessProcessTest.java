@@ -1,6 +1,6 @@
 package org.ylzl.eden.spring.integration.businessprocess;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ylzl.eden.commons.id.SnowflakeGenerator;
 import org.ylzl.eden.spring.integration.businessprocess.config.parser.ClassPathXmlProcessParser;
 import org.ylzl.eden.spring.integration.businessprocess.process.ProcessContext;

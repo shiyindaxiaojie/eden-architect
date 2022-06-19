@@ -17,7 +17,7 @@
 			<column name="step" type="int" remarks="步长">
 				<constraints nullable="false"/>
 			</column>
-			<column name="description" type="varchar(256)" remarks="描述" />
+			<column name="description" type="varchar(256)" remarks="描述"/>
 			<column name="last_modified_date" type="timestamp" remarks="最后更新事件" defaultValue="${now}">
 				<constraints nullable="false"/>
 			</column>

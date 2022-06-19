@@ -33,8 +33,8 @@ public class CglibProxy {
 	 *
 	 * @param clazz
 	 * @param callback
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {

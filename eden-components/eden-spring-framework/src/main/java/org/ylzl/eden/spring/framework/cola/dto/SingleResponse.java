@@ -47,7 +47,7 @@ public class SingleResponse<T> extends Response {
 	}
 
 	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-										Object... params) {
+											  Object... params) {
 		SingleResponse response = new SingleResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);

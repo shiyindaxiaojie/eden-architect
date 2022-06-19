@@ -19,6 +19,6 @@ public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 		throws IOException {
-		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED,"A0220", "认证失败");
+		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "A0220", "认证失败");
 	}
 }

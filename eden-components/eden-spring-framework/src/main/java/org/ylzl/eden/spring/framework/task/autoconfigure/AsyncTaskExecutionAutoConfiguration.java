@@ -37,9 +37,9 @@ import java.util.concurrent.Executor;
 /**
  * 异步任务执行器自动装配
  *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @EnableAsync
