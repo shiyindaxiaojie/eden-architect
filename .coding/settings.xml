@@ -17,10 +17,10 @@
 			<id>coding</id>
 			<properties>
 				<altReleaseDeploymentRepository>
-					coding::default::${env.CODING_MAVEN_RELEASES_URL}
+					${env.CODING_MAVEN_RELEASES_ID}::default::${env.CODING_MAVEN_RELEASES_URL}
 				</altReleaseDeploymentRepository>
 				<altSnapshotDeploymentRepository>
-					coding::default::${env.CODING_MAVEN_SNAPSHOTS_URL}
+					${env.CODING_MAVEN_SNAPSHOTS_ID}::default::${env.CODING_MAVEN_SNAPSHOTS_URL}
 				</altSnapshotDeploymentRepository>
 			</properties>
 			<repositories>
