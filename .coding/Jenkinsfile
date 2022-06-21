@@ -65,10 +65,9 @@ pipeline {
 			post {
 				always {
            junit '**/surefire-reports/*.xml'
+           codingHtmlReport(name: '单元测试报告', tag: 'surefire-reports', path: '**/target/site', entryFile: 'surefire-report.html')
+           codingHtmlReport(name: '代码覆盖率报告', tag: 'jacoco-reports', path: '**/target/site/jacoco', entryFile: 'index.html')
         }
-				success {
-					codingHtmlReport(name: '测试覆盖率报告', tag: 'coverage-reports', path: '**/target/site/jacoco', entryFile: 'index.html')
-				}
 			}
     }
     stage('推送到 Maven 制品库') {
