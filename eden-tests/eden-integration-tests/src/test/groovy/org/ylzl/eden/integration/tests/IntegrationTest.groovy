@@ -2,15 +2,15 @@ package org.ylzl.eden.integration.tests
 
 import spock.lang.*
 
-class TestTest extends Specification {
-    Test test = new Test()
+class IntegrationTest extends Specification {
+    Integration integration = new Integration()
 
-    def "test assert That Success"() {
+    def "integration assert That Success"() {
         when:
-        boolean result = test.assertThatSuccess()
+        boolean result = integration.assertThatSuccess()
 
         then:
-        result == true
+		result
     }
 }
 

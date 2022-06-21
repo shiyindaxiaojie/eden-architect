@@ -6,7 +6,7 @@ package org.ylzl.eden.integration.tests;
  * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
  * @since 1.0.0
  */
-public class Test {
+public class Integration {
 
 	public boolean assertThatSuccess() {
 		return true;
