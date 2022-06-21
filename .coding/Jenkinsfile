@@ -65,8 +65,8 @@ pipeline {
 			post {
 				always {
            junit '**/surefire-reports/*.xml'
-           codingHtmlReport(name: '单元测试报告', tag: 'surefire-reports', path: '**/target/site', entryFile: 'surefire-report.html')
-           codingHtmlReport(name: '代码覆盖率报告', tag: 'jacoco-reports', path: '/root/workspace/eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: '单元测试报告', tag: 'surefire-reports', path: 'eden-components/eden-spring-test/target/site', entryFile: 'surefire-report.html')
+           codingHtmlReport(name: '代码覆盖率报告', tag: 'jacoco-reports', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
         }
 			}
     }
