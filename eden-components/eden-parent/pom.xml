@@ -855,10 +855,10 @@
 						<artifactId>maven-surefire-report-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>report</id>
+								<id>site</id>
 								<phase>test</phase>
 								<goals>
-									<goal>report</goal>
+									<goal>report-only</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -1006,7 +1006,7 @@
 						<executions>
 							<execution>
 								<id>report</id>
-								<phase>test</phase>
+								<phase>site</phase>
 								<goals>
 									<goal>failsafe-report-only</goal>
 								</goals>

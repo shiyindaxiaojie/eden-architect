@@ -65,8 +65,21 @@ pipeline {
 			post {
 				always {
            junit '**/surefire-reports/*.xml'
-           codingHtmlReport(name: '单元测试报告', tag: 'surefire-reports', path: 'eden-components/eden-spring-test/target/site', entryFile: 'surefire-report.html')
-           codingHtmlReport(name: '代码覆盖率报告', tag: 'jacoco-reports', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-commons-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-commons/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-cloud-jacoco-reports', tag: '代码覆盖率报告', path:
+           'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-data-jacoco-reports', tag: '代码覆盖率报告', path:
+           'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-framework-jacoco-reports', tag: '代码覆盖率报告', path:
+           'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-integration-jacoco-reports', tag: '代码覆盖率报告', path:
+           'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
         }
 			}
     }
