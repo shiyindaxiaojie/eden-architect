@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
           chmod +x mvnw
-          ./mvnw -ntp clean package -Pgithub -DskipTests -e -U
+          ./mvnw -ntp clean package -Pgithub -e -U
       - name: Deploying application...
         run: |
           ./mvnw -ntp deploy -Pgithub -DskipTests -e -U

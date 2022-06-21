@@ -1,6 +1,6 @@
 package org.ylzl.eden.integration.tests
 
-import spock.lang.*
+import spock.lang.Specification
 
 class IntegrationTest extends Specification {
     Integration integration = new Integration()
