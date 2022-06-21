@@ -64,7 +64,7 @@ pipeline {
       }
 			post {
 				always {
-					junit '/root/workspace/eden-components/eden-spring-test/target/surefire-reports/*.xml'
+					junit '/root/workspace/surefire-reports/*.xml'
 				}
 				success {
 					codingHtmlReport(name: '测试覆盖率报告', tag: 'eden-spring-integration', path: '/root/workspace/eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
