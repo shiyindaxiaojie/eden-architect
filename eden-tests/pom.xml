@@ -47,10 +47,18 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
+				<inherited>true</inherited>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<inherited>true</inherited>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
@@ -68,6 +76,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
