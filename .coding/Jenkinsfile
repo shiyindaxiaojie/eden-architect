@@ -23,14 +23,7 @@ pipeline {
     stage('编译') {
       steps {
         script {
-
-          if (env.TAG_NAME ==~ /.*/ ) {
-	          CODING_ARTIFACT_VERSION = "${env.TAG_NAME}"
-          } else if (env.MR_SOURCE_BRANCH ==~ /.*/ ) {
-	          CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}-${env.GIT_COMMIT_SHORT}"
-          } else {
-	          CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}-${env.GIT_COMMIT_SHORT}"
-          }
+          CODING_ARTIFACT_VERSION = "2.4.13-SNAPSHOT"
         }
 				withEnv([
 					"CODING_ARTIFACT_VERSION=${CODING_ARTIFACT_VERSION}",
