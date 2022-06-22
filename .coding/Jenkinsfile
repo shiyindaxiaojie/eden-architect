@@ -23,14 +23,7 @@ pipeline {
     stage('编译') {
       steps {
         script {
-
-          if (env.TAG_NAME ==~ /.*/ ) {
-	          CODING_ARTIFACT_VERSION = "${env.TAG_NAME}"
-          } else if (env.MR_SOURCE_BRANCH ==~ /.*/ ) {
-	          CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}-${env.GIT_COMMIT_SHORT}"
-          } else {
-	          CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}-${env.GIT_COMMIT_SHORT}"
-          }
+          CODING_ARTIFACT_VERSION = "2.4.13-SNAPSHOT"
         }
 				withEnv([
 					"CODING_ARTIFACT_VERSION=${CODING_ARTIFACT_VERSION}",
@@ -65,13 +58,13 @@ pipeline {
 			post {
 				always {
            junit '**/surefire-reports/*.xml'
-//            codingHtmlReport(name: 'eden-commons-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-commons/target/site/jacoco/index.html')
-//            codingHtmlReport(name: 'eden-spring-cloud-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-cloud/target/site/jacoco/index.html')
-//            codingHtmlReport(name: 'eden-spring-data-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-data/target/site/jacoco/index.html')
-//            codingHtmlReport(name: 'eden-spring-framework-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-framework/target/site/jacoco/index.html')
-           codingHtmlReport(name: 'eden-spring-integration-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-integration/target/site/jacoco/index.html')
-//            codingHtmlReport(name: 'eden-spring-security-jacoco-reports', tag: '代码覆盖率报告', path:'eden-components/eden-spring-security/target/site/jacoco/index.html')
-           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path:'eden-components/eden-spring-test/target/site/jacoco/index.html')
+//            codingHtmlReport(name: 'eden-commons-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-commons/target/site/jacoco', entryFile: 'index.html')
+//            codingHtmlReport(name: 'eden-spring-cloud-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-cloud/target/site/jacoco', entryFile: 'index.html')
+//            codingHtmlReport(name: 'eden-spring-data-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-data/target/site/jacoco', entryFile: 'index.html')
+//            codingHtmlReport(name: 'eden-spring-framework-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-framework/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-integration-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-components/eden-spring-integration/target/site/jacoco', entryFile: 'index.html')
+//            codingHtmlReport(name: 'eden-spring-security-jacoco-reports', tag: '代码覆盖率报告', path:'eden-components/eden-spring-security/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-spring-test-jacoco-reports', tag: '代码覆盖率报告', path:'eden-components/eden-spring-test/target/site/jacoco', entryFile: 'index.html')
         }
 			}
     }
