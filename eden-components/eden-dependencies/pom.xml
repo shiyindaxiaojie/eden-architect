@@ -1410,18 +1410,6 @@
 				<artifactId>cucumber-spring</artifactId>
 				<version>${cucumber.version}</version>
 			</dependency>
-			<!-- Embedded Redis -->
-			<dependency>
-				<groupId>com.github.codemonstur</groupId>
-				<artifactId>embedded-redis</artifactId>
-				<version>${embedded-redis.version}</version>
-			</dependency>
-			<!-- Embedded MongoDB -->
-			<dependency>
-				<groupId>de.flapdoodle.embed</groupId>
-				<artifactId>de.flapdoodle.embed.mongo</artifactId>
-				<version>${embedded-mongo.version}</version>
-			</dependency>
 			<!-- Gatling -->
 			<dependency>
 				<groupId>io.gatling</groupId>
@@ -1437,6 +1425,18 @@
 				<groupId>io.gatling.highcharts</groupId>
 				<artifactId>gatling-charts-highcharts</artifactId>
 				<version>${gatling.version}</version>
+			</dependency>
+			<!-- Embedded Redis -->
+			<dependency>
+				<groupId>com.github.codemonstur</groupId>
+				<artifactId>embedded-redis</artifactId>
+				<version>${embedded-redis.version}</version>
+			</dependency>
+			<!-- Embedded MongoDB -->
+			<dependency>
+				<groupId>de.flapdoodle.embed</groupId>
+				<artifactId>de.flapdoodle.embed.mongo</artifactId>
+				<version>${embedded-mongo.version}</version>
 			</dependency>
 			<!-- Embedded Elasticsearch -->
 			<dependency>
