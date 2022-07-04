@@ -72,13 +72,10 @@
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 		<!-- 单元测试 -->
 		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-		<surefireArgLine/>
-		<skipUnitTest>false</skipUnitTest>
 		<junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
 		<!-- 集成测试 -->
 		<maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
-		<failsafeArgLine/>
-		<skipIntTest>false</skipIntTest>
+		<redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
 		<!-- 性能测试 -->
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
@@ -155,6 +152,67 @@
 		<javassist.version>3.26.0-GA</javassist.version>
 		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Spring Framework 依赖 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Data 依赖 -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-bom</artifactId>
+				<version>${spring-data-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Integration 依赖 -->
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-bom</artifactId>
+				<version>${spring-integration.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Security 依赖 -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-bom</artifactId>
+				<version>${spring-security.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Session 依赖 -->
+			<dependency>
+				<groupId>org.springframework.session</groupId>
+				<artifactId>spring-session-bom</artifactId>
+				<version>${spring-session-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Cloud 依赖 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Spring Cloud Alibaba 依赖 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
@@ -332,6 +390,30 @@
 							<include>**/*ITCase</include>
 						</includes>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>ru.trylogic.maven.plugins</groupId>
+					<artifactId>redis-maven-plugin</artifactId>
+					<version>${redis-maven-plugin.version}</version>
+					<configuration>
+						<forked>true</forked>
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-redis</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>stop-redis</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>shutdown</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<!-- 性能测试 -->
 				<plugin>
@@ -714,67 +796,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- Spring Framework 依赖 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring-framework.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Data 依赖 -->
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-bom</artifactId>
-				<version>${spring-data-bom.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Integration 依赖 -->
-			<dependency>
-				<groupId>org.springframework.integration</groupId>
-				<artifactId>spring-integration-bom</artifactId>
-				<version>${spring-integration.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Security 依赖 -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-bom</artifactId>
-				<version>${spring-security.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Session 依赖 -->
-			<dependency>
-				<groupId>org.springframework.session</groupId>
-				<artifactId>spring-session-bom</artifactId>
-				<version>${spring-session-bom.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Cloud 依赖 -->
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Spring Cloud Alibaba 依赖 -->
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<profiles>
 		<profile>

@@ -238,5 +238,10 @@
 			<artifactId>groovy-sql</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+		</dependency>
 	</dependencies>
 </project>
