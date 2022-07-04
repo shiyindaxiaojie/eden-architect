@@ -58,6 +58,12 @@
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>simpleclient</artifactId>
+					<groupId>io.prometheus</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
