@@ -222,7 +222,7 @@ public class CommonRedisRepository implements CustomRedisRepository {
 	private <T> Optional<T> toObject(String value, Class<T> clazz) {
 		Optional optional = Optional.ofNullable(value).filter(StringUtils::isNotBlank);
 		if (!optional.isPresent()) {
-			return optional;
+			return Optional.empty();
 		}
 		return Optional.of(JacksonUtils.toObject(value, clazz));
 	}
