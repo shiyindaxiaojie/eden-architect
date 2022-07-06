@@ -27,6 +27,7 @@ import org.springframework.boot.task.TaskExecutorBuilder;
 import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -67,6 +68,7 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 		this.taskDecorator = taskDecorator;
 	}
 
+	@Primary
 	@Bean(name = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
 	@Override
 	public Executor getAsyncExecutor() {
