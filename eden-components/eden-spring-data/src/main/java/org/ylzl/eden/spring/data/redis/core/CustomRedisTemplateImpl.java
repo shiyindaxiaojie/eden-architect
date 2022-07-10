@@ -6,6 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.commons.json.JacksonUtils;
+import org.ylzl.eden.commons.lang.ObjectUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,17 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	}
 
 	/**
+	 * 根据 key 获取 String 对象
+	 *
+	 * @param key Redis 键
+	 * @return
+	 */
+	@Override
+	public Optional<String> get(String key) {
+		return Optional.ofNullable(redisTemplate.opsForValue().get(key));
+	}
+
+	/**
 	 * 根据 key 获取值对象列表，并转换为 JSON
 	 *
 	 * @param key   Redis 键
@@ -87,7 +99,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	@Override
 	public <T> Optional<List<T>> getForList(String key, Class<T> clazz) {
 		String value = redisTemplate.opsForValue().get(key);
-		if (!StringUtils.isEmpty(value)) {
+		if (StringUtils.isBlank(value)) {
 			return Optional.empty();
 		}
 		return Optional.of(JacksonUtils.toList(value, clazz));
@@ -135,7 +147,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	@Override
 	public <T> Optional<T> hget(String key, String hashKey, Class<T> clazz) {
 		Object hashValue = redisTemplate.opsForHash().get(key, hashKey);
-		return toObject(String.valueOf(hashValue), clazz);
+		return toObject(ObjectUtils.trimToString(hashValue), clazz);
 	}
 
 	/**

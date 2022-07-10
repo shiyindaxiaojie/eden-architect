@@ -811,9 +811,9 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>pre</id>
+			<id>staging</id>
 			<properties>
-				<spring.profiles.active>pre</spring.profiles.active>
+				<spring.profiles.active>staging</spring.profiles.active>
 			</properties>
 		</profile>
 		<profile>
