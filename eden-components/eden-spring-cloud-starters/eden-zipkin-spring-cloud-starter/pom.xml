@@ -75,6 +75,16 @@
 			<artifactId>brave-instrumentation-okhttp3</artifactId>
 		</dependency>-->
 
+		<!-- Opentracing -->
+		<!--<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-redis-redisson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-redis-spring-data2</artifactId>
+		</dependency>-->
+
 		<!-- Zipkin2 组件 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

@@ -151,6 +151,7 @@
 		<zipkin2.version>2.23.16</zipkin2.version>
 		<brave.version>5.13.7</brave.version>
 		<brave-opentracing.version>1.0.0</brave-opentracing.version>
+		<opentracing-redis.version>0.1.16</opentracing-redis.version>
 		<sofa.version>3.13.0</sofa.version>
 		<sofa-tracer-plugin.version>3.1.2</sofa-tracer-plugin.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
@@ -1336,6 +1337,17 @@
 				<groupId>io.opentracing.brave</groupId>
 				<artifactId>brave-opentracing</artifactId>
 				<version>${brave-opentracing.version}</version>
+			</dependency>
+			<!-- Opentracing -->
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-redisson</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-spring-data2</artifactId>
+				<version>${opentracing-redis.version}</version>
 			</dependency>
 			<!-- SOFA Tracer -->
 			<dependency>
