@@ -36,12 +36,54 @@
 		<!-- Brave 组件 -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-context-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-instrumentation-dubbo</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
-			<artifactId>brave-instrumentation-mysql</artifactId>
+			<artifactId>brave-instrumentation-mysql8</artifactId>
 		</dependency>
+		<!--<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-httpasyncclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-okhttp3</artifactId>
+		</dependency>-->
+
+		<!-- Opentracing -->
+		<!--<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-redis-redisson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-redis-spring-data2</artifactId>
+		</dependency>-->
 
 		<!-- Zipkin2 组件 -->
 		<dependency>

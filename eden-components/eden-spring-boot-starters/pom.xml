@@ -44,6 +44,7 @@
 		<module>eden-ftpclient-spring-boot-starter</module>
 		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hikaricp-spring-boot-starter</module>
+		<module>eden-javamail-spring-boot-starter</module>
 		<module>eden-jwt-spring-boot-starter</module>
 		<module>eden-kafka-spring-boot-starter</module>
 		<module>eden-leaf-spring-boot-starter</module>

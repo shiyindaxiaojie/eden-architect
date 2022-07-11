@@ -60,6 +60,14 @@ public interface CustomRedisTemplate {
 	<T> Optional<T> get(String key, Class<T> clazz);
 
 	/**
+	 * 根据 key 获取 String 对象
+	 *
+	 * @param key   Redis 键
+	 * @return
+	 */
+	Optional<String> get(String key);
+
+	/**
 	 * 根据 key 获取值对象列表，并解析为 JSON 对象列表
 	 *
 	 * @param key   Redis 键

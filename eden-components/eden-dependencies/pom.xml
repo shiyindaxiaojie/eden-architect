@@ -100,7 +100,7 @@
 		<json-lib.version>2.4</json-lib.version>
 
 		<!-- 关系型数据库 -->
-		<mysql.version>8.0.28</mysql.version>
+		<mysql.version>8.0.22</mysql.version>
 		<sqlite.version>3.30.1</sqlite.version>
 		<mybatis.version>3.5.6</mybatis.version>
 		<mybatis-plus.version>3.4.1</mybatis-plus.version>
@@ -150,6 +150,10 @@
 		<sentinel.version>1.8.2</sentinel.version>
 		<zipkin2.version>2.23.16</zipkin2.version>
 		<brave.version>5.13.7</brave.version>
+		<brave-opentracing.version>1.0.0</brave-opentracing.version>
+		<opentracing-redis.version>0.1.16</opentracing-redis.version>
+		<sofa.version>3.13.0</sofa.version>
+		<sofa-tracer-plugin.version>3.1.2</sofa-tracer-plugin.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
 		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
@@ -247,7 +251,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- Zipkin 依赖 -->
+			<!-- Brave 依赖 -->
 			<dependency>
 				<groupId>io.zipkin.brave</groupId>
 				<artifactId>brave-bom</artifactId>
@@ -502,6 +506,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-sofa-tracer-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1322,6 +1331,109 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-zipkin</artifactId>
 				<version>${spring-cloud-starter-zipkin.version}</version>
+			</dependency>
+			<!-- Brave -->
+			<dependency>
+				<groupId>io.opentracing.brave</groupId>
+				<artifactId>brave-opentracing</artifactId>
+				<version>${brave-opentracing.version}</version>
+			</dependency>
+			<!-- Opentracing -->
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-redisson</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-spring-data2</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<!-- SOFA Tracer -->
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>tracer-sofa-boot-starter</artifactId>
+				<version>${sofa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-datasource-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-dubbo-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-dubbo-common-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-redis-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-mongodb-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-resttmplate-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-httpclient-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-okhttp-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-kafkamq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-rabbitmq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-rocketmq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-springmessage-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-springmvc-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-spring-cloud-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-flexible-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-zipkin-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
 			</dependency>
 
 			<!-- 网络 -->
