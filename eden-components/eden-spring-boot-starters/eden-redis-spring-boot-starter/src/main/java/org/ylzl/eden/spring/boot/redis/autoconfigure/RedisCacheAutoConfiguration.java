@@ -18,6 +18,7 @@
 package org.ylzl.eden.spring.boot.redis.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -84,7 +85,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 	private static class RedisKeyGenerator implements KeyGenerator {
 
 		@Override
-		public Object generate(Object target, Method method, Object... params) {
+		public @NotNull Object generate(Object target, Method method, Object... params) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(target.getClass().getName());
 			sb.append(method.getName());

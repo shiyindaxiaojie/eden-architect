@@ -106,7 +106,7 @@
 		<mybatis-plus.version>3.4.1</mybatis-plus.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
-		<pagehelper.version>5.1.4</pagehelper.version>
+		<pagehelper.version>5.3.1</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
@@ -146,7 +146,7 @@
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
-		<nacos.version>2.0.2</nacos.version>
+		<nacos.version>2.0.4</nacos.version>
 		<sentinel.version>1.8.2</sentinel.version>
 		<zipkin2.version>2.23.16</zipkin2.version>
 		<brave.version>5.13.7</brave.version>
