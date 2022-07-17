@@ -78,6 +78,10 @@
 					<artifactId>spring-webmvc</artifactId>
 					<groupId>org.springframework</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>

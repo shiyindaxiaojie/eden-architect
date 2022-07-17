@@ -1288,8 +1288,38 @@
 				<version>${sentinel.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-cluster-server-default</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-cluster-client-default</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-spring-webmvc-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-spring-webflux-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-reactor-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
 				<version>${spring-cloud-alibaba.version}</version>
 			</dependency>
 			<dependency>
