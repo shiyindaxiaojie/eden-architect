@@ -66,7 +66,7 @@
 		<swagger3.version>2.0.1</swagger3.version>
 		<knife4j.version>2.0.3</knife4j.version>
 		<tomcat.version>9.0.30</tomcat.version>
-		<undertow.version>2.0.29.Final</undertow.version>
+		<wildfly.version>1.5.2.Final</wildfly.version>
 
 		<!-- 日志 -->
 		<log4j2.version>2.17.2</log4j2.version>
@@ -84,6 +84,7 @@
 		<commons-io.version>2.7</commons-io.version>
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-net.version>3.6</commons-net.version>
+		<commons-cli.version>1.4</commons-cli.version>
 		<guava.version>30.0-jre</guava.version>
 		<hutool.version>5.7.14</hutool.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
@@ -100,7 +101,7 @@
 		<json-lib.version>2.4</json-lib.version>
 
 		<!-- 关系型数据库 -->
-		<mysql.version>8.0.22</mysql.version>
+		<mysql.version>8.0.29</mysql.version>
 		<sqlite.version>3.30.1</sqlite.version>
 		<mybatis.version>3.5.6</mybatis.version>
 		<mybatis-plus.version>3.4.1</mybatis-plus.version>
@@ -115,6 +116,7 @@
 		<druid.version>1.1.17</druid.version>
 		<shardingsphere.version>4.0.1</shardingsphere.version>
 		<dynamic-datasource-spring-boot-starter.version>3.5.0</dynamic-datasource-spring-boot-starter.version>
+		<liquibase.version>4.13.0</liquibase.version>
 
 		<!-- NoSQL 数据库 -->
 		<mongodb.version>3.12.10</mongodb.version>
@@ -189,6 +191,8 @@
 		<junit.version>4.13.1</junit.version>
 		<spock.version>2.1-groovy-3.0</spock.version>
 		<groovy.version>3.0.9</groovy.version>
+		<hdrhistogram.version>2.1.12</hdrhistogram.version>
+		<jodd.version>5.1.6</jodd.version>
 
 		<!-- IDEA -->
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
@@ -463,7 +467,17 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-tomcat-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-truelicense-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-undertow-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -624,6 +638,12 @@
 				<artifactId>tomcat-juli</artifactId>
 				<version>${tomcat.version}</version>
 			</dependency>
+			<!-- Undertow -->
+			<dependency>
+				<groupId>org.wildfly.common</groupId>
+				<artifactId>wildfly-common</artifactId>
+				<version>${wildfly.version}</version>
+			</dependency>
 			<!-- Resteasy -->
 			<!--<dependency>
 				<groupId>org.jboss.resteasy</groupId>
@@ -758,6 +778,11 @@
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
 				<version>${commons-net.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>${commons-cli.version}</version>
 			</dependency>
 			<!-- Hibernate Validator -->
 			<dependency>
@@ -1520,6 +1545,16 @@
 				<version>${spock.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hdrhistogram</groupId>
+				<artifactId>HdrHistogram</artifactId>
+				<version>${hdrhistogram.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jodd</groupId>
+				<artifactId>jodd-core</artifactId>
+				<version>${jodd.version}</version>
 			</dependency>
 			<!-- Junit -->
 			<dependency>

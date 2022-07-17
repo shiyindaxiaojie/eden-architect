@@ -67,7 +67,9 @@
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-tinyid-spring-boot-starter</module>
+		<module>eden-tomcat-spring-boot-starter</module>
 		<module>eden-truelicense-spring-boot-starter</module>
+		<module>eden-undertow-spring-boot-starter</module>
 		<module>eden-uid-generator-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
 	</modules>
