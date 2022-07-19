@@ -17,14 +17,10 @@
 
 package org.ylzl.eden.spring.cloud.profile.autoconfigure;
 
-import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -37,8 +33,7 @@ import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@ConditionalOnBean({RouteLocator.class, DiscoveryClient.class})
-@ConditionalOnClass(ZuulFilter.class)
+@ConditionalOnProperty(ProfileProperties.PREFIX)
 @Slf4j
 @Configuration
 public class ProfileEndpointAutoConfiguration {
