@@ -49,6 +49,10 @@
 					<artifactId>scala-library</artifactId>
 					<groupId>org.scala-lang</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>netty-all</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 

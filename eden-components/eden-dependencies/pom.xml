@@ -170,7 +170,7 @@
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
-		<netty.verison>4.1.72.Final</netty.verison>
+		<netty.verison>4.1.70.Final</netty.verison>
 
 		<!-- 监控 -->
 		<prometheus.version>0.16.0</prometheus.version>

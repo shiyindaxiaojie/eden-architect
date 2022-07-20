@@ -19,7 +19,7 @@ public class CustomBlockExceptionHandler implements BlockExceptionHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, BlockException e) throws Exception {
 		Response body = ResponseBuilder.buildResponse(e);
-		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		response.getWriter().write(JacksonUtils.toJSONString(body));
 	}
 }

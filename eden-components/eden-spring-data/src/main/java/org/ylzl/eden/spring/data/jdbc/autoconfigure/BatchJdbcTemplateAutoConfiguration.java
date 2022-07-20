@@ -41,8 +41,8 @@ import javax.sql.DataSource;
 @Configuration
 public class BatchJdbcTemplateAutoConfiguration {
 
-	public static final String MSG_AUTOWIRED_NAMED_JDBCTPL =
-		"Autowired enhanced NamedParameterJdbcTemplate";
+	public static final String MSG_AUTOWIRED_BATCH_JDBCTPL =
+		"Autowired BatchNamedParameterJdbcTemplate";
 
 	/**
 	 * Inject EnhancedNamedParameterJdbcTemplate
@@ -52,8 +52,8 @@ public class BatchJdbcTemplateAutoConfiguration {
 	 */
 	@ConditionalOnMissingBean
 	@Bean
-	public BatchNamedParameterJdbcTemplate enhancedNamedParameterJdbcTemplate(DataSource dataSource) {
-		log.debug(MSG_AUTOWIRED_NAMED_JDBCTPL);
+	public BatchNamedParameterJdbcTemplate batchNamedParameterJdbcTemplate(DataSource dataSource) {
+		log.debug(MSG_AUTOWIRED_BATCH_JDBCTPL);
 		return new BatchNamedParameterJdbcTemplate(dataSource);
 	}
 }
