@@ -121,7 +121,8 @@
 		<!-- NoSQL 数据库 -->
 		<mongodb.version>3.12.10</mongodb.version>
 		<mongobee.version>0.13</mongobee.version>
-		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
+		<neo4j.version>2.0.6</neo4j.version>
+		<influxdb.version>2.18</influxdb.version>
 
 		<!-- 搜索引擎 -->
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
@@ -348,6 +349,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-influxdb-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1030,17 +1036,23 @@
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-core</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-bolt-driver</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-http-driver</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
+			</dependency>
+			<!-- InfluxDB -->
+			<dependency>
+				<groupId>org.influxdb</groupId>
+				<artifactId>influxdb-java</artifactId>
+				<version>${influxdb.version}</version>
 			</dependency>
 
 			<!-- 搜索引擎 -->

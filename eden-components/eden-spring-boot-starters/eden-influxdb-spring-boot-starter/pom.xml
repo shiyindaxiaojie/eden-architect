@@ -27,10 +27,10 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-mybatis-spring-boot-starter</artifactId>
+	<artifactId>eden-influxdb-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-mybatis-spring-boot-starter</name>
-	<description>Spring Boot Starter For Mybatis</description>
+	<name>eden-influxdb-spring-boot-starter</name>
+	<description>Spring Boot Starter For InfluxDB</description>
 
 	<dependencies>
 		<!-- 开发工具 -->
@@ -59,26 +59,10 @@
 			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 
-		<!-- Mybatis 组件 -->
+		<!-- InfluxDB 组件 -->
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-		</dependency>
-		<!-- Mybatis Plus 组件 -->
-		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>mybatis-plus-boot-starter</artifactId>
-		</dependency>
-		<!-- PageHelper 组件 -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jsqlparser</artifactId>
-					<groupId>com.github.jsqlparser</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.influxdb</groupId>
+			<artifactId>influxdb-java</artifactId>
 		</dependency>
 	</dependencies>
 </project>
