@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.data.influxdb.executor;
+package org.ylzl.eden.spring.data.influxdb.core;
 
 import com.google.common.collect.Lists;
 import liquibase.pro.packaged.T;
@@ -13,13 +13,13 @@ import org.influxdb.impl.InfluxDBMapper;
 import java.util.List;
 
 /**
- * 默认执行器
+ * TODO
  *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
-public class DefaultExecutor implements Executor {
+public class InfluxDBTemplate {
 
 	private static final String DELETE_FROM = "DELETE FROM ";
 

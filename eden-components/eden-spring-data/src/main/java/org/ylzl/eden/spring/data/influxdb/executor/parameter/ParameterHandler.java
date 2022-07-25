@@ -10,7 +10,15 @@ import java.lang.reflect.Parameter;
  */
 public class ParameterHandler {
 
-	public String handleParameter(Parameter[] parameters, Object[] args, String sql) {
+	/**
+	 *
+	 *
+	 * @param parameters
+	 * @param args
+	 * @param sql
+	 * @return
+	 */
+	public String setParameters(Parameter[] parameters, Object[] args, String sql) {
 		for (int i = 0; i < parameters.length; i++) {
 			Class<?> parameterType = parameters[i].getType();
 			String parameterName = parameters[i].getName();

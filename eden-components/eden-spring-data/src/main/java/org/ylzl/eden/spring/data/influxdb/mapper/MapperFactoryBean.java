@@ -3,8 +3,6 @@ package org.ylzl.eden.spring.data.influxdb.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.FactoryBean;
 
-import java.lang.reflect.Proxy;
-
 /**
  * TODO
  *
@@ -18,9 +16,10 @@ public class MapperFactoryBean<T> implements FactoryBean<T> {
 
 	@Override
 	public T getObject() throws Exception {
-		return Proxy.newProxyInstance(
-			interfaceClass.getClassLoader(), new Class[]{ interfaceClass },
-			new ProxyMapper(executor, new ParameterHandler(), new ResultSetHandler()));
+		return null;
+//		return Proxy.newProxyInstance(
+//			interfaceClass.getClassLoader(), new Class[]{ interfaceClass },
+//			new ProxyMapper(executor, new ParameterHandler(), new ResultSetHandler()));
 	}
 
 	@Override
