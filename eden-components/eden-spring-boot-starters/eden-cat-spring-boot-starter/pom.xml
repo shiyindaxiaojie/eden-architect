@@ -27,28 +27,12 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
+	<artifactId>eden-cat-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-datasource-spring-boot-starter</name>
-	<description>Spring Boot Starter For Baomidou Dynamic Datasource</description>
+	<name>eden-cat-spring-boot-starter</name>
+	<description>Spring Boot Starter For CAT</description>
 
 	<dependencies>
-		<!-- 开发工具 -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -56,19 +40,21 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-data</artifactId>
+			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
-		<!-- 日志框架 -->
+		<!-- 开发工具 -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 
-		<!-- Baomidou Dynamic Datasource -->
+		<!-- CAT 组件 -->
 		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+			<groupId>com.dianping.cat</groupId>
+			<artifactId>cat-client</artifactId>
+			<version>4.0-RC1</version>
 		</dependency>
 	</dependencies>
 </project>

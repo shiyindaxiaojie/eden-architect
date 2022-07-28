@@ -180,6 +180,7 @@
 		<spring-boot-admin.version>2.4.4</spring-boot-admin.version>
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
+		<cat.version>3.0.0</cat.version>
 
 		<!-- 测试组件 -->
 		<cucumber.version>3.0.2</cucumber.version>
@@ -1577,6 +1578,32 @@
 				<groupId>net.bull.javamelody</groupId>
 				<artifactId>javamelody-core</artifactId>
 				<version>${javamelody.version}</version>
+			</dependency>
+			<!-- CAT -->
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-core</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-client</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-consumer</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-alarm</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-home</artifactId>
+				<version>${cat.version}</version>
 			</dependency>
 
 			<!-- 测试 -->
