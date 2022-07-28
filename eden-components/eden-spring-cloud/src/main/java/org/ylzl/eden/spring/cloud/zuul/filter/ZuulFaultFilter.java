@@ -66,7 +66,7 @@ public class ZuulFaultFilter extends ZuulFilter {
 				log.error(MSG_ZUUL_FAULT, throwable.getMessage(), throwable);
 				ctx.setResponseBody(
 					String.format(RESP_ERROR_BODY, throwable.getMessage(), throwable.getCause()));
-				ctx.getResponse().setContentType(MediaType.APPLICATION_JSON_VALUE);
+				ctx.getResponse().setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 				ctx.setResponseStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			}
 		} catch (Exception ex) {

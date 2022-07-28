@@ -121,7 +121,8 @@
 		<!-- NoSQL 数据库 -->
 		<mongodb.version>3.12.10</mongodb.version>
 		<mongobee.version>0.13</mongobee.version>
-		<neo4j-ogm.version>2.0.6</neo4j-ogm.version>
+		<neo4j.version>2.0.6</neo4j.version>
+		<influxdb.version>2.18</influxdb.version>
 
 		<!-- 搜索引擎 -->
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
@@ -149,7 +150,7 @@
 
 		<!-- 微服务组件 -->
 		<nacos.version>2.0.4</nacos.version>
-		<sentinel.version>1.8.2</sentinel.version>
+		<sentinel.version>1.8.4</sentinel.version>
 		<zipkin2.version>2.23.18</zipkin2.version>
 		<brave.version>5.13.10</brave.version>
 		<brave-opentracing.version>1.0.0</brave-opentracing.version>
@@ -170,7 +171,7 @@
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 网络 -->
-		<netty.verison>4.1.72.Final</netty.verison>
+		<netty.verison>4.1.70.Final</netty.verison>
 
 		<!-- 监控 -->
 		<prometheus.version>0.16.0</prometheus.version>
@@ -179,6 +180,7 @@
 		<spring-boot-admin.version>2.4.4</spring-boot-admin.version>
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
+		<cat.version>3.0.0</cat.version>
 
 		<!-- 测试组件 -->
 		<cucumber.version>3.0.2</cucumber.version>
@@ -348,6 +350,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-influxdb-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1030,17 +1037,23 @@
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-core</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-bolt-driver</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.neo4j</groupId>
 				<artifactId>neo4j-ogm-http-driver</artifactId>
-				<version>${neo4j-ogm.version}</version>
+				<version>${neo4j.version}</version>
+			</dependency>
+			<!-- InfluxDB -->
+			<dependency>
+				<groupId>org.influxdb</groupId>
+				<artifactId>influxdb-java</artifactId>
+				<version>${influxdb.version}</version>
 			</dependency>
 
 			<!-- 搜索引擎 -->
@@ -1288,8 +1301,38 @@
 				<version>${sentinel.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-cluster-server-default</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-cluster-client-default</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-spring-webmvc-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-spring-webflux-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-reactor-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
 				<version>${spring-cloud-alibaba.version}</version>
 			</dependency>
 			<dependency>
@@ -1535,6 +1578,32 @@
 				<groupId>net.bull.javamelody</groupId>
 				<artifactId>javamelody-core</artifactId>
 				<version>${javamelody.version}</version>
+			</dependency>
+			<!-- CAT -->
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-core</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-client</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-consumer</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-alarm</artifactId>
+				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-home</artifactId>
+				<version>${cat.version}</version>
 			</dependency>
 
 			<!-- 测试 -->

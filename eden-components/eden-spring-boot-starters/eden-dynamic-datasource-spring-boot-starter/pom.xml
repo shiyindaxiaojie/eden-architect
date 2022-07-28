@@ -30,7 +30,7 @@
 	<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-dynamic-datasource-spring-boot-starter</name>
-	<description>Baomidou Dynamic Datasource Spring Boot Starter</description>
+	<description>Spring Boot Starter For Baomidou Dynamic Datasource</description>
 
 	<dependencies>
 		<!-- 开发工具 -->

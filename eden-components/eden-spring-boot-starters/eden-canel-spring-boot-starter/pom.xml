@@ -30,7 +30,7 @@
 	<artifactId>eden-canel-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-canel-spring-boot-starter</name>
-	<description>Canel Spring Boot Starter</description>
+	<description>Spring Boot Starter For Canel</description>
 
 	<dependencies>
 		<dependency>

@@ -36,6 +36,7 @@
 		<module>eden-apollo-spring-boot-starter</module>
 		<module>eden-caffeine-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
+		<module>eden-cat-spring-boot-starter</module>
 		<module>eden-curator-spring-boot-starter</module>
 		<module>eden-dubbo-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
@@ -44,6 +45,7 @@
 		<module>eden-ftpclient-spring-boot-starter</module>
 		<module>eden-ftpserver-spring-boot-starter</module>
 		<module>eden-hikaricp-spring-boot-starter</module>
+		<module>eden-influxdb-spring-boot-starter</module>
 		<module>eden-javamail-spring-boot-starter</module>
 		<module>eden-jwt-spring-boot-starter</module>
 		<module>eden-kafka-spring-boot-starter</module>

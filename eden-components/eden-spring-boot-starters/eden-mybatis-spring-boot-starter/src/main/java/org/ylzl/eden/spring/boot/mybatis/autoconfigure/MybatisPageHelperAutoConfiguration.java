@@ -51,7 +51,8 @@ public class MybatisPageHelperAutoConfiguration {
 		log.debug(AUTOWIRED_PAGE_HELPER);
 		PageInterceptor pageInterceptor = new PageInterceptor();
 		Properties properties = new Properties();
-		properties.setProperty("supportMethodsArguments", "true");
+		// Fixed：关闭特殊字段导致自动分页
+		properties.setProperty("supportMethodsArguments", "false");
 		properties.setProperty("params", "count=countSql");
 		pageInterceptor.setProperties(properties);
 		return pageInterceptor;

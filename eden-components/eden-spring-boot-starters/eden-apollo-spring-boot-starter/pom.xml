@@ -30,7 +30,7 @@
 	<artifactId>eden-apollo-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-apollo-spring-boot-starter</name>
-	<description>Apollo Spring Boot Starter</description>
+	<description>Spring Boot Starter For Apollo</description>
 
 	<dependencies>
 		<dependency>

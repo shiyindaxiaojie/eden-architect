@@ -61,6 +61,7 @@ public class ProcessContext<T> {
 		try {
 			countDownLatch.await();
 		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new RuntimeException(e);
 		}
 	}
