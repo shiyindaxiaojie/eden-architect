@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.boot.cat.autoconfigure;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.support.DefaultBeanNameGenerator;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.spring.boot.cat.annotations.CatTransactionAnnotationProcessor;
-import org.ylzl.eden.spring.boot.cat.annotations.MetricForCountAnnotationProcessor;
+import org.ylzl.eden.spring.boot.cat.annotations.CatLogMetricForCountAnnotationProcessor;
 
 /**
  * TODO
@@ -21,8 +22,8 @@ public class AnnotationProcessorRegister implements ImportBeanDefinitionRegistra
 	private final BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
 
 	@Override
-	public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
-		register(MetricForCountAnnotationProcessor.class, registry);
+	public void registerBeanDefinitions(@NotNull AnnotationMetadata metadata, @NotNull BeanDefinitionRegistry registry) {
+		register(CatLogMetricForCountAnnotationProcessor.class, registry);
 		register(CatTransactionAnnotationProcessor.class, registry);
 	}
 

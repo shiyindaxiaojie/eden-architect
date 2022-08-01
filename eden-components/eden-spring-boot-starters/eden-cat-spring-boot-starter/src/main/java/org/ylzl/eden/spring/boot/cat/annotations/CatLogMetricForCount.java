@@ -3,7 +3,7 @@ package org.ylzl.eden.spring.boot.cat.annotations;
 import java.lang.annotation.*;
 
 /**
- * TODO
+ * Cat.logMetricForCount 注解
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MetricForCount {
+public @interface CatLogMetricForCount {
 
 	/**
 	 * 指标名称

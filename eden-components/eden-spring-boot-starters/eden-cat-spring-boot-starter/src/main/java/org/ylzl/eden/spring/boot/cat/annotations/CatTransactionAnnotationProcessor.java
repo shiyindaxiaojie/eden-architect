@@ -8,7 +8,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
 
 /**
- * TODO
+ * Transaction 注解处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

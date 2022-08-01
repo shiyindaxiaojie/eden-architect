@@ -3,7 +3,7 @@ package org.ylzl.eden.spring.boot.cat.annotations;
 import java.lang.annotation.*;
 
 /**
- * TODO
+ * Transaction 注解
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

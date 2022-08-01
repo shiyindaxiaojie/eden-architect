@@ -10,21 +10,21 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * TODO
+ * Cat.logMetricForCount 方法返回拦截
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @RequiredArgsConstructor
-public class MetricForCountAdvice implements AfterReturningAdvice {
+public class CatLogMetricForCountAdvice implements AfterReturningAdvice {
 
-	private final MetricForCount metricForCount;
+	private final CatLogMetricForCount catLogMetricForCount;
 
 	@Override
 	public void afterReturning(Object returnValue, @NotNull Method method, @NotNull Object[] args, Object target) {
-		AnnotationMethodMatcher matcher = new AnnotationMethodMatcher(MetricForCount.class);
+		AnnotationMethodMatcher matcher = new AnnotationMethodMatcher(CatLogMetricForCount.class);
 		if (matcher.matches(method, Objects.requireNonNull(target).getClass())) {
-			Cat.logMetricForCount(metricForCount.name(), metricForCount.count());
+			Cat.logMetricForCount(catLogMetricForCount.name(), catLogMetricForCount.count());
 		}
 	}
 }

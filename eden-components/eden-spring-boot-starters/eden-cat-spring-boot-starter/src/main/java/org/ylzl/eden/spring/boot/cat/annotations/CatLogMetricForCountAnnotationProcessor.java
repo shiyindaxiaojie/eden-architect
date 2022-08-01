@@ -17,24 +17,24 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
- * TODO
+ * Cat.logMetricForCount 注解处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
-public class MetricForCountAnnotationProcessor implements BeanPostProcessor, PriorityOrdered {
+public class CatLogMetricForCountAnnotationProcessor implements BeanPostProcessor, PriorityOrdered {
 
 	@Override
 	public Object postProcessAfterInitialization(@NotNull Object bean, @NotNull String beanName) throws BeansException {
 		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(bean);
-		Map<Method, MetricForCount> annotatedMethods = MethodIntrospector.selectMethods(targetClass,
-			(MethodIntrospector.MetadataLookup<MetricForCount>) method ->
-				AnnotationUtils.getAnnotation(method, MetricForCount.class));
+		Map<Method, CatLogMetricForCount> annotatedMethods = MethodIntrospector.selectMethods(targetClass,
+			(MethodIntrospector.MetadataLookup<CatLogMetricForCount>) method ->
+				AnnotationUtils.getAnnotation(method, CatLogMetricForCount.class));
 		if (CollectionUtils.isEmpty(annotatedMethods)) {
 			return bean;
 		}
-		for (Map.Entry<Method, MetricForCount> entry : annotatedMethods.entrySet()) {
+		for (Map.Entry<Method, CatLogMetricForCount> entry : annotatedMethods.entrySet()) {
 			return processMetricForCount(bean, entry.getKey(), entry.getValue());
 		}
 		return bean;
@@ -45,18 +45,18 @@ public class MetricForCountAnnotationProcessor implements BeanPostProcessor, Pri
 		return Ordered.LOWEST_PRECEDENCE;
 	}
 
-	private Object processMetricForCount(Object bean, Method method, MetricForCount metricForCount) {
-		if (StringUtils.isEmpty(metricForCount.name())) {
+	private Object processMetricForCount(Object bean, Method method, CatLogMetricForCount catLogMetricForCount) {
+		if (StringUtils.isEmpty(catLogMetricForCount.name())) {
 			log.warn("@MetricForCount annotation on '{}' name can't be null or empty", method.getName());
 			return bean;
 		}
-		if (metricForCount.count() <= 0) {
+		if (catLogMetricForCount.count() <= 0) {
 			log.warn("@MetricForCount annotation on '{}' value can't be zero or negative", method.getName());
 			return bean;
 		}
 		ProxyFactory factory = new ProxyFactory();
 		factory.setTarget(bean);
-		factory.addAdvice(new MetricForCountAdvice(metricForCount));
+		factory.addAdvice(new CatLogMetricForCountAdvice(catLogMetricForCount));
 		return factory.getProxy();
 	}
 }
