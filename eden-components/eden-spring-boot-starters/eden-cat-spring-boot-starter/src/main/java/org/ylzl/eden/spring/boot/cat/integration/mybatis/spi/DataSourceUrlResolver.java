@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.boot.cat.plugins.mybatis.spi;
+package org.ylzl.eden.spring.boot.cat.integration.mybatis.spi;
 
 import javax.sql.DataSource;
 

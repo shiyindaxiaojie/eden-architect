@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.boot.cat.plugins.mybatis.CatMybatisInterceptor;
+import org.ylzl.eden.spring.boot.cat.integration.mybatis.CatMybatisInterceptor;
 
 import java.util.List;
 

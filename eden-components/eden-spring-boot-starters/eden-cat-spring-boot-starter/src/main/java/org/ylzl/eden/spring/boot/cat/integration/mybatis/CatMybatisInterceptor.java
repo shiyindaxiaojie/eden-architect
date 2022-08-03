@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.boot.cat.plugins.mybatis;
+package org.ylzl.eden.spring.boot.cat.integration.mybatis;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Message;
@@ -37,8 +37,6 @@ import java.util.Locale;
 public class CatMybatisInterceptor implements Interceptor {
 
 	public static final String TYPE_SQL = "SQL";
-
-	public static final String TYPE_SQL_PARAM = "SQL.PARAM";
 
 	public static final String TYPE_SQL_DATABASE = "SQL.Database";
 

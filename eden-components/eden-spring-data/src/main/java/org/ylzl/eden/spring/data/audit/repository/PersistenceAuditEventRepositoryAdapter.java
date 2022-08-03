@@ -17,6 +17,8 @@
 
 package org.ylzl.eden.spring.data.audit.repository;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
@@ -45,8 +47,9 @@ import java.util.Map;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
-@SuppressWarnings("unchecked")
+@RequiredArgsConstructor
 @Slf4j
+@Data
 @NoRepositoryBean
 public abstract class PersistenceAuditEventRepositoryAdapter<
 	T extends PersistentAuditEvent, ID extends Serializable>
@@ -58,22 +61,6 @@ public abstract class PersistenceAuditEventRepositoryAdapter<
 	private final AuditEventConverter auditEventConverter;
 
 	private int eventDataColumnMaxLength = 255;
-
-	public PersistenceAuditEventRepositoryAdapter(
-		PersistenceAuditEventRepository<PersistentAuditEvent, ID> persistenceAuditEventRepository,
-		AuditEventConverter auditEventConverter) {
-		this.persistenceAuditEventRepository = persistenceAuditEventRepository;
-		this.auditEventConverter = auditEventConverter;
-	}
-
-	public PersistenceAuditEventRepositoryAdapter(
-		PersistenceAuditEventRepository persistenceAuditEventRepository,
-		AuditEventConverter auditEventConverter,
-		int eventDataColumnMaxLength) {
-		this.persistenceAuditEventRepository = persistenceAuditEventRepository;
-		this.auditEventConverter = auditEventConverter;
-		this.eventDataColumnMaxLength = eventDataColumnMaxLength;
-	}
 
 	public abstract PersistentAuditEvent createPersistentAuditEvent(AuditEvent event);
 

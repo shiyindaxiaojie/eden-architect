@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.boot.cat.plugins.http;
+package org.ylzl.eden.spring.boot.cat.integration.http;
 
 import com.dianping.cat.support.servlet.CatFilter;
 

@@ -1,7 +1,7 @@
-package org.ylzl.eden.spring.boot.cat.plugins.mybatis;
+package org.ylzl.eden.spring.boot.cat.integration.mybatis;
 
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.boot.cat.plugins.mybatis.spi.DataSourceUrlResolver;
+import org.ylzl.eden.spring.boot.cat.integration.mybatis.spi.DataSourceUrlResolver;
 
 import javax.sql.DataSource;
 import java.util.ServiceLoader;
@@ -14,8 +14,6 @@ import java.util.ServiceLoader;
  */
 public class DataSourceUrlResolverSupport {
 
-	private static final String DEFAULT_URL = "jdbc:mysql://UUUUUKnown:3306/%s?useUnicode=true";
-
 	public static String resolve(DataSource dataSource) {
 		for (DataSourceUrlResolver adaptor : ServiceLoader.load(DataSourceUrlResolver.class)) {
 			String url = adaptor.getDataSourceUrl(dataSource);
@@ -23,6 +21,6 @@ public class DataSourceUrlResolverSupport {
 				return url;
 			}
 		}
-		return DEFAULT_URL;
+		return null;
 	}
 }
