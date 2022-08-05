@@ -1,6 +1,6 @@
 package org.ylzl.eden.spring.boot.cat.integration.http;
 
-import com.dianping.cat.support.servlet.CatFilter;
+import com.dianping.cat.servlet.CatFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

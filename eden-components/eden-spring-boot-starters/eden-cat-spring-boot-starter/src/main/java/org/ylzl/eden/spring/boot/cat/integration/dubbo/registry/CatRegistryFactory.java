@@ -6,6 +6,7 @@ import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.registry.NotifyListener;
 import org.apache.dubbo.registry.Registry;
 import org.apache.dubbo.registry.RegistryFactory;
+import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public class CatRegistryFactoryWrapper implements RegistryFactory {
+public class CatRegistryFactory implements RegistryFactory {
 
 	public static final String PROVIDER_APPLICATION_NAME = "serverApplicationName";
 	private final RegistryFactory registryFactory;
@@ -26,12 +27,22 @@ public class CatRegistryFactoryWrapper implements RegistryFactory {
 		return new RegistryWrapper(registryFactory.getRegistry(url));
 	}
 
+	public static String getProviderAppName(URL url) {
+		String appName = url.getParameter(PROVIDER_APPLICATION_NAME);
+		if (StringUtils.isBlank(appName)) {
+			String interfaceName = url.getParameter(CommonConstants.INTERFACE_KEY);
+			appName = interfaceName.substring(0, interfaceName.lastIndexOf('.'));
+		}
+		return appName;
+	}
+
 	static class RegistryWrapper implements Registry {
 		private final Registry originRegistry;
-		private URL appendProviderAppName(URL url){
+
+		private URL appendProviderAppName(URL url) {
 			String side = url.getParameter(CommonConstants.SIDE_KEY);
-			if(CommonConstants.PROVIDER_SIDE.equals(side)){
-				url = url.addParameter(PROVIDER_APPLICATION_NAME,url.getParameter(CommonConstants.APPLICATION_KEY));
+			if (CommonConstants.PROVIDER_SIDE.equals(side)) {
+				url = url.addParameter(PROVIDER_APPLICATION_NAME, url.getParameter(CommonConstants.APPLICATION_KEY));
 			}
 			return url;
 		}
@@ -67,12 +78,12 @@ public class CatRegistryFactoryWrapper implements RegistryFactory {
 
 		@Override
 		public void subscribe(URL url, NotifyListener listener) {
-			originRegistry.subscribe(url,listener);
+			originRegistry.subscribe(url, listener);
 		}
 
 		@Override
 		public void unsubscribe(URL url, NotifyListener listener) {
-			originRegistry.unsubscribe(url,listener);
+			originRegistry.unsubscribe(url, listener);
 		}
 
 		@Override

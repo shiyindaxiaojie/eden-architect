@@ -12,7 +12,7 @@ import org.ylzl.eden.spring.boot.cat.annotations.CatTransactionAnnotationProcess
 import org.ylzl.eden.spring.boot.cat.annotations.CatLogMetricForCountAnnotationProcessor;
 
 /**
- * TODO
+ * CAT 注解处理器注册
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
