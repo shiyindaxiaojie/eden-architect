@@ -223,6 +223,12 @@
 			<artifactId>javassist</artifactId>
 		</dependency>
 
+		<!-- 池化复用线程增强 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>transmittable-thread-local</artifactId>
+		</dependency>
+
 		<!-- Spock -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

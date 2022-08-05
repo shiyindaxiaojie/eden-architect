@@ -38,9 +38,9 @@ public class CatMybatisInterceptor implements Interceptor {
 
 	public static final String TYPE_SQL = "SQL";
 
-	public static final String TYPE_SQL_DATABASE = "SQL.Database";
+	public static final String TYPE_SQL_DATABASE = "SQL.database";
 
-	public static final String TYPE_SQL_METHOD = "SQL.Method";
+	public static final String TYPE_SQL_METHOD = "SQL.method";
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {

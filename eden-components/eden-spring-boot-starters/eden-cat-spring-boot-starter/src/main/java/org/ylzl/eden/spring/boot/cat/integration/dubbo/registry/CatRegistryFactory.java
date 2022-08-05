@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CatRegistryFactory implements RegistryFactory {
 
-	public static final String PROVIDER_APPLICATION_NAME = "serverApplicationName";
+	public static final String PROVIDER_APPLICATION_KEY = "provider.application";
 	private final RegistryFactory registryFactory;
 
 	@Override
@@ -28,7 +28,7 @@ public class CatRegistryFactory implements RegistryFactory {
 	}
 
 	public static String getProviderAppName(URL url) {
-		String appName = url.getParameter(PROVIDER_APPLICATION_NAME);
+		String appName = url.getParameter(PROVIDER_APPLICATION_KEY);
 		if (StringUtils.isBlank(appName)) {
 			String interfaceName = url.getParameter(CommonConstants.INTERFACE_KEY);
 			appName = interfaceName.substring(0, interfaceName.lastIndexOf('.'));
@@ -42,7 +42,7 @@ public class CatRegistryFactory implements RegistryFactory {
 		private URL appendProviderAppName(URL url) {
 			String side = url.getParameter(CommonConstants.SIDE_KEY);
 			if (CommonConstants.PROVIDER_SIDE.equals(side)) {
-				url = url.addParameter(PROVIDER_APPLICATION_NAME, url.getParameter(CommonConstants.APPLICATION_KEY));
+				url = url.addParameter(PROVIDER_APPLICATION_KEY, url.getParameter(CommonConstants.APPLICATION_KEY));
 			}
 			return url;
 		}

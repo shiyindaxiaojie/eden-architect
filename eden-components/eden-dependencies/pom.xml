@@ -99,6 +99,7 @@
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		<mvel.version>2.4.8.Final</mvel.version>
 		<json-lib.version>2.4</json-lib.version>
+		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.29</mysql.version>
@@ -181,6 +182,7 @@
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
 		<cat.version>3.1.0</cat.version>
+		<plexus.version>3.0.24</plexus.version>
 
 		<!-- 测试组件 -->
 		<cucumber.version>3.0.2</cucumber.version>
@@ -899,6 +901,12 @@
 				<artifactId>jmh-generator-annprocess</artifactId>
 				<version>${jmh.version}</version>
 			</dependency>
+			<!-- Alibaba TransmittableThreadLocal -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>transmittable-thread-local</artifactId>
+				<version>${transmittable-thread-local.version}</version>
+			</dependency>
 
 			<!-- 数据库 -->
 			<!-- MySQL -->
@@ -1584,6 +1592,11 @@
 				<groupId>com.dianping.cat</groupId>
 				<artifactId>cat-client</artifactId>
 				<version>${cat.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>${plexus.version}</version>
 			</dependency>
 
 			<!-- 测试 -->

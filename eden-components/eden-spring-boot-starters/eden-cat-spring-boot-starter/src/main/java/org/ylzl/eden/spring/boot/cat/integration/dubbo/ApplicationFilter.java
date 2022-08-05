@@ -15,7 +15,7 @@ public class ApplicationFilter implements Filter {
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		RpcContext.getClientAttachment().setAttachment(CommonConstants.APPLICATION_KEY,
+		RpcContext.getContext().setAttachment(CommonConstants.APPLICATION_KEY,
 			invoker.getUrl().getParameter(CommonConstants.APPLICATION_KEY));
 		return invoker.invoke(invocation);
 	}
