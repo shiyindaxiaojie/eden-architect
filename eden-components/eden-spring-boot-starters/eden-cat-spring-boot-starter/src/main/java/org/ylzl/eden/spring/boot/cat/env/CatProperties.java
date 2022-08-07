@@ -17,5 +17,15 @@ public class CatProperties {
 
 	public static final String PREFIX = "cat";
 
+	private boolean enabled;
 
+	private String home = "/tmp";
+
+	private String domain;
+
+	private String servers;
+
+	private int tcpPort = 2280;
+
+	private int httpPort = 80;
 }
