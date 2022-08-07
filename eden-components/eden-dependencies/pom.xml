@@ -123,7 +123,7 @@
 		<mongodb.version>3.12.10</mongodb.version>
 		<mongobee.version>0.13</mongobee.version>
 		<neo4j.version>2.0.6</neo4j.version>
-		<influxdb.version>2.18</influxdb.version>
+		<influxdb.version>6.4.0</influxdb.version>
 
 		<!-- 搜索引擎 -->
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
@@ -1059,8 +1059,13 @@
 			</dependency>
 			<!-- InfluxDB -->
 			<dependency>
-				<groupId>org.influxdb</groupId>
-				<artifactId>influxdb-java</artifactId>
+				<groupId>com.influxdb</groupId>
+				<artifactId>influxdb-client-java</artifactId>
+				<version>${influxdb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.influxdb</groupId>
+				<artifactId>influxdb-spring</artifactId>
 				<version>${influxdb.version}</version>
 			</dependency>
 

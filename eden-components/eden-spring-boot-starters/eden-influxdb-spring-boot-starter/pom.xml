@@ -61,8 +61,12 @@
 
 		<!-- InfluxDB 组件 -->
 		<dependency>
-			<groupId>org.influxdb</groupId>
-			<artifactId>influxdb-java</artifactId>
+			<groupId>com.influxdb</groupId>
+			<artifactId>influxdb-client-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.influxdb</groupId>
+			<artifactId>influxdb-spring</artifactId>
 		</dependency>
 	</dependencies>
 </project>
