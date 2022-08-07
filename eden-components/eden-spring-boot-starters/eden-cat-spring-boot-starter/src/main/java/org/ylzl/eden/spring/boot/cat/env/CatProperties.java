@@ -5,10 +5,10 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * TODO
+ * Cat 属性配置
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
  */
 @Getter
 @Setter
@@ -17,5 +17,15 @@ public class CatProperties {
 
 	public static final String PREFIX = "cat";
 
+	private boolean enabled;
 
+	private String home = "/tmp";
+
+	private String domain;
+
+	private String servers;
+
+	private int tcpPort = 2280;
+
+	private int httpPort = 80;
 }
