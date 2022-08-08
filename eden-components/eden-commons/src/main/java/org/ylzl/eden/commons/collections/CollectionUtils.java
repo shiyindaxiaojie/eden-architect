@@ -19,6 +19,7 @@ package org.ylzl.eden.commons.collections;
 
 import lombok.experimental.UtilityClass;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -28,7 +29,15 @@ import java.util.Map;
  * @since 2.4.x
  */
 @UtilityClass
-public final class CollectionUtils extends org.apache.commons.collections4.CollectionUtils {
+public final class CollectionUtils {
+
+	public static boolean isEmpty(final Collection<?> coll) {
+		return org.apache.commons.collections4.CollectionUtils.isEmpty(coll);
+	}
+
+	public static boolean isNotEmpty(final Collection<?> coll) {
+		return org.apache.commons.collections4.CollectionUtils.isNotEmpty(coll);
+	}
 
 	public static boolean isEmpty(final Map<?, ?> map) {
 		return map == null || map.isEmpty();
