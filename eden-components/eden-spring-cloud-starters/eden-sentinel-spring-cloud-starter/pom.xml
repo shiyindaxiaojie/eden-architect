@@ -90,7 +90,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
-			<artifactId>sentinel-apache-dubbo-adapter</artifactId>
+			<artifactId>sentinel-apache-dubbo3-adapter</artifactId>
 		</dependency>
 	</dependencies>
 </project>
