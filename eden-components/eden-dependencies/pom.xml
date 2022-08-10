@@ -1363,6 +1363,11 @@
 				<artifactId>sentinel-datasource-apollo</artifactId>
 				<version>${sentinel.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-apache-dubbo3-adapter</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
 			<!-- Zuul (Spring Cloud 新版本已移除这项依赖) -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
