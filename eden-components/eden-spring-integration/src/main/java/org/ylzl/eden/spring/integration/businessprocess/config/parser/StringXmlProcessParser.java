@@ -16,7 +16,7 @@ import java.io.StringReader;
 @RequiredArgsConstructor
 public class StringXmlProcessParser extends XmlProcessParser {
 
-	private String xmlConfig;
+	private final String xmlConfig;
 
 	/**
 	 * 获取 XML 文档对象

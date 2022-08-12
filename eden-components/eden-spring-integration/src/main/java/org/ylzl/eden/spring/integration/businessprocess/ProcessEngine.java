@@ -16,7 +16,6 @@ public class ProcessEngine {
 
 	public ProcessEngine(ProcessParser processParser) {
 		this.processContextFactory = new ProcessContextFactory(processParser);
-		;
 	}
 
 	public <T> ProcessContext<T> getContext(String name) {
