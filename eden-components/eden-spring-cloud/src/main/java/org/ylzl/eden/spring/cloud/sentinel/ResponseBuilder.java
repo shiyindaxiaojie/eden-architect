@@ -23,7 +23,7 @@ public class ResponseBuilder {
 			return Response.buildFailure("B0220", "系统降级");
 		}
 		if (e instanceof ParamFlowException) {
-			return Response.buildFailure("B0210", "流控限制");
+			return Response.buildFailure("B0210", "参数流控限制");
 		}
 		if (e instanceof SystemBlockException) {
 			return Response.buildFailure("B0200", "系统保护");

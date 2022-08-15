@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.sleuth.web.WebMvcHandlerParser;
+import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
 
 /**
  * 自定义 Sleuth Web 自动装配
