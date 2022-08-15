@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.cloud.zipkin.autoconfigure;
+package org.ylzl.eden.spring.cloud.zipkin.env;
 
 import lombok.Getter;
 import lombok.Setter;

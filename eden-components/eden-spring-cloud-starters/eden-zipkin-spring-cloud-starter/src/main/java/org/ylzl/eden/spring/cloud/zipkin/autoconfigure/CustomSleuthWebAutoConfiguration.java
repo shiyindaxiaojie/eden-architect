@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.sleuth.web.WebMvcHandlerParser;
+import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
 
 /**
  * 自定义 Sleuth Web 自动装配
@@ -15,7 +16,7 @@ import org.ylzl.eden.spring.cloud.sleuth.web.WebMvcHandlerParser;
  * @since 2.4.x
  */
 @ConditionalOnProperty(value = "spring.sleuth.web.servlet.enabled", matchIfMissing = true)
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(CustomSleuthWebProperties.class)
 @Slf4j
 @Configuration

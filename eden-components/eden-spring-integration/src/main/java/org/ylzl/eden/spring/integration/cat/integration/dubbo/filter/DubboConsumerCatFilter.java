@@ -10,7 +10,7 @@ import org.apache.dubbo.rpc.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Activate(group = {CommonConstants.CONSUMER})
+@Activate(group = {CommonConstants.CONSUMER}, value = "cat")
 public class DubboConsumerCatFilter implements Filter {
 
 	@Override
