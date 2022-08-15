@@ -16,7 +16,7 @@ import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
  * @since 2.4.x
  */
 @ConditionalOnProperty(value = "spring.sleuth.web.servlet.enabled", matchIfMissing = true)
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(CustomSleuthWebProperties.class)
 @Slf4j
 @Configuration
