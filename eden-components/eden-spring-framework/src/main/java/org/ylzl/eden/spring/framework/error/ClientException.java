@@ -31,6 +31,10 @@ import org.jetbrains.annotations.PropertyKey;
 @EqualsAndHashCode(callSuper = true)
 public class ClientException extends BaseException {
 
+	public ClientException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Throwable ex) {
+		super(errCode, ex);
+	}
+
 	public ClientException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage,
 						   Object... params) {
 		super(errCode, errMessage, params);
