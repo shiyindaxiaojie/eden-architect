@@ -33,7 +33,7 @@ import java.util.Map;
  * 对象实体工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {

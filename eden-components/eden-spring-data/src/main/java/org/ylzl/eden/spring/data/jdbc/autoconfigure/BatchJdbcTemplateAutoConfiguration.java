@@ -33,7 +33,7 @@ import javax.sql.DataSource;
  * Jdbc 模板自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnClass(NamedParameterJdbcTemplate.class)
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})

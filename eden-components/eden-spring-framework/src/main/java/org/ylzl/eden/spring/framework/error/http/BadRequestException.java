@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  * HTTP 400 错误（客户端不正确的请求）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class BadRequestException extends BaseException {
 

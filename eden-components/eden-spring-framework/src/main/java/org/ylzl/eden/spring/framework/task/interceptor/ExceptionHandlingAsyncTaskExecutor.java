@@ -30,7 +30,7 @@ import java.util.concurrent.Future;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @link https://github.com/jhipster/jhipster-bom/blob/main/jhipster-framework/src/main/java/tech/jhipster/async/ExceptionHandlingAsyncTaskExecutor.java
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor, InitializingBean, DisposableBean {

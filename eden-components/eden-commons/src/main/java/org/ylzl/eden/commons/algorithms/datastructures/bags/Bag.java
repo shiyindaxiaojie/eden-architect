@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
  * 背包
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class Bag<E> implements Iterable<E> {
 

@@ -42,7 +42,7 @@ import java.text.MessageFormat;
  * Http 响应工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @SuppressWarnings("unchecked")
 @UtilityClass

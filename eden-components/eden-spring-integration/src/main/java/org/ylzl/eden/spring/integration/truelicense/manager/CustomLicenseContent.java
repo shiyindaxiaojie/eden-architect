@@ -30,7 +30,7 @@ import java.util.Date;
  * 许可证存储
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AllArgsConstructor
 @Data

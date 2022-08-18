@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * 随机字符串工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {

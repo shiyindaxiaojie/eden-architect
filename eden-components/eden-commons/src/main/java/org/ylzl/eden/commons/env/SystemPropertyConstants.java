@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * Java 内置配置属性常量
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class SystemPropertyConstants {

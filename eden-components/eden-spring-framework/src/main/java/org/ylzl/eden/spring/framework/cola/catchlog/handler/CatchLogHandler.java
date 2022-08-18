@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  * 异常处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class CatchLogHandler {

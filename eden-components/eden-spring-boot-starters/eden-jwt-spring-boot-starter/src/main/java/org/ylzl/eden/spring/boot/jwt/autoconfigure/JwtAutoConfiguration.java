@@ -16,7 +16,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
  * JWT 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnExpression(JwtAutoConfiguration.SECURITY_JWT_ENABLED)
 @EnableConfigurationProperties(JwtProperties.class)

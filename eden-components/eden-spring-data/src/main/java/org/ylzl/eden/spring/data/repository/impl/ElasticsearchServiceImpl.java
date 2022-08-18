@@ -29,7 +29,7 @@ import java.io.Serializable;
  * Elasticsearch 业务实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class ElasticsearchServiceImpl<T, ID extends Serializable>
 	extends org.ylzl.eden.spring.data.repository.impl.PagingAndSortingServiceImpl<T, ID>

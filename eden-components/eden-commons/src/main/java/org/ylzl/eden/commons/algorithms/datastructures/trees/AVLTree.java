@@ -21,7 +21,7 @@ package org.ylzl.eden.commons.algorithms.datastructures.trees;
  * 自平衡二叉查找树
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class AVLTree {
 

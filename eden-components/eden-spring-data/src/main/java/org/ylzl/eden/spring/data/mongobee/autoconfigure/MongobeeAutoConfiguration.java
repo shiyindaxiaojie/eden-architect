@@ -44,7 +44,7 @@ import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
  * MongoDB 配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnClass({Mongobee.class})
 @ConditionalOnProperty(prefix = "mongobee", name = "enabled", matchIfMissing = true)

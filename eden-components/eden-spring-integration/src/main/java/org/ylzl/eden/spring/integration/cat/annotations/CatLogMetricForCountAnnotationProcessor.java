@@ -20,7 +20,7 @@ import java.util.Map;
  * Cat.logMetricForCount 注解处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class CatLogMetricForCountAnnotationProcessor implements BeanPostProcessor, PriorityOrdered {

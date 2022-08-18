@@ -22,7 +22,7 @@ import java.io.Serializable;
  * MongoDB 数据仓库
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface MongoRepository<T, ID extends Serializable>
 	extends org.springframework.data.mongodb.repository.MongoRepository<T, ID> {

@@ -33,7 +33,7 @@ import redis.clients.jedis.JedisCluster;
  * Redis 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class, JedisCluster.class})

@@ -17,8 +17,8 @@ import java.util.Optional;
 /**
  * 修复 SentinelDubboCustomerFilter
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  * @see com.alibaba.csp.sentinel.adapter.dubbo3.SentinelDubboConsumerFilter
  */
 @Slf4j

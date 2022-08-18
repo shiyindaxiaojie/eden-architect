@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  * HTTP 403 错误（非法访问）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class ForbiddenException extends BaseException {
 

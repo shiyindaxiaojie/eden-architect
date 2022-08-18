@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * 基于 Nacos 随机&权重的策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class NacosRandomWithWeightRule extends AbstractLoadBalancerRule {

@@ -11,7 +11,7 @@ import org.ylzl.eden.spring.cloud.sentinel.web.CustomBlockExceptionHandler;
  * Sentinel 防护自定义异常自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnClass(BlockExceptionHandler.class)
 @Slf4j

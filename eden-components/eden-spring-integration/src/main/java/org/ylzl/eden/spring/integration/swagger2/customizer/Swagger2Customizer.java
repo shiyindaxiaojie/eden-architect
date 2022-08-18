@@ -23,7 +23,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * Swagger 自定义接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface Swagger2Customizer {
 

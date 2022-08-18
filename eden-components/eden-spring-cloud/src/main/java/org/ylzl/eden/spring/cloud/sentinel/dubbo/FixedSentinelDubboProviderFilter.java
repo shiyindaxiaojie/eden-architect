@@ -12,12 +12,13 @@ import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.common.logger.Logger;
 import org.apache.dubbo.common.logger.LoggerFactory;
+import org.apache.dubbo.rpc.*;
 
 /**
  * 修复 SentinelDubboProviderFilter
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  * @see com.alibaba.csp.sentinel.adapter.dubbo3.SentinelDubboProviderFilter
  */
 @Activate(group = CommonConstants.PROVIDER, value = "sentinel-dubbo-provider")

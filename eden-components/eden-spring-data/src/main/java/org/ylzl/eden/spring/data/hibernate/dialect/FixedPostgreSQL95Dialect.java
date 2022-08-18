@@ -26,7 +26,7 @@ import java.sql.Types;
  * PostgreSQL95 方言类
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class FixedPostgreSQL95Dialect extends PostgreSQL95Dialect {
 

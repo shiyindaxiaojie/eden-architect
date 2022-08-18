@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * 自定义 Sentinel 异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class CustomBlockExceptionHandler implements BlockExceptionHandler {
 	@Override

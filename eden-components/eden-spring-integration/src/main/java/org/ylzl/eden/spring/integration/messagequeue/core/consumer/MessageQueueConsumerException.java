@@ -6,7 +6,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  * 消息队列消费者异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class MessageQueueConsumerException extends BaseException {
 

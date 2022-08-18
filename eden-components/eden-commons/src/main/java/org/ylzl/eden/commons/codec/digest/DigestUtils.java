@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * Digest 工具集
  *
  * @author sion
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class DigestUtils extends org.apache.commons.codec.digest.DigestUtils {

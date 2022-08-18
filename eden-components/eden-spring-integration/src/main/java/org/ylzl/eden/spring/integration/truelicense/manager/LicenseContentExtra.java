@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 许可证内容扩展
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AllArgsConstructor
 @Builder

@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.framework.cola.rest.resolver.RestExceptionResolver;
  * REST 错误自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Configuration
 public class RestExceptionAdviceConfiguration {

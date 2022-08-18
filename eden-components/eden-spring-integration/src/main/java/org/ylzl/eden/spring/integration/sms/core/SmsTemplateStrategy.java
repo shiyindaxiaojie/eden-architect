@@ -7,7 +7,7 @@ import org.ylzl.eden.spring.framework.error.ClientErrorType;
  * 短信操作模板策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class SmsTemplateStrategy {
 

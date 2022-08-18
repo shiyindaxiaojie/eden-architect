@@ -20,7 +20,7 @@ import java.util.Map;
  * WebMvc 链路跟踪解析扩展
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @EqualsAndHashCode(callSuper = false)
 @ToString
@@ -33,7 +33,7 @@ public class WebMvcHandlerParser extends HandlerParser {
 	public static final String CONTROLLER_REQUEST_PARAMETER_PREFIX =
 		"mvc.controller.request.parameter.";
 
-	private static final String ALL_PATCH = "*";
+	private static final String ALL_PATTERN = "*";
 
 	private String ignoreHeaders;
 
@@ -93,8 +93,8 @@ public class WebMvcHandlerParser extends HandlerParser {
 		}
 	}
 
-	private boolean isAllIgnored(String ignoreKeys) {
-		return ALL_PATCH.equals(ignoreKeys);
+	private boolean isAllIgnored(String pattern) {
+		return ALL_PATTERN.equals(pattern);
 	}
 
 	private boolean ignored(List<String> ignoreList, String key) {

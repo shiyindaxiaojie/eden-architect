@@ -8,7 +8,7 @@ import org.ylzl.eden.spring.integration.consistencytask.enums.ConsistencyTaskSta
  * 一致性任务实例
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Accessors(chain = true)
 @Builder

@@ -11,7 +11,7 @@ import org.ylzl.eden.spring.integration.sms.core.SmsTemplateStrategy;
  * 短信操作模板策略自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnBean(SmsTemplate.class)
 @Slf4j

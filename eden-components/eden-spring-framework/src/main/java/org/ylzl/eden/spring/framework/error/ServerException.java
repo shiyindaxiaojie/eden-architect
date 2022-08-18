@@ -25,7 +25,7 @@ import org.jetbrains.annotations.PropertyKey;
  * 服务端异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

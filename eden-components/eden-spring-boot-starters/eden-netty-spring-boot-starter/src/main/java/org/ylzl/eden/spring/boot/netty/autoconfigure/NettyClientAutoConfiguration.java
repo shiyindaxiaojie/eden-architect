@@ -38,7 +38,7 @@ import java.util.List;
  * Netty 客户端自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnClass(Bootstrap.class)
 @ConditionalOnProperty(value = NettyClientProperties.PREFIX + ".enabled", matchIfMissing = true)

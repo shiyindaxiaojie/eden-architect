@@ -6,7 +6,7 @@ import org.ylzl.eden.spring.integration.businessprocess.executor.Processor;
  * 流程执行器实例化抽象工厂
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface ProcessorFactory {
 

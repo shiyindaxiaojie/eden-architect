@@ -26,7 +26,7 @@ import java.io.Serializable;
  * JPA 数据仓库
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @NoRepositoryBean
 public interface JpaRepository<T, ID extends Serializable>

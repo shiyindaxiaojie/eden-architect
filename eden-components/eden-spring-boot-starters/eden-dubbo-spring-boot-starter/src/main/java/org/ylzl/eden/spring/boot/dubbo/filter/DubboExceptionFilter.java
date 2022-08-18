@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * Dubbo 自定义异常过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Activate(group = CommonConstants.PROVIDER, order = -1)
 public class DubboExceptionFilter implements Filter, Filter.Listener {

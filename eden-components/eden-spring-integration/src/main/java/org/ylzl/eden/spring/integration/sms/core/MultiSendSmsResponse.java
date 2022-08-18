@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 个性化群发短信响应
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Builder
 @NoArgsConstructor
