@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * 浏览器枚举
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public enum BrowserEnum {
 	CHROME("Chrome"),

@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseStore;
  * TrueLicense 服务端配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".server.enabled")
 @Import(TrueLicenseConfiguration.class)

@@ -13,7 +13,7 @@ import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
  * 自定义 Sleuth Web 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnProperty(value = "spring.sleuth.web.servlet.enabled", matchIfMissing = true)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)

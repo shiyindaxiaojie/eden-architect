@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 自动填充模型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

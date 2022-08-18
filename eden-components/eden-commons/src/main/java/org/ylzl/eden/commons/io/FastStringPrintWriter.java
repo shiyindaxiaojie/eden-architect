@@ -8,7 +8,7 @@ import java.io.PrintWriter;
  * 更快的 PrintWriter
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class FastStringPrintWriter extends PrintWriter {
 	private final FastStringWriter writer;

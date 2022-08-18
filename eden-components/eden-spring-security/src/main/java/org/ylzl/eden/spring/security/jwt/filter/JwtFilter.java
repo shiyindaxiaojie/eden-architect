@@ -26,7 +26,7 @@ import java.util.List;
  * JWT 过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {

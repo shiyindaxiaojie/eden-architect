@@ -24,7 +24,7 @@ import lombok.NonNull;
  * 基本类型枚举
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public enum PrimitiveType {
 	BOOLEAN(Boolean::parseBoolean, Boolean.class),

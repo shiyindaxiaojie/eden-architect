@@ -16,7 +16,7 @@ import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplateImpl;
  * 自定义 Redis 模板自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class})

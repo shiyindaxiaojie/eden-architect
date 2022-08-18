@@ -12,7 +12,7 @@ import java.util.Set;
  * 访问令牌
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Builder
 @EqualsAndHashCode

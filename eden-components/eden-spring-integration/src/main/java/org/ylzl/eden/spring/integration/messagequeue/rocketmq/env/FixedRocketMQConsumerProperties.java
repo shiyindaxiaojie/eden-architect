@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @link https://github.com/apache/rocketmq-spring/blob/master/rocketmq-spring-boot/src/main/java/org/apache/rocketmq/spring/autoconfigure/RocketMQProperties.java
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Data
 @ConfigurationProperties(prefix = "rocketmq.consumer")

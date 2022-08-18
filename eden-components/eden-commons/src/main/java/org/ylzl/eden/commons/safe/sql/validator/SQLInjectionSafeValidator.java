@@ -27,7 +27,7 @@ import javax.validation.ConstraintValidatorContext;
  * SQL 注入安全校验器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class SQLInjectionSafeValidator implements ConstraintValidator<SQLInjectionSafe, String> {
 

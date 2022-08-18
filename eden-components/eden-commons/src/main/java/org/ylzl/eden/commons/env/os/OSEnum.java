@@ -25,7 +25,7 @@ import org.ylzl.eden.commons.regex.RegexUtils;
  * 操作系统枚举
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public enum OSEnum {
 	AIX("AIX"),

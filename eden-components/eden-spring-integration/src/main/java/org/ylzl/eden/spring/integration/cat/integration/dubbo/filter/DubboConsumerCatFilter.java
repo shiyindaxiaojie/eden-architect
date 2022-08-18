@@ -8,7 +8,7 @@ import org.apache.dubbo.rpc.*;
  * Dubbo 消费者集成 CAT 过滤
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Activate(group = {CommonConstants.CONSUMER}, value = "cat")
 public class DubboConsumerCatFilter implements Filter {

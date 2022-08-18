@@ -23,7 +23,7 @@ import org.mapstruct.MappingTarget;
  * 实体转换器(领域对象 <-> 数据库对象)
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface EntityConvertor<Entity, DO> {
 

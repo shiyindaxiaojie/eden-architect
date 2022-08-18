@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * 自动填充元数据对象处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 public class AutofillMetaObjectHandler implements MetaObjectHandler {

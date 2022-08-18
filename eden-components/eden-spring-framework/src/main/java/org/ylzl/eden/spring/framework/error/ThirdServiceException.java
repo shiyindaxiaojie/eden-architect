@@ -25,11 +25,15 @@ import org.jetbrains.annotations.PropertyKey;
  * 第三方服务异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class ThirdServiceException extends BaseException {
+
+	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Throwable ex) {
+		super(errCode, ex);
+	}
 
 	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
 								 String errMessage, Object... params) {

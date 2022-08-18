@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.framework.cola.dto.Response;
  * Rest 异常事件
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Builder
 @EqualsAndHashCode(callSuper = false)

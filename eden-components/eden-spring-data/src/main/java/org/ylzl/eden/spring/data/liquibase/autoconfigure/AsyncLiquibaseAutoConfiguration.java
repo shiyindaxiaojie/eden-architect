@@ -50,7 +50,7 @@ import java.util.concurrent.Executor;
  * Liquibase 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AutoConfigureAfter({
 	DataSourceAutoConfiguration.class,

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * 基于 Ribbon 的 Nacos 策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class NacosRule extends AbstractLoadBalancerRule {

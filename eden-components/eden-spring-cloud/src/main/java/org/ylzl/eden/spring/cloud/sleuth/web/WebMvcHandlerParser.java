@@ -1,9 +1,11 @@
 package org.ylzl.eden.spring.cloud.sleuth.web;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.cloud.sleuth.SpanCustomizer;
 import org.springframework.cloud.sleuth.instrument.web.mvc.HandlerParser;
-import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
@@ -18,8 +20,10 @@ import java.util.Map;
  * WebMvc 链路跟踪解析扩展
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
+@EqualsAndHashCode(callSuper = false)
+@ToString
 @Data
 public class WebMvcHandlerParser extends HandlerParser {
 
@@ -29,7 +33,7 @@ public class WebMvcHandlerParser extends HandlerParser {
 	public static final String CONTROLLER_REQUEST_PARAMETER_PREFIX =
 		"mvc.controller.request.parameter.";
 
-	private static final String ALL_PATCH = "*";
+	private static final String ALL_PATTERN = "*";
 
 	private String ignoreHeaders;
 
@@ -39,13 +43,13 @@ public class WebMvcHandlerParser extends HandlerParser {
 	protected void preHandle(HttpServletRequest request, Object handler, SpanCustomizer customizer) {
 		super.preHandle(request, handler, customizer);
 
-		if (isAllIgnored(ignoreHeaders)) {
+		if (!isAllIgnored(ignoreHeaders)) {
 			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
 				Arrays.asList(ignoreHeaders.split(StringConstants.COMMA)) : null;
 			handleHeader(ignoreList, request, customizer);
 		}
 
-		if (isAllIgnored(ignoreParameters)) {
+		if (!isAllIgnored(ignoreParameters)) {
 			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
 				Arrays.asList(ignoreParameters.split(StringConstants.COMMA)) : null;
 			handleParameter(ignoreList, request, customizer);
@@ -89,8 +93,8 @@ public class WebMvcHandlerParser extends HandlerParser {
 		}
 	}
 
-	private boolean isAllIgnored(String ignoreKeys) {
-		return ALL_PATCH.equals(ignoreKeys);
+	private boolean isAllIgnored(String pattern) {
+		return ALL_PATTERN.equals(pattern);
 	}
 
 	private boolean ignored(List<String> ignoreList, String key) {

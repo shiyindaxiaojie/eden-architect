@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.zookeeper.core.ZookeeperTemplate;
  * ZooKeeper 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnProperty(name = ZookeeperProperties.PREFIX + ".enabled", havingValue = "true")
 @ConditionalOnClass(ZooKeeper.class)

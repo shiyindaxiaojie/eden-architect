@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * <br /> Fixed: WARNING Log `Buffer pool was not set on WebSocketDeploymentInfo`
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  * @link https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.embedded-container.customizing.programmatic
  */
 @Slf4j

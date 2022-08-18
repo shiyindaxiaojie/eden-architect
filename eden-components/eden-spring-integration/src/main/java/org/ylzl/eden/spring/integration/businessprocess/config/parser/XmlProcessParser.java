@@ -12,7 +12,7 @@ import java.util.List;
  * 基于 XML 结构的流程解析器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public abstract class XmlProcessParser implements ProcessParser {
 

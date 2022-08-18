@@ -25,7 +25,7 @@ import java.util.UUID;
  * Dubbo 链路集成 CAT 过滤
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, value = "cat", order = -9000)
 public class DubboTraceCatFilter implements Filter {

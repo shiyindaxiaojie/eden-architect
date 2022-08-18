@@ -29,7 +29,7 @@ import java.util.Locale;
  * Mybatis 集成 CAT 插件
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Intercepts({
 	@Signature(type = StatementHandler.class, method = "select", args = {Statement.class, ResultHandler.class}),

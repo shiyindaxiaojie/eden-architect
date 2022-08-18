@@ -11,7 +11,7 @@ import org.ylzl.eden.spring.integration.mail.core.*;
  * JavaMail 邮件操作模板
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j

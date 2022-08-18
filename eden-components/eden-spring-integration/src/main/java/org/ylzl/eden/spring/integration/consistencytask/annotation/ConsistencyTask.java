@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * 一致性任务
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Inherited
 @Documented

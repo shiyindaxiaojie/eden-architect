@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstan
  * Zuul 过滤器自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnProperty(name = ZuulProperties.PREFIX + ".enable", havingValue = "true")
 @ConditionalOnClass(ZuulFilter.class)

@@ -6,7 +6,7 @@ import org.ylzl.eden.spring.integration.consistencytask.executor.ConsistencyTask
  * 一致性任务告警器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface ConsistencyTaskAlerter {
 

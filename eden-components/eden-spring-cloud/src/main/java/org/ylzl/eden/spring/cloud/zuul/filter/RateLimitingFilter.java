@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletRequest;
  * 速率限制过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Slf4j
 public class RateLimitingFilter extends ZuulFilter {

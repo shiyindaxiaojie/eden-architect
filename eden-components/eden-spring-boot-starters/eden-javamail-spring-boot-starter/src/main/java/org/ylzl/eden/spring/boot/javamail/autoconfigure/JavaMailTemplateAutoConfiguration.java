@@ -16,7 +16,7 @@ import org.ylzl.eden.spring.integration.mail.javamail.JavaMailTemplate;
  * JavaMailTemplate 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @AutoConfigureAfter(MailSenderAutoConfiguration.class)
 @Conditional(JavaMailTemplateAutoConfiguration.MailSenderCondition.class)

@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * Redis 布隆过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class RedisBloomFilter<T> {
 

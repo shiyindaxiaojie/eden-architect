@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServlet;
  * Spring 内置工具自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnClass(HttpServlet.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)

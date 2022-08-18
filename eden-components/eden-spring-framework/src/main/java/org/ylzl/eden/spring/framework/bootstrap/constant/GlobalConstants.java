@@ -24,7 +24,7 @@ import org.ylzl.eden.commons.env.CharsetConstants;
  * 全局常量定义
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public final class GlobalConstants {

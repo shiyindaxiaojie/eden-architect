@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.cloud.zuul.endpoint.ZuulRouteEndpoint;
  * Zuul 端点自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnBean({RouteLocator.class, DiscoveryClient.class})
 @ConditionalOnClass(ZuulFilter.class)

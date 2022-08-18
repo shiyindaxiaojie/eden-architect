@@ -26,7 +26,7 @@ import java.util.List;
  * 排序算法抽象类
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public abstract class AbstractSort implements Sort {
 

@@ -26,7 +26,7 @@ import org.jetbrains.annotations.PropertyKey;
  * 异常抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -38,6 +38,12 @@ public class BaseException extends RuntimeException {
 	private String errMessage;
 
 	private Object[] params;
+
+	public BaseException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Throwable ex) {
+		super(ErrorConfig.getErrMessage(errCode, ex.getMessage()));
+		this.errCode = errCode;
+		this.errMessage = ErrorConfig.getErrMessage(errCode, ex.getMessage());
+	}
 
 	public BaseException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
 						 String errMessage, Object... params) {

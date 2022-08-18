@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * 开启日志切面自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @Import(CatchLogRegistrar.class)
 @Target({ElementType.TYPE})

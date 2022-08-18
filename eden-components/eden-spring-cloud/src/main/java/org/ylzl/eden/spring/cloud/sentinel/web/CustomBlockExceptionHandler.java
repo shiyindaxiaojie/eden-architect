@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.cloud.sentinel;
+package org.ylzl.eden.spring.cloud.sentinel.web;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * 自定义 Sentinel 异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class CustomBlockExceptionHandler implements BlockExceptionHandler {
 	@Override

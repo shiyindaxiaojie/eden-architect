@@ -35,7 +35,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
  * 默认的 Swagger 自定义实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class DefaultSwagger2Customizer implements Swagger2Customizer, Ordered {
 

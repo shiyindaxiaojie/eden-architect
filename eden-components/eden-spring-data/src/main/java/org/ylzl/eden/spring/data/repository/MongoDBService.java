@@ -23,7 +23,7 @@ import java.io.Serializable;
  * MongoDB 业务接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface MongoDBService<T, ID extends Serializable> extends CrudService<T, ID> {
 }

@@ -12,7 +12,7 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.DubboCat;
  * Dubbo 集成 CAT 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @ConditionalOnBean(CatAutoConfiguration.class)
 @ConditionalOnProperty(prefix = "dubbo", name = "enabled", matchIfMissing = true)

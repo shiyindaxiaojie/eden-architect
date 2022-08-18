@@ -28,7 +28,7 @@ import java.util.List;
  * 激活策略信息装饰器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class ActiveProfilesInfoContributor implements InfoContributor {
 

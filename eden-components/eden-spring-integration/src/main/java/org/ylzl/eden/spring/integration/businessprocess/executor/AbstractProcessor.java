@@ -6,7 +6,7 @@ import org.ylzl.eden.spring.integration.businessprocess.process.ProcessContext;
  * 抽象流程
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public abstract class AbstractProcessor<T> implements Processor<T> {
 

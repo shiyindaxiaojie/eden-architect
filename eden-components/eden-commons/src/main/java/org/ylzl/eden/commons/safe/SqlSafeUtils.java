@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * SQL 安全工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class SqlSafeUtils {

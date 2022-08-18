@@ -24,7 +24,7 @@ import org.springframework.data.redis.serializer.SerializationException;
  * Long Redis 序列化
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public enum LongRedisSerializer implements RedisSerializer<Long> {
 

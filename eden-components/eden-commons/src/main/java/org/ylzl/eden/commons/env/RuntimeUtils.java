@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
  * 运行工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public class RuntimeUtils {

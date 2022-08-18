@@ -26,7 +26,7 @@ import java.io.Serializable;
  * Redis 业务实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @SuppressWarnings("unchecked")
 public class RedisServiceImpl<T, ID extends Serializable> extends CrudServiceImpl<T, ID>

@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * InfoContributor 常量定义
  *
  * @author sion
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public final class InfoContributorConstants {

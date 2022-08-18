@@ -23,7 +23,7 @@ import lombok.experimental.UtilityClass;
  * Zuul 常量定义
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @UtilityClass
 public final class ZuulConstants {

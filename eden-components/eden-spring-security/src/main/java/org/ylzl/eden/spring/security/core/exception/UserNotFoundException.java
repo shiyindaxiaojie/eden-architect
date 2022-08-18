@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.error.BaseException;
  * 用户不存在
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public class UserNotFoundException extends BaseException {
 
