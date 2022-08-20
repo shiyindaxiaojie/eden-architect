@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.boot.ftpserver.env.FTPServerProperties;
 @ConditionalOnClass(FtpServer.class)
 @EnableConfigurationProperties(FTPServerProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class FTPServerAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_FTP_SERVER = "Autowired FTPServer";

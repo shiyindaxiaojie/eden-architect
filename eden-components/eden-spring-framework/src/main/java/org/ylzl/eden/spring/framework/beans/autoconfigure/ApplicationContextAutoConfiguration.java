@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
  * @since 2.4.13
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ApplicationContextAutoConfiguration {
 
 	@ConditionalOnMissingBean(ApplicationContextHelper.class)

@@ -20,7 +20,7 @@ import org.ylzl.eden.spring.integration.cat.integration.web.filter.HttpTraceCatF
 @ConditionalOnWebApplication
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebCatAutoConfiguration {
 
 	@ConditionalOnMissingBean

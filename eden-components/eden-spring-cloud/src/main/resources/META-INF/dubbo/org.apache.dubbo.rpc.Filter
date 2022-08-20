@@ -1,0 +1,2 @@
+exception=com.puyiwm.spring.cloud.dubbo.filter.DubboExceptionFilter
+sentinel-dubbo-provider=com.puyiwm.spring.cloud.sentinel.dubbo.FixedSentinelDubboProviderFilter

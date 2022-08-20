@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.cloud.sentinel.web.CustomBlockExceptionHandler;
  */
 @ConditionalOnClass(BlockExceptionHandler.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class SentinelBlockAutoConfiguration {
 
 	public static final String AUTOWIRED_CUSTOM_BLOCK_EXCEPTION_HANDLER = "Autowired CustomBlockExceptionHandler";

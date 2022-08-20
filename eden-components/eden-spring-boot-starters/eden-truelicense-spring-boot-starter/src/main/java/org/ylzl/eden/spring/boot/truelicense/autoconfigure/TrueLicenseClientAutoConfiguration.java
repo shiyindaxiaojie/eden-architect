@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".client.enabled")
 @Import(TrueLicenseConfiguration.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class TrueLicenseClientAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_TRUE_LICENSE_INSTALL =

@@ -18,7 +18,7 @@ import org.ylzl.eden.spring.integration.distributelock.curator.CuratorDistribute
  */
 @ConditionalOnProperty(value = "distributed-lock.curator.enabled", matchIfMissing = true)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CuratorDistributedLockAutoConfiguration {
 
 	@ConditionalOnClass(CuratorFramework.class)

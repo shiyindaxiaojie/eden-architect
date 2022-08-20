@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.cloud.zuul.endpoint.ZuulRouteEndpoint;
 @ConditionalOnBean({RouteLocator.class, DiscoveryClient.class})
 @ConditionalOnClass(ZuulFilter.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ZuulEndpointAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_ZUUL_ENDPOINT = "Autowired Zuul Endpoint";

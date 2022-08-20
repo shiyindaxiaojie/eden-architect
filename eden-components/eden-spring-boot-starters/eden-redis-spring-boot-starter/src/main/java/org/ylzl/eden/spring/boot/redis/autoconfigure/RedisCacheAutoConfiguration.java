@@ -47,13 +47,13 @@ import java.lang.reflect.Method;
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class, RedisCacheManager.class})
 @EnableCaching
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
 	public static final String AUTOWIRED_REDIS_CACHE_MANAGER = "Autowired RedisCacheManager";

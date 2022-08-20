@@ -22,7 +22,7 @@ import java.util.List;
 })
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MybatisCatAutoConfiguration implements InitializingBean {
 
 	private final List<SqlSessionFactory> sqlSessionFactories;

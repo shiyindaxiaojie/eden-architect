@@ -1,0 +1,1 @@
+sentinel-dubbo-consumer=com.puyiwm.spring.cloud.sentinel.dubbo.FixedSentinelDubboConsumerFilter

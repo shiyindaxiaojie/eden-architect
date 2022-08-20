@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
 @EnableConfigurationProperties(CatProperties.class)
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CatAutoConfiguration implements InitializingBean {
 
 	public static final String CAT_HOME = "CAT_HOME";

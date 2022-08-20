@@ -69,7 +69,7 @@ import java.util.Map;
 })
 @EnableConfigurationProperties({DataSourceProperties.class, RoutingDataSourceProperties.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RoutingDataSourceAutoConfiguration
 	implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 

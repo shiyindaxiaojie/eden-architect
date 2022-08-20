@@ -19,7 +19,7 @@ import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(CustomSleuthWebProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CustomSleuthWebAutoConfiguration {
 
 	public static final String AUTOWIRED_WEB_MVC_HANDLER_PARSER = "Autowired WebMvcHandlerParser";

@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.cloud.profile.env.ProfileProperties;
  */
 @ConditionalOnProperty(ProfileProperties.PREFIX)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ProfileEndpointAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_PROFILE_ENDPOINT = "Autowired Profile Endpoint";

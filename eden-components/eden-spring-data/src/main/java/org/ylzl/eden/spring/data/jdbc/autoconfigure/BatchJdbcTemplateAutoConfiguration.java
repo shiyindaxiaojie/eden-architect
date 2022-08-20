@@ -38,7 +38,7 @@ import javax.sql.DataSource;
 @ConditionalOnClass(NamedParameterJdbcTemplate.class)
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class BatchJdbcTemplateAutoConfiguration {
 
 	public static final String MSG_AUTOWIRED_BATCH_JDBCTPL =

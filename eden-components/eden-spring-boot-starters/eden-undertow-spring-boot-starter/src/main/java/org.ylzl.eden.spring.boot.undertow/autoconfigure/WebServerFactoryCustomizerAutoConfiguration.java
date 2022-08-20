@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * @link https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.embedded-container.customizing.programmatic
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebServerFactoryCustomizerAutoConfiguration implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
 	public static final String IO_UNDERTOW_WEBSOCKETS_JSR_WEB_SOCKET_DEPLOYMENT_INFO = "io.undertow.websockets.jsr.WebSocketDeploymentInfo";

@@ -38,13 +38,13 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Factory;
  * FTPClient 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @ConditionalOnProperty(value = FTPClientProperties.PREFIX + ".enabled", matchIfMissing = true)
 @ConditionalOnClass(FTPClient.class)
 @EnableConfigurationProperties(FTPClientProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class FTPClientAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_FTP_CLIENT = "Autowired FTPClientTemplate";
@@ -57,7 +57,7 @@ public class FTPClientAutoConfiguration {
 	}
 
 	@ConditionalOnClass(GenericObjectPool.class)
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	public static class FTPClientPool2AutoConfiguration {
 
 		private static final String MSG_AUTOWIRED_FTP_CLIENT_POOL2 = "Autowired FTPClient pool2";

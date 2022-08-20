@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.data.redis.core.CustomRedisTemplateImpl;
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CustomRedisTemplateAutoConfiguration {
 
 	public static final String AUTOWIRED_CUSTOM_REDIS_TEMPLATE = "Autowired CustomRedisTemplate";

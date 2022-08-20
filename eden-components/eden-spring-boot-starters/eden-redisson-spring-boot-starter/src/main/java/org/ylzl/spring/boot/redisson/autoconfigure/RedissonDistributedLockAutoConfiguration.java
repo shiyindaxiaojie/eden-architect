@@ -22,7 +22,7 @@ import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistribu
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
 @ConditionalOnProperty(value = "distributed-lock.redisson.enabled", matchIfMissing = true)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RedissonDistributedLockAutoConfiguration {
 
 	@ConditionalOnClass(Redisson.class)

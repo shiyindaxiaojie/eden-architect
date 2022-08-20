@@ -44,7 +44,7 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstan
 @ConditionalOnClass(ZuulFilter.class)
 @EnableConfigurationProperties(ZuulProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ZuulFilterAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER =

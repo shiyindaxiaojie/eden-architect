@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.integration.sms.core.SmsTemplateStrategy;
  */
 @ConditionalOnBean(SmsTemplate.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class SmsTemplateStrategyAutoConfiguration {
 
 	public static final String AUTOWIRED_SMS_TEMPLATE_STRATEGY = "Autowired SmsTemplateStrategy";

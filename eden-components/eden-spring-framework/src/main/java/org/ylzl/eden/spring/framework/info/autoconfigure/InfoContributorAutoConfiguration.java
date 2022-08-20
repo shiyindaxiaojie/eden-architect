@@ -41,10 +41,10 @@ import org.ylzl.eden.spring.framework.info.contributor.MailEnabledInfoContributo
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
-@Configuration("enhancedInfoContributorAutoConfiguration")
+@Configuration(proxyBeanMethods = false, value = "enhancedInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 
 	@ConditionalOnEnabledInfoContributor("management.info.active-profiles.enabled")

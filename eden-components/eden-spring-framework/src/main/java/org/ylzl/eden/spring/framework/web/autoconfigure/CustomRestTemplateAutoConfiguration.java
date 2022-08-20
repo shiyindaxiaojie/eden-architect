@@ -42,7 +42,7 @@ import java.util.List;
 @AutoConfigureAfter(RestTemplateAutoConfiguration.class)
 @ConditionalOnClass({RestTemplate.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CustomRestTemplateAutoConfiguration {
 
 	private static final String AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";

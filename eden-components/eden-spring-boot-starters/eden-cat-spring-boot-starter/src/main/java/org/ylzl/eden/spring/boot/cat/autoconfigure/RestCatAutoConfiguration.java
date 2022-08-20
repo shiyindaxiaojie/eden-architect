@@ -22,7 +22,7 @@ import java.util.Collections;
 	RestTemplate.class
 })
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RestCatAutoConfiguration implements InitializingBean {
 
 	private final RestTemplate restTemplate;

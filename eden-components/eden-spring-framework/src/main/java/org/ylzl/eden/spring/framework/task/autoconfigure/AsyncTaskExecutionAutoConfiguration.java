@@ -45,7 +45,7 @@ import java.util.concurrent.Executor;
  */
 @EnableAsync
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 
 	public static final String AUTOWIRED_ASYNC_TASK_EXECUTOR = "Autowired " + TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
