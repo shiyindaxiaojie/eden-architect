@@ -24,7 +24,7 @@ import java.util.List;
  */
 @ConditionalOnProperty(value = "message-queue.kafka.enabled", matchIfMissing = true)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class KafkaMessageQueueAutoConfiguration {
 
 	@Bean

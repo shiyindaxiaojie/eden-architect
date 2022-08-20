@@ -78,7 +78,7 @@ import java.util.function.Consumer;
 })
 @EnableConfigurationProperties({MybatisPlusProperties.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MybatisPlusAutoConfiguration {
 
 	@ConditionalOnMissingBean
@@ -87,7 +87,7 @@ public class MybatisPlusAutoConfiguration {
 		return configuration -> configuration.setUseDeprecatedExecutor(false);
 	}
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	public static class CustomMybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration {
 
 		public static final String AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY = "Autowired MybatisPlus SqlSessionFactory";

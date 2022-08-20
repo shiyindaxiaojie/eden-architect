@@ -37,7 +37,7 @@ import org.ylzl.eden.spring.integration.zookeeper.core.ZookeeperTemplate;
 @ConditionalOnProperty(name = ZookeeperProperties.PREFIX + ".enabled", havingValue = "true")
 @ConditionalOnClass(ZooKeeper.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ZookeeperAutoConfiguration {
 
 	private final ZookeeperProperties zookeeperProperties;

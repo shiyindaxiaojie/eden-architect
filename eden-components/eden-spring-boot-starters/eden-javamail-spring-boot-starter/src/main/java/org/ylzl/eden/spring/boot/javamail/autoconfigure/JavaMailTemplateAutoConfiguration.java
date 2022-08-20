@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.integration.mail.javamail.JavaMailTemplate;
 @AutoConfigureAfter(MailSenderAutoConfiguration.class)
 @Conditional(JavaMailTemplateAutoConfiguration.MailSenderCondition.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class JavaMailTemplateAutoConfiguration {
 
 	private final JavaMailSender javaMailSender;

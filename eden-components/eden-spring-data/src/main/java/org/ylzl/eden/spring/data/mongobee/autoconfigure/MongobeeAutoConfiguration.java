@@ -51,7 +51,7 @@ import org.ylzl.eden.spring.framework.info.contributor.InfoContributorProvider;
 @EnableConfigurationProperties(MongobeeProperties.class)
 @Import(MongoAutoConfiguration.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MongobeeAutoConfiguration {
 
 	private static final String DEFAULT_CONFIG_DBMIGRATIONS_SUFFIX = "config.dbmigrations";

@@ -1546,6 +1546,11 @@
 			</dependency>
 			<dependency>
 				<groupId>io.prometheus</groupId>
+				<artifactId>simpleclient_httpserver</artifactId>
+				<version>${prometheus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.prometheus</groupId>
 				<artifactId>simpleclient_dropwizard</artifactId>
 				<version>${prometheus.version}</version>
 			</dependency>

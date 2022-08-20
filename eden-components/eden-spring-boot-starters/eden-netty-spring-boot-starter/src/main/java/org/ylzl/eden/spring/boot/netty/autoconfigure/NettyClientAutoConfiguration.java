@@ -44,7 +44,7 @@ import java.util.List;
 @ConditionalOnProperty(value = NettyClientProperties.PREFIX + ".enabled", matchIfMissing = true)
 @EnableConfigurationProperties(NettyClientProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class NettyClientAutoConfiguration {
 
 	private final NettyClientProperties properties;

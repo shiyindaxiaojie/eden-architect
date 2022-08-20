@@ -77,7 +77,7 @@ import java.util.List;
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class Swagger2AutoConfiguration {
 
 	public static final String DEFAULT_GROUP_NAME = "management";

@@ -18,7 +18,7 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.DubboCat;
 @ConditionalOnProperty(prefix = "dubbo", name = "enabled", matchIfMissing = true)
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class DubboCatAutoConfiguration implements InitializingBean {
 
 	@Override

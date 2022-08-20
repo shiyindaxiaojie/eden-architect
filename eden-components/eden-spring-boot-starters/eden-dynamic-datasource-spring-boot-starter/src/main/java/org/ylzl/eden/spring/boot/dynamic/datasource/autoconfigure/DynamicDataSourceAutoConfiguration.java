@@ -41,7 +41,7 @@ import javax.sql.DataSource;
 @AutoConfigureBefore(com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class DynamicDataSourceAutoConfiguration {
 
 	public static final String AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE = "Autowired DynamicRoutingDataSource";

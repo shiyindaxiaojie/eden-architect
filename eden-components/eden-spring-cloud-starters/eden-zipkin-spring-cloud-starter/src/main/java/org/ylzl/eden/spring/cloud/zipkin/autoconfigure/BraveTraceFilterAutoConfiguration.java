@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(TracingFilter.class)
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class BraveTraceFilterAutoConfiguration {
 
 	@Bean

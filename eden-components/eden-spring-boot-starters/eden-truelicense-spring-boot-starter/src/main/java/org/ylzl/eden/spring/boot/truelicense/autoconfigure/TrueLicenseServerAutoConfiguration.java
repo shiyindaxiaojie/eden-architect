@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseStore;
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".server.enabled")
 @Import(TrueLicenseConfiguration.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class TrueLicenseServerAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_TRUE_LICENSE_STORE = "Autowired TureLicense storing service";

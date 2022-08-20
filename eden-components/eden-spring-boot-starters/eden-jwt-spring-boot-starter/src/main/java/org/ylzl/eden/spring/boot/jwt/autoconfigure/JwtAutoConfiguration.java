@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenService;
 @ConditionalOnExpression(JwtAutoConfiguration.SECURITY_JWT_ENABLED)
 @EnableConfigurationProperties(JwtProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class JwtAutoConfiguration {
 
 	public static final String SECURITY_JWT_ENABLED = "${security.jwt.enabled:false}";

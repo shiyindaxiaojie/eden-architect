@@ -29,7 +29,7 @@ import java.util.List;
 	FixedRocketMQConsumerProperties.class
 })
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RocketMQMessageQueueAutoConfiguration {
 
 	@Bean

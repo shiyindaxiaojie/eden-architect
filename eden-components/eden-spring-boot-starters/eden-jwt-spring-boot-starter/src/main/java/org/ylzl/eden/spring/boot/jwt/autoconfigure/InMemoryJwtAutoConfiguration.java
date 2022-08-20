@@ -20,7 +20,7 @@ import org.ylzl.eden.spring.security.core.token.TokenStore;
 @ConditionalOnExpression(JwtAutoConfiguration.SECURITY_JWT_ENABLED)
 @EnableConfigurationProperties(JwtProperties.class)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class InMemoryJwtAutoConfiguration {
 
 	private static final String AUTOWIRED_IN_MEMORY_JWT_TOKEN_STORE = "Autowired InMemoryJwtTokenStore";

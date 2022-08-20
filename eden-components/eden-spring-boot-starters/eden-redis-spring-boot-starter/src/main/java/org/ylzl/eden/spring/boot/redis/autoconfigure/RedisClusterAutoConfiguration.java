@@ -38,7 +38,7 @@ import redis.clients.jedis.JedisCluster;
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class, JedisCluster.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RedisClusterAutoConfiguration {
 
 	@ConditionalOnMissingBean
@@ -50,7 +50,7 @@ public class RedisClusterAutoConfiguration {
 	}
 
 	/*@ConditionalOnClass({Jedis.class, JedisCluster.class})
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	public static class FixedJedisAutoConfiguration {
 
 		@ConditionalOnProperty(name = "spring.redis.cluster.nodes", matchIfMissing = false)

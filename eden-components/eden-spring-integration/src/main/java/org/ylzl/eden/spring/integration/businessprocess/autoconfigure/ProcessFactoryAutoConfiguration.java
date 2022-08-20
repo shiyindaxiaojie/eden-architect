@@ -13,7 +13,7 @@ import org.ylzl.eden.spring.integration.businessprocess.executor.factory.SpringB
  * @since 2.4.13
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ProcessFactoryAutoConfiguration {
 
 	public static final String SPRING_BEAN_PROCESSOR_FACTORY_NAME = "springBeanProcessorFactory";

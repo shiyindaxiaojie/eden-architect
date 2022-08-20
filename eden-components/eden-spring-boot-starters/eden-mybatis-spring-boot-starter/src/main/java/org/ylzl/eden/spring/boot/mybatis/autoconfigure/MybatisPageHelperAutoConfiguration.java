@@ -40,7 +40,7 @@ import java.util.Properties;
 @EnableConfigurationProperties({MybatisProperties.class})
 @ConditionalOnClass({PageInterceptor.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MybatisPageHelperAutoConfiguration {
 
 	public static final String AUTOWIRED_PAGE_HELPER = "Autowired PageHelper";

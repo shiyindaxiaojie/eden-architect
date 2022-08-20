@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServlet;
 @ConditionalOnClass(HttpServlet.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class BootstrapAutoConfiguration {
 
 	@ConditionalOnMissingBean
