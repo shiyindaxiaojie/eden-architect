@@ -33,12 +33,9 @@
 	<description>Spring Boot Starters For Eden*</description>
 
 	<modules>
-		<module>eden-apollo-spring-boot-starter</module>
 		<module>eden-caffeine-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
-		<module>eden-cat-spring-boot-starter</module>
 		<module>eden-curator-spring-boot-starter</module>
-		<module>eden-dubbo-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
@@ -58,7 +55,6 @@
 		<module>eden-mybatis-spring-boot-starter</module>
 		<module>eden-netty-spring-boot-starter</module>
 		<module>eden-oauth2-spring-boot-starter</module>
-		<module>eden-openfeign-spring-boot-starter</module>
 		<module>eden-prometheus-spring-boot-starter</module>
 		<module>eden-rabbitmq-spring-boot-starter</module>
 		<module>eden-redis-spring-boot-starter</module>

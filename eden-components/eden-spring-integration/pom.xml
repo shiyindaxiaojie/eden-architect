@@ -42,6 +42,11 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-cloud</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
@@ -150,19 +155,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Zookeeper -->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-log4j12</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Curator -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
@@ -172,20 +164,6 @@
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-recipes</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- CAT -->
-		<dependency>
-			<groupId>com.dianping.cat</groupId>
-			<artifactId>cat-client</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Dubbo -->
-		<dependency>
-			<groupId>org.apache.dubbo</groupId>
-			<artifactId>dubbo</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -341,11 +319,6 @@
 			<artifactId>commons-net</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
-			<optional>true</optional>
-		</dependency>
 
 		<!-- Hessian -->
 		<dependency>
@@ -393,5 +366,5 @@
 			<artifactId>groovy-sql</artifactId>
 			<scope>test</scope>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

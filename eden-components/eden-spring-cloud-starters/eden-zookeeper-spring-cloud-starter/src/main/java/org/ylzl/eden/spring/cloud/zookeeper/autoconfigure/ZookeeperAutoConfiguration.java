@@ -25,8 +25,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.zookeeper.ZookeeperProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.zookeeper.config.ZookeeperConfig;
-import org.ylzl.eden.spring.integration.zookeeper.core.ZookeeperTemplate;
+import org.ylzl.eden.spring.cloud.zookeeper.config.ZookeeperConfig;
+import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
 /**
  * ZooKeeper 自动装配

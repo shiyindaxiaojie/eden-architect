@@ -5,6 +5,7 @@ import com.xxl.job.core.util.IpUtil;
 import com.xxl.job.core.util.NetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +41,8 @@ public class XxlJobAutoCofiguration {
 		this.xxlJobProperties = xxlJobProperties;
 	}
 
-	@Bean
+	@ConditionalOnMissingBean
+	@Bean(initMethod = "start", destroyMethod = "destroy")
 	public XxlJobSpringExecutor xxlJobSpringExecutor() {
 		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
 		XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();

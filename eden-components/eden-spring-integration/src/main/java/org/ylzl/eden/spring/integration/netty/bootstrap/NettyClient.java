@@ -41,6 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.0.0
  */
+@SuppressWarnings("unchecked")
 @Slf4j
 public class NettyClient {
 

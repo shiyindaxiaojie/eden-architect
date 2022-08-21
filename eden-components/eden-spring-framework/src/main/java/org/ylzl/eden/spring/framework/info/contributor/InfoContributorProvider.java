@@ -39,14 +39,10 @@ public class InfoContributorProvider {
 	}
 
 	public String resolvePackage(String suffix) {
-		StringBuilder packagStr = new StringBuilder();
-		packagStr
-			.append(buildProperties.getGroup())
-			.append(StringConstants.DOT)
-			.append(
-				buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT))
-			.append(StringConstants.DOT)
-			.append(suffix);
-		return packagStr.toString();
+		return buildProperties.getGroup() +
+			StringConstants.DOT +
+			buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT) +
+			StringConstants.DOT +
+			suffix;
 	}
 }

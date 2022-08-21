@@ -30,7 +30,7 @@
 	<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-nacos-discovery-spring-cloud-starter</name>
-	<description>Nacos Discovery Spring Cloud Starter</description>
+	<description>Spring Cloud Starter For Nacos Discovery</description>
 
 	<dependencies>
 		<!-- 开发工具 -->

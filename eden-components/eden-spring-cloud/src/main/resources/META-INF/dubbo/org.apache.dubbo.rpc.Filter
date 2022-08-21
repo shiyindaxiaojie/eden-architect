@@ -1,2 +1,4 @@
-exception=com.puyiwm.spring.cloud.dubbo.filter.DubboExceptionFilter
-sentinel-dubbo-provider=com.puyiwm.spring.cloud.sentinel.dubbo.FixedSentinelDubboProviderFilter
+exception=org.ylzl.eden.spring.cloud.dubbo.filter.DubboExceptionFilter
+sentinel-dubbo-provider=org.ylzl.eden.spring.cloud.sentinel.dubbo.FixedSentinelDubboProviderFilter
+cat-dubbo-consumer=org.ylzl.eden.spring.cloud.cat.integration.dubbo.filter.CatDubboConsumerFilter
+cat-tracing=org.ylzl.eden.spring.cloud.cat.integration.dubbo.filter.CatDubboTraceFilter

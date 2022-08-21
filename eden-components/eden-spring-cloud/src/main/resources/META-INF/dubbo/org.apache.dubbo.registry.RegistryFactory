@@ -1,0 +1,1 @@
+cat-registry-factory=org.ylzl.eden.spring.cloud.cat.integration.dubbo.registry.CatRegistryFactoryWrapper

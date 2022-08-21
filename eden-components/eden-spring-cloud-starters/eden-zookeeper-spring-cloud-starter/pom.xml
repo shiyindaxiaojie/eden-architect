@@ -30,7 +30,7 @@
 	<artifactId>eden-zookeeper-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-zookeeper-spring-cloud-starter</name>
-	<description>Zookeeper Spring Cloud Starter</description>
+	<description>Spring Cloud Starter For Zookeeper</description>
 
 	<dependencies>
 		<!-- 开发工具 -->
@@ -56,7 +56,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
 		<!-- Zookeeper 组件 -->
