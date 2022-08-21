@@ -30,7 +30,7 @@
 	<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-sentinel-spring-cloud-starter</name>
-	<description>Sentinel Spring Cloud Starter</description>
+	<description>Spring Cloud Starter For Sentinel</description>
 
 	<dependencies>
 		<!-- 开发工具 -->

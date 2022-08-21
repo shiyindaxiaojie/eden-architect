@@ -301,7 +301,7 @@
 			<!-- 自定义 Spring Boot Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-apollo-spring-boot-starter</artifactId>
+				<artifactId>eden-apollo-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -321,7 +321,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-dubbo-spring-boot-starter</artifactId>
+				<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -421,7 +421,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-openfeign-spring-boot-starter</artifactId>
+				<artifactId>eden-openfeign-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>

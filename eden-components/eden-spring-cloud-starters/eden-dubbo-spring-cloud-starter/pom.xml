@@ -23,14 +23,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.ylzl</groupId>
-		<artifactId>eden-spring-boot-starters</artifactId>
+		<artifactId>eden-spring-cloud-starters</artifactId>
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dubbo-spring-boot-starter</artifactId>
+	<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dubbo-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dubbo</description>
+	<name>eden-dubbo-spring-cloud-starter</name>
+	<description>Spring Cloud Starter For Dubbo</description>
 
 	<dependencies>
 		<dependency>

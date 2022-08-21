@@ -30,7 +30,7 @@
 	<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-nacos-config-spring-cloud-starter</name>
-	<description>Nacos Config Spring Cloud Starter</description>
+	<description>Spring Cloud Starter For Nacos Config</description>
 
 	<dependencies>
 		<!-- 开发工具 -->

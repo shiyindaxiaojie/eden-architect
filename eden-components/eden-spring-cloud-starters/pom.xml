@@ -33,8 +33,12 @@
 	<description>Spring Cloud Starters For Eden*</description>
 
 	<modules>
+		<module>eden-apollo-spring-cloud-starter</module>
+		<module>eden-cat-spring-cloud-starter</module>
+		<module>eden-dubbo-spring-cloud-starter</module>
 		<module>eden-nacos-config-spring-cloud-starter</module>
 		<module>eden-nacos-discovery-spring-cloud-starter</module>
+		<module>eden-openfeign-spring-cloud-starter</module>
 		<module>eden-sentinel-spring-cloud-starter</module>
 		<module>eden-sofa-tracer-spring-cloud-starter</module>
 		<module>eden-zipkin-spring-cloud-starter</module>
