@@ -2,9 +2,9 @@ package org.ylzl.eden.spring.integration.distributelock.zookeeper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 import org.ylzl.eden.spring.integration.distributelock.core.DistributedLock;
 import org.ylzl.eden.spring.integration.distributelock.core.DistributedLockException;
-import org.ylzl.eden.spring.integration.zookeeper.core.ZookeeperTemplate;
 
 import java.util.concurrent.TimeUnit;
 

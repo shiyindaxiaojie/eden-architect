@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.integration.cat.integration.rest.interceptor.RestTemplateTraceInterceptor;
+import org.ylzl.eden.spring.cloud.cat.integration.rest.interceptor.CatRestTemplateTraceInterceptor;
 
 import java.util.Collections;
 
@@ -29,6 +29,6 @@ public class RestCatAutoConfiguration implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() {
-		restTemplate.setInterceptors(Collections.singletonList(new RestTemplateTraceInterceptor()));
+		restTemplate.setInterceptors(Collections.singletonList(new CatRestTemplateTraceInterceptor()));
 	}
 }

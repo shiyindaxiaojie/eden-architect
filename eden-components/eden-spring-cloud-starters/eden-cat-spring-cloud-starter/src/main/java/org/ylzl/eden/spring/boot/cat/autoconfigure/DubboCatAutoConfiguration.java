@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.cat.integration.dubbo.DubboCat;
+import org.ylzl.eden.spring.cloud.cat.integration.dubbo.EnableCatDubbo;
 
 /**
  * Dubbo 集成 CAT 自动装配
@@ -23,6 +23,6 @@ public class DubboCatAutoConfiguration implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() {
-		DubboCat.enable();
+		EnableCatDubbo.enable();
 	}
 }

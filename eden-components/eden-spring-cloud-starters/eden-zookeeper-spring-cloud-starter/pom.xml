@@ -56,7 +56,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
 		<!-- Zookeeper 组件 -->

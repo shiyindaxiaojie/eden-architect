@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.cat.integration.web.filter.HttpTraceCatFilter;
+import org.ylzl.eden.spring.cloud.cat.integration.web.filter.CatHttpTraceFilter;
 
 /**
  * Web 集成 CAT 自动装配
@@ -25,9 +25,9 @@ public class WebCatAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public FilterRegistrationBean<HttpTraceCatFilter> httpTraceCatFilter() {
-		FilterRegistrationBean<HttpTraceCatFilter> registration =
-			new FilterRegistrationBean<>(new HttpTraceCatFilter());
+	public FilterRegistrationBean<CatHttpTraceFilter> httpTraceCatFilter() {
+		FilterRegistrationBean<CatHttpTraceFilter> registration =
+			new FilterRegistrationBean<>(new CatHttpTraceFilter());
 		registration.setName("http-trace-cat-filter");
 		registration.addUrlPatterns("/*");
 		registration.setOrder(1);
