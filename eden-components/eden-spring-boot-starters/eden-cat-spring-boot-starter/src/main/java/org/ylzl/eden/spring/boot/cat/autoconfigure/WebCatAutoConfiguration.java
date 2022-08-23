@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.cloud.cat.integration.web.filter.CatHttpTraceFilter;
+import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceFilter;
 
 /**
  * Web 集成 CAT 自动装配

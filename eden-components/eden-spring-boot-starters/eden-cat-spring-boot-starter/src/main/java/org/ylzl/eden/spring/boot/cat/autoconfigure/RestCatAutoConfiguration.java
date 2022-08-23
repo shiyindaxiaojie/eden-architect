@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.spring.cloud.cat.integration.rest.interceptor.CatRestTemplateTraceInterceptor;
+import org.ylzl.eden.spring.integration.cat.integration.rest.interceptor.CatRestTemplateTraceInterceptor;
 
 import java.util.Collections;
 

@@ -40,7 +40,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
+			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->

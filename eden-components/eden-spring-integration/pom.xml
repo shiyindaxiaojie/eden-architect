@@ -322,10 +322,20 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dom4J -->
+		<!-- CAT -->
 		<dependency>
-			<groupId>org.dom4j</groupId>
-			<artifactId>dom4j</artifactId>
+			<groupId>com.dianping.cat</groupId>
+			<artifactId>cat-client</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo</artifactId>
 			<optional>true</optional>
 		</dependency>
 

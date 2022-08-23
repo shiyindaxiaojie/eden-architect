@@ -466,18 +466,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- CAT -->
-		<dependency>
-			<groupId>com.dianping.cat</groupId>
-			<artifactId>cat-client</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Spock -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
