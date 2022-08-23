@@ -3,7 +3,8 @@ package org.ylzl.eden.spring.cloud.cat.integration.mybatis.interceptor;
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.Transaction;
-import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.cache.CacheKey;
+import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -15,11 +16,11 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.ylzl.eden.spring.cloud.cat.integration.mybatis.spi.DataSourceUrlResolverSupport;
 
 import javax.sql.DataSource;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +33,9 @@ import java.util.Locale;
  * @since 2.4.13
  */
 @Intercepts({
-	@Signature(type = StatementHandler.class, method = "select", args = {Statement.class, ResultHandler.class}),
-	@Signature(type = StatementHandler.class, method = "insert", args = Statement.class),
-	@Signature(type = StatementHandler.class, method = "update", args = Statement.class),
-	@Signature(type = StatementHandler.class, method = "delete", args = Statement.class),
-	@Signature(type = StatementHandler.class, method = "find", args = {Statement.class, ResultHandler.class}),
-	@Signature(type = StatementHandler.class, method = "save", args = Statement.class),
-	@Signature(type = StatementHandler.class, method = "batch", args = Statement.class)
+	@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
+	@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+	@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class})
 })
 public class CatMybatisInterceptor implements Interceptor {
 
@@ -56,7 +53,7 @@ public class CatMybatisInterceptor implements Interceptor {
 
 		String dataSourceUrl = getSQLDatabaseUrl(mappedStatement);
 		Cat.logEvent(TYPE_SQL_DATABASE, dataSourceUrl);
-		Cat.logEvent(TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name().toLowerCase(),
+		Cat.logEvent(TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(),
 			Message.SUCCESS, getSql(invocation, mappedStatement));
 		try {
 			Object returnValue = invocation.proceed();

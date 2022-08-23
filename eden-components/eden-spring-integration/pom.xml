@@ -42,11 +42,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
-			<optional>true</optional>
-		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>

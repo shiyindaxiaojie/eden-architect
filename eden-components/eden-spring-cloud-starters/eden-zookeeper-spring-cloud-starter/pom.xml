@@ -33,6 +33,20 @@
 	<description>Spring Cloud Starter For Zookeeper</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-cloud</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-distributed-lock</artifactId>
+		</dependency>
+
 		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -47,16 +61,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-		</dependency>
-
-		<!-- 开发框架 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
 		<!-- Zookeeper 组件 -->

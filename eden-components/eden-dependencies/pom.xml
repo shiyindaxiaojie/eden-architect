@@ -298,12 +298,44 @@
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
-			<!-- 自定义 Spring Boot Starters -->
+			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-apollo-spring-cloud-starter</artifactId>
+				<artifactId>eden-bloom-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-bussiness-process-choreography</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-consistency-cache</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-consistency-task</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-distributed-lock</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-distributed-uid</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-message-queue</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+
+			<!-- 自定义 Spring Boot Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-caffeine-spring-boot-starter</artifactId>
@@ -316,12 +348,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-curator-spring-boot-starter</artifactId>
+				<artifactId>eden-cat-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
+				<artifactId>eden-curator-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -421,11 +453,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-openfeign-spring-cloud-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-prometheus-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -503,12 +530,27 @@
 			<!-- 自定义 Spring Cloud Starters -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-apollo-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-openfeign-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
