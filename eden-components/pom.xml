@@ -36,6 +36,7 @@
 		<module>eden-commons</module>
 		<module>eden-dependencies</module>
 		<module>eden-parent</module>
+		<module>eden-solutions</module>
 		<module>eden-spring-boot-starters</module>
 		<module>eden-spring-cloud</module>
 		<module>eden-spring-cloud-starters</module>
@@ -44,5 +45,5 @@
 		<module>eden-spring-integration</module>
 		<module>eden-spring-security</module>
 		<module>eden-spring-test</module>
-	</modules>
+    </modules>
 </project>

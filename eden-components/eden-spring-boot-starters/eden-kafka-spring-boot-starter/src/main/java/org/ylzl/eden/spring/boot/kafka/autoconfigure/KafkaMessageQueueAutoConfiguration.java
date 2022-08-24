@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
-import org.ylzl.eden.spring.integration.messagequeue.kafka.KafkaConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.kafka.KafkaProvider;
+import org.ylzl.eden.message.queue.core.MessageQueueConsumer;
+import org.ylzl.eden.message.queue.core.MessageQueueProvider;
+import org.ylzl.eden.message.queue.kafka.KafkaConsumer;
+import org.ylzl.eden.message.queue.kafka.KafkaProvider;
 
 import java.util.List;
 

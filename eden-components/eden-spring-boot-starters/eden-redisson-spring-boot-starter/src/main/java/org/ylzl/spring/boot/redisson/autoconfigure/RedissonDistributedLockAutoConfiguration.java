@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.distributelock.core.DistributedLock;
-import org.ylzl.eden.spring.integration.distributelock.redisson.RedissonDistributedLock;
+import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.redisson.RedissonDistributedLock;
 
 /**
  * Redisson 自动配置

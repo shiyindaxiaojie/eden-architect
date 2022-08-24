@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueProvider;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.RocketMQConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.RocketMQProvider;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQConsumerProperties;
-import org.ylzl.eden.spring.integration.messagequeue.rocketmq.env.FixedRocketMQProducerProperties;
+import org.ylzl.eden.message.queue.core.MessageQueueConsumer;
+import org.ylzl.eden.message.queue.core.MessageQueueProvider;
+import org.ylzl.eden.message.queue.rocketmq.RocketMQConsumer;
+import org.ylzl.eden.message.queue.rocketmq.RocketMQProvider;
+import org.ylzl.eden.message.queue.rocketmq.env.FixedRocketMQConsumerProperties;
+import org.ylzl.eden.message.queue.rocketmq.env.FixedRocketMQProducerProperties;
 
 import java.util.List;
 
