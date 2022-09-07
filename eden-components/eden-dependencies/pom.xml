@@ -52,6 +52,7 @@
 		<!-- 效率 -->
 		<lombok.version>1.18.18</lombok.version>
 		<mapstruct.version>1.4.1.Final</mapstruct.version>
+		<arthas.version>3.6.0</arthas.version>
 
 		<!-- Web -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
@@ -341,6 +342,11 @@
 			</dependency>
 
 			<!-- 自定义 Spring Boot Starters -->
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-arthas-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-caffeine-spring-boot-starter</artifactId>
@@ -639,6 +645,12 @@
 				<groupId>org.mapstruct</groupId>
 				<artifactId>mapstruct-processor</artifactId>
 				<version>${mapstruct.version}</version>
+			</dependency>
+			<!-- Arthas -->
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-spring-boot-starter</artifactId>
+				<version>${arthas.version}</version>
 			</dependency>
 
 			<!-- Web -->
