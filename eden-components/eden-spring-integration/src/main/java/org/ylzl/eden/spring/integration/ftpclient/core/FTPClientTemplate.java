@@ -31,7 +31,7 @@ import java.text.MessageFormat;
  * FTPClient 模板
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public class FTPClientTemplate {
 

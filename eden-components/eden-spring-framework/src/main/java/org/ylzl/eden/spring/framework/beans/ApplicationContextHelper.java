@@ -20,9 +20,10 @@ package org.ylzl.eden.spring.framework.beans;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
+import org.springframework.beans.factory.support.*;
 import org.springframework.context.*;
 import org.springframework.core.ResolvableType;
 import org.ylzl.eden.commons.lang.ArrayUtils;
@@ -40,6 +41,8 @@ import java.util.Map;
 public class ApplicationContextHelper implements ApplicationContextAware, BeanFactoryPostProcessor {
 
 	private static final String SPRING_APPLICATION_NAME = "spring.application.name";
+
+	private static final BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
 	private static ApplicationContext applicationContext;
 
 	private static ConfigurableListableBeanFactory beanFactory;
@@ -203,6 +206,18 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 		final ConfigurableListableBeanFactory factory = getConfigurableBeanFactory();
 		factory.autowireBean(bean);
 		factory.registerSingleton(beanName, bean);
+	}
+
+	/**
+	 * 注册 Bean
+	 *
+	 * @param beanClass
+	 * @param registry
+	 */
+	public static void registerBean(Class<?> beanClass, BeanDefinitionRegistry registry) {
+		BeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(beanClass).getBeanDefinition();
+		String beanName = beanNameGenerator.generateBeanName(beanDefinition, registry);
+		registry.registerBeanDefinition(beanName, beanDefinition);
 	}
 
 	/**

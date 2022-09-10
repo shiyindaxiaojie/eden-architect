@@ -60,9 +60,7 @@ public class AuditEventConverter {
 	public Map<String, Object> convertDataToObjects(Map<String, String> data) {
 		Map<String, Object> results = new HashMap<>();
 		if (data != null) {
-			for (Map.Entry<String, String> entry : data.entrySet()) {
-				results.put(entry.getKey(), entry.getValue());
-			}
+			results.putAll(data);
 		}
 		return results;
 	}

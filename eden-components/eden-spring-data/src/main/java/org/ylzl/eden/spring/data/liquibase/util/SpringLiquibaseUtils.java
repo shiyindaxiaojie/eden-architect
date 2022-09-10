@@ -34,7 +34,7 @@ import java.util.function.Supplier;
  * SpringLiquibase 工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @UtilityClass
 public class SpringLiquibaseUtils {

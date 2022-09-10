@@ -39,7 +39,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Netty 客户端
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @SuppressWarnings("unchecked")
 @Slf4j

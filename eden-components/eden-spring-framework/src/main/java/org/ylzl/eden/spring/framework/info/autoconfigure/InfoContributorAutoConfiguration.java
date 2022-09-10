@@ -54,7 +54,7 @@ public class InfoContributorAutoConfiguration {
 		return new ActiveProfilesInfoContributor(environment);
 	}
 
-	@ConditionalOnEnabledInfoContributor("management.info.mail-enabled.enabled")
+	@ConditionalOnEnabledInfoContributor("management.info.mail.enabled")
 	@Bean
 	public MailEnabledInfoContributor mailEnabledInfoContributor() {
 		return new MailEnabledInfoContributor();

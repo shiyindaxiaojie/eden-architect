@@ -32,7 +32,7 @@ import java.io.IOException;
  * FTP 客户端工厂
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @Slf4j
 public class FTPClientPool2Factory extends BasePooledObjectFactory<FTPClient> {

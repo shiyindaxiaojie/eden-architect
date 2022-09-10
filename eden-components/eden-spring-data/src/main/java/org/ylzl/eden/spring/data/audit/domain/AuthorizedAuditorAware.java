@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.data.audit.domain;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,12 +32,12 @@ import java.util.Optional;
  * 认证的审计装饰器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public class AuthorizedAuditorAware implements AuditorAware<String> {
 
 	@Override
-	public Optional<String> getCurrentAuditor() {
+	public @NotNull Optional<String> getCurrentAuditor() {
 		String authorizedUsername = null;
 		if (SecurityContextHolder.getContext().getAuthentication() != null) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

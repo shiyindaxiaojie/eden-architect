@@ -18,7 +18,7 @@ import org.ylzl.eden.spring.framework.cola.catchlog.aop.CatchLogAspect;
 public class CatchLogRegistrar implements ImportBeanDefinitionRegistrar {
 
 	@Override
-	public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
+	public void registerBeanDefinitions(@NotNull AnnotationMetadata annotationMetadata,
 										@NotNull BeanDefinitionRegistry beanDefinitionRegistry) {
 		BeanDefinitionBuilder.rootBeanDefinition(CatchLogAspect.class);
 	}

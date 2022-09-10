@@ -29,7 +29,7 @@ import java.util.UUID;
  * RPC 客户端代理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public class RpcClientProxy {
 

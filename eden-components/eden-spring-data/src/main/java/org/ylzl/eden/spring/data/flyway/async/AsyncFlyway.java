@@ -42,7 +42,7 @@ import java.sql.SQLException;
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @Slf4j
 public class AsyncFlyway extends Flyway {

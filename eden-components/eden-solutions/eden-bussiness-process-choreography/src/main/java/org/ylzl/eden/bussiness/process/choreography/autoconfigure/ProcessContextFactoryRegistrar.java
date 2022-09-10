@@ -22,9 +22,9 @@ import java.util.Objects;
 public class ProcessContextFactoryRegistrar implements ImportBeanDefinitionRegistrar {
 
 	@Override
-	public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
-										@NotNull BeanDefinitionRegistry beanDefinitionRegistry) {
-		String classPathXml = (String) Objects.requireNonNull(annotationMetadata.getAnnotationAttributes(
+	public void registerBeanDefinitions(AnnotationMetadata metadata,
+										@NotNull BeanDefinitionRegistry registry) {
+		String classPathXml = (String) Objects.requireNonNull(metadata.getAnnotationAttributes(
 			EnableBusinessProcessEngine.class.getName())).get("value");
 		ClassPathXmlProcessParser parser = new ClassPathXmlProcessParser(classPathXml);
 		BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(ProcessContextFactory.class);
