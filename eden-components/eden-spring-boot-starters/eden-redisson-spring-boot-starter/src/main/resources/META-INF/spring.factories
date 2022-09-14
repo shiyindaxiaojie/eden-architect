@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.spring.boot.redisson.autoconfigure.RedissonAutoConfiguration,\
   org.ylzl.spring.boot.redisson.autoconfigure.RedissonDistributedLockAutoConfiguration
