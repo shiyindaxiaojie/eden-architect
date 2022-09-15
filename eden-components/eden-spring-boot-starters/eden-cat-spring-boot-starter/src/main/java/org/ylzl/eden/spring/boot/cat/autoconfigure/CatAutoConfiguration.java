@@ -8,9 +8,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.cat.env.CatProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
+import org.ylzl.eden.spring.integration.cat.annotations.CatAnnotationProcessorRegister;
 
 /**
  * CAT 自动装配
@@ -18,6 +20,7 @@ import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Import(CatAnnotationProcessorRegister.class)
 @ConditionalOnProperty(prefix = CatProperties.PREFIX, name = "enabled", matchIfMissing = true)
 @ConditionalOnClass(Cat.class)
 @EnableConfigurationProperties(CatProperties.class)

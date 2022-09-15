@@ -17,27 +17,29 @@
 
 package org.ylzl.eden.spring.data.audit.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
+import org.ylzl.eden.spring.data.audit.event.AuditEventConverter;
 
 /**
- * AuditorAware 自动装配
+ * AuditEvent 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @see org.springframework.boot.actuate.audit.AuditEvent
  * @since 2.4.13
  */
-@EnableJpaAuditing(auditorAwareRef = AuditorAwareConfiguration.BEAN_NAME)
+@ConditionalOnClass(AuditEvent.class)
+@Slf4j
 @Configuration
-public class AuditorAwareConfiguration {
-
-	public static final String BEAN_NAME = "authorizedAuditorAware";
+public class PersistenceAuditEventAutoConfiguration {
 
 	@ConditionalOnMissingBean
-	@Bean(BEAN_NAME)
-	public AuthorizedAuditorAware authorizedAuditorAware() {
-		return new AuthorizedAuditorAware();
+	@Bean
+	public AuditEventConverter auditEventConverter() {
+		return new AuditEventConverter();
 	}
 }

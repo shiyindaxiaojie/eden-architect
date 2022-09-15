@@ -30,7 +30,7 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
  * 异步 Mongobee
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @Slf4j
 public class AsyncMongobee extends Mongobee {

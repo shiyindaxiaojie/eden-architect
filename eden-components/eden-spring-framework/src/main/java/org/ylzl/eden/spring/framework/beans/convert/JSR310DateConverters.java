@@ -27,7 +27,7 @@ import java.util.Date;
  * JSR310 规范日期转换器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @UtilityClass
 public class JSR310DateConverters {

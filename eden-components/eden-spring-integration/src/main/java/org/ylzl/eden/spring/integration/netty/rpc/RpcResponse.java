@@ -25,7 +25,7 @@ import java.io.Serializable;
  * RPC 应答
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @Data
 public class RpcResponse<T> implements Serializable {

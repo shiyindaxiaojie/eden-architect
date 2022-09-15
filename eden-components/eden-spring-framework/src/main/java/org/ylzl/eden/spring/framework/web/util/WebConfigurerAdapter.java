@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @EnableRestExceptionResolver
 @Slf4j

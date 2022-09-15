@@ -30,7 +30,7 @@ import java.util.Optional;
  * JPA 业务接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public interface JpaService<T, ID extends Serializable>
 	extends CrudService<T, ID>, PagingAndSortingService<T, ID> {

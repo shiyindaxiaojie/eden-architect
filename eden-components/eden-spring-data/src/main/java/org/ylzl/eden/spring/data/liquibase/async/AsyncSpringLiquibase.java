@@ -33,7 +33,7 @@ import java.util.concurrent.Executor;
  * 异步 Spring Liquibase
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 @Slf4j
 public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {

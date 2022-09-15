@@ -24,7 +24,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * FTP 客户端连接池配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public class FTPClientPool2Config extends GenericObjectPoolConfig<FTPClient> {
 }

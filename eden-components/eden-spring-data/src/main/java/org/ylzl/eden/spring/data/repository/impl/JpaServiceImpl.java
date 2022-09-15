@@ -32,7 +32,7 @@ import java.util.Optional;
  * JPA 业务实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.0.0
+ * @since 2.4.13
  */
 public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSortingServiceImpl<T, ID>
 	implements JpaService<T, ID> {
