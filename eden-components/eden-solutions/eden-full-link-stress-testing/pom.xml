@@ -27,36 +27,8 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-sms-adapter</artifactId>
-	<packaging>jar</packaging>
-	<name>eden-sms-adapter</name>
-	<description>短信适配组件</description>
-
-	<dependencies>
-		<!-- 内部组件 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-
-		<!-- 开发组件 -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-	</dependencies>
+	<artifactId>eden-full-link-stress-testing</artifactId>
+	<packaging>pom</packaging>
+	<name>eden-full-link-stress-testing</name>
+	<description>全链路压测</description>
 </project>

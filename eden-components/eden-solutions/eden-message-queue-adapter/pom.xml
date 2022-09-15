@@ -27,10 +27,10 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-sms-adapter</artifactId>
+	<artifactId>eden-message-queue-adapter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-sms-adapter</name>
-	<description>短信适配组件</description>
+	<name>eden-message-queue-adapter</name>
+	<description>消息队列适配组件</description>
 
 	<dependencies>
 		<!-- 内部组件 -->
@@ -56,6 +56,20 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- RocketMQ -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>

@@ -33,13 +33,14 @@
 	<description>解决方案</description>
 
 	<modules>
-		<module>eden-bloom-filter</module>
+		<module>eden-big-data-filter</module>
 		<module>eden-bussiness-process-choreography</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>
-		<module>eden-message-queue</module>
-		<module>eden-multi-cache</module>
+		<module>eden-full-link-stress-testing</module>
+		<module>eden-message-queue-adapter</module>
+		<module>eden-multi-level-cache</module>
 		<module>eden-sms-adapter</module>
 	</modules>
 

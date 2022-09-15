@@ -27,10 +27,10 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-sms-adapter</artifactId>
+	<artifactId>eden-multi-level-cache</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-sms-adapter</name>
-	<description>短信适配组件</description>
+	<name>eden-multi-level-cache</name>
+	<description>多级缓存</description>
 
 	<dependencies>
 		<!-- 内部组件 -->
@@ -56,6 +56,25 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Redisson -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Curator -->
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>

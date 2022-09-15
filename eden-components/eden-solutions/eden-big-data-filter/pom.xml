@@ -27,10 +27,10 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-sms-adapter</artifactId>
+	<artifactId>eden-big-data-filter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-sms-adapter</name>
-	<description>短信适配组件</description>
+	<name>eden-big-data-filter</name>
+	<description>海量数据过滤器</description>
 
 	<dependencies>
 		<!-- 内部组件 -->
@@ -57,6 +57,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
 		</dependency>
 	</dependencies>
 </project>
