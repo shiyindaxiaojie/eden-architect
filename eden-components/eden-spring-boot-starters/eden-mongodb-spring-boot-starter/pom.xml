@@ -30,9 +30,27 @@
 	<artifactId>eden-mongodb-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-mongodb-spring-boot-starter</name>
-	<description>MongoDB Spring Boot Starter</description>
+	<description>Spring Boot Starter For MongoDB</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-integration</artifactId>
+		</dependency>
+
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- MongoDB 组件 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>

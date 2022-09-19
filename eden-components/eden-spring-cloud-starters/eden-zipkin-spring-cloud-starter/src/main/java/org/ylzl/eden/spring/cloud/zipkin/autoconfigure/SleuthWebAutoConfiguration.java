@@ -10,7 +10,7 @@ import org.ylzl.eden.spring.cloud.sleuth.web.WebMvcHandlerParser;
 import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
 
 /**
- * 自定义 Sleuth Web 自动装配
+ * Sleuth Web 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -20,7 +20,7 @@ import org.ylzl.eden.spring.cloud.zipkin.env.CustomSleuthWebProperties;
 @EnableConfigurationProperties(CustomSleuthWebProperties.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class CustomSleuthWebAutoConfiguration {
+public class SleuthWebAutoConfiguration {
 
 	public static final String AUTOWIRED_WEB_MVC_HANDLER_PARSER = "Autowired WebMvcHandlerParser";
 
