@@ -14,26 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.data.jdbc.datasource.routing;
+package org.ylzl.eden.spring.data.jdbc.datasource;
 
-import lombok.Getter;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 /**
- * 数据源名称上下文容器
+ * 自定义数据源接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class DataSourceNameContextHolder {
+public interface CustomDataSource extends DataSource {
 
-	@Getter
-	private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
-
-	public static void set(String dataSourceName) {
-		threadLocal.set(dataSourceName);
-	}
-
-	public static String get() {
-		return threadLocal.get();
-	}
+	DataSource getDataSource(String datasourceName) throws NamingException;
 }

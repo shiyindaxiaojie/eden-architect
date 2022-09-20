@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class JndiDataSource implements DataSource {
+public class JndiCustomDataSource implements CustomDataSource {
 
 	private String datasourceName;
 
@@ -40,17 +40,17 @@ public class JndiDataSource implements DataSource {
 
 	private PrintWriter printWriter;
 
-	public JndiDataSource(String datasourceName) {
+	public JndiCustomDataSource(String datasourceName) {
 		this.datasourceName = datasourceName;
 	}
 
-	public DataSource getDataSource(String datasourceName) throws NamingException {
+	public CustomDataSource getDataSource(String datasourceName) throws NamingException {
 		String dataSourceLookupPrefix = WebServerUtils.getLookup();
 		if (!datasourceName.startsWith(dataSourceLookupPrefix)) {
 			datasourceName = dataSourceLookupPrefix + datasourceName;
 		}
 		InitialContext initialContext = new InitialContext();
-		return (DataSource) initialContext.lookup(datasourceName);
+		return (CustomDataSource) initialContext.lookup(datasourceName);
 	}
 
 	public Connection getConnection() throws SQLException {

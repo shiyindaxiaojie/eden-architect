@@ -16,7 +16,11 @@
  */
 package org.ylzl.eden.spring.data.jdbc.datasource.routing;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+
+import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * 动态数据源代理
@@ -26,9 +30,28 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 
-	@SuppressWarnings("unchecked")
+	private static final TransmittableThreadLocal<String> threadLocal = new TransmittableThreadLocal<>();
+
+	public RoutingDataSourceProxy(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
+		super.setDefaultTargetDataSource(defaultTargetDataSource);
+		super.setTargetDataSources(targetDataSources);
+		super.afterPropertiesSet();
+	}
+
 	@Override
 	protected Object determineCurrentLookupKey() {
-		return DataSourceNameContextHolder.get();
+		return getDataSource();
+	}
+
+	public static void setDataSource(String dataSource) {
+		threadLocal.set(dataSource);
+	}
+
+	public static String getDataSource() {
+		return threadLocal.get();
+	}
+
+	public static void clearDataSource() {
+		threadLocal.remove();
 	}
 }
