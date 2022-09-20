@@ -6,10 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.ConsumerConfig;
 import org.apache.dubbo.config.ProviderConfig;
 import org.apache.dubbo.spring.boot.autoconfigure.DubboAutoConfiguration;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -25,22 +26,23 @@ import org.springframework.context.annotation.Configuration;
 )
 @AutoConfigureAfter(DubboAutoConfiguration.class)
 @ConditionalOnClass(TracingFilter.class)
+@ConditionalOnBean({ProviderConfig.class, ConsumerConfig.class})
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class BraveTraceFilterAutoConfiguration {
+public class BraveTraceFilterAutoConfiguration implements InitializingBean {
 
-	@Bean
-	public ProviderConfig providerConfig() {
-		ProviderConfig providerConfig = new ProviderConfig();
-		providerConfig.setFilter("tracing");
-		return providerConfig;
-	}
+	public static final String TRACING = "tracing";
+	public static final String ADD_TRACING_FILTER = "Initializing providerConfig and consumerConfig add tracing filter";
 
-	@Bean
-	public ConsumerConfig consumerConfig() {
-		ConsumerConfig consumerConfig = new ConsumerConfig();
-		consumerConfig.setFilter("tracing");
-		return consumerConfig;
+	private final ProviderConfig providerConfig;
+
+	private final ConsumerConfig consumerConfig;
+
+	@Override
+	public void afterPropertiesSet() {
+		log.debug(ADD_TRACING_FILTER);
+		providerConfig.setFilter(TRACING);
+		consumerConfig.setFilter(TRACING);
 	}
 }

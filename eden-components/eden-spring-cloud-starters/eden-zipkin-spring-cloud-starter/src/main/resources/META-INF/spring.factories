@@ -1,4 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.cloud.zipkin.autoconfigure.BraveTraceFilterAutoConfiguration,\
-  org.ylzl.eden.spring.cloud.zipkin.autoconfigure.CustomSleuthWebAutoConfiguration
+  org.ylzl.eden.spring.cloud.zipkin.autoconfigure.SleuthMongoDBAutoConfiguration,\
+  org.ylzl.eden.spring.cloud.zipkin.autoconfigure.SleuthRedisAutoConfiguration,\
+  org.ylzl.eden.spring.cloud.zipkin.autoconfigure.SleuthWebAutoConfiguration

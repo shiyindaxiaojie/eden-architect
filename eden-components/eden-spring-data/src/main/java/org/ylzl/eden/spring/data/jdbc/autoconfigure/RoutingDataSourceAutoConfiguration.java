@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.data.jdbc.autoconfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
@@ -75,7 +76,7 @@ public class RoutingDataSourceAutoConfiguration
 
 	public static final String ROUTING_DATASOURCE_ENABLED = RoutingDataSourceProperties.PREFIX + ".enabled";
 
-	private static final String MSG_AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
+	private static final String AUTOWIRED_ROUTING_DS = "Autowired routing Datasource";
 
 	private static final Object DEFAULT_DATASOURCE_TYPE = "com.zaxxer.hikari.HikariDataSource";
 
@@ -90,20 +91,20 @@ public class RoutingDataSourceAutoConfiguration
 	private BinderHelper binderHelper;
 
 	@Override
-	public void setEnvironment(Environment env) {
+	public void setEnvironment(@NotNull Environment env) {
 		this.env = env;
 		this.binderHelper = new BinderHelper(env);
 	}
 
 	@Override
 	public void registerBeanDefinitions(
-		AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+		@NotNull AnnotationMetadata annotationMetadata, @NotNull BeanDefinitionRegistry registry) {
 		if (!env.containsProperty(ROUTING_DATASOURCE_ENABLED)
 			|| Boolean.FALSE.equals(env.getProperty(ROUTING_DATASOURCE_ENABLED, Boolean.class))) {
 			return;
 		}
 
-		log.debug(MSG_AUTOWIRED_ROUTING_DS);
+		log.debug(AUTOWIRED_ROUTING_DS);
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
 		beanDefinition.setSynthetic(true);

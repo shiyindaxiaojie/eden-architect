@@ -121,7 +121,7 @@
 		<liquibase.version>4.13.0</liquibase.version>
 
 		<!-- NoSQL 数据库 -->
-		<mongodb.version>3.12.10</mongodb.version>
+		<mongodb.version>3.12.11</mongodb.version>
 		<mongobee.version>0.13</mongobee.version>
 		<neo4j.version>2.0.6</neo4j.version>
 		<influxdb.version>6.4.0</influxdb.version>
@@ -147,7 +147,7 @@
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>5.1.0</curator.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<grpc.version>1.45.1</grpc.version>
+		<grpc.version>1.49.0</grpc.version>
 		<hessian.version>4.0.63</hessian.version>
 
 		<!-- 微服务组件 -->
@@ -302,7 +302,7 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-bloom-filter</artifactId>
+				<artifactId>eden-big-data-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -327,12 +327,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-message-queue</artifactId>
+				<artifactId>eden-message-queue-adapter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-multi-cache</artifactId>
+				<artifactId>eden-multi-level-cache</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1248,7 +1248,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-oauth2-resource-server</artifactId>
+				<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
 
@@ -1489,6 +1489,16 @@
 			<dependency>
 				<groupId>io.opentracing.contrib</groupId>
 				<artifactId>opentracing-redis-redisson</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-jedis3</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-lettuce-5.2</artifactId>
 				<version>${opentracing-redis.version}</version>
 			</dependency>
 			<dependency>

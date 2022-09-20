@@ -30,7 +30,7 @@
 	<artifactId>eden-sms-adapter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-sms-adapter</name>
-	<description>短信适配</description>
+	<description>短信适配组件</description>
 
 	<dependencies>
 		<!-- 内部组件 -->

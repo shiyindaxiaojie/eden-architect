@@ -17,7 +17,7 @@
 package org.ylzl.eden.spring.data.jdbc.factory;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.ylzl.eden.spring.data.jdbc.datasource.JndiDataSource;
+import org.ylzl.eden.spring.data.jdbc.datasource.JndiCustomDataSource;
 
 import javax.sql.DataSource;
 
@@ -34,6 +34,6 @@ public class JdbcTemplateFactory {
 	}
 
 	public static JdbcTemplate getJdbcTemplate(String datasourceName) {
-		return new JdbcTemplate(new JndiDataSource(datasourceName));
+		return new JdbcTemplate(new JndiCustomDataSource(datasourceName));
 	}
 }

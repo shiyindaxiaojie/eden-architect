@@ -33,10 +33,12 @@ import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 @Configuration(proxyBeanMethods = false)
 public class ApplicationContextAutoConfiguration {
 
+	public static final String AUTOWIRED_APPLICATION_CONTEXT_HELPER = "Autowired ApplicationContextHelper";
+
 	@ConditionalOnMissingBean(ApplicationContextHelper.class)
 	@Bean
 	public ApplicationContextHelper applicationContextHelper() {
-		log.debug("Autowired ApplicationContextHelper");
+		log.debug(AUTOWIRED_APPLICATION_CONTEXT_HELPER);
 		return new ApplicationContextHelper();
 	}
 }

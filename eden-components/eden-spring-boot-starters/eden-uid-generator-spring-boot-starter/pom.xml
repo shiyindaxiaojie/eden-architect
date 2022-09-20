@@ -30,7 +30,7 @@
 	<artifactId>eden-uid-generator-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-uid-generator-spring-boot-starter</name>
-	<description>UID Generator Spring Boot Starter</description>
+	<description>Spring Boot Starter For Baidu UID Generator</description>
 
 	<dependencies>
 		<!-- 开发工具 -->

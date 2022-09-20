@@ -35,7 +35,7 @@ import javax.sql.DataSource;
  * 多数据源组合配置（sharding-jdbc、baomidou-dynamic）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2021-12-28
+ * @since 2.4.13
  */
 @ConditionalOnClass(DynamicDataSourceProvider.class)
 @AutoConfigureBefore(com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration.class)
