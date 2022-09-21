@@ -17,8 +17,8 @@ import org.ylzl.eden.full.link.stress.testing.redis.env.RedisShadowProperties;
 /**
  * TODO
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  */
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(RedisShadowProperties.class)

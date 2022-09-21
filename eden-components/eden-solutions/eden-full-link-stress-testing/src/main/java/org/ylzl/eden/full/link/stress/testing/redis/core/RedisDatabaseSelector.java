@@ -5,8 +5,8 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 /**
  * Redis 数据库选择器
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  */
 public class RedisDatabaseSelector {
 

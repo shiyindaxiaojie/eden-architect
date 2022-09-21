@@ -14,26 +14,28 @@ import reactor.core.publisher.Mono;
 /**
  * 压测标记过滤器
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class StressTagFilter implements GlobalFilter {
+public class StressTagGatewayFilter implements GlobalFilter {
 
 	private final Tracer tracer;
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+		StressContext stressContext = new StressContext();
 		String tag = exchange.getRequest().getHeaders().getFirst(StressTag.STRESS_TAG);
 		if (StringUtils.isNotBlank(tag)) {
-			// 目的：通过`BaggageField.getByName("");`获取压测标记
 			tracer.currentSpan().tag(StressTag.STRESS_TAG, tag);
-			// 目的：通过`HttpServletRequest`获取压测标记
 			ServerHttpRequest request = exchange.getRequest().mutate().header(StressTag.STRESS_TAG, tag).build();
 			exchange = exchange.mutate().request(request).build();
+
+			stressContext.setStress(Boolean.parseBoolean(tag));
 		}
+		StressContext.setContext(stressContext);
 		return chain.filter(exchange);
 	}
 }

@@ -6,8 +6,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 /**
  * 可选择的 StringRedisTemplate
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  */
 public class SelectableStringRedisTemplate extends StringRedisTemplate {
 
