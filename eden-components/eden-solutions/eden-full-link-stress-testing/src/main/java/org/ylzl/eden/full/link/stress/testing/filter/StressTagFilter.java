@@ -1,15 +1,17 @@
 package org.ylzl.eden.full.link.stress.testing.filter;
 
 import brave.Tracer;
+import brave.baggage.BaggageField;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.commons.lang.StringUtils;
 
 import javax.servlet.*;
 import java.io.IOException;
 
 /**
- * TODO
+ * 压测标记过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -17,7 +19,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class StressTagServletFilter implements Filter {
+public class StressTagFilter implements Filter {
 
 	private final Tracer tracer;
 
@@ -27,23 +29,21 @@ public class StressTagServletFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		/*StressContext stressContext = new StressContext();
-		String tag = exchange.getRequest().getHeaders().getFirst(StressTag.STRESS_TAG);
-		BaggageField dunshan = BaggageField.getByName("dunshan");
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+		throws IOException, ServletException {
+		StressContext stressContext = new StressContext();
+		String tag = BaggageField.getByName(StressTag.STRESS_TAG).getValue();
 		if (StringUtils.isNotBlank(tag)) {
 			tracer.currentSpan().tag(StressTag.STRESS_TAG, tag);
-			ServerHttpRequest request = exchange.getRequest().mutate().header(StressTag.STRESS_TAG, tag).build();
-			exchange = exchange.mutate().request(request).build();
-
 			stressContext.setStress(Boolean.parseBoolean(tag));
 		}
 		StressContext.setContext(stressContext);
-		chain.doFilter(request, response);*/
+		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void destroy() {
+		StressContext.removeContext();
 		Filter.super.destroy();
 	}
 }

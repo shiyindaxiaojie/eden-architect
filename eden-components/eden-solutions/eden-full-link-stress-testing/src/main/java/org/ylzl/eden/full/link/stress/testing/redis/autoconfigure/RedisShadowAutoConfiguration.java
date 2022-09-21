@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.ylzl.eden.full.link.stress.testing.redis.core.SelectableRedisTemplate;
-import org.ylzl.eden.full.link.stress.testing.redis.core.SelectableStringRedisTemplate;
+import org.ylzl.eden.full.link.stress.testing.redis.core.DynamicRedisTemplate;
+import org.ylzl.eden.full.link.stress.testing.redis.core.DynamicStringRedisTemplate;
 import org.ylzl.eden.full.link.stress.testing.redis.env.RedisShadowProperties;
 
 /**
@@ -32,8 +32,8 @@ public class RedisShadowAutoConfiguration  {
 	@Primary
 	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
 	@Bean(name = "redisTemplate")
-	public SelectableRedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		SelectableRedisTemplate<Object, Object> redisTemplate = new SelectableRedisTemplate<>();
+	public DynamicRedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		DynamicRedisTemplate<Object, Object> redisTemplate = new DynamicRedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		return redisTemplate;
 	}
@@ -41,8 +41,8 @@ public class RedisShadowAutoConfiguration  {
 	@Primary
 	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
 	@Bean(name = "stringRedisTemplate")
-	public SelectableStringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		SelectableStringRedisTemplate redisTemplate = new SelectableStringRedisTemplate();
+	public DynamicStringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		DynamicStringRedisTemplate redisTemplate = new DynamicStringRedisTemplate();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		return redisTemplate;
 	}

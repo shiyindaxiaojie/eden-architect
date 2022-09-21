@@ -1,15 +1,15 @@
 package org.ylzl.eden.full.link.stress.testing.redis.core;
 
 import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
- * 可选择的 StringRedisTemplate
+ * 动态 StringRedisTemplate
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class SelectableRedisTemplate<K, V> extends RedisTemplate<K, V> {
+public class DynamicStringRedisTemplate extends StringRedisTemplate {
 
 	@Override
 	protected RedisConnection preProcessConnection(RedisConnection connection, boolean existingConnection) {

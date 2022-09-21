@@ -90,5 +90,13 @@
 			<artifactId>jakarta.servlet-api</artifactId>
 			<optional>true</optional>
 		</dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+        </dependency>
     </dependencies>
 </project>
