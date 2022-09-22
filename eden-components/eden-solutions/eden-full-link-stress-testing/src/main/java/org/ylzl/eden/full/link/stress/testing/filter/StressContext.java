@@ -1,4 +1,4 @@
-package org.ylzl.eden.full.link.stress.testing.context;
+package org.ylzl.eden.full.link.stress.testing.filter;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 压测标记上下文
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Data

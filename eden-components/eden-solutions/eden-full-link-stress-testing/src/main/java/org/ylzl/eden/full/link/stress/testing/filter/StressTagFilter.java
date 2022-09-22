@@ -1,39 +1,49 @@
 package org.ylzl.eden.full.link.stress.testing.filter;
 
 import brave.Tracer;
+import brave.baggage.BaggageField;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 import org.ylzl.eden.commons.lang.StringUtils;
-import reactor.core.publisher.Mono;
+
+import javax.servlet.*;
+import java.io.IOException;
 
 /**
  * 压测标记过滤器
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
- * @since 1.0.0
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class StressTagFilter implements GlobalFilter {
+public class StressTagFilter implements Filter {
 
 	private final Tracer tracer;
 
 	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		String tag = exchange.getRequest().getHeaders().getFirst(StressTag.STRESS_TAG);
+	public void init(FilterConfig filterConfig) throws ServletException {
+		Filter.super.init(filterConfig);
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+		throws IOException, ServletException {
+		StressContext stressContext = new StressContext();
+		String tag = BaggageField.getByName(StressTag.STRESS_TAG).getValue();
 		if (StringUtils.isNotBlank(tag)) {
-			// 目的：通过`BaggageField.getByName("");`获取压测标记
 			tracer.currentSpan().tag(StressTag.STRESS_TAG, tag);
-			// 目的：通过`HttpServletRequest`获取压测标记
-			ServerHttpRequest request = exchange.getRequest().mutate().header(StressTag.STRESS_TAG, tag).build();
-			exchange = exchange.mutate().request(request).build();
+			stressContext.setStress(Boolean.parseBoolean(tag));
 		}
-		return chain.filter(exchange);
+		StressContext.setContext(stressContext);
+		chain.doFilter(request, response);
+	}
+
+	@Override
+	public void destroy() {
+		StressContext.removeContext();
+		Filter.super.destroy();
 	}
 }

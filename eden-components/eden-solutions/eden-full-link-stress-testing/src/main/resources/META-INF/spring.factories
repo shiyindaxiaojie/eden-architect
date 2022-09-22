@@ -1,4 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.full.link.stress.testing.jdbc.autoconfigure.DataSourceShadowAutoConfiguration,\
+  org.ylzl.eden.full.link.stress.testing.mongo.autoconfigure.MongoShadowAutoConfiguration,\
   org.ylzl.eden.full.link.stress.testing.redis.autoconfigure.RedisShadowAutoConfiguration
 
