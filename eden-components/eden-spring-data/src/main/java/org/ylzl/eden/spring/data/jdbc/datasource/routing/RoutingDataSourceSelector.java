@@ -28,11 +28,11 @@ import java.util.Map;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
+public class RoutingDataSourceSelector extends AbstractRoutingDataSource {
 
-	private static final TransmittableThreadLocal<String> threadLocal = new TransmittableThreadLocal<>();
+	private static final TransmittableThreadLocal<String> CONTEXT = new TransmittableThreadLocal<>();
 
-	public RoutingDataSourceProxy(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
+	public RoutingDataSourceSelector(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
 		super.setDefaultTargetDataSource(defaultTargetDataSource);
 		super.setTargetDataSources(targetDataSources);
 		super.afterPropertiesSet();
@@ -40,18 +40,18 @@ public class RoutingDataSourceProxy extends AbstractRoutingDataSource {
 
 	@Override
 	protected Object determineCurrentLookupKey() {
-		return getDataSource();
+		return get();
 	}
 
-	public static void setDataSource(String dataSource) {
-		threadLocal.set(dataSource);
+	public static void set(String dataSource) {
+		CONTEXT.set(dataSource);
 	}
 
-	public static String getDataSource() {
-		return threadLocal.get();
+	public static String get() {
+		return CONTEXT.get();
 	}
 
-	public static void clearDataSource() {
-		threadLocal.remove();
+	public static void remove() {
+		CONTEXT.remove();
 	}
 }

@@ -1,4 +1,4 @@
-package org.ylzl.eden.full.link.stress.testing.redis.core;
+package org.ylzl.eden.spring.data.redis.core;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 
@@ -12,11 +12,15 @@ public class RedisDatabaseSelector {
 
 	private static final TransmittableThreadLocal<Integer> CONTEXT = new TransmittableThreadLocal<>();
 
-	public static void select(int db) {
+	public static void set(int db) {
 		CONTEXT.set(db);
 	}
 
 	public static Integer get() {
 		return CONTEXT.get();
+	}
+
+	public static void remove() {
+		CONTEXT.remove();
 	}
 }

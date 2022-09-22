@@ -37,7 +37,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceProxy;
+import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceSelector;
 import org.ylzl.eden.spring.data.jdbc.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.data.liquibase.autoconfigure.AsyncLiquibaseAutoConfiguration;
 import org.ylzl.eden.spring.framework.bootstrap.bind.BinderHelper;
@@ -106,7 +106,7 @@ public class RoutingDataSourceAutoConfiguration
 
 		log.debug(AUTOWIRED_ROUTING_DS);
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(RoutingDataSourceProxy.class);
+		beanDefinition.setBeanClass(RoutingDataSourceSelector.class);
 		beanDefinition.setSynthetic(true);
 
 		MutablePropertyValues mpv = beanDefinition.getPropertyValues();

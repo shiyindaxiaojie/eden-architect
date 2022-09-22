@@ -1,31 +1,27 @@
-package org.ylzl.eden.full.link.stress.testing.mongo.aop;
+package org.ylzl.eden.full.link.stress.testing.jdbc.aop;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.ylzl.eden.full.link.stress.testing.filter.StressContext;
-import org.ylzl.eden.full.link.stress.testing.mongo.autoconfigure.MongoShadowAutoConfiguration;
-import org.ylzl.eden.spring.data.mongodb.core.MongoDatabaseSelector;
+import org.ylzl.eden.full.link.stress.testing.jdbc.env.DataSourceShadowProperties;
+import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceSelector;
 
 /**
- * MongoDB 影子库切面
+ * DataSource 影子库切面
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@RequiredArgsConstructor
 @Slf4j
 @Aspect
-public class MongoShadowAspect {
+public class DataSourceShadowAspect {
 
-	private final MongoDatabaseFactory shadowMongoDatabaseFactory;
-
-	public MongoShadowAspect(@Qualifier(MongoShadowAutoConfiguration.SHADOW_MONGO_DATABASE_FACTORY) MongoDatabaseFactory shadowMongoDatabaseFactory) {
-		this.shadowMongoDatabaseFactory = shadowMongoDatabaseFactory;
-	}
+	private final DataSourceShadowProperties dataSourceShadowProperties;
 
 	@Pointcut("@within(org.springframework.stereotype.Repository) && execution(public * *(..))")
 	public void pointcut() {
@@ -40,11 +36,11 @@ public class MongoShadowAspect {
 		}
 
 		// 切换影子库执行
-		MongoDatabaseSelector.set(shadowMongoDatabaseFactory);
+		RoutingDataSourceSelector.set(dataSourceShadowProperties.getName());
 		try {
 			return joinPoint.proceed();
 		} finally {
-			MongoDatabaseSelector.remove();
+			RoutingDataSourceSelector.remove();
 		}
 	}
 }

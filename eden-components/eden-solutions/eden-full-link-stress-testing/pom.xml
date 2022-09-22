@@ -42,6 +42,10 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
+		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
@@ -77,6 +81,20 @@
 			<artifactId>spring-web</artifactId>
 		</dependency>
 
+		<!-- Servlet 组件 -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- JDBC 组件 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Redis 组件 -->
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -84,19 +102,14 @@
 			<optional>true</optional>
         </dependency>
 
-		<!-- Jakarta EE 组件 -->
+		<!-- MongoDB 组件 -->
 		<dependency>
-			<groupId>jakarta.servlet</groupId>
-			<artifactId>jakarta.servlet-api</artifactId>
-			<optional>true</optional>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+		</dependency>
     </dependencies>
 </project>

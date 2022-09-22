@@ -10,12 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.ylzl.eden.full.link.stress.testing.redis.core.DynamicRedisTemplate;
-import org.ylzl.eden.full.link.stress.testing.redis.core.DynamicStringRedisTemplate;
+import org.ylzl.eden.full.link.stress.testing.redis.aop.RedisShadowAspect;
 import org.ylzl.eden.full.link.stress.testing.redis.env.RedisShadowProperties;
+import org.ylzl.eden.spring.data.redis.core.DynamicRedisTemplate;
+import org.ylzl.eden.spring.data.redis.core.DynamicStringRedisTemplate;
 
 /**
- * TODO
+ * Redis 影子库自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -26,8 +27,6 @@ import org.ylzl.eden.full.link.stress.testing.redis.env.RedisShadowProperties;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class RedisShadowAutoConfiguration  {
-
-	private final RedisShadowProperties redisShadowProperties;
 
 	@Primary
 	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
@@ -45,5 +44,10 @@ public class RedisShadowAutoConfiguration  {
 		DynamicStringRedisTemplate redisTemplate = new DynamicStringRedisTemplate();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		return redisTemplate;
+	}
+
+	@Bean
+	public RedisShadowAspect redisShadowAspect(RedisShadowProperties redisShadowProperties) {
+		return new RedisShadowAspect(redisShadowProperties);
 	}
 }
