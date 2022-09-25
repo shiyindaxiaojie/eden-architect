@@ -23,59 +23,46 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.ylzl</groupId>
-		<artifactId>eden-parent</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>2.4.13-SNAPSHOT</version>
-		<relativePath>../eden-parent/pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-solutions</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-solutions</name>
-	<description>解决方案</description>
-
-	<modules>
-		<module>eden-big-data-filter</module>
-		<module>eden-bpm</module>
-		<module>eden-consistency-task</module>
-		<module>eden-distributed-lock</module>
-		<module>eden-distributed-uid</module>
-		<module>eden-full-link-stress-testing</module>
-		<module>eden-message-queue-adapter</module>
-		<module>eden-l2cache</module>
-		<module>eden-sms-adapter</module>
-	</modules>
+	<artifactId>eden-bpm</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-bpm</name>
+	<description>业务流程编排</description>
 
 	<dependencies>
-		<!-- Spock -->
+		<!-- 内部组件 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<scope>test</scope>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-spring</artifactId>
-			<scope>test</scope>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-			<scope>test</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
+
+		<!-- Dom4J -->
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-sql</artifactId>
-			<scope>test</scope>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
 		</dependency>
 	</dependencies>
 </project>
