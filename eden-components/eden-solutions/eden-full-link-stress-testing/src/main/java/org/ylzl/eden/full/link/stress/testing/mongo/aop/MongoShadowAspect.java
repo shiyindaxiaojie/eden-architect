@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.ylzl.eden.full.link.stress.testing.filter.StressContext;
+import org.ylzl.eden.full.link.stress.testing.StressContext;
 import org.ylzl.eden.full.link.stress.testing.mongo.autoconfigure.MongoShadowAutoConfiguration;
 import org.ylzl.eden.spring.data.mongodb.core.MongoDatabaseSelector;
 
