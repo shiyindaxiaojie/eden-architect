@@ -66,16 +66,26 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Curator -->
+		<!-- Caffeine -->
 		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-framework</artifactId>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-recipes</artifactId>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>guava</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- HotKey -->
+		<dependency>
+			<groupId>com.jd.platform.hotkey</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jd.platform.hotkey</groupId>
+			<artifactId>hotkey-client</artifactId>
 		</dependency>
 	</dependencies>
 </project>

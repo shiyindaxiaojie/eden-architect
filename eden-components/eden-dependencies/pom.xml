@@ -133,6 +133,8 @@
 		<!-- 缓存 -->
 		<ehcache.version>2.10.4</ehcache.version>
 		<redisson.version>3.15.2</redisson.version>
+		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
+		<caffeine.version>2.9.3</caffeine.version>
 
 		<!-- 消息队列 -->
 		<spring-kafka.version>2.7.9</spring-kafka.version>
@@ -1159,6 +1161,28 @@
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
 				<version>${jedis.version}</version>
+			</dependency>
+			<!-- hotkey -->
+			<dependency>
+				<groupId>com.jd.platform.hotkey</groupId>
+				<artifactId>common</artifactId>
+				<version>${hotkey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jd.platform.hotkey</groupId>
+				<artifactId>hotkey-client</artifactId>
+				<version>${hotkey.version}</version>
+			</dependency>
+			<!-- Caffeine -->
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>caffeine</artifactId>
+				<version>${caffeine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>guava</artifactId>
+				<version>${caffeine.version}</version>
 			</dependency>
 			<!-- Ehcache -->
 			<dependency>
