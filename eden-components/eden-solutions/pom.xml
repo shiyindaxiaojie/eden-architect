@@ -33,7 +33,7 @@
 	<description>解决方案</description>
 
 	<modules>
-		<module>eden-big-data-filter</module>
+		<module>eden-bigdata-filter</module>
 		<module>eden-bpm</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>

@@ -20,10 +20,9 @@ package org.ylzl.eden.spring.boot.redis.autoconfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -49,7 +48,7 @@ import java.lang.reflect.Method;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@ConditionalOnBean(RedisConnectionFactory.class)
 @ConditionalOnClass({RedisOperations.class, RedisCacheManager.class})
 @EnableCaching
 @Slf4j

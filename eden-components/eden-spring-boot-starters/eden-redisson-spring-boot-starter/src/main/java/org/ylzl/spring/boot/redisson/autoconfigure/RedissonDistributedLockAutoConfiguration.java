@@ -18,6 +18,7 @@ import org.ylzl.eden.distributed.lock.redisson.RedissonDistributedLock;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnClass(RedissonClient.class)
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
 @ConditionalOnProperty(value = "distributed-lock.redisson.enabled", matchIfMissing = true)
 @Slf4j

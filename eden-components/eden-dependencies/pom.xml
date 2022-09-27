@@ -304,7 +304,7 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-big-data-filter</artifactId>
+				<artifactId>eden-bigdata-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>

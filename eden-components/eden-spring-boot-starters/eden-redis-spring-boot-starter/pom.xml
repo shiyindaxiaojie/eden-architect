@@ -59,21 +59,17 @@
 			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 
-		<!-- Redis 组件 -->
+		<!-- Spring Data Redis 组件 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>io.lettuce</groupId>
-					<artifactId>lettuce-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.redisson</groupId>
-			<artifactId>redisson</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
 		</dependency>
+
+		<!-- Jedis 组件 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>

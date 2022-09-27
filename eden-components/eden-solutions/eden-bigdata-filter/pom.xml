@@ -27,9 +27,9 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-big-data-filter</artifactId>
+	<artifactId>eden-bigdata-filter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-big-data-filter</name>
+	<name>eden-bigdata-filter</name>
 	<description>海量数据过滤器</description>
 
 	<dependencies>

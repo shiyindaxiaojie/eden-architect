@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.big.data.filter.bloom;
+package org.ylzl.eden.bigdata.filter.bloom;
 
 import com.google.common.hash.Funnel;
 import com.google.common.hash.Hashing;
