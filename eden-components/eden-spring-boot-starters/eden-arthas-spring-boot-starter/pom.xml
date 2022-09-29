@@ -33,9 +33,27 @@
 	<description>Spring Boot Starter For Arthas</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-integration</artifactId>
+		</dependency>
+
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Arthas 组件 -->
 		<dependency>
 			<groupId>com.taobao.arthas</groupId>
 			<artifactId>arthas-spring-boot-starter</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>
