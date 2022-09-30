@@ -40,6 +40,7 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 	public static final String REGISTER_ARTHAS = "Register arthas";
 
 	public static final String ARTHAS_ALREADY_REGISTERED = "Arthas already registered";
+
 	public static final String DESTORY_ARTHAS = "Destory arthas";
 
 	public static final String ARTHAS_ALREADY_DESTORY = "Arthas already destory";
