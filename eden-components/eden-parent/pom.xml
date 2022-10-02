@@ -494,7 +494,7 @@
 						<layers>
 							<enabled>${layers.enabled}</enabled>
 							<includeLayerTools>true</includeLayerTools>
-							<configuration>${project.basedir}/src/layers.xml</configuration>
+							<configuration>${project.basedir}/.docker/layers.xml</configuration>
 						</layers>
 					</configuration>
 					<executions>

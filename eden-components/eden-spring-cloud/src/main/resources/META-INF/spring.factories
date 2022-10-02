@@ -1,6 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.cloud.nacos.autoconfigure.RibbonNacosAutoConfiguration,\
-  org.ylzl.eden.spring.cloud.profile.autoconfigure.ProfileEndpointAutoConfiguration,\
   org.ylzl.eden.spring.cloud.zuul.autoconfigure.ZuulEndpointAutoConfiguration,\
   org.ylzl.eden.spring.cloud.zuul.autoconfigure.ZuulFilterAutoConfiguration

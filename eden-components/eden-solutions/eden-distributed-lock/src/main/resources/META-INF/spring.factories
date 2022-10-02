@@ -1,0 +1,7 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.distributed.lock.autoconfigure.DistributedLockAutoConfiguration,\
+  org.ylzl.eden.distributed.lock.curator.autoconfigure.CuratorDistributedLockAutoConfiguration,\
+  org.ylzl.eden.distributed.lock.jedis.autoconfigure.JedisDistributedLockAutoConfiguration,\
+  org.ylzl.eden.distributed.lock.redisson.autoconfigure.RedissonDistributedLockAutoConfiguration,\
+  org.ylzl.eden.distributed.lock.zookeeper.autoconfigure.ZookeeperDistributedLockAutoConfiguration

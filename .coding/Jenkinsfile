@@ -36,7 +36,7 @@ pipeline {
           "CODING_MAVEN_SNAPSHOTS_USERNAME=${CODING_MAVEN_SNAPSHOTS_USERNAME}",
           "CODING_MAVEN_SNAPSHOTS_PASSWORD=${CODING_MAVEN_SNAPSHOTS_PASSWORD}"
 				]) {
-					sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -DskipTests -s ./.coding/settings.xml'
+					sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -T 4C -DskipTests -s ./.coding/settings.xml'
 				}
       }
     }

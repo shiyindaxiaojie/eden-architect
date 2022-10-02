@@ -29,7 +29,7 @@
 	</parent>
 	<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-rockmq-spring-boot-starter</name>
+	<name>eden-rocketmq-spring-boot-starter</name>
 	<description>Spring Boot Starter For RocketMQ</description>
 
 	<dependencies>
@@ -40,11 +40,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-message-queue-adapter</artifactId>
+			<artifactId>eden-mq-adapter</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->

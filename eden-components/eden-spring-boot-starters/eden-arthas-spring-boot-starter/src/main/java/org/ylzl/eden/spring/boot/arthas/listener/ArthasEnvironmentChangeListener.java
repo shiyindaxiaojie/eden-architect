@@ -32,10 +32,12 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 	public static final AtomicBoolean REGISTER_STATE = new AtomicBoolean(false);
 
 	public static final String APP_NAME = "appName";
+
 	public static final String ARTHAS_AGENT = "arthasAgent";
 
 	public static final String ARTHAS_PROPERTIES_PREFIX = "arthas.";
-	public static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent start success.";
+
+	public static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent start success";
 
 	public static final String REGISTER_ARTHAS = "Register arthas";
 
@@ -54,7 +56,6 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 	private final SpringArthasProperties springArthasProperties;
 
 	private final Map<String, String> arthasConfigMap;
-
 
 	@Override
 	public void onApplicationEvent(EnvironmentChangeEvent event) {
@@ -85,7 +86,6 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 		}
 		log.info(REGISTER_ARTHAS);
 		DefaultListableBeanFactory defaultListableBeanFactory = getDefaultListableBeanFactory();
-
 		if (defaultListableBeanFactory.containsBean(ARTHAS_AGENT)) {
 			((ArthasAgent) defaultListableBeanFactory.getBean(ARTHAS_AGENT)).init();
 		} else {

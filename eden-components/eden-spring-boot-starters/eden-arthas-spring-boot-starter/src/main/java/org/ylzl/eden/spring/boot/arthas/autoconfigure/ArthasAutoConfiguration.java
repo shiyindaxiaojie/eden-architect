@@ -40,7 +40,6 @@ public class ArthasAutoConfiguration {
 
 	private final SpringArthasProperties springArthasProperties;
 
-
 	@Bean
 	public ArthasEnvironmentChangeListener arthasEnvironmentChangeListener(
 		@Autowired @Qualifier(ARTHAS_CONFIG_MAP) Map<String, String> arthasConfigMap) {
