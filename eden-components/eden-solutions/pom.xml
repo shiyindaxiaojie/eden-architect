@@ -33,15 +33,16 @@
 	<description>解决方案</description>
 
 	<modules>
-		<module>eden-big-data-filter</module>
-		<module>eden-bpm</module>
+		<module>eden-bigdata-filter</module>
+		<module>eden-flow-compose</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>
-		<module>eden-full-link-stress-testing</module>
-		<module>eden-message-queue-adapter</module>
-		<module>eden-l2cache</module>
+		<module>eden-cache-adapter</module>
+		<module>eden-mail-adapter</module>
+		<module>eden-mq-adapter</module>
 		<module>eden-sms-adapter</module>
+		<module>eden-trace-testing</module>
 	</modules>
 
 	<dependencies>

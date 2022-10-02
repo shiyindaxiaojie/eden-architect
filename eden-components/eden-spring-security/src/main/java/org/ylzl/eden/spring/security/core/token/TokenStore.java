@@ -1,7 +1,7 @@
 package org.ylzl.eden.spring.security.core.token;
 
 /**
- * Jwt 令牌存储接口
+ * 令牌存储接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

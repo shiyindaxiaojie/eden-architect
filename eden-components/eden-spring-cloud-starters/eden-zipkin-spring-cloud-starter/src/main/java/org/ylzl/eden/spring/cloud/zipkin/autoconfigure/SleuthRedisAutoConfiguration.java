@@ -6,6 +6,7 @@ import io.opentracing.contrib.redis.redisson.TracingRedissonClient;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import org.ylzl.spring.boot.redisson.env.FixedRedissonProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnClass(RedissonClient.class)
 @ConditionalOnProperty(value = "redisson.enabled", matchIfMissing = true)
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
 @Slf4j

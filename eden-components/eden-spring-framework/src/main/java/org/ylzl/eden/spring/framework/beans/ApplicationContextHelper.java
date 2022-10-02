@@ -43,6 +43,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	private static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
 	private static final BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
+
 	private static ApplicationContext applicationContext;
 
 	private static ConfigurableListableBeanFactory beanFactory;

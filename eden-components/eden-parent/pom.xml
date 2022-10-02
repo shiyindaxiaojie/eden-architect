@@ -55,6 +55,7 @@
 		<!-- 打包成可执行程序 -->
 		<spring-boot-maven-plugin.version>2.4.13</spring-boot-maven-plugin.version>
 		<start-class/>
+		<layers.enabled>false</layers.enabled>
 		<maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
 		<maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
 		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
@@ -490,17 +491,22 @@
 						<executable>true</executable>
 						<fork>true</fork>
 						<mainClass>${start-class}</mainClass>
+						<layers>
+							<enabled>${layers.enabled}</enabled>
+							<includeLayerTools>true</includeLayerTools>
+							<configuration>${project.basedir}/.docker/layers.xml</configuration>
+						</layers>
 					</configuration>
 					<executions>
 						<execution>
-							<id>spring-boot-build</id>
+							<id>build-info</id>
 							<phase>compile</phase>
 							<goals>
 								<goal>build-info</goal>
 							</goals>
 						</execution>
 						<execution>
-							<id>spring-boot-repackage</id>
+							<id>repackage</id>
 							<goals>
 								<goal>repackage</goal>
 							</goals>

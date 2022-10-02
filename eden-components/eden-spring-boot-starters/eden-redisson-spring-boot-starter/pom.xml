@@ -23,10 +23,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
 			<artifactId>eden-distributed-lock</artifactId>
 		</dependency>
 

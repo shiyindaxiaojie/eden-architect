@@ -133,6 +133,8 @@
 		<!-- 缓存 -->
 		<ehcache.version>2.10.4</ehcache.version>
 		<redisson.version>3.15.2</redisson.version>
+		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
+		<caffeine.version>2.9.3</caffeine.version>
 
 		<!-- 消息队列 -->
 		<spring-kafka.version>2.7.9</spring-kafka.version>
@@ -302,12 +304,7 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-big-data-filter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-bpm</artifactId>
+				<artifactId>eden-bigdata-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -327,17 +324,32 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-message-queue-adapter</artifactId>
+				<artifactId>eden-flow-compose</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-l2cache</artifactId>
+				<artifactId>eden-cache-adapter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-mail-adapter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-mq-adapter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-sms-adapter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-trace-testing</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 
@@ -1159,6 +1171,28 @@
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
 				<version>${jedis.version}</version>
+			</dependency>
+			<!-- hotkey -->
+			<dependency>
+				<groupId>com.jd.platform.hotkey</groupId>
+				<artifactId>common</artifactId>
+				<version>${hotkey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jd.platform.hotkey</groupId>
+				<artifactId>hotkey-client</artifactId>
+				<version>${hotkey.version}</version>
+			</dependency>
+			<!-- Caffeine -->
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>caffeine</artifactId>
+				<version>${caffeine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>guava</artifactId>
+				<version>${caffeine.version}</version>
 			</dependency>
 			<!-- Ehcache -->
 			<dependency>

@@ -39,6 +39,7 @@ import java.util.concurrent.CountDownLatch;
 public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 
 	private static final String CONNECTION_ZOOKEEPER_URL = "Connection zookeeper, url:{}";
+
 	private static final String CONNECTION_ZOOKEEPER_SUCCESS = "Connection zookeeper success";
 
 	private ZooKeeper zookeeper;

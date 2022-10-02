@@ -7,6 +7,7 @@ import org.redisson.api.RedissonReactiveClient;
 import org.redisson.api.RedissonRxClient;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -25,6 +26,7 @@ import org.ylzl.spring.boot.redisson.env.FixedRedissonProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnClass(RedissonClient.class)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnProperty(value = "redisson.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(FixedRedissonProperties.class)

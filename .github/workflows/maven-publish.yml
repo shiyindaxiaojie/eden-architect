@@ -32,7 +32,7 @@ jobs:
         run: |
           # echo "<settings><servers><server><id>github</id><username>OWNER</username><password>$GITHUB_TOKEN</password></server></servers></settings>" > $GITHUB_WORKSPACE/settings.xml
           chmod +x mvnw
-          ./mvnw -ntp clean package -Pgithub,unit-test -e -U
+          ./mvnw -ntp clean package -Pgithub,unit-test -e -U -T 4C
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
