@@ -26,12 +26,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.math.NumberUtils;
-import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.profile.util.SpringProfileUtils;
 
 import java.net.InetAddress;
 
 /**
- * 应用启动入口模板方法
+ * Spring Boot 应用启动入口模板
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -40,7 +40,7 @@ import java.net.InetAddress;
 public abstract class SpringBootApplicationTemplate {
 
 	protected static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
-		fixedMiddlewareError();
+		initSystemProperties();
 
 		SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
 		SpringProfileUtils.addDefaultProfile(app);
@@ -51,11 +51,13 @@ public abstract class SpringBootApplicationTemplate {
 		logApplicationServerAfterRunning(env);
 	}
 
-	private static void fixedMiddlewareError() {
+	private static void initSystemProperties() {
 		// Fixed elasticsearch error: availableProcessors is already set to [], rejecting []
 		System.setProperty("es.set.netty.runtime.available.processors", "false");
+
 		// Fixed dubbo error: No such any registry to refer service in consumer xxx.xxx.xxx.xxx use dubbo version 2.x.x
 		System.setProperty("java.net.preferIPv4Stack", "true");
+
 		// Fixed zookeeper error: java.io.IOException: Unreasonable length = 1048575
 		System.setProperty("jute.maxbuffer", String.valueOf(8192 * 1024));
 	}

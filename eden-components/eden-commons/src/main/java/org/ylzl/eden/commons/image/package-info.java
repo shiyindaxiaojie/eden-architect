@@ -15,4 +15,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.imaging;
+package org.ylzl.eden.commons.image;

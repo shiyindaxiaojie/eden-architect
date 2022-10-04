@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.bootstrap.util;
+package org.ylzl.eden.spring.framework.profile.util;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
@@ -30,12 +31,10 @@ import java.util.Map;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@UtilityClass
 public class SpringProfileUtils {
 
 	private static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
-
-	private SpringProfileUtils() {
-	}
 
 	public static void addDefaultProfile(SpringApplication app) {
 		Map<String, Object> defProperties = new HashMap<>();

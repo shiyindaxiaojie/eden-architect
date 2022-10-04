@@ -19,7 +19,7 @@ package org.ylzl.eden.commons.bean;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.lang.ClassUtils;
+import org.ylzl.eden.commons.io.ResourceUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
@@ -58,7 +58,7 @@ public class PropertiesUtils {
 	}
 
 	public static Properties load(@NonNull String relativeResource) throws IOException {
-		InputStream inputStream = ClassUtils.getInputStreamFromResource(relativeResource);
+		InputStream inputStream = ResourceUtils.getInputStreamFromResource(relativeResource);
 		if (inputStream == null) {
 			throw new IOException(MessageFormat.format("无效路径：{0}", relativeResource));
 		}
@@ -81,8 +81,8 @@ public class PropertiesUtils {
 		Properties prop = new Properties();
 		if (!StringUtils.isBlank(str) && !StringUtils.isBlank(regex)) {
 			String[] arr = str.split(regex);
-			for (int i = 0; i < arr.length; ++i) {
-				String[] item = arr[i].split(StringConstants.EQ);
+			for (String s : arr) {
+				String[] item = s.split(StringConstants.EQ);
 				if (item.length == 1) {
 					prop.setProperty(item[0], StringConstants.EMPTY);
 				} else {

@@ -23,7 +23,6 @@ import org.ylzl.eden.commons.env.CharsetConstants;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -34,45 +33,17 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * 类工具集
+ * Class 工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @UtilityClass
-public class ClassUtils {
+public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 
 	public static final String SUB_PACKAGE_SCREEN_SUFFIX = ".*";
 
 	public static final String SUB_PACKAGE_SCREEN_SUFFIX_RELACE = ".\\*";
-
-	public static ClassLoader getClassLoader() {
-		return Thread.currentThread().getContextClassLoader();
-	}
-
-	public static Class<?> loadClass(String className) throws ClassNotFoundException {
-		return getClassLoader().loadClass(className);
-	}
-
-	public static URL getURLFromClassLoader() {
-		return getURLFromResource(StringConstants.EMPTY);
-	}
-
-	public static String getPathFromResource(String relativeResource) {
-		return getURLFromResource(relativeResource).getPath();
-	}
-
-	public static String getPathFromResource() {
-		return getPathFromResource(StringConstants.EMPTY);
-	}
-
-	public static URL getURLFromResource(String relativeResource) {
-		return getClassLoader().getResource(relativeResource);
-	}
-
-	public static InputStream getInputStreamFromResource(String relativeResource) {
-		return getClassLoader().getResourceAsStream(relativeResource);
-	}
 
 	public static Set<Class<?>> getClasses(String pkg) throws IOException, ClassNotFoundException {
 		boolean recursive = false;
@@ -94,7 +65,7 @@ public class ClassUtils {
 		Set<Class<?>> classSet = new LinkedHashSet<Class<?>>();
 		String packageDirName = pkg.replace('.', CharConstants.SLASH);
 
-		Enumeration<URL> dirs = getClassLoader().getResources(packageDirName);
+		Enumeration<URL> dirs = ClassLoaderUtils.getClassLoader().getResources(packageDirName);
 		while (dirs.hasMoreElements()) {
 			URL url = dirs.nextElement();
 			String protocol = url.getProtocol();
@@ -153,7 +124,7 @@ public class ClassUtils {
 					}
 				}
 				if (flag) {
-					classes.add(getClassLoader().loadClass(classUrl));
+					classes.add(ClassLoaderUtils.getClassLoader().loadClass(classUrl));
 				}
 			}
 		}

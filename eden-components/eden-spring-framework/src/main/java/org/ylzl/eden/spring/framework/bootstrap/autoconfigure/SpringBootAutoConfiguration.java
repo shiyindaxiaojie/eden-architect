@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServlet;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class BootstrapAutoConfiguration {
+public class SpringBootAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
