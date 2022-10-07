@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Import(RestExceptionAdviceConfiguration.class)
+@Import(RestExceptionResolverRegistrar.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

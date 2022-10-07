@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.framework.bootstrap.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +27,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.util.UrlPathHelper;
 import org.ylzl.eden.spring.framework.bootstrap.bind.BinderHelper;
-
-import javax.servlet.http.HttpServlet;
 
 /**
  * Spring 内置工具自动装配
@@ -39,7 +35,6 @@ import javax.servlet.http.HttpServlet;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnClass(HttpServlet.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
@@ -49,12 +44,6 @@ public class SpringBootAutoConfiguration {
 	@Bean
 	public PathMatcher pathMatcher() {
 		return new AntPathMatcher();
-	}
-
-	@ConditionalOnMissingBean
-	@Bean
-	public UrlPathHelper urlPathHelper() {
-		return new UrlPathHelper();
 	}
 
 	@ConditionalOnMissingBean
