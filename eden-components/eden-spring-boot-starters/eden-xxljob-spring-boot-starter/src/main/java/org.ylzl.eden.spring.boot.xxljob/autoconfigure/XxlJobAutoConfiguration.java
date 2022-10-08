@@ -13,8 +13,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.boot.xxljob.env.XxlJobProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
+import org.ylzl.eden.spring.integration.xxljob.core.AutoRegisterXxlJobSpringExecutor;
+import org.ylzl.eden.spring.integration.xxljob.core.XxlJobAdminTemplate;
 
 import java.io.File;
 
@@ -46,11 +49,17 @@ public class XxlJobAutoConfiguration {
 		this.xxlJobProperties = xxlJobProperties;
 	}
 
+	@Bean
+	public XxlJobAdminTemplate xxlJobAdminTemplate(RestTemplate restTemplate) {
+		return new XxlJobAdminTemplate(restTemplate, xxlJobProperties.getAccessToken(),
+			xxlJobProperties.getAdmin().getAddresses());
+	}
+
 	@ConditionalOnMissingBean
 	@Bean(initMethod = "start", destroyMethod = "destroy")
-	public XxlJobSpringExecutor xxlJobSpringExecutor() {
+	public XxlJobSpringExecutor xxlJobSpringExecutor(XxlJobAdminTemplate xxlJobAdminTemplate) {
 		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
-		XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+		XxlJobSpringExecutor xxlJobSpringExecutor = new AutoRegisterXxlJobSpringExecutor(xxlJobAdminTemplate);
 		xxlJobSpringExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
 
 		if (StringUtils.isNotBlank(xxlJobProperties.getAccessToken())) {

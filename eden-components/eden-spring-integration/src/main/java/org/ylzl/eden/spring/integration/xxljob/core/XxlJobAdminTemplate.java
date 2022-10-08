@@ -26,7 +26,7 @@ import java.util.Collections;
 @Slf4j
 public class XxlJobAdminTemplate {
 
-	private static String XXL_RPC_ACCESS_TOKEN = "XXL-RPC-ACCESS-TOKEN";
+	private final static String XXL_RPC_ACCESS_TOKEN = "XXL-RPC-ACCESS-TOKEN";
 
 	private final RestTemplate restTemplate;
 
