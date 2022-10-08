@@ -1,8 +1,10 @@
 package org.ylzl.eden.distributed.lock.zookeeper.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.zookeeper.ZooKeeper;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,8 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
  * @since 2.4.13
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
-@ConditionalOnProperty(value = ZookeeperDistributedLockAutoConfiguration.ENABLED, matchIfMissing = true)
+@ConditionalOnProperty(value = ZookeeperDistributedLockAutoConfiguration.ENABLED, matchIfMissing = false)
+@ConditionalOnClass(ZooKeeper.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @Deprecated

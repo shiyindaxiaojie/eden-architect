@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.profile.util.SpringProfileUtils;
 import org.ylzl.eden.spring.framework.profile.env.ProfileProperties;
 
 import java.util.ArrayList;

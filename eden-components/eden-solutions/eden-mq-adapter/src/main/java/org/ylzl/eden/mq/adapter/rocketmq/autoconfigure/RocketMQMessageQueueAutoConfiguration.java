@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.mq.adapter.autoconfigure.MessageQueueAutoConfiguration;
 import org.ylzl.eden.mq.adapter.core.MessageQueueConsumer;
 import org.ylzl.eden.mq.adapter.core.MessageQueueProvider;
 import org.ylzl.eden.mq.adapter.core.MessageQueueProviderFactory;
@@ -25,6 +27,7 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@AutoConfigureAfter(MessageQueueAutoConfiguration.class)
 @ConditionalOnProperty(value = RocketMQMessageQueueAutoConfiguration.ENABLED, matchIfMissing = true)
 @EnableConfigurationProperties({
 	FixedRocketMQProducerProperties.class,

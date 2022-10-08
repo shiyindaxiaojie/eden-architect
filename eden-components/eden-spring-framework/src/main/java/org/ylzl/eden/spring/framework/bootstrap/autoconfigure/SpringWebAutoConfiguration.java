@@ -15,25 +15,34 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.rest.autoconfigure;
+package org.ylzl.eden.spring.framework.bootstrap.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.framework.cola.rest.resolver.RestExceptionResolver;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.util.UrlPathHelper;
+
+import javax.servlet.http.HttpServlet;
 
 /**
- * REST 错误自动装配
+ * Spring 内置工具自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Configuration
-public class RestExceptionAdviceConfiguration {
+@ConditionalOnClass(HttpServlet.class)
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
+@Configuration(proxyBeanMethods = false)
+public class SpringWebAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public RestExceptionResolver restExceptionHandler() {
-		return new RestExceptionResolver();
+	public UrlPathHelper urlPathHelper() {
+		return new UrlPathHelper();
 	}
 }

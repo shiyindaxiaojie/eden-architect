@@ -2,6 +2,7 @@ package org.ylzl.eden.mq.adapter.kafka.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.ylzl.eden.mq.adapter.autoconfigure.MessageQueueAutoConfiguration;
 import org.ylzl.eden.mq.adapter.core.MessageQueueConsumer;
 import org.ylzl.eden.mq.adapter.core.MessageQueueProvider;
 import org.ylzl.eden.mq.adapter.core.MessageQueueProviderFactory;
@@ -24,6 +26,7 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@AutoConfigureAfter(MessageQueueAutoConfiguration.class)
 @ConditionalOnProperty(value = KafkaMessageQueueAutoConfiguration.ENABLED, matchIfMissing = true)
 @Slf4j
 @Configuration(proxyBeanMethods = false)

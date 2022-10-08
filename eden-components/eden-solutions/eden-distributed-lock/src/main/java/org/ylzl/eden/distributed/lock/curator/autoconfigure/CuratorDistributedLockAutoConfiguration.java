@@ -2,8 +2,10 @@ package org.ylzl.eden.distributed.lock.curator.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.bouncycastle.asn1.anssi.ANSSINamedCurves;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,7 @@ import org.ylzl.eden.distributed.lock.env.DistributedLockProperties;
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @ConditionalOnProperty(value = CuratorDistributedLockAutoConfiguration.ENABLED, matchIfMissing = true)
+@ConditionalOnClass(CuratorFramework.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class CuratorDistributedLockAutoConfiguration {

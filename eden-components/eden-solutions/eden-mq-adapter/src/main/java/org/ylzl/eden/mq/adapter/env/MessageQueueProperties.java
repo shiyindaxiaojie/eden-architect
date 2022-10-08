@@ -15,5 +15,7 @@ public class MessageQueueProperties {
 
 	public static final String PREFIX = "message-queue";
 
+	public static final String ENABLED = PREFIX + ".enabled";
+
 	private String type;
 }
