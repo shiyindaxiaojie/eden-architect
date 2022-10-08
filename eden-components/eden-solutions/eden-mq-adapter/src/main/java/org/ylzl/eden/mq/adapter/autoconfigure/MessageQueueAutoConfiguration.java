@@ -15,7 +15,7 @@ import org.ylzl.eden.mq.adapter.env.MessageQueueProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(MessageQueueProperties.PREFIX)
+@ConditionalOnProperty(name = MessageQueueProperties.ENABLED, matchIfMissing = true)
 @EnableConfigurationProperties(MessageQueueProperties.class)
 @RequiredArgsConstructor
 @Slf4j
