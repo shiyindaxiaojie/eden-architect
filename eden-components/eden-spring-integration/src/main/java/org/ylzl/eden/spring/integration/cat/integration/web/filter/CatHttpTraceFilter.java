@@ -40,7 +40,7 @@ public class CatHttpTraceFilter extends CatFilter {
 			context.addProperty(Cat.Context.PARENT, request.getHeader(HTTP_HEADER_PARENT_MESSAGE_ID));
 			context.addProperty(Cat.Context.CHILD, request.getHeader(HTTP_HEADER_CHILD_MESSAGE_ID));
 			Cat.logEvent(TYPE_HTTP_TRACE, request.getRequestURI());
-			Cat.logRemoteCallClient(context);
+			Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 
 			MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
 			filterChain.doFilter(servletRequest, servletResponse);

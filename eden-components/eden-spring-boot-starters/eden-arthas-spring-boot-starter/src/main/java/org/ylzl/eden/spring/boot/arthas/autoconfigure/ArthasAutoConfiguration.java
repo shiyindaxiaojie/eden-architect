@@ -72,7 +72,7 @@ public class ArthasAutoConfiguration {
 											  ArthasProperties arthasProperties) {
 		ArthasProperties.updateArthasConfigMapDefaultValue(arthasConfigMap);
 
-		String appName = environment.getProperty(SpringPropertiesConstants.NAME_PATTERN);
+		String appName = environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);
 		if (arthasConfigMap.get(APP_NAME) == null && appName != null) {
 			arthasConfigMap.put(APP_NAME, appName);
 		}

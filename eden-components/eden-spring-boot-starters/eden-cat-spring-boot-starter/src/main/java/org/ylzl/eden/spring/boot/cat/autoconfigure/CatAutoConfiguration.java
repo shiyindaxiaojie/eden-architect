@@ -3,14 +3,17 @@ package org.ylzl.eden.spring.boot.cat.autoconfigure;
 import com.dianping.cat.Cat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.plexus.util.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.boot.cat.env.CatProperties;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
 import org.ylzl.eden.spring.integration.cat.annotations.CatAnnotationProcessorRegister;
 
@@ -33,6 +36,8 @@ public class CatAutoConfiguration implements InitializingBean {
 
 	private final CatProperties catProperties;
 
+	private final Environment environment;
+
 	@Override
 	public void afterPropertiesSet() {
 		log.debug("Initializing cat client");
@@ -41,7 +46,14 @@ public class CatAutoConfiguration implements InitializingBean {
 		String servers = catProperties.getServers();
 		AssertEnhancer.notNull(servers, "cat servers is not null");
 
-		Cat.initializeByDomain(catProperties.getDomain(),
+		String domain;
+		if (StringUtils.isBlank(catProperties.getDomain())) {
+			domain = environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);
+		} else {
+			domain = catProperties.getDomain();
+		}
+
+		Cat.initializeByDomain(domain,
 			catProperties.getTcpPort(),
 			catProperties.getHttpPort(),
 			servers.split(StringConstants.COMMA));

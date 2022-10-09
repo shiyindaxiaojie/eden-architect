@@ -69,7 +69,7 @@ public class CatDubboTraceFilter implements Filter {
 			Cat.Context context = initContext(uuid);
 			if (isConsumerSide) {
 				addConsumerEvent(url, transaction);
-				Cat.logRemoteCallClient(context);
+				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 			} else {
 				addProviderEvent(url, transaction);
 				Cat.logRemoteCallServer(context);
