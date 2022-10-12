@@ -32,7 +32,9 @@ import org.ylzl.eden.spring.integration.cat.annotations.CatAnnotationProcessorRe
 @Configuration(proxyBeanMethods = false)
 public class CatAutoConfiguration implements InitializingBean {
 
-	public static final String CAT_HOME = "CAT_HOME";
+	private static final String INITIALIZING_CAT_CLIENT = "Initializing cat client";
+
+	private static final String CAT_HOME = "CAT_HOME";
 
 	private final CatProperties catProperties;
 
@@ -40,12 +42,15 @@ public class CatAutoConfiguration implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() {
-		log.debug("Initializing cat client");
-		System.setProperty(CAT_HOME, catProperties.getHome());
+		log.debug(INITIALIZING_CAT_CLIENT);
 
 		String servers = catProperties.getServers();
 		AssertEnhancer.notNull(servers, "cat servers is not null");
 
+		// 动态设置 cat-home 路径
+		System.setProperty(CAT_HOME, catProperties.getHome());
+
+		// 代替 META-INF/app.properites
 		String domain;
 		if (StringUtils.isBlank(catProperties.getDomain())) {
 			domain = environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);

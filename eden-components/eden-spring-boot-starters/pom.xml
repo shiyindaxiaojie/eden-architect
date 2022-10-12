@@ -38,6 +38,7 @@
 		<module>eden-canel-spring-boot-starter</module>
 		<module>eden-cat-spring-boot-starter</module>
 		<module>eden-curator-spring-boot-starter</module>
+		<module>eden-druid-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
