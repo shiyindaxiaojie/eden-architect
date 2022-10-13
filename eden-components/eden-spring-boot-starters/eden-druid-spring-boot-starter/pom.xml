@@ -27,55 +27,15 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-cat-spring-boot-starter</artifactId>
+	<artifactId>eden-druid-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-cat-spring-boot-starter</name>
-	<description>Spring Cloud Starter For CAT</description>
+	<name>eden-druid-spring-boot-starter</name>
+	<description>Spring Boot Starter For Druid</description>
 
 	<dependencies>
-		<!-- 开发框架 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
-		</dependency>
-
-		<!-- 开发工具 -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- CAT 组件 -->
-		<dependency>
-			<groupId>com.dianping.cat</groupId>
-			<artifactId>cat-client</artifactId>
-		</dependency>
-
-		<!-- CAT 插件依赖 -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-			<optional>true</optional>
-        </dependency>
-		<dependency>
-			<groupId>org.apache.dubbo</groupId>
-			<artifactId>dubbo</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<optional>true</optional>
+			<artifactId>druid-spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 </project>

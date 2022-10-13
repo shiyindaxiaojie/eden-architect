@@ -9,10 +9,7 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.plugin.Intercepts;
-import org.apache.ibatis.plugin.Invocation;
-import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
@@ -25,6 +22,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 /**
  * Mybatis 集成 CAT 插件
@@ -33,11 +31,15 @@ import java.util.Locale;
  * @since 2.4.13
  */
 @Intercepts({
-	@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-	@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-	@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class})
+	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
+	@Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class})
 })
 public class CatMybatisInterceptor implements Interceptor {
+
+	private static final Pattern PARAMETER_PATTERN = Pattern.compile("\\?");
+
+	private static final String MYSQL_DEFAULT_URL = "jdbc:mysql://UUUUUKnown:3306/%s?useUnicode=true";
 
 	public static final String TYPE_SQL = "SQL";
 
@@ -53,8 +55,9 @@ public class CatMybatisInterceptor implements Interceptor {
 
 		String dataSourceUrl = getSQLDatabaseUrl(mappedStatement);
 		Cat.logEvent(TYPE_SQL_DATABASE, dataSourceUrl);
-		Cat.logEvent(TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(),
-			Message.SUCCESS, getSql(invocation, mappedStatement));
+
+		String sql = getSql(invocation, mappedStatement);
+		Cat.logEvent(TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(), Message.SUCCESS, sql);
 		try {
 			Object returnValue = invocation.proceed();
 			transaction.setStatus(Transaction.SUCCESS);
@@ -68,11 +71,19 @@ public class CatMybatisInterceptor implements Interceptor {
 		}
 	}
 
-	private String getSQLDatabaseUrl(MappedStatement mappedStatement) {
+	@Override
+	public Object plugin(Object target) {
+		if (target instanceof Executor) {
+			return Plugin.wrap(target, this);
+		}
+		return target;
+	}
+
+	private String getSQLDatabaseUrl(MappedStatement mappedStatement) throws NoSuchFieldException, IllegalAccessException {
 		Configuration configuration = mappedStatement.getConfiguration();
 		Environment environment = configuration.getEnvironment();
 		DataSource dataSource = environment.getDataSource();
-		return DataSourceUrlResolverSupport.resolve(dataSource);
+		return DataSourceUrlResolverSupport.parse(dataSource);
 	}
 
 	private String getMethodName(MappedStatement mappedStatement) {

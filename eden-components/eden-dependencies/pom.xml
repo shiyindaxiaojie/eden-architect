@@ -381,6 +381,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-druid-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -993,6 +998,11 @@
 				<version>${sqlite.version}</version>
 			</dependency>
 			<!-- Druid -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
