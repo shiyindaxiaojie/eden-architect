@@ -53,6 +53,7 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Undertow -->
