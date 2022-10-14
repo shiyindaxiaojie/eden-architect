@@ -8,6 +8,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.cloud.sentinel.prometheus.SentinelCollectorRegistry;
@@ -22,6 +23,7 @@ import org.ylzl.eden.spring.cloud.sentinel.prometheus.SentinelCollectorRegistry;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnClass(CollectorRegistry.class)
 @ConditionalOnEnabledMetricsExport("prometheus")
+@ConditionalOnProperty(name = "spring.cloud.sentinel.enabled", matchIfMissing = true)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class SentinelPrometheusAutoConfiguration {

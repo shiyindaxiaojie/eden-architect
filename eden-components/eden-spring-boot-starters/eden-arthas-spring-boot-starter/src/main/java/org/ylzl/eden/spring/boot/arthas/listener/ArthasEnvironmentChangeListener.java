@@ -10,11 +10,9 @@ import org.springframework.cloud.context.environment.EnvironmentChangeEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.spring.boot.arthas.autoconfigure.ArthasAutoConfiguration;
 import org.ylzl.eden.spring.boot.arthas.env.SpringArthasProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -29,31 +27,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 public class ArthasEnvironmentChangeListener implements ApplicationListener<EnvironmentChangeEvent> {
 
-	public static final AtomicBoolean REGISTER_STATE = new AtomicBoolean(false);
-
-	public static final String APP_NAME = "appName";
+	public static final AtomicBoolean REGISTER_STATE = new AtomicBoolean(true);
 
 	public static final String ARTHAS_AGENT = "arthasAgent";
-
-	public static final String ARTHAS_PROPERTIES_PREFIX = "arthas.";
-
-	public static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent start success";
 
 	public static final String REGISTER_ARTHAS = "Register arthas";
 
 	public static final String ARTHAS_ALREADY_REGISTERED = "Arthas already registered";
 
-	public static final String DESTORY_ARTHAS = "Destory arthas";
+	public static final String DESTROY_ARTHAS = "Destroy arthas";
 
-	public static final String ARTHAS_ALREADY_DESTORY = "Arthas already destory";
-
-	private final Environment environment;
+	public static final String ARTHAS_ALREADY_DESTROY = "Arthas already destroy";
 
 	private final ApplicationContext applicationContext;
 
-	private final ArthasProperties arthasProperties;
+	private final Environment environment;
 
-	private final SpringArthasProperties springArthasProperties;
+	private final ArthasProperties arthasProperties;
 
 	private final Map<String, String> arthasConfigMap;
 
@@ -65,17 +55,10 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 				if (Boolean.parseBoolean(environment.getProperty(key))) {
 					registerBean();
 				} else {
-					destoryBean();
+					destroyBean();
 				}
 				break;
 			}
-		}
-	}
-
-	@PostConstruct
-	public void init() {
-		if (springArthasProperties.isEnable()) {
-			registerBean();
 		}
 	}
 
@@ -89,41 +72,21 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 		if (defaultListableBeanFactory.containsBean(ARTHAS_AGENT)) {
 			((ArthasAgent) defaultListableBeanFactory.getBean(ARTHAS_AGENT)).init();
 		} else {
-			defaultListableBeanFactory.registerSingleton(ARTHAS_AGENT, initArthasAgent());
+			defaultListableBeanFactory.registerSingleton(ARTHAS_AGENT,
+				ArthasAutoConfiguration.initArthasAgent(arthasConfigMap, environment, arthasProperties));
 		}
 	}
 
-	private void destoryBean() {
+	private void destroyBean() {
 		if (!REGISTER_STATE.compareAndSet(true, false)) {
-			log.info(ARTHAS_ALREADY_DESTORY);
+			log.info(ARTHAS_ALREADY_DESTROY);
 			return;
 		}
-		log.info(DESTORY_ARTHAS);
+		log.info(DESTROY_ARTHAS);
 		DefaultListableBeanFactory defaultListableBeanFactory = getDefaultListableBeanFactory();
 		if (defaultListableBeanFactory.containsBean(ARTHAS_AGENT)) {
 			defaultListableBeanFactory.destroySingleton(ARTHAS_AGENT);
 		}
-	}
-
-	private ArthasAgent initArthasAgent() {
-		ArthasProperties.updateArthasConfigMapDefaultValue(arthasConfigMap);
-
-		String appName = environment.getProperty(SpringPropertiesConstants.NAME_PATTERN);
-		if (arthasConfigMap.get(APP_NAME) == null && appName != null) {
-			arthasConfigMap.put(APP_NAME, appName);
-		}
-
-		Map<String, String> mapWithPrefix = new HashMap<String, String>(arthasConfigMap.size());
-		for (Map.Entry<String, String> entry : arthasConfigMap.entrySet()) {
-			mapWithPrefix.put(ARTHAS_PROPERTIES_PREFIX + entry.getKey(), entry.getValue());
-		}
-
-		final ArthasAgent arthasAgent = new ArthasAgent(mapWithPrefix, arthasProperties.getHome(),
-			arthasProperties.isSlientInit(), null);
-
-		arthasAgent.init();
-		log.info(ARTHAS_AGENT_START_SUCCESS);
-		return arthasAgent;
 	}
 
 	@NotNull

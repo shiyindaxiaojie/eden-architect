@@ -338,6 +338,16 @@
 			<artifactId>dubbo</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- XXLJob -->
 		<dependency>

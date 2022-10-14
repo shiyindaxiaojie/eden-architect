@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.cola.rest.resolver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -59,7 +60,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	private ApplicationEventPublisher eventPublisher;
 
 	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher eventPublisher) {
+	public void setApplicationEventPublisher(@NotNull ApplicationEventPublisher eventPublisher) {
 		this.eventPublisher = eventPublisher;
 	}
 

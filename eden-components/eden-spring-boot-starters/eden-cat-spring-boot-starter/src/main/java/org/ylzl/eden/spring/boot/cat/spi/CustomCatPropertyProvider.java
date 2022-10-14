@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.cat.customizer;
+package org.ylzl.eden.spring.boot.cat.spi;
 
 import com.dianping.cat.CatPropertyProvider;
 import org.unidal.helper.Properties;
