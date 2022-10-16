@@ -17,16 +17,24 @@
 
 package org.ylzl.eden.spring.data.mybatis.util;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.experimental.UtilityClass;
-import org.apache.commons.lang3.StringUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
-import org.ylzl.eden.commons.safe.SqlSafeUtils;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.ylzl.eden.spring.data.mybatis.spi.DataSourceUrlResolverLoader;
 
-import java.util.Arrays;
+import javax.sql.DataSource;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Mybatis 工具集
@@ -37,132 +45,72 @@ import java.util.List;
 @UtilityClass
 public class MybatisUtils {
 
-	/**
-	 * 追加 Like %
-	 *
-	 * @param column 字段
-	 * @return
-	 */
-	public static String appendLikeSuffix(String column) {
-		return StringUtils.join(column, "%");
+	private static final Pattern PARAMETER_PATTERN = Pattern.compile("\\?");
+
+	public String getDatabaseUrl(MappedStatement mappedStatement) throws NoSuchFieldException, IllegalAccessException {
+		Configuration configuration = mappedStatement.getConfiguration();
+		Environment environment = configuration.getEnvironment();
+		DataSource dataSource = environment.getDataSource();
+		return DataSourceUrlResolverLoader.parse(dataSource);
 	}
 
-	/**
-	 * 追加 23:59:59
-	 *
-	 * @param column 字段
-	 * @return
-	 */
-	public static String appendEndTimeSuffix(String column) {
-		return StringUtils.join(column, " 23:59:59");
+	public String getMethodName(MappedStatement mappedStatement) {
+		String[] strArr = mappedStatement.getId().split("\\.");
+		return strArr[strArr.length - 2] + "." + strArr[strArr.length - 1];
 	}
 
-	/**
-	 * 追加 00:00:00
-	 *
-	 * @param column 字段
-	 * @return
-	 */
-	public static String appendBeginTimeSuffix(String column) {
-		return StringUtils.join(column, " 00:00:00");
-	}
-
-	/**
-	 * 构建 Page 对象
-	 *
-	 * @param pageNum    页号
-	 * @param pageSize   行数
-	 * @param sortColumn 排序字段
-	 * @param sortRule   排序规则
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> Page<T> buildPage(
-		long pageNum, long pageSize, String sortColumn, String sortRule) {
-		Page<T> page = new Page(pageNum, pageSize);
-		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
-			String[] sortColumns = sortColumn.split(StringConstants.COLON);
-			List<OrderItem> orderItems = SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
-				? OrderItem.ascs(sortColumns)
-				: OrderItem.descs(sortColumns);
-			page.addOrder(orderItems);
+	public String getSql(MappedStatement mappedStatement, Invocation invocation) {
+		Object parameter = null;
+		if (invocation.getArgs().length > 1) {
+			parameter = invocation.getArgs()[1];
 		}
-		return page;
+		BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+		Configuration configuration = mappedStatement.getConfiguration();
+		return resolveSql(configuration, boundSql);
 	}
 
-	/**
-	 * 获取表名
-	 *
-	 * @param clazz domain
-	 * @return
-	 */
-	public static String getTableName(Class<?> clazz) {
-		TableName tableName = clazz.getAnnotation(TableName.class);
-		return tableName.value();
-	}
+	private static String resolveSql(Configuration configuration, BoundSql boundSql) {
+		Object parameterObject = boundSql.getParameterObject();
+		List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+		String sql = boundSql.getSql().replaceAll("[\\s]+", " ");
+		if (!parameterMappings.isEmpty() && parameterObject != null) {
+			TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
+			if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+				sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(resolveParameterValue(parameterObject)));
 
-	/**
-	 * 获取排序 SQL
-	 *
-	 * @param sortColumn 排序字段
-	 * @param sortRule   排序规则（asc/desc）
-	 * @return
-	 */
-	public static String getOrderBySQL(String sortColumn, String sortRule) {
-		checkSQLInjection(sortColumn);
-		checkSQLInjection(sortRule);
-		StringBuilder sql = new StringBuilder();
-		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
-			sql.append(" ORDER BY ");
-			String rule =
-				Arrays.stream(SortRuleEnum.values())
-					.filter(sortRuleEnum -> sortRuleEnum.name().equalsIgnoreCase(sortRule))
-					.findFirst()
-					.get()
-					.name();
-			String[] sortColumns = sortColumn.split(StringConstants.COLON);
-			int len = sortColumns.length;
-			int i = 0;
-			for (String column : sortColumns) {
-				sql.append(column).append(StringConstants.SPACE).append(rule);
-				i++;
-				if (i < len) {
-					sql.append(StringConstants.COMMA);
+			} else {
+				MetaObject metaObject = configuration.newMetaObject(parameterObject);
+				Matcher matcher = PARAMETER_PATTERN.matcher(sql);
+				StringBuffer sqlBuffer = new StringBuffer();
+				for (ParameterMapping parameterMapping : parameterMappings) {
+					String propertyName = parameterMapping.getProperty();
+					Object obj = null;
+					if (metaObject.hasGetter(propertyName)) {
+						obj = metaObject.getValue(propertyName);
+					} else if (boundSql.hasAdditionalParameter(propertyName)) {
+						obj = boundSql.getAdditionalParameter(propertyName);
+					}
+					if (matcher.find()) {
+						matcher.appendReplacement(sqlBuffer, Matcher.quoteReplacement(resolveParameterValue(obj)));
+					}
 				}
+				matcher.appendTail(sqlBuffer);
+				sql = sqlBuffer.toString();
 			}
 		}
-		return sql.toString();
+		return sql;
 	}
 
-	/**
-	 * 获取分页 SQL
-	 *
-	 * @param pageNum  页号
-	 * @param pageSize 行数
-	 * @return
-	 */
-	public static String getLimitSQL(long pageNum, long pageSize) {
-		return " LIMIT " + ((pageNum - 1) * pageSize) + ", " + pageSize;
-	}
-
-	/**
-	 * 检查是否有 SQL 注入
-	 *
-	 * @param str 输入
-	 */
-	private void checkSQLInjection(String str) {
-		if (!SqlSafeUtils.isSQLInjectionSafe(str)) {
-			throw new RuntimeException("Found sql injection: " + str);
+	private static String resolveParameterValue(Object obj) {
+		StringBuilder retStringBuilder = new StringBuilder();
+		if (obj instanceof String) {
+			retStringBuilder.append("'").append(obj).append("'");
+		} else if (obj instanceof Date) {
+			DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
+			retStringBuilder.append("'").append(formatter.format(new Date())).append("'");
+		} else {
+			retStringBuilder.append("'").append(obj == null ? "" : obj).append("'");
 		}
-	}
-
-	/**
-	 * 受影响行数转换成布尔值
-	 *
-	 * @param effectiveRows
-	 * @return
-	 */
-	public static boolean effectiveRowsToBoolean(int effectiveRows) {
-		return effectiveRows > 0;
+		return retStringBuilder.toString();
 	}
 }

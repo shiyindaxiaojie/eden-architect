@@ -1,4 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.mybatis.autoconfigure.MybatisPageHelperAutoConfiguration,\
-  org.ylzl.eden.spring.boot.mybatis.autoconfigure.MybatisPlusAutoConfiguration
+  org.ylzl.eden.spring.boot.mybatis.autoconfigure.MybatisPluginAutoConfiguration,\
+  org.ylzl.eden.spring.boot.mybatis.autoconfigure.MybatisPlusAutoConfiguration,\
+  org.ylzl.eden.spring.boot.mybatis.autoconfigure.MybatisPlusExtensionAutoConfiguration
