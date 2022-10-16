@@ -5,6 +5,7 @@ import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -29,6 +30,7 @@ import java.util.List;
  * @since 2.4.13
  */
 @AutoConfigureAfter(MessageQueueAutoConfiguration.class)
+@ConditionalOnBean(RocketMQProperties.class)
 @ConditionalOnClass(RocketMQTemplate.class)
 @ConditionalOnProperty(value = RocketMQMessageQueueAutoConfiguration.ENABLED, matchIfMissing = true)
 @EnableConfigurationProperties({
@@ -39,7 +41,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 public class RocketMQMessageQueueAutoConfiguration {
 
-	public static final String ENABLED = "message-queue.rocketmq.enabled";
+	public static final String ENABLED = "rocketmq.enabled";
 
 	public static final String TYPE = "ROCKETMQ";
 

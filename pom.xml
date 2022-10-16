@@ -85,6 +85,8 @@
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
 	</properties>
 
 	<build>
@@ -121,6 +123,76 @@
 				<configuration>
 					<generateBackupPoms>false</generateBackupPoms>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git-commit-id-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
+					<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<includeOnlyProperties>
+						<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
+						<includeOnlyProperty>^git.branch$</includeOnlyProperty>
+					</includeOnlyProperties>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>se.bjurr.gitchangelog</groupId>
+				<artifactId>git-changelog-maven-plugin</artifactId>
+				<version>${git-changelog-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>GenerateGitChangelog</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>git-changelog</goal>
+						</goals>
+						<configuration>
+							<templateContent>
+								<![CDATA[
+									{{#tags}}
+									## {{name}}
+									 {{#issues}}
+									  {{#hasIssue}}
+									   {{#hasLink}}
+									### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+									   {{/hasLink}}
+									   {{^hasLink}}
+									### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+									   {{/hasLink}}
+									  {{/hasIssue}}
+									  {{^hasIssue}}
+									### {{name}}
+									  {{/hasIssue}}
+
+									  {{#commits}}
+									**{{{messageTitle}}}**
+
+									{{#messageBodyItems}}
+									 * {{.}}
+									{{/messageBodyItems}}
+
+									[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+									  {{/commits}}
+
+									 {{/issues}}
+									{{/tags}}
+									]]>
+							</templateContent>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,9 +1,9 @@
-package org.ylzl.eden.spring.integration.cat.integration.mybatis.spi;
+package org.ylzl.eden.spring.data.mybatis.spi;
 
 import javax.sql.DataSource;
 
 /**
- * 数据源地址解释器
+ * 数据源地址解析器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

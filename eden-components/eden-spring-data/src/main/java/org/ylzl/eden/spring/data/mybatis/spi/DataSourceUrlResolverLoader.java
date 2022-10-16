@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.cat.integration.mybatis.spi;
+package org.ylzl.eden.spring.data.mybatis.spi;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
@@ -16,7 +16,9 @@ import java.util.ServiceLoader;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class DataSourceUrlResolverSupport {
+public class DataSourceUrlResolverLoader {
+
+	private static final String MYSQL_DEFAULT_URL = "jdbc:mysql://UUUUUKnown:3306/%s?useUnicode=true";
 
 	private static final String HIKARICP_CLASS_NAME = "com.zaxxer.hikari.HikariDataSource";
 
@@ -52,6 +54,6 @@ public class DataSourceUrlResolverSupport {
 		if (dataSource.getClass().getName().equalsIgnoreCase(DRUID_CLASS_NAME)) {
 			return ((DruidDataSource) dataSource).getUrl();
 		}
-		return null;
+		return MYSQL_DEFAULT_URL;
 	}
 }

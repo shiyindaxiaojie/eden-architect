@@ -284,6 +284,20 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Dynamic Datasource 组件 -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Druid 组件 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Sharding JDBC 组件 -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
