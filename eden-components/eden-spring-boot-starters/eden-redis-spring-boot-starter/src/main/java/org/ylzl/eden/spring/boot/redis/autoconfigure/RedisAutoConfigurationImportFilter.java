@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurationImportFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.Arrays;
 
@@ -17,7 +16,7 @@ import java.util.Arrays;
  */
 public class RedisAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {
 
-	private static final String ELASTICSEARCH_ENABLED = "spring.redis.enabled";
+	private static final String REDIS_ENABLED = "spring.redis.enabled";
 
 	private static final String DEFAULT_VALUE = "true";
 
@@ -36,16 +35,13 @@ public class RedisAutoConfigurationImportFilter implements AutoConfigurationImpo
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean enabled = Boolean.parseBoolean(environment.getProperty(ELASTICSEARCH_ENABLED, DEFAULT_VALUE));
-		if (!enabled) {
-			boolean[] match = new boolean[autoConfigurationClasses.length];
-			for (int i = 0; i < autoConfigurationClasses.length; i++) {
-				int index = i;
-				match[i] = StringUtils.isEmpty(autoConfigurationClasses[i]) ||
-					Arrays.stream(MATCH_CLASSES).anyMatch(e -> autoConfigurationClasses[index].equals(e));
-			}
-			return match;
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(REDIS_ENABLED, DEFAULT_VALUE));
+		boolean[] match = new boolean[autoConfigurationClasses.length];
+		for (int i = 0; i < autoConfigurationClasses.length; i++) {
+			int index = i;
+			match[i] = !disabled || Arrays.stream(MATCH_CLASSES)
+				.noneMatch(e -> e.equals(autoConfigurationClasses[index]));
 		}
-		return new boolean[0];
+		return match;
 	}
 }

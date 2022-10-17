@@ -12,8 +12,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
 
-import java.util.regex.Pattern;
-
 /**
  * Mybatis 集成 CAT 插件
  *
@@ -26,8 +24,6 @@ import java.util.regex.Pattern;
 	@Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class})
 })
 public class CatMybatisInterceptor implements Interceptor {
-
-	private static final Pattern PARAMETER_PATTERN = Pattern.compile("\\?");
 
 	public static final String TYPE_SQL = "SQL";
 

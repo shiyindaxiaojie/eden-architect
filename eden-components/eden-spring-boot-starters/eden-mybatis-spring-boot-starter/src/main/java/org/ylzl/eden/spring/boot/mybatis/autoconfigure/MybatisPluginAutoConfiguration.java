@@ -17,16 +17,12 @@
 
 package org.ylzl.eden.spring.boot.mybatis.autoconfigure;
 
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.spring.boot.mybatis.env.MybatisPluginProperties;
@@ -40,13 +36,8 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureAfter(DataSourceAutoConfiguration.class)
-@ConditionalOnClass({
-	SqlSessionFactory.class,
-	SqlSessionFactoryBean.class,
-	MybatisConfiguration.class
-})
-@ConditionalOnProperty(name = MybatisPluginProperties.SQL_LOG_ENABLED)
+@ConditionalOnBean(SqlSessionFactory.class)
+@ConditionalOnProperty(name = MybatisPluginProperties.SQL_LOG_ENABLED, matchIfMissing = true)
 @EnableConfigurationProperties({MybatisPluginProperties.class})
 @RequiredArgsConstructor
 @Slf4j

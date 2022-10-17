@@ -85,7 +85,8 @@ public class MybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoc
 
 	private static final String DEFAULT_MAPPER_LOCATION = "classpath*:/mybatis/mapper/**/*.xml";
 
-	private static final ResourcePatternResolver RESOLVER = new PathMatchingResourcePatternResolver();
+	private static final ResourcePatternResolver RESOLVER =
+		new PathMatchingResourcePatternResolver();
 
 	private final MybatisPlusProperties properties;
 

@@ -38,6 +38,8 @@ import java.util.Set;
 @Slf4j
 public class EnhancedClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {
 
+	private static final String FACTORY_BEAN = "org.mybatis.spring.mapper.MapperFactoryBean";
+
 	@Getter
 	private final MapperHelper mapperHelper = new MapperHelper();
 
@@ -58,7 +60,7 @@ public class EnhancedClassPathMapperScanner extends org.mybatis.spring.mapper.Cl
 		for (BeanDefinitionHolder holder : beanDefinitions) {
 			definition = (GenericBeanDefinition) holder.getBeanDefinition();
 			if (StringUtil.isNotEmpty(definition.getBeanClassName())
-				&& definition.getBeanClassName().equals("org.mybatis.spring.mapper.MapperFactoryBean")) {
+				&& definition.getBeanClassName().equals(FACTORY_BEAN)) {
 				definition.setBeanClass(MapperFactoryBean.class);
 				definition.getPropertyValues().add("mapperHelper", this.mapperHelper);
 			}
