@@ -34,8 +34,7 @@ public class RocketMQAutoConfigurationImportFilter implements AutoConfigurationI
 		if (!enabled) {
 			boolean[] match = new boolean[autoConfigurationClasses.length];
 			for (int i = 0; i < autoConfigurationClasses.length; i++) {
-				match[i] = StringUtils.isEmpty(autoConfigurationClasses[i]) ||
-					!autoConfigurationClasses[i].equals(MATCH_CLASS);
+				match[i] = !MATCH_CLASS.equals(autoConfigurationClasses[i]);
 			}
 			return match;
 		}

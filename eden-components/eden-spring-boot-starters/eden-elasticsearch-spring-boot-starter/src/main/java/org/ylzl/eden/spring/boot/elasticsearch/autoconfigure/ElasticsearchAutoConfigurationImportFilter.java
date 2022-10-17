@@ -43,8 +43,7 @@ public class ElasticsearchAutoConfigurationImportFilter implements AutoConfigura
 			boolean[] match = new boolean[autoConfigurationClasses.length];
 			for (int i = 0; i < autoConfigurationClasses.length; i++) {
 				int index = i;
-				match[i] = StringUtils.isEmpty(autoConfigurationClasses[i]) ||
-					Arrays.stream(MATCH_CLASSES).anyMatch(e -> autoConfigurationClasses[index].equals(e));
+				match[i] = Arrays.stream(MATCH_CLASSES).noneMatch(e -> autoConfigurationClasses[index].equals(e));
 			}
 			return match;
 		}

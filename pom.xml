@@ -29,7 +29,7 @@
 	</parent>
 	<groupId>org.ylzl</groupId>
 	<artifactId>eden-architect</artifactId>
-	<version>2.4.13-SNAPSHOT</version>
+	<version>2.4.13.20221017-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>eden-architect</name>
 	<description>自研应用架构</description>
@@ -80,7 +80,6 @@
 	</developers>
 
 	<properties>
-		<revision>2.4.13-SNAPSHOT</revision>
 		<java.version>1.8</java.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
@@ -124,7 +123,7 @@
 					<generateBackupPoms>false</generateBackupPoms>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 				<version>${git-commit-id-plugin.version}</version>
@@ -193,7 +192,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 

@@ -35,18 +35,17 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.TypeHandler;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -71,154 +70,163 @@ import java.util.function.Consumer;
 	MybatisAutoConfiguration.class,
 	com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration.class
 })
-@ConditionalOnClass({
-	SqlSessionFactory.class,
-	SqlSessionFactoryBean.class,
-	MybatisConfiguration.class
-})
+//@ConditionalOnClass({
+//	SqlSessionFactory.class
+//})
 @EnableConfigurationProperties({MybatisPlusProperties.class})
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class MybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration {
+public class MybatisPlusAutoConfiguration {
 
-	public static final String AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY = "Autowired MybatisPlus SqlSessionFactory";
-
-	private static final String DEFAULT_MAPPER_LOCATION = "classpath*:/mybatis/mapper/**/*.xml";
-
-	private static final ResourcePatternResolver RESOLVER = new PathMatchingResourcePatternResolver();
-
-	private final MybatisPlusProperties properties;
-
-	private final Interceptor[] interceptors;
-
-	private final TypeHandler<?>[] typeHandlers;
-
-	private final LanguageDriver[] languageDrivers;
-
-	private final ResourceLoader resourceLoader;
-
-	private final DatabaseIdProvider databaseIdProvider;
-
-	private final List<ConfigurationCustomizer> configurationCustomizers;
-
-	private final ApplicationContext applicationContext;
-
-	public MybatisPlusAutoConfiguration(
-		MybatisPlusProperties properties,
-		ObjectProvider<Interceptor[]> interceptorsProvider,
-		ObjectProvider<TypeHandler[]> typeHandlersProvider,
-		ObjectProvider<LanguageDriver[]> languageDriversProvider,
-		ResourceLoader resourceLoader,
-		ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-		ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
-		ObjectProvider<List<MybatisPlusPropertiesCustomizer>>
-			mybatisPlusPropertiesCustomizerProvider,
-		ApplicationContext applicationContext) {
-		super(
-			properties,
-			interceptorsProvider,
-			typeHandlersProvider,
-			languageDriversProvider,
-			resourceLoader,
-			databaseIdProvider,
-			configurationCustomizersProvider,
-			mybatisPlusPropertiesCustomizerProvider,
-			applicationContext);
-		this.properties = properties;
-		this.interceptors = interceptorsProvider.getIfAvailable();
-		this.typeHandlers = typeHandlersProvider.getIfAvailable();
-		this.languageDrivers = languageDriversProvider.getIfAvailable();
-		this.resourceLoader = resourceLoader;
-		this.databaseIdProvider = databaseIdProvider.getIfAvailable();
-		this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
-		this.applicationContext = applicationContext;
-		if (properties.getMapperLocations() == null || properties.getMapperLocations().length == 0) {
-			properties.setMapperLocations(new String[]{DEFAULT_MAPPER_LOCATION});
-		}
-		properties.resolveMapperLocations();
-	}
-
-	@Override
-	@Bean
 	@ConditionalOnMissingBean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		log.debug(AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY);
-		MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
-		factory.setDataSource(dataSource);
-		factory.setVfs(SpringBootVFS.class);
-
-		if (StringUtils.hasText(this.properties.getConfigLocation())) {
-			factory.setConfigLocation(
-				this.resourceLoader.getResource(this.properties.getConfigLocation()));
-		}
-
-		applyConfiguration(factory);
-		if (this.properties.getConfigurationProperties() != null) {
-			factory.setConfigurationProperties(this.properties.getConfigurationProperties());
-		}
-		if (!ObjectUtils.isEmpty(this.interceptors)) {
-			factory.setPlugins(this.interceptors);
-		}
-		if (this.databaseIdProvider != null) {
-			factory.setDatabaseIdProvider(this.databaseIdProvider);
-		}
-		if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
-			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-		}
-		if (this.properties.getTypeAliasesSuperType() != null) {
-			factory.setTypeAliasesSuperType(this.properties.getTypeAliasesSuperType());
-		}
-		if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
-			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-		}
-		if (!ObjectUtils.isEmpty(this.typeHandlers)) {
-			factory.setTypeHandlers(this.typeHandlers);
-		}
-
-		Resource[] mapperLocations = this.properties.resolveMapperLocations();
-		if (!ObjectUtils.isEmpty(mapperLocations)) {
-			factory.setMapperLocations(mapperLocations);
-		} else {
-			factory.setMapperLocations(RESOLVER.getResources(DEFAULT_MAPPER_LOCATION));
-		}
-		this.getBeanThen(TransactionFactory.class, factory::setTransactionFactory);
-
-		Class<? extends LanguageDriver> defaultLanguageDriver =
-			this.properties.getDefaultScriptingLanguageDriver();
-		if (!ObjectUtils.isEmpty(this.languageDrivers)) {
-			factory.setScriptingLanguageDrivers(this.languageDrivers);
-		}
-		Optional.ofNullable(defaultLanguageDriver)
-			.ifPresent(factory::setDefaultScriptingLanguageDriver);
-
-		if (StringUtils.hasLength(this.properties.getTypeEnumsPackage())) {
-			factory.setTypeEnumsPackage(this.properties.getTypeEnumsPackage());
-		}
-		GlobalConfig globalConfig = this.properties.getGlobalConfig();
-		this.getBeanThen(MetaObjectHandler.class, globalConfig::setMetaObjectHandler);
-		this.getBeanThen(IKeyGenerator.class, i -> globalConfig.getDbConfig().setKeyGenerator(i));
-		this.getBeanThen(ISqlInjector.class, globalConfig::setSqlInjector);
-		this.getBeanThen(IdentifierGenerator.class, globalConfig::setIdentifierGenerator);
-		factory.setGlobalConfig(globalConfig);
-		return factory.getObject();
+	@Bean
+	public ConfigurationCustomizer configurationCustomizer() {
+		return configuration -> configuration.setUseDeprecatedExecutor(false);
 	}
 
-	private <T> void getBeanThen(Class<T> clazz, Consumer<T> consumer) {
-		if (this.applicationContext.getBeanNamesForType(clazz, false, false).length > 0) {
-			consumer.accept(this.applicationContext.getBean(clazz));
-		}
-	}
+	@Configuration(proxyBeanMethods = false)
+	public static class CustomMybatisPlusAutoConfiguration extends com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration {
 
-	private void applyConfiguration(MybatisSqlSessionFactoryBean factory) {
-		MybatisConfiguration configuration = this.properties.getConfiguration();
-		if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
-			configuration = new MybatisConfiguration();
+		public static final String AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY = "Autowired MybatisPlus SqlSessionFactory";
+
+		private static final String DEFAULT_MAPPER_LOCATION = "classpath*:/mybatis/mapper/**/*.xml";
+
+		private static final ResourcePatternResolver RESOLVER =
+			new PathMatchingResourcePatternResolver();
+
+		private final MybatisPlusProperties properties;
+
+		private final Interceptor[] interceptors;
+
+		private final TypeHandler<?>[] typeHandlers;
+
+		private final LanguageDriver[] languageDrivers;
+
+		private final ResourceLoader resourceLoader;
+
+		private final DatabaseIdProvider databaseIdProvider;
+
+		private final List<ConfigurationCustomizer> configurationCustomizers;
+
+		private final ApplicationContext applicationContext;
+
+		public CustomMybatisPlusAutoConfiguration(
+			MybatisPlusProperties properties,
+			ObjectProvider<Interceptor[]> interceptorsProvider,
+			ObjectProvider<TypeHandler[]> typeHandlersProvider,
+			ObjectProvider<LanguageDriver[]> languageDriversProvider,
+			ResourceLoader resourceLoader,
+			ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+			ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+			ObjectProvider<List<MybatisPlusPropertiesCustomizer>>
+				mybatisPlusPropertiesCustomizerProvider,
+			ApplicationContext applicationContext) {
+			super(
+				properties,
+				interceptorsProvider,
+				typeHandlersProvider,
+				languageDriversProvider,
+				resourceLoader,
+				databaseIdProvider,
+				configurationCustomizersProvider,
+				mybatisPlusPropertiesCustomizerProvider,
+				applicationContext);
+			this.properties = properties;
+			this.interceptors = interceptorsProvider.getIfAvailable();
+			this.typeHandlers = typeHandlersProvider.getIfAvailable();
+			this.languageDrivers = languageDriversProvider.getIfAvailable();
+			this.resourceLoader = resourceLoader;
+			this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+			this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
+			this.applicationContext = applicationContext;
+			if (properties.getMapperLocations() == null || properties.getMapperLocations().length == 0) {
+				properties.setMapperLocations(new String[]{DEFAULT_MAPPER_LOCATION});
+			}
+			properties.resolveMapperLocations();
 		}
-		if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
-			for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
-				customizer.customize(configuration);
+
+		@Primary
+		@Bean
+		@Override
+		public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+			log.debug(AUTOWIRED_MYBATIS_PLUS_SQL_SESSION_FACTORY);
+			MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
+			factory.setDataSource(dataSource);
+			factory.setVfs(SpringBootVFS.class);
+
+			if (StringUtils.hasText(this.properties.getConfigLocation())) {
+				factory.setConfigLocation(
+					this.resourceLoader.getResource(this.properties.getConfigLocation()));
+			}
+
+			applyConfiguration(factory);
+			if (this.properties.getConfigurationProperties() != null) {
+				factory.setConfigurationProperties(this.properties.getConfigurationProperties());
+			}
+			if (!ObjectUtils.isEmpty(this.interceptors)) {
+				factory.setPlugins(this.interceptors);
+			}
+			if (this.databaseIdProvider != null) {
+				factory.setDatabaseIdProvider(this.databaseIdProvider);
+			}
+			if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
+				factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+			}
+			if (this.properties.getTypeAliasesSuperType() != null) {
+				factory.setTypeAliasesSuperType(this.properties.getTypeAliasesSuperType());
+			}
+			if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
+				factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+			}
+			if (!ObjectUtils.isEmpty(this.typeHandlers)) {
+				factory.setTypeHandlers(this.typeHandlers);
+			}
+
+			Resource[] mapperLocations = this.properties.resolveMapperLocations();
+			if (!ObjectUtils.isEmpty(mapperLocations)) {
+				factory.setMapperLocations(mapperLocations);
+			} else {
+				factory.setMapperLocations(RESOLVER.getResources(DEFAULT_MAPPER_LOCATION));
+			}
+			this.getBeanThen(TransactionFactory.class, factory::setTransactionFactory);
+
+			Class<? extends LanguageDriver> defaultLanguageDriver =
+				this.properties.getDefaultScriptingLanguageDriver();
+			if (!ObjectUtils.isEmpty(this.languageDrivers)) {
+				factory.setScriptingLanguageDrivers(this.languageDrivers);
+			}
+			Optional.ofNullable(defaultLanguageDriver)
+				.ifPresent(factory::setDefaultScriptingLanguageDriver);
+
+			if (StringUtils.hasLength(this.properties.getTypeEnumsPackage())) {
+				factory.setTypeEnumsPackage(this.properties.getTypeEnumsPackage());
+			}
+			GlobalConfig globalConfig = this.properties.getGlobalConfig();
+			this.getBeanThen(MetaObjectHandler.class, globalConfig::setMetaObjectHandler);
+			this.getBeanThen(IKeyGenerator.class, i -> globalConfig.getDbConfig().setKeyGenerator(i));
+			this.getBeanThen(ISqlInjector.class, globalConfig::setSqlInjector);
+			this.getBeanThen(IdentifierGenerator.class, globalConfig::setIdentifierGenerator);
+			factory.setGlobalConfig(globalConfig);
+			return factory.getObject();
+		}
+
+		private <T> void getBeanThen(Class<T> clazz, Consumer<T> consumer) {
+			if (this.applicationContext.getBeanNamesForType(clazz, false, false).length > 0) {
+				consumer.accept(this.applicationContext.getBean(clazz));
 			}
 		}
-		factory.setConfiguration(configuration);
+
+		private void applyConfiguration(MybatisSqlSessionFactoryBean factory) {
+			MybatisConfiguration configuration = this.properties.getConfiguration();
+			if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
+				configuration = new MybatisConfiguration();
+			}
+			if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
+				for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
+					customizer.customize(configuration);
+				}
+			}
+			factory.setConfiguration(configuration);
+		}
 	}
 }
