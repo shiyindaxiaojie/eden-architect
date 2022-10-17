@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurationImportFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.commons.lang.StringUtils;
 
 /**
  * RocketMQ 自动装配过滤
@@ -30,14 +29,11 @@ public class RocketMQAutoConfigurationImportFilter implements AutoConfigurationI
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean enabled = Boolean.parseBoolean(environment.getProperty(ROCKETMQ_ENABLED, DEFAULT_VALUE));
-		if (!enabled) {
-			boolean[] match = new boolean[autoConfigurationClasses.length];
-			for (int i = 0; i < autoConfigurationClasses.length; i++) {
-				match[i] = !MATCH_CLASS.equals(autoConfigurationClasses[i]);
-			}
-			return match;
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(ROCKETMQ_ENABLED, DEFAULT_VALUE));
+		boolean[] match = new boolean[autoConfigurationClasses.length];
+		for (int i = 0; i < autoConfigurationClasses.length; i++) {
+			match[i] = !disabled || !MATCH_CLASS.equals(autoConfigurationClasses[i]);
 		}
-		return new boolean[0];
+		return match;
 	}
 }

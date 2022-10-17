@@ -577,7 +577,7 @@
 						<layers>
 							<enabled>${build.layers.enabled}</enabled>
 							<includeLayerTools>true</includeLayerTools>
-							<configuration>${project.basedir}/../.docker/layers.xml</configuration>
+							<configuration>${project.basedir}/src/main/docker/layers.xml</configuration>
 						</layers>
 					</configuration>
 					<executions>
