@@ -22,7 +22,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
+import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationHelper;
 
 /**
  * Spring Boot 引导类
@@ -33,7 +33,7 @@ import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
 @RestController
 @Slf4j
 @SpringBootApplication
-public class Application extends SpringBootApplicationTemplate {
+public class Application {
 
 	/**
 	 * 启动入口
@@ -41,7 +41,7 @@ public class Application extends SpringBootApplicationTemplate {
 	 * @param args 命令行参数
 	 */
 	public static void main(String[] args) {
-		run(Application.class, args, WebApplicationType.SERVLET);
+		SpringBootApplicationHelper.run(Application.class, args, WebApplicationType.SERVLET);
 	}
 
 	/**

@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.framework.bootstrap;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -31,15 +32,16 @@ import org.ylzl.eden.spring.framework.profile.util.SpringProfileUtils;
 import java.net.InetAddress;
 
 /**
- * Spring Boot 应用启动入口模板
+ * Spring Boot 应用启动助手
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
-public abstract class SpringBootApplicationTemplate {
+@UtilityClass
+public class SpringBootApplicationHelper {
 
-	protected static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
+	public static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
 		initSystemProperties();
 
 		SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
@@ -62,7 +64,7 @@ public abstract class SpringBootApplicationTemplate {
 		System.setProperty("jute.maxbuffer", String.valueOf(8192 * 1024));
 	}
 
-	protected static void logApplicationServerAfterRunning(Environment env) {
+	private static void logApplicationServerAfterRunning(Environment env) {
 		String applicationName = StringUtils.trimToEmpty(env.getProperty("spring.application.name"));
 		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
 		int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
