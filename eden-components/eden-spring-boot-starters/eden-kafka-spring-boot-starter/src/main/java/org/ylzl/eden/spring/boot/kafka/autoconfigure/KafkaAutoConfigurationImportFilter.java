@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
+import java.util.Arrays;
+
 /**
  * Kafka 自动装配过滤
  *
@@ -14,11 +16,14 @@ import org.springframework.core.env.Environment;
  */
 public class KafkaAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {
 
-	private static final String KAFKA_ENABLED = "spring.kafka.enabled";
+	private static final String MATCH_KEY = "spring.kafka.enabled";
 
 	private static final String DEFAULT_VALUE = "true";
 
-	private static final String MATCH_CLASS = "org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration";
+	private static final String[] IGNORE_CLASSES = {
+		"org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration",
+		"org.springframework.boot.actuate.autoconfigure.metrics.KafkaMetricsAutoConfiguration"
+	};
 
 	private Environment environment;
 
@@ -29,10 +34,11 @@ public class KafkaAutoConfigurationImportFilter implements AutoConfigurationImpo
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean disabled = !Boolean.parseBoolean(environment.getProperty(KAFKA_ENABLED, DEFAULT_VALUE));
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(MATCH_KEY, DEFAULT_VALUE));
 		boolean[] match = new boolean[autoConfigurationClasses.length];
 		for (int i = 0; i < autoConfigurationClasses.length; i++) {
-			match[i] = !disabled || !MATCH_CLASS.equals(autoConfigurationClasses[i]);
+			int index = i;
+			match[i] = !disabled || Arrays.stream(IGNORE_CLASSES).noneMatch(e -> e.equals(autoConfigurationClasses[index]));
 		}
 		return match;
 	}

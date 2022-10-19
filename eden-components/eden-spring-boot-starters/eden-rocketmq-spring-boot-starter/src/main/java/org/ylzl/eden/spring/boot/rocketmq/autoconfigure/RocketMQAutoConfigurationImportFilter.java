@@ -14,11 +14,11 @@ import org.springframework.core.env.Environment;
  */
 public class RocketMQAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {
 
-	private static final String ROCKETMQ_ENABLED = "rocketmq.enabled";
+	private static final String MATCH_KEY = "rocketmq.enabled";
 
 	private static final String DEFAULT_VALUE = "true";
 
-	private static final String MATCH_CLASS = "org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration";
+	private static final String IGNORE_CLASS = "org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration";
 
 	private Environment environment;
 
@@ -29,10 +29,10 @@ public class RocketMQAutoConfigurationImportFilter implements AutoConfigurationI
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean disabled = !Boolean.parseBoolean(environment.getProperty(ROCKETMQ_ENABLED, DEFAULT_VALUE));
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(MATCH_KEY, DEFAULT_VALUE));
 		boolean[] match = new boolean[autoConfigurationClasses.length];
 		for (int i = 0; i < autoConfigurationClasses.length; i++) {
-			match[i] = !disabled || !MATCH_CLASS.equals(autoConfigurationClasses[i]);
+			match[i] = !disabled || !IGNORE_CLASS.equals(autoConfigurationClasses[i]);
 		}
 		return match;
 	}
