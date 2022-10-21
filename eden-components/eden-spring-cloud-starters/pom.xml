@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221019</version>
+		<version>2.4.13.20221021</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-spring-cloud-starters</artifactId>
@@ -41,6 +41,8 @@
 		<module>eden-sentinel-spring-cloud-starter</module>
 		<module>eden-sofa-tracer-spring-cloud-starter</module>
 		<module>eden-zipkin-spring-cloud-starter</module>
+		<module>eden-zookeeper-config-spring-cloud-starter</module>
+		<module>eden-zookeeper-discovery-spring-cloud-starter</module>
 		<module>eden-zookeeper-spring-cloud-starter</module>
 	</modules>
 </project>
