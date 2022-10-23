@@ -324,6 +324,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-excel-adapter</artifactId>
+				<version>2.4.13.20221021</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-flow-compose</artifactId>
 				<version>2.4.13.20221021</version>
 			</dependency>

@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.mail.adapter.autoconfigure.SmsTemplateAutoConfiguration
+  org.ylzl.eden.sms.adapter.autoconfigure.SmsAutoConfiguration
 
