@@ -69,14 +69,6 @@
 				<role>Architect</role>
 			</roles>
 		</developer>
-		<developer>
-			<id>zx</id>
-			<name>欣熙林林</name>
-			<roles>
-				<role>Developer</role>
-				<role>CI/SCM Engineer</role>
-			</roles>
-		</developer>
 	</developers>
 
 	<properties>

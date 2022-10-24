@@ -1,13 +1,13 @@
 package org.ylzl.eden.cache.adapter.core.factory;
 
 import org.ylzl.eden.cache.adapter.core.Cache;
-import org.ylzl.eden.cache.adapter.core.CacheSpec;
+import org.ylzl.eden.cache.adapter.core.config.CacheSpec;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * TODO
+ * 缓存工厂
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

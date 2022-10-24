@@ -12,7 +12,7 @@ public enum CacheSyncType {
 	KAFKA,
 	ROCKETMQ;
 
-	public static CacheSyncType toCacheSyncType(String type) {
+	public static CacheSyncType parse(String type) {
 		for (CacheSyncType cacheSyncType : CacheSyncType.values()) {
 			if (cacheSyncType.name().equalsIgnoreCase(type)) {
 				return cacheSyncType;

@@ -19,7 +19,7 @@ public interface Cache extends Serializable {
 	String getName();
 
 	/**
-	 * Return the underlying native cache provider.
+	 * 使用本地缓存提供类
 	 *
 	 * @return
 	 */

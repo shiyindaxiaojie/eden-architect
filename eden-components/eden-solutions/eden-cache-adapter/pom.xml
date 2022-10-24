@@ -82,10 +82,14 @@
 		<dependency>
 			<groupId>com.jd.platform.hotkey</groupId>
 			<artifactId>common</artifactId>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/common-0.0.4-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.jd.platform.hotkey</groupId>
 			<artifactId>hotkey-client</artifactId>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/hotkey-client-0.0.4-SNAPSHOT.jar</systemPath>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,7 +1,7 @@
 package org.ylzl.eden.cache.adapter.core.builder;
 
 import org.ylzl.eden.cache.adapter.core.Cache;
-import org.ylzl.eden.cache.adapter.core.CacheSpec;
+import org.ylzl.eden.cache.adapter.core.config.CacheSpec;
 
 import java.io.Serializable;
 

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.ylzl.eden.cache.adapter.core.CacheConfig;
-import org.ylzl.eden.cache.adapter.core.CacheSynchronizer;
+import org.ylzl.eden.cache.adapter.core.config.CacheConfig;
+import org.ylzl.eden.cache.adapter.core.sync.CacheSynchronizer;
 import org.ylzl.eden.cache.adapter.core.listener.CacheExpiredListener;
 
 import java.util.Collection;

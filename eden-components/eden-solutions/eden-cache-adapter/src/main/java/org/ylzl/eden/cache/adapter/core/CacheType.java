@@ -19,7 +19,7 @@ public enum CacheType {
 	MEMCACHED,
 	DRAGONFLY;
 
-	public static CacheType toCacheType(String type) {
+	public static CacheType parse(String type) {
 		for (CacheType cacheType : CacheType.values()) {
 			if (cacheType.name().equalsIgnoreCase(type)) {
 				return cacheType;

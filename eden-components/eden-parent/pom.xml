@@ -574,6 +574,7 @@
 						<executable>true</executable>
 						<fork>true</fork>
 						<mainClass>${start-class}</mainClass>
+						<includeSystemScope>true</includeSystemScope>
 						<layers>
 							<enabled>${build.layers.enabled}</enabled>
 							<includeLayerTools>true</includeLayerTools>

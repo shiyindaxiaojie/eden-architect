@@ -1,6 +1,7 @@
 package org.ylzl.eden.cache.adapter.core.level;
 
 import org.ylzl.eden.cache.adapter.core.Cache;
+import org.ylzl.eden.cache.adapter.core.sync.CacheSynchronizer;
 
 /**
  * 一级缓存接口
@@ -10,5 +11,5 @@ import org.ylzl.eden.cache.adapter.core.Cache;
  */
 public interface L1Cache extends Cache {
 
-
+	CacheSynchronizer getCacheSynchronizer();
 }

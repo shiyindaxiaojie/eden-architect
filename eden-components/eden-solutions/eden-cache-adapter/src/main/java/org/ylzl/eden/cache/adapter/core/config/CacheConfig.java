@@ -1,13 +1,14 @@
-package org.ylzl.eden.cache.adapter.core;
+package org.ylzl.eden.cache.adapter.core.config;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.ylzl.eden.cache.adapter.core.CacheType;
 
 /**
- * 缓存配置共享
+ * 缓存配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -17,15 +18,17 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Getter
 @Setter
-public class CacheSpec {
+public class CacheConfig {
 
 	/**
-	 * 缓存过期时间（毫秒）
+	 * 允许动态创建缓存
 	 */
-	private long expireInMs;
+	private boolean allowDynamicCreate = true;
 
 	/**
-	 * 最大容量
+	 * 缓存类型
 	 */
-	private int maxSize;
+	private CacheType cacheType = CacheType.COMPOSITE;
+
+
 }
