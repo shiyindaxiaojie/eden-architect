@@ -1,4 +1,4 @@
-package org.ylzl.eden.cache.adapter.core.load;
+package org.ylzl.eden.cache.adapter.core.loader;
 
 import java.io.Serializable;
 
