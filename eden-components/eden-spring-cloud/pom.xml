@@ -385,8 +385,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>javax.cacheAdapter</groupId>
-			<artifactId>cacheAdapter-api</artifactId>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
 		</dependency>
 
 		<!-- Jakarta -->

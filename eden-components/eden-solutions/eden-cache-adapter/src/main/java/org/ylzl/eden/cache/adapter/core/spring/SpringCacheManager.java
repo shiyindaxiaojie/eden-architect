@@ -51,7 +51,7 @@ public class SpringCacheManager implements CacheManager {
 		return Collections.unmodifiableSet(this.cacheMap.keySet());
 	}
 
-	private Cache createCacheWrapper() {
+	/*private Cache createCacheWrapper() {
 		org.ylzl.eden.cache.adapter.core.Cache cache =
-	}
+	}*/
 }
