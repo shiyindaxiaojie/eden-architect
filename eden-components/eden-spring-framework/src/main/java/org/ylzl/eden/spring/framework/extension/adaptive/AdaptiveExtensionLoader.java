@@ -74,6 +74,10 @@ public class AdaptiveExtensionLoader<T> {
 		}
 	}
 
+	public Object getLoadedAdaptiveExtensionInstances() {
+		return cachedAdaptiveInstance.get();
+	}
+
 	/**
 	 * 创建 @Adaptive 扩展点
 	 *

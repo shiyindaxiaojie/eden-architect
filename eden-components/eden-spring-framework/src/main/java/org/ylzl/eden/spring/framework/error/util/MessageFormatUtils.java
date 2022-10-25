@@ -12,6 +12,13 @@ import org.slf4j.helpers.MessageFormatter;
 @UtilityClass
 public class MessageFormatUtils {
 
+	/**
+	 * 格式化消息内容
+	 *
+	 * @param message
+	 * @param placeholders
+	 * @return
+	 */
 	public static String format(String message, Object... placeholders) {
 		return MessageFormatter.arrayFormat(message, placeholders).getMessage();
 	}

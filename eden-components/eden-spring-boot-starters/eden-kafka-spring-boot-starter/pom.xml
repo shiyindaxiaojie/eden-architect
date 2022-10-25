@@ -40,7 +40,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-mq-adapter</artifactId>
+			<artifactId>eden-common-mq</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->

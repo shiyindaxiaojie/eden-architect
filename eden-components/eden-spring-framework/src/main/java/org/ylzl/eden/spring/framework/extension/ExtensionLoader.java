@@ -198,6 +198,35 @@ public class ExtensionLoader<T> {
 		return cachedNames.get(extensionClass);
 	}
 
+	public Class<?> getExtensionClass(String name) {
+		if (type == null) {
+			throw new IllegalArgumentException("Extension type == null");
+		}
+		if (name == null) {
+			throw new IllegalArgumentException("Extension name == null");
+		}
+		return getExtensionClasses().get(name);
+	}
+
+	@SuppressWarnings("unchecked")
+	public T getLoadedExtension(String name) {
+		if (StringUtils.isEmpty(name)) {
+			throw new IllegalArgumentException("Extension name == null");
+		}
+		Holder<Object> holder = getOrCreateHolder(name);
+		return (T) holder.get();
+	}
+
+	public Set<String> getLoadedExtensions() {
+		return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
+	}
+
+	public List<T> getLoadedExtensionInstances() {
+		List<T> instances = new ArrayList<>();
+		cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
+		return instances;
+	}
+
 	/**
 	 * 获取默认的扩展点
 	 *
@@ -587,30 +616,44 @@ public class ExtensionLoader<T> {
 				if (!ReflectionUtils.isSetter(method)) {
 					continue;
 				}
-				if (method.getAnnotation(DisableInject.class) != null) {
-					continue;
-				}
+
 				Class<?> pt = method.getParameterTypes()[0];
 				if (ReflectionUtils.isPrimitives(pt)) {
 					continue;
 				}
 
-				try {
-					String property = ReflectionUtils.getSetterProperty(method);
-					Object object = objectFactory.getExtension(pt, property);
-					if (object != null) {
-						method.invoke(instance, object);
+				String property = ReflectionUtils.getSetterProperty(method);
+				Inject inject = method.getAnnotation(Inject.class);
+				if (inject == null) {
+					injectValue(instance, method, pt, property);
+				} else {
+					if (!inject.enable()) {
+						continue;
 					}
-				} catch (Exception e) {
-					log.error("Failed to inject via method " + method.getName()
-						+ " of interface " + type.getName() + ": " + e.getMessage(), e);
-				}
 
+					if (inject.type() == Inject.InjectType.ByType) {
+						injectValue(instance, method, pt, null);
+					} else {
+						injectValue(instance, method, pt, property);
+					}
+				}
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
 		return instance;
+	}
+
+	private void injectValue(T instance, Method method, Class<?> pt, String property) {
+		try {
+			Object object = objectFactory.getExtension(pt, property);
+			if (object != null) {
+				method.invoke(instance, object);
+			}
+		} catch (Exception e) {
+			log.error("Failed to inject via method " + method.getName()
+				+ " of interface " + type.getName() + ": " + e.getMessage(), e);
+		}
 	}
 
 	/**

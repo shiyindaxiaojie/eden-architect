@@ -56,7 +56,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-mail-adapter</artifactId>
+			<artifactId>eden-common-mail</artifactId>
 		</dependency>
 
 		<!-- Mail -->

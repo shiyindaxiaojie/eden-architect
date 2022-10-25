@@ -20,9 +20,7 @@ package org.ylzl.eden.commons.collections;
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.lang.ArrayUtils;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 集合工具集
@@ -80,5 +78,24 @@ public final class CollectionUtils {
 			ret.put((K) pairs[2 * i], (V) pairs[2 * i + 1]);
 		}
 		return ret;
+	}
+
+	public static <T> Set<T> ofSet(T... values) {
+		int size = values == null ? 0 : values.length;
+		if (size < 1) {
+			return Collections.emptySet();
+		}
+
+		float loadFactor = 1f / ((size + 1) * 1.0f);
+
+		if (loadFactor > 0.75f) {
+			loadFactor = 0.75f;
+		}
+
+		Set<T> elements = new LinkedHashSet<>(size, loadFactor);
+		for (int i = 0; i < size; i++) {
+			elements.add(values[i]);
+		}
+		return Collections.unmodifiableSet(elements);
 	}
 }

@@ -8,9 +8,11 @@ package org.ylzl.eden.spring.framework.extension.strategy;
  */
 public class InternalLoadingStrategy implements LoadingStrategy {
 
+	public static final String META_INF_INTERNAL = "META-INF/internal/";
+
 	@Override
 	public String directory() {
-		return "META-INF/internal/";
+		return META_INF_INTERNAL;
 	}
 
 	@Override

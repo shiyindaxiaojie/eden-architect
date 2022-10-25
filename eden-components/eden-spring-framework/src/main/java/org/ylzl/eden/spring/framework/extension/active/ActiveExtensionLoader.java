@@ -2,18 +2,15 @@ package org.ylzl.eden.spring.framework.extension.active;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.extension.Activate;
 import org.ylzl.eden.spring.framework.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.extension.common.Constants;
 import org.ylzl.eden.spring.framework.extension.common.URL;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static java.util.Arrays.asList;
 
 /**
  * 基于 @Active 的扩展点加载器
@@ -57,7 +54,9 @@ public class ActiveExtensionLoader<T> {
 	 */
 	public List<T> getActivateExtension(URL url, String[] values, String group) {
 		List<T> activateExtensions = new ArrayList<>();
-		List<String> names = values == null ? new ArrayList<>(0) : asList(values);
+		TreeMap<Class<?>, T> activateExtensionsMap = new TreeMap<>(ActivateComparator.COMPARATOR);
+		Set<String> loadedNames = new HashSet<>();
+		Set<String> names = CollectionUtils.ofSet(values);
 		if (!names.contains(REMOVE_VALUE_PREFIX + DEFAULT_KEY)) {
 			extensionLoader.getExtensionClasses();
 			for (Map.Entry<String, Object> entry : cachedActivates.entrySet()) {
@@ -74,24 +73,35 @@ public class ActiveExtensionLoader<T> {
 				if (isMatchGroup(group, activateGroup)
 					&& !names.contains(name)
 					&& !names.contains(REMOVE_VALUE_PREFIX + name)
-					&& isActive(activateValue, url)) {
-					activateExtensions.add(extensionLoader.getExtension(name));
+					&& isActive(activateValue, url)
+					&& !loadedNames.contains(name)) {
+					activateExtensionsMap.put(extensionLoader.getExtensionClass(name),
+						extensionLoader.getExtension(name));
+					loadedNames.add(name);
 				}
 			}
-			activateExtensions.sort(ActivateComparator.COMPARATOR);
+			if (!activateExtensionsMap.isEmpty()) {
+				activateExtensions.addAll(activateExtensionsMap.values());
+			}
 		}
 		List<T> loadedExtensions = new ArrayList<>();
-		for (int i = 0; i < names.size(); i++) {
-			String name = names.get(i);
+		for (String name : names) {
 			if (!name.startsWith(REMOVE_VALUE_PREFIX)
 				&& !names.contains(REMOVE_VALUE_PREFIX + name)) {
-				if (DEFAULT_KEY.equals(name)) {
-					if (!loadedExtensions.isEmpty()) {
-						activateExtensions.addAll(0, loadedExtensions);
-						loadedExtensions.clear();
+				if (!loadedNames.contains(name)) {
+					if (DEFAULT_KEY.equals(name)) {
+						if (!loadedExtensions.isEmpty()) {
+							activateExtensions.addAll(0, loadedExtensions);
+							loadedExtensions.clear();
+						}
+					} else {
+						loadedExtensions.add(extensionLoader.getExtension(name));
 					}
+					loadedNames.add(name);
 				} else {
-					loadedExtensions.add(extensionLoader.getExtension(name));
+					String simpleName = extensionLoader.getExtensionClass(name).getSimpleName();
+					log.warn("Catch duplicated filter, ExtensionLoader will ignore one of them. Please check. Filter Name: " + name +
+						". Ignored Class Name: " + simpleName);
 				}
 			}
 		}
