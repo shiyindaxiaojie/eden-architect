@@ -76,9 +76,25 @@ public class ClassLoaderUtils {
 	}
 
 	public static ClassLoader getClassLoader() {
-		return Thread.currentThread().getContextClassLoader() != null?
-			Thread.currentThread().getContextClassLoader() :
-			ClassLoaderUtils.class.getClassLoader();
+		return getClassLoader(ClassLoaderUtils.class);
+	}
+
+	public static ClassLoader getClassLoader(Class<?> clazz) {
+		ClassLoader classLoader = null;
+		try {
+			classLoader = Thread.currentThread().getContextClassLoader();
+		} catch (Throwable ignored) {
+		}
+		if (classLoader == null) {
+			classLoader = clazz.getClassLoader();
+			if (classLoader == null) {
+				try {
+					classLoader = ClassLoader.getSystemClassLoader();
+				} catch (Throwable ignored) {
+				}
+			}
+		}
+		return classLoader;
 	}
 
 	public static Class<?> loadClass(String className) throws ClassNotFoundException {

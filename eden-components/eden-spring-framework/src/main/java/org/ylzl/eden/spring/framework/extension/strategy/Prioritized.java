@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.framework.extension.loader;
+package org.ylzl.eden.spring.framework.extension.strategy;
 
 import java.util.Comparator;
 
@@ -25,7 +25,7 @@ public interface Prioritized extends Comparable<Prioritized> {
 		if (b2 && !b1) {
 			return 1;
 		}
-		if (b1 && b2) {
+		if (b1) {
 			return ((Prioritized) one).compareTo((Prioritized) two);
 		}
 		return 0;

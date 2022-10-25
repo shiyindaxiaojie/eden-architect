@@ -101,6 +101,7 @@
 		<mvel.version>2.4.8.Final</mvel.version>
 		<json-lib.version>2.4</json-lib.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+		<jnanoid.version>2.0.0</jnanoid.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.29</mysql.version>
@@ -997,6 +998,12 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>transmittable-thread-local</artifactId>
 				<version>${transmittable-thread-local.version}</version>
+			</dependency>
+			<!-- JNanoId -->
+			<dependency>
+				<groupId>com.aventrix.jnanoid</groupId>
+				<artifactId>jnanoid</artifactId>
+				<version>${jnanoid.version}</version>
 			</dependency>
 
 			<!-- 数据库 -->

@@ -34,7 +34,7 @@ public class SpringCacheManager implements CacheManager {
 	@Override
 	public Cache getCache(String name) {
 		Cache cache = this.cacheMap.get(name);
-		if (cache == null && this.config.isAllowDynamicCreate()) {
+		if (cache == null && this.config.isDynamic()) {
 			synchronized (this.cacheMap) {
 				cache = this.cacheMap.get(name);
 				if (cache == null) {

@@ -108,10 +108,10 @@ public class SnowflakeGenerator {
 	@Builder
 	public SnowflakeGenerator(long workerId, long dataCenterId) {
 		if (workerId > maxWorkerId || workerId < 0) {
-			throw new IllegalArgumentException(String.format("工作 ID 不能大于 %d 或者小于 0", maxWorkerId));
+			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", maxWorkerId));
 		}
 		if (dataCenterId > maxDatacenterId || dataCenterId < 0) {
-			throw new IllegalArgumentException(String.format("数据中心 ID 不能大于 %d 或者小于 0", maxDatacenterId));
+			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", maxDatacenterId));
 		}
 		this.workerId = workerId;
 		this.dataCenterId = dataCenterId;

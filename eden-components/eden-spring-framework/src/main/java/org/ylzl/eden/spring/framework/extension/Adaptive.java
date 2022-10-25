@@ -3,7 +3,7 @@ package org.ylzl.eden.spring.framework.extension;
 import java.lang.annotation.*;
 
 /**
- * TODO 自适应扩展
+ * 默认扩展实现标记
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
