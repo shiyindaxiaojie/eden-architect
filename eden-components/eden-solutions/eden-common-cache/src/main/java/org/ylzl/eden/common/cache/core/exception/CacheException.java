@@ -15,26 +15,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.info.constant;
+package org.ylzl.eden.common.cache.core.exception;
 
-import lombok.experimental.UtilityClass;
+import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
- * InfoContributor 常量定义
+ * 缓存服务异常
  *
- * @author sion
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@UtilityClass
-public final class InfoContributorConstants {
+public class CacheException extends BaseException {
 
-	public static final String PROP_BUILD_ARTIFACT = "build.artifact";
-
-	public static final String PROP_BUILD_GROUP = "build.group";
-
-	public static final String PROP_BUILD_NAME = "build.name";
-
-	public static final String PROP_BUILD_TIME = "build.time";
-
-	public static final String PROP_BUILD_VERSION = "build.version";
+	public CacheException(String errMessage, Object... params) {
+		super("C0130", errMessage, params);
+	}
 }
