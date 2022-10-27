@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.cola.dto;
 import lombok.*;
 import org.jetbrains.annotations.PropertyKey;
 import org.slf4j.helpers.MessageFormatter;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
+import org.ylzl.eden.spring.framework.error.code.ErrorCodeLoader;
 
 /**
  * 响应（单条记录）
@@ -46,16 +46,16 @@ public class SingleResponse<T> extends Response {
 		return response;
 	}
 
-	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 											  Object... params) {
 		SingleResponse response = new SingleResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		response.setErrMessage(InternalErrorCodeLoader.getErrMessage(errCode, params));
 		return response;
 	}
 
-	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 											  String errMessage, Object... params) {
 		SingleResponse response = new SingleResponse();
 		response.setSuccess(false);

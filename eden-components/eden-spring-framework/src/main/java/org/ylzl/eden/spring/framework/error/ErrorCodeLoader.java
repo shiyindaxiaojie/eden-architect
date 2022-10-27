@@ -7,19 +7,19 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * 错误码配置
+ * 内部错误码加载器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class ErrorConfig {
+public class ErrorCodeLoader {
 
-	public static final String BASE_NAME = "error.message";
+	public static final String BUNDLE_NAME = "META-INF.error.message";
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BASE_NAME,
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME,
 		Locale.SIMPLIFIED_CHINESE);
 
-	public static String getErrMessage(@PropertyKey(resourceBundle = BASE_NAME) String errCode,
+	public static String getErrMessage(@PropertyKey(resourceBundle = BUNDLE_NAME) String errCode,
 									   Object... params) {
 		if (RESOURCE_BUNDLE.containsKey(errCode)) {
 			String value = RESOURCE_BUNDLE.getString(errCode);

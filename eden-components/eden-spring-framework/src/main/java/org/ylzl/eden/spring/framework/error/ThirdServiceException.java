@@ -31,11 +31,11 @@ import org.jetbrains.annotations.PropertyKey;
 @EqualsAndHashCode(callSuper = true)
 public class ThirdServiceException extends BaseException {
 
-	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Throwable ex) {
+	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Throwable ex) {
 		super(errCode, ex);
 	}
 
-	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public ThirdServiceException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 								 String errMessage, Object... params) {
 		super(errCode, errMessage, params);
 	}

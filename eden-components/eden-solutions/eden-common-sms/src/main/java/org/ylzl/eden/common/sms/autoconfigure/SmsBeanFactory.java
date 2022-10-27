@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.common.sms.core.SmsTemplate;
 import org.ylzl.eden.common.sms.core.SmsType;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.error.ClientErrorType;
+import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 import java.util.Objects;
 
@@ -21,14 +21,14 @@ public class SmsBeanFactory {
 
 	public SmsTemplate getExecutor() {
 		SmsTemplate smsTemplate = ApplicationContextHelper.getBean(defaultType.getTemplateName(), SmsTemplate.class);
-		ClientErrorType.notNull(smsTemplate, "B0001", "SmsTemplate beanDefinition not found");
+		ClientAssert.notNull(smsTemplate, "B0001", "SmsTemplate beanDefinition not found");
 		return smsTemplate;
 	}
 
 	public SmsTemplate getExecutor(String type) {
 		String beanName = Objects.requireNonNull(SmsType.parse(type)).getTemplateName();
 		SmsTemplate smsTemplate = ApplicationContextHelper.getBean(beanName, SmsTemplate.class);
-		ClientErrorType.notNull(smsTemplate, "B0001", "SmsTemplate beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(smsTemplate, "B0001", "SmsTemplate beanDefinition named '" + beanName + "' not found");
 		return smsTemplate;
 	}
 }

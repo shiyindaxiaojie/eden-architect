@@ -20,7 +20,7 @@ package org.ylzl.eden.spring.framework.cola.dto;
 import lombok.*;
 import org.jetbrains.annotations.PropertyKey;
 import org.slf4j.helpers.MessageFormatter;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
+import org.ylzl.eden.spring.framework.error.code.ErrorCodeLoader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,16 +91,16 @@ public class PageResponse<T> extends Response {
 		return response;
 	}
 
-	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static PageResponse buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 											Object... params) {
 		PageResponse response = new PageResponse();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		response.setErrMessage(InternalErrorCodeLoader.getErrMessage(errCode, params));
 		return response;
 	}
 
-	public static PageResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static PageResponse buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 											String errMessage, Object... params) {
 		PageResponse response = new PageResponse();
 		response.setSuccess(false);

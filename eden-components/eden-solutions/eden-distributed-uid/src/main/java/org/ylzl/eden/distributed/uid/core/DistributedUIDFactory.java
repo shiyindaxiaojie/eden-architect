@@ -3,7 +3,7 @@ package org.ylzl.eden.distributed.uid.core;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.error.ClientErrorType;
+import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,14 +29,14 @@ public class DistributedUIDFactory {
 		DistributedUID distributedUID = StringUtils.isNotBlank(defaultType)?
 			ApplicationContextHelper.getBean(beanSettings.get(defaultType.toUpperCase())) :
 			ApplicationContextHelper.getBean(DistributedUID.class);
-		ClientErrorType.notNull(distributedUID, "B0001", "DistributedUID beanDefinition not found");
+		ClientAssert.notNull(distributedUID, "B0001", "DistributedUID beanDefinition not found");
 		return distributedUID;
 	}
 
 	public DistributedUID getExecutor(String type) {
 		String beanName = beanSettings.get(type.toUpperCase());
 		DistributedUID distributedUID = ApplicationContextHelper.getBean(beanName, DistributedUID.class);
-		ClientErrorType.notNull(distributedUID, "B0001", "DistributedUID beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(distributedUID, "B0001", "DistributedUID beanDefinition named '" + beanName + "' not found");
 		return distributedUID;
 	}
 }

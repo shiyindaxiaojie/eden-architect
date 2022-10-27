@@ -31,11 +31,11 @@ import org.jetbrains.annotations.PropertyKey;
 @EqualsAndHashCode(callSuper = true)
 public class ServerException extends BaseException {
 
-	public ServerException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, Throwable ex) {
+	public ServerException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Throwable ex) {
 		super(errCode, ex);
 	}
 
-	public ServerException(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage,
+	public ServerException(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, String errMessage,
 						   Object... params) {
 		super(errCode, errMessage, params);
 	}

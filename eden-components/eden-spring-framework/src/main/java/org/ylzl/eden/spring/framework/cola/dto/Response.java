@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.jetbrains.annotations.PropertyKey;
 import org.slf4j.helpers.MessageFormatter;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
+import org.ylzl.eden.spring.framework.error.code.ErrorCodeLoader;
 
 /**
  * 响应
@@ -47,7 +47,7 @@ public class Response extends DTO {
 	private String errMessage;
 
 	public Response(boolean success,
-					@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode, String errMessage) {
+					@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode, String errMessage) {
 		this.success = success;
 		this.errCode = errCode;
 		this.errMessage = errMessage;
@@ -59,16 +59,16 @@ public class Response extends DTO {
 		return response;
 	}
 
-	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static Response buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 										Object... params) {
 		Response response = new Response();
 		response.setSuccess(false);
 		response.setErrCode(errCode);
-		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
+		response.setErrMessage(InternalErrorCodeLoader.getErrMessage(errCode, params));
 		return response;
 	}
 
-	public static Response buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+	public static Response buildFailure(@PropertyKey(resourceBundle = InternalErrorCodeLoader.BUNDLE_NAME) String errCode,
 										String errMessage, Object... params) {
 		Response response = new Response();
 		response.setSuccess(false);

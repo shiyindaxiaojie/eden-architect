@@ -28,7 +28,7 @@ import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
 import org.ylzl.eden.spring.framework.cola.dto.Response;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
+import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,7 +74,7 @@ public final class ResponseUtils {
 	 * @throws IOException
 	 */
 	public static void wrap(HttpServletResponse response, int statueCode,
-							@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+							@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 							String errMessage, Object... params) throws IOException {
 		response.setStatus(statueCode);
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
