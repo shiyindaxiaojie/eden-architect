@@ -3,7 +3,7 @@ package org.ylzl.eden.common.cache.core.builder;
 import org.ylzl.eden.common.cache.core.Cache;
 import org.ylzl.eden.common.cache.core.config.CacheConfig;
 import org.ylzl.eden.common.cache.core.config.CacheSpec;
-import org.ylzl.eden.common.cache.core.listener.CacheExpiredListener;
+import org.ylzl.eden.common.cache.core.expire.CacheExpiredListener;
 import org.ylzl.eden.common.cache.core.sync.CacheSynchronizer;
 import org.ylzl.eden.spring.framework.extension.SPI;
 
@@ -53,20 +53,16 @@ public interface CacheBuilder<T extends Cache> extends Serializable {
 	 * 获取缓存过期监听器
 	 *
 	 * @return
-	 * @param <K>
-	 * @param <V>
 	 */
-	<K, V> CacheExpiredListener<K, V> getExpiredListener();
+	CacheExpiredListener<Object, Object> getExpiredListener();
 
 	/**
 	 * 设置缓存过期监听器
 	 *
-	 * @param expiredListener
+	 * @param cacheExpiredListener
 	 * @return
-	 * @param <K>
-	 * @param <V>
 	 */
-	<K, V> CacheBuilder<T> setExpiredListener(CacheExpiredListener<K, V> expiredListener);
+	CacheBuilder<T> setExpiredListener(CacheExpiredListener<Object, Object> cacheExpiredListener);
 
 	/**
 	 * 获取缓存同步器

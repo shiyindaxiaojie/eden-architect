@@ -27,5 +27,5 @@ public class CacheSpec {
 	/**
 	 * 最大容量
 	 */
-	private int maxSize;
+	private int maximumSize;
 }

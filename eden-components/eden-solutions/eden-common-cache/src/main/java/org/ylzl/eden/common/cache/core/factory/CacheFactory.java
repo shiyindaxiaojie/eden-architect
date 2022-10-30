@@ -21,6 +21,7 @@ public class CacheFactory {
 	private static final Map<String, ConcurrentHashMap<String, CacheSpec>> CACHE_SPEC_MAP = new ConcurrentHashMap<>(32);
 
 	private static final byte[] checkCacheMapLock = new byte[0];
+
 	private static final byte[] buildCacheLock = new byte[0];
 
 	/**
