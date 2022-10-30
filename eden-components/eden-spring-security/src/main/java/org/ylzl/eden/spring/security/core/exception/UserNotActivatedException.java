@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class UserNotActivatedException extends BaseException {
 
 	public UserNotActivatedException(String errMessage) {
-		super("A0202", errMessage);
+		super("USER-DISABLED-403", errMessage);
 	}
 }

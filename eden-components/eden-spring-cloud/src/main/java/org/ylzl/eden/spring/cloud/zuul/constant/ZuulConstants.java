@@ -34,5 +34,5 @@ public final class ZuulConstants {
 
 	public static final String FILTER_TYPE_POST = "post";
 
-	public static final String FILTER_TYPE_ERROR = "error";
+	public static final String FILTER_TYPE_ERROR = "META-INF/error";
 }

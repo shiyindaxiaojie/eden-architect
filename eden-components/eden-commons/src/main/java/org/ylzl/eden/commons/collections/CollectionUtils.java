@@ -18,9 +18,9 @@
 package org.ylzl.eden.commons.collections;
 
 import lombok.experimental.UtilityClass;
+import org.ylzl.eden.commons.lang.ArrayUtils;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 集合工具集
@@ -45,5 +45,57 @@ public final class CollectionUtils {
 
 	public static boolean isNotEmpty(final Map<?, ?> map) {
 		return !isEmpty(map);
+	}
+
+	public static Map<String, String> toStringMap(String... pairs) {
+		Map<String, String> parameters = new HashMap<>();
+		if (ArrayUtils.isEmpty(pairs)) {
+			return parameters;
+		}
+
+		if (pairs.length > 0) {
+			if (pairs.length % 2 != 0) {
+				throw new IllegalArgumentException("pairs must be even.");
+			}
+			for (int i = 0; i < pairs.length; i = i + 2) {
+				parameters.put(pairs[i], pairs[i + 1]);
+			}
+		}
+		return parameters;
+	}
+
+	public static <K, V> Map<K, V> toMap(Object... pairs) {
+		Map<K, V> ret = new HashMap<>();
+		if (pairs == null || pairs.length == 0) {
+			return ret;
+		}
+
+		if (pairs.length % 2 != 0) {
+			throw new IllegalArgumentException("Map pairs can not be odd number.");
+		}
+		int len = pairs.length / 2;
+		for (int i = 0; i < len; i++) {
+			ret.put((K) pairs[2 * i], (V) pairs[2 * i + 1]);
+		}
+		return ret;
+	}
+
+	public static <T> Set<T> ofSet(T... values) {
+		int size = values == null ? 0 : values.length;
+		if (size < 1) {
+			return Collections.emptySet();
+		}
+
+		float loadFactor = 1f / ((size + 1) * 1.0f);
+
+		if (loadFactor > 0.75f) {
+			loadFactor = 0.75f;
+		}
+
+		Set<T> elements = new LinkedHashSet<>(size, loadFactor);
+		for (int i = 0; i < size; i++) {
+			elements.add(values[i]);
+		}
+		return Collections.unmodifiableSet(elements);
 	}
 }

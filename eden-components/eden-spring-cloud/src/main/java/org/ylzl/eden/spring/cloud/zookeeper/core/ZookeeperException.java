@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class ZookeeperException extends BaseException {
 
 	public ZookeeperException(String errMessage) {
-		super("C0100", errMessage);
+		super("ZK-ERROR-500", errMessage);
 	}
 }

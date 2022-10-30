@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221021</version>
+		<version>2.4.13.20221030</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-solutions</artifactId>
@@ -34,14 +34,15 @@
 
 	<modules>
 		<module>eden-bigdata-filter</module>
-		<module>eden-flow-compose</module>
+		<module>eden-common-cache</module>
+		<module>eden-common-excel</module>
+		<module>eden-common-mail</module>
+		<module>eden-common-mq</module>
+		<module>eden-common-sms</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>
-		<module>eden-cache-adapter</module>
-		<module>eden-mail-adapter</module>
-		<module>eden-mq-adapter</module>
-		<module>eden-sms-adapter</module>
+		<module>eden-flow-compose</module>
 		<module>eden-trace-testing</module>
 	</modules>
 

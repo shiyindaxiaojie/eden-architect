@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-starters</artifactId>
-		<version>2.4.13.20221021</version>
+		<version>2.4.13.20221030</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-javamail-spring-boot-starter</artifactId>
@@ -56,7 +56,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-mail-adapter</artifactId>
+			<artifactId>eden-common-mail</artifactId>
 		</dependency>
 
 		<!-- Mail -->

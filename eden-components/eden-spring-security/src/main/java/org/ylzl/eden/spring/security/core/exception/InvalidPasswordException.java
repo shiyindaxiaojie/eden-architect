@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.security.core.exception;
 
+
 import org.ylzl.eden.spring.framework.error.BaseException;
 
 /**
@@ -28,6 +29,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class InvalidPasswordException extends BaseException {
 
 	public InvalidPasswordException(String errMessage) {
-		super("A0210", errMessage);
+		super("PWD-INVALID-400", errMessage);
 	}
 }

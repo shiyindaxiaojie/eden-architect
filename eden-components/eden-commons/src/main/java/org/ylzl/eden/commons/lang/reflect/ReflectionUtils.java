@@ -23,6 +23,7 @@ import lombok.experimental.UtilityClass;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -232,5 +233,37 @@ public class ReflectionUtils {
 
 	public static boolean isFinal(@NonNull Field field) {
 		return Modifier.isFinal(field.getModifiers());
+	}
+
+	public static boolean isPrimitives(Class<?> cls) {
+		while (cls.isArray()) {
+			cls = cls.getComponentType();
+		}
+		return isPrimitive(cls);
+	}
+
+	public static boolean isPrimitive(Class<?> cls) {
+		return cls.isPrimitive() || cls == String.class || cls == Boolean.class || cls == Character.class
+			|| Number.class.isAssignableFrom(cls) || Date.class.isAssignableFrom(cls);
+	}
+
+	public static boolean isSetter(Method method) {
+		return method.getName().startsWith("set")
+			&& method.getParameterTypes().length == 1
+			&& isPublic(method);
+	}
+
+	public static boolean isGetter(Method method) {
+		return method.getName().startsWith("get")
+			&& method.getParameterTypes().length == 1
+			&& isPublic(method);
+	}
+
+	public static String getSetterProperty(Method method) {
+		return method.getName().length() > 3 ? method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4) : "";
+	}
+
+	public static String getGetterProperty(Method method) {
+		return method.getName().length() > 3 ? method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4) : "";
 	}
 }

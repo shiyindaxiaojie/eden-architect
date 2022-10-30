@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.common.mq.autoconfigure.MessageQueueAutoConfiguration,\
+  org.ylzl.eden.common.mq.integration.kafka.autoconfigure.KafkaMessageQueueAutoConfiguration,\
+  org.ylzl.eden.common.mq.integration.rocketmq.autoconfigure.RocketMQMessageQueueAutoConfiguration

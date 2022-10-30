@@ -18,9 +18,6 @@
 package org.ylzl.eden.spring.framework.cola.dto;
 
 import lombok.*;
-import org.jetbrains.annotations.PropertyKey;
-import org.slf4j.helpers.MessageFormatter;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
 
 /**
  * 响应（单条记录）
@@ -39,30 +36,6 @@ public class SingleResponse<T> extends Response {
 	private static final long serialVersionUID = 1L;
 
 	private T data;
-
-	public static SingleResponse buildSuccess() {
-		SingleResponse response = new SingleResponse();
-		response.setSuccess(true);
-		return response;
-	}
-
-	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											  Object... params) {
-		SingleResponse response = new SingleResponse();
-		response.setSuccess(false);
-		response.setErrCode(errCode);
-		response.setErrMessage(ErrorConfig.getErrMessage(errCode, params));
-		return response;
-	}
-
-	public static SingleResponse buildFailure(@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
-											  String errMessage, Object... params) {
-		SingleResponse response = new SingleResponse();
-		response.setSuccess(false);
-		response.setErrCode(errCode);
-		response.setErrMessage(MessageFormatter.arrayFormat(errMessage, params).getMessage());
-		return response;
-	}
 
 	public static <T> SingleResponse<T> of(T data) {
 		SingleResponse<T> response = new SingleResponse<>();

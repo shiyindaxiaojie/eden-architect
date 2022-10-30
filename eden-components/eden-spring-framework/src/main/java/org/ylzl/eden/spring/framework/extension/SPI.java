@@ -3,7 +3,7 @@ package org.ylzl.eden.spring.framework.extension;
 import java.lang.annotation.*;
 
 /**
- * 扩展点接口
+ * 扩展点标记
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

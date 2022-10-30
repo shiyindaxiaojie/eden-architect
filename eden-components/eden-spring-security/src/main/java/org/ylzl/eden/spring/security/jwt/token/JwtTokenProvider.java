@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -97,7 +98,7 @@ public class JwtTokenProvider implements InitializingBean {
 		return accessToken;
 	}
 
-	public void validateToken(AccessToken accessToken) {
+	public void validateToken(@NotNull AccessToken accessToken) {
 		try {
 			if (tokenStore != null && !tokenStore.validateAccessToken(accessToken)) {
 				throw new UnauthorizedException("存储的令牌不存在");

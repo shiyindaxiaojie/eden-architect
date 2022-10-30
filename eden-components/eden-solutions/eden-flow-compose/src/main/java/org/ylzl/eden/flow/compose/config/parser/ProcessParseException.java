@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class ProcessParseException extends BaseException {
 
 	public ProcessParseException(String errMessage) {
-		super("B0001", errMessage);
+		super("SYS-ERROR-500", errMessage);
 	}
 }

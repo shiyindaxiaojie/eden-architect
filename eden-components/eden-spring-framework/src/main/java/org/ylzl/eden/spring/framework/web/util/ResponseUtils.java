@@ -27,8 +27,8 @@ import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
-import org.ylzl.eden.spring.framework.cola.dto.Response;
-import org.ylzl.eden.spring.framework.error.ErrorConfig;
+import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
+import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +52,7 @@ public final class ResponseUtils {
 	public static final String CONTENT_DISPOSITION_ATTACH = "attachment;filename={0}";
 
 	/**
-	 * 封装统一响应
+	 * 封装响应
 	 *
 	 * @param response
 	 * @param statueCode
@@ -62,31 +62,46 @@ public final class ResponseUtils {
 		response.setStatus(statueCode);
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
-		String result = JSONUtil.toJsonStr(Response.buildSuccess());
+		String result = JSONUtil.toJsonStr(ResponseBuilder.builder().buildSuccess());
 		out.write(result);
 	}
 
 	/**
-	 * 封装统一响应
+	 * 封装响应
 	 *
 	 * @param response
 	 * @param statueCode
 	 * @throws IOException
 	 */
 	public static void wrap(HttpServletResponse response, int statueCode,
-							@PropertyKey(resourceBundle = ErrorConfig.BASE_NAME) String errCode,
+							@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 							String errMessage, Object... params) throws IOException {
 		response.setStatus(statueCode);
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
-		String result = JSONUtil.toJsonStr(Response.buildFailure(errCode, errMessage, params));
+		String result = JSONUtil.toJsonStr(ResponseBuilder.builder().buildFailure(errCode, errMessage, params));
 		out.write(result);
 	}
 
+	/**
+	 * 封装响应
+	 *
+	 * @param maybeResponse
+	 * @return
+	 * @param <X>
+	 */
 	public static <X> ResponseEntity<X> wrapOrNotFound(X maybeResponse) {
 		return wrapOrNotFound(maybeResponse, null);
 	}
 
+	/**
+	 * 封装响应
+	 *
+	 * @param maybeResponse
+	 * @param header
+	 * @return
+	 * @param <X>
+	 */
 	public static <X> ResponseEntity<X> wrapOrNotFound(X maybeResponse, HttpHeaders header) {
 		if (maybeResponse == null) {
 			return new ResponseEntity<X>(HttpStatus.NOT_FOUND);

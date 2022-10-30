@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.GenericFilterBean;
-import org.ylzl.eden.spring.framework.error.ClientErrorType;
 import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
 import org.ylzl.eden.spring.security.core.constant.AuthenticationConstants;
 import org.ylzl.eden.spring.security.core.token.AccessToken;
@@ -42,10 +41,9 @@ public class JwtFilter extends GenericFilterBean {
 		if (!isAnonymousUrls(request)) {
 			AccessToken accessToken = resolveToken(request);
 			try {
-				ClientErrorType.notNull(accessToken, "A0220");
 				this.jwtTokenProvider.validateToken(accessToken);
 			} catch (Exception e) {
-				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "A0220", e.getMessage());
+				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", e.getMessage());
 				return;
 			}
 			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);

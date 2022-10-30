@@ -3,7 +3,7 @@ package org.ylzl.eden.distributed.lock.core;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.error.ClientErrorType;
+import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,14 +29,14 @@ public class DistributedLockFactory {
 		DistributedLock distributedLock = StringUtils.isNotBlank(defaultType)?
 			ApplicationContextHelper.getBean(beanSettings.get(defaultType.toUpperCase())) :
 			ApplicationContextHelper.getBean(DistributedLock.class);
-		ClientErrorType.notNull(distributedLock, "B0001", "DistributedLock beanDefinition not found");
+		ClientAssert.notNull(distributedLock, "SYS-ERROR-500", "DistributedLock beanDefinition not found");
 		return distributedLock;
 	}
 
 	public DistributedLock getExecutor(String type) {
 		String beanName = beanSettings.get(type.toUpperCase());
 		DistributedLock distributedLock = ApplicationContextHelper.getBean(beanName, DistributedLock.class);
-		ClientErrorType.notNull(distributedLock, "B0001", "DistributedLock beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(distributedLock, "SYS-ERROR-500", "DistributedLock beanDefinition named '" + beanName + "' not found");
 		return distributedLock;
 	}
 }

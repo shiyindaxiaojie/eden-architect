@@ -222,6 +222,18 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	}
 
 	/**
+	 * 注册 Bean
+	 *
+	 * @param beanClass
+	 * @param registry
+	 * @param beanName
+	 */
+	public static void registerBean(Class<?> beanClass, BeanDefinitionRegistry registry, String beanName) {
+		BeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(beanClass).getBeanDefinition();
+		registry.registerBeanDefinition(beanName, beanDefinition);
+	}
+
+	/**
 	 * 销毁 Bean
 	 *
 	 * @param beanName
