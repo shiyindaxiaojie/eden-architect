@@ -1,4 +1,4 @@
-package org.ylzl.eden.common.cache.core.extension;
+package org.ylzl.eden.common.cache.core.strategy;
 
 import org.ylzl.eden.spring.framework.extension.strategy.LoadingStrategy;
 

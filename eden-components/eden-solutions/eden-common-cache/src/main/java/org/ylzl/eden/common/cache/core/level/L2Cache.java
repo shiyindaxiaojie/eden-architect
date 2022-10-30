@@ -16,7 +16,7 @@ public interface L2Cache extends Cache {
 	Object buildKey(Object key);
 
 	/**
-	 * 获取缓存过期实践
+	 * 获取缓存过期时间
 	 */
 	long getExpireTime();
 }

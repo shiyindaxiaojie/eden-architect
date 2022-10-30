@@ -1,6 +1,5 @@
-package org.ylzl.eden.common.cache.core.listener;
+package org.ylzl.eden.common.cache.core.expire;
 
-import org.ylzl.eden.common.cache.core.Cache;
 import org.ylzl.eden.spring.framework.extension.SPI;
 
 /**
@@ -18,7 +17,6 @@ public interface CacheExpiredListener<K, V> {
 	 * @param key
 	 * @param value
 	 * @param cause
-	 * @param cache
 	 */
-	void onExpired(K key, V value, String cause, Cache cache);
+	void onExpired(K key, V value, CacheExpiredCause cause);
 }

@@ -1,4 +1,4 @@
-package org.ylzl.eden.common.cache.core.spring;
+package org.ylzl.eden.common.cache.spring;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.cache.CacheManager;
 import org.ylzl.eden.common.cache.core.builder.CacheBuilder;
 import org.ylzl.eden.common.cache.core.config.CacheConfig;
 import org.ylzl.eden.common.cache.core.factory.CacheFactory;
-import org.ylzl.eden.common.cache.core.listener.CacheExpiredListener;
+import org.ylzl.eden.common.cache.core.expire.CacheExpiredListener;
 import org.ylzl.eden.common.cache.core.sync.CacheSynchronizer;
 import org.ylzl.eden.spring.framework.extension.ExtensionLoader;
 
@@ -33,7 +33,7 @@ public class SpringCacheManager implements CacheManager {
 
 	private final CacheSynchronizer synchronizer;
 
-	private final CacheExpiredListener<?, ?> listener;
+	private final CacheExpiredListener<Object, Object> listener;
 
 	private final Object cacheClient;
 
@@ -54,7 +54,7 @@ public class SpringCacheManager implements CacheManager {
 	}
 
 	private Cache createSpringCache(String cacheType, String cacheName) {
-		org.ylzl.eden.common.cache.core.Cache cache = CacheFactory.getCache(cacheType, cacheName);
+		org.ylzl.eden.common.cache.core.Cache cache = getOrCreateCache(cacheType, cacheName);
 		return new SpringCache(this.config.isAllowNullValues(), cacheName, cache);
 	}
 

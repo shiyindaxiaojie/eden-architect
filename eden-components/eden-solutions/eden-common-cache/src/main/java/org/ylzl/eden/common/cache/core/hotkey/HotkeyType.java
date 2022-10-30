@@ -4,7 +4,7 @@ package org.ylzl.eden.common.cache.core.hotkey;
  * 热key类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.13
  */
 public enum HotkeyType {
 
