@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class UserNotFoundException extends BaseException {
 
 	public UserNotFoundException(String errMessage) {
-		super("A0201", errMessage);
+		super("USER-FOUND-404", errMessage);
 	}
 }

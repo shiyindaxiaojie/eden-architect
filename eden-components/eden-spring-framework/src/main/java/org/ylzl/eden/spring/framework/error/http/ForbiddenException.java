@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class ForbiddenException extends BaseException {
 
 	public ForbiddenException(String errMessage, Object... params) {
-		super("A0320", errMessage, params);
+		super("USER-ACCESS-403", errMessage, params);
 	}
 }

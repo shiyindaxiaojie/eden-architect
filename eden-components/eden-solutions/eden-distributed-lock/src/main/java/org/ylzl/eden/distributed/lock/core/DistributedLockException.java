@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class DistributedLockException extends BaseException {
 
 	public DistributedLockException(String errMessage) {
-		super("B0001", errMessage);
+		super("SYS-ERROR-500", errMessage);
 	}
 }

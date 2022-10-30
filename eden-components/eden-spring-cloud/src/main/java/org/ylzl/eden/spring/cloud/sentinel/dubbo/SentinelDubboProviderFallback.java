@@ -20,7 +20,7 @@ public class SentinelDubboProviderFallback implements DubboFallback {
 	@Override
 	public Result handle(Invoker<?> invoker, Invocation invocation, BlockException ex) {
 		return AsyncRpcResult.newDefaultAsyncResult(
-			new ServerException("C0401", ex.toRuntimeException()),
+			new ServerException("DUBBO-DEGRADE-429", ex.toRuntimeException()),
 			invocation);
 	}
 }

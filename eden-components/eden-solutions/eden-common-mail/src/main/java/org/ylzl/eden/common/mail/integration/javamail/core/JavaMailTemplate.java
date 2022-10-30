@@ -7,7 +7,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.common.mail.core.MailModel;
 import org.ylzl.eden.common.mail.core.MailTemplate;
-import org.ylzl.eden.mail.adapter.core.*;
 import org.ylzl.eden.common.mail.core.exception.SendMailException;
 import org.ylzl.eden.common.mail.core.multi.MultiSendMailRequest;
 import org.ylzl.eden.common.mail.core.multi.MultiSendMailResponse;

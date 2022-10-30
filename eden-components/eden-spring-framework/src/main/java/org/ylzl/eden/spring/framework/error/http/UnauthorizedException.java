@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class UnauthorizedException extends BaseException {
 
 	public UnauthorizedException(String errMessage, Object... params) {
-		super("A0230", errMessage, params);
+		super("USER-LOGIN-401", errMessage, params);
 	}
 }

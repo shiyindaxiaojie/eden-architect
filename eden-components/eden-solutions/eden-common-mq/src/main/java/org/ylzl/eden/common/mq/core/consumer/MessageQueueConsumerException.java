@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class MessageQueueConsumerException extends BaseException {
 
 	public MessageQueueConsumerException(String errMessage) {
-		super("C0122", errMessage);
+		super("MQ-CONSUME-500", errMessage);
 	}
 }

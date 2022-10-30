@@ -11,5 +11,8 @@ public class ExtensionLoaderTest {
 	public static void main(String[] args) {
 		Demo demo = ExtensionLoader.getExtensionLoader(Demo.class).getExtension("demo2");
 		demo.echo();
+
+		Demo defaultDemo = ExtensionLoader.getExtensionLoader(Demo.class).getDefaultExtension();
+		defaultDemo.echo();
 	}
 }

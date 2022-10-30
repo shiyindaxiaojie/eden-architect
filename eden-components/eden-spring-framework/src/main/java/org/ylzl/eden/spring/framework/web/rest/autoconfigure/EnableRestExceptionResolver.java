@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.rest.autoconfigure;
+package org.ylzl.eden.spring.framework.web.rest.autoconfigure;
 
 import org.springframework.context.annotation.Import;
 

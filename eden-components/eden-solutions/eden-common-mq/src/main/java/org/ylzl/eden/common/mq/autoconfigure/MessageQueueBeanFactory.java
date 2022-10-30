@@ -22,14 +22,14 @@ public class MessageQueueBeanFactory {
 	public MessageQueueProvider getProvider() {
 		MessageQueueProvider messageQueueProvider = ApplicationContextHelper
 			.getBean(defaultType.getProviderName(), MessageQueueProvider.class);
-		ClientAssert.notNull(messageQueueProvider, "B0001", "MessageQueueProvider beanDefinition not found");
+		ClientAssert.notNull(messageQueueProvider, "SYS-ERROR-500", "MessageQueueProvider beanDefinition not found");
 		return messageQueueProvider;
 	}
 
 	public MessageQueueProvider getProvider(String type) {
 		String beanName = Objects.requireNonNull(MessageQueueType.parse(type)).getProviderName();
 		MessageQueueProvider messageQueueProvider = ApplicationContextHelper.getBean(beanName, MessageQueueProvider.class);
-		ClientAssert.notNull(messageQueueProvider, "B0001", "MessageQueueProvider beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(messageQueueProvider, "SYS-ERROR-500", "MessageQueueProvider beanDefinition named '" + beanName + "' not found");
 		return messageQueueProvider;
 	}
 }

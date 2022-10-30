@@ -15,14 +15,13 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.cola.rest.event;
+package org.ylzl.eden.spring.framework.web.rest.event;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.context.ApplicationEvent;
-import org.ylzl.eden.spring.framework.cola.dto.Response;
 
 /**
  * Rest 异常事件
@@ -36,7 +35,7 @@ import org.ylzl.eden.spring.framework.cola.dto.Response;
 @Data
 public class RestExceptionEvent extends ApplicationEvent {
 
-	private Response response;
+	private Object response;
 
 	public RestExceptionEvent(Object source) {
 		super(source);

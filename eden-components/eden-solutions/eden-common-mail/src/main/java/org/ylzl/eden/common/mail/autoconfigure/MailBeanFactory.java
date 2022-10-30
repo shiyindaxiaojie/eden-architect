@@ -21,14 +21,14 @@ public class MailBeanFactory {
 
 	public MailTemplate getExecutor() {
 		MailTemplate mailTemplate = ApplicationContextHelper.getBean(defaultType.getTemplateName(), MailTemplate.class);
-		ClientAssert.notNull(mailTemplate, "B0001", "MailTemplate beanDefinition not found");
+		ClientAssert.notNull(mailTemplate, "SYS-ERROR-500", "MailTemplate beanDefinition not found");
 		return mailTemplate;
 	}
 
 	public MailTemplate getExecutor(String type) {
 		String beanName = Objects.requireNonNull(MailType.parse(type)).getTemplateName();
 		MailTemplate mailTemplate = ApplicationContextHelper.getBean(beanName, MailTemplate.class);
-		ClientAssert.notNull(mailTemplate, "B0001", "MailTemplate beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(mailTemplate, "SYS-ERROR-500", "MailTemplate beanDefinition named '" + beanName + "' not found");
 		return mailTemplate;
 	}
 }

@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.framework.cola.rest.autoconfigure;
+package org.ylzl.eden.spring.framework.web.rest.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.cola.rest.resolver.RestExceptionResolver;
+import org.ylzl.eden.spring.framework.web.rest.resolver.RestExceptionResolver;
 
 /**
  * RestExceptionResolver 注册器

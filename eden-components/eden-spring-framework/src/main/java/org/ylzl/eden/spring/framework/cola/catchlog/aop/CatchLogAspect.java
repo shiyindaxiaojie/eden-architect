@@ -92,7 +92,7 @@ public class CatchLogAspect {
 			baseException = (BaseException) e;
 		} else {
 			errorTag = UNKNOWN_EXCEPTION;
-			baseException = new BaseException("B0001", e.getMessage());
+			baseException = new BaseException("SYS-ERROR-500", e.getMessage());
 		}
 
 		String cause = e.getCause() != null ? e.getCause().toString() : UNKNOWN_CAUSE;

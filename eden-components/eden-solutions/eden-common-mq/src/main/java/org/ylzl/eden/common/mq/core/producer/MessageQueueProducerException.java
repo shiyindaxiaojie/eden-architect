@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class MessageQueueProducerException extends BaseException {
 
 	public MessageQueueProducerException(String errMessage) {
-		super("C0121", errMessage);
+		super("MQ-PRODUCE-500", errMessage);
 	}
 }

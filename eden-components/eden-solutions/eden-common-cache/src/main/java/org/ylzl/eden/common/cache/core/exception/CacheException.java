@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class CacheException extends BaseException {
 
 	public CacheException(String errMessage, Object... params) {
-		super("C0130", errMessage, params);
+		super("CACHE-ERROR-500", errMessage, params);
 	}
 }

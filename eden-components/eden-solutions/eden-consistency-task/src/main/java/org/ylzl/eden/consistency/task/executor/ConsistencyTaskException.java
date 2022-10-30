@@ -11,6 +11,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class ConsistencyTaskException extends BaseException {
 
 	public ConsistencyTaskException(String errMessage) {
-		super("B0001", errMessage);
+		super("SYS-ERROR-500", errMessage);
 	}
 }
