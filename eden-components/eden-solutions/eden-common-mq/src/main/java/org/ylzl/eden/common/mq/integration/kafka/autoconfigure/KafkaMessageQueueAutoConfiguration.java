@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.ylzl.eden.common.mq.autoconfigure.MessageQueueAutoConfiguration;
@@ -46,11 +45,10 @@ public class KafkaMessageQueueAutoConfiguration {
 	public KafkaConsumer kafkaConsumer(MessageQueueProperties messageQueueProperties,
                                        KafkaProperties kafkaProperties,
                                        ObjectProvider<List<MessageQueueConsumer>> messageListeners,
-                                       ObjectProvider<ConsumerFactory<String, String>> consumerFactory,
-                                       TaskExecutor taskExecutor) {
+                                       ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
 		log.debug(AUTOWIRED_KAKFA_CONSUMER);
 		return new KafkaConsumer(messageQueueProperties, kafkaProperties, messageListeners.getIfAvailable(),
-			consumerFactory.getIfAvailable(), taskExecutor);
+			consumerFactory.getIfAvailable());
 	}
 
 	@Bean(MessageQueueType.KAFKA_PROVIDER)

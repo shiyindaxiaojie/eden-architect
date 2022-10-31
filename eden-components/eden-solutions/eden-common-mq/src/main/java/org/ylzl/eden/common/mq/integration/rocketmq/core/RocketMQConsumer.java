@@ -57,7 +57,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 	private final List<MessageQueueConsumer> messageQueueConsumers;
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		log.debug(INITIALIZING_ROCKETMQ_CONSUMER);
 		if (CollectionUtils.isEmpty(messageQueueConsumers)) {
 			return;
