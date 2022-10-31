@@ -13,14 +13,13 @@ import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.common.mq.core.Message;
 import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.core.MessageQueueListener;
 import org.ylzl.eden.common.mq.core.MessageQueueType;
 import org.ylzl.eden.common.mq.env.MessageQueueProperties;
+import org.ylzl.eden.commons.lang.StringConstants;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,12 +53,8 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final ConsumerFactory<String, String> consumerFactory;
 
-	private final TaskExecutor taskExecutor;
-
-
-	@SuppressWarnings("InfiniteLoopStatement")
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		log.debug(INITIALIZING_KAFKA_CONSUMER);
 		if (CollectionUtils.isEmpty(messageQueueConsumers)) {
 			return;
@@ -70,7 +65,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 				continue;
 			}
 			consumers.add(consumer);
-			taskExecutor.execute(() -> {
+			new Thread(() -> {
 				while (true) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
@@ -96,7 +91,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 						log.error(KAFKA_CONSUMER_PROCESSOR_CONSUME_ERROR, e.getMessage(), e);
 					}
 				}
-			});
+			}).start();
 		}
 	}
 

@@ -43,8 +43,9 @@
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>
 		<module>eden-flow-compose</module>
+		<module>eden-idempotent</module>
 		<module>eden-trace-testing</module>
-	</modules>
+    </modules>
 
 	<dependencies>
 		<!-- Spock -->

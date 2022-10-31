@@ -310,6 +310,31 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-cache</artifactId>
+				<version>2.4.13.20221030</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-excel</artifactId>
+				<version>2.4.13.20221030</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-mail</artifactId>
+				<version>2.4.13.20221030</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-mq</artifactId>
+				<version>2.4.13.20221030</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-sms</artifactId>
+				<version>2.4.13.20221030</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-consistency-task</artifactId>
 				<version>2.4.13.20221030</version>
 			</dependency>
@@ -325,32 +350,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-common-excel</artifactId>
-				<version>2.4.13.20221030</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-flow-compose</artifactId>
 				<version>2.4.13.20221030</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-cache</artifactId>
-				<version>2.4.13.20221021</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-common-mail</artifactId>
-				<version>2.4.13.20221030</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-common-mq</artifactId>
-				<version>2.4.13.20221030</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-common-sms</artifactId>
+				<artifactId>eden-idempotent</artifactId>
 				<version>2.4.13.20221030</version>
 			</dependency>
 			<dependency>
