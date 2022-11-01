@@ -17,13 +17,12 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.ylzl.eden.common.mq.core.Message;
 import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.core.MessageQueueListener;
-import org.ylzl.eden.common.mq.core.MessageQueueType;
-import org.ylzl.eden.common.mq.env.MessageQueueProperties;
 import org.ylzl.eden.commons.lang.StringConstants;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * RocketMQ 消费者
@@ -45,7 +44,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final List<Consumer<String, String>> consumers = Lists.newArrayList();
 
-	private final MessageQueueProperties messageQueueProperties;
+	private final Function<String, Boolean> matcher;
 
 	private final KafkaProperties kafkaProperties;
 
@@ -104,7 +103,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 	private Consumer<String, String> createConsumer(MessageQueueConsumer messageQueueConsumer) {
 		Class<? extends MessageQueueConsumer> clazz = messageQueueConsumer.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
-		if (!checkMessageType(annotation.type())) {
+		if (!matcher.apply(annotation.type())) {
 			return null;
 		}
 
@@ -124,13 +123,5 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		return consumer;
 	}
 
-	private boolean checkMessageType(MessageQueueType annotationType) {
-		// 如果注解是默认值
-		if (MessageQueueType.DEFAULT.equals(annotationType)) {
-			// 判断配置项是否匹配
-			return MessageQueueType.KAFKA.equals(messageQueueProperties.getType());
-		}
 
-		return MessageQueueType.KAFKA.equals(annotationType);
-	}
 }

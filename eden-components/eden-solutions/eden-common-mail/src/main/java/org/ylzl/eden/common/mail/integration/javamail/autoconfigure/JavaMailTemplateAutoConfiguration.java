@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.common.mail.core.MailTemplate;
-import org.ylzl.eden.common.mail.core.MailType;
+import org.ylzl.eden.common.mail.autoconfigure.MailBeanType;
 import org.ylzl.eden.common.mail.integration.javamail.core.JavaMailTemplate;
 
 /**
@@ -31,7 +31,7 @@ public class JavaMailTemplateAutoConfiguration {
 
 	private final JavaMailSender javaMailSender;
 
-	@Bean(MailType.JAVA_MAIL_TEMPLATE)
+	@Bean(MailBeanType.JAVA_MAIL_TEMPLATE)
 	public MailTemplate mailTemplate() {
 		log.debug(AUTOWIRED_JAVA_MAIL_TEMPLATE);
 		return new JavaMailTemplate(javaMailSender);

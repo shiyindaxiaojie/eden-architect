@@ -16,17 +16,16 @@ import org.apache.rocketmq.remoting.RPCHook;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.ylzl.eden.common.mq.core.Message;
 import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.core.MessageQueueListener;
-import org.ylzl.eden.common.mq.core.MessageQueueType;
-import org.ylzl.eden.common.mq.env.MessageQueueProperties;
+import org.ylzl.eden.common.mq.core.consumer.MessageQueueConsumerException;
 import org.ylzl.eden.common.mq.integration.rocketmq.env.FixedRocketMQConsumerProperties;
 import org.ylzl.eden.commons.lang.StringConstants;
-import org.ylzl.eden.common.mq.core.Message;
-import org.ylzl.eden.common.mq.core.consumer.MessageQueueConsumerException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 /**
  * RocketMQ 消费者
@@ -48,7 +47,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 
 	private final List<DefaultMQPushConsumer> consumers = Lists.newArrayList();
 
-	private final MessageQueueProperties messageQueueProperties;
+	private final Function<String, Boolean> matcher;
 
 	private final RocketMQProperties rocketMQProperties;
 
@@ -108,7 +107,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 	private DefaultMQPushConsumer createConsumer(MessageQueueConsumer messageQueueConsumer) throws MQClientException {
 		Class<? extends MessageQueueConsumer> clazz = messageQueueConsumer.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
-		if (!checkMessageType(annotation.type())) {
+		if (!matcher.apply(annotation.type())) {
 			return null;
 		}
 
@@ -167,15 +166,5 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 
 		log.debug(CREATE_DEFAULT_MQPUSH_CONSUMER_GROUP_NAMESPACE_TOPIC, group, namespace, topic);
 		return consumer;
-	}
-
-	private boolean checkMessageType(MessageQueueType annotationType) {
-		// 如果注解是默认值
-		if (MessageQueueType.DEFAULT.equals(annotationType)) {
-			// 判断配置项是否匹配
-			return MessageQueueType.ROCKETMQ.equals(messageQueueProperties.getType());
-		}
-
-		return MessageQueueType.ROCKETMQ.equals(annotationType);
 	}
 }

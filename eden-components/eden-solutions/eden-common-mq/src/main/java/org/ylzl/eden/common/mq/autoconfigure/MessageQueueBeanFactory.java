@@ -2,11 +2,9 @@ package org.ylzl.eden.common.mq.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.common.mq.core.MessageQueueProvider;
-import org.ylzl.eden.common.mq.core.MessageQueueType;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.ServerAssert;
-
-import java.util.Objects;
+import org.ylzl.eden.spring.framework.error.util.MessageFormatUtils;
 
 /**
  * 消息队列实例工厂
@@ -17,20 +15,24 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MessageQueueBeanFactory {
 
-	private final MessageQueueType defaultType;
+	private static final String BEAN_DEFINITION_NOT_FOUND = "MessageQueueProvider beanDefinition not found";
+
+	private static final String BEAN_DEFINITION_NAMED_NOT_FOUND = "MessageQueueProvider beanDefinition named '{}' not found";
+
+	private final MessageQueueBeanType defaultType;
 
 	public MessageQueueProvider getProvider() {
 		MessageQueueProvider messageQueueProvider = ApplicationContextHelper
 			.getBean(defaultType.getProviderName(), MessageQueueProvider.class);
-		ServerAssert.notNull(messageQueueProvider, "SYS-ERROR-500", "MessageQueueProvider beanDefinition not found");
+		ServerAssert.notNull(messageQueueProvider, "SYS-ERROR-500", BEAN_DEFINITION_NOT_FOUND);
 		return messageQueueProvider;
 	}
 
-	public MessageQueueProvider getProvider(String type) {
-		String beanName = Objects.requireNonNull(MessageQueueType.parse(type)).getProviderName();
+	public MessageQueueProvider getProvider(MessageQueueBeanType type) {
+		String beanName = type.getProviderName();
 		MessageQueueProvider messageQueueProvider = ApplicationContextHelper.getBean(beanName, MessageQueueProvider.class);
-		ServerAssert.notNull(messageQueueProvider, "SYS-ERROR-500",
-			"MessageQueueProvider beanDefinition named '" + beanName + "' not found");
+		ServerAssert.notNull(messageQueueProvider, "SYS-ERROR-500", MessageFormatUtils.format(
+			BEAN_DEFINITION_NAMED_NOT_FOUND, beanName));
 		return messageQueueProvider;
 	}
 }

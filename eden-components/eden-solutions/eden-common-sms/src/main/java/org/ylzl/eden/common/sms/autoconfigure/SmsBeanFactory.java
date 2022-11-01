@@ -2,11 +2,9 @@ package org.ylzl.eden.common.sms.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.common.sms.core.SmsTemplate;
-import org.ylzl.eden.common.sms.core.SmsType;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.ClientAssert;
-
-import java.util.Objects;
+import org.ylzl.eden.spring.framework.error.util.MessageFormatUtils;
 
 /**
  * 短信操作实例工厂
@@ -17,18 +15,23 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class SmsBeanFactory {
 
-	private final SmsType defaultType;
+	private static final String BEAN_DEFINITION_NOT_FOUND = "SmsTemplate beanDefinition not found";
+
+	private static final String BEAN_DEFINITION_NOT_FOUND_BY = "SmsTemplate beanDefinition named '{}' not found by '{}'";
+
+	private final SmsBeanType defaultType;
 
 	public SmsTemplate getExecutor() {
 		SmsTemplate smsTemplate = ApplicationContextHelper.getBean(defaultType.getTemplateName(), SmsTemplate.class);
-		ClientAssert.notNull(smsTemplate, "SYS-ERROR-500", "SmsTemplate beanDefinition not found");
+		ClientAssert.notNull(smsTemplate, "SYS-ERROR-500", BEAN_DEFINITION_NOT_FOUND);
 		return smsTemplate;
 	}
 
-	public SmsTemplate getExecutor(String type) {
-		String beanName = Objects.requireNonNull(SmsType.parse(type)).getTemplateName();
+	public SmsTemplate getExecutor(SmsBeanType smsBeanType) {
+		String beanName = smsBeanType.getTemplateName();
 		SmsTemplate smsTemplate = ApplicationContextHelper.getBean(beanName, SmsTemplate.class);
-		ClientAssert.notNull(smsTemplate, "SYS-ERROR-500", "SmsTemplate beanDefinition named '" + beanName + "' not found");
+		ClientAssert.notNull(smsTemplate, "SYS-ERROR-500",
+			MessageFormatUtils.format(BEAN_DEFINITION_NOT_FOUND_BY, beanName, smsBeanType.name()));
 		return smsTemplate;
 	}
 }

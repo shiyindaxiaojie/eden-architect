@@ -14,12 +14,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.ylzl.eden.common.mq.autoconfigure.MessageQueueAutoConfiguration;
 import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.core.MessageQueueProvider;
-import org.ylzl.eden.common.mq.core.MessageQueueType;
+import org.ylzl.eden.common.mq.autoconfigure.MessageQueueBeanType;
 import org.ylzl.eden.common.mq.env.MessageQueueProperties;
 import org.ylzl.eden.common.mq.integration.kafka.core.KafkaConsumer;
 import org.ylzl.eden.common.mq.integration.kafka.core.KafkaProvider;
+import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Kafka 自动配置
@@ -41,17 +43,21 @@ public class KafkaMessageQueueAutoConfiguration {
 
 	public static final String AUTOWIRED_KAFKA_PROVIDER = "Autowired KafkaProvider";
 
-	@Bean(MessageQueueType.KAFKA_CONSUMER)
+	@Bean(MessageQueueBeanType.KAFKA_CONSUMER)
 	public KafkaConsumer kafkaConsumer(MessageQueueProperties messageQueueProperties,
                                        KafkaProperties kafkaProperties,
                                        ObjectProvider<List<MessageQueueConsumer>> messageListeners,
                                        ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
 		log.debug(AUTOWIRED_KAKFA_CONSUMER);
-		return new KafkaConsumer(messageQueueProperties, kafkaProperties, messageListeners.getIfAvailable(),
+		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type)?
+			MessageQueueBeanType.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getType().name()):
+			MessageQueueBeanType.KAFKA.name().equalsIgnoreCase(type);
+		return new KafkaConsumer(matcher,
+			kafkaProperties, messageListeners.getIfAvailable(),
 			consumerFactory.getIfAvailable());
 	}
 
-	@Bean(MessageQueueType.KAFKA_PROVIDER)
+	@Bean(MessageQueueBeanType.KAFKA_PROVIDER)
 	public MessageQueueProvider messageQueueProvider(KafkaTemplate<String, String> kafkaTemplate) {
 		log.debug(AUTOWIRED_KAFKA_PROVIDER);
 		return new KafkaProvider(kafkaTemplate);

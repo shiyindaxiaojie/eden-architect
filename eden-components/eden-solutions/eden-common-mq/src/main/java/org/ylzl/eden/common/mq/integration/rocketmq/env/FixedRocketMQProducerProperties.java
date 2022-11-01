@@ -1,6 +1,7 @@
 package org.ylzl.eden.common.mq.integration.rocketmq.env;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -9,7 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "rocketmq.producer")
 public class FixedRocketMQProducerProperties {
 

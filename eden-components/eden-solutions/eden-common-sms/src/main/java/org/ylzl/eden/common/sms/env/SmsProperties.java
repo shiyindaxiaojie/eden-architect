@@ -2,7 +2,7 @@ package org.ylzl.eden.common.sms.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.sms.core.SmsType;
+import org.ylzl.eden.common.sms.autoconfigure.SmsBeanType;
 
 /**
  * 短信配置
@@ -18,5 +18,5 @@ public class SmsProperties {
 
 	public static final String ENABLED = PREFIX + ".enabled";
 
-	private SmsType type;
+	private SmsBeanType type;
 }

@@ -9,7 +9,7 @@ package org.ylzl.eden.spring.framework.extension;
 public class ExtensionLoaderTest {
 
 	public static void main(String[] args) {
-		Demo demo = ExtensionLoader.getExtensionLoader(Demo.class).getExtension("demo2");
+		Demo demo = ExtensionLoader.getExtensionLoader(Demo.class).getExtension("demo1");
 		demo.echo();
 
 		Demo defaultDemo = ExtensionLoader.getExtensionLoader(Demo.class).getDefaultExtension();
