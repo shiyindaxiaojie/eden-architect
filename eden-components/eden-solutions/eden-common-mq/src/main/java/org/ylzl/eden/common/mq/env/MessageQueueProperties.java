@@ -2,7 +2,7 @@ package org.ylzl.eden.common.mq.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.mq.core.MessageQueueType;
+import org.ylzl.eden.common.mq.autoconfigure.MessageQueueBeanType;
 
 /**
  * 消息队列配置
@@ -18,5 +18,5 @@ public class MessageQueueProperties {
 
 	public static final String ENABLED = PREFIX + ".enabled";
 
-	private MessageQueueType type;
+	private MessageQueueBeanType type;
 }

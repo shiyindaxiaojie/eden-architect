@@ -1,21 +1,20 @@
-package org.ylzl.eden.common.sms.core;
+package org.ylzl.eden.common.sms.autoconfigure;
 
 import lombok.Getter;
 
 /**
- * 短信类型
+ * 短信注册类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Getter
-public enum SmsType {
+public enum SmsBeanType {
 
-	DEFAULT(null),
-	ALIYUN(SmsType.ALIYUN_SMS_TEMPLATE),
-	QCLOUD(SmsType.QCLOUD_SMS_TEMPLATE),
-	EMAY(SmsType.EMAY_SMS_TEMPLATE),
-	MONTNETS(SmsType.MONTNETS_SMS_TEMPLATE);
+	ALIYUN(SmsBeanType.ALIYUN_SMS_TEMPLATE),
+	QCLOUD(SmsBeanType.QCLOUD_SMS_TEMPLATE),
+	EMAY(SmsBeanType.EMAY_SMS_TEMPLATE),
+	MONTNETS(SmsBeanType.MONTNETS_SMS_TEMPLATE);
 
 	public static final String ALIYUN_SMS_TEMPLATE = "aliyunSmsTemplate";
 
@@ -27,14 +26,14 @@ public enum SmsType {
 
 	private final String templateName;
 
-	SmsType(String templateName) {
+	SmsBeanType(String templateName) {
 		this.templateName = templateName;
 	}
 
-	public static SmsType parse(String type) {
-		for (SmsType smsType : SmsType.values()) {
-			if (smsType.name().equalsIgnoreCase(type)) {
-				return smsType;
+	public static SmsBeanType parse(String type) {
+		for (SmsBeanType smsBeanType : SmsBeanType.values()) {
+			if (smsBeanType.name().equalsIgnoreCase(type)) {
+				return smsBeanType;
 			}
 		}
 		return null;

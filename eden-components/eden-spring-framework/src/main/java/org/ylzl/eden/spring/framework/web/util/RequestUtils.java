@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.framework.web.util;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.ylzl.eden.commons.lang.StringUtils;
@@ -26,15 +27,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Spring 请求上下文工具
+ * Request 工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class RequestContextHolderUtils {
-
-	private RequestContextHolderUtils() {
-	}
+@UtilityClass
+public class RequestUtils {
 
 	public static ServletRequestAttributes getServletRequestAttributes() {
 		return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -62,12 +61,19 @@ public class RequestContextHolderUtils {
 	}
 
 	public static String getRequestURI() {
-		HttpServletRequest request = getRequest();
-		return getRequestURI(request);
+		return getRequestURI(getRequest());
 	}
 
 	public static String getRequestURI(HttpServletRequest request) {
 		return request.getRequestURI();
+	}
+
+	public static String getRequestURL() {
+		return getRequestURL(getRequest());
+	}
+
+	public static String getRequestURL(HttpServletRequest request) {
+		return request.getRequestURL().toString();
 	}
 
 	public static String getContextPath() {

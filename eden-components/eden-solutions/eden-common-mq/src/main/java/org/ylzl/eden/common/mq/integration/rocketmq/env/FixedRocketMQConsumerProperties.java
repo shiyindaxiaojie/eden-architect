@@ -1,6 +1,7 @@
 package org.ylzl.eden.common.mq.integration.rocketmq.env;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.rocketmq.common.topic.TopicValidator;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -11,7 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @link https://github.com/apache/rocketmq-spring/blob/master/rocketmq-spring-boot/src/main/java/org/apache/rocketmq/spring/autoconfigure/RocketMQProperties.java
  * @since 2.4.13
  */
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "rocketmq.consumer")
 public class FixedRocketMQConsumerProperties {
 

@@ -39,13 +39,13 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 
 /**
- * Http 响应工具集
+ * Response 工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @UtilityClass
-public final class ResponseUtils {
+public class ResponseUtils {
 
 	public static final String ACCEPT_RANGES = "bytes";
 

@@ -1,5 +1,4 @@
-package org.ylzl.eden.idempotent.annotation;
-
+package org.ylzl.eden.idempotent.core.annotation;
 
 import org.ylzl.eden.commons.lang.StringConstants;
 

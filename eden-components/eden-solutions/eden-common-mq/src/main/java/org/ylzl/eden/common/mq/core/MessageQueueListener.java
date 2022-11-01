@@ -24,7 +24,7 @@ public @interface MessageQueueListener {
 	 *
 	 * @return 消息队列类型
 	 */
-	MessageQueueType type() default MessageQueueType.DEFAULT;
+	String type() default StringConstants.EMPTY;
 
 	/**
 	 * 设置消费者组

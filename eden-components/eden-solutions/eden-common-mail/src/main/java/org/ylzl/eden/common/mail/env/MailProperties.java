@@ -2,7 +2,7 @@ package org.ylzl.eden.common.mail.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.mail.core.MailType;
+import org.ylzl.eden.common.mail.autoconfigure.MailBeanType;
 
 /**
  * 邮件配置
@@ -18,5 +18,5 @@ public class MailProperties {
 
 	public static final String ENABLED = PREFIX + ".enabled";
 
-	private MailType type;
+	private MailBeanType type;
 }

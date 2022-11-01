@@ -23,8 +23,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.ylzl.eden.spring.framework.cola.catchlog.handler.CatchLogHandler;
 import org.ylzl.eden.spring.framework.error.BaseException;
 import org.ylzl.eden.spring.framework.error.ClientException;
@@ -39,9 +37,7 @@ import java.util.Arrays;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Order(1)
 @Slf4j
-@Component
 @Aspect
 public class CatchLogAspect {
 
@@ -59,11 +55,11 @@ public class CatchLogAspect {
 	public static final String EXIT_LOG = "Exit: {}() with result = {}";
 
 	@Pointcut("@within(org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.CatchLog) && execution(public * *(..))")
-	public void catchLogPointcut() {
+	public void pointcut() {
 	}
 
-	@Around("catchLogPointcut()")
-	public Object logAround(ProceedingJoinPoint joinPoint) {
+	@Around("pointcut()")
+	public Object around(ProceedingJoinPoint joinPoint) {
 		if (log.isDebugEnabled()) {
 			log.debug(ENTER_LOG, joinPoint.getSignature().getDeclaringTypeName(), Arrays.toString(joinPoint.getArgs()));
 		}
