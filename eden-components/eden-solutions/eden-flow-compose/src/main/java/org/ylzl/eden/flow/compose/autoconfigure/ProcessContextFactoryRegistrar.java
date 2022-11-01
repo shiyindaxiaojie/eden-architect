@@ -7,8 +7,8 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.flow.compose.config.parser.ClassPathXmlProcessParser;
-import org.ylzl.eden.flow.compose.process.factory.ProcessContextFactory;
+import org.ylzl.eden.flow.compose.core.config.parser.ClassPathXmlProcessParser;
+import org.ylzl.eden.flow.compose.core.context.factory.ProcessContextFactory;
 
 import java.util.Objects;
 
