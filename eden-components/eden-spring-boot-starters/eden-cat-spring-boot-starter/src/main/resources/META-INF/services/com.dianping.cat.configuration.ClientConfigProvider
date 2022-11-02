@@ -1,1 +1,1 @@
-org.ylzl.eden.spring.boot.cat.spi.CustomCatPropertyProvider
+org.ylzl.eden.cat.spring.boot.spi.CustomCatPropertyProvider

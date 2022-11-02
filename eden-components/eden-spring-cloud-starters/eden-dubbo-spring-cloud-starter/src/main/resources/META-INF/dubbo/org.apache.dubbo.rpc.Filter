@@ -1,1 +1,1 @@
-exception=org.ylzl.eden.spring.boot.dubbo.filter.DubboExceptionFilter
+exception=org.ylzl.eden.dubbo.spring.boot.filter.DubboExceptionFilter

@@ -13,7 +13,7 @@ import org.ylzl.eden.distributed.lock.integration.zookeeper.core.ZookeeperDistri
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.core.DistributedLockFactory;
 import org.ylzl.eden.distributed.lock.env.DistributedLockProperties;
-import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
+import org.ylzl.eden.zookeeper.spring.cloud.core.ZookeeperTemplate;
 
 /**
  * Curator 分布式锁自动配置

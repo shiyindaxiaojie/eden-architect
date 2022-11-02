@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.common.mail.spring.boot.autoconfigure.MailAutoConfiguration,\
+  org.ylzl.eden.common.mail.spring.boot.autoconfigure.JavaMailTemplateAutoConfiguration

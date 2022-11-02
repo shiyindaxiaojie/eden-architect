@@ -1,5 +1,34 @@
 @startuml
 
+[eden-architect] <<架构>>
+[eden-dependencies] <<依赖管理>>
+[eden-parent] <<父工程>>
+[eden-commons] <<工具集>>
+[eden-spring-framework] <<基础框架>>
+[eden-spring-data] <<数据存储组件>>
+[eden-spring-security] <<授权认证组件>>
+[eden-spring-integration] <<常用中间件>>
+[eden-spring-boot-starters] <<常用中间件自动装配>>
+[eden-spring-cloud] <<微服务组件>>
+[eden-spring-cloud-starters] <<微服务组件自动装配>>
+[eden-spring-test] <<测试组件>>
+[eden-solutions] <<解决方案>>
+
+skinparam component {
+ 	backgroundColor<<架构>> SkyBlue
+    backgroundColor<<依赖管理>> SkyBlue
+    backgroundColor<<父工程>> SkyBlue
+    backgroundColor<<工具集>> SkyBlue
+    backgroundColor<<基础框架>> SkyBlue
+	backgroundColor<<数据存储组件>> Pink
+	backgroundColor<<授权认证组件>> Pink
+	backgroundColor<<常用中间件>> Pink
+	backgroundColor<<微服务组件>> Pink
+    backgroundColor<<常用中间件自动装配>> PaleGreen
+    backgroundColor<<微服务组件自动装配>> PaleGreen
+	backgroundColor<<解决方案>> Khaki
+}
+
 [eden-dependencies] --> [eden-architect]
 [eden-parent] --> [eden-dependencies]
 [eden-commons] --> [eden-parent]
@@ -13,4 +42,6 @@
 [eden-spring-test] --> [eden-spring-integration]
 [eden-spring-boot-starters] --> [eden-parent]
 [eden-spring-cloud-starters] --> [eden-parent]
+[eden-solutions] --> [eden-commons]
+[eden-solutions] --> [eden-spring-framework]
 @enduml

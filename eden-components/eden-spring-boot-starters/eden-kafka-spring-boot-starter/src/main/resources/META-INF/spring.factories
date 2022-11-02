@@ -1,3 +1,3 @@
 # Auto Configuration Import Filters
 org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=\
-  org.ylzl.eden.spring.boot.kafka.autoconfigure.KafkaAutoConfigurationImportFilter
+  org.ylzl.eden.kafka.spring.boot.autoconfigure.KafkaAutoConfigurationImportFilter

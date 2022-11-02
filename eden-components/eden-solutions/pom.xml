@@ -37,8 +37,11 @@
 		<module>eden-common-cache</module>
 		<module>eden-common-excel</module>
 		<module>eden-common-mail</module>
+		<module>eden-common-mail-spring-boot-starter</module>
 		<module>eden-common-mq</module>
+		<module>eden-common-mq-spring-boot-starter</module>
 		<module>eden-common-sms</module>
+		<module>eden-common-sms-spring-boot-starter</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>

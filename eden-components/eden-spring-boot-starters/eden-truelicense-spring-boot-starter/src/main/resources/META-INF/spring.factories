@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.boot.truelicense.autoconfigure.TrueLicenseClientAutoConfiguration,\
-  org.ylzl.eden.spring.boot.truelicense.autoconfigure.TrueLicenseServerAutoConfiguration
+  org.ylzl.eden.truelicense.spring.boot.autoconfigure.TrueLicenseClientAutoConfiguration,\
+  org.ylzl.eden.truelicense.spring.boot.autoconfigure.TrueLicenseServerAutoConfiguration
