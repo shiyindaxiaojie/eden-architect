@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.common.mail.MailTemplate;
+import org.ylzl.eden.common.mail.core.MailTemplate;
+import org.ylzl.eden.common.mail.spring.boot.autoconfigure.factory.MailBeanFactory;
 import org.ylzl.eden.common.mail.spring.boot.env.MailProperties;
 
 /**

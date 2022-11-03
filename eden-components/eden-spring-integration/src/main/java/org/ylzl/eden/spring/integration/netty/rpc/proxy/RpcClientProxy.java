@@ -20,8 +20,8 @@ package org.ylzl.eden.spring.integration.netty.rpc.proxy;
 import net.sf.cglib.proxy.InvocationHandler;
 import org.ylzl.eden.commons.bytecode.CglibProxy;
 import org.ylzl.eden.spring.integration.netty.rpc.RpcClient;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcRequest;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcResponse;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcRequest;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
 
 import java.util.UUID;
 

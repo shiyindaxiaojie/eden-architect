@@ -18,7 +18,7 @@
 package org.ylzl.eden.spring.integration.netty.rpc.client;
 
 import lombok.SneakyThrows;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcResponse;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
 
 /**
  * Netty RPC 异步调用结果

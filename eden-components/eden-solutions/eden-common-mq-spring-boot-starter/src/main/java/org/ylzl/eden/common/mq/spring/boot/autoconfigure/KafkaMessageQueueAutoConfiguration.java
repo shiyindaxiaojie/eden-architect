@@ -11,13 +11,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.ylzl.eden.common.mq.autoconfigure.MessageQueueAutoConfiguration;
-import org.ylzl.eden.common.mq.MessageQueueConsumer;
-import org.ylzl.eden.common.mq.MessageQueueProvider;
-import org.ylzl.eden.common.mq.autoconfigure.MessageQueueBeanType;
-import org.ylzl.eden.common.mq.env.MessageQueueProperties;
+import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
+import org.ylzl.eden.common.mq.core.MessageQueueProvider;
 import org.ylzl.eden.common.mq.integration.kafka.KafkaConsumer;
 import org.ylzl.eden.common.mq.integration.kafka.KafkaProvider;
+import org.ylzl.eden.common.mq.spring.boot.autoconfigure.factory.MessageQueueBeanType;
+import org.ylzl.eden.common.mq.spring.boot.env.MessageQueueProperties;
 import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.List;
@@ -45,9 +44,9 @@ public class KafkaMessageQueueAutoConfiguration {
 
 	@Bean(MessageQueueBeanType.KAFKA_CONSUMER)
 	public KafkaConsumer kafkaConsumer(MessageQueueProperties messageQueueProperties,
-                                       KafkaProperties kafkaProperties,
-                                       ObjectProvider<List<MessageQueueConsumer>> messageListeners,
-                                       ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
+									   KafkaProperties kafkaProperties,
+									   ObjectProvider<List<MessageQueueConsumer>> messageListeners,
+									   ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
 		log.debug(AUTOWIRED_KAKFA_CONSUMER);
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type)?
 			MessageQueueBeanType.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getType().name()):

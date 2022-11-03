@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.ylzl.eden.common.cache.core.config.CacheConfig;
+import org.ylzl.eden.common.cache.config.CacheConfig;
 
 /**
  * 缓存配置

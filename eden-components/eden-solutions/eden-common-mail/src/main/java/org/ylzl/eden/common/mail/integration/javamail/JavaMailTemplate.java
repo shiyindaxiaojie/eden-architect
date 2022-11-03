@@ -5,12 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.ylzl.eden.common.mail.MailModel;
-import org.ylzl.eden.common.mail.MailTemplate;
+import org.ylzl.eden.common.mail.model.Mail;
+import org.ylzl.eden.common.mail.core.MailTemplate;
 import org.ylzl.eden.common.mail.exception.SendMailException;
 import org.ylzl.eden.common.mail.multi.MultiSendMailRequest;
 import org.ylzl.eden.common.mail.multi.MultiSendMailResponse;
-import org.ylzl.eden.common.mail.single.SingleSendMailRequestModel;
+import org.ylzl.eden.common.mail.single.SingleSendMailRequest;
 import org.ylzl.eden.common.mail.single.SingleSendMailResponse;
 
 /**
@@ -32,7 +32,7 @@ public class JavaMailTemplate implements MailTemplate {
 	 * @return 发送邮件响应
 	 */
 	@Override
-	public SingleSendMailResponse singleSend(SingleSendMailRequestModel request) {
+	public SingleSendMailResponse singleSend(SingleSendMailRequest request) {
 		log.debug("单条发送 JavaMail 邮件请求，参数：{}", request);
 		SimpleMailMessage message = buildSimpleMailMessage(request);
 		try {
@@ -54,7 +54,7 @@ public class JavaMailTemplate implements MailTemplate {
 	public MultiSendMailResponse multiSend(MultiSendMailRequest request) {
 		log.debug("批量发送 JavaMail 个性化邮件请求，参数：{}", request);
 		SimpleMailMessage[] simpleMailMessages =
-			request.getMailModelList().stream()
+			request.getMailList().stream()
 				.map(this::buildSimpleMailMessage).toArray(SimpleMailMessage[]::new);
 		try {
 			javaMailSender.send(simpleMailMessages);
@@ -65,7 +65,7 @@ public class JavaMailTemplate implements MailTemplate {
 		}
 	}
 
-	private SimpleMailMessage buildSimpleMailMessage(MailModel request) {
+	private SimpleMailMessage buildSimpleMailMessage(Mail request) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(request.getFrom());
 		message.setReplyTo(request.getReplyTo());

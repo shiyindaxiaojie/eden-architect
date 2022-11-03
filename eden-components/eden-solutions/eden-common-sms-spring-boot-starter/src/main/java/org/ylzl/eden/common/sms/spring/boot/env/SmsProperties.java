@@ -2,7 +2,7 @@ package org.ylzl.eden.common.sms.spring.boot.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.sms.spring.boot.autoconfigure.SmsBeanType;
+import org.ylzl.eden.common.sms.spring.boot.autoconfigure.factory.SmsBeanType;
 
 /**
  * 短信配置

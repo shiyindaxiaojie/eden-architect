@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.uid.core.DistributedUID;
-import org.ylzl.eden.distributed.uid.core.DistributedUIDFactory;
+import org.ylzl.eden.distributed.uid.autoconfigure.factory.DistributedUIDFactory;
 import org.ylzl.eden.distributed.uid.env.DistributedUIDProperties;
 
 /**

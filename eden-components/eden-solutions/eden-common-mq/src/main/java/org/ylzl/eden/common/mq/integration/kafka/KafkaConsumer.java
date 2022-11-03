@@ -14,9 +14,9 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.common.mq.Message;
-import org.ylzl.eden.common.mq.MessageQueueConsumer;
-import org.ylzl.eden.common.mq.MessageQueueListener;
+import org.ylzl.eden.common.mq.model.Message;
+import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
+import org.ylzl.eden.common.mq.core.MessageQueueListener;
 import org.ylzl.eden.commons.lang.StringConstants;
 
 import java.util.Collections;

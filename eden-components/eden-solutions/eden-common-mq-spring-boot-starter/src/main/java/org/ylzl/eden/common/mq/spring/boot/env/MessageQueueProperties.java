@@ -2,7 +2,7 @@ package org.ylzl.eden.common.mq.spring.boot.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.mq.autoconfigure.MessageQueueBeanType;
+import org.ylzl.eden.common.mq.spring.boot.autoconfigure.factory.MessageQueueBeanType;
 
 /**
  * 消息队列配置

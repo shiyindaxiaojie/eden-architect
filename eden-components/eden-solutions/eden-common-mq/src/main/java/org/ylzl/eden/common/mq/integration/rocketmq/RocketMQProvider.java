@@ -7,12 +7,12 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.ylzl.eden.common.mq.MessageQueueProvider;
-import org.ylzl.eden.common.mq.Message;
-import org.ylzl.eden.common.mq.producer.MessageQueueProducerException;
+import org.ylzl.eden.common.mq.core.MessageQueueProvider;
+import org.ylzl.eden.common.mq.exception.MessageQueueProducerException;
+import org.ylzl.eden.common.mq.model.Message;
 import org.ylzl.eden.common.mq.producer.MessageSendCallback;
 import org.ylzl.eden.common.mq.producer.MessageSendResult;
-import org.ylzl.eden.common.mq.integration.rocketmq.env.FixedRocketMQProducerProperties;
+import org.ylzl.eden.common.mq.integration.rocketmq.config.RocketMQProducerConfig;
 
 import java.nio.charset.StandardCharsets;
 
@@ -32,7 +32,7 @@ public class RocketMQProvider implements MessageQueueProvider {
 
 	private final RocketMQTemplate rocketMQTemplate;
 
-	private final FixedRocketMQProducerProperties fixedRocketMQProducerProperties;
+	private final RocketMQProducerConfig rocketMQProducerConfig;
 
 	/**
 	 * 同步发送消息
@@ -68,8 +68,8 @@ public class RocketMQProvider implements MessageQueueProvider {
 		DefaultMQProducer producer = rocketMQTemplate.getProducer();
 		if (StringUtils.isNotBlank(message.getNamespace())) {
 			producer.setNamespace(message.getNamespace());
-		} else if (StringUtils.isNotBlank(fixedRocketMQProducerProperties.getNamespace())) {
-			producer.setNamespace(fixedRocketMQProducerProperties.getNamespace());
+		} else if (StringUtils.isNotBlank(rocketMQProducerConfig.getNamespace())) {
+			producer.setNamespace(rocketMQProducerConfig.getNamespace());
 		}
 
 		try {

@@ -2,7 +2,7 @@ package org.ylzl.eden.common.mail.spring.boot.env;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.common.mail.spring.boot.autoconfigure.MailBeanType;
+import org.ylzl.eden.common.mail.spring.boot.autoconfigure.factory.MailBeanType;
 
 /**
  * 邮件配置

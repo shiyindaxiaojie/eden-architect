@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.autoconfigure.DistributedLockAutoConfiguration;
-import org.ylzl.eden.distributed.lock.integration.curator.core.CuratorDistributedLock;
+import org.ylzl.eden.distributed.lock.integration.curator.CuratorDistributedLock;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.core.DistributedLockFactory;
+import org.ylzl.eden.distributed.lock.autoconfigure.factory.DistributedLockFactory;
 import org.ylzl.eden.distributed.lock.env.DistributedLockProperties;
 
 /**

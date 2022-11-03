@@ -28,11 +28,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.ftpclient.spring.boot.env.FTPClientProperties;
 import org.ylzl.eden.spring.integration.ftpclient.config.FTPClientConfig;
-import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientPool;
+import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool;
 import org.ylzl.eden.spring.integration.ftpclient.core.FTPClientTemplate;
 import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2;
-import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
-import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Factory;
+import org.ylzl.eden.spring.integration.ftpclient.pool2.config.FTPClientPool2Config;
+import org.ylzl.eden.spring.integration.ftpclient.pool2.factory.FTPClientPool2Factory;
 
 /**
  * FTPClient 自动装配

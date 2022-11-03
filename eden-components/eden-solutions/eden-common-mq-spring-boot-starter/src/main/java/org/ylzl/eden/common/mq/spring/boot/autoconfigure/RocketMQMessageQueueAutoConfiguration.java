@@ -11,15 +11,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.common.mq.autoconfigure.MessageQueueAutoConfiguration;
-import org.ylzl.eden.common.mq.MessageQueueConsumer;
-import org.ylzl.eden.common.mq.MessageQueueProvider;
-import org.ylzl.eden.common.mq.autoconfigure.MessageQueueBeanType;
-import org.ylzl.eden.common.mq.env.MessageQueueProperties;
-import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQProvider;
-import org.ylzl.eden.common.mq.integration.rocketmq.env.FixedRocketMQConsumerProperties;
-import org.ylzl.eden.common.mq.integration.rocketmq.env.FixedRocketMQProducerProperties;
+import org.ylzl.eden.common.mq.core.MessageQueueConsumer;
+import org.ylzl.eden.common.mq.core.MessageQueueProvider;
 import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQConsumer;
+import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQProvider;
+import org.ylzl.eden.common.mq.spring.boot.autoconfigure.factory.MessageQueueBeanType;
+import org.ylzl.eden.common.mq.spring.boot.env.RocketMQConsumerProperties;
+import org.ylzl.eden.common.mq.spring.boot.env.RocketMQProducerProperties;
+import org.ylzl.eden.common.mq.spring.boot.env.MessageQueueProperties;
+import org.ylzl.eden.common.mq.spring.boot.env.convertor.RocketMQConsumerConvertor;
+import org.ylzl.eden.common.mq.spring.boot.env.convertor.RocketMQProducerConvertor;
 import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.List;
@@ -36,8 +37,8 @@ import java.util.function.Function;
 @ConditionalOnClass(RocketMQTemplate.class)
 @ConditionalOnProperty(value = RocketMQMessageQueueAutoConfiguration.ENABLED, matchIfMissing = true)
 @EnableConfigurationProperties({
-	FixedRocketMQProducerProperties.class,
-	FixedRocketMQConsumerProperties.class
+	RocketMQProducerProperties.class,
+	RocketMQConsumerProperties.class
 })
 @Slf4j
 @Configuration(proxyBeanMethods = false)
@@ -51,21 +52,23 @@ public class RocketMQMessageQueueAutoConfiguration {
 
 	@Bean(MessageQueueBeanType.ROCKETMQ_CONSUMER)
 	public RocketMQConsumer rocketMQConsumer(MessageQueueProperties messageQueueProperties,
-                                             RocketMQProperties rocketMQProperties,
-                                             FixedRocketMQConsumerProperties fixedRocketMQConsumerProperties,
-                                             ObjectProvider<List<MessageQueueConsumer>> messageListeners) {
+											 RocketMQProperties rocketMQProperties,
+											 RocketMQConsumerProperties rocketMQConsumerProperties,
+											 ObjectProvider<List<MessageQueueConsumer>> messageListeners) {
 		log.debug(AUTOWIRED_ROCKET_MQ_CONSUMER);
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type)?
 			MessageQueueBeanType.ROCKETMQ.name().equalsIgnoreCase(messageQueueProperties.getType().name()):
 			MessageQueueBeanType.ROCKETMQ.name().equalsIgnoreCase(type);
-		return new RocketMQConsumer(matcher, rocketMQProperties, fixedRocketMQConsumerProperties,
+		return new RocketMQConsumer(matcher, rocketMQProperties,
+			RocketMQConsumerConvertor.INSTANCE.toConfig(rocketMQConsumerProperties),
 			messageListeners.getIfAvailable());
 	}
 
 	@Bean(MessageQueueBeanType.ROCKETMQ_PROVIDER)
 	public MessageQueueProvider messageQueueProvider(RocketMQTemplate rocketMQTemplate,
-                                                     FixedRocketMQProducerProperties fixedRocketMQProducerProperties) {
+                                                     RocketMQProducerProperties rocketMQProducerProperties) {
 		log.debug(AUTOWIRED_ROCKET_MQ_PROVIDER);
-		return new RocketMQProvider(rocketMQTemplate, fixedRocketMQProducerProperties);
+		return new RocketMQProvider(rocketMQTemplate,
+			RocketMQProducerConvertor.INSTANCE.toConfig(rocketMQProducerProperties));
 	}
 }

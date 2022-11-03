@@ -25,7 +25,8 @@ import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 import org.ylzl.eden.spring.integration.truelicense.keystore.CustomKeyStoreParam;
-import org.ylzl.eden.spring.integration.truelicense.manager.env.LicenseOS;
+import org.ylzl.eden.spring.integration.truelicense.model.LicenseContentExtra;
+import org.ylzl.eden.spring.integration.truelicense.model.LicenseOS;
 
 import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;

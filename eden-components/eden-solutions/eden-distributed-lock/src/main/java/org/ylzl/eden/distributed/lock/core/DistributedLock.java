@@ -1,5 +1,7 @@
 package org.ylzl.eden.distributed.lock.core;
 
+import org.ylzl.eden.distributed.lock.exception.DistributedLockException;
+
 import java.util.concurrent.TimeUnit;
 
 /**

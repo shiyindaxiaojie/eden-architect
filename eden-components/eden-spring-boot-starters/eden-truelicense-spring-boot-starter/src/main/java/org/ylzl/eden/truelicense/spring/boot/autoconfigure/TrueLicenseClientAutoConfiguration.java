@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
-import org.ylzl.eden.spring.integration.truelicense.manager.LicenseInstall;
-import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
+import org.ylzl.eden.spring.integration.truelicense.core.LicenseInstall;
+import org.ylzl.eden.spring.integration.truelicense.core.LicenseVerify;
 
 /**
  * TrueLicense 客户端配置
@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseVerify;
  * @since 2.4.13
  */
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".client.enabled")
-@Import(TrueLicenseConfiguration.class)
+@Import(TrueLicenseManagerConfiguration.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class TrueLicenseClientAutoConfiguration {

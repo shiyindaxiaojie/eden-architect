@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.ylzl.eden.commons.env.CharsetConstants;
-import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool2Config;
+import org.ylzl.eden.spring.integration.ftpclient.pool2.config.FTPClientPool2Config;
 
 /**
  * FTPClient 配置属性

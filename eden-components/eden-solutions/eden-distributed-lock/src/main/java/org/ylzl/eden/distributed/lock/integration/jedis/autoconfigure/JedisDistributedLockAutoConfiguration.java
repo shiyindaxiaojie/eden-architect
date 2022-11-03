@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.distributed.lock.autoconfigure.DistributedLockAutoConfiguration;
-import org.ylzl.eden.distributed.lock.integration.jedis.core.JedisDistributedLock;
+import org.ylzl.eden.distributed.lock.integration.jedis.JedisDistributedLock;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.core.DistributedLockFactory;
+import org.ylzl.eden.distributed.lock.autoconfigure.factory.DistributedLockFactory;
 import org.ylzl.eden.distributed.lock.env.DistributedLockProperties;
 import redis.clients.jedis.Jedis;
 

@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.autoconfigure.DistributedLockAutoConfiguration;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.core.DistributedLockFactory;
+import org.ylzl.eden.distributed.lock.autoconfigure.factory.DistributedLockFactory;
 import org.ylzl.eden.distributed.lock.env.DistributedLockProperties;
-import org.ylzl.eden.distributed.lock.integration.redisson.core.RedissonDistributedLock;
+import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
 
 /**
  * Redisson 分布式锁自动配置

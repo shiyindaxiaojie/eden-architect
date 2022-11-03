@@ -2,7 +2,7 @@ package org.ylzl.eden.common.mail.multi;
 
 import com.google.common.collect.Lists;
 import lombok.*;
-import org.ylzl.eden.common.mail.MailModel;
+import org.ylzl.eden.common.mail.model.Mail;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,14 +24,14 @@ public class MultiSendMailRequest implements Serializable {
 	/**
 	 * 个性化群发短信
 	 */
-	private List<MailModel> mailModelList = Lists.newArrayList();
+	private List<Mail> mailList = Lists.newArrayList();
 
 	/**
 	 * 添加群发对象
 	 *
-	 * @param mailModel
+	 * @param mail
 	 */
-	public void addSimpleMail(MailModel mailModel) {
-		mailModelList.add(mailModel);
+	public void addSimpleMail(Mail mail) {
+		mailList.add(mail);
 	}
 }

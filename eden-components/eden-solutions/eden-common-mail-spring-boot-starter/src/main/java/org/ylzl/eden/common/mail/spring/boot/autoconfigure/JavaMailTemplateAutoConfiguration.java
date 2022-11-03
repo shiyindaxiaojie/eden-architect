@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.ylzl.eden.common.mail.MailTemplate;
+import org.ylzl.eden.common.mail.core.MailTemplate;
 import org.ylzl.eden.common.mail.integration.javamail.JavaMailTemplate;
+import org.ylzl.eden.common.mail.spring.boot.autoconfigure.factory.MailBeanType;
 
 /**
  * JavaMailTemplate 自动装配

@@ -16,8 +16,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
-import org.ylzl.eden.spring.integration.xxljob.core.AutoRegisterXxlJobSpringExecutor;
-import org.ylzl.eden.spring.integration.xxljob.core.XxlJobAdminTemplate;
+import org.ylzl.eden.spring.integration.xxljob.admin.AutoRegisterXxlJobSpringExecutor;
+import org.ylzl.eden.spring.integration.xxljob.admin.XxlJobAdminTemplate;
 
 import java.io.File;
 

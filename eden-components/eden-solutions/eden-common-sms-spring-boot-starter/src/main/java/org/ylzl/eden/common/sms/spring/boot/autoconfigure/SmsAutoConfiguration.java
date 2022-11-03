@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.common.sms.SmsTemplate;
+import org.ylzl.eden.common.sms.spring.boot.autoconfigure.factory.SmsBeanFactory;
 import org.ylzl.eden.common.sms.spring.boot.env.SmsProperties;
 
 /**

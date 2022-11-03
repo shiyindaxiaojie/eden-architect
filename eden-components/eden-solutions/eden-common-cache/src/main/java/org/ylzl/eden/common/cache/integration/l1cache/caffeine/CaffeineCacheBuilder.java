@@ -3,12 +3,12 @@ package org.ylzl.eden.common.cache.integration.l1cache.caffeine;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.common.cache.core.builder.AbstractCacheBuilder;
-import org.ylzl.eden.common.cache.core.config.CacheConfig;
-import org.ylzl.eden.common.cache.core.config.CacheSpec;
-import org.ylzl.eden.common.cache.core.expire.CacheExpiredCause;
-import org.ylzl.eden.common.cache.core.expire.CacheExpiredListener;
-import org.ylzl.eden.common.cache.core.loader.CacheLoader;
+import org.ylzl.eden.common.cache.builder.AbstractCacheBuilder;
+import org.ylzl.eden.common.cache.config.CacheConfig;
+import org.ylzl.eden.common.cache.config.CacheSpec;
+import org.ylzl.eden.common.cache.expire.CacheExpiredCause;
+import org.ylzl.eden.common.cache.expire.CacheExpiredListener;
+import org.ylzl.eden.common.cache.loader.CacheLoader;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.extension.ExtensionLoader;
 

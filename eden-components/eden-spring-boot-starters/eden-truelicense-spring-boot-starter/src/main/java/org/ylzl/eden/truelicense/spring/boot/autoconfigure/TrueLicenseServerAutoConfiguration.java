@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
-import org.ylzl.eden.spring.integration.truelicense.manager.LicenseStore;
+import org.ylzl.eden.spring.integration.truelicense.core.LicenseStore;
 
 /**
  * TrueLicense 服务端配置
@@ -34,7 +34,7 @@ import org.ylzl.eden.spring.integration.truelicense.manager.LicenseStore;
  * @since 2.4.13
  */
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".server.enabled")
-@Import(TrueLicenseConfiguration.class)
+@Import(TrueLicenseManagerConfiguration.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class TrueLicenseServerAutoConfiguration {

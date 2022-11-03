@@ -15,7 +15,7 @@ import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
 import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
-import org.ylzl.eden.spring.integration.cat.annotations.CatAnnotationProcessorRegister;
+import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessorRegister;
 
 /**
  * CAT 自动装配
