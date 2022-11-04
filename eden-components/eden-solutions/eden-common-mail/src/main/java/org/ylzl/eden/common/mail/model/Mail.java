@@ -17,7 +17,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Data
-public class MailModel {
+public class Mail {
 
 	private String from;
 
