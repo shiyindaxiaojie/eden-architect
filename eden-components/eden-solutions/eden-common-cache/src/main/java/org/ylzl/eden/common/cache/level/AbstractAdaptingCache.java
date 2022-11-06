@@ -15,7 +15,6 @@ import java.util.function.Function;
 /**
  * 缓存接口适配器
  *
- * @see org.springframework.cache.support.AbstractValueAdaptingCache
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */

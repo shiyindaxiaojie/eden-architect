@@ -23,32 +23,32 @@ public interface Cache extends Serializable {
 	/**
 	 * 获取缓存名称
 	 *
-	 * @return
+	 * @return 缓存名称
 	 */
 	String getCacheName();
 
 	/**
 	 * 使用本地缓存提供类
 	 *
-	 * @return
+	 * @return 本地缓存提供类
 	 */
 	Object getNativeCache();
 
 	/**
 	 * 获取指定key的缓存项
 	 *
-	 * @param key
-	 * @return
+	 * @param key 缓存Key
+	 * @return 缓存值
 	 */
 	Object get(Object key);
 
 	/**
 	 * 获取指定key的缓存项，并返回指定类型的返回值
 	 *
-	 * @param key
-	 * @param type
-	 * @return
-	 * @param <T>
+	 * @param key 缓存Key
+	 * @param type 缓存Class
+	 * @return 缓存值
+	 * @param <T> 泛型
 	 */
 	default <T> T get(Object key, Class<T> type) {
 		Object value = get(key);
@@ -65,27 +65,27 @@ public interface Cache extends Serializable {
 	/**
 	 * 获取指定key的缓存项，如果缓存项不存在，则通过 {@code valueLoader} 获取值
 	 *
-	 * @param key
-	 * @param valueLoader
-	 * @return
-	 * @param <T>
+	 * @param key 缓存Key
+	 * @param valueLoader 缓存ValueLoader
+	 * @return 缓存值
+	 * @param <T> 泛型
 	 */
 	<T> T get(Object key, Callable<T> valueLoader);
 
 	/**
 	 * 设置指定key的缓存项
 	 *
-	 * @param key
-	 * @param value
+	 * @param key 缓存Key
+	 * @param value 缓存值
 	 */
 	void put(Object key, Object value);
 
 	/**
 	 * 设置指定key的缓存项，如果已存在则忽略
 	 *
-	 * @param key
-	 * @param value
-	 * @return
+	 * @param key 缓存Key
+	 * @param value 缓存值
+	 * @return 缓存值
 	 */
 	default Object putIfAbsent(Object key, Object value) {
 		Object existingValue = get(key);
@@ -98,15 +98,15 @@ public interface Cache extends Serializable {
 	/**
 	 * 删除指定的缓存项
 	 *
-	 * @param key
+	 * @param key 存Key
 	 */
 	void evict(Object key);
 
 	/**
 	 * 删除指定的缓存项，如果不存在则返回 false
 	 *
-	 * @param key
-	 * @return
+	 * @param key 缓存Key
+	 * @return 删除是否成功
 	 */
 	default boolean evictIfPresent(Object key) {
 		evict(key);
@@ -121,7 +121,7 @@ public interface Cache extends Serializable {
 	/**
 	 * 缓存无效化
 	 *
-	 * @return
+	 * @return 清空缓存是否成功
 	 */
 	default boolean invalidate() {
 		clear();
@@ -131,33 +131,36 @@ public interface Cache extends Serializable {
 	/**
 	 * 获取缓存实例ID
 	 *
-	 * @return
+	 * @return 缓存实例ID
 	 */
 	String getInstanceId();
 
 	/**
 	 * 获取缓存类型
 	 *
-	 * @return
+	 * @return 缓存类型
 	 */
 	String getCacheType();
 
 	/**
 	 * 判断是否允许存储空值，避免缓存击穿
 	 *
-	 * @return
+	 * @return 是否允许存储空值
 	 */
 	boolean isAllowNullValues();
 
 	/**
 	 * 获取 NULL值的过期时间（秒）
 	 *
-	 * @return
+	 * @return NULL值的过期时间（秒）
 	 */
 	long getNullValueExpireTimeSeconds();
 
 	/**
 	 * 从存储值解析为具体值
+	 *
+	 * @param storeValue 存储值
+	 * @return 具体值
 	 */
 	default Object fromStoreValue(Object storeValue) {
 		return NullValueUtils.fromStoreValue(storeValue, this.isAllowNullValues());
@@ -165,6 +168,9 @@ public interface Cache extends Serializable {
 
 	/**
 	 * 转换为存储值
+	 *
+	 * @param userValue 具体值
+	 * @return 存储值
 	 */
 	default Object toStoreValue(Object userValue) {
 		return NullValueUtils.toStoreValue(userValue, this.isAllowNullValues(), this.getCacheName());

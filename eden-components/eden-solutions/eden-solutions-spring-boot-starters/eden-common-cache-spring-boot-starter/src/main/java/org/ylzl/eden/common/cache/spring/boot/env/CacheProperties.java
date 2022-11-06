@@ -1,4 +1,4 @@
-package org.ylzl.eden.common.cache.env;
+package org.ylzl.eden.common.cache.spring.boot.env;
 
 import lombok.Getter;
 import lombok.Setter;
