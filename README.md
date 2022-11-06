@@ -16,8 +16,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ## 主要功能
 
-* **Maven 依赖和插件封装**：解决了主流技术组件集成产生的依赖冲突问题，并提供相关组件的 `Spring Boot Starter`，为开发者减少在组件集成消耗的时间。另外，提供了各种 Maven 插件（几乎覆盖市面上 99%
-  的组件），降低了各种 Maven 插件集成的复杂度，开发者只需要直接引入插件就可以实现灵活的构建操作。
+* **依赖管理和插件封装**：解决了主流技术组件集成产生的依赖冲突问题，并提供相关组件的 `Spring Boot Starter`，为开发者减少在组件集成消耗的时间。另外，提供了各种常用的插件，降低了各种 Maven 插件集成的复杂度，开发者只需要直接引入插件就可以实现灵活的构建操作。
 * **数据访问能力封装**：提供了 `Spring Data Redis`、`Spring Data Elasticsearch`、`Spring Data MongoDB` 等集成能力，并解决 `Mybatis Plus`
   和 `PageHelper` 的冲突问题，开发者可以同时使用两者的特性，并提供了多数据源访问的支持，开发者通过 `@DS` 注解就可以直接完成数据源的切换。
 * **数据分片能力封装**：提供了 `Sharding JDBC` 的封装，兼容 `Mybatis Plus`、`DynamicDataSource` 组件。
