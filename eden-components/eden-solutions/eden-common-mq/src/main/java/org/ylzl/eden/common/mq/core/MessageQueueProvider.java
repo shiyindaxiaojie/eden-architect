@@ -1,8 +1,9 @@
 package org.ylzl.eden.common.mq.core;
 
-import org.ylzl.eden.common.mq.core.producer.MessageQueueProducerException;
-import org.ylzl.eden.common.mq.core.producer.MessageSendCallback;
-import org.ylzl.eden.common.mq.core.producer.MessageSendResult;
+import org.ylzl.eden.common.mq.model.Message;
+import org.ylzl.eden.common.mq.exception.MessageQueueProducerException;
+import org.ylzl.eden.common.mq.producer.MessageSendCallback;
+import org.ylzl.eden.common.mq.producer.MessageSendResult;
 
 /**
  * 消息队列生产者

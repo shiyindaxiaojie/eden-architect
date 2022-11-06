@@ -1,9 +1,9 @@
 package org.ylzl.eden.common.mail.core;
 
-import org.ylzl.eden.common.mail.core.multi.MultiSendMailRequest;
-import org.ylzl.eden.common.mail.core.multi.MultiSendMailResponse;
-import org.ylzl.eden.common.mail.core.single.SingleSendMailRequestModel;
-import org.ylzl.eden.common.mail.core.single.SingleSendMailResponse;
+import org.ylzl.eden.common.mail.multi.MultiSendMailRequest;
+import org.ylzl.eden.common.mail.multi.MultiSendMailResponse;
+import org.ylzl.eden.common.mail.single.SingleSendMailRequest;
+import org.ylzl.eden.common.mail.single.SingleSendMailResponse;
 
 /**
  * 邮件操作模板
@@ -19,7 +19,7 @@ public interface MailTemplate {
 	 * @param request 发送邮件请求
 	 * @return 发送邮件响应
 	 */
-	SingleSendMailResponse singleSend(SingleSendMailRequestModel request);
+	SingleSendMailResponse singleSend(SingleSendMailRequest request);
 
 	/**
 	 * 批量发送个性化邮件

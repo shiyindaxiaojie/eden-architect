@@ -20,8 +20,8 @@ package org.ylzl.eden.spring.integration.netty.rpc.client;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcRequest;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcResponse;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcRequest;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

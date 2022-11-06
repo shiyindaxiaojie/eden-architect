@@ -27,18 +27,17 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/eden-architect/component.png)
 
-* **eden-components**: 组件集
-* **eden-dependencies**: 依赖管理组件，管理所有依赖的版本
-* **eden-parent**: 构建管理组件，管理所有插件的版本，提供开箱即用的配置
-* **eden-commons**: 基础工具组件，集成了 `Apache Commons`、`Google Guava` 、`HuTool`...
-* **eden-spring-boot-starters**: 常用组件自动装配
-* **eden-spring-framework**: 基础框架组件，提供自定义错误码、统一异常解析器支持
-* **eden-spring-cloud**: 微服务框架组件，集成了 `Nacos`、`Sentinel`、`Apollo`...
-* **eden-spring-cloud-starters**: 微服务框架组件自动装配
-* **eden-spring-data**: 数据仓库组件，集成了 `Mybatis`、`Redis`、`Flyway`、`Liquibase`...
-* **eden-spring-integration**: 第三方集成组件，集成了 `RocketMQ`、`Kafka`、`Netty`、`Swagger`...
-* **eden-spring-security**: 授权认证组件，集成了 `Spring Security OAuth2`、`Jwt`、`Shiro`...
-* **eden-spring-test**: 单元测试和集成测试组件，集成了 `Spock`、`Embedded Redis`、`Embedded Kafka`...
+* **eden-dependencies**: 依赖管理组件，管理全局依赖的版本
+* **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置
+* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 、`HuTool` 扩展
+* **eden-spring-framework**: 基础框架组件，支持自定义错误码、异常解析器、SPI 扩展点
+* **eden-spring-data**: 数据存储组件，扩展了 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等组件
+* **eden-spring-security**: 授权认证组件，扩展了 `Spring Security OAuth2`、`Jwt`、`Shiro` 等组件
+* **eden-spring-integration**: 通用组件集成，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件
+* **eden-spring-boot-starters**: 中间件自动装配，扩展了 `Spring Boot Starters` 扩展
+* **eden-spring-cloud**: 微服务框架组件，基于 `Nacos`、`Sentinel`、`Zookeeper` 等组件
+* **eden-spring-cloud-starters**: 微服务组件自动装配，基于 `Spring Cloud Starters` 扩展
+* **eden-spring-test**: 单元测试和集成测试组件，扩展了 `Spock`、`Embedded Redis`、`Embedded Kafka` 等组件
 
 ## 如何构建
 

@@ -1,8 +1,8 @@
 package org.ylzl.eden.common.cache.core;
 
-import org.ylzl.eden.common.cache.core.value.NullValueUtils;
+import org.ylzl.eden.common.cache.value.NullValueUtils;
 import org.ylzl.eden.commons.collections.CollectionUtils;
-import org.ylzl.eden.spring.framework.error.util.MessageFormatUtils;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -57,7 +57,7 @@ public interface Cache extends Serializable {
 		}
 		if (type != null && !type.isInstance(value)) {
 			throw new IllegalStateException(MessageFormatUtils.format(
-				"Cached value `{}` is not of required type `{}`", value, type.getName()));
+				"Cached value ‘{}‘ is not of required type ‘{}‘", value, type.getName()));
 		}
 		return (T) value;
 	}

@@ -23,6 +23,7 @@ import org.ylzl.eden.commons.env.browser.BrowserEnum;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 /**
  * 浏览器工具集
@@ -34,8 +35,8 @@ import java.net.URLEncoder;
 public class BrowserUtils {
 
 	public static boolean isIE(@NonNull HttpServletRequest request) {
-		BrowserEnum browserEnum = BrowserEnum.toBrowserEnum(request);
-		switch (browserEnum) {
+		BrowserEnum browserEnum = BrowserEnum.parse(request);
+		switch (Objects.requireNonNull(browserEnum)) {
 			case IE6:
 			case IE7:
 			case IE8:

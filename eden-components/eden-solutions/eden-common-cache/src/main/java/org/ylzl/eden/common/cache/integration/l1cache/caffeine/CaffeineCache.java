@@ -1,10 +1,10 @@
 package org.ylzl.eden.common.cache.integration.l1cache.caffeine;
 
-import org.ylzl.eden.common.cache.core.config.CacheConfig;
-import org.ylzl.eden.common.cache.core.level.AbstractAdaptingCache;
-import org.ylzl.eden.common.cache.core.level.L1Cache;
-import org.ylzl.eden.common.cache.core.loader.CacheLoader;
-import org.ylzl.eden.common.cache.core.sync.CacheSynchronizer;
+import org.ylzl.eden.common.cache.config.CacheConfig;
+import org.ylzl.eden.common.cache.level.AbstractAdaptingCache;
+import org.ylzl.eden.common.cache.level.L1Cache;
+import org.ylzl.eden.common.cache.loader.CacheLoader;
+import org.ylzl.eden.common.cache.sync.CacheSynchronizer;
 
 import java.util.concurrent.Callable;
 

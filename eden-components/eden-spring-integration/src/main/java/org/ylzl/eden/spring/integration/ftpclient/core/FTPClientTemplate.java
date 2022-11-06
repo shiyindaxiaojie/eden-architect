@@ -22,6 +22,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPFileFilter;
 import org.apache.commons.net.ftp.FTPReply;
 import org.ylzl.eden.commons.io.IOUtils;
+import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,9 +37,9 @@ import java.text.MessageFormat;
 public class FTPClientTemplate {
 
 	private static final String MSG_CHANGE_DIR_FAILED =
-		"FTPClient changeWorkingDirectory to `{0}` failed";
+		"FTPClient changeWorkingDirectory to ‘{0}‘ failed";
 
-	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
+	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file ‘{0}‘ unavailable";
 
 	private final FTPClientPool pool;
 

@@ -167,7 +167,7 @@ public enum WebServerEnum {
 		this.lookup = lookup;
 	}
 
-	public static WebServerEnum toWebServerEnum() {
+	public static WebServerEnum parse() {
 		for (WebServerEnum webServerEnum : WebServerEnum.values()) {
 			if (webServerEnum.getHandler().isCurrentWebServer()) {
 				return webServerEnum;

@@ -1,3 +1,3 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.boot.dynamic.datasource.autoconfigure.DynamicDataSourceAutoConfiguration
+  org.ylzl.eden.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration

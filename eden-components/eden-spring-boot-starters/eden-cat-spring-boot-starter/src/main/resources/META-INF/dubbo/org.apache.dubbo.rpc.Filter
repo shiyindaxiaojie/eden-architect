@@ -1,2 +1,2 @@
-traceCatFilter=org.ylzl.eden.spring.boot.cat.integration.dubbo.filter.DubboTraceCatFilter
-consumerCatFilter=org.ylzl.eden.spring.boot.cat.integration.dubbo.filter.DubboConsumerCatFilter
+traceCatFilter=org.ylzl.eden.cat.spring.boot.integration.dubbo.filter.DubboTraceCatFilter
+consumerCatFilter=org.ylzl.eden.cat.spring.boot.integration.dubbo.filter.DubboConsumerCatFilter

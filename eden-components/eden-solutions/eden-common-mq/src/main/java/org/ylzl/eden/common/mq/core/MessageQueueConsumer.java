@@ -1,7 +1,7 @@
 package org.ylzl.eden.common.mq.core;
 
-
-import org.ylzl.eden.common.mq.core.consumer.Acknowledgement;
+import org.ylzl.eden.common.mq.consumer.Acknowledgement;
+import org.ylzl.eden.common.mq.model.Message;
 
 import java.util.List;
 

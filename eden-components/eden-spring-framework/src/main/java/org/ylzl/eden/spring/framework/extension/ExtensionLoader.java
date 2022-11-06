@@ -198,6 +198,12 @@ public class ExtensionLoader<T> {
 		return cachedNames.get(extensionClass);
 	}
 
+	/**
+	 * 根据指定的名称获取扩展类
+	 *
+	 * @param name
+	 * @return
+	 */
 	public Class<?> getExtensionClass(String name) {
 		if (type == null) {
 			throw new IllegalArgumentException("Extension type == null");
@@ -208,6 +214,12 @@ public class ExtensionLoader<T> {
 		return getExtensionClasses().get(name);
 	}
 
+	/**
+	 * 根据指定的名称获取已加载的扩展点
+	 *
+	 * @param name
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public T getLoadedExtension(String name) {
 		if (StringUtils.isEmpty(name)) {
@@ -217,10 +229,20 @@ public class ExtensionLoader<T> {
 		return (T) holder.get();
 	}
 
+	/**
+	 * 获取已加载的扩展点
+	 *
+	 * @return
+	 */
 	public Set<String> getLoadedExtensions() {
 		return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
 	}
 
+	/**
+	 * 获取已加载的扩展点实例
+	 *
+	 * @return
+	 */
 	public List<T> getLoadedExtensionInstances() {
 		List<T> instances = new ArrayList<>();
 		cachedInstances.values().forEach(holder -> instances.add((T) holder.get()));
@@ -440,7 +462,6 @@ public class ExtensionLoader<T> {
 	 * @param clazz
 	 * @param name
 	 * @param overridden
-	 * @throws NoSuchMethodException
 	 */
 	private void loadClass(Map<String, Class<?>> extensionClasses, URL resourceURL, Class<?> clazz, String name,
 						   boolean overridden) throws NoSuchMethodException {
@@ -462,9 +483,9 @@ public class ExtensionLoader<T> {
 			return;
 		}
 
-		clazz.getConstructor();
+		// 如果名称为空，从类名匹配
 		if (StringUtils.isEmpty(name)) {
-			name = findAnnotationName(clazz);
+			name = findExtensionName(clazz);
 			if (name.length() == 0) {
 				throw new IllegalStateException("No such extension name for the class " + clazz.getName() + " in the config " + resourceURL);
 			}
@@ -474,7 +495,7 @@ public class ExtensionLoader<T> {
 		if (ArrayUtils.isNotEmpty(names)) {
 			activeExtensionLoader.cacheActivateClass(clazz, names[0]);
 			for (String n : names) {
-				cacheName(clazz, n);
+				saveInCacheName(clazz, n);
 				saveInExtensionClass(extensionClasses, clazz, n, overridden);
 			}
 		}
@@ -502,10 +523,22 @@ public class ExtensionLoader<T> {
 		}
 	}
 
+	/**
+	 * 是否标注 @Adapter
+	 *
+	 * @param clazz
+	 * @return
+	 */
 	private boolean isAdaptiveClass(Class<?> clazz) {
 		return clazz.isAnnotationPresent(Adaptive.class);
 	}
 
+	/**
+	 * 是否标注 @Wrapper
+	 *
+	 * @param clazz
+	 * @return
+	 */
 	private boolean isWrapperClass(Class<?> clazz) {
 		try {
 			clazz.getConstructor(type);
@@ -515,7 +548,13 @@ public class ExtensionLoader<T> {
 		}
 	}
 
-	private String findAnnotationName(Class<?> clazz) {
+	/**
+	 * 查找扩展点名称
+	 *
+	 * @param clazz
+	 * @return
+	 */
+	private String findExtensionName(Class<?> clazz) {
 		String name = clazz.getSimpleName();
 		if (name.endsWith(type.getSimpleName())) {
 			name = name.substring(0, name.length() - type.getSimpleName().length());
@@ -523,12 +562,26 @@ public class ExtensionLoader<T> {
 		return name.toLowerCase();
 	}
 
-	private void cacheName(Class<?> clazz, String name) {
+	/**
+	 * 保存缓存的扩展类名称
+	 *
+	 * @param clazz
+	 * @param name
+	 */
+	private void saveInCacheName(Class<?> clazz, String name) {
 		if (!cachedNames.containsKey(clazz)) {
 			cachedNames.put(clazz, name);
 		}
 	}
 
+	/**
+	 * 保存扩展类
+	 *
+	 * @param extensionClasses
+	 * @param clazz
+	 * @param name
+	 * @param overridden
+	 */
 	private void saveInExtensionClass(Map<String, Class<?>> extensionClasses, Class<?> clazz, String name, boolean overridden) {
 		Class<?> c = extensionClasses.get(name);
 		if (c == null || overridden) {
@@ -540,6 +593,13 @@ public class ExtensionLoader<T> {
 		}
 	}
 
+	/**
+	 * 是否排除类
+	 *
+	 * @param className
+	 * @param excludedPackages
+	 * @return
+	 */
 	private boolean isExcluded(String className, String... excludedPackages) {
 		if (excludedPackages != null) {
 			for (String excludePackage : excludedPackages) {
@@ -644,6 +704,14 @@ public class ExtensionLoader<T> {
 		return instance;
 	}
 
+	/**
+	 * 注入属性
+	 *
+	 * @param instance
+	 * @param method
+	 * @param pt
+	 * @param property
+	 */
 	private void injectValue(T instance, Method method, Class<?> pt, String property) {
 		try {
 			Object object = objectFactory.getExtension(pt, property);

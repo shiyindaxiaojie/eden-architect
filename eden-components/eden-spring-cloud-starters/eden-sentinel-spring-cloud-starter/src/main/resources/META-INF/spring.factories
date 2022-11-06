@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.ylzl.eden.spring.cloud.sentinel.autoconfigure.SentinelBlockAutoConfiguration,\
-  org.ylzl.eden.spring.cloud.sentinel.autoconfigure.SentinelPrometheusAutoConfiguration
+  org.ylzl.eden.sentinel.spring.cloud.autoconfigure.SentinelBlockAutoConfiguration,\
+  org.ylzl.eden.sentinel.spring.cloud.autoconfigure.SentinelPrometheusAutoConfiguration

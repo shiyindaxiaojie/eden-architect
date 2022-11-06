@@ -3,8 +3,9 @@ package org.ylzl.eden.flow.compose.config;
 import com.google.common.collect.Maps;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.ylzl.eden.flow.compose.executor.Processor;
-import org.ylzl.eden.flow.compose.executor.factory.ProcessorFactory;
+import org.ylzl.eden.flow.compose.config.exception.ProcessConfigException;
+import org.ylzl.eden.flow.compose.core.Processor;
+import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
 import org.ylzl.eden.flow.compose.process.ProcessDefinition;
 import org.ylzl.eden.flow.compose.process.ProcessNode;
 

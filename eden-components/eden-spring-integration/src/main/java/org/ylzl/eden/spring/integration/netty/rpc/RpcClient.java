@@ -17,6 +17,9 @@
 
 package org.ylzl.eden.spring.integration.netty.rpc;
 
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcRequest;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
+
 /**
  * RPC 客户端
  *

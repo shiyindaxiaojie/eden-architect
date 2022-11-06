@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.ylzl.eden.common.cache.core.builder.CacheBuilder;
-import org.ylzl.eden.common.cache.core.config.CacheConfig;
-import org.ylzl.eden.common.cache.core.factory.CacheFactory;
-import org.ylzl.eden.common.cache.core.expire.CacheExpiredListener;
-import org.ylzl.eden.common.cache.core.sync.CacheSynchronizer;
+import org.ylzl.eden.common.cache.builder.CacheBuilder;
+import org.ylzl.eden.common.cache.config.CacheConfig;
+import org.ylzl.eden.common.cache.factory.CacheFactory;
+import org.ylzl.eden.common.cache.expire.CacheExpiredListener;
+import org.ylzl.eden.common.cache.sync.CacheSynchronizer;
 import org.ylzl.eden.spring.framework.extension.ExtensionLoader;
 
 import java.util.Collection;

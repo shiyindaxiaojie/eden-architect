@@ -74,9 +74,8 @@ public class OSUtils {
 
 	public static boolean isWindows() {
 		OSEnum osEnum = getOSEnum();
-		switch (osEnum) {
-			case WINDOWS:
-				return true;
+		if (osEnum == OSEnum.WINDOWS) {
+			return true;
 		}
 		return false;
 	}
@@ -93,19 +92,18 @@ public class OSUtils {
 
 	public static boolean isLinux() {
 		OSEnum osEnum = getOSEnum();
-		switch (osEnum) {
-			case LINUX:
-				return true;
+		if (osEnum == OSEnum.LINUX) {
+			return true;
 		}
 		return false;
 	}
 
 	public static OSEnum getOSEnum() {
-		return OSEnum.toOSEnum(System.getProperty(SystemPropertyConstants.OS_NAME));
+		return OSEnum.parse(System.getProperty(JavaEnvConstants.OS_NAME));
 	}
 
 	public static OSArchEnum getOSArchEnum() {
-		return OSArchEnum.toOSArchEnum(System.getProperty(SystemPropertyConstants.OS_ARCH));
+		return OSArchEnum.parse(System.getProperty(JavaEnvConstants.OS_ARCH));
 	}
 
 	/**
@@ -156,7 +154,7 @@ public class OSUtils {
 	public static List<String> getMacAddresses() throws SocketException {
 		List<String> macAddresses = new ArrayList<>();
 		List<InetAddress> inetAddresses = getLocalAllInetAddresses();
-		if (inetAddresses != null && inetAddresses.size() > 0) {
+		if (inetAddresses.size() > 0) {
 			for (InetAddress inetAddress : inetAddresses) {
 				String macAddress = getMacAddress(inetAddress);
 				if (!macAddresses.contains(macAddress)) {
@@ -221,13 +219,13 @@ public class OSUtils {
 		List<InetAddress> result = new ArrayList<>(4);
 
 		// 遍历所有的网络接口
-		for (Enumeration networkInterfaces = NetworkInterface.getNetworkInterfaces();
+		for (Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 			 networkInterfaces.hasMoreElements(); ) {
-			NetworkInterface iface = (NetworkInterface) networkInterfaces.nextElement();
+			NetworkInterface iface = networkInterfaces.nextElement();
 			// 遍历 IP
-			for (Enumeration inetAddresses = iface.getInetAddresses();
+			for (Enumeration<InetAddress> inetAddresses = iface.getInetAddresses();
 				 inetAddresses.hasMoreElements(); ) {
-				InetAddress inetAddr = (InetAddress) inetAddresses.nextElement();
+				InetAddress inetAddr = inetAddresses.nextElement();
 
 				// 排除 LoopbackAddress、SiteLocalAddress、LinkLocalAddress、MulticastAddress 类型的 IP 地址
 				if (!inetAddr.isLoopbackAddress()

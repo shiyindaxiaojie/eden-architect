@@ -22,8 +22,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.sf.cglib.reflect.FastClass;
 import net.sf.cglib.reflect.FastMethod;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcRequest;
-import org.ylzl.eden.spring.integration.netty.rpc.RpcResponse;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcRequest;
+import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
 
 import java.util.ServiceLoader;
 

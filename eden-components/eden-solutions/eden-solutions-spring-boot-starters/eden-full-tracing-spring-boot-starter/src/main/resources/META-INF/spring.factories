@@ -1,0 +1,8 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.full.tracing.spring.boot.autoconfigure.GatewayStressAutoConfiguration,\
+  org.ylzl.eden.full.tracing.spring.boot.autoconfigure.DataSourceShadowAutoConfiguration,\
+  org.ylzl.eden.full.tracing.spring.boot.autoconfigure.MongoShadowAutoConfiguration,\
+  org.ylzl.eden.full.tracing.spring.boot.autoconfigure.RedisShadowAutoConfiguration,\
+  org.ylzl.eden.full.tracing.spring.boot.autoconfigure.WebStressAutoConfiguration
+
