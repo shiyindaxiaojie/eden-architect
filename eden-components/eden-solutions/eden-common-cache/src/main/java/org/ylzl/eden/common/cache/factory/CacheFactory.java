@@ -63,7 +63,7 @@ public class CacheFactory {
 	 * @return
 	 */
 	public static Cache getOrCreateCache(@NotNull String cacheType, @NotNull String cacheName,
-								 CacheBuilder<?> cacheBuilder) {
+										 CacheBuilder<?> cacheBuilder) {
 		ConcurrentHashMap<String, Cache> cacheMap = CACHE_MAP.get(cacheType);
 		if (cacheMap == null) {
 			synchronized (checkCacheMapLock) {

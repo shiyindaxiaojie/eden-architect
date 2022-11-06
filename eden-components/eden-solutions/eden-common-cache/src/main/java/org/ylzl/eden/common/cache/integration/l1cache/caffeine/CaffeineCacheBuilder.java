@@ -28,7 +28,7 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder<CaffeineCache> {
 
 	@Override
 	public CaffeineCache build(String cacheName) {
-		CacheLoader cacheLoader = ExtensionLoader.getExtensionLoader(CacheLoader.class).getDefaultExtension();
+		CacheLoader<Object, Object> cacheLoader = ExtensionLoader.getExtensionLoader(CacheLoader.class).getDefaultExtension();
 		cacheLoader.setCacheSpec(this.parseSpec(cacheName));
 		cacheLoader.setCacheSynchronizer(this.getCacheSynchronizer());
 		cacheLoader.setAllowNullValues(this.getCacheConfig().isAllowNullValues());
@@ -36,7 +36,7 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder<CaffeineCache> {
 		Cache<Object, Object> cache = this.buildCacheClient(cacheName, this.getCacheConfig(),
 			cacheLoader, this.getExpiredListener());
 
-		return new CaffeineCache(cacheName, this.getCacheConfig());
+		return new CaffeineCache(cacheName, this.getCacheConfig(), cache);
 	}
 
 	@Override

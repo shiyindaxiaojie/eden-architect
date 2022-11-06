@@ -1,4 +1,4 @@
-package org.ylzl.eden.common.cache.autoconfigure;
+package org.ylzl.eden.common.cache.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.common.cache.env.CacheProperties;
+import org.ylzl.eden.common.cache.spring.boot.env.CacheProperties;
 
 import java.util.stream.Collectors;
 

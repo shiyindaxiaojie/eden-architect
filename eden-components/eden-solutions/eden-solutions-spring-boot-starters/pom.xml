@@ -33,6 +33,7 @@
 	<description>Spring Boot Starters For Solutions</description>
 
 	<modules>
+		<module>eden-common-cache-spring-boot-starter</module>
 		<module>eden-common-mail-spring-boot-starter</module>
 		<module>eden-common-mq-spring-boot-starter</module>
 		<module>eden-common-sms-spring-boot-starter</module>
