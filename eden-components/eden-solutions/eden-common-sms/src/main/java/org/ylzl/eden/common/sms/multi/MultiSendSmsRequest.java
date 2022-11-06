@@ -2,7 +2,7 @@ package org.ylzl.eden.common.sms.multi;
 
 import com.google.common.collect.Lists;
 import lombok.*;
-import org.ylzl.eden.common.sms.SmsModel;
+import org.ylzl.eden.common.sms.model.SmsModel;
 
 import java.io.Serializable;
 import java.util.List;

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.ylzl.eden.common.sms.SmsModel;
+import org.ylzl.eden.common.sms.model.SmsModel;
 
 import java.io.Serializable;
 

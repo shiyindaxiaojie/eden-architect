@@ -27,6 +27,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
  */
 @Getter
 public enum DateFormat {
+
 	ISO_8601_EXTENDED_DATE_FORMAT(DateFormat.ISO_8601_EXTENDED_DATE),
 	ISO_8601_EXTENDED_TIME_FORMAT(DateFormat.ISO_8601_EXTENDED_TIME),
 	ISO_8601_EXTENDED_DATETIME_FORMAT(DateFormat.ISO_8601_EXTENDED_DATETIME),
@@ -54,7 +55,7 @@ public enum DateFormat {
 		this.fastDateFormat = FastDateFormat.getInstance(pattern);
 	}
 
-	public static FastDateFormat getFastDateFormat(String pattern) {
+	public static FastDateFormat parse(String pattern) {
 		for (DateFormat dateFormat : DateFormat.values()) {
 			if (dateFormat.getPattern().equals(pattern)) {
 				return dateFormat.getFastDateFormat();

@@ -3,7 +3,8 @@ package org.ylzl.eden.distributed.lock.integration.zookeeper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.exception.DistributedLockException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import org.ylzl.eden.zookeeper.spring.cloud.core.ZookeeperTemplate;
 
 import java.util.concurrent.TimeUnit;
@@ -29,13 +30,13 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(String key) throws DistributedLockException {
+	public boolean lock(String key) {
 		log.debug("Zookeeper create lock: {}", key);
 		try {
 			zooKeeperTemplate.create(key, EMPTY_DATA);
 		} catch (Exception e) {
 			log.error("Zookeeper create lock: {}, catch exception: {}", key, e.getMessage(), e);
-			return false;
+			throw new DistributedLockAcquireException(e);
 		}
 		return true;
 	}
@@ -47,10 +48,9 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
 	 * @return
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public boolean lock(String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException {
+	public boolean lock(String key, int waitTime, TimeUnit timeUnit) {
 		log.warn("Zookeeper create lock: {}, not support waitTime", key);
 		return lock(key);
 	}
@@ -59,16 +59,15 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * 释放锁
 	 *
 	 * @param key 锁对象
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public void unlock(String key) throws DistributedLockException {
+	public void unlock(String key) {
 		log.debug("Zookeeper release lock: {}", key);
 		try {
 			zooKeeperTemplate.delete(key);
 		} catch (Exception e) {
 			log.error("Zookeeper release lock: {}, catch exception: {}", key, e.getMessage(), e);
-			throw new DistributedLockException(e.getMessage());
+			throw new DistributedLockReleaseException(e);
 		}
 	}
 }

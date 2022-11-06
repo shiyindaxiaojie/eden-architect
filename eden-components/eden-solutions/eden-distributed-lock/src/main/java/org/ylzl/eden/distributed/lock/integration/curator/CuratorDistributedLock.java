@@ -6,7 +6,9 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.exception.DistributedLockException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;
 
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
@@ -31,10 +33,10 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(@NotNull String key) throws DistributedLockException {
+	public boolean lock(@NotNull String key) {
 		log.debug("Curator create lock: {}", key);
 		if (!key.startsWith(StringConstants.SLASH)) {
-			throw new DistributedLockException("Invalid curator lock: " + key);
+			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);
 		try {
@@ -42,6 +44,7 @@ public class CuratorDistributedLock implements DistributedLock {
 			interProcessMutexThreadLocal.set(interProcessMutex);
 		} catch (Exception e) {
 			log.error("Curator create lock: {}, catch exception: {}", key, e.getMessage(), e);
+			throw new DistributedLockAcquireException(e);
 		}
 		return true;
 	}
@@ -55,10 +58,10 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @return
 	 */
 	@Override
-	public boolean lock(@NotNull String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException {
+	public boolean lock(@NotNull String key, int waitTime, TimeUnit timeUnit) {
 		log.debug("Curator create lock: {}, waitTime: {}", key, waitTime);
 		if (!key.startsWith(StringConstants.SLASH)) {
-			throw new DistributedLockException("Invalid curator lock: " + key);
+			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);
 		boolean isSuccess;
@@ -66,7 +69,7 @@ public class CuratorDistributedLock implements DistributedLock {
 			isSuccess = interProcessMutex.acquire(waitTime, timeUnit);
 		} catch (Exception e) {
 			log.error("Curator create lock: {}, waitTime: {}, catch exception: {}", key, waitTime, e.getMessage(), e);
-			throw new DistributedLockException(e.getMessage());
+			throw new DistributedLockTimeoutException(e);
 		}
 		if (isSuccess) {
 			interProcessMutexThreadLocal.set(interProcessMutex);
@@ -80,7 +83,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public void unlock(String key) throws DistributedLockException {
+	public void unlock(String key) {
 		log.debug("Curator release lock: {}", key);
 		InterProcessMutex interProcessMutex = interProcessMutexThreadLocal.get();
 		if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
@@ -89,7 +92,7 @@ public class CuratorDistributedLock implements DistributedLock {
 				interProcessMutexThreadLocal.remove();
 			} catch (Exception e) {
 				log.error("Curator release lock: {}, catch exception: {}", key, e.getMessage(), e);
-				throw new DistributedLockException(e.getMessage());
+				throw new DistributedLockReleaseException(e.getMessage());
 			}
 		}
 	}

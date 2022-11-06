@@ -19,7 +19,6 @@ package org.ylzl.eden.commons.env.browser;
 import com.google.common.net.HttpHeaders;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import org.ylzl.eden.commons.regex.RegexUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Getter
 public enum BrowserEnum {
 	CHROME("Chrome"),
 	FIREFOX("Firefox"),
@@ -48,15 +48,13 @@ public enum BrowserEnum {
 	SE360("360SE"),
 	OTHER("其它");
 
-	@Getter
-	@Setter
-	private String userAgent;
+	private final String userAgent;
 
 	BrowserEnum(String userAgent) {
 		this.userAgent = userAgent;
 	}
 
-	public static BrowserEnum toBrowserEnum(@NonNull HttpServletRequest request) {
+	public static BrowserEnum parse(@NonNull HttpServletRequest request) {
 		final String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
 		for (BrowserEnum browserEnum : BrowserEnum.values()) {
 			if (RegexUtils.find(browserEnum.getUserAgent(), userAgent)) {

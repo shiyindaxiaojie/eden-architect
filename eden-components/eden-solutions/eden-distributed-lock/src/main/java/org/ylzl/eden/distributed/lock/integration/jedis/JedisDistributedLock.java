@@ -6,7 +6,8 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.exception.DistributedLockException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.commands.JedisCommands;
@@ -43,7 +44,7 @@ public class JedisDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(String key) throws DistributedLockException {
+	public boolean lock(String key) {
 		log.debug("Jedis create lock: {}", key);
 		try {
 			String result =
@@ -59,7 +60,7 @@ public class JedisDistributedLock implements DistributedLock {
 			return StringUtils.isNotEmpty(result);
 		} catch (Exception e) {
 			log.error("Jedis create lock: {}, catch exception: {}", key, e.getMessage(), e);
-			return false;
+			throw new DistributedLockAcquireException(e);
 		}
 	}
 
@@ -70,10 +71,9 @@ public class JedisDistributedLock implements DistributedLock {
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
 	 * @return
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public boolean lock(String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException {
+	public boolean lock(String key, int waitTime, TimeUnit timeUnit) {
 		log.warn("Jedis create lock: {}, not support waitTime", key);
 		return lock(key);
 	}
@@ -82,10 +82,9 @@ public class JedisDistributedLock implements DistributedLock {
 	 * 释放锁
 	 *
 	 * @param key 锁对象
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public void unlock(String key) throws DistributedLockException {
+	public void unlock(String key) {
 		log.debug("Jedis release lock: {}", key);
 		try {
 			final List<String> keys = Collections.singletonList(key);
@@ -108,7 +107,7 @@ public class JedisDistributedLock implements DistributedLock {
 			}
 		} catch (Exception e) {
 			log.error("Jedis release lock: {}, catch exception: {}", key, e.getMessage(), e);
-			throw new DistributedLockException(e.getMessage());
+			throw new DistributedLockReleaseException(e);
 		}
 	}
 }

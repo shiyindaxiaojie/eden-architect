@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
-import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
+import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessorRegister;
 
 /**
@@ -45,7 +45,7 @@ public class CatAutoConfiguration implements InitializingBean {
 		log.debug(INITIALIZING_CAT_CLIENT);
 
 		String servers = catProperties.getServers();
-		AssertEnhancer.notNull(servers, "cat servers is not null");
+		AssertUtils.notNull(servers, "cat servers is not null");
 
 		// 动态设置 cat-home 路径
 		System.setProperty(CAT_HOME, catProperties.getHome());

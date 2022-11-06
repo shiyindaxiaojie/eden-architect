@@ -1,0 +1,45 @@
+package org.ylzl.eden.full.tracing.integration.redis;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.ylzl.eden.full.tracing.context.StressContext;
+import org.ylzl.eden.spring.data.redis.core.RedisDatabaseSelector;
+
+/**
+ * Redis 影子库切面
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
+ */
+@RequiredArgsConstructor
+@Slf4j
+@Aspect
+public class RedisShadowAspect {
+
+	private final int database;
+
+	@Pointcut("@within(org.springframework.stereotype.Repository) && execution(public * *(..))")
+	public void pointcut() {
+	}
+
+	@Around("pointcut()")
+	public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+		// 是否启用压测
+		boolean stress = StressContext.getContext().isStress();
+		if (!stress) {
+			return joinPoint.proceed();
+		}
+
+		// 切换影子库执行
+		RedisDatabaseSelector.set(database);
+		try {
+			return joinPoint.proceed();
+		} finally {
+			RedisDatabaseSelector.remove();
+		}
+	}
+}

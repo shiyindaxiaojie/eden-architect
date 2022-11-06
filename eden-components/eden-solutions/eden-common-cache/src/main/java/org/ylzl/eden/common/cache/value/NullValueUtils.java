@@ -1,7 +1,7 @@
 package org.ylzl.eden.common.cache.value;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.spring.framework.error.util.MessageFormatUtils;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 
 /**
  * NullValue 工具集
@@ -26,7 +26,7 @@ public class NullValueUtils {
 				return NullValue.INSTANCE;
 			}
 			throw new IllegalArgumentException(MessageFormatUtils.format(
-				"Cache `{}` is configured to not allow null values but null was provided", cacheName));
+				"Cache ‘{}‘ is configured to not allow null values but null was provided", cacheName));
 		}
 		return value;
 	}

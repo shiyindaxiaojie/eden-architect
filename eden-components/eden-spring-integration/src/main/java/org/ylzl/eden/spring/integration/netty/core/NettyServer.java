@@ -100,7 +100,7 @@ public class NettyServer implements InitializingBean, DisposableBean {
 
 	public ListenableFuture<Void> startup() {
 		log.info(
-			"Starting Netty server `{}` with {} boss threads and {} worker threads",
+			"Starting Netty server ‘{}‘ with {} boss threads and {} worker threads",
 			name,
 			bossThreads,
 			workerThreads);
@@ -115,7 +115,7 @@ public class NettyServer implements InitializingBean, DisposableBean {
 				final String hostAddress = boundTo.getAddress().getHostAddress();
 
 				boundToPort = boundTo.getPort();
-				log.info("Started Netty server `{}` @{}:{}", name, hostAddress, boundToPort);
+				log.info("Started Netty server ‘{}‘ @{}:{}", name, hostAddress, boundToPort);
 
 				result.set(null);
 				channel.closeFuture().syncUninterruptibly();
@@ -127,7 +127,7 @@ public class NettyServer implements InitializingBean, DisposableBean {
 	}
 
 	public void shutdown() {
-		log.info("Stopping Netty server `{}`", name);
+		log.info("Stopping Netty server ‘{}‘", name);
 
 		workerEventLoopGroup.shutdownGracefully();
 		bossEventLoopGroup.shutdownGracefully();

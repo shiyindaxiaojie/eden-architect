@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.framework.error;
 
 import lombok.NonNull;
 import org.jetbrains.annotations.PropertyKey;
-import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
+import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class ClientAssert {
 	public static void doesNotContain(@NonNull String textToSearch, String substring,
 									  @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.doesNotContain(textToSearch, substring, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.doesNotContain(textToSearch, substring, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -46,7 +46,7 @@ public class ClientAssert {
 	public static void hasLength(@NonNull String expression,
 								 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.hasLength(expression, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.hasLength(expression, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -55,7 +55,7 @@ public class ClientAssert {
 	public static void hasText(String text,
 							   @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.hasText(text, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.hasText(text, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -64,7 +64,7 @@ public class ClientAssert {
 	public static void isInstanceOf(Class<?> type, @NonNull Object obj,
 									@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.isInstanceOf(type, obj, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.isInstanceOf(type, obj, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -73,7 +73,7 @@ public class ClientAssert {
 	public static void isNull(Object object,
 							  @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.isNull(object, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.isNull(object, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -82,7 +82,7 @@ public class ClientAssert {
 	public static void notNull(Object object,
 							   @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.notNull(object, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.notNull(object, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -91,7 +91,7 @@ public class ClientAssert {
 	public static void isTrue(boolean expression,
 							  @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.isTrue(expression, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.isTrue(expression, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -100,7 +100,7 @@ public class ClientAssert {
 	public static void noNullElements(@NonNull Collection<?> collection,
 									  @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.noNullElements(collection, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.noNullElements(collection, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -109,7 +109,7 @@ public class ClientAssert {
 	public static void notEmpty(@NonNull Object[] array,
 								@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.notEmpty(array, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.notEmpty(array, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -118,7 +118,7 @@ public class ClientAssert {
 	public static void notEmpty(@NonNull Collection<?> collection,
 								@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.notEmpty(collection, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.notEmpty(collection, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -127,7 +127,7 @@ public class ClientAssert {
 	public static void notEmpty(@NonNull Map<?, ?> map,
 								@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.notEmpty(map, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.notEmpty(map, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -136,7 +136,7 @@ public class ClientAssert {
 	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType,
 									@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.isAssignable(superType, subType, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.isAssignable(superType, subType, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}
@@ -145,7 +145,7 @@ public class ClientAssert {
 	public static void state(boolean expression,
 							 @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode, Object... params) {
 		try {
-			AssertEnhancer.state(expression, ErrorCodeLoader.getErrMessage(errCode, params));
+			AssertUtils.state(expression, ErrorCodeLoader.getErrMessage(errCode, params));
 		} catch (IllegalArgumentException e) {
 			throw new ClientException(errCode, e.getMessage());
 		}

@@ -18,7 +18,6 @@ package org.ylzl.eden.commons.env.os;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import org.ylzl.eden.commons.regex.RegexUtils;
 
 /**
@@ -27,7 +26,9 @@ import org.ylzl.eden.commons.regex.RegexUtils;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Getter
 public enum OSEnum {
+
 	AIX("AIX"),
 	DIGITAL_UNIX("Digital Unix"),
 	FREDD_BSD("FreeBSD"),
@@ -46,15 +47,13 @@ public enum OSEnum {
 	SUN_OS("SunOS"),
 	WINDOWS("Windows");
 
-	@Getter
-	@Setter
-	private String name;
+	private final String name;
 
 	OSEnum(String name) {
 		this.name = name;
 	}
 
-	public static OSEnum toOSEnum(@NonNull String name) {
+	public static OSEnum parse(@NonNull String name) {
 		for (OSEnum osEnum : OSEnum.values()) {
 			if (RegexUtils.find(osEnum.getName(), name)) {
 				return osEnum;

@@ -77,23 +77,23 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 		xxlJobGroup.setAddressType(0);
 		ResponseEntity<String> responseEntity = xxlJobAdminTemplate.saveGroup(xxlJobGroup);
 		if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-			log.warn("添加执行器 `{}` 失败，原因: 响应状态码为 {}", appName, responseEntity.getStatusCodeValue());
+			log.warn("添加执行器 ‘{}‘ 失败，原因: 响应状态码为 {}", appName, responseEntity.getStatusCodeValue());
 			return;
 		}
 
 		ReturnT<String> returnT = JSON.parseObject(responseEntity.getBody(), new TypeReference<ReturnT<String>>() {
 		});
 		if (returnT == null || returnT.getCode() == ReturnT.FAIL_CODE) {
-			log.warn("添加执行器 `{}` 失败，原因: {}", appName, returnT == null? "接口返回NULL" : returnT.getMsg());
+			log.warn("添加执行器 ‘{}‘ 失败，原因: {}", appName, returnT == null? "接口返回NULL" : returnT.getMsg());
 			return;
 		}
 
-		log.info("添加执行器 `{}` 成功", appName);
+		log.info("添加执行器 ‘{}‘ 成功", appName);
 		for (XxlJobInfo xxlJobInfo : xxlJobInfos) {
 			xxlJobInfo.setJobGroup(Integer.parseInt(returnT.getContent()));
 			ResponseEntity<String> response = xxlJobAdminTemplate.addOrUpdateJob(xxlJobInfo);
 			if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-				log.warn("添加任务 `{}` 失败，原因: 响应状态码为 {}", xxlJobInfo.getExecutorHandler(), responseEntity.getStatusCodeValue());
+				log.warn("添加任务 ‘{}‘ 失败，原因: 响应状态码为 {}", xxlJobInfo.getExecutorHandler(), responseEntity.getStatusCodeValue());
 				return;
 			}
 
@@ -101,13 +101,13 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 			ReturnT<String> result = JSON.parseObject(responseBody, new TypeReference<ReturnT<String>>() {
 			});
 			if (result == null || result.getCode() == ReturnT.FAIL_CODE) {
-				log.warn("添加任务 `{}` 失败，原因: {}", xxlJobInfo.getExecutorHandler(), result == null? "接口返回NULL" : result.getMsg());
+				log.warn("添加任务 ‘{}‘ 失败，原因: {}", xxlJobInfo.getExecutorHandler(), result == null? "接口返回NULL" : result.getMsg());
 				return;
 			}
 
-			log.info("启动任务 `{}`", xxlJobInfo.getExecutorHandler());
+			log.info("启动任务 ‘{}‘", xxlJobInfo.getExecutorHandler());
 			xxlJobAdminTemplate.startJob(Integer.parseInt(result.getContent()));
-			log.info("启动任务 `{}` 完成", xxlJobInfo.getExecutorHandler());
+			log.info("启动任务 ‘{}‘ 完成", xxlJobInfo.getExecutorHandler());
 		}
 	}
 

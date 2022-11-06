@@ -37,9 +37,9 @@ import java.text.MessageFormat;
 public class FTPClientTemplate {
 
 	private static final String MSG_CHANGE_DIR_FAILED =
-		"FTPClient changeWorkingDirectory to `{0}` failed";
+		"FTPClient changeWorkingDirectory to ‘{0}‘ failed";
 
-	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file `{0}` unavailable";
+	private static final String MSG_FILE_UNAVAILABLE = "FTPClient receive file ‘{0}‘ unavailable";
 
 	private final FTPClientPool pool;
 

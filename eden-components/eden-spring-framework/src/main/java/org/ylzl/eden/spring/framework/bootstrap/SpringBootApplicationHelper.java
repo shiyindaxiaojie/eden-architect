@@ -75,7 +75,7 @@ public class SpringBootApplicationHelper {
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (Exception e) {
 			hostAddress = localhostAddress;
-			log.warn("The host name could not be determined, using `localhost` as fallback");
+			log.warn("The host name could not be determined, using ‘localhost‘ as fallback");
 		}
 
 		log.info(

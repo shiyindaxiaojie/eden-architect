@@ -80,7 +80,7 @@ public class NettyClient {
 	}
 
 	public ListenableFuture<Void> startup() {
-		log.info("Starting Netty client `{}` with {} threads", name, channelThreads);
+		log.info("Starting Netty client ‘{}‘ with {} threads", name, channelThreads);
 
 		final SettableFuture<Void> result = SettableFuture.create(); // 锁住返回结果
 		final Bootstrap bootstrap = checkState().createBootstrap();
@@ -92,7 +92,7 @@ public class NettyClient {
 				final String hostAddress = boundTo.getAddress().getHostAddress();
 
 				boundToPort = boundTo.getPort();
-				log.info("Started Netty client `{}` @{}:{}", name, hostAddress, boundToPort);
+				log.info("Started Netty client ‘{}‘ @{}:{}", name, hostAddress, boundToPort);
 
 				result.set(null);
 				channel.closeFuture().syncUninterruptibly();
@@ -104,7 +104,7 @@ public class NettyClient {
 	}
 
 	public void shutdown() {
-		log.info("Stopping Netty client `{}`", name);
+		log.info("Stopping Netty client ‘{}‘", name);
 
 		channelEventLoopGroup.shutdownGracefully();
 		channelEventLoopGroup.terminationFuture().syncUninterruptibly();

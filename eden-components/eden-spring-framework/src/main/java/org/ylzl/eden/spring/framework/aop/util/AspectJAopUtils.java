@@ -3,8 +3,8 @@ package org.ylzl.eden.spring.framework.aop.util;
 import lombok.experimental.UtilityClass;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.ylzl.eden.spring.framework.error.util.AssertEnhancer;
-import org.ylzl.eden.spring.framework.error.util.MessageFormatUtils;
+import org.ylzl.eden.spring.framework.error.util.AssertUtils;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.expression.util.SpelExpressionUtils;
 
 import java.lang.reflect.Method;
@@ -17,6 +17,8 @@ import java.lang.reflect.Method;
  */
 @UtilityClass
 public class AspectJAopUtils extends org.springframework.aop.aspectj.AspectJAopUtils {
+
+	private static final String SPEL_EXPRESSION_IS_INVALID = "Spel expression is invalid: {}";
 
 	/**
 	 * 从切点获取 Method
@@ -49,8 +51,7 @@ public class AspectJAopUtils extends org.springframework.aop.aspectj.AspectJAopU
 		Object[] arguments = joinPoint.getArgs();
 		Method method = getMethod(joinPoint);
 		String resolveValue = SpelExpressionUtils.parse(expressionString, method, arguments);
-		AssertEnhancer.notNull(resolveValue, MessageFormatUtils.format("Spel expression is invalid: {}",
-			expressionString));
+		AssertUtils.notNull(resolveValue, MessageFormatUtils.format(SPEL_EXPRESSION_IS_INVALID, expressionString));
 		return resolveValue;
 	}
 }

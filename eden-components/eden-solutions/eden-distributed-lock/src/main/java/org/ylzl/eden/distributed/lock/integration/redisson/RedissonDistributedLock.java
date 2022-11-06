@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.exception.DistributedLockException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
+import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +31,7 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(String key) throws DistributedLockException {
+	public boolean lock(String key) {
 		log.debug("Redisson create lock: {}", key);
 		RLock rLock = redissonClient.getFairLock(key);
 		rLockThreadLocal.set(rLock);
@@ -37,7 +39,7 @@ public class RedissonDistributedLock implements DistributedLock {
 			return rLock.tryLock();
 		} catch (Exception e) {
 			log.error("Redisson create lock: {}, catch exception: {}", key, e.getMessage(), e);
-			return false;
+			throw new DistributedLockAcquireException(e);
 		}
 	}
 
@@ -48,10 +50,9 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
 	 * @return
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public boolean lock(String key, int waitTime, TimeUnit timeUnit) throws DistributedLockException {
+	public boolean lock(String key, int waitTime, TimeUnit timeUnit) {
 		log.debug("Redisson create lock: {}", key);
 		RLock rLock = redissonClient.getFairLock(key);
 		rLockThreadLocal.set(rLock);
@@ -59,7 +60,7 @@ public class RedissonDistributedLock implements DistributedLock {
 			return rLock.tryLock(waitTime, 1, timeUnit);
 		} catch (Exception e) {
 			log.error("Redisson create lock: {}, waitTime: {}, catch exception: {}", key, e.getMessage(), e);
-			return false;
+			throw new DistributedLockTimeoutException(e);
 		}
 	}
 
@@ -67,10 +68,9 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * 释放锁
 	 *
 	 * @param key 锁对象
-	 * @throws DistributedLockException
 	 */
 	@Override
-	public void unlock(String key) throws DistributedLockException {
+	public void unlock(String key) {
 		log.debug("Redisson release lock: {}", key);
 		RLock rLock = rLockThreadLocal.get();
 		if (rLock.isHeldByCurrentThread()) {
@@ -79,7 +79,7 @@ public class RedissonDistributedLock implements DistributedLock {
 				rLockThreadLocal.remove();
 			} catch (Exception e) {
 				log.error("Redisson release lock: {}, catch exception: {}", key, e.getMessage(), e);
-				throw new DistributedLockException(e.getMessage());
+				throw new DistributedLockReleaseException(e);
 			}
 		}
 	}

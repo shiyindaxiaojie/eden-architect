@@ -23,7 +23,7 @@ import lombok.ToString;
 import org.jetbrains.annotations.PropertyKey;
 
 /**
- * 异常基类
+ * 基础异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

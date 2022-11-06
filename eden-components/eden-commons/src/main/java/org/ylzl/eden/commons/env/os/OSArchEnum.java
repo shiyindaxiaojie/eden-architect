@@ -19,7 +19,6 @@ package org.ylzl.eden.commons.env.os;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import org.ylzl.eden.commons.regex.RegexUtils;
 
 /**
@@ -28,7 +27,9 @@ import org.ylzl.eden.commons.regex.RegexUtils;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Getter
 public enum OSArchEnum {
+
 	ALPHA("alpha"),
 	AMD64("amd64"),
 	ARM("arm"),
@@ -49,15 +50,13 @@ public enum OSArchEnum {
 	X86("x86"),
 	X86_64("x86_64");
 
-	@Getter
-	@Setter
-	private String name;
+	private final String name;
 
 	OSArchEnum(String name) {
 		this.name = name;
 	}
 
-	public static OSArchEnum toOSArchEnum(@NonNull String name) {
+	public static OSArchEnum parse(@NonNull String name) {
 		for (OSArchEnum osArchEnum : OSArchEnum.values()) {
 			if (RegexUtils.find(osArchEnum.getName(), name)) {
 				return osArchEnum;

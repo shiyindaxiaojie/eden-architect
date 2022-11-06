@@ -36,7 +36,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
 	public static Date toDate(@NonNull String dateStr, @NonNull String pattern)
 		throws ParseException {
-		return DateFormat.getFastDateFormat(pattern).parse(dateStr);
+		return DateFormat.parse(pattern).parse(dateStr);
 	}
 
 	public static Date toDate(@NonNull String dateStr) throws ParseException {
@@ -65,7 +65,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	public static String toDateString(@NonNull Date date, @NonNull String pattern) {
-		return DateFormat.getFastDateFormat(pattern).format(date);
+		return DateFormat.parse(pattern).format(date);
 	}
 
 	public static String toDateString(@NonNull Date date) {

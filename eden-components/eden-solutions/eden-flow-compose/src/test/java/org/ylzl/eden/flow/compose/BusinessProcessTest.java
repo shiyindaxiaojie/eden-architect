@@ -1,9 +1,9 @@
 package org.ylzl.eden.flow.compose;
 
 import org.junit.jupiter.api.Test;
-import org.ylzl.eden.flow.compose.core.ProcessEngine;
-import org.ylzl.eden.flow.compose.core.config.parser.ClassPathXmlProcessParser;
-import org.ylzl.eden.flow.compose.core.context.ProcessContext;
+import org.ylzl.eden.flow.compose.process.ProcessEngine;
+import org.ylzl.eden.flow.compose.config.parser.ClassPathXmlProcessParser;
+import org.ylzl.eden.flow.compose.context.ProcessContext;
 import org.ylzl.eden.commons.id.SnowflakeGenerator;
 
 /**
