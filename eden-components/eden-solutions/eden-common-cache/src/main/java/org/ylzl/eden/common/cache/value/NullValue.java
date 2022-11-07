@@ -1,5 +1,7 @@
 package org.ylzl.eden.common.cache.value;
 
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@EqualsAndHashCode
 public final class NullValue implements Serializable {
 
 	public static final Object INSTANCE = new NullValue();
@@ -17,16 +20,6 @@ public final class NullValue implements Serializable {
 
 	private Object readResolve() {
 		return INSTANCE;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return (this == obj || obj == null);
-	}
-
-	@Override
-	public int hashCode() {
-		return NullValue.class.hashCode();
 	}
 
 	@Override
