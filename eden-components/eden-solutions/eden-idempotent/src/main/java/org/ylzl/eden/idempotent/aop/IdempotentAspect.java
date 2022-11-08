@@ -25,9 +25,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.redisson.Redisson;
-import org.redisson.api.RMapCache;
-import org.ylzl.eden.idempotent.annotation.Idempotent;
+import org.ylzl.eden.idempotent.core.Idempotent;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
 import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
@@ -45,11 +43,9 @@ import java.util.Arrays;
 @Aspect
 public class IdempotentAspect {
 
-	private static final String RMAPCACHE_KEY = "idempotent";
+	private final byte[] lock = new byte[0];
 
-	private final Redisson redisson;
-
-	@Pointcut("@within(org.ylzl.eden.idempotent.annotation.Idempotent) && execution(public * *(..))")
+	@Pointcut("@within(org.ylzl.eden.idempotent.core.Idempotent) && execution(public * *(..))")
 	public void pointcut() {
 	}
 
@@ -61,10 +57,8 @@ public class IdempotentAspect {
 			Idempotent idempotent = method.getAnnotation(Idempotent.class);
 
 			String key = idempotent.key();
-			String resolveKey = StringUtils.isNotBlank(key)?
-				AspectJAopUtils.parseSpelExpression(key, joinPoint) : this.generatorDefaultKey(joinPoint);
+			String resolveKey = resolveKey(key, joinPoint);
 
-			RMapCache<String, Object> rMapCache = redisson.getMapCache(RMAPCACHE_KEY);
 		}
 
 		Object response;
@@ -76,7 +70,10 @@ public class IdempotentAspect {
 		return response;
 	}
 
-	private String generatorDefaultKey(ProceedingJoinPoint joinPoint) {
+	private String resolveKey(String key, ProceedingJoinPoint joinPoint) {
+		if (StringUtils.isNotBlank(key)) {
+			return AspectJAopUtils.parseSpelExpression(key, joinPoint);
+		}
 		String url = RequestUtils.getRequestURL();
 		String argString = Arrays.asList(joinPoint.getArgs()).toString();
 		return url + argString;

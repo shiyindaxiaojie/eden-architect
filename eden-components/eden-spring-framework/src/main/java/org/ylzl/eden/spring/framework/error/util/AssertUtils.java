@@ -18,8 +18,9 @@
 package org.ylzl.eden.spring.framework.error.util;
 
 import lombok.NonNull;
+import org.jetbrains.annotations.PropertyKey;
 import org.springframework.util.Assert;
-import org.ylzl.eden.commons.lang.MessageFormatUtils;
+import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 
 import java.util.Collection;
 import java.util.Map;
@@ -32,56 +33,68 @@ import java.util.Map;
  */
 public class AssertUtils extends Assert {
 
-	public static void doesNotContain(@NonNull String textToSearch, String substring, String message,
+	public static void doesNotContain(@NonNull String textToSearch, String substring, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 									  Object... placeholders) {
-		doesNotContain(textToSearch, substring, MessageFormatUtils.format(message, placeholders));
+		doesNotContain(textToSearch, substring, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void hasLength(@NonNull String expression, String message, Object... placeholders) {
-		hasLength(expression, MessageFormatUtils.format(message, placeholders));
+	public static void hasLength(@NonNull String expression, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+								 Object... placeholders) {
+		hasLength(expression, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void hasText(String text, String message, Object... placeholders) {
-		hasText(text, MessageFormatUtils.format(message, placeholders));
+	public static void hasText(String text, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+							   Object... placeholders) {
+		hasText(text, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void isInstanceOf(Class<?> type, @NonNull Object obj, String message, Object... placeholders) {
-		isInstanceOf(type, obj, MessageFormatUtils.format(message, placeholders));
+	public static void isInstanceOf(Class<?> type, @NonNull Object obj, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+									Object... placeholders) {
+		isInstanceOf(type, obj, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void isNull(Object object, String message, Object... placeholders) {
-		isNull(object, MessageFormatUtils.format(message, placeholders));
+	public static void isNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+							  Object... placeholders) {
+		isNull(object, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void notNull(Object object, String message, Object... placeholders) {
-		notNull(object, MessageFormatUtils.format(message, placeholders));
+	public static void notNull(Object object, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+							   Object... placeholders) {
+		notNull(object, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void isTrue(boolean expression, String message, Object... placeholders) {
-		isTrue(expression, MessageFormatUtils.format(message, placeholders));
+	public static void isTrue(boolean expression, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+							  Object... placeholders) {
+		isTrue(expression, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void noNullElements(@NonNull Collection<?> collection, String message, Object... placeholders) {
-		noNullElements(collection, MessageFormatUtils.format(message, placeholders));
+	public static void noNullElements(@NonNull Collection<?> collection, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+									  Object... placeholders) {
+		noNullElements(collection, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void notEmpty(@NonNull Object[] array, String message, Object... placeholders) {
-		notEmpty(array, MessageFormatUtils.format(message, placeholders));
+	public static void notEmpty(@NonNull Object[] array, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+								Object... placeholders) {
+		notEmpty(array, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void notEmpty(@NonNull Collection<?> collection, String message, Object... placeholders) {
-		notEmpty(collection, MessageFormatUtils.format(message, placeholders));
+	public static void notEmpty(@NonNull Collection<?> collection, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+								Object... placeholders) {
+		notEmpty(collection, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void notEmpty(@NonNull Map<?, ?> map, String message, Object... placeholders) {
-		notEmpty(map, MessageFormatUtils.format(message, placeholders));
+	public static void notEmpty(@NonNull Map<?, ?> map, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+								Object... placeholders) {
+		notEmpty(map, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType, String message, Object... placeholders) {
-		isAssignable(superType, subType, MessageFormatUtils.format(message, placeholders));
+	public static void isAssignable(Class<?> superType, @NonNull Class<?> subType, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+									Object... placeholders) {
+		isAssignable(superType, subType, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 
-	public static void state(boolean expression, String message, Object... placeholders) {
-		state(expression, MessageFormatUtils.format(message, placeholders));
+	public static void state(boolean expression, @PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
+							 Object... placeholders) {
+		state(expression, ErrorCodeLoader.getErrMessage(errCode, placeholders));
 	}
 }
