@@ -1,8 +1,10 @@
 package org.ylzl.eden.idempotent.core;
 
 import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 
 import java.lang.annotation.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 幂等性标注
@@ -16,9 +18,13 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 public @interface Idempotent {
 
+	IdempotentStrategy strategy() default IdempotentStrategy.EXPIRE;
+
 	String key() default StringConstants.EMPTY;
 
-	int expireInSeconds() default 1;
+	long ttl() default 1L;
+
+	TimeUnit timeUnit() default TimeUnit.SECONDS;
 
 	boolean deleteAfterInvoke() default false;
 }

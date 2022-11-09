@@ -26,10 +26,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.ylzl.eden.idempotent.core.Idempotent;
+import org.ylzl.eden.idempotent.strategy.ExpiredIdempotentStrategy;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
+import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -43,7 +46,7 @@ import java.util.Arrays;
 @Aspect
 public class IdempotentAspect {
 
-	private final byte[] lock = new byte[0];
+	private final ExpiredIdempotentStrategy strategy;
 
 	@Pointcut("@within(org.ylzl.eden.idempotent.core.Idempotent) && execution(public * *(..))")
 	public void pointcut() {
@@ -58,6 +61,10 @@ public class IdempotentAspect {
 
 			String key = idempotent.key();
 			String resolveKey = resolveKey(key, joinPoint);
+			String value = LocalDateTime.now().toString().replace("T", " ");
+
+			boolean isFirstRequest = strategy.check(resolveKey, value, idempotent.ttl(), idempotent.timeUnit());
+			AssertUtils.isTrue(isFirstRequest, "REQ-UNIQUE-409");
 
 		}
 

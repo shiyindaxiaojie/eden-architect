@@ -5,21 +5,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringConstants;
-import org.ylzl.eden.idempotent.model.IdempotentToken;
-import org.ylzl.eden.idempotent.token.IdempotentTokenProvider;
+import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 幂等令牌提供类
+ * 基于 Redis 实现令牌策略管理幂等请求
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
-public class RedisIdempotentTokenProvider implements IdempotentTokenProvider {
+public class RedisIdempotentTokenStrategy implements TokenIdempotentStrategy {
 
 	private final StringRedisTemplate redisTemplate;
 
@@ -31,21 +30,20 @@ public class RedisIdempotentTokenProvider implements IdempotentTokenProvider {
 	 * @return 请求令牌
 	 */
 	@Override
-	public IdempotentToken generate() {
+	public String generate() {
 		String token = NanoIdUtils.randomNanoId();
 		String key = this.buildKey(token);
 		redisTemplate.opsForValue().set(key, StringConstants.EMPTY, 60, TimeUnit.SECONDS);
-		return IdempotentToken.builder().value(token).build();
+		return token;
 	}
 
 	/**
 	 * 校验请求令牌
 	 *
-	 * @param idempotentToken 请求令牌
+	 * @param token 请求令牌
 	 */
 	@Override
-	public void validate(IdempotentToken idempotentToken) {
-		String token = idempotentToken.getValue();
+	public void validate(String token) {
 		AssertUtils.notNull(token, "REQ-UNIQUE-401");
 
 		// 如果不存在，表示已被其他请求处理，判定为重复请求
