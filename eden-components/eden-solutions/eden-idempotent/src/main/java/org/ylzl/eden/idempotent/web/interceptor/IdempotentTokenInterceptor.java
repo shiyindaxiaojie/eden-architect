@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.ylzl.eden.idempotent.core.Idempotent;
-import org.ylzl.eden.idempotent.token.IdempotentTokenProvider;
+import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class IdempotentTokenInterceptor implements HandlerInterceptor {
 
-	private final IdempotentTokenProvider idempotentTokenProvider;
+	private final TokenIdempotentStrategy tokenIdempotentStrategy;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -31,7 +31,7 @@ public class IdempotentTokenInterceptor implements HandlerInterceptor {
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		Idempotent idempotent = handlerMethod.getMethod().getAnnotation(Idempotent.class);
 		if (idempotent != null) {
-			idempotentTokenProvider.validate(null);
+			tokenIdempotentStrategy.validate(null);
 		}
 		return true;
 	}
