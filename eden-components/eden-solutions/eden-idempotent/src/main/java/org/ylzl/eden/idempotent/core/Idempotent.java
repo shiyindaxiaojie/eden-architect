@@ -1,4 +1,4 @@
-package org.ylzl.eden.idempotent.annotation;
+package org.ylzl.eden.idempotent.core;
 
 import org.ylzl.eden.commons.lang.StringConstants;
 
@@ -20,9 +20,5 @@ public @interface Idempotent {
 
 	int expireInSeconds() default 1;
 
-	boolean deleteKey() default false;
-
-	String errCode() default StringConstants.EMPTY;
-
-	String errMessage() default "重复请求，请稍后重试";
+	boolean deleteAfterInvoke() default false;
 }
