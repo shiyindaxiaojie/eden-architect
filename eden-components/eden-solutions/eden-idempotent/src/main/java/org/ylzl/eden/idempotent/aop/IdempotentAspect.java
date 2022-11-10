@@ -58,12 +58,10 @@ public class IdempotentAspect {
 		Method method = signature.getMethod();
 		if (method.isAnnotationPresent(Idempotent.class)) {
 			Idempotent idempotent = method.getAnnotation(Idempotent.class);
-
-			String key = idempotent.key();
-			String resolveKey = resolveKey(key, joinPoint);
+			String key = resolveKey(idempotent.key(), joinPoint);
 			String value = LocalDateTime.now().toString().replace("T", " ");
 
-			boolean isFirstRequest = strategy.check(resolveKey, value, idempotent.ttl(), idempotent.timeUnit());
+			boolean isFirstRequest = strategy.check(key, value, idempotent.ttl(), idempotent.timeUnit());
 			AssertUtils.isTrue(isFirstRequest, "REQ-UNIQUE-409");
 
 		}
@@ -77,10 +75,19 @@ public class IdempotentAspect {
 		return response;
 	}
 
+	/**
+	 * 解析Key
+	 *
+	 * @param key
+	 * @param joinPoint
+	 * @return
+	 */
 	private String resolveKey(String key, ProceedingJoinPoint joinPoint) {
 		if (StringUtils.isNotBlank(key)) {
+			// 基于 Spel 表达式解析
 			return AspectJAopUtils.parseSpelExpression(key, joinPoint);
 		}
+		// 如果设置为空，默认取请求路径和参数做标识
 		String url = RequestUtils.getRequestURL();
 		String argString = Arrays.asList(joinPoint.getArgs()).toString();
 		return url + argString;
