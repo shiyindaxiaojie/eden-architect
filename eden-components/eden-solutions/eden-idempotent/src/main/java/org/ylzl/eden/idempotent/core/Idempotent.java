@@ -22,9 +22,9 @@ public @interface Idempotent {
 
 	String key() default StringConstants.EMPTY;
 
-	long ttl() default 1L;
+	long ttl() default 10L;
 
 	TimeUnit timeUnit() default TimeUnit.SECONDS;
 
-	boolean deleteAfterInvoke() default false;
+	boolean releaseAfterInvoke() default false;
 }

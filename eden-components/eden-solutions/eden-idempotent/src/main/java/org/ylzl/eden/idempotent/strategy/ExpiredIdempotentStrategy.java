@@ -10,15 +10,21 @@ import java.util.concurrent.TimeUnit;
  */
 public interface ExpiredIdempotentStrategy {
 
+	/**
+	 * 检查是否首次请求
+	 *
+	 * @param key 键
+	 * @param value 值
+	 * @param ttl 存活时间
+	 * @param timeUnit 时间单位
+	 * @return 是否通过
+	 */
+	boolean checkFirstRequest(String key, Object value, long ttl, TimeUnit timeUnit);
 
 	/**
-	 * 检查
+	 * 调用后执行释放
 	 *
-	 * @param key
-	 * @param value
-	 * @param ttl
-	 * @param timeUnit
-	 * @return
+	 * @param key 键
 	 */
-	boolean check(String key, Object value, long ttl, TimeUnit timeUnit);
+	void releaseAfterInvoke(String key);
 }

@@ -58,23 +58,20 @@ public class IdempotentAspect {
 		Method method = signature.getMethod();
 		if (method.isAnnotationPresent(Idempotent.class)) {
 			Idempotent idempotent = method.getAnnotation(Idempotent.class);
-
-			String key = idempotent.key();
-			String resolveKey = resolveKey(key, joinPoint);
+			String key = resolveKey(idempotent.key(), joinPoint);
 			String value = LocalDateTime.now().toString().replace("T", " ");
-
-			boolean isFirstRequest = strategy.check(resolveKey, value, idempotent.ttl(), idempotent.timeUnit());
+			boolean isFirstRequest = strategy.checkFirstRequest(key, value, idempotent.ttl(), idempotent.timeUnit());
 			AssertUtils.isTrue(isFirstRequest, "REQ-UNIQUE-409");
 
+			try {
+				return joinPoint.proceed();
+			} finally {
+				if (idempotent.releaseAfterInvoke()) {
+					strategy.releaseAfterInvoke(key);
+				}
+			}
 		}
-
-		Object response;
-		try {
-			response = joinPoint.proceed();
-		} finally {
-
-		}
-		return response;
+		return joinPoint.proceed();
 	}
 
 	private String resolveKey(String key, ProceedingJoinPoint joinPoint) {
