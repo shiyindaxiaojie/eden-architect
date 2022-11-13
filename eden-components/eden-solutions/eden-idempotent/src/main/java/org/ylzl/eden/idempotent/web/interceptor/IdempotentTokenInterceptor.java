@@ -1,10 +1,12 @@
 package org.ylzl.eden.idempotent.web.interceptor;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.ylzl.eden.idempotent.core.Idempotent;
+import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
@@ -23,7 +25,8 @@ public class IdempotentTokenInterceptor implements HandlerInterceptor {
 
 	private final TokenIdempotentStrategy tokenIdempotentStrategy;
 
-	private final String tokenName;
+	@Setter
+	private String tokenName = "idempotent";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -33,7 +36,7 @@ public class IdempotentTokenInterceptor implements HandlerInterceptor {
 
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		Idempotent idempotent = handlerMethod.getMethod().getAnnotation(Idempotent.class);
-		if (idempotent != null) {
+		if (idempotent != null && IdempotentStrategy.TOKEN == idempotent.strategy()) {
 			String token = request.getHeader(tokenName);
 			AssertUtils.notNull(token, "REQ-UNIQUE-409");
 			tokenIdempotentStrategy.validateToken(token);
