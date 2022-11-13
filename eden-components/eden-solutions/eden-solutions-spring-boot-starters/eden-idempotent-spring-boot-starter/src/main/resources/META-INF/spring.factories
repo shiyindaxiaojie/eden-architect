@@ -1,0 +1,6 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.idempotent.spring.boot.autoconfigure.TtlIdempotentAutoConfiguration,\
+  org.ylzl.eden.idempotent.spring.boot.autoconfigure.TokenIdempotentAutoConfiguration,\
+  org.ylzl.eden.idempotent.spring.boot.autoconfigure.RedisTtlIdempotentAutoConfiguration,\
+  org.ylzl.eden.idempotent.spring.boot.autoconfigure.RedisTokenIdempotentAutoConfiguration

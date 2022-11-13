@@ -1,7 +1,5 @@
 package org.ylzl.eden.idempotent.strategy;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * 基于令牌策略管理幂等请求
  *
@@ -13,11 +11,9 @@ public interface TokenIdempotentStrategy {
 	/**
 	 * 生成请求令牌
 	 *
-	 * @param ttl 存活时间
-	 * @param timeUnit 时间单位
 	 * @return 请求令牌
 	 */
-	String generateToken(long ttl, TimeUnit timeUnit);
+	String generateToken();
 
 	/**
 	 * 校验请求令牌

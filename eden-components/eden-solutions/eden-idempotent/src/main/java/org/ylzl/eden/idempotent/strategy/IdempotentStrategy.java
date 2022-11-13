@@ -8,7 +8,7 @@ package org.ylzl.eden.idempotent.strategy;
  */
 public enum IdempotentStrategy {
 
-	EXPIRE,
+	TTL,
 	TOKEN;
 
 	public static IdempotentStrategy parse(String type) {

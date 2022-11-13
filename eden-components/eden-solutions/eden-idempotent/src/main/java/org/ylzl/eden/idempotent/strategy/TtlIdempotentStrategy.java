@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public interface ExpiredIdempotentStrategy {
+public interface TtlIdempotentStrategy {
 
 	/**
 	 * 检查是否首次请求
@@ -17,14 +17,6 @@ public interface ExpiredIdempotentStrategy {
 	 * @param value 值
 	 * @param ttl 存活时间
 	 * @param timeUnit 时间单位
-	 * @return 是否通过
 	 */
-	boolean checkFirstRequest(String key, Object value, long ttl, TimeUnit timeUnit);
-
-	/**
-	 * 调用后执行释放
-	 *
-	 * @param key 键
-	 */
-	void releaseAfterInvoke(String key);
+	void checkFirstRequest(String key, String value, long ttl, TimeUnit timeUnit);
 }

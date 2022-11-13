@@ -25,14 +25,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.idempotent.core.Idempotent;
-import org.ylzl.eden.idempotent.strategy.ExpiredIdempotentStrategy;
+import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
+import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
-import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
 import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -44,9 +44,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Slf4j
 @Aspect
-public class IdempotentAspect {
+public class IdempotentTtlAspect {
 
-	private final ExpiredIdempotentStrategy strategy;
+	private final TtlIdempotentStrategy strategy;
 
 	@Pointcut("@within(org.ylzl.eden.idempotent.core.Idempotent) && execution(public * *(..))")
 	public void pointcut() {
@@ -58,17 +58,9 @@ public class IdempotentAspect {
 		Method method = signature.getMethod();
 		if (method.isAnnotationPresent(Idempotent.class)) {
 			Idempotent idempotent = method.getAnnotation(Idempotent.class);
-			String key = resolveKey(idempotent.key(), joinPoint);
-			String value = LocalDateTime.now().toString().replace("T", " ");
-			boolean isFirstRequest = strategy.checkFirstRequest(key, value, idempotent.ttl(), idempotent.timeUnit());
-			AssertUtils.isTrue(isFirstRequest, "REQ-UNIQUE-409");
-
-			try {
-				return joinPoint.proceed();
-			} finally {
-				if (idempotent.releaseAfterInvoke()) {
-					strategy.releaseAfterInvoke(key);
-				}
+			if (IdempotentStrategy.TTL == idempotent.strategy()) {
+				String key = resolveKey(idempotent.key(), joinPoint);
+				strategy.checkFirstRequest(key, StringConstants.EMPTY, idempotent.ttl(), idempotent.timeUnit());
 			}
 		}
 		return joinPoint.proceed();
