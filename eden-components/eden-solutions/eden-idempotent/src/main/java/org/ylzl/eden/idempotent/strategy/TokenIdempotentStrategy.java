@@ -13,12 +13,12 @@ public interface TokenIdempotentStrategy {
 	 *
 	 * @return 请求令牌
 	 */
-	String generate();
+	String generateToken();
 
 	/**
 	 * 校验请求令牌
 	 *
 	 * @param token 请求令牌
 	 */
-	void validate(String token);
+	void validateToken(String token);
 }

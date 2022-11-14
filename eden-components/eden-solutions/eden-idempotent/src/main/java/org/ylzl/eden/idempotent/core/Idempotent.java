@@ -18,13 +18,11 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 public @interface Idempotent {
 
-	IdempotentStrategy strategy() default IdempotentStrategy.EXPIRE;
+	IdempotentStrategy strategy() default IdempotentStrategy.TTL;
 
 	String key() default StringConstants.EMPTY;
 
-	long ttl() default 1L;
+	long ttl() default 10L;
 
 	TimeUnit timeUnit() default TimeUnit.SECONDS;
-
-	boolean deleteAfterInvoke() default false;
 }

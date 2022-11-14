@@ -1,7 +1,7 @@
 package org.ylzl.eden.spring.framework.error;
 
 import org.jetbrains.annotations.PropertyKey;
-import org.slf4j.helpers.MessageFormatter;
+import org.ylzl.eden.commons.lang.format.MessageFormatter;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
