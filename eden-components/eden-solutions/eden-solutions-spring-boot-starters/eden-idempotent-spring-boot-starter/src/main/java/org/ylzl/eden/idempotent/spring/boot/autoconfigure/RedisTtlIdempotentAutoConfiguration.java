@@ -20,12 +20,14 @@ import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
  * @since 2.4.13
  */
 @ConditionalOnBean(StringRedisTemplate.class)
-@ConditionalOnProperty(IdempotentTtlProperties.PREFIX)
+@ConditionalOnProperty(value = RedisTtlIdempotentAutoConfiguration.ENABLED, havingValue = "true")
 @RequiredArgsConstructor
 @Import(IdempotentAspectRegistrar.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class RedisTtlIdempotentAutoConfiguration {
+
+	public static final String ENABLED = IdempotentTtlProperties.PREFIX + ".redis.enabled";
 
 	private static final String AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY = "Autowired RedisTtlIdempotentStrategy";
 

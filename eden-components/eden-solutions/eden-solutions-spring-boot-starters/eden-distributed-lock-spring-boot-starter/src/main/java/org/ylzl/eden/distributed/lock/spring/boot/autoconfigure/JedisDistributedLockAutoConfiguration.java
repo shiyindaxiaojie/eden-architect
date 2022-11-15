@@ -20,7 +20,7 @@ import redis.clients.jedis.Jedis;
  * @since 2.4.13
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
-@ConditionalOnProperty(value = JedisDistributedLockAutoConfiguration.ENABLED, matchIfMissing = false)
+@ConditionalOnProperty(value = JedisDistributedLockAutoConfiguration.ENABLED, havingValue = "true")
 @ConditionalOnClass(Jedis.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)

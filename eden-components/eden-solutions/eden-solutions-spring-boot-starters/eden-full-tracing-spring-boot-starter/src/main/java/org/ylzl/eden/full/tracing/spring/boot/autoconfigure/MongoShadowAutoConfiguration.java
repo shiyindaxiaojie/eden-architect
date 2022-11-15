@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoClientFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoClientSettingsBuilderCustomizer;
@@ -30,12 +31,15 @@ import java.util.stream.Collectors;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(value = MongoShadowAutoConfiguration.ENABLED, havingValue = "true")
 @AutoConfigureAfter(MongoAutoConfiguration.class)
 @EnableConfigurationProperties(MongoShadowProperties.class)
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class MongoShadowAutoConfiguration {
+
+	public static final String ENABLED ="stress.mongodb.enabled";
 
 	public static final String MONGO_CLIENT = "mongoCLient";
 

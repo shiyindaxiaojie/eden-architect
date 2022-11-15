@@ -17,9 +17,12 @@ import org.ylzl.eden.idempotent.aop.IdempotentTtlAspect;
 @Slf4j
 public class IdempotentAspectRegistrar implements ImportBeanDefinitionRegistrar {
 
+	private static final String AUTOWIRED_IDEMPOTENT_TTL_ASPECT = "Autowired IdempotentTtlAspect";
+
 	@Override
 	public void registerBeanDefinitions(@NotNull AnnotationMetadata annotationMetadata,
 										@NotNull BeanDefinitionRegistry beanDefinitionRegistry) {
+		log.debug(AUTOWIRED_IDEMPOTENT_TTL_ASPECT);
 		BeanDefinitionBuilder.rootBeanDefinition(IdempotentTtlAspect.class);
 	}
 }
