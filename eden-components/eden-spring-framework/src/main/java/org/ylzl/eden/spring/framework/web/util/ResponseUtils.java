@@ -87,8 +87,8 @@ public class ResponseUtils {
 	 * 封装响应
 	 *
 	 * @param maybeResponse
-	 * @return
 	 * @param <X>
+	 * @return
 	 */
 	public static <X> ResponseEntity<X> wrapOrNotFound(X maybeResponse) {
 		return wrapOrNotFound(maybeResponse, null);
@@ -99,8 +99,8 @@ public class ResponseUtils {
 	 *
 	 * @param maybeResponse
 	 * @param header
-	 * @return
 	 * @param <X>
+	 * @return
 	 */
 	public static <X> ResponseEntity<X> wrapOrNotFound(X maybeResponse, HttpHeaders header) {
 		if (maybeResponse == null) {

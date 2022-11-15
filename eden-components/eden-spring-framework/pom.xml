@@ -38,6 +38,10 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-commons</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-extensions</artifactId>
+		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
@@ -205,7 +209,7 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
-		<!-- Log4j 日志框架 -->
+		<!-- ErrorCodeLoader.getErrMessage(errCode, placeholders) 日志框架 -->
 		<!-- 使用 log4j2 日志自动装配-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -328,12 +332,6 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
-		</dependency>
-
-		<!-- IDEA 组件 -->
-		<dependency>
-			<groupId>org.jetbrains</groupId>
-			<artifactId>annotations</artifactId>
 		</dependency>
 
 		<!-- Spock -->

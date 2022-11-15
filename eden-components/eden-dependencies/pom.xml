@@ -273,6 +273,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-extensions</artifactId>
+				<version>2.4.13.20221107</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-cloud</artifactId>
 				<version>2.4.13.20221107</version>
 			</dependency>

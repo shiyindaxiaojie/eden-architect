@@ -1,6 +1,6 @@
 package org.ylzl.eden.common.cache.strategy;
 
-import org.ylzl.eden.spring.framework.extension.strategy.LoadingStrategy;
+import org.ylzl.eden.extension.strategy.LoadingStrategy;
 
 /**
  * 缓存扩展点加载策略

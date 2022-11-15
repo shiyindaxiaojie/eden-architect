@@ -35,6 +35,7 @@
 	<modules>
 		<module>eden-commons</module>
 		<module>eden-dependencies</module>
+		<module>eden-extensions</module>
 		<module>eden-parent</module>
 		<module>eden-solutions</module>
 		<module>eden-spring-boot-starters</module>

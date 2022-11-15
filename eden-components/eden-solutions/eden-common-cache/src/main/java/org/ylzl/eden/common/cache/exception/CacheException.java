@@ -17,17 +17,15 @@
 
 package org.ylzl.eden.common.cache.exception;
 
-import org.ylzl.eden.spring.framework.error.BaseException;
-
 /**
  * 缓存服务异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CacheException extends BaseException {
+public class CacheException extends RuntimeException {
 
-	public CacheException(String errMessage, Object... params) {
-		super("CACHE-ERROR-500", errMessage, params);
+	public CacheException(String errMessage) {
+		super(errMessage);
 	}
 }

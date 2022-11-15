@@ -3,7 +3,7 @@ package org.ylzl.eden.common.cache.loader;
 import org.ylzl.eden.common.cache.config.CacheSpec;
 import org.ylzl.eden.common.cache.level.L2Cache;
 import org.ylzl.eden.common.cache.sync.CacheSynchronizer;
-import org.ylzl.eden.spring.framework.extension.SPI;
+import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;
 import java.util.concurrent.Callable;

@@ -229,6 +229,12 @@
 			<artifactId>transmittable-thread-local</artifactId>
 		</dependency>
 
+		<!-- IDEA 组件 -->
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+		</dependency>
+
 		<!-- Spock -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

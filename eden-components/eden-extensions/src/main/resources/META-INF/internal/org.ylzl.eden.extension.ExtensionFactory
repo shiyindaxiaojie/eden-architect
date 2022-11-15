@@ -1,0 +1,2 @@
+adaptive=org.ylzl.eden.extension.factory.AdaptiveExtensionFactory
+spi=org.ylzl.eden.extension.factory.SpiExtensionFactory
