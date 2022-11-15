@@ -1,6 +1,7 @@
-package org.ylzl.eden.flow.compose.factory;
+package org.ylzl.eden.flow.compose.spring.factory;
 
 import org.ylzl.eden.flow.compose.core.Processor;
+import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 
 /**
