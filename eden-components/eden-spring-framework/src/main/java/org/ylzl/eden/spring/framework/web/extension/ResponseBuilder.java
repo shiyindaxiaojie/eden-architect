@@ -20,6 +20,8 @@ public interface ResponseBuilder<T> {
 
 	T buildSuccess();
 
+	<Body> T buildSuccess(Body data);
+
 	T buildFailure(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 				   Object... params);
 

@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-architect</artifactId>
-		<version>2.4.13.20221107</version>
+		<version>2.4.13.20221116</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-components</artifactId>
@@ -33,6 +33,7 @@
 	<description>自研组件</description>
 
 	<modules>
+		<module>eden-cola</module>
 		<module>eden-commons</module>
 		<module>eden-dependencies</module>
 		<module>eden-extensions</module>
