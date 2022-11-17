@@ -37,8 +37,6 @@ import java.util.concurrent.ConcurrentMap;
 @Slf4j
 public class ExtensionLoader<T> {
 
-	/** 默认扩展点名称 */
-	public static final String DEFAULT_NAME = "default";
 
 	/** 扩展点加载器（延迟加载）*/
 	private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>(64);
@@ -141,9 +139,6 @@ public class ExtensionLoader<T> {
 	public T getExtension(String name, boolean wrap) {
 		if (StringUtils.isEmpty(name)) {
 			throw new IllegalArgumentException("Extension name == null");
-		}
-		if (DEFAULT_NAME.equals(name)) {
-			return getDefaultExtension();
 		}
 		final Holder<Object> holder = getOrCreateHolder(name);
 		Object instance = holder.get();
@@ -256,7 +251,7 @@ public class ExtensionLoader<T> {
 	 */
 	public T getDefaultExtension() {
 		this.getExtensionClasses();
-		if (StringUtils.isBlank(cachedDefaultName) || DEFAULT_NAME.equals(cachedDefaultName)) {
+		if (StringUtils.isBlank(cachedDefaultName)) {
 			return null;
 		}
 		return getExtension(cachedDefaultName);
@@ -482,6 +477,9 @@ public class ExtensionLoader<T> {
 			wrapperExtensionLoader.cacheWrapperClass(clazz);
 			return;
 		}
+
+		// 检测 clazz 是否有默认的构造方法，如果没有，则抛出异常
+		clazz.getConstructor();
 
 		// 如果名称为空，从类名匹配
 		if (StringUtils.isEmpty(name)) {

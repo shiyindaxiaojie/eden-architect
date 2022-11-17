@@ -20,6 +20,7 @@ import java.util.List;
 public class CatRegistryFactoryWrapper implements RegistryFactory {
 
 	public static final String PROVIDER_APPLICATION_KEY = "provider.application";
+
 	private final RegistryFactory registryFactory;
 
 	@Override
@@ -37,6 +38,7 @@ public class CatRegistryFactoryWrapper implements RegistryFactory {
 	}
 
 	static class RegistryWrapper implements Registry {
+
 		private final Registry originRegistry;
 
 		private URL appendProviderAppName(URL url) {
