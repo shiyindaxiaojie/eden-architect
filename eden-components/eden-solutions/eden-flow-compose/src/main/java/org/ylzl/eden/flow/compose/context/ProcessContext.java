@@ -5,14 +5,13 @@ import com.google.common.collect.Queues;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.util.StopWatch;
-import org.ylzl.eden.flow.compose.process.ProcessDefinition;
-import org.ylzl.eden.flow.compose.process.ProcessNode;
-import org.ylzl.eden.flow.compose.process.exception.ProcessNodeException;
+import org.apache.commons.lang3.time.StopWatch;
 import org.ylzl.eden.flow.compose.core.DynamicProcessor;
 import org.ylzl.eden.flow.compose.core.Processor;
 import org.ylzl.eden.flow.compose.core.RollbackProcessor;
+import org.ylzl.eden.flow.compose.process.ProcessDefinition;
+import org.ylzl.eden.flow.compose.process.ProcessNode;
+import org.ylzl.eden.flow.compose.process.exception.ProcessNodeException;
 
 import java.util.Deque;
 import java.util.Map;
@@ -37,8 +36,6 @@ public class ProcessContext<T> {
 
 	private final ProcessDefinition processDefinition;
 
-	private final AsyncTaskExecutor asyncTaskExecutor;
-
 	private final CountDownLatch countDownLatch = new CountDownLatch(1);
 
 	private static final String STOP_WATCH_ID = "flow-compose";
@@ -50,12 +47,12 @@ public class ProcessContext<T> {
 		ProcessNode firstProcessNode = processDefinition.getFirstProcessNode();
 		String nodeName = firstProcessNode.getName();
 		log.debug("Started process node '{}'", nodeName);
-		StopWatch watch = new StopWatch(STOP_WATCH_ID);
+		StopWatch watch = new StopWatch();
 		watch.start();
 		process(firstProcessNode);
 		await();
 		watch.stop();
-		log.debug("Finished process node '{}', cost {} milliseconds", nodeName, watch.getTotalTimeMillis());
+		log.debug("Finished process node '{}', cost {} milliseconds", nodeName, watch.getTime());
 	}
 
 	/**
@@ -129,7 +126,7 @@ public class ProcessContext<T> {
 
 	private void execute(ProcessNode nextProcessNode) {
 		if (nextProcessNode.isAsync()) {
-			asyncTaskExecutor.execute(() -> process(nextProcessNode));
+			new Thread(() -> process(nextProcessNode)).start();
 		} else {
 			process(nextProcessNode);
 		}

@@ -1,0 +1,89 @@
+@startuml
+
+!if %variable_exists("$THEME")
+title 架构图 - $THEME theme
+!else
+title 架构图
+!endif
+
+'skinparam BackgroundColor transparent
+
+[eden-architect] <<架构>>
+
+[eden-component] <<组件>>
+[eden-dependencies] <<依赖管理>>
+[eden-parent] <<父工程>>
+[eden-commons] <<工具集>>
+[eden-extensions] <<扩展点组件>>
+[eden-cola] <<COLA架构>>
+[eden-spring-framework] <<基础框架>>
+[eden-spring-data] <<数据存储组件>>
+[eden-spring-security] <<授权认证组件>>
+[eden-spring-integration] <<通用组件集成>>
+[eden-spring-boot-starters] <<中间件自动装配>>
+[eden-spring-cloud] <<微服务组件>>
+[eden-spring-cloud-starters] <<微服务组件自动装配>>
+[eden-spring-test] <<测试工具>>
+[eden-solutions] <<解决方案>>
+
+[eden-tests] <<测试集>>
+[eden-deployment-tests] <<部署测试集>>
+[eden-integration-tests] <<集成测试集>>
+[eden-performance-tests] <<性能测试集>>
+[eden-smoke-tests] <<冒烟测试集>>
+
+skinparam component {
+ 	backgroundColor<<组件>> SkyBlue
+    backgroundColor<<依赖管理>> SkyBlue
+    backgroundColor<<父工程>> SkyBlue
+    backgroundColor<<工具集>> SkyBlue
+    backgroundColor<<扩展点组件>> SkyBlue
+    backgroundColor<<基础框架>> SkyBlue
+	backgroundColor<<数据存储组件>> Pink
+	backgroundColor<<授权认证组件>> Pink
+	backgroundColor<<通用组件集成>> Pink
+	backgroundColor<<微服务组件>> Pink
+	backgroundColor<<COLA架构>> PaleGreen
+    backgroundColor<<中间件自动装配>> PaleGreen
+    backgroundColor<<微服务组件自动装配>> PaleGreen
+    backgroundColor<<测试工具>> PaleGreen
+	backgroundColor<<解决方案>> PaleGreen
+
+	backgroundColor<<测试集>> Khaki
+	backgroundColor<<部署测试集>> Khaki
+	backgroundColor<<集成测试集>> Khaki
+	backgroundColor<<性能测试集>> Khaki
+	backgroundColor<<冒烟测试集>> Khaki
+}
+
+[eden-component] --> [eden-architect]
+[eden-dependencies] --> [eden-component]
+[eden-parent] --> [eden-dependencies]
+[eden-commons] --> [eden-parent]
+[eden-extensions] --> [eden-commons]
+[eden-cola] --> [eden-commons]
+[eden-cola] -u-> [eden-spring-framework]
+[eden-spring-framework] --> [eden-commons]
+[eden-spring-framework] --> [eden-extensions]
+[eden-spring-data] --> [eden-spring-framework]
+[eden-spring-security] --> [eden-spring-framework]
+[eden-spring-integration] --> [eden-spring-framework]
+[eden-spring-cloud] --> [eden-spring-framework]
+[eden-spring-cloud] -r-> [eden-spring-security]
+[eden-spring-test] --> [eden-spring-framework]
+[eden-spring-test] --> [eden-spring-integration]
+[eden-spring-boot-starters] --> [eden-spring-data]
+[eden-spring-boot-starters] --> [eden-spring-security]
+[eden-spring-boot-starters] --> [eden-spring-integration]
+[eden-spring-cloud-starters] --> [eden-spring-cloud]
+[eden-solutions] --> [eden-extensions]
+[eden-solutions] ..> [eden-spring-framework]
+[eden-solutions] ..> [eden-spring-integration]
+
+[eden-architect] <.u. [eden-tests]
+[eden-tests] <-u- [eden-deployment-tests]
+[eden-tests] <-u- [eden-integration-tests]
+[eden-tests] <-u- [eden-performance-tests]
+[eden-tests] <-u- [eden-smoke-tests]
+
+@enduml

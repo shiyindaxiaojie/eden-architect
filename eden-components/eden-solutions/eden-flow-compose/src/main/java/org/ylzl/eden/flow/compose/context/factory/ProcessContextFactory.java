@@ -2,15 +2,13 @@ package org.ylzl.eden.flow.compose.context.factory;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.ylzl.eden.flow.compose.context.ProcessContext;
-import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
-import org.ylzl.eden.flow.compose.process.exception.ProcessDefinitionException;
 import org.ylzl.eden.flow.compose.config.ProcessConfig;
 import org.ylzl.eden.flow.compose.config.parser.ProcessParser;
+import org.ylzl.eden.flow.compose.context.ProcessContext;
+import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
 import org.ylzl.eden.flow.compose.factory.ReflectProcessorFactory;
 import org.ylzl.eden.flow.compose.process.ProcessDefinition;
+import org.ylzl.eden.flow.compose.process.exception.ProcessDefinitionException;
 
 import java.util.List;
 import java.util.Map;
@@ -26,23 +24,18 @@ public class ProcessContextFactory {
 
 	private static final ProcessorFactory DEFAULT_PROCESSOR_FACTORY = new ReflectProcessorFactory();
 
-	private static final AsyncTaskExecutor DEFAULT_ASYNC_TASK_EXECUTOR = new SimpleAsyncTaskExecutor();
-
 	private final Map<String, ProcessDefinition> processDefinitionMap = Maps.newConcurrentMap();
 
 	private final ProcessorFactory processorFactory;
 
-	private final AsyncTaskExecutor asyncTaskExecutor;
-
 	private ProcessParser processParser;
 
 	public ProcessContextFactory(ProcessParser processParser) {
-		this(DEFAULT_PROCESSOR_FACTORY, DEFAULT_ASYNC_TASK_EXECUTOR, processParser);
+		this(DEFAULT_PROCESSOR_FACTORY, processParser);
 	}
 
-	public ProcessContextFactory(ProcessorFactory processorFactory, AsyncTaskExecutor asyncTaskExecutor, ProcessParser processParser) {
+	public ProcessContextFactory(ProcessorFactory processorFactory, ProcessParser processParser) {
 		this.processorFactory = processorFactory;
-		this.asyncTaskExecutor = asyncTaskExecutor;
 		this.processParser = processParser;
 		init();
 	}
@@ -68,6 +61,6 @@ public class ProcessContextFactory {
 		if (processDefinition == null) {
 			throw new ProcessDefinitionException("Process definition '" + name + "' not found");
 		}
-		return new ProcessContext<T>(processDefinition, asyncTaskExecutor);
+		return new ProcessContext<T>(processDefinition);
 	}
 }

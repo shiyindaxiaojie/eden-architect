@@ -21,7 +21,7 @@ import org.ylzl.eden.zookeeper.spring.cloud.core.ZookeeperTemplate;
  * @since 2.4.13
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
-@ConditionalOnProperty(value = ZookeeperDistributedLockAutoConfiguration.ENABLED, matchIfMissing = false)
+@ConditionalOnProperty(value = ZookeeperDistributedLockAutoConfiguration.ENABLED, havingValue = "true")
 @ConditionalOnClass(ZooKeeper.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)

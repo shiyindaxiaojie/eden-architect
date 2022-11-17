@@ -1,6 +1,6 @@
 package org.ylzl.eden.common.cache.expire;
 
-import org.ylzl.eden.spring.framework.extension.SPI;
+import org.ylzl.eden.extension.SPI;
 
 /**
  * 缓存失效监听器

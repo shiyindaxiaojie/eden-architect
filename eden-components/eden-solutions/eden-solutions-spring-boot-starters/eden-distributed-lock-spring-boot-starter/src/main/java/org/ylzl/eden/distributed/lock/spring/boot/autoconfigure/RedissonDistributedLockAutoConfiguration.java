@@ -24,7 +24,7 @@ import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
-@ConditionalOnProperty(value = RedissonDistributedLockAutoConfiguration.ENABLED, matchIfMissing = true)
+@ConditionalOnProperty(value = RedissonDistributedLockAutoConfiguration.ENABLED, havingValue = "true", matchIfMissing = true)
 @ConditionalOnClass(RedissonClient.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)

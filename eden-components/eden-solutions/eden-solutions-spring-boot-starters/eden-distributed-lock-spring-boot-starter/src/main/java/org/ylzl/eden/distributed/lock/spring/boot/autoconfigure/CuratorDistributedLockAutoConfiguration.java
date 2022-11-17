@@ -20,7 +20,7 @@ import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
  * @since 2.4.13
  */
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
-@ConditionalOnProperty(value = CuratorDistributedLockAutoConfiguration.ENABLED, matchIfMissing = true)
+@ConditionalOnProperty(value = CuratorDistributedLockAutoConfiguration.ENABLED, havingValue = "true")
 @ConditionalOnClass(CuratorFramework.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)

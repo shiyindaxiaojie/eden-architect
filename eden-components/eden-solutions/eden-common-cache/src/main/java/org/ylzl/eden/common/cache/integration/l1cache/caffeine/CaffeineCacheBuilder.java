@@ -10,7 +10,7 @@ import org.ylzl.eden.common.cache.expire.CacheExpiredCause;
 import org.ylzl.eden.common.cache.expire.CacheExpiredListener;
 import org.ylzl.eden.common.cache.loader.CacheLoader;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.extension.ExtensionLoader;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 import java.util.HashMap;
 import java.util.Map;

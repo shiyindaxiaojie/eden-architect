@@ -14,7 +14,7 @@ public class DynamicStringRedisTemplate extends StringRedisTemplate {
 
 	@NotNull
 	@Override
-	protected  RedisConnection preProcessConnection(RedisConnection connection, boolean existingConnection) {
+	protected RedisConnection preProcessConnection(RedisConnection connection, boolean existingConnection) {
 		Integer db = RedisDatabaseSelector.get();
 		if (db != null) {
 			connection.select(db);
@@ -24,7 +24,7 @@ public class DynamicStringRedisTemplate extends StringRedisTemplate {
 
 	@NotNull
 	@Override
-	protected  RedisConnection createRedisConnectionProxy(RedisConnection pm) {
+	protected RedisConnection createRedisConnectionProxy(RedisConnection pm) {
 		return super.createRedisConnectionProxy(pm);
 	}
 }

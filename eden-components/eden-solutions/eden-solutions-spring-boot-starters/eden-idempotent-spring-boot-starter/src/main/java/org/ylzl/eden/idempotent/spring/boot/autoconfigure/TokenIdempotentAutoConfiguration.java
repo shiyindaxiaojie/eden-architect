@@ -18,7 +18,7 @@ import org.ylzl.eden.idempotent.web.interceptor.IdempotentTokenInterceptor;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(IdempotentTokenProperties.PREFIX)
+@ConditionalOnProperty(prefix = IdempotentTokenProperties.PREFIX, matchIfMissing = true)
 @EnableConfigurationProperties(IdempotentTokenProperties.class)
 @RequiredArgsConstructor
 @Slf4j

@@ -1,11 +1,11 @@
 package org.ylzl.eden.common.cache.builder;
 
-import org.ylzl.eden.common.cache.core.Cache;
 import org.ylzl.eden.common.cache.config.CacheConfig;
 import org.ylzl.eden.common.cache.config.CacheSpec;
+import org.ylzl.eden.common.cache.core.Cache;
 import org.ylzl.eden.common.cache.expire.CacheExpiredListener;
 import org.ylzl.eden.common.cache.sync.CacheSynchronizer;
-import org.ylzl.eden.spring.framework.extension.SPI;
+import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;
 
