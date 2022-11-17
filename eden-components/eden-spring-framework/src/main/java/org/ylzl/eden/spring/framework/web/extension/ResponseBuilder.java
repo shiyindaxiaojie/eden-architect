@@ -11,7 +11,7 @@ import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI("cola")
+@SPI("default")
 public interface ResponseBuilder<T> {
 
 	static ResponseBuilder<?> builder() {

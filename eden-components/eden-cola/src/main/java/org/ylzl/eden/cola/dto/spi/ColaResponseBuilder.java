@@ -12,7 +12,7 @@ import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class ResponseBuilder implements org.ylzl.eden.spring.framework.web.extension.ResponseBuilder<Response> {
+public class ColaResponseBuilder implements org.ylzl.eden.spring.framework.web.extension.ResponseBuilder<Response> {
 
 	@Override
 	public Response buildSuccess() {
