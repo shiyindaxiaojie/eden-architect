@@ -39,6 +39,7 @@ import javax.sql.DataSource;
 @AutoConfigureBefore({JdbcTemplateAutoConfiguration.class})
 @Slf4j
 @Configuration(proxyBeanMethods = false)
+@Deprecated
 public class BatchJdbcTemplateAutoConfiguration {
 
 	public static final String AUTOWIRED_BATCH_JDBCTPL = "Autowired BatchNamedParameterJdbcTemplate";

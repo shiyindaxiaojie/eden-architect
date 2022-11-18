@@ -4,14 +4,16 @@ import org.jetbrains.annotations.PropertyKey;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
+import org.ylzl.eden.extension.Order;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 
 /**
- * COLA 响应体构建
+ * COLA 响应体构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@Order(-1)
 public class ColaResponseBuilder implements org.ylzl.eden.spring.framework.web.extension.ResponseBuilder<Response> {
 
 	@Override

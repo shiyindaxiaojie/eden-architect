@@ -23,6 +23,7 @@ import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSour
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -40,6 +41,7 @@ import javax.sql.DataSource;
 @ConditionalOnClass(DynamicDataSourceProvider.class)
 @AutoConfigureBefore(com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@ConditionalOnProperty(prefix = "spring.datasource.dynamic", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class DynamicDataSourceAutoConfiguration {

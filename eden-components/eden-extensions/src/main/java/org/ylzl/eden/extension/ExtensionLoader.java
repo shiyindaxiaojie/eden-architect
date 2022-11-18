@@ -37,7 +37,6 @@ import java.util.concurrent.ConcurrentMap;
 @Slf4j
 public class ExtensionLoader<T> {
 
-
 	/** 扩展点加载器（延迟加载）*/
 	private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>(64);
 
@@ -585,6 +584,20 @@ public class ExtensionLoader<T> {
 		if (c == null || overridden) {
 			extensionClasses.put(name, clazz);
 		} else if (c != clazz) {
+			// 新增顺序替换
+			if (clazz.isAnnotationPresent(Order.class) || c.isAnnotationPresent(Order.class)) {
+				Order destOrder = clazz.getAnnotation(Order.class);
+				int destValue = destOrder != null? destOrder.value() : 0;
+				Order srcOrder = c.getAnnotation(Order.class);
+				int srcValue = srcOrder != null? srcOrder.value() : 0;
+				if (srcValue > destValue) {
+					log.debug("Compare extension " + type.getName() + " name " + name + " use " + clazz.getName() + " instead of " + c.getName());
+					extensionClasses.put(name, clazz);
+				}
+				log.debug("Compare extension " + type.getName() + " name " + name + " use " + c.getName() + " ignore " + clazz.getName());
+				return;
+			}
+
 			String duplicateMsg = "Duplicate extension " + type.getName() + " name " + name + " on " + c.getName() + " and " + clazz.getName();
 			log.error(duplicateMsg);
 			throw new IllegalStateException(duplicateMsg);
