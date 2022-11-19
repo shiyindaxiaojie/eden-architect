@@ -19,12 +19,10 @@ package org.ylzl.eden.mybatis.spring.boot.autoconfigure;
 
 import com.github.pagehelper.PageInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,7 +35,6 @@ import java.util.Properties;
  * @since 2.4.13
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
-@EnableConfigurationProperties({MybatisProperties.class})
 @ConditionalOnClass({PageInterceptor.class})
 @Slf4j
 @Configuration(proxyBeanMethods = false)

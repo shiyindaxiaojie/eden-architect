@@ -1,1 +1,1 @@
-cola=org.ylzl.eden.cola.dto.spi.ResponseBuilder
+response=org.ylzl.eden.cola.dto.spi.ColaResponseBuilder

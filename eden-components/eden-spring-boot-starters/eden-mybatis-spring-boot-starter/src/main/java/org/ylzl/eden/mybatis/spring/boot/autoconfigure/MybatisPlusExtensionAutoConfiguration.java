@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.mybatis.spring.boot.autoconfigure;
 
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -44,15 +45,18 @@ import org.ylzl.eden.spring.data.mybatis.autofill.AutofillMetaObjectHandler;
 	SqlSessionFactoryBean.class,
 	MybatisConfiguration.class
 })
-@ConditionalOnProperty(name = MybatisPlusExtensionProperties.AUTO_FILL_ENABLED)
+@ConditionalOnProperty(name = MybatisPlusExtensionProperties.AUTO_FILL_ENABLED, havingValue = "true")
 @EnableConfigurationProperties({MybatisPlusExtensionProperties.class})
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class MybatisPlusExtensionAutoConfiguration {
 
+	private static final String AUTOWIRED_META_OBJECT_HANDLER = "Autowired MetaObjectHandler";
+
 	@ConditionalOnMissingBean
 	@Bean
 	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
+		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
 		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreateDateFieldName(),
 			properties.getAutoFill().getLastModifiedDateFieldName());
 	}
