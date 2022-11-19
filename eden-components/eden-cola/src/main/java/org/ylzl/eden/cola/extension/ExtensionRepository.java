@@ -7,4 +7,6 @@ package org.ylzl.eden.cola.extension;
  * @since 2.4.13
  */
 public class ExtensionRepository {
+
+
 }

@@ -102,15 +102,13 @@ public class MybatisUtils {
 	}
 
 	private static String resolveParameterValue(Object obj) {
-		StringBuilder retStringBuilder = new StringBuilder();
-		if (obj instanceof String) {
-			retStringBuilder.append("'").append(obj).append("'");
-		} else if (obj instanceof Date) {
-			DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
-			retStringBuilder.append("'").append(formatter.format(new Date())).append("'");
-		} else {
-			retStringBuilder.append("'").append(obj == null ? "" : obj).append("'");
+		if (obj instanceof CharSequence) {
+			return "'" + obj + "'";
 		}
-		return retStringBuilder.toString();
+		if (obj instanceof Date) {
+			DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
+			return "'" + formatter.format(obj) + "'";
+		}
+		return obj == null ? "" : String.valueOf(obj);
 	}
 }
