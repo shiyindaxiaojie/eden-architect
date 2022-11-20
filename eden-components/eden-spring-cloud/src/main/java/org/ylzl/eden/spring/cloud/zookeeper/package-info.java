@@ -15,4 +15,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.zookeeper.spring.cloud;
+package org.ylzl.eden.spring.cloud.zookeeper;

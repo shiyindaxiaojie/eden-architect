@@ -1,4 +1,4 @@
-package org.ylzl.eden.zookeeper.spring.cloud.core;
+package org.ylzl.eden.spring.cloud.zookeeper.core;
 
 import org.ylzl.eden.spring.framework.error.BaseException;
 

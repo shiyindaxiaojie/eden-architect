@@ -16,11 +16,5 @@ import java.lang.annotation.*;
 @Component
 public @interface Extensions {
 
-	String[] bizId() default BizScenario.DEFAULT_BIZ_ID;
-
-	String[] useCase() default BizScenario.DEFAULT_USE_CASE;
-
-	String[] scenario() default BizScenario.DEFAULT_SCENARIO;
-
 	Extension[] value() default {};
 }

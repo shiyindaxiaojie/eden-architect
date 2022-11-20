@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
-import org.ylzl.eden.zookeeper.spring.cloud.core.ZookeeperTemplate;
+import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
 import java.util.concurrent.TimeUnit;
 

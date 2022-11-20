@@ -1,4 +1,4 @@
-package org.ylzl.eden.zookeeper.spring.cloud.config;
+package org.ylzl.eden.spring.cloud.zookeeper.config;
 
 import lombok.*;
 
