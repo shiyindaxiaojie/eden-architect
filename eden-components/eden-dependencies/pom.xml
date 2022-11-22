@@ -275,6 +275,36 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-all</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-catchlog</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-domain</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-dto</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-extension</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cola-statemachine</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-commons</artifactId>
 				<version>2.4.13.20221116</version>
 			</dependency>
