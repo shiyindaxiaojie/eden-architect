@@ -1,5 +1,7 @@
 package org.ylzl.eden.cola.statemachine;
 
+import org.ylzl.eden.cola.statemachine.visitor.Visitable;
+
 /**
  * 状态机
  *
@@ -8,5 +10,11 @@ package org.ylzl.eden.cola.statemachine;
  */
 public interface StateMachine<S, E, C> extends Visitable {
 
-	boolean verify(S sourceStateId,E event);
+	String getMachineId();
+
+	boolean verify(S sourceStateId, E event);
+
+	S fireEvent(S sourceState, E event, C ctx);
+
+	String generateUML();
 }

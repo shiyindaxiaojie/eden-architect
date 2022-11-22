@@ -1,5 +1,7 @@
 package org.ylzl.eden.cola.statemachine;
 
+import org.ylzl.eden.cola.statemachine.transition.TransitionType;
+
 /**
  * 从一个状态到另一个状态的流转
  *
