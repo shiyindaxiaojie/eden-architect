@@ -1,4 +1,4 @@
-package org.ylzl.eden.cola.statemachine;
+package org.ylzl.eden.cola.statemachine.transition;
 
 /**
  * 流转类型
