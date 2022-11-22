@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-cola</artifactId>
+		<version>2.4.13.20221116</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>eden-cola-all</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-cola-all</name>
+	<description>COLA所有组件</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-catchlog</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-dto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-extension</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-statemachine</artifactId>
+		</dependency>
+	</dependencies>
+</project>

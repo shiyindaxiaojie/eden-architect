@@ -312,6 +312,7 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<groupId>org.mapstruct</groupId>
@@ -328,10 +329,12 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Spock -->
