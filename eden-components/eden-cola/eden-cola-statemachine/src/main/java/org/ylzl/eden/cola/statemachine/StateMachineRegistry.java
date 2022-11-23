@@ -1,7 +1,6 @@
-package org.ylzl.eden.cola.statemachine.builder;
+package org.ylzl.eden.cola.statemachine;
 
 import com.google.common.collect.Maps;
-import org.ylzl.eden.cola.statemachine.StateMachine;
 import org.ylzl.eden.cola.statemachine.exception.StateMachineException;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 

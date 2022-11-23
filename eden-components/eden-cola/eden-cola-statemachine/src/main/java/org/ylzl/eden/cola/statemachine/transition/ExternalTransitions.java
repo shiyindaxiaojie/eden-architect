@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.transition;
 
-import org.ylzl.eden.cola.statemachine.dsl.From;
+import org.ylzl.eden.cola.statemachine.dsl.FromAmong;
 
 /**
  * 外部流转
@@ -10,5 +10,5 @@ import org.ylzl.eden.cola.statemachine.dsl.From;
  */
 public interface ExternalTransitions<S, E, C> {
 
-	From<S, E, C> fromAmong(S... stateIds);
+	FromAmong<S, E, C> fromAmong(S... stateIds);
 }

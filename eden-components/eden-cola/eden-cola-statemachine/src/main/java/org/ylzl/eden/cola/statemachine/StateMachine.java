@@ -12,9 +12,9 @@ public interface StateMachine<S, E, C> extends Visitable {
 
 	String getMachineId();
 
-	boolean verify(S sourceStateId, E event);
+	void setMachineId(String machineId);
+
+	boolean verify(S sourceState, E event);
 
 	S fireEvent(S sourceState, E event, C ctx);
-
-	String generateUML();
 }
