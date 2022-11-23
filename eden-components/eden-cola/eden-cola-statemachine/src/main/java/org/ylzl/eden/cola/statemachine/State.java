@@ -21,4 +21,5 @@ public interface State<S, E, C> extends Visitable {
 	List<Transition<S, E, C>> getEventTransitions(E event);
 
 	Collection<Transition<S, E, C>> getAllTransitions();
+
 }

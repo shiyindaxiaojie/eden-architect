@@ -1,7 +1,7 @@
 package org.ylzl.eden.cola.statemachine.exception;
 
 /**
- * TODO
+ * 状态机异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
