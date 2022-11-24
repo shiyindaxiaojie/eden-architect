@@ -36,8 +36,9 @@
 
 	<modules>
 		<module>eden-components</module>
+		<module>eden-plugins</module>
 		<module>eden-tests</module>
-    </modules>
+	</modules>
 
 	<licenses>
 		<license>
@@ -50,8 +51,7 @@
 	<scm>
 		<url>https://github.com/shiyindaxiaojie/eden-architect</url>
 		<connection>scm:git:git://github.com/shiyindaxiaojie/eden-architect.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/shiyindaxiaojie/eden-architect.git
-		</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/shiyindaxiaojie/eden-architect.git</developerConnection>
 	</scm>
 
 	<issueManagement>
@@ -65,8 +65,8 @@
 			<name>梦想歌</name>
 			<email>shiyindaxiaojie@gmail.com</email>
 			<roles>
-				<role>Developer</role>
 				<role>Architect</role>
+				<role>Developer</role>
 			</roles>
 		</developer>
 	</developers>

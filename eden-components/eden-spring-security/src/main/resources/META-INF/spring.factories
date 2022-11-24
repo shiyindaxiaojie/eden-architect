@@ -1,7 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  old.jwt.autoconfigure.JwtAuthorizationServerAutoConfiguration,\
-  old.oauth2.autoconfigure.OAuth2AuthorizationClientAutoConfiguration,\
-  old.oauth2.autoconfigure.OAuth2AuthorizationServerAutoConfiguration,\
-  old.oauth2.autoconfigure.OAuth2ResourceServerAutoConfiguration,\
-  old.web.autoconfigure.WebSecurityAutoConfiguration

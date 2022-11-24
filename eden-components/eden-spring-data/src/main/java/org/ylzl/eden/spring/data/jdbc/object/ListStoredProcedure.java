@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 存储过程实现
+ * List 存储过程实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

@@ -26,7 +26,6 @@ public class RedissonUtils {
 
 	private static final String REDISS_PROTOCOL_PREFIX = "rediss://";
 
-
 	public static RedissonClient redissonClient(RedisProperties redisProperties,
 												FixedRedissonProperties redissonProperties) {
 		Method clusterMethod = ReflectionUtils.findMethod(RedisProperties.class, "getCluster");

@@ -41,6 +41,7 @@
 		<module>eden-solutions</module>
 		<module>eden-spring-boot</module>
 		<module>eden-spring-boot-starters</module>
+		<module>eden-spring-boot-test</module>
 		<module>eden-spring-cloud</module>
 		<module>eden-spring-cloud-starters</module>
 		<module>eden-spring-data</module>

@@ -320,6 +320,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-spring-boot-test</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-spring-cloud</artifactId>
 				<version>2.4.13.20221116</version>
 			</dependency>
@@ -620,6 +625,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
+				<version>2.4.13.20221116</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-routing-datasource-spring-boot-starter</artifactId>
 				<version>2.4.13.20221116</version>
 			</dependency>
 			<dependency>
