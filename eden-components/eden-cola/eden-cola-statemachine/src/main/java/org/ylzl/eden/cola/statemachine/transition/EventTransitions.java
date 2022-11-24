@@ -45,7 +45,7 @@ public class EventTransitions<S, E, C> {
 	private void verify(List<Transition<S, E, C>> existingTransitions, Transition<S, E, C> newTransition) {
 		for (Transition<S, E, C> transition : existingTransitions) {
 			if (transition.equals(newTransition)) {
-				throw new StateMachineException(transition + " already Exist, you can not add another one");
+				throw new StateMachineException(transition + " already exist, you can not add another one");
 			}
 		}
 	}

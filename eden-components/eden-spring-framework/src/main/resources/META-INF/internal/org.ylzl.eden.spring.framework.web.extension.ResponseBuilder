@@ -1,1 +1,1 @@
-response=org.ylzl.eden.spring.framework.web.extension.internal.DefaultResponseBuilder
+response=org.ylzl.eden.spring.framework.web.extension.internal.InternalResponseBuilder
