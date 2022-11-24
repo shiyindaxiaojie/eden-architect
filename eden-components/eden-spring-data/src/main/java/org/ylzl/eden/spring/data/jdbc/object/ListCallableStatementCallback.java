@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 存储据过程回调
+ * List 存储过程回调
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

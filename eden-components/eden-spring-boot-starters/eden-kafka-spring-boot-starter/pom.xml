@@ -36,7 +36,7 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>

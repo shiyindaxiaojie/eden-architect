@@ -30,7 +30,7 @@
 	<artifactId>eden-spring-boot-starters</artifactId>
 	<packaging>pom</packaging>
 	<name>eden-spring-boot-starters</name>
-	<description>Spring Boot Starters For Eden*</description>
+	<description>Spring Boot Starters</description>
 
 	<modules>
 		<module>eden-arthas-spring-boot-starter</module>
@@ -63,6 +63,7 @@
 		<module>eden-redis-spring-boot-starter</module>
 		<module>eden-redisson-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
+		<module>eden-routing-datasource-spring-boot-starter</module>
 		<module>eden-sharding-jdbc-spring-boot-starter</module>
 		<module>eden-spock-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>

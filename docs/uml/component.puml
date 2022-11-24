@@ -15,18 +15,22 @@ title 架构图
 [eden-parent] <<父工程>>
 [eden-commons] <<工具集>>
 [eden-extensions] <<扩展点组件>>
-[eden-cola] <<COLA架构>>
 [eden-spring-framework] <<基础框架>>
 [eden-spring-data] <<数据存储组件>>
 [eden-spring-security] <<授权认证组件>>
-[eden-spring-integration] <<通用组件集成>>
-[eden-spring-boot-starters] <<中间件自动装配>>
-[eden-spring-cloud] <<微服务组件>>
-[eden-spring-cloud-starters] <<微服务组件自动装配>>
-[eden-spring-test] <<测试工具>>
+[eden-spring-integration] <<第三方集成组件>>
+[eden-spring-boot] <<Spring Boot组件>>
+[eden-spring-boot-test] <<Spring Boot组件测试>>
+[eden-spring-boot-starters] <<Spring Boot组件自动装配>>
+[eden-spring-cloud] <<Spring Cloud组件>>
+[eden-spring-cloud-starters] <<Spring Cloud组件自动装配>>
+[eden-spring-test] <<Spring测试组件>>
 [eden-solutions] <<解决方案>>
-
-[eden-tests] <<测试集>>
+[eden-cola] <<COLA架构>>
+[eden-cola-extensions] <<COLA扩展点>>
+[eden-cola-statemachine] <<COLA状态机>>
+[eden-plugins] <<插件集合>>
+[eden-tests] <<测试集合>>
 [eden-deployment-tests] <<部署测试集>>
 [eden-integration-tests] <<集成测试集>>
 [eden-performance-tests] <<性能测试集>>
@@ -41,15 +45,19 @@ skinparam component {
     backgroundColor<<基础框架>> SkyBlue
 	backgroundColor<<数据存储组件>> Pink
 	backgroundColor<<授权认证组件>> Pink
-	backgroundColor<<通用组件集成>> Pink
-	backgroundColor<<微服务组件>> Pink
-	backgroundColor<<COLA架构>> PaleGreen
-    backgroundColor<<中间件自动装配>> PaleGreen
-    backgroundColor<<微服务组件自动装配>> PaleGreen
-    backgroundColor<<测试工具>> PaleGreen
+	backgroundColor<<第三方集成组件>> Pink
+	backgroundColor<<Spring Boot组件>> Pink
+	backgroundColor<<Spring Cloud组件>> Pink
+	backgroundColor<<Spring Boot组件测试>> PaleGreen
+    backgroundColor<<Spring Boot组件自动装配>> PaleGreen
+    backgroundColor<<Spring Cloud组件自动装配>> PaleGreen
+    backgroundColor<<Spring测试组件>> PaleGreen
+    backgroundColor<<COLA架构>> PaleGreen
+    backgroundColor<<COLA扩展点>> PaleGreen
+    backgroundColor<<COLA状态机>> PaleGreen
 	backgroundColor<<解决方案>> PaleGreen
-
-	backgroundColor<<测试集>> Khaki
+    backgroundColor<<插件集合>> Khaki
+	backgroundColor<<测试集合>> Khaki
 	backgroundColor<<部署测试集>> Khaki
 	backgroundColor<<集成测试集>> Khaki
 	backgroundColor<<性能测试集>> Khaki
@@ -61,25 +69,32 @@ skinparam component {
 [eden-parent] --> [eden-dependencies]
 [eden-commons] --> [eden-parent]
 [eden-extensions] --> [eden-commons]
-[eden-cola] --> [eden-commons]
-[eden-cola] -u-> [eden-spring-framework]
 [eden-spring-framework] --> [eden-commons]
 [eden-spring-framework] --> [eden-extensions]
+[eden-spring-boot] --> [eden-spring-framework]
 [eden-spring-data] --> [eden-spring-framework]
 [eden-spring-security] --> [eden-spring-framework]
 [eden-spring-integration] --> [eden-spring-framework]
-[eden-spring-cloud] --> [eden-spring-framework]
+[eden-spring-cloud] -l-> [eden-spring-boot]
 [eden-spring-cloud] -r-> [eden-spring-security]
-[eden-spring-test] --> [eden-spring-framework]
-[eden-spring-test] --> [eden-spring-integration]
+[eden-spring-test] ..> [eden-spring-framework]
+[eden-spring-test] ..> [eden-spring-data]
+[eden-spring-test] ..> [eden-spring-integration]
+[eden-spring-boot-starters] --> [eden-spring-boot]
 [eden-spring-boot-starters] --> [eden-spring-data]
 [eden-spring-boot-starters] --> [eden-spring-security]
 [eden-spring-boot-starters] --> [eden-spring-integration]
+[eden-spring-boot-test] --> [eden-spring-boot]
+[eden-spring-boot-test] ..> [eden-spring-cloud]
 [eden-spring-cloud-starters] --> [eden-spring-cloud]
 [eden-solutions] --> [eden-extensions]
 [eden-solutions] ..> [eden-spring-framework]
 [eden-solutions] ..> [eden-spring-integration]
-
+[eden-cola] --> [eden-commons]
+[eden-cola] -u-> [eden-spring-framework]
+[eden-cola-extensions] -u-> [eden-cola]
+[eden-cola-statemachine] -r-> [eden-cola]
+[eden-architect] <.u. [eden-plugins]
 [eden-architect] <.u. [eden-tests]
 [eden-tests] <-u- [eden-deployment-tests]
 [eden-tests] <-u- [eden-integration-tests]
