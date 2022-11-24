@@ -36,8 +36,9 @@ public class TransitionsBuilder<S, E, C> implements ExternalTransitions<S, E, C>
 
 	private final TransitionType transitionType;
 
+	@SafeVarargs
 	@Override
-	public FromAmong<S, E, C> fromAmong(S... stateIds) {
+	public final FromAmong<S, E, C> fromAmong(S... stateIds) {
 		for(S stateId : stateIds) {
 			sources.add(StateHelper.getState(stateMap, stateId));
 		}

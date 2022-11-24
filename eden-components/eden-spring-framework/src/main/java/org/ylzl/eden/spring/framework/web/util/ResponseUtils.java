@@ -104,7 +104,7 @@ public class ResponseUtils {
 	 */
 	public static <X> ResponseEntity<X> wrapOrNotFound(X maybeResponse, HttpHeaders header) {
 		if (maybeResponse == null) {
-			return new ResponseEntity<X>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.ok().headers(header).body(maybeResponse);
 	}
