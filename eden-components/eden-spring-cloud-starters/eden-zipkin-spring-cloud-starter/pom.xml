@@ -19,11 +19,7 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -36,8 +32,14 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-		<!-- Brave 组件 -->
+		<!-- Nacos Config -->
+		<!-- Brave -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-context-log4j2</artifactId>
@@ -103,26 +105,26 @@
 			<artifactId>opentracing-redis-spring-data2</artifactId>
 		</dependency>
 
-		<!-- Zipkin2 组件 -->
+		<!-- Zipkin2 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 
-		<!-- Kafka 组件 -->
+		<!-- Kafka -->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-		<!-- Dubbo 组件 -->
+		<!-- Dubbo -->
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Redis 组件 -->
+		<!-- Redis -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-redisson-spring-boot-starter</artifactId>
@@ -134,7 +136,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- MongoDB 组件 -->
+		<!-- MongoDB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>

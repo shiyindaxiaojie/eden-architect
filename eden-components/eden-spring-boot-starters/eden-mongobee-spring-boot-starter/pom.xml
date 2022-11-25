@@ -33,23 +33,7 @@
 	<description>Spring Boot Starter For Mongobee</description>
 
 	<dependencies>
-		<!-- 开发工具 -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- 开发组件 -->
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot</artifactId>
@@ -59,7 +43,19 @@
 			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 
-		<!-- Mongobee 组件 -->
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Mongobee -->
 		<dependency>
 			<groupId>com.github.mongobee</groupId>
 			<artifactId>mongobee</artifactId>

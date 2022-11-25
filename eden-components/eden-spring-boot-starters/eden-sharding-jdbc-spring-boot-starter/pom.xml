@@ -30,9 +30,32 @@
 	<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-sharding-jdbc-spring-boot-starter</name>
-	<description>Sharding JDBC Spring Boot Starter</description>
+	<description>Sharding JDBC Spring Boot Starter For Sharding JDBC</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
+		</dependency>
+
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Sharding JDBC -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>

@@ -36,14 +36,14 @@
 		<!-- 内部组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>

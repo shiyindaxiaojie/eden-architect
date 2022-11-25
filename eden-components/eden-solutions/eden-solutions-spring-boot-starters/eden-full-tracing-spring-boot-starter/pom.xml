@@ -56,46 +56,46 @@
 			<artifactId>eden-full-tracing</artifactId>
 		</dependency>
 
-		<!-- Brave 组件 -->
+		<!-- Brave -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave</artifactId>
 		</dependency>
 
-		<!-- Spring Cloud Gateway 组件 -->
+		<!-- Spring Cloud Gateway -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gateway-server</artifactId>
 		</dependency>
 
-		<!-- Spring Web 组件 -->
+		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
 
-		<!-- Servlet 组件 -->
+		<!-- Servlet -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- JDBC 组件 -->
+		<!-- JDBC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Redis 组件 -->
+		<!-- Redis -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- MongoDB 组件 -->
+		<!-- MongoDB -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>

@@ -18,7 +18,6 @@ package org.ylzl.eden.routing.datasource.spring.boot.autoconfigure;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.cfg.BinderHelper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -37,6 +36,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.routing.datasource.spring.boot.env.RoutingDataSourceProperties;
+import org.ylzl.eden.spring.boot.bootstrap.bind.BinderHelper;
 import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceSelector;
 
 import javax.sql.DataSource;

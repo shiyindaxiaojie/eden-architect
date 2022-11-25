@@ -43,7 +43,7 @@
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -59,14 +59,14 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Spring Boot 组件 -->
+		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-actuator</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Elasticsearch 组件 -->
+		<!-- Elasticsearch -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
@@ -79,14 +79,14 @@
 			</exclusions>
 		</dependency>
 
-		<!-- MongoDB 组件 -->
+		<!-- MongoDB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Neo4j 组件 -->
+		<!-- Neo4j -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-neo4j</artifactId>
@@ -99,21 +99,21 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Liquibase 组件 -->
+		<!-- Liquibase -->
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Flyway 组件 -->
+		<!-- Flyway -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- MongoBee 组件 -->
+		<!-- MongoBee -->
 		<dependency>
 			<groupId>com.github.mongobee</groupId>
 			<artifactId>mongobee</artifactId>
@@ -126,7 +126,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Redis 组件 -->
+		<!-- Redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -143,7 +143,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Hazelcast 组件 -->
+		<!-- Hazelcast -->
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast</artifactId>
@@ -164,7 +164,7 @@
 			<artifactId>cache-api</artifactId>
 		</dependency>
 
-		<!-- Ehcache 组件 -->
+		<!-- Ehcache -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
@@ -176,7 +176,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Hibernate 组件 -->
+		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -203,14 +203,14 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- InfluxDB 组件 -->
+		<!-- InfluxDB -->
 		<dependency>
 			<groupId>org.influxdb</groupId>
 			<artifactId>influxdb-java</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- JPA 组件 -->
+		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -284,28 +284,28 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dynamic Datasource 组件 -->
+		<!-- Dynamic Datasource -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Druid 组件 -->
+		<!-- Druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Sharding JDBC 组件 -->
+		<!-- Sharding JDBC -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Spring Security 组件 -->
+		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -317,21 +317,21 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- SQLite 组件 -->
+		<!-- SQLite -->
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- H2 组件 -->
+		<!-- H2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Swagger 组件 -->
+		<!-- Swagger -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-bean-validators</artifactId>
@@ -353,7 +353,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Spock 组件 -->
+		<!-- Spock -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

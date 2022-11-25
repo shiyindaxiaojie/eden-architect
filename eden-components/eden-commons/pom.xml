@@ -229,7 +229,7 @@
 			<artifactId>transmittable-thread-local</artifactId>
 		</dependency>
 
-		<!-- IDEA 组件 -->
+		<!-- IDEA -->
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>

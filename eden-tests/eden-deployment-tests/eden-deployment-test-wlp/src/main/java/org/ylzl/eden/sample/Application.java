@@ -22,6 +22,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.ylzl.eden.spring.boot.bootstrap.SpringBootApplicationHelper;
 
 /**
  * Spring Boot 引导类

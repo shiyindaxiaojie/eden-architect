@@ -26,7 +26,7 @@
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -46,7 +46,7 @@
 			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 
-		<!-- Redisson 组件 -->
+		<!-- Redisson -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>

@@ -3,7 +3,6 @@ package org.ylzl.eden.common.cache.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.ylzl.eden.common.cache.config.CacheConfig;
 
 /**
@@ -12,7 +11,6 @@ import org.ylzl.eden.common.cache.config.CacheConfig;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@RefreshScope
 @Setter
 @Getter
 @ConfigurationProperties(prefix = CacheProperties.PREFIX)

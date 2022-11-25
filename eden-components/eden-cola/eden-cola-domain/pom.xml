@@ -32,7 +32,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Spring 组件 -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
