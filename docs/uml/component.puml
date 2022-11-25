@@ -52,9 +52,9 @@ skinparam component {
     backgroundColor<<Spring Boot组件自动装配>> PaleGreen
     backgroundColor<<Spring Cloud组件自动装配>> PaleGreen
     backgroundColor<<Spring测试组件>> PaleGreen
-    backgroundColor<<COLA架构>> PaleGreen
-    backgroundColor<<COLA扩展点>> PaleGreen
-    backgroundColor<<COLA状态机>> PaleGreen
+    backgroundColor<<COLA架构>> Plum
+    backgroundColor<<COLA扩展点>> Plum
+    backgroundColor<<COLA状态机>> Plum
 	backgroundColor<<解决方案>> PaleGreen
     backgroundColor<<插件集合>> Khaki
 	backgroundColor<<测试集合>> Khaki

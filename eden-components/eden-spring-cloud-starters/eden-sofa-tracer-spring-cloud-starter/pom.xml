@@ -19,11 +19,11 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->
@@ -32,8 +32,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-		<!-- SOFA Tracer 组件 -->
+		<!-- SOFA Tracer -->
 		<dependency>
 			<groupId>com.alipay.sofa</groupId>
 			<artifactId>tracer-sofa-boot-starter</artifactId>
@@ -75,7 +80,7 @@
 			<artifactId>sofa-tracer-springmessage-plugin</artifactId>
 		</dependency>
 
-		<!-- Zipkin2 组件 -->
+		<!-- Zipkin2 -->
 		<dependency>
 			<groupId>io.zipkin.zipkin2</groupId>
 			<artifactId>zipkin</artifactId>

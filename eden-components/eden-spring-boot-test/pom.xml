@@ -36,7 +36,7 @@
 			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>

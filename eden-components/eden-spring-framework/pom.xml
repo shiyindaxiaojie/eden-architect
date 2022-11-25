@@ -43,7 +43,7 @@
 			<artifactId>eden-extensions</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -156,7 +156,7 @@
 			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
 
-		<!-- Jakarta EE 组件 -->
+		<!-- Jakarta EE -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -170,7 +170,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Mail 组件 -->
+		<!-- Mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>javax.mail-api</artifactId>
@@ -194,7 +194,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- HttpClient 组件 -->
+		<!-- HttpClient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -206,7 +206,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Undertow 组件 -->
+		<!-- Undertow -->
 		<dependency>
 			<groupId>io.undertow</groupId>
 			<artifactId>undertow-core</artifactId>
@@ -218,7 +218,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Metrics 组件 -->
+		<!-- Metrics -->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-core</artifactId>

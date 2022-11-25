@@ -30,9 +30,32 @@
 	<artifactId>eden-flyway-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-flyway-spring-boot-starter</name>
-	<description>Flyway Spring Boot Starter</description>
+	<description>Spring Boot Starter For Flyway</description>
 
 	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-boot</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
+		</dependency>
+
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Flyway -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>

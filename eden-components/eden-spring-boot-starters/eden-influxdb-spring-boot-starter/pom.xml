@@ -33,33 +33,29 @@
 	<description>Spring Boot Starter For InfluxDB</description>
 
 	<dependencies>
-		<!-- 开发工具 -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 
-		<!-- InfluxDB 组件 -->
+		<!-- 开发工具 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- InfluxDB -->
 		<dependency>
 			<groupId>com.influxdb</groupId>
 			<artifactId>influxdb-client-java</artifactId>

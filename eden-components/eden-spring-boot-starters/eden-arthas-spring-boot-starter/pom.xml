@@ -36,11 +36,7 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->
@@ -49,8 +45,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-		<!-- Arthas 组件 -->
+		<!-- Arthas -->
 		<dependency>
 			<groupId>com.taobao.arthas</groupId>
 			<artifactId>arthas-spring-boot-starter</artifactId>

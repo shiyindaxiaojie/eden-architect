@@ -30,13 +30,13 @@
 	<artifactId>eden-swagger2-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-swagger2-spring-boot-starter</name>
-	<description>Swagger2 Spring Boot Starter</description>
+	<description>Spring Boot Starter For Swagger2</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -49,8 +49,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-		<!-- Swagger 2-->
+		<!-- Swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-bean-validators</artifactId>

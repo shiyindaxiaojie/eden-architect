@@ -30,7 +30,7 @@
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -183,7 +183,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Undertow 组件 -->
+		<!-- Undertow -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-undertow</artifactId>
@@ -200,7 +200,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Metrics 组件 -->
+		<!-- Metrics -->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-core</artifactId>
