@@ -1,7 +1,7 @@
-package org.ylzl.eden.spring.security.core.token;
+package org.ylzl.eden.spring.security.jwt.model;
 
 import lombok.*;
-import org.ylzl.eden.spring.security.core.constant.AuthenticationConstants;
+import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 
 import java.util.Collections;
 import java.util.Date;
@@ -40,7 +40,7 @@ public class AccessToken {
 	/**
 	 * 授权类型
 	 */
-	private String tokenType = AuthenticationConstants.BEARER_TYPE.toLowerCase();
+	private String tokenType = JwtConstants.BEARER_TYPE.toLowerCase();
 
 	/**
 	 * 作用域

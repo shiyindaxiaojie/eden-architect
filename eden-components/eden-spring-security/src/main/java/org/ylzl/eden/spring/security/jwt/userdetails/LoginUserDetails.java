@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.security.core.entity;
+package org.ylzl.eden.spring.security.jwt.userdetails;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

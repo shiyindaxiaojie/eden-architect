@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.security.core.web.authentication;
+package org.ylzl.eden.spring.security.web.authentication;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;

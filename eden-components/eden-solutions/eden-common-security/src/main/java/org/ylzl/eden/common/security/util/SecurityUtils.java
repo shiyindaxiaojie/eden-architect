@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.security.core.util;
+package org.ylzl.eden.common.security.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.ylzl.eden.spring.security.core.constant.AuthoritiesConstants;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -19,6 +18,9 @@ import java.util.stream.Stream;
  */
 @UtilityClass
 public class SecurityUtils {
+
+	/** 匿名用户 */
+	public static final String ANONYMOUS = "ROLE_ANONYMOUS";
 
 	/**
 	 * 获取登录用户
@@ -53,7 +55,7 @@ public class SecurityUtils {
 	 */
 	public static boolean isAuthenticated() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authentication != null && getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
+		return authentication != null && getAuthorities(authentication).noneMatch(ANONYMOUS::equals);
 	}
 
 	/**

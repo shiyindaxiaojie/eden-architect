@@ -382,6 +382,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-common-security</artifactId>
+				<version>2.4.13.20221126</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-common-sms</artifactId>
 				<version>2.4.13.20221126</version>
 			</dependency>

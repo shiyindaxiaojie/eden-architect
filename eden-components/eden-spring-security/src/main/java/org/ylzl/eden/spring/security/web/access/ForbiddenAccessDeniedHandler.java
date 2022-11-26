@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.security.core.web.access;
+package org.ylzl.eden.spring.security.web.access;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;

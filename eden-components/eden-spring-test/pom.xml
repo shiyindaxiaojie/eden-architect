@@ -147,7 +147,7 @@
 			<artifactId>jmh-generator-annprocess</artifactId>
 		</dependency>
 
-		<!-- Kafka (embedded) -->
+		<!-- Kafka -->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
@@ -163,7 +163,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- MongoDB (embedded) -->
+		<!-- MongoDB -->
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
@@ -174,7 +174,7 @@
 			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
 
-		<!-- Redis (embedded) -->
+		<!-- Redis -->
 		<dependency>
 			<groupId>com.github.codemonstur</groupId>
 			<artifactId>embedded-redis</artifactId>
@@ -190,53 +190,22 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Spring Boot Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>asm</artifactId>
-					<groupId>org.ow2.asm</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-		</dependency>
-
 		<!-- Spock -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-spring</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-sql</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

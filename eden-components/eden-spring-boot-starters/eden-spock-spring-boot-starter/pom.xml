@@ -19,7 +19,7 @@
 		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-test</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 			<exclusions>
 				<exclusion>
 					<artifactId>checker-qual</artifactId>
@@ -94,32 +94,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		</dependency>
-
-		<!-- Embedded Redis -->
-		<dependency>
-			<groupId>com.github.codemonstur</groupId>
-			<artifactId>embedded-redis</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>config</artifactId>
-					<groupId>com.typesafe</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>error_prone_annotations</artifactId>
-					<groupId>com.google.errorprone</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-library</artifactId>
-					<groupId>org.scala-lang</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- Embedded MongoDB -->
-		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 		</dependency>
 	</dependencies>
 </project>

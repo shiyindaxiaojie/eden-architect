@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.jwt.spring.boot.env.JwtProperties;
-import org.ylzl.eden.spring.security.core.token.AccessToken;
-import org.ylzl.eden.spring.security.core.token.TokenStore;
+import org.ylzl.eden.spring.security.jwt.model.AccessToken;
+import org.ylzl.eden.spring.security.jwt.token.JwtTokenStore;
 
 
 /**
@@ -27,9 +27,9 @@ public class InMemoryJwtAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public TokenStore tokenStore() {
+	public JwtTokenStore tokenStore() {
 		log.debug(AUTOWIRED_IN_MEMORY_JWT_TOKEN_STORE);
-		return new TokenStore() {
+		return new JwtTokenStore() {
 
 			@Override
 			public boolean validateAccessToken(AccessToken token) {

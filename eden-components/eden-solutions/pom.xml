@@ -38,6 +38,7 @@
 		<module>eden-common-excel</module>
 		<module>eden-common-mail</module>
 		<module>eden-common-mq</module>
+		<module>eden-common-security</module>
 		<module>eden-common-sms</module>
 		<module>eden-consistency-task</module>
 		<module>eden-distributed-lock</module>

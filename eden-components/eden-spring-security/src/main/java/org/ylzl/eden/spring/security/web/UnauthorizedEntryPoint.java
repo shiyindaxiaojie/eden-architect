@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.security.core.web;
+package org.ylzl.eden.spring.security.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

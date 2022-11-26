@@ -85,7 +85,6 @@ skinparam component {
 [eden-spring-boot-starters] --> [eden-spring-security]
 [eden-spring-boot-starters] --> [eden-spring-integration]
 [eden-spring-boot-test] --> [eden-spring-boot]
-[eden-spring-boot-test] ..> [eden-spring-cloud]
 [eden-spring-cloud-starters] --> [eden-spring-cloud]
 [eden-solutions] --> [eden-extensions]
 [eden-solutions] ..> [eden-spring-framework]

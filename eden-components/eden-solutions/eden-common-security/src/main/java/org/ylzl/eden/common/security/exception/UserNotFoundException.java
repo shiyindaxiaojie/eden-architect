@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.core.exception;
+package org.ylzl.eden.common.security.exception;
 
 import org.ylzl.eden.spring.framework.error.BaseException;
 

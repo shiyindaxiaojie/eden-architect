@@ -1,4 +1,6 @@
-package org.ylzl.eden.spring.security.core.token;
+package org.ylzl.eden.spring.security.jwt.token;
+
+import org.ylzl.eden.spring.security.jwt.model.AccessToken;
 
 /**
  * 令牌存储接口
@@ -6,7 +8,7 @@ package org.ylzl.eden.spring.security.core.token;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public interface TokenStore {
+public interface JwtTokenStore {
 
 	boolean validateAccessToken(AccessToken accessToken);
 
