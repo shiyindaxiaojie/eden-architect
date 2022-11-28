@@ -1,0 +1,3 @@
+# Auto Configuration Import Filters
+org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=\
+  org.ylzl.eden.shardingsphere.spring.boot.autoconfigure.ShardingSphereAutoConfigurationImportFilter

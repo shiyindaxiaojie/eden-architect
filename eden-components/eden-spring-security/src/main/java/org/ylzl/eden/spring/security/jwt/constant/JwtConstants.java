@@ -2,6 +2,7 @@ package org.ylzl.eden.spring.security.jwt.constant;
 
 import io.jsonwebtoken.Claims;
 import lombok.experimental.UtilityClass;
+import org.ylzl.eden.commons.lang.StringConstants;
 
 /**
  * JWT 常量定义
@@ -11,6 +12,12 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class JwtConstants {
+
+	/**  Bearer 认证类型 */
+	public static String BEARER_TYPE = "Bearer";
+
+	/** Bearer 认证前缀 */
+	public static final String BEARER_PREFIX = BEARER_TYPE + StringConstants.SPACE;
 
 	public static final String AUDIENCE = Claims.AUDIENCE;
 

@@ -17,10 +17,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
-import org.ylzl.eden.spring.security.core.token.AccessToken;
-import org.ylzl.eden.spring.security.core.token.TokenStore;
 import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
+import org.ylzl.eden.spring.security.jwt.model.AccessToken;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
@@ -41,7 +40,7 @@ public class JwtTokenProvider implements InitializingBean {
 
 	@Lazy
 	@Autowired(required = false)
-	private TokenStore tokenStore;
+	private JwtTokenStore tokenStore;
 
 	private JwtParser jwtParser;
 

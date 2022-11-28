@@ -29,7 +29,7 @@
 	</parent>
 	<groupId>org.ylzl</groupId>
 	<artifactId>eden-architect</artifactId>
-	<version>2.4.13.20221116</version>
+	<version>2.4.13.20221129</version>
 	<packaging>pom</packaging>
 	<name>eden-architect</name>
 	<description>自研应用架构</description>
@@ -84,6 +84,14 @@
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions-maven-plugin.version}</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+			<!--<plugin>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>flatten-maven-plugin</artifactId>
 				<version>${flatten-maven-plugin.version}</version>
 				<configuration>
@@ -106,15 +114,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<version>${versions-maven-plugin.version}</version>
-				<configuration>
-					<generateBackupPoms>false</generateBackupPoms>
-				</configuration>
-			</plugin>
+			</plugin>-->
 			<!--<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>

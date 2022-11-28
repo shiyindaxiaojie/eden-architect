@@ -11,9 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.StringConstants;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
-import org.ylzl.eden.spring.security.core.entity.LoginUserDetails;
-import org.ylzl.eden.spring.security.core.token.AccessToken;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
+import org.ylzl.eden.spring.security.jwt.model.AccessToken;
+import org.ylzl.eden.spring.security.jwt.userdetails.LoginUserDetails;
 
 import java.util.Map;
 

@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221116</version>
+		<version>2.4.13.20221129</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-spring-data</artifactId>
@@ -301,7 +301,7 @@
 		<!-- Sharding JDBC -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+			<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -376,13 +376,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
+			<groupId>org.apache.groovy</groupId>
 			<artifactId>groovy</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-sql</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

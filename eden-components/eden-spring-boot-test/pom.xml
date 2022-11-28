@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221116</version>
+		<version>2.4.13.20221129</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-spring-boot-test</artifactId>
@@ -19,17 +19,7 @@
 		<!-- 内部组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>checker-qual</artifactId>
-					<groupId>org.checkerframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>error_prone_annotations</artifactId>
-					<groupId>com.google.errorprone</groupId>
-				</exclusion>
-			</exclusions>
+			<artifactId>eden-spring-test</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -50,6 +40,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- Spring Boot Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-logging</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 

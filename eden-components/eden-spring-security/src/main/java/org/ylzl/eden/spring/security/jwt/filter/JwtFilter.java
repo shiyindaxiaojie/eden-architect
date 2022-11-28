@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
-import org.ylzl.eden.spring.security.core.constant.AuthenticationConstants;
-import org.ylzl.eden.spring.security.core.token.AccessToken;
+import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
+import org.ylzl.eden.spring.security.jwt.model.AccessToken;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 
 import javax.servlet.FilterChain;
@@ -54,8 +54,8 @@ public class JwtFilter extends GenericFilterBean {
 
 	private AccessToken resolveToken(HttpServletRequest request) {
 		String bearerToken = request.getHeader(jwtTokenProvider.getJwtConfig().getHeader());
-		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith(AuthenticationConstants.BEARER_PREFIX)) {
-			return AccessToken.builder().value(bearerToken.substring(AuthenticationConstants.BEARER_PREFIX.length())).build();
+		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith(JwtConstants.BEARER_PREFIX)) {
+			return AccessToken.builder().value(bearerToken.substring(JwtConstants.BEARER_PREFIX.length())).build();
 		}
 		return null;
 	}

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @AutoConfigureAfter(MongoAutoConfiguration.class)
 @ConditionalOnClass(MongoClient.class)
+@ConditionalOnProperty(name = "spring.data.mongodb.uri")
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
