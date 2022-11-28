@@ -24,23 +24,19 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-starters</artifactId>
-		<version>2.4.13.20221126</version>
+		<version>2.4.13.20221129</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
+	<artifactId>eden-quartz-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-sharding-jdbc-spring-boot-starter</name>
-	<description>Sharding JDBC Spring Boot Starter For Sharding JDBC</description>
+	<name>eden-quartz-spring-boot-starter</name>
+	<description>Spring Boot Starter For Quartz</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-boot</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-data</artifactId>
 		</dependency>
 
 		<!-- 开发工具 -->
@@ -55,10 +51,15 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Sharding JDBC -->
+		<!-- Quartz -->
 		<dependency>
-			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+			<groupId>org.quartz-scheduler.internal</groupId>
+			<artifactId>quartz-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

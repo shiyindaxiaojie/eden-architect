@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-starters</artifactId>
-		<version>2.4.13.20221126</version>
+		<version>2.4.13.20221129</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-spock-spring-boot-starter</artifactId>
@@ -16,44 +16,10 @@
 	<description>Spring Boot Starter For Spock</description>
 
 	<dependencies>
-		<!-- 测试组件 -->
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>checker-qual</artifactId>
-					<groupId>org.checkerframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jopt-simple</artifactId>
-					<groupId>net.sf.jopt-simple</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-java8-compat_2.12</artifactId>
-					<groupId>org.scala-lang.modules</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-reflect</artifactId>
-					<groupId>org.scala-lang</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>config</artifactId>
-					<groupId>com.typesafe</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>error_prone_annotations</artifactId>
-					<groupId>com.google.errorprone</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-library</artifactId>
-					<groupId>org.scala-lang</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>netty-all</artifactId>
-					<groupId>io.netty</groupId>
-				</exclusion>
-			</exclusions>
+			<artifactId>eden-spring-boot-test</artifactId>
 		</dependency>
 
 		<!-- Spring 测试组件 -->
@@ -82,12 +48,8 @@
 			<artifactId>spock-junit4</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
+			<groupId>org.apache.groovy</groupId>
 			<artifactId>groovy</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-sql</artifactId>
 		</dependency>
 
 		<!-- H2 测试组件 -->
