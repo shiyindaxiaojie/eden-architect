@@ -53,8 +53,8 @@
 
 		<!-- Quartz -->
 		<dependency>
-			<groupId>org.quartz-scheduler.internal</groupId>
-			<artifactId>quartz-core</artifactId>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
