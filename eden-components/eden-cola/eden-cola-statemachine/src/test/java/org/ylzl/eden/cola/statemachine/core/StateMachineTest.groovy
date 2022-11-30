@@ -20,14 +20,14 @@ class StateMachineTest extends Specification {
 	}
 
 	class Context {
-		String customer = "sion";
-		String item = "book";
-		boolean passed = true;
+		String customer = "sion"
+		String item = "book"
+		boolean passed = true
 	}
 
 	def "test external transition"() {
 		given:
-		StateMachine<States, Events, Context> stateMachine = StateMachineFactory.create("external transition");
+		StateMachine<States, Events, Context> stateMachine = StateMachineFactory.create("external transition")
 		stateMachine.externalTransition()
 			.from(States.WAIT_BUYER_PAY)
 			.to(States.TRADE_SUCCESS)
@@ -38,10 +38,10 @@ class StateMachineTest extends Specification {
 			.perform((from, to, event, ctx) -> {
 				System.out.println(
 					ctx.customer + " buy " + ctx.item + " from " + from + " to " + to + " on " + event);
-			});
+			})
 
 		when:
-		States target = stateMachine.fireEvent(States.WAIT_BUYER_PAY, Events.PAY_SUCCESS, new Context());
+		States target = stateMachine.fireEvent(States.WAIT_BUYER_PAY, Events.PAY_SUCCESS, new Context())
 
 		then:
 		target == States.TRADE_SUCCESS
