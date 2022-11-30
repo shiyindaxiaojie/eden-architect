@@ -4,7 +4,7 @@ import org.ylzl.eden.cola.statemachine.exception.TransitionException;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 
 /**
- * TODO
+ * 默认事件回调处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

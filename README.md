@@ -29,15 +29,18 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置
 * **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 、`HuTool` 扩展
 * **eden-extensions**: 扩展点组件，参考 `Dubbo` 扩展点改造，轻量级实现组件的扩展
-* **eden-cola**: COLA组件，提供领域模型、状态机、业务扩展点的扩展
+* **eden-cola**: `COLA` 组件，在 `COLA` 原生的基础上优化，完善了 `DDD` 领域模型、轻量级状态机、业务扩展点等组件
+* **eden-solutions**: 解决方案工具集，提供 `多级缓存`、`分布式锁`、`分布式唯一ID` 等场景的设计与实现
 * **eden-spring-framework**: 基础框架组件，支持自定义错误码、异常解析器
 * **eden-spring-data**: 数据存储组件，扩展了 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等组件
 * **eden-spring-security**: 授权认证组件，扩展了 `Spring Security OAuth2`、`Jwt`、`Shiro` 等组件
-* **eden-spring-integration**: 通用组件集成，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件
-* **eden-spring-boot-starters**: 中间件自动装配，扩展了 `Spring Boot Starters` 扩展
-* **eden-spring-cloud**: 微服务框架组件，基于 `Nacos`、`Sentinel`、`Zookeeper` 等组件
-* **eden-spring-cloud-starters**: 微服务组件自动装配，基于 `Spring Cloud Starters` 扩展
-* **eden-spring-test**: 单元测试和集成测试组件，扩展了 `Spock`、`Embedded Redis`、`Embedded Kafka` 等组件
+* **eden-spring-integration**: 第三方集成组件，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件
+* **eden-spring-boot**: `Spring Boot`组件，根据实际的使用场景进行扩展
+* **eden-spring-boot-starters**: `Spring Boot`组件自动装配，对官方原生组件无感知增强，并扩充未集成的组件
+* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展 
+* **eden-spring-cloud**: `Spring Cloud`组件，扩展了 `Nacos`、`Sentinel`、`Zookeeper` 等组件
+* **eden-spring-cloud-starters**: `Spring Cloud`组件自动装配，基于 `Spring Cloud Starters` 扩展
+* **eden-spring-test**: `Spring`测试组件，扩展了 `Spock`、`Embedded Redis`、`Embedded Kafka` 等组件
 
 ## 如何构建
 
@@ -63,7 +66,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 <parent>
     <groupId>org.ylzl</groupId>
     <artifactId>eden-parent</artifactId>
-    <version>2.4.13.RELEASE</version>
+    <version>2.4.13-SNAPSHOT</version>
     <relativePath/>
 </parent>
 ```

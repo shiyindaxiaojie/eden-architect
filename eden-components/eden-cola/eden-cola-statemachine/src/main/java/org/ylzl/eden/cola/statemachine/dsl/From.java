@@ -1,7 +1,7 @@
 package org.ylzl.eden.cola.statemachine.dsl;
 
 /**
- * TODO
+ * 从当前状态 {@code State} 转移到指定的状态 {@code State}
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

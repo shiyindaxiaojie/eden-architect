@@ -2,7 +2,6 @@ package org.ylzl.eden.cola.statemachine.transition;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.ylzl.eden.cola.statemachine.Transition;
 import org.ylzl.eden.cola.statemachine.exception.StateMachineException;
 
 import java.util.List;

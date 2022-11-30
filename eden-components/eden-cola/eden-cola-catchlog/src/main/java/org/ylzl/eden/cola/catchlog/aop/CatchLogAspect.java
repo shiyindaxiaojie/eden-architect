@@ -54,7 +54,7 @@ public class CatchLogAspect {
 
 	public static final String EXIT_LOG = "Exit: {}() with result = {}";
 
-	@Pointcut("@within(org.ylzl.eden.cola.catchlog.autoconfigure.CatchLog) && execution(public * *(..))")
+	@Pointcut("@within(org.ylzl.eden.cola.catchlog.annotation.CatchLog) && execution(public * *(..))")
 	public void pointcut() {
 	}
 

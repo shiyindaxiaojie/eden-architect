@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.flow.compose.config.parser.ClassPathXmlProcessParser;
@@ -28,8 +27,7 @@ public class ProcessContextFactoryRegistrar implements ImportBeanDefinitionRegis
 			EnableFlowCompose.class.getName())).get("value");
 		ClassPathXmlProcessParser parser = new ClassPathXmlProcessParser(classPathXml);
 		BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(ProcessContextFactory.class);
-		bdb.addConstructorArgReference(ProcessFactoryAutoConfiguration.SPRING_BEAN_PROCESSOR_FACTORY_NAME);
-		bdb.addConstructorArgReference(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME);
+		bdb.addConstructorArgReference(ProcessFactoryConfiguration.SPRING_BEAN_PROCESSOR_FACTORY_NAME);
 		bdb.addConstructorArgValue(parser);
 	}
 }

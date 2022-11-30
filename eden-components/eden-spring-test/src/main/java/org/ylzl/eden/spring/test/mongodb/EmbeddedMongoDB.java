@@ -40,7 +40,7 @@ import java.util.function.Function;
 /**
  * 嵌入式的 MongoDB
  *
- * @author sion1
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 public class EmbeddedMongoDB extends ExternalResource {

@@ -4,9 +4,9 @@ import com.google.common.collect.Maps;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ClassUtils;
-import org.ylzl.eden.cola.extension.BizScenario;
-import org.ylzl.eden.cola.extension.Extension;
-import org.ylzl.eden.cola.extension.Extensions;
+import org.ylzl.eden.cola.extension.core.BizScenario;
+import org.ylzl.eden.cola.extension.core.Extension;
+import org.ylzl.eden.cola.extension.core.Extensions;
 import org.ylzl.eden.cola.extension.exception.ExtensionException;
 
 import java.util.Map;

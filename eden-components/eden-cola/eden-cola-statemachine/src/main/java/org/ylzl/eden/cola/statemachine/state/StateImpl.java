@@ -2,8 +2,7 @@ package org.ylzl.eden.cola.statemachine.state;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.cola.statemachine.State;
-import org.ylzl.eden.cola.statemachine.Transition;
+import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.transition.EventTransitions;
 import org.ylzl.eden.cola.statemachine.transition.TransitionImpl;
 import org.ylzl.eden.cola.statemachine.transition.TransitionType;
@@ -13,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * TODO
+ * 状态实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
