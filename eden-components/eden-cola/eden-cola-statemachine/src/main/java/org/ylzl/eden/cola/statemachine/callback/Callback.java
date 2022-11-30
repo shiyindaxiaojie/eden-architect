@@ -1,7 +1,7 @@
 package org.ylzl.eden.cola.statemachine.callback;
 
 /**
- * TODO
+ * 事件回调
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
