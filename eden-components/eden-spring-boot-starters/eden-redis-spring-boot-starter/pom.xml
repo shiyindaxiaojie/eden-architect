@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-spring-boot-starters</artifactId>
-		<version>2.4.13.20221129</version>
+		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-redis-spring-boot-starter</artifactId>
@@ -47,7 +47,7 @@
 			<artifactId>eden-distributed-lock</artifactId>
 		</dependency>
 
-		<!-- 开发工具 -->
+		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

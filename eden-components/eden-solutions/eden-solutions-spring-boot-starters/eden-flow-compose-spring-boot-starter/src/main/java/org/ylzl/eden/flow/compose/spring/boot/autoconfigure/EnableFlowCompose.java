@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ProcessFactoryAutoConfiguration.class, ProcessContextFactoryRegistrar.class})
+@Import({ProcessFactoryConfiguration.class, ProcessContextFactoryRegistrar.class})
 public @interface EnableFlowCompose {
 
 	/**

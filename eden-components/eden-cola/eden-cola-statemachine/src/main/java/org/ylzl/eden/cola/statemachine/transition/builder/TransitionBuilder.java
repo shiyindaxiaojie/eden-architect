@@ -1,10 +1,10 @@
 package org.ylzl.eden.cola.statemachine.transition.builder;
 
 import lombok.RequiredArgsConstructor;
-import org.ylzl.eden.cola.statemachine.Action;
-import org.ylzl.eden.cola.statemachine.Condition;
-import org.ylzl.eden.cola.statemachine.State;
-import org.ylzl.eden.cola.statemachine.Transition;
+import org.ylzl.eden.cola.statemachine.core.Action;
+import org.ylzl.eden.cola.statemachine.core.Condition;
+import org.ylzl.eden.cola.statemachine.state.State;
+import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.dsl.From;
 import org.ylzl.eden.cola.statemachine.dsl.On;
 import org.ylzl.eden.cola.statemachine.dsl.To;
@@ -15,7 +15,7 @@ import org.ylzl.eden.cola.statemachine.transition.InternalTransition;
 import org.ylzl.eden.cola.statemachine.transition.TransitionType;
 
 /**
- * TODO
+ * {@code Transition} 构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

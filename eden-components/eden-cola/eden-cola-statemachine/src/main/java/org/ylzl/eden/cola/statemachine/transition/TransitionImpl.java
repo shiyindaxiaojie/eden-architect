@@ -1,15 +1,14 @@
 package org.ylzl.eden.cola.statemachine.transition;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.cola.statemachine.Action;
-import org.ylzl.eden.cola.statemachine.Condition;
-import org.ylzl.eden.cola.statemachine.State;
-import org.ylzl.eden.cola.statemachine.Transition;
+import org.ylzl.eden.cola.statemachine.core.Action;
+import org.ylzl.eden.cola.statemachine.core.Condition;
+import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.exception.StateMachineException;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 
 /**
- * TODO
+ * 流转实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

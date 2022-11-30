@@ -6,6 +6,7 @@ import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.extension.Order;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
+import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 /**
  * COLA 响应体构建器
@@ -14,7 +15,7 @@ import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
  * @since 2.4.x
  */
 @Order(-1)
-public class ColaResponseBuilder implements org.ylzl.eden.spring.framework.web.extension.ResponseBuilder<Response> {
+public class ColaResponseBuilder implements ResponseBuilder<Response> {
 
 	@Override
 	public Response buildSuccess() {

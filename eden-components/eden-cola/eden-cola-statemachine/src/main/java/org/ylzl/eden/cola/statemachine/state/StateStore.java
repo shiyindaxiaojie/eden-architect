@@ -1,13 +1,12 @@
 package org.ylzl.eden.cola.statemachine.state;
 
 import lombok.Getter;
-import org.ylzl.eden.cola.statemachine.State;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * TODO
+ * 状态存储
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

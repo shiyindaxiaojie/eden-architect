@@ -2,7 +2,7 @@ package org.ylzl.eden.cola.extension.executor;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.cola.extension.BizScenario;
+import org.ylzl.eden.cola.extension.core.BizScenario;
 import org.ylzl.eden.cola.extension.exception.ExtensionException;
 import org.ylzl.eden.cola.extension.register.ExtensionRegister;
 
@@ -26,7 +26,7 @@ public class ExtensionExecutor {
 		return function.apply(extension);
 	}
 
-	public <T> void execute(Class<T> extensionClass, BizScenario bizScenario, Consumer<T> consumer) {
+	public <T> void executeVoid(Class<T> extensionClass, BizScenario bizScenario, Consumer<T> consumer) {
 		T extension = locateExtension(extensionClass, bizScenario);
 		consumer.accept(extension);
 	}

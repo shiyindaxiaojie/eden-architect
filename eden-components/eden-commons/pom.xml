@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221129</version>
+		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-commons</artifactId>
@@ -33,7 +33,7 @@
 	<description>流行工具集整合</description>
 
 	<dependencies>
-		<!-- 开发工具 -->
+		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>

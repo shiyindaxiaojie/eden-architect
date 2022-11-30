@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.info.InfoContributor;
 /**
  * 邮件开关信息装饰器
  *
- * @author sion
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 public class MailEnabledInfoContributor implements InfoContributor {

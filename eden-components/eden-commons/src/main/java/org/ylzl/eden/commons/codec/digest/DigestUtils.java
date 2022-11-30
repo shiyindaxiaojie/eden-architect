@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Digest 工具集
  *
- * @author sion
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @UtilityClass
