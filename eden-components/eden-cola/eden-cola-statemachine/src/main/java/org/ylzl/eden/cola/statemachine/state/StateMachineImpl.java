@@ -6,6 +6,13 @@ import org.ylzl.eden.cola.statemachine.State;
 import org.ylzl.eden.cola.statemachine.StateMachine;
 import org.ylzl.eden.cola.statemachine.Transition;
 import org.ylzl.eden.cola.statemachine.callback.Callback;
+import org.ylzl.eden.cola.statemachine.callback.RuntimeCallback;
+import org.ylzl.eden.cola.statemachine.transition.ExternalTransition;
+import org.ylzl.eden.cola.statemachine.transition.ExternalTransitions;
+import org.ylzl.eden.cola.statemachine.transition.InternalTransition;
+import org.ylzl.eden.cola.statemachine.transition.TransitionType;
+import org.ylzl.eden.cola.statemachine.transition.builder.TransitionBuilder;
+import org.ylzl.eden.cola.statemachine.transition.builder.TransitionsBuilder;
 import org.ylzl.eden.cola.statemachine.visitor.Visitor;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 
@@ -24,11 +31,11 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
 
 	public static final String TRANSITION_NOT_FOUND = "There is no transition for {}";
 
+	private final StateStore<S, E, C> stateStore = new StateStore<>();
+
+	private Callback<S, E, C> callback = new RuntimeCallback<>();
+
 	private String machineId;
-
-	private final Map<S, State<S, E, C>> stateMap;
-
-	private final Callback<S, E, C> callback;
 
 	@Override
 	public String getMachineId() {
@@ -42,7 +49,7 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
 
 	@Override
 	public boolean verify(S sourceState, E event) {
-		State<S, E, C> state = StateHelper.getState(stateMap, sourceState);
+		State<S, E, C> state = stateStore.getState(sourceState);
 		List<Transition<S, E, C>> transitions = state.getEventTransitions(event);
 		return CollectionUtils.isNotEmpty(transitions);
 	}
@@ -61,10 +68,32 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
 	}
 
 	@Override
+	public Callback<S, E, C> getCallback() {
+		return callback;
+	}
+
+	@Override
+	public void setCallback(Callback<S, E, C> callback) {
+		this.callback = callback;
+	}
+
+	public ExternalTransition<S, E, C> externalTransition() {
+		return new TransitionBuilder<>(stateStore, TransitionType.EXTERNAL);
+	}
+
+	public ExternalTransitions<S, E, C> externalTransitions() {
+		return new TransitionsBuilder<>(stateStore, TransitionType.EXTERNAL);
+	}
+
+	public InternalTransition<S, E, C> internalTransition() {
+		return new TransitionBuilder<>(stateStore, TransitionType.INTERNAL);
+	}
+
+	@Override
 	public String accept(Visitor visitor) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visitor.visitOnEntry(this));
-		for (State<S, E, C> state : stateMap.values()) {
+		for (State<S, E, C> state : stateStore.getStateMap().values()) {
 			sb.append(state.accept(visitor));
 		}
 		sb.append(visitor.visitOnExit(this));
@@ -72,7 +101,7 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
 	}
 
 	private Transition<S, E, C> routeTransition(S sourceState, E event, C ctx) {
-		State<S, E, C> state = StateHelper.getState(stateMap, sourceState);
+		State<S, E, C> state = stateStore.getState(sourceState);
 		List<Transition<S, E, C>> transitions = state.getEventTransitions(event);
 		if (transitions == null || transitions.size() == 0) {
 			return null;
