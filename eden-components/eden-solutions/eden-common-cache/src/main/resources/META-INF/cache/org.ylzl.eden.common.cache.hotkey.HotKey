@@ -1,0 +1,2 @@
+jd=org.ylzl.eden.common.cache.integration.hotkey.jd.JdHotKey
+sentinel=org.ylzl.eden.common.cache.integration.sentinel.SentinelHotKey

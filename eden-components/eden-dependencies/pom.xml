@@ -362,6 +362,11 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-audit-log</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-bigdata-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>

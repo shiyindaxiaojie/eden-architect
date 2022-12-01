@@ -6,35 +6,41 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.ylzl</groupId>
-		<artifactId>eden-cola</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-cola-all</artifactId>
+	<artifactId>eden-audit-log</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-cola-all</name>
-	<description>COLA全系组件</description>
+	<name>eden-audit-log</name>
+	<description>审计日志组件</description>
 
 	<dependencies>
+		<!-- 内部组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola-catchlog</artifactId>
+			<artifactId>eden-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola-domain</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola-dto</artifactId>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola-extension</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola-statemachine</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
+
 </project>
