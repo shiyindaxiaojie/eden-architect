@@ -28,6 +28,6 @@ import org.ylzl.eden.spring.framework.error.BaseException;
 public class BadRequestException extends BaseException {
 
 	public BadRequestException(String errMessage, Object... params) {
-		super("BAD-REQUEST-400", errMessage, params);
+		super("REQ-ERROR-400", errMessage, params);
 	}
 }

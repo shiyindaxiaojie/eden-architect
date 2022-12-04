@@ -45,6 +45,12 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-cloud</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>eden-spring-boot</artifactId>
+					<groupId>org.ylzl</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -74,12 +80,16 @@
 			<artifactId>commons-pool2</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- Redisson -->
 		<dependency>
 			<groupId>org.redisson</groupId>
-			<artifactId>redisson-spring-boot-starter</artifactId>
-			<optional>true</optional>
+			<artifactId>redisson</artifactId>
 		</dependency>
 
 		<!-- Curator -->

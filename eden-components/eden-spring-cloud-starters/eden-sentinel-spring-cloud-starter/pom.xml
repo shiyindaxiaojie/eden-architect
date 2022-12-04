@@ -36,10 +36,6 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
@@ -93,7 +89,7 @@
 			<artifactId>sentinel-apache-dubbo3-adapter</artifactId>
 		</dependency>
 
-		<!-- Sentinel -->
+		<!-- Spring Boot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>

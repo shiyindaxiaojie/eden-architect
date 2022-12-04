@@ -98,7 +98,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		String message = StringUtils.join(fieldErrors.toArray(), ",");
 
-		Object response = builder().buildFailure("BAD-REQUEST-400", message);
+		Object response = builder().buildFailure("REQ-ERROR-400", message);
 		return this.buildResponseEntity(ex, HttpStatus.BAD_REQUEST, response);
 	}
 
@@ -110,7 +110,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-		Object response = builder().buildFailure("BAD-REQUEST-400", "不支持的请求方法");
+		Object response = builder().buildFailure("REQ-ERROR-400", "不支持的请求方法");
 		return this.buildResponseEntity(ex, HttpStatus.METHOD_NOT_ALLOWED, response);
 	}
 

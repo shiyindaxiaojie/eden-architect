@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.core
 
-import org.ylzl.eden.cola.statemachine.factory.StateMachineFactory
+import org.ylzl.eden.cola.statemachine.core.factory.StateMachineFactory
 import spock.lang.*
 
 class StateMachineTest extends Specification {
