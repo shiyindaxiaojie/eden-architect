@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.cloud.zuul.endpoint;
+package org.ylzl.eden.zuul.spring.cloud.actuate;
 
 import lombok.Data;
 import org.springframework.cloud.client.ServiceInstance;

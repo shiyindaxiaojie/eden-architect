@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.cloud.zuul.endpoint;
+package org.ylzl.eden.zuul.spring.cloud.actuate;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;

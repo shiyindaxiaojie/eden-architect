@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.cloud.zuul.autoconfigure;
+package org.ylzl.eden.zuul.spring.cloud.autoconfigure;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.cloud.zuul.endpoint.ZuulRouteEndpoint;
+import org.ylzl.eden.zuul.spring.cloud.actuate.ZuulRouteEndpoint;
 
 /**
  * Zuul 端点自动装配
@@ -46,8 +46,7 @@ public class ZuulEndpointAutoConfiguration {
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnMissingBean
 	@Bean
-	public ZuulRouteEndpoint zuulRouteEndpoint(
-		RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+	public ZuulRouteEndpoint zuulRouteEndpoint(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
 		log.debug(MSG_AUTOWIRED_ZUUL_ENDPOINT);
 		return new ZuulRouteEndpoint(routeLocator, discoveryClient);
 	}

@@ -9,9 +9,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConfigurationProperties(prefix = "spring.redis.redisson")
+@ConfigurationProperties(prefix = FixedRedissonProperties.PREFIX)
 @Data
 public class FixedRedissonProperties {
+
+	public static final String PREFIX = "spring.redis.redisson";
 
 	private int timeout;
 

@@ -36,7 +36,7 @@ public class DistributedLockProperties {
 
 		public static final String PREFIX = DistributedLockProperties.PREFIX + ".redisson";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -45,7 +45,7 @@ public class DistributedLockProperties {
 
 		public static final String PREFIX = DistributedLockProperties.PREFIX + ".jedis";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -54,7 +54,7 @@ public class DistributedLockProperties {
 
 		public static final String PREFIX = DistributedLockProperties.PREFIX + ".curator";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -63,6 +63,6 @@ public class DistributedLockProperties {
 
 		public static final String PREFIX = DistributedLockProperties.PREFIX + ".zookeeper";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 }

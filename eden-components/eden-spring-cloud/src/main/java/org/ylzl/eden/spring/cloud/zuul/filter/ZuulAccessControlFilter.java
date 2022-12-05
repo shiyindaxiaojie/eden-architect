@@ -19,44 +19,40 @@ package org.ylzl.eden.spring.cloud.zuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpStatus;
-import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
-import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 访问控制过滤器
+ * Zuul 访问控制
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@RequiredArgsConstructor
 @Slf4j
-public class AccessControlFilter extends ZuulFilter {
+public class ZuulAccessControlFilter extends ZuulFilter {
 
-	private static final String MSG_ALLOWING_ACCESS =
-		"Access Control: allowing access for {}, as no access control policy has been set up for service: {}";
+	private static final String ALLOWING_ACCESS =
+		"Zuul access control: allowing access for {}, as no access control policy has been set up for service: {}";
 
 	private static final String MSG_FILTER_UNAUTHORIZED_ACCESS =
-		"Access Control: filtered unauthorized access on endpoint {}";
-
-	private final ZuulProperties zuulProperties;
+		"Zuul access control: filtered unauthorized access on endpoint {}";
 
 	private final RouteLocator routeLocator;
 
-	public AccessControlFilter(ZuulProperties zuulProperties, RouteLocator routeLocator) {
-		this.zuulProperties = zuulProperties;
-		this.routeLocator = routeLocator;
-	}
+	private final Map<String, List<String>> authorizedEndpoints;
 
 	@Override
 	public String filterType() {
-		return ZuulConstants.FILTER_TYPE_PRE;
+		return FilterConstants.PRE_TYPE;
 	}
 
 	@Override
@@ -78,18 +74,15 @@ public class AccessControlFilter extends ZuulFilter {
 	}
 
 	private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
-		Map<String, List<String>> authorizedMicroservicesEndpoints =
-			zuulProperties.getAccessControl().getAuthorizedMicroservicesEndpoints();
-
-		List<String> authorizedEndpoints = authorizedMicroservicesEndpoints.get(serviceName);
-		if (authorizedEndpoints == null) {
-			log.debug(MSG_ALLOWING_ACCESS, requestUri, serviceName);
+		List<String> endpoints = authorizedEndpoints.get(serviceName);
+		if (endpoints == null) {
+			log.debug(ALLOWING_ACCESS, requestUri, serviceName);
 			return true;
 		}
-		for (String endpoint : authorizedEndpoints) {
+		for (String endpoint : endpoints) {
 			String gatewayEndpoint = serviceUrl.substring(0, serviceUrl.length() - 3) + endpoint;
 			if (requestUri.startsWith(gatewayEndpoint)) {
-				log.debug(MSG_ALLOWING_ACCESS, requestUri, gatewayEndpoint);
+				log.debug(ALLOWING_ACCESS, requestUri, gatewayEndpoint);
 				return true;
 			}
 		}

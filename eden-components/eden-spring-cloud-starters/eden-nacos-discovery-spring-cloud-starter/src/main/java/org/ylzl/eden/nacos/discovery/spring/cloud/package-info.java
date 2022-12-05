@@ -15,24 +15,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.cloud.zuul.constant;
-
-import lombok.experimental.UtilityClass;
-
-/**
- * Zuul 常量定义
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- */
-@UtilityClass
-public final class ZuulConstants {
-
-	public static final String FILTER_TYPE_PRE = "pre";
-
-	public static final String FILTER_TYPE_ROUTING = "routing";
-
-	public static final String FILTER_TYPE_POST = "post";
-
-	public static final String FILTER_TYPE_ERROR = "META-INF/error";
-}
+package org.ylzl.eden.nacos.discovery.spring.cloud;

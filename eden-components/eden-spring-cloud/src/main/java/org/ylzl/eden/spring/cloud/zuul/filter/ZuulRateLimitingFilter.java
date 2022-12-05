@@ -20,51 +20,60 @@ package org.ylzl.eden.spring.cloud.zuul.filter;
 import com.google.common.util.concurrent.RateLimiter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
-import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
-import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
+import org.ylzl.eden.commons.json.JacksonUtils;
+import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
-import javax.cache.Caching;
 import javax.cache.configuration.CompleteConfiguration;
 import javax.cache.configuration.MutableConfiguration;
-import javax.cache.spi.CachingProvider;
 import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
 
 /**
- * 速率限制过滤器
+ * Zuul 速率限制
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Setter
+@Getter
+@RequiredArgsConstructor
 @Slf4j
-public class RateLimitingFilter extends ZuulFilter {
+public class ZuulRateLimitingFilter extends ZuulFilter {
 
-	private static final String MSG_API_RATE_EXCEEDED = "API 速率超过限制";
+	private long permitsPerSecond = 100_000L;
 
-	private static final String CACHE_NAME_SUFFIX = "-rate-limiting";
-	private final PathMatcher pathMatcher = new AntPathMatcher();
-	private final ZuulProperties.RateLimiting properties;
-	private Cache<String, RateLimiter> cache;
+	private Duration warmupPeriod = Duration.ofSeconds(1);
 
-	public RateLimitingFilter(ZuulProperties zuulProperties, String applicationName) {
-		this.properties = zuulProperties.getRateLimiting();
+	private String cacheName = "app-rate-limiting";
 
-		CachingProvider cachingProvider = Caching.getCachingProvider();
-		CacheManager cacheManager = cachingProvider.getCacheManager();
+	private final PathMatcher pathMatcher;
+
+	private final String requestPattern;
+
+	private final Cache<String, RateLimiter> cache;
+
+	public ZuulRateLimitingFilter(PathMatcher pathMatcher, String requestPattern, CacheManager cacheManager) {
+		this.pathMatcher = pathMatcher;
+		this.requestPattern = requestPattern;
+
 		CompleteConfiguration<String, RateLimiter> config =
 			new MutableConfiguration<String, RateLimiter>().setTypes(String.class, RateLimiter.class);
-		this.cache = cacheManager.createCache(applicationName + CACHE_NAME_SUFFIX, config);
+		this.cache = cacheManager.createCache(cacheName, config);
 	}
 
 	@Override
 	public String filterType() {
-		return ZuulConstants.FILTER_TYPE_PRE;
+		return FilterConstants.PRE_TYPE;
 	}
 
 	@Override
@@ -75,17 +84,16 @@ public class RateLimitingFilter extends ZuulFilter {
 	@Override
 	public boolean shouldFilter() {
 		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
-		String defaultIncludePattern = properties.getDefaultIncludePattern();
-		return pathMatcher.match(defaultIncludePattern, requestURI);
+		return pathMatcher.match(requestPattern, requestURI);
 	}
 
 	@Override
 	public Object run() {
 		try {
 			String key = getKey();
-			RateLimiter rateLimiter = getRateLimiter(key);
+			RateLimiter rateLimiter = createOrGetRateLimiter(key);
 			if (!rateLimiter.tryAcquire()) {
-				apiLimitExceeded();
+				requestLimitExceeded();
 			}
 		} catch (Exception e) {
 			ReflectionUtils.rethrowRuntimeException(e);
@@ -96,27 +104,24 @@ public class RateLimitingFilter extends ZuulFilter {
 	private String getKey() {
 		RequestContext context = RequestContext.getCurrentContext();
 		HttpServletRequest request = context.getRequest();
-		/*if (SecurityUtils.getPrincipal().isPresent()) {
-			return SecurityUtils.getPrincipal().get();
-		}*/
 		return request.getRemoteAddr();
 	}
 
-	private RateLimiter getRateLimiter(String key) {
+	private RateLimiter createOrGetRateLimiter(String key) {
 		if (cache.containsKey(key)) {
 			return cache.get(key);
 		}
-		RateLimiter rateLimiter = RateLimiter.create(properties.getLimit());
+		RateLimiter rateLimiter = RateLimiter.create(permitsPerSecond, warmupPeriod);
 		cache.put(key, rateLimiter);
 		return rateLimiter;
 	}
 
-	private void apiLimitExceeded() {
+	private void requestLimitExceeded() {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		ctx.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
 		if (ctx.getResponseBody() == null) {
-			ctx.setResponseBody(MSG_API_RATE_EXCEEDED);
 			ctx.setSendZuulResponse(false);
+			ctx.setResponseBody(JacksonUtils.toJSONString(ResponseBuilder.builder().buildFailure("REQ-FLOW-429")));
 		}
 	}
 }

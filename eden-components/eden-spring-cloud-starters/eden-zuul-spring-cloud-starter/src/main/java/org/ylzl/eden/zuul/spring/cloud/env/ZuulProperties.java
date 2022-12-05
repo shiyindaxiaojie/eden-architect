@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.spring.cloud.zuul.env;
+package org.ylzl.eden.zuul.spring.cloud.env;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -45,21 +46,27 @@ public class ZuulProperties {
 	@Setter
 	public static class AccessControl {
 
-		private Map<String, List<String>> authorizedMicroservicesEndpoints = Collections.emptyMap();
+		public static final String PREFIX = ZuulProperties.PREFIX + ".access-control";
 
 		private boolean enabled = true;
+
+		private Map<String, List<String>> authorizedEndpoints = Collections.emptyMap();
 	}
 
 	@Getter
 	@Setter
 	public static class RateLimiting {
 
-		private String defaultIncludePattern = null;
-
-		private int durationInSeconds = 3_600;
+		public static final String PREFIX = ZuulProperties.PREFIX + ".rate-limiting";
 
 		private boolean enabled = true;
 
-		private long limit = 100_000L;
+		private String cacheName;
+
+		private String requestPattern;
+
+		private int permitsPerSecond = 3_600;
+
+		private Duration warmupPeriod = Duration.ofSeconds(1);
 	}
 }

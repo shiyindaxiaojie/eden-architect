@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.cloud.zuul.autoconfigure;
+package org.ylzl.eden.zuul.spring.cloud.autoconfigure;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,11 +27,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.spring.cloud.zuul.env.ZuulProperties;
-import org.ylzl.eden.spring.cloud.zuul.filter.AccessControlFilter;
-import org.ylzl.eden.spring.cloud.zuul.filter.RateLimitingFilter;
+import org.springframework.util.PathMatcher;
+import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.zuul.spring.cloud.env.ZuulProperties;
+import org.ylzl.eden.spring.cloud.zuul.filter.ZuulAccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
+import org.ylzl.eden.spring.cloud.zuul.filter.ZuulRateLimitingFilter;
+
+import javax.cache.CacheManager;
 
 /**
  * Zuul 过滤器自动装配
@@ -40,19 +42,22 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstan
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(name = ZuulProperties.PREFIX + ".enable", havingValue = "true")
+@ConditionalOnProperty(
+	prefix = ZuulProperties.PREFIX,
+	name = ConditionConstants.ENABLED,
+	havingValue = ConditionConstants.ENABLED_TRUE
+)
 @ConditionalOnClass(ZuulFilter.class)
 @EnableConfigurationProperties(ZuulProperties.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class ZuulFilterAutoConfiguration {
 
-	private static final String MSG_AUTOWIRED_ACCESS_CONTROL_FILTER =
-		"Autowired Zuul AccessControl filter";
+	private static final String AUTOWIRED_ACCESS_CONTROL_FILTER = "Autowired Zuul AccessControl Filter";
 
-	private static final String MSG_AUTOWIRED_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit filter";
+	private static final String AUTOWIRED_RATE_LIMIT_FILTER = "Autowired Zuul RateLimit Filter";
 
-	private static final String MSG_AUTOWIRED_ZUUL_FAULT_FILTER = "Autowired Zuul Fault filter";
+	private static final String AUTOWIRED_ZUUL_FAULT_FILTER = "Autowired Zuul Fault Filter";
 
 	private final ZuulProperties zuulProperties;
 
@@ -60,28 +65,36 @@ public class ZuulFilterAutoConfiguration {
 		this.zuulProperties = zuulProperties;
 	}
 
-	@ConditionalOnProperty(name = ZuulProperties.PREFIX + "access-control.enable", havingValue = "true")
+	@ConditionalOnProperty(
+		prefix = ZuulProperties.AccessControl.PREFIX,
+		name = ConditionConstants.ENABLED,
+		havingValue = ConditionConstants.ENABLED_TRUE
+	)
 	@ConditionalOnBean(RouteLocator.class)
 	@ConditionalOnMissingBean
 	@Bean
-	public AccessControlFilter accessControlFilter(RouteLocator routeLocator) {
-		log.debug(MSG_AUTOWIRED_ACCESS_CONTROL_FILTER);
-		return new AccessControlFilter(zuulProperties, routeLocator);
+	public ZuulAccessControlFilter accessControlFilter(RouteLocator routeLocator) {
+		log.debug(AUTOWIRED_ACCESS_CONTROL_FILTER);
+		return new ZuulAccessControlFilter(routeLocator, zuulProperties.getAccessControl().getAuthorizedEndpoints());
 	}
 
-	@ConditionalOnProperty(name = ZuulProperties.PREFIX + "rate-limiting.enable", havingValue = "false")
+	@ConditionalOnProperty(
+		prefix = ZuulProperties.RateLimiting.PREFIX,
+		name = ConditionConstants.ENABLED,
+		havingValue = ConditionConstants.ENABLED_TRUE
+	)
 	@ConditionalOnMissingBean
 	@Bean
-	public RateLimitingFilter rateLimitingFilter(
-		@Value(SpringPropertiesConstants.NAME_PATTERN) String applicationName) {
-		log.debug(MSG_AUTOWIRED_RATE_LIMIT_FILTER);
-		return new RateLimitingFilter(zuulProperties, applicationName);
+	public ZuulRateLimitingFilter rateLimitingFilter(PathMatcher pathMatcher,
+													 CacheManager cacheManager) {
+		log.debug(AUTOWIRED_RATE_LIMIT_FILTER);
+		return new ZuulRateLimitingFilter(pathMatcher, zuulProperties.getRateLimiting().getRequestPattern(), cacheManager);
 	}
 
 	@ConditionalOnMissingBean
 	@Bean
 	public ZuulFaultFilter zuulFaultFilter() {
-		log.debug(MSG_AUTOWIRED_ZUUL_FAULT_FILTER);
+		log.debug(AUTOWIRED_ZUUL_FAULT_FILTER);
 		return new ZuulFaultFilter();
 	}
 }

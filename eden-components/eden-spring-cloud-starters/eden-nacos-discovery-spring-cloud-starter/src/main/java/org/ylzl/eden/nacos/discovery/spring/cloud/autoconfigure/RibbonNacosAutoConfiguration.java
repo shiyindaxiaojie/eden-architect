@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.cloud.nacos.autoconfigure;
+package org.ylzl.eden.nacos.discovery.spring.cloud.autoconfigure;
 
 import com.alibaba.cloud.nacos.ConditionalOnNacosDiscoveryEnabled;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

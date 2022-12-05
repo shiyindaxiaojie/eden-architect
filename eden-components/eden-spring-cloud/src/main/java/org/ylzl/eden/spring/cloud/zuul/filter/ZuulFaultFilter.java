@@ -19,14 +19,15 @@ package org.ylzl.eden.spring.cloud.zuul.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
-import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 
 /**
- * Zuul 故障过滤器
+ * Zuul 异常捕获处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -35,16 +36,13 @@ import org.ylzl.eden.spring.cloud.zuul.constant.ZuulConstants;
 @Component
 public class ZuulFaultFilter extends ZuulFilter {
 
-	private static final String MSG_ZUUL_FAULT = "Zuul doFilter caught exception: {}";
+	private static final String ZUUL_FILTER_FAULT = "Zuul filter caught exception: {}";
 
-	private static final String RESP_ERROR_BODY = "Zuul doFilter: %s, cause: %s";
-
-	private static final String MSG_ZUUL_FILTER_EXCEPTION =
-		"Zuul filter response failed, caught exception: {}";
+	private static final String ZUUL_FILTER_EXCEPTION = "Zuul filter response failed, caught exception: {}";
 
 	@Override
 	public String filterType() {
-		return ZuulConstants.FILTER_TYPE_ERROR;
+		return FilterConstants.ERROR_TYPE;
 	}
 
 	@Override
@@ -63,14 +61,13 @@ public class ZuulFaultFilter extends ZuulFilter {
 		try {
 			Throwable throwable = ctx.getThrowable();
 			if (throwable != null) {
-				log.error(MSG_ZUUL_FAULT, throwable.getMessage(), throwable);
-				ctx.setResponseBody(
-					String.format(RESP_ERROR_BODY, throwable.getMessage(), throwable.getCause()));
+				log.error(ZUUL_FILTER_FAULT, throwable.getMessage(), throwable);
+				ctx.setResponseBody(MessageFormatUtils.format(ZUUL_FILTER_FAULT, throwable.getMessage()));
 				ctx.getResponse().setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 				ctx.setResponseStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			}
 		} catch (Exception ex) {
-			log.error(MSG_ZUUL_FILTER_EXCEPTION, ex.getMessage(), ex);
+			log.error(ZUUL_FILTER_EXCEPTION, ex.getMessage(), ex);
 			ReflectionUtils.rethrowRuntimeException(ex);
 		}
 		return null;
