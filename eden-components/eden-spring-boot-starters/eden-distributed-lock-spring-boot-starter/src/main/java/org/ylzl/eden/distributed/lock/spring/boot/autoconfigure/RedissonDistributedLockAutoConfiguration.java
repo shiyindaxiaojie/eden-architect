@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanType;
+import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
+import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
 
 /**
  * Redisson 分布式锁自动配置
@@ -22,21 +23,24 @@ import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = DistributedLockProperties.Redisson.PREFIX,
+	name = ConditionConstants.ENABLED,
+	havingValue = ConditionConstants.ENABLED_TRUE,
+	matchIfMissing = true
+)
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
-@ConditionalOnProperty(value = RedissonDistributedLockAutoConfiguration.ENABLED, havingValue = "true", matchIfMissing = true)
 @ConditionalOnClass(RedissonClient.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class RedissonDistributedLockAutoConfiguration {
 
-	public static final String ENABLED = DistributedLockProperties.PREFIX + ".redisson.enabled";
-
 	public static final String AUTOWIRED_REDISSON_DISTRIBUTED_LOCK = "Autowired RedissonDistributedLock";
 
 	@ConditionalOnClass(Redisson.class)
 	@ConditionalOnBean(RedissonClient.class)
-	@Bean(DistributedLockBeanType.REDISSON_DISTRIBUTED_LOCK)
+	@Bean(DistributedLockBeanNames.REDISSON_DISTRIBUTED_LOCK)
 	public DistributedLock distributedLock(RedissonClient redissonClient) {
 		log.debug(AUTOWIRED_REDISSON_DISTRIBUTED_LOCK);
 		return new RedissonDistributedLock(redissonClient);

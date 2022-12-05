@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.zookeeper.ZookeeperDistributedLock;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanType;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
+import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
+import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
 import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
 /**
@@ -20,21 +21,23 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = DistributedLockProperties.ZooKeeper.PREFIX,
+	name = ConditionConstants.ENABLED,
+	havingValue = ConditionConstants.ENABLED_TRUE
+)
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
-@ConditionalOnProperty(value = ZookeeperDistributedLockAutoConfiguration.ENABLED, havingValue = "true")
 @ConditionalOnClass(ZooKeeper.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class ZookeeperDistributedLockAutoConfiguration {
 
-	public static final String ENABLED = DistributedLockProperties.PREFIX + ".zookeeper.enabled";
-
 	public static final String AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK = "Autowired ZookeeperDistributedLock";
 
 	@ConditionalOnBean(ZookeeperTemplate.class)
-	@Bean(DistributedLockBeanType.ZOOKEEPER_DISTRIBUTED_LOCK)
+	@Bean(DistributedLockBeanNames.ZOOKEEPER_DISTRIBUTED_LOCK)
 	public DistributedLock distributedLock(ZookeeperTemplate zookeeperTemplate) {
 		log.debug(AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK);
-		return new ZookeeperDistributedLock(zookeeperTemplate);
+		return new ZookeeperDistributedLock(zookeeperTemplate.getZookeeper());
 	}
 }

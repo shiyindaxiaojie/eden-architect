@@ -8,8 +8,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockHelper;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
+import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockHelper;
+import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
 
 /**
  * 分布式锁操作自动装配
@@ -17,7 +18,11 @@ import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(DistributedLockProperties.PREFIX)
+@ConditionalOnProperty(
+	prefix = DistributedLockProperties.PREFIX,
+	name = ConditionConstants.ENABLED,
+	havingValue = ConditionConstants.ENABLED_TRUE
+)
 @ConditionalOnBean(DistributedLock.class)
 @EnableConfigurationProperties(DistributedLockProperties.class)
 @RequiredArgsConstructor
@@ -25,13 +30,13 @@ import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 @Configuration(proxyBeanMethods = false)
 public class DistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_DISTRIBUTED_LOCK_FACTORY = "Autowired DistributedLockFactory";
+	public static final String AUTOWIRED_DISTRIBUTED_LOCK_HELPER = "Autowired DistributedLockHelper";
 
 	private final DistributedLockProperties distributedLockProperties;
 
 	@Bean
 	public DistributedLockHelper distributedLockHelper() {
-		log.debug(AUTOWIRED_DISTRIBUTED_LOCK_FACTORY);
+		log.debug(AUTOWIRED_DISTRIBUTED_LOCK_HELPER);
 		return new DistributedLockHelper(distributedLockProperties.getPrimary());
 	}
 }

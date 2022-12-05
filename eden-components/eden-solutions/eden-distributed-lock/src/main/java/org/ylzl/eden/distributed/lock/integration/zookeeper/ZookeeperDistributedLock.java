@@ -2,10 +2,12 @@ package org.ylzl.eden.distributed.lock.integration.zookeeper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.ZooDefs;
+import org.apache.zookeeper.ZooKeeper;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
-import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +23,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 
 	private static final byte[] EMPTY_DATA = new byte[0];
 
-	private final ZookeeperTemplate zooKeeperTemplate;
+	private final ZooKeeper zooKeeper;
 
 	/**
 	 * 阻塞加锁
@@ -32,7 +34,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	public boolean lock(String key) {
 		log.debug("Zookeeper create lock: {}", key);
 		try {
-			zooKeeperTemplate.create(key, EMPTY_DATA);
+			zooKeeper.create(key, EMPTY_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 		} catch (Exception e) {
 			log.error("Zookeeper create lock: {}, catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockAcquireException(e);
@@ -63,7 +65,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	public void unlock(String key) {
 		log.debug("Zookeeper release lock: {}", key);
 		try {
-			zooKeeperTemplate.delete(key);
+			zooKeeper.delete(key, -1);
 		} catch (Exception e) {
 			log.error("Zookeeper release lock: {}, catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockReleaseException(e);

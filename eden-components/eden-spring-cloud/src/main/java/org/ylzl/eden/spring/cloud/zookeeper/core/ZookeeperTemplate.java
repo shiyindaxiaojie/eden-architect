@@ -17,6 +17,7 @@
 
 package org.ylzl.eden.spring.cloud.zookeeper.core;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
@@ -42,6 +43,7 @@ public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 
 	private static final String CONNECTION_ZOOKEEPER_SUCCESS = "Connection zookeeper success";
 
+	@Getter
 	private ZooKeeper zookeeper;
 
 	private final CountDownLatch countDownLatch = new CountDownLatch(1);

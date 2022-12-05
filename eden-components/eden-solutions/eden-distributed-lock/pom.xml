@@ -33,24 +33,10 @@
 	<description>分布式锁</description>
 
 	<dependencies>
-		<!-- 内部组件 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
-		</dependency>
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>eden-spring-boot</artifactId>
-					<groupId>org.ylzl</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -90,6 +76,13 @@
 		<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson</artifactId>
+		</dependency>
+
+		<!-- Zookeeper -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Curator -->
