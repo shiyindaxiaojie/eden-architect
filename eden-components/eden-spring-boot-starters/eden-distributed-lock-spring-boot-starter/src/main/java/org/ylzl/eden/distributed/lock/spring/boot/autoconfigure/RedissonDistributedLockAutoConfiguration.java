@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;

@@ -8,7 +8,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
+import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;

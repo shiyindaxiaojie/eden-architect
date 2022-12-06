@@ -2,6 +2,7 @@ package org.ylzl.eden.dynamic.cache.core;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
+import org.ylzl.eden.dynamic.cache.Cache;
 
 import java.util.concurrent.Callable;
 

@@ -7,7 +7,7 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
+import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;

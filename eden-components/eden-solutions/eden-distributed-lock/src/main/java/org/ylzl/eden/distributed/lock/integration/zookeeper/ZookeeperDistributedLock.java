@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
-import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 

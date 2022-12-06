@@ -2,7 +2,7 @@ package org.ylzl.eden.distributed.uid.spring.boot.support;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.distributed.uid.core.DistributedUID;
+import org.ylzl.eden.distributed.uid.DistributedUID;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 

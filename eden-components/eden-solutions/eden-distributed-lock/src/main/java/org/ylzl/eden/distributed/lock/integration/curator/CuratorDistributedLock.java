@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;

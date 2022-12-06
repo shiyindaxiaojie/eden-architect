@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.jedis.JedisDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;

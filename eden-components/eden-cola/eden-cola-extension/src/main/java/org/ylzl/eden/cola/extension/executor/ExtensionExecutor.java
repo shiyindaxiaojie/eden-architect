@@ -2,7 +2,7 @@ package org.ylzl.eden.cola.extension.executor;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.cola.extension.core.BizScenario;
+import org.ylzl.eden.cola.extension.BizScenario;
 import org.ylzl.eden.cola.extension.exception.ExtensionException;
 import org.ylzl.eden.cola.extension.register.ExtensionRegister;
 

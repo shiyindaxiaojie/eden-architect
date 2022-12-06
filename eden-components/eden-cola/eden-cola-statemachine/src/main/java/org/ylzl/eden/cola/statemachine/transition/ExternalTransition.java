@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.transition;
 
-import org.ylzl.eden.cola.statemachine.core.dsl.From;
+import org.ylzl.eden.cola.statemachine.dsl.From;
 
 /**
  * 外部流转

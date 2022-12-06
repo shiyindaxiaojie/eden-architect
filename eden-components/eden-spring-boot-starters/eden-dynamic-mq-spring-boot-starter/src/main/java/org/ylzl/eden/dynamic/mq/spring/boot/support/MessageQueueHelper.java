@@ -1,7 +1,7 @@
 package org.ylzl.eden.dynamic.mq.spring.boot.support;
 
 import lombok.RequiredArgsConstructor;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
+import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;

@@ -3,7 +3,7 @@ package org.ylzl.eden.dynamic.cache.level;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.core.Cache;
+import org.ylzl.eden.dynamic.cache.Cache;
 
 import java.util.ArrayList;
 import java.util.HashMap;

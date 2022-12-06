@@ -26,7 +26,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.idempotent.core.Idempotent;
+import org.ylzl.eden.idempotent.Idempotent;
 import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
@@ -48,7 +48,7 @@ public class IdempotentTtlAspect {
 
 	private final TtlIdempotentStrategy strategy;
 
-	@Pointcut("@within(org.ylzl.eden.idempotent.core.Idempotent) && execution(public * *(..))")
+	@Pointcut("@within(org.ylzl.eden.idempotent.Idempotent) && execution(public * *(..))")
 	public void pointcut() {
 	}
 

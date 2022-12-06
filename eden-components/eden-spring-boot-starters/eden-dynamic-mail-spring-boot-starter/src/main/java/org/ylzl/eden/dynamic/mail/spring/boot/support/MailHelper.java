@@ -1,7 +1,7 @@
 package org.ylzl.eden.dynamic.mail.spring.boot.support;
 
 import lombok.RequiredArgsConstructor;
-import org.ylzl.eden.dynamic.mail.core.MailTemplate;
+import org.ylzl.eden.dynamic.mail.MailTemplate;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;

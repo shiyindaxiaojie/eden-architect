@@ -54,12 +54,12 @@ public class SpringCacheManager implements CacheManager {
 	}
 
 	private Cache createSpringCache(String cacheType, String cacheName) {
-		org.ylzl.eden.dynamic.cache.core.Cache cache = getOrCreateCache(cacheType, cacheName);
+		org.ylzl.eden.dynamic.cache.Cache cache = getOrCreateCache(cacheType, cacheName);
 		return new SpringCache(this.config.isAllowNullValues(), cacheName, cache);
 	}
 
-	private org.ylzl.eden.dynamic.cache.core.Cache getOrCreateCache(String cacheType, String cacheName) {
-		org.ylzl.eden.dynamic.cache.core.Cache cache = CacheFactory.getCache(cacheType, cacheName);
+	private org.ylzl.eden.dynamic.cache.Cache getOrCreateCache(String cacheType, String cacheName) {
+		org.ylzl.eden.dynamic.cache.Cache cache = CacheFactory.getCache(cacheType, cacheName);
 		if (null != cache) {
 			return cache;
 		}

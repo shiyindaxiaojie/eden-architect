@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.dynamic.sms.core.SmsTemplate;
+import org.ylzl.eden.dynamic.sms.SmsTemplate;
 import org.ylzl.eden.dynamic.sms.spring.boot.env.SmsProperties;
 import org.ylzl.eden.dynamic.sms.spring.boot.support.SmsHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;

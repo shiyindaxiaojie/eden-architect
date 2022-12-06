@@ -2,7 +2,7 @@ package org.ylzl.eden.distributed.lock.spring.boot.support;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.distributed.lock.core.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 

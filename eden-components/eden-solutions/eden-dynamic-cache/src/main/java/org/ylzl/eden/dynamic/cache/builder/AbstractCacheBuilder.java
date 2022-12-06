@@ -1,6 +1,6 @@
 package org.ylzl.eden.dynamic.cache.builder;
 
-import org.ylzl.eden.dynamic.cache.core.Cache;
+import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
 import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;

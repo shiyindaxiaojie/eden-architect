@@ -3,7 +3,7 @@ package org.ylzl.eden.flow.compose.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.flow.compose.processor.SpringBeanProcessorFactory;
+import org.ylzl.eden.flow.compose.factory.SpringBeanProcessorFactory;
 
 /**
  * 流程工厂自动装配

@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.transition;
 
-import org.ylzl.eden.cola.statemachine.core.dsl.To;
+import org.ylzl.eden.cola.statemachine.dsl.To;
 
 /**
  * 内部流转

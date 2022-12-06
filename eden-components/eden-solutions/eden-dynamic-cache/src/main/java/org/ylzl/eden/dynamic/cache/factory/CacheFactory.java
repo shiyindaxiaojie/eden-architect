@@ -2,7 +2,7 @@ package org.ylzl.eden.dynamic.cache.factory;
 
 import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
-import org.ylzl.eden.dynamic.cache.core.Cache;
+import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheSpec;
 
 import java.util.Map;

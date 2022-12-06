@@ -6,8 +6,8 @@ import org.ylzl.eden.flow.compose.exception.ProcessDefinitionException;
 import org.ylzl.eden.flow.compose.node.ProcessConfig;
 import org.ylzl.eden.flow.compose.parser.ProcessParser;
 import org.ylzl.eden.flow.compose.process.ProcessDefinition;
-import org.ylzl.eden.flow.compose.processor.ProcessorFactory;
-import org.ylzl.eden.flow.compose.processor.ReflectProcessorFactory;
+import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
+import org.ylzl.eden.flow.compose.factory.ReflectProcessorFactory;
 
 import java.util.List;
 import java.util.Map;

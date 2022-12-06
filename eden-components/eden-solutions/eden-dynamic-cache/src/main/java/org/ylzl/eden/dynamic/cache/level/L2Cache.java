@@ -1,6 +1,6 @@
 package org.ylzl.eden.dynamic.cache.level;
 
-import org.ylzl.eden.dynamic.cache.core.Cache;
+import org.ylzl.eden.dynamic.cache.Cache;
 
 /**
  * 二级缓存接口

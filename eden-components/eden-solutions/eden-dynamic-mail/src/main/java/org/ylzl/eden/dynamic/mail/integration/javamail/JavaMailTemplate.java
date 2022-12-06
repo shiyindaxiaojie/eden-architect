@@ -6,7 +6,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.dynamic.mail.model.Mail;
-import org.ylzl.eden.dynamic.mail.core.MailTemplate;
+import org.ylzl.eden.dynamic.mail.MailTemplate;
 import org.ylzl.eden.dynamic.mail.exception.SendMailException;
 import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailRequest;
 import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailResponse;

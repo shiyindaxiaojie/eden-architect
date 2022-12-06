@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.ylzl.eden.dynamic.mail.core.MailTemplate;
+import org.ylzl.eden.dynamic.mail.MailTemplate;
 import org.ylzl.eden.dynamic.mail.integration.javamail.JavaMailTemplate;
 import org.ylzl.eden.dynamic.mail.spring.boot.env.MailProperties;
 import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;

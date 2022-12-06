@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.distributed.uid.core.DistributedUID;
+import org.ylzl.eden.distributed.uid.DistributedUID;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
 import org.ylzl.eden.distributed.uid.spring.boot.support.DistributedUIDHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;

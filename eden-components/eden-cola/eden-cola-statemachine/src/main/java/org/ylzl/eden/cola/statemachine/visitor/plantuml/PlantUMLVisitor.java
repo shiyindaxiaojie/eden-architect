@@ -1,7 +1,7 @@
 package org.ylzl.eden.cola.statemachine.visitor.plantuml;
 
 import org.ylzl.eden.cola.statemachine.state.State;
-import org.ylzl.eden.cola.statemachine.core.StateMachine;
+import org.ylzl.eden.cola.statemachine.StateMachine;
 import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.visitor.Visitor;
 

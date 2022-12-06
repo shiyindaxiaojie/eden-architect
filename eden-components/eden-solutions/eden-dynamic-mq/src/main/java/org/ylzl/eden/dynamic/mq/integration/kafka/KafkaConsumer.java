@@ -15,8 +15,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.ylzl.eden.dynamic.mq.model.Message;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueConsumer;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueListener;
+import org.ylzl.eden.dynamic.mq.MessageQueueConsumer;
+import org.ylzl.eden.dynamic.mq.MessageQueueListener;
 import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.Collections;

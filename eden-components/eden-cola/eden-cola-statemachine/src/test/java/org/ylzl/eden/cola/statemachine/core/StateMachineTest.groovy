@@ -1,6 +1,7 @@
 package org.ylzl.eden.cola.statemachine.core
 
-import org.ylzl.eden.cola.statemachine.core.factory.StateMachineFactory
+import org.ylzl.eden.cola.statemachine.StateMachine
+import org.ylzl.eden.cola.statemachine.factory.StateMachineFactory
 import spock.lang.*
 
 class StateMachineTest extends Specification {
@@ -27,7 +28,7 @@ class StateMachineTest extends Specification {
 
 	def "test external transition"() {
 		given:
-		StateMachine<States, Events, Context> stateMachine = StateMachineFactory.create("external transition")
+        StateMachine<States, Events, Context> stateMachine = StateMachineFactory.create("external transition")
 		stateMachine.externalTransition()
 			.from(States.WAIT_BUYER_PAY)
 			.to(States.TRADE_SUCCESS)
