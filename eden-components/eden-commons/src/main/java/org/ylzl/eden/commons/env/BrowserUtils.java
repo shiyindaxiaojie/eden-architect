@@ -18,7 +18,7 @@ package org.ylzl.eden.commons.env;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.browser.BrowserEnum;
+import org.ylzl.eden.commons.env.browser.Browser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -35,8 +35,8 @@ import java.util.Objects;
 public class BrowserUtils {
 
 	public static boolean isIE(@NonNull HttpServletRequest request) {
-		BrowserEnum browserEnum = BrowserEnum.parse(request);
-		switch (Objects.requireNonNull(browserEnum)) {
+		Browser browser = Browser.parse(request);
+		switch (Objects.requireNonNull(browser)) {
 			case IE6:
 			case IE7:
 			case IE8:
@@ -53,6 +53,6 @@ public class BrowserUtils {
 	}
 
 	public static String resolveValue(@NonNull String value) throws UnsupportedEncodingException {
-		return URLEncoder.encode(value, String.valueOf(CharsetConstants.UTF_8));
+		return URLEncoder.encode(value, String.valueOf(Charsets.UTF_8));
 	}
 }

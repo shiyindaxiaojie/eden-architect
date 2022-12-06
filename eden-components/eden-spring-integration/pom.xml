@@ -42,6 +42,10 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
+		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
@@ -59,40 +63,15 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Spring Boot -->
+		<!-- Spring Framework -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<optional>true</optional>
-			<!-- Spring Boot Starter Web 默认使用 logback 日志系统，需要排除掉 -->
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-actuator</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -100,13 +79,6 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Mail -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -127,7 +99,18 @@
 		<!-- RocketMQ -->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot-starter</artifactId>
+			<artifactId>rocketmq-client</artifactId>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-acl</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -167,10 +150,6 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-mongodb</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
 
 		<!-- Logstash -->
@@ -294,13 +273,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Flowable -->
-		<dependency>
-			<groupId>org.flowable</groupId>
-			<artifactId>flowable-spring-boot-starter-basic</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Ftp Server -->
 		<dependency>
 			<groupId>org.apache.ftpserver</groupId>
@@ -339,11 +311,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<optional>true</optional>
@@ -357,17 +324,6 @@
 		</dependency>
 
 		<!-- Spock -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
@@ -383,9 +339,5 @@
 			<artifactId>groovy</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.ylzl</groupId>
-            <artifactId>eden-spring-data</artifactId>
-        </dependency>
     </dependencies>
 </project>

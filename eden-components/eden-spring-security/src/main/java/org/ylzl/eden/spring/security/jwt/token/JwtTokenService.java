@@ -9,7 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 import org.ylzl.eden.spring.security.jwt.model.AccessToken;
@@ -55,7 +55,7 @@ public class JwtTokenService {
 				}
 				StringBuilder authorities = new StringBuilder();
 				for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-					authorities.append(grantedAuthority.getAuthority()).append(StringConstants.COMMA);
+					authorities.append(grantedAuthority.getAuthority()).append(Strings.COMMA);
 				}
 				authorities.deleteCharAt(authorities.length() - 1);
 				claims.put(JwtConstants.AUTHORITIES_KEY, authorities);

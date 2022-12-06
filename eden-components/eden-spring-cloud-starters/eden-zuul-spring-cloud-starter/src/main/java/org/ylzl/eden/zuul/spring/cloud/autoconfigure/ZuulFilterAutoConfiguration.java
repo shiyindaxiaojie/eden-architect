@@ -28,7 +28,7 @@ import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.PathMatcher;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.zuul.spring.cloud.env.ZuulProperties;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulAccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
@@ -44,8 +44,8 @@ import javax.cache.CacheManager;
  */
 @ConditionalOnProperty(
 	prefix = ZuulProperties.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
 )
 @ConditionalOnClass(ZuulFilter.class)
 @EnableConfigurationProperties(ZuulProperties.class)
@@ -67,8 +67,8 @@ public class ZuulFilterAutoConfiguration {
 
 	@ConditionalOnProperty(
 		prefix = ZuulProperties.AccessControl.PREFIX,
-		name = ConditionConstants.ENABLED,
-		havingValue = ConditionConstants.ENABLED_TRUE
+		name = Conditions.ENABLED,
+		havingValue = Conditions.ENABLED_TRUE
 	)
 	@ConditionalOnBean(RouteLocator.class)
 	@ConditionalOnMissingBean
@@ -80,8 +80,8 @@ public class ZuulFilterAutoConfiguration {
 
 	@ConditionalOnProperty(
 		prefix = ZuulProperties.RateLimiting.PREFIX,
-		name = ConditionConstants.ENABLED,
-		havingValue = ConditionConstants.ENABLED_TRUE
+		name = Conditions.ENABLED,
+		havingValue = Conditions.ENABLED_TRUE
 	)
 	@ConditionalOnMissingBean
 	@Bean

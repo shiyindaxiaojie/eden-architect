@@ -11,7 +11,7 @@ import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.jedis.JedisDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -22,8 +22,8 @@ import redis.clients.jedis.Jedis;
  */
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.Jedis.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @ConditionalOnClass(Jedis.class)

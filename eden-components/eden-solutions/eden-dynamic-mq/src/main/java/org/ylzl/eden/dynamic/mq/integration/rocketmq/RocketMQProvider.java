@@ -8,7 +8,7 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
-import org.ylzl.eden.dynamic.mq.exception.MessageQueueProducerException;
+import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
@@ -39,20 +39,19 @@ public class RocketMQProvider implements MessageQueueProvider {
 	 *
 	 * @param message
 	 * @return
-	 * @throws MessageQueueProducerException
 	 */
 	@Override
-	public MessageSendResult syncSend(Message message) throws MessageQueueProducerException {
+	public MessageSendResult syncSend(Message message) {
 		try {
 			SendResult sendResult = rocketMQTemplate.getProducer().send(transfer(message));
 			return transfer(sendResult);
 		} catch (InterruptedException e) {
 			log.error(ROCKETMQ_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
 			Thread.currentThread().interrupt();
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		} catch (Exception e) {
 			log.error(ROCKETMQ_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		}
 	}
 
@@ -61,10 +60,9 @@ public class RocketMQProvider implements MessageQueueProvider {
 	 *
 	 * @param message
 	 * @param messageCallback
-	 * @throws MessageQueueProducerException
 	 */
 	@Override
-	public void asyncSend(Message message, MessageSendCallback messageCallback) throws MessageQueueProducerException {
+	public void asyncSend(Message message, MessageSendCallback messageCallback) {
 		DefaultMQProducer producer = rocketMQTemplate.getProducer();
 		if (StringUtils.isNotBlank(message.getNamespace())) {
 			producer.setNamespace(message.getNamespace());
@@ -88,10 +86,10 @@ public class RocketMQProvider implements MessageQueueProvider {
 		} catch (InterruptedException e) {
 			log.error(ROCKETMQ_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
 			Thread.currentThread().interrupt();
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		} catch (Exception e) {
 			log.error(ROCKETMQ_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		}
 	}
 

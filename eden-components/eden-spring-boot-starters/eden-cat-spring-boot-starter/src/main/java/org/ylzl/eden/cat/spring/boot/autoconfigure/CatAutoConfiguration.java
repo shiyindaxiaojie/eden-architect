@@ -11,9 +11,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessorRegister;
 
@@ -53,7 +53,7 @@ public class CatAutoConfiguration implements InitializingBean {
 		// 代替 META-INF/app.properites
 		String domain;
 		if (StringUtils.isBlank(catProperties.getDomain())) {
-			domain = environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);
+			domain = environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME);
 		} else {
 			domain = catProperties.getDomain();
 		}
@@ -61,6 +61,6 @@ public class CatAutoConfiguration implements InitializingBean {
 		Cat.initializeByDomain(domain,
 			catProperties.getTcpPort(),
 			catProperties.getHttpPort(),
-			servers.split(StringConstants.COMMA));
+			servers.split(Strings.COMMA));
 	}
 }

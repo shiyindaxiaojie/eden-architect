@@ -26,7 +26,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -74,7 +74,7 @@ public class AsyncFlyway extends Flyway {
 	@Override
 	public MigrateResult migrate() throws FlywayException {
 		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
 			try (Connection ignored = configuration.getDataSource().getConnection()) {
 				asyncTaskExecutor.submit(
 					() -> {

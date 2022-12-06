@@ -17,7 +17,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueListener;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.Collections;
 import java.util.List;
@@ -113,7 +113,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		if (StringUtils.isNotBlank(annotation.group())) {
 			group = annotation.group();
 		} else if (StringUtils.isNotBlank(kafkaProperties.getConsumer().getGroupId())) {
-			group = kafkaProperties.getConsumer().getGroupId() + StringConstants.UNDERLINE + topic;
+			group = kafkaProperties.getConsumer().getGroupId() + Strings.UNDERLINE + topic;
 		}
 
 		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaProperties.getClientId());

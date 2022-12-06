@@ -18,7 +18,7 @@ package org.ylzl.eden.commons.net;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.lang.CharConstants;
+import org.ylzl.eden.commons.lang.Chars;
 import org.ylzl.eden.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,13 +44,13 @@ public class IpConfigUtils {
 	 */
 	public static String getIpAddress(@NonNull HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");
-		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || IpConfigConstants.UNKNOWN_IP.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 		return ip;
@@ -79,7 +79,7 @@ public class IpConfigUtils {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < mac.length; i++) {
 			if (i != 0) {
-				sb.append(CharConstants.MINUS);
+				sb.append(Chars.MINUS);
 			}
 			String s = Integer.toHexString(mac[i] & 0xFF);
 			sb.append(s.length() == 1 ? 0 + s : s);

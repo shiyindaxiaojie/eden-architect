@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.integration.xxljob.admin.AutoRegisterXxlJobSpringExecutor;
 import org.ylzl.eden.spring.integration.xxljob.admin.XxlJobAdminTemplate;
 
@@ -84,7 +84,7 @@ public class XxlJobAutoConfiguration {
 			return appName;
 		}
 
-		return environment.getProperty(SpringPropertiesConstants.SPRING_APPLICATION_NAME);
+		return environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME);
 	}
 
 	private String resolveIp(String ip) {

@@ -18,8 +18,8 @@ package org.ylzl.eden.commons.env;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
-import org.ylzl.eden.commons.env.webserver.WebServerEnum;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.env.webserver.WebServer;
+import org.ylzl.eden.commons.lang.Strings;
 
 /**
  * Web 服务器工具集
@@ -31,35 +31,35 @@ import org.ylzl.eden.commons.lang.StringConstants;
 public class WebServerUtils {
 
 	public static boolean isTomcat() {
-		return WebServerEnum.TOMCAT.name().equals(WebServerEnum.parse().name());
+		return WebServer.TOMCAT.name().equals(WebServer.parse().name());
 	}
 
 	public static boolean isUndertow() {
-		return WebServerEnum.UNDERTOW.name().equals(WebServerEnum.parse().name());
+		return WebServer.UNDERTOW.name().equals(WebServer.parse().name());
 	}
 
 	public static boolean isJetty() {
-		return WebServerEnum.JETTY.name().equals(WebServerEnum.parse().name());
+		return WebServer.JETTY.name().equals(WebServer.parse().name());
 	}
 
 	public static boolean isJBoss() {
-		return WebServerEnum.JBOSS.name().equals(WebServerEnum.parse().name());
+		return WebServer.JBOSS.name().equals(WebServer.parse().name());
 	}
 
 	public static boolean isWebLogic() {
-		return WebServerEnum.WEBLOGIC.name().equals(WebServerEnum.parse().name());
+		return WebServer.WEBLOGIC.name().equals(WebServer.parse().name());
 	}
 
 	public static boolean isWebSphere() {
-		return WebServerEnum.WEBSPHERE.name().equals(WebServerEnum.parse().name());
+		return WebServer.WEBSPHERE.name().equals(WebServer.parse().name());
 	}
 
 	public static String getHome() {
 		return System.getProperty(
-			StringUtils.join(WebServerEnum.parse().name(), "_HOME"), StringConstants.EMPTY);
+			StringUtils.join(WebServer.parse().name(), "_HOME"), Strings.EMPTY);
 	}
 
 	public static String getLookup() {
-		return WebServerEnum.parse().getLookup();
+		return WebServer.parse().getLookup();
 	}
 }

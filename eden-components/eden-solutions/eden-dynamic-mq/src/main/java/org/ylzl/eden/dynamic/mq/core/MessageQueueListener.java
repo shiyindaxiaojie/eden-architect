@@ -1,7 +1,7 @@
 package org.ylzl.eden.dynamic.mq.core;
 
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.dynamic.mq.consumer.MessageModel;
 import org.ylzl.eden.dynamic.mq.consumer.MessageSelectorType;
 
@@ -24,21 +24,21 @@ public @interface MessageQueueListener {
 	 *
 	 * @return 消息队列类型
 	 */
-	String type() default StringConstants.EMPTY;
+	String type() default Strings.EMPTY;
 
 	/**
 	 * 设置消费者组
 	 *
 	 * @return 消费者组名
 	 */
-	String group() default StringConstants.EMPTY;
+	String group() default Strings.EMPTY;
 
 	/**
 	 * 设置消息主题
 	 *
 	 * @return 消息主题
 	 */
-	String topic() default StringConstants.EMPTY;
+	String topic() default Strings.EMPTY;
 
 	/**
 	 * 批量拉取消息大小

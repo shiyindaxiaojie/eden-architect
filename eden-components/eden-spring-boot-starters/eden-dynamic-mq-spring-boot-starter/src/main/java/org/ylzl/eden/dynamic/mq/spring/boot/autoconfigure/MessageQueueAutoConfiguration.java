@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanFactory;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.MessageQueueProperties;
+import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueHelper;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 消息队列自动装配
@@ -15,7 +16,11 @@ import org.ylzl.eden.dynamic.mq.spring.boot.env.MessageQueueProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(name = MessageQueueProperties.ENABLED, havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(
+	prefix = MessageQueueProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
+)
 @EnableConfigurationProperties(MessageQueueProperties.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -27,8 +32,8 @@ public class MessageQueueAutoConfiguration {
 	private final MessageQueueProperties messageQueueProperties;
 
 	@Bean
-	public MessageQueueBeanFactory messageQueueProviderFactory() {
+	public MessageQueueHelper messageQueueHelper() {
 		log.debug(AUTOWIRED_MESSAGE_QUEUE_BEAN_FACTORY);
-		return new MessageQueueBeanFactory(messageQueueProperties.getType());
+		return new MessageQueueHelper(messageQueueProperties.getPrimary());
 	}
 }

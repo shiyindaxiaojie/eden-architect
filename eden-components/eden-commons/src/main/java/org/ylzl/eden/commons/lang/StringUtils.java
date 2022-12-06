@@ -37,7 +37,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	}
 
 	public static boolean isNull(String str) {
-		return isBlank(str) || StringConstants.NULL.equals(trimToEmpty(str));
+		return isBlank(str) || Strings.NULL.equals(trimToEmpty(str));
 	}
 
 	public static String camelToUnderline(@NonNull String str) {
@@ -46,7 +46,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		for (int i = 0; i < len; i++) {
 			char c = str.charAt(i);
 			if (Character.isUpperCase(c)) {
-				sb.append(CharConstants.UNDERLINE);
+				sb.append(Chars.UNDERLINE);
 				sb.append(Character.toLowerCase(c));
 			} else {
 				sb.append(c);
@@ -60,7 +60,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++) {
 			char c = str.charAt(i);
-			if (c == CharConstants.UNDERLINE) {
+			if (c == Chars.UNDERLINE) {
 				if (++i < len) {
 					sb.append(Character.toUpperCase(str.charAt(i)));
 				}

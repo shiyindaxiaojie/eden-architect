@@ -22,7 +22,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.safe.SqlSafeUtils;
 
 import java.util.Arrays;
@@ -81,7 +81,7 @@ public class MybatisPlusUtils {
 		long pageNum, long pageSize, String sortColumn, String sortRule) {
 		Page<T> page = new Page(pageNum, pageSize);
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
-			String[] sortColumns = sortColumn.split(StringConstants.COLON);
+			String[] sortColumns = sortColumn.split(Strings.COLON);
 			List<OrderItem> orderItems = SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
 				? OrderItem.ascs(sortColumns)
 				: OrderItem.descs(sortColumns);
@@ -120,14 +120,14 @@ public class MybatisPlusUtils {
 					.findFirst()
 					.get()
 					.name();
-			String[] sortColumns = sortColumn.split(StringConstants.COLON);
+			String[] sortColumns = sortColumn.split(Strings.COLON);
 			int len = sortColumns.length;
 			int i = 0;
 			for (String column : sortColumns) {
-				sql.append(column).append(StringConstants.SPACE).append(rule);
+				sql.append(column).append(Strings.SPACE).append(rule);
 				i++;
 				if (i < len) {
-					sql.append(StringConstants.COMMA);
+					sql.append(Strings.COMMA);
 				}
 			}
 		}

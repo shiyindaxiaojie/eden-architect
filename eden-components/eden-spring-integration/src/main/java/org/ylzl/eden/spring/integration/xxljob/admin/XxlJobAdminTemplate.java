@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.beans.util.MultiValueMapUtils;
 import org.ylzl.eden.spring.integration.xxljob.constant.XxlJobAdminRoutes;
 import org.ylzl.eden.spring.integration.xxljob.model.XxlJobGroup;
@@ -109,7 +109,7 @@ public class XxlJobAdminTemplate {
 
 	public ResponseEntity<String> jobinfoPageList(int start, int length, int jobGroup, int triggerStatus) {
 		return this.jobinfoPageList(start, length, jobGroup, triggerStatus,
-			StringConstants.EMPTY, StringConstants.EMPTY, StringConstants.EMPTY);
+			Strings.EMPTY, Strings.EMPTY, Strings.EMPTY);
 	}
 
 	public ResponseEntity<String> addJob(XxlJobInfo xxlJobInfo) {

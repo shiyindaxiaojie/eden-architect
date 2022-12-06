@@ -8,8 +8,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.dynamic.sms.core.SmsTemplate;
-import org.ylzl.eden.dynamic.sms.spring.boot.autoconfigure.factory.SmsBeanFactory;
 import org.ylzl.eden.dynamic.sms.spring.boot.env.SmsProperties;
+import org.ylzl.eden.dynamic.sms.spring.boot.support.SmsHelper;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 短信操作模板策略自动装配
@@ -17,7 +18,11 @@ import org.ylzl.eden.dynamic.sms.spring.boot.env.SmsProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(name = SmsProperties.ENABLED, havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(
+	prefix = SmsProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
+)
 @ConditionalOnBean(SmsTemplate.class)
 @EnableConfigurationProperties(SmsProperties.class)
 @RequiredArgsConstructor
@@ -30,8 +35,8 @@ public class SmsAutoConfiguration {
 	private final SmsProperties smsProperties;
 
 	@Bean
-	public SmsBeanFactory smsBeanFactory() {
+	public SmsHelper smsHelper() {
 		log.debug(AUTOWIRED_SMS_BEAN_FACTORY);
-		return new SmsBeanFactory(smsProperties.getType());
+		return new SmsHelper(smsProperties.getPrimary());
 	}
 }

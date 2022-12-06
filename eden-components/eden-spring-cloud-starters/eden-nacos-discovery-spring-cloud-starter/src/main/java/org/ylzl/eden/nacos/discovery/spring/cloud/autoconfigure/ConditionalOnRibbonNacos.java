@@ -1,7 +1,7 @@
 package org.ylzl.eden.nacos.discovery.spring.cloud.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @ConditionalOnProperty(
 	prefix = "ribbon",
 	name = "nacos.enabled",
-	havingValue = ConditionConstants.ENABLED,
+	havingValue = Conditions.ENABLED,
 	matchIfMissing = true
 )
 public @interface ConditionalOnRibbonNacos {

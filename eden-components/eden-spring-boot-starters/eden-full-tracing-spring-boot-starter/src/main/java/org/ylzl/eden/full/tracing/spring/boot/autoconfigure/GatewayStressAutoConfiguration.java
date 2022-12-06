@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.full.tracing.integration.gateway.GatewayStressTagFilter;
 
 /**
- * 压测标记网关自动装配
+ * 网关压测标记自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

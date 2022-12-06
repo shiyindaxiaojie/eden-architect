@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.boot.info.contributor;
 
 import lombok.Data;
 import org.springframework.boot.info.BuildProperties;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 /**
  * 应用构建信息类
@@ -40,9 +40,9 @@ public class InfoContributorProvider {
 
 	public String resolvePackage(String suffix) {
 		return buildProperties.getGroup() +
-			StringConstants.DOT +
-			buildProperties.getArtifact().replaceAll(StringConstants.MINUS, StringConstants.DOT) +
-			StringConstants.DOT +
+			Strings.DOT +
+			buildProperties.getArtifact().replaceAll(Strings.MINUS, Strings.DOT) +
+			Strings.DOT +
 			suffix;
 	}
 }

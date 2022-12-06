@@ -1,13 +1,13 @@
 package org.ylzl.eden.dynamic.sms.core;
 
-import org.ylzl.eden.dynamic.sms.batch.BatchSendSmsRequest;
-import org.ylzl.eden.dynamic.sms.batch.BatchSendSmsResponse;
-import org.ylzl.eden.dynamic.sms.multi.MultiSendSmsRequest;
-import org.ylzl.eden.dynamic.sms.multi.MultiSendSmsResponse;
-import org.ylzl.eden.dynamic.sms.single.SingleSendSmsRequest;
-import org.ylzl.eden.dynamic.sms.single.SingleSendSmsResponse;
-import org.ylzl.eden.dynamic.sms.template.SendTemplateSmsRequest;
-import org.ylzl.eden.dynamic.sms.template.SendTemplateSmsResponse;
+import org.ylzl.eden.dynamic.sms.model.batch.BatchSendSmsRequest;
+import org.ylzl.eden.dynamic.sms.model.batch.BatchSendSmsResponse;
+import org.ylzl.eden.dynamic.sms.model.multi.MultiSendSmsRequest;
+import org.ylzl.eden.dynamic.sms.model.multi.MultiSendSmsResponse;
+import org.ylzl.eden.dynamic.sms.model.single.SingleSendSmsRequest;
+import org.ylzl.eden.dynamic.sms.model.single.SingleSendSmsResponse;
+import org.ylzl.eden.dynamic.sms.model.template.SendTemplateSmsRequest;
+import org.ylzl.eden.dynamic.sms.model.template.SendTemplateSmsResponse;
 
 /**
  * 短信操作模板

@@ -39,26 +39,25 @@ public class Dom4jUtils {
 		return DocumentHelper.createDocument();
 	}
 
-	public static Document toDocument(@NonNull String xmlString) throws DocumentException {
+	public static Document parseText(@NonNull String xmlString) throws DocumentException {
 		return DocumentHelper.parseText(xmlString);
 	}
 
-	public static Document getDocument(@NonNull InputStream inputStream, boolean validation)
-		throws Exception {
-		return getSAXReader(validation).read(inputStream);
+	public static Document read(@NonNull InputStream inputStream, boolean validation) throws Exception {
+		return createSAXReader(validation).read(inputStream);
 	}
 
-	public static Document getDocument(@NonNull File file, boolean validation) throws Exception {
-		return getSAXReader(validation).read(file);
+	public static Document read(@NonNull File file, boolean validation) throws Exception {
+		return createSAXReader(validation).read(file);
 	}
 
-	public static SAXReader getSAXReader(boolean validation) {
+	public static SAXReader createSAXReader(boolean validation) {
 		SAXReader saxReader = new SAXReader();
 		saxReader.setValidation(validation);
 		return saxReader;
 	}
 
-	public static Node selectSingleNode(@NonNull Object obj, @NonNull String expression) {
+	public static <T> Node selectSingleNode(@NonNull T obj, @NonNull String expression) {
 		if (obj instanceof Document) {
 			Document document = (Document) obj;
 			return document.selectSingleNode(expression);
@@ -74,7 +73,7 @@ public class Dom4jUtils {
 		return null;
 	}
 
-	public static List selectNodes(@NonNull Object obj, @NonNull String expression) {
+	public static <T> List<?> selectNodes(@NonNull T obj, @NonNull String expression) {
 		if (obj instanceof Document) {
 			Document document = (Document) obj;
 			return document.selectNodes(expression);

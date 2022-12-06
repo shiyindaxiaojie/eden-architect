@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
@@ -35,7 +35,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	@Override
 	public boolean lock(@NotNull String key) {
 		log.debug("Curator create lock: {}", key);
-		if (!key.startsWith(StringConstants.SLASH)) {
+		if (!key.startsWith(Strings.SLASH)) {
 			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);
@@ -60,7 +60,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	@Override
 	public boolean lock(@NotNull String key, int waitTime, TimeUnit timeUnit) {
 		log.debug("Curator create lock: {}, waitTime: {}", key, waitTime);
-		if (!key.startsWith(StringConstants.SLASH)) {
+		if (!key.startsWith(Strings.SLASH)) {
 			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
 		}
 		InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework, key);

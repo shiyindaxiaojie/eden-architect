@@ -1,10 +1,9 @@
 package org.ylzl.eden.dynamic.cache.level;
 
 import lombok.RequiredArgsConstructor;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.core.Cache;
-import org.ylzl.eden.dynamic.cache.exception.CacheException;
-import org.ylzl.eden.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,35 +60,31 @@ public abstract class AbstractAdaptingCache implements Cache {
 	}
 
 	protected <K, V> Map<K, V> loadAndPut(Function<List<K>, Map<K, V>> valueLoader, Map<K, Object> notHitCacheKeyMap) {
-		try {
-			Map<K, V> valueLoaderHitMap = valueLoader.apply(new ArrayList<>(notHitCacheKeyMap.keySet()));
-			if (CollectionUtils.isEmpty(valueLoaderHitMap)) {
-				Map<Object, V> nullValueMap = new HashMap<>();
-				notHitCacheKeyMap.forEach((k, cacheKey) -> {
-					nullValueMap.put(cacheKey, null);
-				});
-				this.batchPut(nullValueMap);
-				return valueLoaderHitMap;
-			}
-
-			Map<Object, V> batchPutDataMap = notHitCacheKeyMap.entrySet().stream()
-				.filter(entry -> valueLoaderHitMap.containsKey(entry.getKey()))
-				.collect(HashMap::new, (map, entry) -> map.put(entry.getValue(),
-					valueLoaderHitMap.get(entry.getKey())), HashMap::putAll);
-			this.batchPut(batchPutDataMap);
-
-			if (valueLoaderHitMap.size() != notHitCacheKeyMap.size()) {
-				Map<Object, V> nullValueMap = new HashMap<>();
-				notHitCacheKeyMap.forEach((k, cacheKey) -> {
-					if (!valueLoaderHitMap.containsKey(k)) {
-						nullValueMap.put(cacheKey, null);
-					}
-				});
-				this.batchPut(nullValueMap);
-			}
+		Map<K, V> valueLoaderHitMap = valueLoader.apply(new ArrayList<>(notHitCacheKeyMap.keySet()));
+		if (CollectionUtils.isEmpty(valueLoaderHitMap)) {
+			Map<Object, V> nullValueMap = new HashMap<>();
+			notHitCacheKeyMap.forEach((k, cacheKey) -> {
+				nullValueMap.put(cacheKey, null);
+			});
+			this.batchPut(nullValueMap);
 			return valueLoaderHitMap;
-		} catch (Exception e) {
-			throw new CacheException(e.getMessage());
 		}
+
+		Map<Object, V> batchPutDataMap = notHitCacheKeyMap.entrySet().stream()
+			.filter(entry -> valueLoaderHitMap.containsKey(entry.getKey()))
+			.collect(HashMap::new, (map, entry) -> map.put(entry.getValue(),
+				valueLoaderHitMap.get(entry.getKey())), HashMap::putAll);
+		this.batchPut(batchPutDataMap);
+
+		if (valueLoaderHitMap.size() != notHitCacheKeyMap.size()) {
+			Map<Object, V> nullValueMap = new HashMap<>();
+			notHitCacheKeyMap.forEach((k, cacheKey) -> {
+				if (!valueLoaderHitMap.containsKey(k)) {
+					nullValueMap.put(cacheKey, null);
+				}
+			});
+			this.batchPut(nullValueMap);
+		}
+		return valueLoaderHitMap;
 	}
 }

@@ -17,9 +17,9 @@
 package org.ylzl.eden.commons.env;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.os.OSArchEnum;
-import org.ylzl.eden.commons.env.os.OSEnum;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.env.os.OSArchitect;
+import org.ylzl.eden.commons.env.os.OS;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -52,8 +52,8 @@ public class OSUtils {
 	};
 
 	public static boolean is32bit() {
-		OSArchEnum osArchEnum = getOSArchEnum();
-		switch (osArchEnum) {
+		OSArchitect osArchitect = getOSArchEnum();
+		switch (osArchitect) {
 			case I386:
 			case I686:
 			case X86:
@@ -63,8 +63,8 @@ public class OSUtils {
 	}
 
 	public static boolean is64bit() {
-		OSArchEnum osArchEnum = getOSArchEnum();
-		switch (osArchEnum) {
+		OSArchitect osArchitect = getOSArchEnum();
+		switch (osArchitect) {
 			case AMD64:
 			case X86_64:
 				return true;
@@ -73,16 +73,16 @@ public class OSUtils {
 	}
 
 	public static boolean isWindows() {
-		OSEnum osEnum = getOSEnum();
-		if (osEnum == OSEnum.WINDOWS) {
+		OS os = getOSEnum();
+		if (os == OS.WINDOWS) {
 			return true;
 		}
 		return false;
 	}
 
 	public static boolean isMacOS() {
-		OSEnum osEnum = getOSEnum();
-		switch (osEnum) {
+		OS os = getOSEnum();
+		switch (os) {
 			case MAS_OS:
 			case MAS_OS_X:
 				return true;
@@ -91,19 +91,19 @@ public class OSUtils {
 	}
 
 	public static boolean isLinux() {
-		OSEnum osEnum = getOSEnum();
-		if (osEnum == OSEnum.LINUX) {
+		OS os = getOSEnum();
+		if (os == OS.LINUX) {
 			return true;
 		}
 		return false;
 	}
 
-	public static OSEnum getOSEnum() {
-		return OSEnum.parse(System.getProperty(JavaEnvConstants.OS_NAME));
+	public static OS getOSEnum() {
+		return OS.parse(System.getProperty(JavaEnvironment.OS_NAME));
 	}
 
-	public static OSArchEnum getOSArchEnum() {
-		return OSArchEnum.parse(System.getProperty(JavaEnvConstants.OS_ARCH));
+	public static OSArchitect getOSArchEnum() {
+		return OSArchitect.parse(System.getProperty(JavaEnvironment.OS_ARCH));
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class OSUtils {
 	 * @throws SocketException
 	 */
 	private static String getMacAddress(InetAddress inetAddress) throws SocketException {
-		String joinStr = isWindows() ? StringConstants.MINUS : StringConstants.COLON;
+		String joinStr = isWindows() ? Strings.MINUS : Strings.COLON;
 		byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = 0; i < mac.length; i++) {

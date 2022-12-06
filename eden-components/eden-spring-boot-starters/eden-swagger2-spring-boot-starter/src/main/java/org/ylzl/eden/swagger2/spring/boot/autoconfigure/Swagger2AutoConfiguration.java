@@ -29,11 +29,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.swagger2.spring.boot.env.DefaultSwagger2Customizer;
 import org.ylzl.eden.swagger2.spring.boot.env.Swagger2Properties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringPropertiesConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.integration.swagger2.customizer.Swagger2Customizer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.PathSelectors;
@@ -88,7 +88,7 @@ public class Swagger2AutoConfiguration {
 	private final Swagger2Properties properties;
 	private final ManagementServerProperties managementServerProperties;
 
-	@Value(SpringPropertiesConstants.NAME_PATTERN)
+	@Value(SpringProperties.NAME_PATTERN)
 	private String applicationName;
 
 	public Swagger2AutoConfiguration(
@@ -132,12 +132,12 @@ public class Swagger2AutoConfiguration {
 		ApiInfo apiInfo =
 			new ApiInfo(
 				StringUtils.capitalize(applicationName),
-				StringConstants.EMPTY,
+				Strings.EMPTY,
 				properties.getVersion(),
-				StringConstants.EMPTY,
+				Strings.EMPTY,
 				ApiInfo.DEFAULT_CONTACT,
-				StringConstants.EMPTY,
-				StringConstants.EMPTY,
+				Strings.EMPTY,
+				Strings.EMPTY,
 				new ArrayList<>());
 
 		return createDocket()

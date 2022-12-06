@@ -36,11 +36,7 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -50,7 +46,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- 通用组件 -->
+		<!-- 流程编排组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-flow-compose</artifactId>

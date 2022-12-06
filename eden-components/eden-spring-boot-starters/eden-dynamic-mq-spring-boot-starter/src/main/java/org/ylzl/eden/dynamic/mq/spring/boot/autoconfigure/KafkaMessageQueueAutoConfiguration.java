@@ -5,6 +5,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,10 @@ import org.ylzl.eden.dynamic.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
 import org.ylzl.eden.dynamic.mq.integration.kafka.KafkaConsumer;
 import org.ylzl.eden.dynamic.mq.integration.kafka.KafkaProvider;
-import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanType;
+import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanNames;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.MessageQueueProperties;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.List;
 import java.util.function.Function;
@@ -28,35 +30,38 @@ import java.util.function.Function;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureAfter(MessageQueueAutoConfiguration.class)
+@ConditionalOnProperty(
+	prefix = MessageQueueProperties.Kafka.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
+)
+@ConditionalOnExpression("${spring.kafka.enabled:true}")
 @ConditionalOnBean(KafkaProperties.class)
 @ConditionalOnClass(KafkaTemplate.class)
-@ConditionalOnProperty(value = KafkaMessageQueueAutoConfiguration.ENABLED, matchIfMissing = true)
+@AutoConfigureAfter(MessageQueueAutoConfiguration.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class KafkaMessageQueueAutoConfiguration {
 
-	public static final String ENABLED = "spring.kafka.enabled";
+	private static final String AUTOWIRED_KAKFA_CONSUMER = "Autowired KafkaConsumer";
 
-	public static final String AUTOWIRED_KAKFA_CONSUMER = "Autowired KafkaConsumer";
+	private static final String AUTOWIRED_KAFKA_PROVIDER = "Autowired KafkaProvider";
 
-	public static final String AUTOWIRED_KAFKA_PROVIDER = "Autowired KafkaProvider";
-
-	@Bean(MessageQueueBeanType.KAFKA_CONSUMER)
+	@Bean(MessageQueueBeanNames.KAFKA_CONSUMER)
 	public KafkaConsumer kafkaConsumer(MessageQueueProperties messageQueueProperties,
 									   KafkaProperties kafkaProperties,
 									   ObjectProvider<List<MessageQueueConsumer>> messageListeners,
 									   ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
 		log.debug(AUTOWIRED_KAKFA_CONSUMER);
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type)?
-			MessageQueueBeanType.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getType().name()):
-			MessageQueueBeanType.KAFKA.name().equalsIgnoreCase(type);
+			MessageQueueBeanNames.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getPrimary().name()):
+			MessageQueueBeanNames.KAFKA.name().equalsIgnoreCase(type);
 		return new KafkaConsumer(matcher,
 			kafkaProperties, messageListeners.getIfAvailable(),
 			consumerFactory.getIfAvailable());
 	}
 
-	@Bean(MessageQueueBeanType.KAFKA_PROVIDER)
+	@Bean(MessageQueueBeanNames.KAFKA_PROVIDER)
 	public MessageQueueProvider messageQueueProvider(KafkaTemplate<String, String> kafkaTemplate) {
 		log.debug(AUTOWIRED_KAFKA_PROVIDER);
 		return new KafkaProvider(kafkaTemplate);

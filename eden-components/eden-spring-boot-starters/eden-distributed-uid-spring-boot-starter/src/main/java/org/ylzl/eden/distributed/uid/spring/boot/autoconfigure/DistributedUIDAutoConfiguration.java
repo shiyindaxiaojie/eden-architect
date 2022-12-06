@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.uid.core.DistributedUID;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
 import org.ylzl.eden.distributed.uid.spring.boot.support.DistributedUIDHelper;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 分布式唯一ID操作自动装配
@@ -20,8 +20,8 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
  */
 @ConditionalOnProperty(
 	prefix = DistributedUIDProperties.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
 )
 @ConditionalOnBean(DistributedUID.class)
 @EnableConfigurationProperties(DistributedUIDProperties.class)

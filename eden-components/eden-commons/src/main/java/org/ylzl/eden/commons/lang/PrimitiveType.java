@@ -27,6 +27,7 @@ import lombok.NonNull;
  * @since 2.4.13
  */
 public enum PrimitiveType {
+
 	BOOLEAN(Boolean::parseBoolean, Boolean.class),
 	BYTE(value -> value == null ? (byte) 0 : Byte.parseByte(value), Byte.class),
 	CHAR(value -> value == null ? '\u0000' : value.charAt(0), Character.class),

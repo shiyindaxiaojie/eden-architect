@@ -15,7 +15,7 @@ import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * Redisson 分布式锁自动配置
@@ -25,8 +25,8 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
  */
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.Redisson.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE,
 	matchIfMissing = true
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)

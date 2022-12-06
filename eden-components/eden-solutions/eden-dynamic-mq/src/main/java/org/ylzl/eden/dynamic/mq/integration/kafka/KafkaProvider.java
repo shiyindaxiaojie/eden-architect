@@ -10,7 +10,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueProvider;
 import org.ylzl.eden.dynamic.mq.model.Message;
-import org.ylzl.eden.dynamic.mq.exception.MessageQueueProducerException;
+import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
 
@@ -35,10 +35,9 @@ public class KafkaProvider implements MessageQueueProvider {
 	 *
 	 * @param message
 	 * @return
-	 * @throws MessageQueueProducerException
 	 */
 	@Override
-	public MessageSendResult syncSend(Message message) throws MessageQueueProducerException {
+	public MessageSendResult syncSend(Message message) {
 		try {
 			ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
 			SendResult<String, String> sendResult = future.get();
@@ -46,10 +45,10 @@ public class KafkaProvider implements MessageQueueProvider {
 		} catch (InterruptedException e) {
 			log.error(KAFKA_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
 			Thread.currentThread().interrupt();
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		} catch (Exception e) {
 			log.error(KAFKA_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		}
 	}
 
@@ -58,10 +57,9 @@ public class KafkaProvider implements MessageQueueProvider {
 	 *
 	 * @param message
 	 * @param messageCallback
-	 * @throws MessageQueueProducerException
 	 */
 	@Override
-	public void asyncSend(Message message, MessageSendCallback messageCallback) throws MessageQueueProducerException {
+	public void asyncSend(Message message, MessageSendCallback messageCallback) {
 		try {
 			ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
 			future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
@@ -78,7 +76,7 @@ public class KafkaProvider implements MessageQueueProvider {
 			});
 		} catch (Exception e) {
 			log.error(KAFKA_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
-			throw new MessageQueueProducerException(e.getMessage());
+			throw new MessageSendException(e.getMessage());
 		}
 	}
 

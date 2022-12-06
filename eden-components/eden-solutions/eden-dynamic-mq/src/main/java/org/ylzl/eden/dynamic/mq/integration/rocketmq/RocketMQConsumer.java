@@ -18,10 +18,10 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.core.MessageQueueListener;
-import org.ylzl.eden.dynamic.mq.exception.MessageQueueConsumerException;
+import org.ylzl.eden.dynamic.mq.consumer.MessageConsumeException;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConsumerConfig;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -94,7 +94,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 			}
 		} catch (MQClientException e) {
 			log.error(ROCKETMQ_CONSUMER_CONSUME_ERROR, e.getMessage(), e);
-			throw new MessageQueueConsumerException(e.getMessage());
+			throw new MessageConsumeException(e.getMessage());
 		}
 	}
 
@@ -127,7 +127,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 		if (StringUtils.isNotBlank(annotation.group())) {
 			group = annotation.group();
 		} else if (StringUtils.isNotBlank(rocketMQConsumerConfig.getGroup())) {
-			group = rocketMQConsumerConfig.getGroup() + StringConstants.UNDERLINE + topic;
+			group = rocketMQConsumerConfig.getGroup() + Strings.UNDERLINE + topic;
 		}
 
 		String selectorExpression = null;

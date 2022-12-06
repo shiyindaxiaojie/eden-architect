@@ -24,7 +24,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 /**
  * 异步 Mongobee
@@ -57,7 +57,7 @@ public class AsyncMongobee extends Mongobee {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
 			taskExecutor.execute(
 				() -> {
 					try {

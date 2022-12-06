@@ -12,7 +12,7 @@ import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.zookeeper.ZookeeperDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
 /**
@@ -23,8 +23,8 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
  */
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.ZooKeeper.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @ConditionalOnClass(ZooKeeper.class)

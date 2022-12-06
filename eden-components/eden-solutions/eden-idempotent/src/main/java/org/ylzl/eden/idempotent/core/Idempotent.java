@@ -1,6 +1,6 @@
 package org.ylzl.eden.idempotent.core;
 
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 
 import java.lang.annotation.*;
@@ -20,7 +20,7 @@ public @interface Idempotent {
 
 	IdempotentStrategy strategy() default IdempotentStrategy.TTL;
 
-	String key() default StringConstants.EMPTY;
+	String key() default Strings.EMPTY;
 
 	long ttl() default 10L;
 

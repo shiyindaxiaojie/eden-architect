@@ -17,9 +17,9 @@
 package org.ylzl.eden.spring.integration.truelicense.keystore;
 
 import de.schlichtherle.license.AbstractKeyStoreParam;
-import org.ylzl.eden.commons.io.IOConstants;
-import org.ylzl.eden.commons.lang.ClassConstants;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.io.IO;
+import org.ylzl.eden.commons.lang.Classes;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,10 +70,10 @@ public class CustomKeyStoreParam extends AbstractKeyStoreParam {
 	@Override
 	public InputStream getStream() throws IOException {
 		InputStream inputStream;
-		if (storePath.startsWith(ClassConstants.CLASS_DIR)) {
-			String path = storePath.substring(ClassConstants.CLASS_DIR.length());
-			if (!path.startsWith(IOConstants.DIR_SEPARATOR_STR)) {
-				path = StringConstants.SLASH + path;
+		if (storePath.startsWith(Classes.CLASS_DIR)) {
+			String path = storePath.substring(Classes.CLASS_DIR.length());
+			if (!path.startsWith(IO.DIR_SEPARATOR)) {
+				path = Strings.SLASH + path;
 			}
 			inputStream = this.getClass().getResourceAsStream(path);
 		} else {

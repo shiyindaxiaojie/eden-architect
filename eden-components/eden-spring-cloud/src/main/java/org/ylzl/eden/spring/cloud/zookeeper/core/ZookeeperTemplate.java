@@ -24,7 +24,7 @@ import org.apache.zookeeper.data.ACL;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.ylzl.eden.spring.cloud.zookeeper.config.ZookeeperConfig;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class ZookeeperTemplate implements InitializingBean, DisposableBean {
 			return null;
 		}
 		try {
-			return new String(data, GlobalConstants.DEFAULT_ENCODING);
+			return new String(data, Globals.DEFAULT_ENCODING);
 		} catch (UnsupportedEncodingException e) {
 			log.error(e.getMessage(), e);
 			throw new ZookeeperException("Get data from path '" + path + "' failed");

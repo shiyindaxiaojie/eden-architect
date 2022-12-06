@@ -18,7 +18,7 @@
 package org.ylzl.eden.commons.lang;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.CharsetConstants;
+import org.ylzl.eden.commons.env.Charsets;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -63,14 +63,14 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 		}
 
 		Set<Class<?>> classSet = new LinkedHashSet<Class<?>>();
-		String packageDirName = pkg.replace('.', CharConstants.SLASH);
+		String packageDirName = pkg.replace('.', Chars.SLASH);
 
 		Enumeration<URL> dirs = ClassLoaderUtils.getClassLoader().getResources(packageDirName);
 		while (dirs.hasMoreElements()) {
 			URL url = dirs.nextElement();
 			String protocol = url.getProtocol();
 			if ("file".equals(protocol)) {
-				String filePath = URLDecoder.decode(url.getFile(), CharsetConstants.UTF_8_NAME);
+				String filePath = URLDecoder.decode(url.getFile(), Charsets.UTF_8_NAME);
 				findClassesInPackage(pkg, pkgArr, recursive, classSet, filePath);
 			} else if ("jar".equals(protocol)) {
 				findClassesInPackage(pkg, pkgArr, recursive, classSet, url, packageDirName);
@@ -109,9 +109,9 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 					file.getAbsolutePath());
 			} else { // 如果是java类文件，去掉后面的.class 只留下类名
 				String className = file.getName().substring(0, file.getName().length() - 6);
-				String classUrl = packageName + StringConstants.DOT + className;
-				if (classUrl.startsWith(StringConstants.DOT)) { // 判断是否是以.开头
-					classUrl = classUrl.replaceFirst(StringConstants.DOT, StringConstants.EMPTY);
+				String classUrl = packageName + Strings.DOT + className;
+				if (classUrl.startsWith(Strings.DOT)) { // 判断是否是以.开头
+					classUrl = classUrl.replaceFirst(Strings.DOT, Strings.EMPTY);
 				}
 				boolean flag = true;
 				if (packArr.length > 1) {
@@ -143,14 +143,14 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 		while (entries.hasMoreElements()) {
 			JarEntry entry = entries.nextElement();
 			String name = entry.getName();
-			if (name.charAt(0) == CharConstants.SLASH) {
+			if (name.charAt(0) == Chars.SLASH) {
 				name = name.substring(1);
 			}
 
 			if (name.startsWith(packageDirName)) {
-				int idx = name.lastIndexOf(CharConstants.SLASH);
+				int idx = name.lastIndexOf(Chars.SLASH);
 				if (idx != -1) {
-					packageName = name.substring(0, idx).replace(CharConstants.SLASH, CharConstants.DOT);
+					packageName = name.substring(0, idx).replace(Chars.SLASH, Chars.DOT);
 				}
 
 				if ((idx != -1) || recursive) {

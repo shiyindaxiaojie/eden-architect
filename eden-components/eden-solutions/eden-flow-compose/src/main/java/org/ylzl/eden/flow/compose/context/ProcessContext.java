@@ -11,7 +11,7 @@ import org.ylzl.eden.flow.compose.core.Processor;
 import org.ylzl.eden.flow.compose.core.RollbackProcessor;
 import org.ylzl.eden.flow.compose.process.ProcessDefinition;
 import org.ylzl.eden.flow.compose.process.ProcessNode;
-import org.ylzl.eden.flow.compose.process.exception.ProcessNodeException;
+import org.ylzl.eden.flow.compose.exception.ProcessNodeException;
 
 import java.util.Deque;
 import java.util.Map;

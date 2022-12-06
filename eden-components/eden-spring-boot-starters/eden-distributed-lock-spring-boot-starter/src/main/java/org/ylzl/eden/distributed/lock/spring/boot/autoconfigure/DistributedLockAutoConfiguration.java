@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.core.DistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockHelper;
-import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 分布式锁操作自动装配
@@ -20,8 +20,8 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.ConditionConstants;
  */
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.PREFIX,
-	name = ConditionConstants.ENABLED,
-	havingValue = ConditionConstants.ENABLED_TRUE
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE
 )
 @ConditionalOnBean(DistributedLock.class)
 @EnableConfigurationProperties(DistributedLockProperties.class)

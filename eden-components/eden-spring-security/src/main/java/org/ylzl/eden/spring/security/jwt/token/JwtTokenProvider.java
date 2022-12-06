@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
@@ -64,7 +64,7 @@ public class JwtTokenProvider implements InitializingBean {
 	public AccessToken createToken(Authentication authentication, boolean rememberMe, Map<String, Object> claims) {
 		if (CollectionUtils.isNotEmpty(authentication.getAuthorities())) {
 			String authorities = authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).collect(Collectors.joining(StringConstants.COMMA));
+				.map(GrantedAuthority::getAuthority).collect(Collectors.joining(Strings.COMMA));
 			claims.put(JwtConstants.AUTHORITIES_KEY, authorities);
 		}
 
@@ -136,13 +136,13 @@ public class JwtTokenProvider implements InitializingBean {
 		Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
 		if (claims.containsKey(JwtConstants.AUTHORITIES_KEY)) {
 			authorities = Arrays
-				.stream(claims.get(JwtConstants.AUTHORITIES_KEY).toString().split(StringConstants.COMMA))
+				.stream(claims.get(JwtConstants.AUTHORITIES_KEY).toString().split(Strings.COMMA))
 				.filter(auth -> !auth.trim().isEmpty())
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 		}
 
-		User principal = new User(claims.getSubject(), StringConstants.EMPTY, authorities);
+		User principal = new User(claims.getSubject(), Strings.EMPTY, authorities);
 		return new UsernamePasswordAuthenticationToken(principal, accessToken, authorities);
 	}
 

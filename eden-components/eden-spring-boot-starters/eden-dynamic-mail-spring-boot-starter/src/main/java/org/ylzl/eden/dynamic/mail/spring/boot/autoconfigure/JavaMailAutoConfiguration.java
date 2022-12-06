@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.dynamic.mail.core.MailTemplate;
 import org.ylzl.eden.dynamic.mail.integration.javamail.JavaMailTemplate;
-import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanType;
+import org.ylzl.eden.dynamic.mail.spring.boot.env.MailProperties;
+import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * JavaMailTemplate 自动装配
@@ -20,8 +22,14 @@ import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanType;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureAfter(MailSenderAutoConfiguration.class)
+@ConditionalOnProperty(
+	prefix = MailProperties.JavaMail.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.ENABLED_TRUE,
+	matchIfMissing = true
+)
 @Conditional(JavaMailAutoConfiguration.MailSenderCondition.class)
+@AutoConfigureAfter(MailSenderAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
@@ -31,7 +39,7 @@ public class JavaMailAutoConfiguration {
 
 	private final JavaMailSender javaMailSender;
 
-	@Bean(MailBeanType.JAVA_MAIL_TEMPLATE)
+	@Bean(MailBeanNames.JAVA_MAIL_TEMPLATE)
 	public MailTemplate mailTemplate() {
 		log.debug(AUTOWIRED_JAVA_MAIL_TEMPLATE);
 		return new JavaMailTemplate(javaMailSender);

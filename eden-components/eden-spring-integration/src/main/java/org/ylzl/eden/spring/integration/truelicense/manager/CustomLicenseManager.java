@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.integration.truelicense.manager;
 import de.schlichtherle.license.*;
 import de.schlichtherle.xml.GenericCertificate;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.commons.env.CharsetConstants;
+import org.ylzl.eden.commons.env.Charsets;
 import org.ylzl.eden.commons.env.OSUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
@@ -234,7 +234,7 @@ public final class CustomLicenseManager extends LicenseManager {
 		try {
 			inputStream =
 				new BufferedInputStream(
-					new ByteArrayInputStream(encoded.getBytes(CharsetConstants.UTF_8)));
+					new ByteArrayInputStream(encoded.getBytes(Charsets.UTF_8)));
 			decoder = new XMLDecoder(new BufferedInputStream(inputStream, DEFAULT_BUFSIZE), null, null);
 			return decoder.readObject();
 		} finally {

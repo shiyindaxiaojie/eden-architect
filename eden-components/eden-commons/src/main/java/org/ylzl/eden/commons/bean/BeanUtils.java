@@ -19,7 +19,7 @@ package org.ylzl.eden.commons.bean;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.bean.annotation.BeanAlias;
+import org.ylzl.eden.commons.bean.annotation.Alias;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
@@ -52,12 +52,12 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 			Object value;
 			if (sourceMap.containsKey(field.getName())) {
 				value = sourceMap.get(field.getName());
-			} else if (field.isAnnotationPresent(BeanAlias.class)) {
-				BeanAlias beanAlias = field.getAnnotation(BeanAlias.class);
-				if (ObjectUtils.isEmpty(beanAlias) || !sourceMap.containsKey(beanAlias.value())) {
+			} else if (field.isAnnotationPresent(Alias.class)) {
+				Alias alias = field.getAnnotation(Alias.class);
+				if (ObjectUtils.isEmpty(alias) || !sourceMap.containsKey(alias.value())) {
 					continue;
 				}
-				value = sourceMap.get(beanAlias.value());
+				value = sourceMap.get(alias.value());
 			} else {
 				continue;
 			}

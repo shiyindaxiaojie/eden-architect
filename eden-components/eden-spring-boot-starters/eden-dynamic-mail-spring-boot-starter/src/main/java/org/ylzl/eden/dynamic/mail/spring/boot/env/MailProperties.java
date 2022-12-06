@@ -1,8 +1,10 @@
 package org.ylzl.eden.dynamic.mail.spring.boot.env;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanType;
+import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;
 
 /**
  * 邮件配置
@@ -16,7 +18,18 @@ public class MailProperties {
 
 	public static final String PREFIX = "dynamic-mail";
 
-	public static final String ENABLED = PREFIX + ".enabled";
+	private Boolean enabled;
 
-	private MailBeanType type;
+	private MailBeanNames primary;
+
+	private final JavaMail javaMail = new JavaMail();
+
+	@Setter
+	@Getter
+	public static class JavaMail {
+
+		public static final String PREFIX = MailProperties.PREFIX + ".javamail";
+
+		private boolean enabled;
+	}
 }

@@ -1,7 +1,6 @@
 package org.ylzl.eden.dynamic.mq.core;
 
 import org.ylzl.eden.dynamic.mq.model.Message;
-import org.ylzl.eden.dynamic.mq.exception.MessageQueueProducerException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
 
@@ -18,16 +17,14 @@ public interface MessageQueueProvider {
 	 *
 	 * @param message
 	 * @return
-	 * @throws MessageQueueProducerException
 	 */
-	MessageSendResult syncSend(Message message) throws MessageQueueProducerException;
+	MessageSendResult syncSend(Message message);
 
 	/**
 	 * 异步发送消息
 	 *
 	 * @param message
 	 * @param messageCallback
-	 * @throws MessageQueueProducerException
 	 */
-	void asyncSend(Message message, MessageSendCallback messageCallback) throws MessageQueueProducerException;
+	void asyncSend(Message message, MessageSendCallback messageCallback);
 }

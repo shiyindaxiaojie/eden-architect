@@ -22,7 +22,6 @@ import lombok.experimental.UtilityClass;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
@@ -57,11 +56,11 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	}
 
 	public static void delete(File file) throws IOException {
-		Files.delete(Paths.get(file.getAbsolutePath()));
+		java.nio.file.Files.delete(Paths.get(file.getAbsolutePath()));
 	}
 
 	public static void deleteIfExists(File file) throws IOException {
-		Files.deleteIfExists(Paths.get(file.getAbsolutePath()));
+		java.nio.file.Files.deleteIfExists(Paths.get(file.getAbsolutePath()));
 	}
 
 	public static void transferTo(@NonNull FileInputStream in, @NonNull String destPath)
@@ -138,7 +137,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		@NonNull File file, @NonNull OutputStream out, long startByte, long endByte)
 		throws IOException {
 		try (RandomAccessFile randomAccessFile =
-				 new RandomAccessFile(file, IOConstants.RAF_MODE_READ)) {
+				 new RandomAccessFile(file, Files.RAF_MODE_READ)) {
 			IOUtils.seek(randomAccessFile, out, startByte, endByte);
 		}
 	}
@@ -182,7 +181,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		@NonNull File file, @NonNull String suffix, int index) throws FileNotFoundException {
 		String sourcePath = file.getAbsolutePath();
 		return new FileOutputStream(
-			sourcePath.substring(0, sourcePath.indexOf(FileConstants.FILE_SEPARATOR)) + index + suffix);
+			sourcePath.substring(0, sourcePath.indexOf(Files.FILE_SEPARATOR)) + index + suffix);
 	}
 
 	public static void merge(

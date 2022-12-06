@@ -8,10 +8,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.dynamic.mail.model.Mail;
 import org.ylzl.eden.dynamic.mail.core.MailTemplate;
 import org.ylzl.eden.dynamic.mail.exception.SendMailException;
-import org.ylzl.eden.dynamic.mail.multi.MultiSendMailRequest;
-import org.ylzl.eden.dynamic.mail.multi.MultiSendMailResponse;
-import org.ylzl.eden.dynamic.mail.single.SingleSendMailRequest;
-import org.ylzl.eden.dynamic.mail.single.SingleSendMailResponse;
+import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailRequest;
+import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailResponse;
+import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailRequest;
+import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailResponse;
 
 /**
  * JavaMail 邮件操作模板

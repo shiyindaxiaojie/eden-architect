@@ -1,9 +1,9 @@
 package org.ylzl.eden.dynamic.mail.core;
 
-import org.ylzl.eden.dynamic.mail.multi.MultiSendMailRequest;
-import org.ylzl.eden.dynamic.mail.multi.MultiSendMailResponse;
-import org.ylzl.eden.dynamic.mail.single.SingleSendMailRequest;
-import org.ylzl.eden.dynamic.mail.single.SingleSendMailResponse;
+import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailRequest;
+import org.ylzl.eden.dynamic.mail.model.multi.MultiSendMailResponse;
+import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailRequest;
+import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailResponse;
 
 /**
  * 邮件操作模板

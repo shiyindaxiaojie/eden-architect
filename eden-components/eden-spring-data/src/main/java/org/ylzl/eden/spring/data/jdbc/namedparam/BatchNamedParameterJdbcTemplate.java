@@ -24,7 +24,7 @@ import org.springframework.jdbc.core.SqlTypeValue;
 import org.springframework.jdbc.core.StatementCreatorUtils;
 import org.springframework.jdbc.core.namedparam.*;
 import org.ylzl.eden.commons.lang.ObjectUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
@@ -80,7 +80,7 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 				}
 
 				columns.add(column.name());
-				namedColumns.add(StringUtils.join(StringConstants.COLON, field.getName()));
+				namedColumns.add(StringUtils.join(Strings.COLON, field.getName()));
 			}
 		}
 
@@ -88,8 +88,8 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 			MessageFormat.format(
 				BPS_INSERT_PATTERN,
 				tableName,
-				StringUtils.join(columns, StringConstants.COMMA),
-				StringUtils.join(namedColumns, StringConstants.COMMA));
+				StringUtils.join(columns, Strings.COMMA),
+				StringUtils.join(namedColumns, Strings.COMMA));
 		return this.batchUpdate(sql, datas, executeBatchSize);
 	}
 
@@ -124,7 +124,7 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 				}
 				columnAndNamedColumns.add(
 					StringUtils.join(
-						column.name(), StringConstants.EQ, StringConstants.COLON, field.getName()));
+						column.name(), Strings.EQ, Strings.COLON, field.getName()));
 			}
 		}
 
@@ -132,9 +132,9 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 			MessageFormat.format(
 				BPS_UPDATE_PATTERN,
 				tableName,
-				StringUtils.join(columnAndNamedColumns, StringConstants.COMMA),
+				StringUtils.join(columnAndNamedColumns, Strings.COMMA),
 				pkColumnName,
-				StringUtils.join(StringConstants.COLON, pkNamedColumn));
+				StringUtils.join(Strings.COLON, pkNamedColumn));
 		return this.batchUpdate(sql, datas, executeBatchSize);
 	}
 
@@ -170,7 +170,7 @@ public class BatchNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate 
 				BPS_DELETE_PATTERN,
 				tableName,
 				pkColumnName,
-				StringUtils.join(StringConstants.COLON, pkNamedColumn));
+				StringUtils.join(Strings.COLON, pkNamedColumn));
 		return this.batchUpdate(sql, datas, executeBatchSize);
 	}
 

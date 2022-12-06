@@ -22,7 +22,7 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
-import org.ylzl.eden.commons.env.CharsetConstants;
+import org.ylzl.eden.commons.env.Charsets;
 
 import java.io.*;
 
@@ -46,7 +46,7 @@ public class BatikUtils {
 
 	public static void toPng(@NonNull String svgCode, @NonNull OutputStream outputStream)
 		throws IOException, TranscoderException {
-		byte[] bytes = svgCode.getBytes(CharsetConstants.UTF_8);
+		byte[] bytes = svgCode.getBytes(Charsets.UTF_8);
 		PNGTranscoder transcoder = new PNGTranscoder();
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 		TranscoderInput input = new TranscoderInput(byteArrayInputStream);
