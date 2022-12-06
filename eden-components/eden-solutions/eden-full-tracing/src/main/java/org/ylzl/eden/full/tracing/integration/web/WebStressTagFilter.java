@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.full.tracing.constant.StressTag;
-import org.ylzl.eden.full.tracing.context.StressContext;
+import org.ylzl.eden.full.tracing.StressContext;
 
 import javax.servlet.*;
 import java.io.IOException;

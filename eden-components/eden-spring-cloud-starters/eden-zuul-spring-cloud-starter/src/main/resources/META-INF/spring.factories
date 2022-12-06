@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.zuul.spring.cloud.autoconfigure.ZuulEndpointAutoConfiguration,\
+  org.ylzl.eden.zuul.spring.cloud.autoconfigure.ZuulFilterAutoConfiguration

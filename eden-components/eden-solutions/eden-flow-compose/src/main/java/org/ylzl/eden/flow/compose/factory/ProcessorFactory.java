@@ -1,6 +1,6 @@
 package org.ylzl.eden.flow.compose.factory;
 
-import org.ylzl.eden.flow.compose.core.Processor;
+import org.ylzl.eden.flow.compose.Processor;
 
 /**
  * 流程执行器实例化抽象实例工厂

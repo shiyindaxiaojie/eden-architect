@@ -33,18 +33,10 @@
 	<description>分布式锁</description>
 
 	<dependencies>
-		<!-- 内部组件 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
-		</dependency>
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -74,11 +66,22 @@
 			<artifactId>commons-pool2</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- Redisson -->
 		<dependency>
 			<groupId>org.redisson</groupId>
-			<artifactId>redisson-spring-boot-starter</artifactId>
+			<artifactId>redisson</artifactId>
+		</dependency>
+
+		<!-- Zookeeper -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
 			<optional>true</optional>
 		</dependency>
 

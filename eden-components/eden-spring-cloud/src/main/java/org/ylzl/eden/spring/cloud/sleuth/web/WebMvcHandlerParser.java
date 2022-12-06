@@ -7,7 +7,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.cloud.sleuth.SpanCustomizer;
 import org.springframework.cloud.sleuth.instrument.web.mvc.HandlerParser;
 import org.ylzl.eden.commons.lang.ObjectUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,13 +45,13 @@ public class WebMvcHandlerParser extends HandlerParser {
 
 		if (!isAllIgnored(ignoreHeaders)) {
 			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
-				Arrays.asList(ignoreHeaders.split(StringConstants.COMMA)) : null;
+				Arrays.asList(ignoreHeaders.split(Strings.COMMA)) : null;
 			handleHeader(ignoreList, request, customizer);
 		}
 
 		if (!isAllIgnored(ignoreParameters)) {
 			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
-				Arrays.asList(ignoreParameters.split(StringConstants.COMMA)) : null;
+				Arrays.asList(ignoreParameters.split(Strings.COMMA)) : null;
 			handleParameter(ignoreList, request, customizer);
 		}
 	}
@@ -79,13 +79,13 @@ public class WebMvcHandlerParser extends HandlerParser {
 
 			String[] value = entry.getValue();
 			if (ObjectUtils.isEmpty(value)) {
-				customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, StringConstants.EMPTY);
+				customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, Strings.EMPTY);
 			} else {
 				StringBuilder values = new StringBuilder();
 				for (String val : value) {
-					values.append(val).append(StringConstants.DOT);
+					values.append(val).append(Strings.DOT);
 				}
-				if (values.indexOf(StringConstants.DOT) >= 0) {
+				if (values.indexOf(Strings.DOT) >= 0) {
 					values.delete(values.length() - 1, values.length());
 				}
 				customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, values.toString());

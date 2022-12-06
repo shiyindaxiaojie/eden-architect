@@ -4,9 +4,9 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.ylzl.eden.flow.compose.process.exception.ProcessNodeException;
-import org.ylzl.eden.flow.compose.core.DynamicProcessor;
-import org.ylzl.eden.flow.compose.core.Processor;
+import org.ylzl.eden.flow.compose.exception.ProcessNodeException;
+import org.ylzl.eden.flow.compose.DynamicProcessor;
+import org.ylzl.eden.flow.compose.Processor;
 import org.ylzl.eden.commons.collections.MapUtils;
 
 import java.util.Map;

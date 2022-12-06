@@ -1,7 +1,7 @@
 package org.ylzl.eden.cola.statemachine.visitor;
 
 import org.ylzl.eden.cola.statemachine.state.State;
-import org.ylzl.eden.cola.statemachine.core.StateMachine;
+import org.ylzl.eden.cola.statemachine.StateMachine;
 
 /**
  * 访问器

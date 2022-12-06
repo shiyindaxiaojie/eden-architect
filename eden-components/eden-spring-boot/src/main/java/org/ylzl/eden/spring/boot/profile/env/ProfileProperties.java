@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.boot.profile.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 /**
  * Profile 配置属性
@@ -35,8 +35,8 @@ public class ProfileProperties {
 	public static final String PREFIX = "spring.profile";
 
 	private String[] displayOnActiveProfiles = {
-		SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT,
-		SpringProfileConstants.SPRING_PROFILE_TEST,
-		SpringProfileConstants.SPRING_PROFILE_DEMO
+		SpringProfiles.SPRING_PROFILE_DEVELOPMENT,
+		SpringProfiles.SPRING_PROFILE_TEST,
+		SpringProfiles.SPRING_PROFILE_DEMO
 	};
 }

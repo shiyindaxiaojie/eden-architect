@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.cola.statemachine.callback.Callback;
 import org.ylzl.eden.cola.statemachine.callback.RuntimeCallback;
-import org.ylzl.eden.cola.statemachine.core.StateMachine;
+import org.ylzl.eden.cola.statemachine.StateMachine;
 import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.state.StateStore;
 import org.ylzl.eden.cola.statemachine.transition.*;

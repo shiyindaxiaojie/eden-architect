@@ -20,7 +20,7 @@ package org.ylzl.eden.commons.bean;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.io.ResourceUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
@@ -51,7 +51,7 @@ public class PropertiesUtils {
 				prop.put(field.getName(), field.get(obj));
 			} catch (Exception e) {
 				// 可忽略的异常
-				prop.put(field.getName(), StringConstants.EMPTY);
+				prop.put(field.getName(), Strings.EMPTY);
 			}
 		}
 		return prop;
@@ -82,9 +82,9 @@ public class PropertiesUtils {
 		if (!StringUtils.isBlank(str) && !StringUtils.isBlank(regex)) {
 			String[] arr = str.split(regex);
 			for (String s : arr) {
-				String[] item = s.split(StringConstants.EQ);
+				String[] item = s.split(Strings.EQ);
 				if (item.length == 1) {
-					prop.setProperty(item[0], StringConstants.EMPTY);
+					prop.setProperty(item[0], Strings.EMPTY);
 				} else {
 					prop.setProperty(item[0], item[1]);
 				}

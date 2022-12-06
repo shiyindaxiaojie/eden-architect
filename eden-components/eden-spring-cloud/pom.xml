@@ -149,6 +149,7 @@
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Dubbo -->
@@ -239,6 +240,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>archaius-core</artifactId>
@@ -257,7 +259,6 @@
 					<groupId>com.netflix.servo</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -269,6 +270,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>archaius-core</artifactId>
@@ -291,13 +293,13 @@
 					<groupId>commons-configuration</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- Hystrix -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>HdrHistogram</artifactId>
@@ -308,31 +310,30 @@
 					<groupId>com.netflix.archaius</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>HdrHistogram</artifactId>
 					<groupId>org.hdrhistogram</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>-->
 
 		<!-- Zookeeper -->
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>slf4j-log4j12</artifactId>
 					<groupId>org.slf4j</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- Curator -->
@@ -351,6 +352,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>archaius-core</artifactId>
@@ -365,7 +367,6 @@
 					<groupId>com.netflix.servo</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- Hazelcast -->

@@ -36,10 +36,6 @@
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-cloud</artifactId>
 		</dependency>
 
@@ -78,5 +74,26 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+
+		<!-- Ribbon -->
+        <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>archaius-core</artifactId>
+					<groupId>com.netflix.archaius</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsr305</artifactId>
+					<groupId>com.google.code.findbugs</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>servo-core</artifactId>
+					<groupId>com.netflix.servo</groupId>
+				</exclusion>
+			</exclusions>
+			<optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>

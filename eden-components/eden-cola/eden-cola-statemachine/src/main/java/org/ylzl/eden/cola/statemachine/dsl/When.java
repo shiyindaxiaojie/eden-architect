@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.dsl;
 
-import org.ylzl.eden.cola.statemachine.core.Action;
+import org.ylzl.eden.cola.statemachine.Action;
 
 /**
  * 当 {@code Condition} 成立时执行某个动作 {@code Action}

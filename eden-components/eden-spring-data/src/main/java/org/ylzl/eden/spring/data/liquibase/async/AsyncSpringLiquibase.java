@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringL
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfileConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -58,7 +58,7 @@ public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 	@Override
 	public void afterPropertiesSet() throws LiquibaseException {
 		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfileConstants.SPRING_PROFILE_DEVELOPMENT))) {
+			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
 			try (Connection ignored = getDataSource().getConnection()) {
 				asyncTaskExecutor.execute(
 					() -> {

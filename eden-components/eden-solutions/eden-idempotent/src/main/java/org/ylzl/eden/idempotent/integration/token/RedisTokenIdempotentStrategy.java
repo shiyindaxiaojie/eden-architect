@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.commons.id.NanoIdUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.config.IdempotentTokenConfig;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
@@ -32,7 +32,7 @@ public class RedisTokenIdempotentStrategy implements TokenIdempotentStrategy {
 	public String generateToken() {
 		String token = NanoIdUtils.randomNanoId();
 		String key = this.buildKey(token);
-		redisTemplate.opsForValue().set(key, StringConstants.EMPTY, config.getTtl(), config.getTimeUnit());
+		redisTemplate.opsForValue().set(key, Strings.EMPTY, config.getTtl(), config.getTimeUnit());
 		return token;
 	}
 

@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.conn.util.PublicSuffixMatcher;
 import org.apache.http.conn.util.PublicSuffixMatcherLoader;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -59,7 +59,7 @@ public class CookieHelper {
 
 	public static void clear(
 		HttpServletRequest request, HttpServletResponse response, String cookieName, String domain) {
-		Cookie cookie = new Cookie(cookieName, StringConstants.EMPTY);
+		Cookie cookie = new Cookie(cookieName, Strings.EMPTY);
 		set(cookie, request.isSecure(), domain);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
@@ -82,7 +82,7 @@ public class CookieHelper {
 		if (!InetAddressUtils.isIPv4Address(domain) && !InetAddressUtils.isIPv6Address(domain)) {
 			String suffix = suffixMatcher.getDomainRoot(domain);
 			if (suffix != null && !suffix.equals(domain)) {
-				return StringConstants.DOT + suffix;
+				return Strings.DOT + suffix;
 			}
 		}
 		return null;

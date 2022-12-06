@@ -1,7 +1,7 @@
 package org.ylzl.eden.spring.data.redis.core;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.List;
 import java.util.Map;
@@ -194,6 +194,6 @@ public interface CustomRedisTemplate {
 	 * @return
 	 */
 	default String buildRedisKey(String keyName, long id) {
-		return StringUtils.join(keyName, StringConstants.COLON, id);
+		return StringUtils.join(keyName, Strings.COLON, id);
 	}
 }

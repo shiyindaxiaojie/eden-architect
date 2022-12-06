@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.factory;
 
-import org.ylzl.eden.cola.statemachine.core.StateMachine;
+import org.ylzl.eden.cola.statemachine.StateMachine;
 
 /**
  * 状态机工厂

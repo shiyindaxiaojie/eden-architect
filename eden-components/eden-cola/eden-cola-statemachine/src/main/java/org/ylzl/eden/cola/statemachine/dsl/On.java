@@ -1,6 +1,6 @@
 package org.ylzl.eden.cola.statemachine.dsl;
 
-import org.ylzl.eden.cola.statemachine.core.Condition;
+import org.ylzl.eden.cola.statemachine.Condition;
 
 /**
  * 监听 {@code Event} 事件，并匹配 {@code Condition} 条件

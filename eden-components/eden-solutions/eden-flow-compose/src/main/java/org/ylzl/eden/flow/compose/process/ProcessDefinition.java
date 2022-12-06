@@ -2,7 +2,7 @@ package org.ylzl.eden.flow.compose.process;
 
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.ylzl.eden.flow.compose.process.exception.ProcessDefinitionException;
+import org.ylzl.eden.flow.compose.exception.ProcessDefinitionException;
 
 /**
  * 流程定义

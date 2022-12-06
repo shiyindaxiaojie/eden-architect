@@ -1,5 +1,7 @@
 package org.ylzl.eden.cola.extension.core
 
+import org.ylzl.eden.cola.extension.BizScenario
+import org.ylzl.eden.cola.extension.Extension
 import org.ylzl.eden.cola.extension.executor.ExtensionExecutor
 import org.ylzl.eden.cola.extension.register.ExtensionRegister
 import spock.lang.Specification

@@ -40,7 +40,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-common-mail</artifactId>
+			<artifactId>eden-dynamic-mail</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->

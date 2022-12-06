@@ -7,8 +7,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.ylzl.eden.cola.extension.core.Extension;
-import org.ylzl.eden.cola.extension.core.Extensions;
+import org.ylzl.eden.cola.extension.Extension;
+import org.ylzl.eden.cola.extension.Extensions;
 
 import java.util.Map;
 

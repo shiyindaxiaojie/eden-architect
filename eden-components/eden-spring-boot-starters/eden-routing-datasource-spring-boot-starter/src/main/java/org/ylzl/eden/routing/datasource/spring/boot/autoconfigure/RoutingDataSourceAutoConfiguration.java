@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.routing.datasource.spring.boot.env.RoutingDataSourceProperties;
 import org.ylzl.eden.spring.boot.bootstrap.bind.BinderHelper;
@@ -115,7 +115,7 @@ public class RoutingDataSourceAutoConfiguration implements ImportBeanDefinitionR
 	private DataSource getDefaultTargetDataSource() {
 		DataSourceProperties dataSourceProperties =
 			binderHelper.bind(
-				StringUtils.join(SPRING_DATASOURCE, StringConstants.DOT),
+				StringUtils.join(SPRING_DATASOURCE, Strings.DOT),
 				DataSourceProperties.class);
 		return this.buildDataSource(dataSourceProperties);
 	}
@@ -123,7 +123,7 @@ public class RoutingDataSourceAutoConfiguration implements ImportBeanDefinitionR
 	private Map<String, DataSource> getTargetDataSources() {
 		RoutingDataSourceProperties properties =
 			binderHelper.bind(
-				StringUtils.join(RoutingDataSourceProperties.PREFIX, StringConstants.DOT),
+				StringUtils.join(RoutingDataSourceProperties.PREFIX, Strings.DOT),
 				RoutingDataSourceProperties.class);
 		if (properties.getNodes() == null) {
 			return new HashMap<>();

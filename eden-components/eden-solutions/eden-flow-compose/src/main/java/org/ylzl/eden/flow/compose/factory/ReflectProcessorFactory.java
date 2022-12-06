@@ -1,6 +1,6 @@
 package org.ylzl.eden.flow.compose.factory;
 
-import org.ylzl.eden.flow.compose.core.Processor;
+import org.ylzl.eden.flow.compose.Processor;
 
 /**
  * 基于 JDK 反射机制实例化流程工厂

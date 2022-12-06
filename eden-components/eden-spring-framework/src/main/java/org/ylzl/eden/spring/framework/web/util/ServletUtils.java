@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.framework.web.util;
 
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.lang.ObjectUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 import javax.servlet.ServletRequest;
 import java.util.HashMap;
@@ -41,14 +41,14 @@ public final class ServletUtils {
 		for (Entry<String, String[]> entry : parameterMap.entrySet()) {
 			Object valueObj = entry.getValue();
 			if (ObjectUtils.isEmpty(valueObj)) {
-				returnMap.put(entry.getKey(), StringConstants.EMPTY);
+				returnMap.put(entry.getKey(), Strings.EMPTY);
 			} else if (valueObj instanceof String[]) {
 				String[] values = (String[]) valueObj;
 				StringBuilder sb = new StringBuilder();
 				for (String val : values) {
-					sb.append(val).append(StringConstants.DOT);
+					sb.append(val).append(Strings.DOT);
 				}
-				if (sb.indexOf(StringConstants.DOT) >= 0) {
+				if (sb.indexOf(Strings.DOT) >= 0) {
 					sb.delete(sb.length() - 1, sb.length());
 				}
 				returnMap.put(entry.getKey(), sb.toString());

@@ -1,8 +1,8 @@
 package org.ylzl.eden.cola.statemachine.transition.builder;
 
 import lombok.RequiredArgsConstructor;
-import org.ylzl.eden.cola.statemachine.core.Action;
-import org.ylzl.eden.cola.statemachine.core.Condition;
+import org.ylzl.eden.cola.statemachine.Action;
+import org.ylzl.eden.cola.statemachine.Condition;
 import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.dsl.From;

@@ -46,7 +46,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 		if (isEmpty(object)) {
 			return true;
 		}
-		return StringConstants.NULL.equals(String.valueOf(object));
+		return Strings.NULL.equals(String.valueOf(object));
 	}
 
 	public static boolean isNotNull(Object object) {
@@ -55,7 +55,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 
 	public static String trimToString(Object object) {
 		if (object == null) {
-			return StringConstants.EMPTY;
+			return Strings.EMPTY;
 		}
 		return StringUtils.trimToEmpty(String.valueOf(object));
 	}
@@ -107,7 +107,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 			return value;
 		}
 		if (clazz.isArray()) { // 数组
-			String[] values = value.split(StringConstants.COMMA);
+			String[] values = value.split(Strings.COMMA);
 			int length = values.length;
 			Object array = Array.newInstance(clazz.getComponentType(), length);
 			for (int i = 0; i < length; i++) {

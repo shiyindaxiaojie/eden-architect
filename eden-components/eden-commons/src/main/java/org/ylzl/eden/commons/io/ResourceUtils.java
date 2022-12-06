@@ -2,7 +2,7 @@ package org.ylzl.eden.commons.io;
 
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.lang.ClassLoaderUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -17,7 +17,7 @@ import java.net.URL;
 public class ResourceUtils {
 
 	public static URL getURLFromClassLoader() {
-		return getURLFromResource(StringConstants.EMPTY);
+		return getURLFromResource(Strings.EMPTY);
 	}
 
 	public static String getPathFromResource(String relativeResource) {
@@ -25,7 +25,7 @@ public class ResourceUtils {
 	}
 
 	public static String getPathFromResource() {
-		return getPathFromResource(StringConstants.EMPTY);
+		return getPathFromResource(Strings.EMPTY);
 	}
 
 	public static URL getURLFromResource(String relativeResource) {

@@ -14,9 +14,12 @@ import java.util.Map;
 @UtilityClass
 public class MessageFormatter {
 
-	static final char DELIM_START = '{';
-	static final char DELIM_STOP = '}';
-	static final String DELIM_STR = "{}";
+	private static final char DELIM_START = '{';
+
+	private static final char DELIM_STOP = '}';
+
+	private static final String DELIM_STR = "{}";
+
 	private static final char ESCAPE_CHAR = '\\';
 
 	public static FormattingTuple format(String messagePattern, Object arg) {

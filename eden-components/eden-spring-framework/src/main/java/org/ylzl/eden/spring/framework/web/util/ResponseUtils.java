@@ -24,9 +24,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.ylzl.eden.commons.io.FileUtils;
-import org.ylzl.eden.commons.lang.StringConstants;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.framework.bootstrap.constant.GlobalConstants;
+import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
@@ -130,7 +130,7 @@ public class ResponseUtils {
 			HttpHeaders.CONTENT_DISPOSITION,
 			MessageFormat.format(
 				CONTENT_DISPOSITION_ATTACH,
-				URLEncoder.encode(fileName, GlobalConstants.DEFAULT_ENCODING)));
+				URLEncoder.encode(fileName, Globals.DEFAULT_ENCODING)));
 
 		String contentType = request.getServletContext().getMimeType(fileName);
 		response.setContentType(contentType);
@@ -151,11 +151,11 @@ public class ResponseUtils {
 				HttpHeaders.CONTENT_RANGE,
 				StringUtils.join(
 					ACCEPT_RANGES,
-					StringConstants.SPACE,
+					Strings.SPACE,
 					startByte,
-					StringConstants.MINUS,
+					Strings.MINUS,
 					endByte,
-					StringConstants.SLASH,
+					Strings.SLASH,
 					fileLength));
 
 			FileUtils.seek(file, response.getOutputStream(), startByte, endByte);
@@ -168,8 +168,8 @@ public class ResponseUtils {
 	public static String resolveRange(HttpServletRequest request) {
 		String range = request.getHeader(HttpHeaders.RANGE);
 		if (range != null
-			&& range.contains(StringUtils.join(ACCEPT_RANGES, StringConstants.EQ))
-			&& range.contains(StringConstants.MINUS)) {
+			&& range.contains(StringUtils.join(ACCEPT_RANGES, Strings.EQ))
+			&& range.contains(Strings.MINUS)) {
 			return range;
 		}
 		return null;
@@ -184,11 +184,11 @@ public class ResponseUtils {
 		long startByte = 0;
 		String[] ranges =
 			range
-				.substring(range.lastIndexOf(StringConstants.EQ) + 1)
+				.substring(range.lastIndexOf(Strings.EQ) + 1)
 				.trim()
-				.split(StringConstants.MINUS);
+				.split(Strings.MINUS);
 		if (ranges.length == 1) {
-			if (range.endsWith(StringConstants.MINUS)) { // bytes=1234-
+			if (range.endsWith(Strings.MINUS)) { // bytes=1234-
 				startByte = Long.parseLong(ranges[0]);
 			}
 		} else if (ranges.length == 2) { // bytes=1234-9999
@@ -206,11 +206,11 @@ public class ResponseUtils {
 		long endByte = 0;
 		String[] ranges =
 			range
-				.substring(range.lastIndexOf(StringConstants.EQ) + 1)
+				.substring(range.lastIndexOf(Strings.EQ) + 1)
 				.trim()
-				.split(StringConstants.MINUS);
+				.split(Strings.MINUS);
 		if (ranges.length == 1) {
-			if (range.startsWith(StringConstants.MINUS)) { // bytes=-1234
+			if (range.startsWith(Strings.MINUS)) { // bytes=-1234
 				endByte = Long.parseLong(ranges[0]);
 			}
 		} else if (ranges.length == 2) { // bytes=1234-9999

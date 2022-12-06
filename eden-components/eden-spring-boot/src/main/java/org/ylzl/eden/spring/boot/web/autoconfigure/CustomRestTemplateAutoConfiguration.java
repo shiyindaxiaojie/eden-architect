@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.commons.env.CharsetConstants;
+import org.ylzl.eden.commons.env.Charsets;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class CustomRestTemplateAutoConfiguration {
 		for (HttpMessageConverter<?> httpMessageConverter : httpMessageConverters) {
 			if (httpMessageConverter instanceof StringHttpMessageConverter) {
 				((StringHttpMessageConverter) httpMessageConverter)
-					.setDefaultCharset(CharsetConstants.UTF_8);
+					.setDefaultCharset(Charsets.UTF_8);
 				break;
 			}
 		}

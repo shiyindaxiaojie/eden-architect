@@ -18,7 +18,6 @@
 package org.ylzl.eden.spring.test.kafka;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 
 /**
@@ -52,10 +51,6 @@ public class EmbeddedKafka extends EmbeddedKafkaRule {
 
 	public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
 		super(count, controlledShutdown, partitions, topics);
-	}
-
-	public EmbeddedKafka(KafkaProperties kafkaProperties, String... topics) {
-		super(1, true, topics);
 	}
 
 	@Override

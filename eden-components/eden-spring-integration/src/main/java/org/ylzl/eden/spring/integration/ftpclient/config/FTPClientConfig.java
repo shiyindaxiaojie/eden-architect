@@ -18,7 +18,7 @@
 package org.ylzl.eden.spring.integration.ftpclient.config;
 
 import lombok.Data;
-import org.ylzl.eden.commons.env.CharsetConstants;
+import org.ylzl.eden.commons.env.Charsets;
 
 /**
  * FTP 客户端配置
@@ -41,7 +41,7 @@ public class FTPClientConfig {
 
 	private int dataTimeout = 60000;
 
-	private String controlEncoding = CharsetConstants.UTF_8_NAME;
+	private String controlEncoding = Charsets.UTF_8_NAME;
 
 	private int controlKeepAliveReplyTimeout = 1000;
 

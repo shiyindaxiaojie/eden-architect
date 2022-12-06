@@ -13,7 +13,7 @@
 	<artifactId>eden-cola-all</artifactId>
 	<packaging>jar</packaging>
 	<name>eden-cola-all</name>
-	<description>COLA所有组件</description>
+	<description>COLA全系组件</description>
 
 	<dependencies>
 		<dependency>
