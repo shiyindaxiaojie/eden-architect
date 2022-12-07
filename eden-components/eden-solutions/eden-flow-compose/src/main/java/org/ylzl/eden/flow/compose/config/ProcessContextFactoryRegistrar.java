@@ -29,5 +29,6 @@ public class ProcessContextFactoryRegistrar implements ImportBeanDefinitionRegis
 		BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(ProcessContextFactory.class);
 		bdb.addConstructorArgReference(ProcessFactoryConfiguration.SPRING_BEAN_PROCESSOR_FACTORY_NAME);
 		bdb.addConstructorArgValue(parser);
+		registry.registerBeanDefinition(ProcessContextFactory.class.getName(), bdb.getBeanDefinition());
 	}
 }

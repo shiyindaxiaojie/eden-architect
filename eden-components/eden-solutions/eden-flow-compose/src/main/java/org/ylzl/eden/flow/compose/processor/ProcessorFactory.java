@@ -1,9 +1,9 @@
-package org.ylzl.eden.flow.compose.factory;
+package org.ylzl.eden.flow.compose.processor;
 
 import org.ylzl.eden.flow.compose.Processor;
 
 /**
- * 流程执行器实例化抽象实例工厂
+ * 流程处理器实例化抽象实例工厂
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

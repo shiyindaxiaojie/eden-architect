@@ -48,20 +48,6 @@ target/
 !gradle/wrapper/gradle-wrapper.jar
 .gradle/
 build/
-
-# Node.js
-node/
-node_tmp/
-node_modules/
-npm-debug.log.*
-package-lock.json
-
-# ESLint
-.eslintcache
-
-# SASS
-.sass-cache/
-
 # SVN
 .svn/
 

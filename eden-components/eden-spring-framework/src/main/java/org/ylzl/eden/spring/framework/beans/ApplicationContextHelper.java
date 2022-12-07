@@ -69,14 +69,17 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	public static <T> T getBean(Class<T> clazz) {
 		T beanInstance = null;
 		try {
-			beanInstance = applicationContext.getBean(clazz);
+			beanInstance = getBeanFactory().getBean(clazz);
 		} catch (Exception ignored) {
 		}
 
 		if (beanInstance == null) {
 			String simpleName = clazz.getSimpleName();
 			String beanName = Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
-			beanInstance = (T) applicationContext.getBean(beanName);
+			try {
+				beanInstance = (T) getBeanFactory().getBean(beanName);
+			} catch (Exception ignored) {
+			}
 		}
 		return beanInstance;
 	}
@@ -90,7 +93,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name) {
-		return (T) applicationContext.getBean(name);
+		return (T) getBeanFactory().getBean(name);
 	}
 
 	/**
@@ -102,7 +105,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * @return
 	 */
 	public static <T> T getBean(String name, Class<T> clazz) {
-		return applicationContext.getBean(name, clazz);
+		return getBeanFactory().getBean(name, clazz);
 	}
 
 	/**
@@ -114,7 +117,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * @return
 	 */
 	public static <T> T getBean(Class<T> clazz, Object... params) {
-		return applicationContext.getBean(clazz, params);
+		return getBeanFactory().getBean(clazz, params);
 	}
 
 	/**
@@ -180,7 +183,7 @@ public class ApplicationContextHelper implements ApplicationContextAware, BeanFa
 	 * @return
 	 */
 	public static String[] getActiveProfiles() {
-		if (null == applicationContext) {
+		if (applicationContext == null) {
 			return null;
 		}
 		return applicationContext.getEnvironment().getActiveProfiles();

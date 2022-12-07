@@ -4,16 +4,16 @@
 		 xsi:schemaLocation="http://www.w3school.com.cn flow.xsd">
 
 	<process name="order">
-		<node name="createOrder" class="org.ylzl.eden.flow.compose.CreateOrderProcessor"
+		<node name="createOrder" class="org.ylzl.eden.flow.compose.processor.CreateOrderProcessor"
 			  next="riskCheck"
 			  begin="true"/>
-		<node name="riskCheck" class="org.ylzl.eden.flow.compose.RiskCheckProcessor"
+		<node name="riskCheck" class="org.ylzl.eden.flow.compose.processor.RiskCheckProcessor"
 			  next="lockCoupon"/>
-		<node name="lockCoupon" class="org.ylzl.eden.flow.compose.LockCouponProcessor"
+		<node name="lockCoupon" class="org.ylzl.eden.flow.compose.processor.LockCouponProcessor"
 			  next="deductStock"/>
-		<node name="deductStock" class="org.ylzl.eden.flow.compose.DeductStockProcessor"
+		<node name="deductStock" class="org.ylzl.eden.flow.compose.processor.DeductStockProcessor"
 			  next="saveOrder"/>
-		<node name="saveOrder" class="org.ylzl.eden.flow.compose.SaveOrderProcessor"/>
+		<node name="saveOrder" class="org.ylzl.eden.flow.compose.processor.SaveOrderProcessor"/>
 	</process>
 
 </context>

@@ -9,8 +9,8 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.ylzl.eden.flow.compose.DynamicProcessor;
 import org.ylzl.eden.flow.compose.Processor;
 import org.ylzl.eden.flow.compose.RollbackProcessor;
-import org.ylzl.eden.flow.compose.process.ProcessDefinition;
-import org.ylzl.eden.flow.compose.process.ProcessNode;
+import org.ylzl.eden.flow.compose.model.ProcessDefinition;
+import org.ylzl.eden.flow.compose.model.ProcessNode;
 import org.ylzl.eden.flow.compose.exception.ProcessNodeException;
 
 import java.util.Deque;

@@ -3,7 +3,7 @@ package org.ylzl.eden.flow.compose;
 import org.ylzl.eden.flow.compose.context.ProcessContext;
 
 /**
- * 流程执行器
+ * 流程处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

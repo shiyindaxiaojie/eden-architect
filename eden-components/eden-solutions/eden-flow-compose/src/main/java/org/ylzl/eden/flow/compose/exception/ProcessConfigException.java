@@ -13,4 +13,8 @@ public class ProcessConfigException extends BaseException {
 	public ProcessConfigException(String errMessage) {
 		super("SYS-ERROR-500", errMessage);
 	}
+
+	public ProcessConfigException(String errMessage, Throwable e) {
+		super("SYS-ERROR-500", errMessage, e);
+	}
 }

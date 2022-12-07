@@ -3,11 +3,11 @@ package org.ylzl.eden.flow.compose.context;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.flow.compose.exception.ProcessDefinitionException;
-import org.ylzl.eden.flow.compose.node.ProcessConfig;
+import org.ylzl.eden.flow.compose.parser.element.ProcessElement;
 import org.ylzl.eden.flow.compose.parser.ProcessParser;
-import org.ylzl.eden.flow.compose.process.ProcessDefinition;
-import org.ylzl.eden.flow.compose.factory.ProcessorFactory;
-import org.ylzl.eden.flow.compose.factory.ReflectProcessorFactory;
+import org.ylzl.eden.flow.compose.model.ProcessDefinition;
+import org.ylzl.eden.flow.compose.processor.ProcessorFactory;
+import org.ylzl.eden.flow.compose.processor.ReflectProcessorFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -40,10 +40,10 @@ public class ProcessContextFactory {
 	}
 
 	public void init() {
-		List<ProcessConfig> processConfigs = processParser.parse();
-		for (ProcessConfig processConfig : processConfigs) {
-			processConfig.check();
-			ProcessDefinition processDefinition = processConfig.build(processorFactory);
+		List<ProcessElement> processElements = processParser.parse();
+		for (ProcessElement processElement : processElements) {
+			processElement.check();
+			ProcessDefinition processDefinition = processElement.build(processorFactory);
 			processDefinitionMap.put(processDefinition.getName(), processDefinition);
 		}
 	}

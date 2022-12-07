@@ -1,4 +1,4 @@
-package org.ylzl.eden.flow.compose.process;
+package org.ylzl.eden.flow.compose.model;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -33,7 +33,7 @@ public class ProcessNode {
 	private String name;
 
 	/**
-	 * 流程执行器
+	 * 流程处理器
 	 */
 	private Processor processor;
 
