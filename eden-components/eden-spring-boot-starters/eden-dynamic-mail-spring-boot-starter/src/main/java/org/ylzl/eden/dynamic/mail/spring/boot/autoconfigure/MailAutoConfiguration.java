@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = MailProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnBean(MailTemplate.class)
 @EnableConfigurationProperties(MailProperties.class)

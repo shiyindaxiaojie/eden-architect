@@ -23,7 +23,7 @@ import redis.clients.jedis.Jedis;
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.Jedis.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @ConditionalOnClass(Jedis.class)

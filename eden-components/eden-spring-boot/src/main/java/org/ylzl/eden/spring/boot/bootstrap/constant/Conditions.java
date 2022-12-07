@@ -13,7 +13,7 @@ public class Conditions {
 
 	public static final String ENABLED = "enabled";
 
-	public static final String ENABLED_TRUE = "true";
+	public static final String TRUE = "true";
 
-	public static final String ENABLED_FALSE = "false";
+	public static final String FALSE = "false";
 }

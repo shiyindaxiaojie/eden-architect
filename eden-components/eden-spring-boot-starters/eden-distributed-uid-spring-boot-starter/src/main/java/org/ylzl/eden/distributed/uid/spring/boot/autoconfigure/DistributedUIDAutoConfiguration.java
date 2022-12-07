@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = DistributedUIDProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnBean(DistributedUID.class)
 @EnableConfigurationProperties(DistributedUIDProperties.class)

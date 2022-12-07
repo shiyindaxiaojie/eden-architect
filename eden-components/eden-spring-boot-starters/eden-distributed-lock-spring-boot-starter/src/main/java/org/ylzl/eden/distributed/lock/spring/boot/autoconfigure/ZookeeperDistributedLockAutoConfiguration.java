@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.ZooKeeper.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @ConditionalOnClass(ZooKeeper.class)

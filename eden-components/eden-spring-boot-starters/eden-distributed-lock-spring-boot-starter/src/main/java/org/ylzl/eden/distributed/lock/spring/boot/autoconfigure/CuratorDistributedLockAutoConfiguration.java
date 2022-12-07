@@ -22,7 +22,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.Curator.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnClass(CuratorFramework.class)
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
