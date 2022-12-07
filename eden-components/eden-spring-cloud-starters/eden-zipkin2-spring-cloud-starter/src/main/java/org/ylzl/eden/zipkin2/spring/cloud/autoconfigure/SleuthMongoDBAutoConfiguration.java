@@ -20,9 +20,9 @@ import org.springframework.context.annotation.Configuration;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureAfter(MongoAutoConfiguration.class)
-@ConditionalOnClass(MongoClient.class)
 @ConditionalOnProperty(name = "spring.data.mongodb.uri")
+@ConditionalOnClass(MongoClient.class)
+@AutoConfigureAfter(MongoAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)

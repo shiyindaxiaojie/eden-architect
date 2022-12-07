@@ -5,12 +5,13 @@ import io.opentracing.contrib.redis.common.TracingConfiguration;
 import io.opentracing.contrib.redis.redisson.TracingRedissonClient;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.redisson.spring.boot.autoconfigure.RedissonAutoConfiguration;
 import org.ylzl.redisson.spring.boot.autoconfigure.util.RedissonUtils;
 import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
@@ -21,9 +22,12 @@ import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnClass(RedissonClient.class)
-@ConditionalOnProperty(value = "redisson.enabled", matchIfMissing = true)
-@AutoConfigureAfter(RedissonAutoConfiguration.class)
+@ConditionalOnProperty(
+	prefix = "spring.redis",
+	value = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class SleuthRedisAutoConfiguration {
@@ -32,6 +36,8 @@ public class SleuthRedisAutoConfiguration {
 
 	public static final String SERVER_ADDRESS = "Server Address";
 
+	@ConditionalOnClass(RedissonClient.class)
+	@ConditionalOnBean(RedissonAutoConfiguration.class)
 	@Bean
 	public RedissonClient tracingRedissonClient(Tracer tracer, RedisProperties redisProperties,
 												FixedRedissonProperties fixedRedissonProperties) {
