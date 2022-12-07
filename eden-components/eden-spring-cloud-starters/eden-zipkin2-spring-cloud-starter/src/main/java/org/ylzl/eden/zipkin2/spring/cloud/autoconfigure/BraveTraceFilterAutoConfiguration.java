@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 自定义 Brave TraceFilter 自动装配
@@ -21,7 +22,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @ConditionalOnProperty(
 	prefix = "dubbo",
-	name = {"enabled"},
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
 	matchIfMissing = true
 )
 @AutoConfigureAfter(DubboAutoConfiguration.class)
@@ -33,6 +35,7 @@ import org.springframework.context.annotation.Configuration;
 public class BraveTraceFilterAutoConfiguration implements InitializingBean {
 
 	public static final String TRACING = "tracing";
+
 	public static final String ADD_TRACING_FILTER = "Initializing providerConfig and consumerConfig add tracing filter";
 
 	private final ProviderConfig providerConfig;
