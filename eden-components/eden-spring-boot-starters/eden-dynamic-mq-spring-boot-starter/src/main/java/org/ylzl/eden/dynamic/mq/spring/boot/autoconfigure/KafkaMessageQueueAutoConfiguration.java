@@ -33,7 +33,7 @@ import java.util.function.Function;
 @ConditionalOnProperty(
 	prefix = MessageQueueProperties.Kafka.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnExpression("${spring.kafka.enabled:true}")
 @ConditionalOnBean(KafkaProperties.class)

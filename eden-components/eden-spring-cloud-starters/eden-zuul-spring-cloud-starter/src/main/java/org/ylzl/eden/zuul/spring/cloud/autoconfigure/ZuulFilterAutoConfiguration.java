@@ -45,7 +45,7 @@ import javax.cache.CacheManager;
 @ConditionalOnProperty(
 	prefix = ZuulProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnClass(ZuulFilter.class)
 @EnableConfigurationProperties(ZuulProperties.class)
@@ -68,7 +68,7 @@ public class ZuulFilterAutoConfiguration {
 	@ConditionalOnProperty(
 		prefix = ZuulProperties.AccessControl.PREFIX,
 		name = Conditions.ENABLED,
-		havingValue = Conditions.ENABLED_TRUE
+		havingValue = Conditions.TRUE
 	)
 	@ConditionalOnBean(RouteLocator.class)
 	@ConditionalOnMissingBean
@@ -81,7 +81,7 @@ public class ZuulFilterAutoConfiguration {
 	@ConditionalOnProperty(
 		prefix = ZuulProperties.RateLimiting.PREFIX,
 		name = Conditions.ENABLED,
-		havingValue = Conditions.ENABLED_TRUE
+		havingValue = Conditions.TRUE
 	)
 	@ConditionalOnMissingBean
 	@Bean

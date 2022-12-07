@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.ylzl.eden.full.tracing.StressContext;
-import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceSelector;
+import org.ylzl.eden.spring.data.jdbc.datasource.routing.RoutingDataSourceContextHolder;
 
 /**
  * DataSource 影子库切面
@@ -35,11 +35,11 @@ public class DataSourceShadowAspect {
 		}
 
 		// 切换影子库执行
-		RoutingDataSourceSelector.set(dataSourceName);
+		RoutingDataSourceContextHolder.push(dataSourceName);
 		try {
 			return joinPoint.proceed();
 		} finally {
-			RoutingDataSourceSelector.remove();
+			RoutingDataSourceContextHolder.poll();
 		}
 	}
 }

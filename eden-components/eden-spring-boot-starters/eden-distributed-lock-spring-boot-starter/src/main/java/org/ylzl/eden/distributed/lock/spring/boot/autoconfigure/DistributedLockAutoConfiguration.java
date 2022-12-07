@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnBean(DistributedLock.class)
 @EnableConfigurationProperties(DistributedLockProperties.class)

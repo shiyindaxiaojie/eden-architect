@@ -21,7 +21,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = SmsProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE
+	havingValue = Conditions.TRUE
 )
 @ConditionalOnBean(SmsTemplate.class)
 @EnableConfigurationProperties(SmsProperties.class)

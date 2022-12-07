@@ -18,17 +18,27 @@
 package org.ylzl.eden.dynamic.datasource.spring.boot.autoconfigure;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor;
+import com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationInterceptor;
+import com.baomidou.dynamic.datasource.processor.DsProcessor;
 import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDatasourceAopProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.aop.Advisor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.ylzl.eden.dynamic.datasource.spring.boot.custom.CustomDynamicDataSourceAnnotationInterceptor;
+import org.ylzl.eden.dynamic.datasource.spring.boot.custom.CustomDynamicRoutingDataSource;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import javax.sql.DataSource;
 
@@ -38,37 +48,53 @@ import javax.sql.DataSource;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = "spring.datasource.dynamic",
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
 @ConditionalOnClass(DynamicDataSourceProvider.class)
-@AutoConfigureBefore(com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@ConditionalOnProperty(prefix = "spring.datasource.dynamic", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class DynamicDataSourceAutoConfiguration {
 
-	public static final String AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE = "Autowired DynamicRoutingDataSource";
+	private static final String AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE = "Autowired DynamicRoutingDataSource";
 
-	private final DynamicDataSourceProperties dynamicDataSourceProperties;
+	private static final String AUTOWIRED_DYNAMIC_DATASOURCE_ANNOTATION_ADVISOR = "Autowired DynamicDatasourceAnnotationAdvisor";
 
-	public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties dynamicDataSourceProperties) {
-		this.dynamicDataSourceProperties = dynamicDataSourceProperties;
+	private final DynamicDataSourceProperties properties;
+
+	public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties properties) {
+		this.properties = properties;
 	}
 
-	/**
-	 * 装配数据源
-	 *
-	 * @return
-	 */
 	@Primary
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public DataSource dataSource() {
 		log.info(AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE);
-		DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource();
-		dataSource.setPrimary(dynamicDataSourceProperties.getPrimary());
-		dataSource.setStrict(dynamicDataSourceProperties.getStrict());
-		dataSource.setStrategy(dynamicDataSourceProperties.getStrategy());
-		dataSource.setP6spy(dynamicDataSourceProperties.getP6spy());
-		dataSource.setSeata(dynamicDataSourceProperties.getSeata());
+		DynamicRoutingDataSource dataSource = new CustomDynamicRoutingDataSource();
+		dataSource.setPrimary(properties.getPrimary());
+		dataSource.setStrict(properties.getStrict());
+		dataSource.setStrategy(properties.getStrategy());
+		dataSource.setP6spy(properties.getP6spy());
+		dataSource.setSeata(properties.getSeata());
 		return dataSource;
+	}
+
+	@ConditionalOnProperty(prefix = DynamicDataSourceProperties.PREFIX + ".aop", name = "enabled", havingValue = "true", matchIfMissing = true)
+	@Primary
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+	@Bean
+	public Advisor dynamicDatasourceAnnotationAdvisor(DsProcessor dsProcessor) {
+		log.debug(AUTOWIRED_DYNAMIC_DATASOURCE_ANNOTATION_ADVISOR);
+		DynamicDatasourceAopProperties aopProperties = properties.getAop();
+		DynamicDataSourceAnnotationInterceptor interceptor =
+			new CustomDynamicDataSourceAnnotationInterceptor(aopProperties.getAllowedPublicOnly(), dsProcessor);
+		DynamicDataSourceAnnotationAdvisor advisor = new DynamicDataSourceAnnotationAdvisor(interceptor, DS.class);
+		advisor.setOrder(aopProperties.getOrder());
+		return advisor;
 	}
 }

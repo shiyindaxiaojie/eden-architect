@@ -26,7 +26,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = DistributedLockProperties.Redisson.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE,
+	havingValue = Conditions.TRUE,
 	matchIfMissing = true
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)

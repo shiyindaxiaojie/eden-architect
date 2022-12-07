@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = MailProperties.JavaMail.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.ENABLED_TRUE,
+	havingValue = Conditions.TRUE,
 	matchIfMissing = true
 )
 @Conditional(JavaMailAutoConfiguration.MailSenderCondition.class)
