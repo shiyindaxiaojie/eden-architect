@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.redisson.spring.boot.autoconfigure.util.RedissonUtils;
 import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
 
@@ -26,9 +27,14 @@ import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = FixedRedissonProperties.PREFIX,
+	name = Conditions.ENABLED,
+	value = Conditions.TRUE,
+	matchIfMissing = true
+)
 @ConditionalOnClass(RedissonClient.class)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnProperty(value = "redisson.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(FixedRedissonProperties.class)
 @RequiredArgsConstructor
 @Slf4j

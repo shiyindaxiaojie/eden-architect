@@ -1,7 +1,9 @@
-package org.ylzl.eden.flow.compose;
+package org.ylzl.eden.flow.compose.processor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.flow.compose.model.Order;
+import org.ylzl.eden.flow.compose.RollbackProcessor;
 import org.ylzl.eden.flow.compose.context.ProcessContext;
 
 /**
@@ -11,7 +13,7 @@ import org.ylzl.eden.flow.compose.context.ProcessContext;
  * @since 2.4.13
  */
 @Slf4j
-@Component
+@Component("deductStockProcessor")
 public class DeductStockProcessor extends RollbackProcessor<Order> {
 
 	/**

@@ -1,4 +1,4 @@
-package org.ylzl.eden.flow.compose.factory;
+package org.ylzl.eden.flow.compose.processor;
 
 import org.ylzl.eden.flow.compose.Processor;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
@@ -23,6 +23,10 @@ public class SpringBeanProcessorFactory implements ProcessorFactory {
 	public Processor newInstance(String className, String processName) throws Exception {
 		Class<?> clazz = Class.forName(className);
 		Object bean = ApplicationContextHelper.getBean(clazz);
+		if (bean == null) {
+			throw new IllegalArgumentException("Spring Bean '" + className + "' is not defined");
+		}
+
 		if (!(bean instanceof Processor)) {
 			throw new IllegalArgumentException("Spring Bean '" + className + "' is not instance of Processor");
 		}

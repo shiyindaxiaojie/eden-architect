@@ -1,7 +1,6 @@
 package org.ylzl.eden.flow.compose.config;
 
 import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -22,14 +21,5 @@ public @interface EnableFlowCompose {
 	 *
 	 * @return
 	 */
-	@AliasFor("configPath")
-	String[] value();
-
-	/**
-	 * 配置文件
-	 *
-	 * @return
-	 */
-	@AliasFor("value")
-	String configPath();
+	String value();
 }

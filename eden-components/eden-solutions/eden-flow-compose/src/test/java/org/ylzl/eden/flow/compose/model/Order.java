@@ -1,4 +1,4 @@
-package org.ylzl.eden.flow.compose;
+package org.ylzl.eden.flow.compose.model;
 
 import lombok.*;
 

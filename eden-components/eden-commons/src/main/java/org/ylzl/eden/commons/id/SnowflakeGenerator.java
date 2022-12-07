@@ -102,19 +102,30 @@ public class SnowflakeGenerator {
 	/**
 	 * 构造函数
 	 *
-	 * @param workerId     工作 ID
 	 * @param dataCenterId 数据中心 ID
+	 * @param workerId     工作 ID
 	 */
 	@Builder
-	public SnowflakeGenerator(long workerId, long dataCenterId) {
-		if (workerId > maxWorkerId || workerId < 0) {
-			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", maxWorkerId));
-		}
+	public SnowflakeGenerator(long dataCenterId, long workerId) {
 		if (dataCenterId > maxDatacenterId || dataCenterId < 0) {
 			throw new IllegalArgumentException(String.format("dataCenterId 不能大于 %d 或者小于 0", maxDatacenterId));
 		}
-		this.workerId = workerId;
+		if (workerId > maxWorkerId || workerId < 0) {
+			throw new IllegalArgumentException(String.format("workerId 不能大于 %d 或者小于 0", maxWorkerId));
+		}
 		this.dataCenterId = dataCenterId;
+		this.workerId = workerId;
+	}
+
+	/**
+	 * 获得下一个 ID
+	 *
+	 * @param dataCenterId 数据中心 ID
+	 * @param workerId     工作 ID
+	 * @return
+	 */
+	public static long nextId(long dataCenterId, long workerId) {
+		return SnowflakeGenerator.builder().dataCenterId(dataCenterId).workerId(workerId).build().nextId();
 	}
 
 	/**

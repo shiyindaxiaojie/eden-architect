@@ -1,6 +1,6 @@
 package org.ylzl.eden.flow.compose.parser;
 
-import org.ylzl.eden.flow.compose.node.ProcessConfig;
+import org.ylzl.eden.flow.compose.parser.element.ProcessElement;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface ProcessParser {
 	 * @return
 	 * @throws Exception
 	 */
-	List<ProcessConfig> parse();
+	List<ProcessElement> parse();
 }

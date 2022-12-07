@@ -228,6 +228,9 @@
 			<testResource>
 				<directory>src/test/groovy</directory>
 			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
 		</testResources>
 		<extensions>
 			<extension>

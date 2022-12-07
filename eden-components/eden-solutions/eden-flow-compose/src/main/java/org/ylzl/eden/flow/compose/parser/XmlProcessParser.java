@@ -3,8 +3,8 @@ package org.ylzl.eden.flow.compose.parser;
 import com.google.common.collect.Lists;
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.ylzl.eden.flow.compose.node.ProcessConfig;
-import org.ylzl.eden.flow.compose.node.ProcessNodeConfig;
+import org.ylzl.eden.flow.compose.parser.element.NodeElement;
+import org.ylzl.eden.flow.compose.parser.element.ProcessElement;
 
 import java.util.List;
 
@@ -35,36 +35,35 @@ public abstract class XmlProcessParser implements ProcessParser {
 	 * @throws Exception
 	 */
 	@Override
-	public List<ProcessConfig> parse() {
+	public List<ProcessElement> parse() {
 		Document document = getDocument();
 		Element rootElement = document.getRootElement();
 		List<Element> processElements = rootElement.elements();
-		List<ProcessConfig> processConfigs = Lists.newArrayList();
+		List<ProcessElement> elements = Lists.newArrayList();
 		for (Element process : processElements) {
-			ProcessConfig processConfig = new ProcessConfig();
-			processConfig.setName(process.attributeValue(PROCESS_NAME));
-			List<Element> elements = process.elements();
-			for (Element node : elements) {
-				ProcessNodeConfig processNodeConfig = new ProcessNodeConfig();
-				processNodeConfig.setName(node.attributeValue(PROCESS_NODE_NAME));
-				processNodeConfig.setClassName(node.attributeValue(PROCESS_NODE_CLASS));
+			ProcessElement processElement = new ProcessElement();
+			processElement.setName(process.attributeValue(PROCESS_NAME));
+			for (Element node : process.elements()) {
+				NodeElement nodeElement = new NodeElement();
+				nodeElement.setName(node.attributeValue(PROCESS_NODE_NAME));
+				nodeElement.setClassName(node.attributeValue(PROCESS_NODE_CLASS));
 
 				String next = node.attributeValue(PROCESS_NODE_NEXT);
 				if (next != null) {
-					processNodeConfig.setNextNode(next);
+					nodeElement.setNextNode(next);
 				}
 
 				String begin = node.attributeValue(PROCESS_NODE_BEGIN);
-				processNodeConfig.setBegin(Boolean.parseBoolean(begin));
+				nodeElement.setBegin(Boolean.parseBoolean(begin));
 
 				String async = node.attributeValue(PROCESS_NODE_ASYNC);
-				processNodeConfig.setAsync(Boolean.parseBoolean(async));
+				nodeElement.setAsync(Boolean.parseBoolean(async));
 
-				processConfig.addNode(processNodeConfig);
+				processElement.addNode(nodeElement);
 			}
-			processConfigs.add(processConfig);
+			elements.add(processElement);
 		}
-		return processConfigs;
+		return elements;
 	}
 
 	/**
