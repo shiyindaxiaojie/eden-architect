@@ -88,6 +88,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- HotKey -->
 		<dependency>
 			<groupId>com.jd.platform.hotkey</groupId>

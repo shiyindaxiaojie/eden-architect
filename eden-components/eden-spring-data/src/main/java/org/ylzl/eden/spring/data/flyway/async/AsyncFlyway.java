@@ -22,11 +22,8 @@ import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.flywaydb.core.api.configuration.Configuration;
 import org.flywaydb.core.api.output.MigrateResult;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -47,64 +44,61 @@ import java.sql.SQLException;
 @Slf4j
 public class AsyncFlyway extends Flyway {
 
-	public static final long SLOWNESS_THRESHOLD = 5;
-	private static final String MSG_STARTING_ASYNC = "Starting Flyway asynchronously";
-	private static final String MSG_STARTING_SYNC = "Starting Flyway synchronously";
-	private static final String MSG_EXCEPTION =
-		"Flyway could not start correctly, your database is not ready：{}";
-	private static final String MSG_STARTED = "Flyway has updated your database in {} ms";
-	private static final String MSG_SLOWNESS = "Flyway took more than {} seconds to start up!";
+	private static final String STARTING_ASYNC = "Starting Flyway asynchronously";
+	private static final String STARTING_SYNC = "Starting Flyway synchronously";
+	private static final String EXCEPTION = "Flyway could not start correctly, your database is not ready：{}";
+	private static final String STARTED = "Flyway has updated your database in {} ms";
+	private static final String SLOWNESS = "Flyway took more than {} seconds to start up!";
 	private static final String STOP_WATCH_ID = "flyway";
-	private static final int MIGRATION_FAILED_COUNT = 0;
+
+	private static final long SLOWNESS_THRESHOLD = 5;
+
+	private final boolean aysnc;
+
+	private final AsyncTaskExecutor executor;
 
 	private final Configuration configuration;
 
-	private final AsyncTaskExecutor asyncTaskExecutor;
-
-	private final Environment environment;
-
-	public AsyncFlyway(
-		Configuration configuration, AsyncTaskExecutor asyncTaskExecutor, Environment environment) {
+	public AsyncFlyway(boolean aysnc, AsyncTaskExecutor executor, Configuration configuration) {
 		super(configuration);
+		this.aysnc = aysnc;
 		this.configuration = configuration;
-		this.asyncTaskExecutor = asyncTaskExecutor;
-		this.environment = environment;
+		this.executor = executor;
 	}
 
 	@Override
 	public MigrateResult migrate() throws FlywayException {
-		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
+		if (aysnc) {
 			try (Connection ignored = configuration.getDataSource().getConnection()) {
-				asyncTaskExecutor.submit(
+				executor.submit(
 					() -> {
 						try {
-							log.debug(MSG_STARTING_ASYNC);
+							log.debug(STARTING_ASYNC);
 							return initDb();
 						} catch (FlywayException e) {
-							log.error(MSG_EXCEPTION, e.getMessage(), e);
+							log.error(EXCEPTION, e.getMessage(), e);
 							throw new FlywayException(e);
 						}
 					});
 			} catch (SQLException e) {
-				log.error(MSG_EXCEPTION, e.getMessage(), e);
+				log.error(EXCEPTION, e.getMessage(), e);
 				throw new FlywayException(e);
 			}
 			return null;
 		} else {
-			log.debug(MSG_STARTING_SYNC);
+			log.debug(STARTING_SYNC);
 			return initDb();
 		}
 	}
 
 	protected MigrateResult initDb() throws FlywayException {
-		StopWatch watch = new StopWatch(STOP_WATCH_ID);
+		StopWatch watch = new StopWatch("flyway");
 		watch.start();
 		MigrateResult migrateResult = super.migrate();
 		watch.stop();
-		log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+		log.debug(STARTED, watch.getTotalTimeMillis());
 		if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-			log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
+			log.warn(SLOWNESS, SLOWNESS_THRESHOLD);
 		}
 		return migrateResult;
 	}

@@ -18,16 +18,14 @@
 package org.ylzl.eden.spring.data.liquibase.async;
 
 import liquibase.exception.LiquibaseException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.Executor;
 
 /**
  * 异步 Spring Liquibase
@@ -35,57 +33,52 @@ import java.util.concurrent.Executor;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@RequiredArgsConstructor
 @Slf4j
 public class AsyncSpringLiquibase extends DataSourceClosingSpringLiquibase {
 
-	public static final long SLOWNESS_THRESHOLD = 5;
-	private static final String MSG_STARTING_ASYNC = "Starting Liquibase asynchronously";
-	private static final String MSG_STARTING_SYNC = "Starting Liquibase synchronously";
-	private static final String MSG_EXCEPTION =
-		"Liquibase could not start correctly, your database is not ready：{}";
-	private static final String MSG_STARTED = "Liquibase has updated your database in {} ms";
-	private static final String MSG_SLOWNESS = "Liquibase took more than {} seconds to start up!";
-	private static final String STOP_WATCH_ID = "liquibase";
-	private final Executor asyncTaskExecutor;
+	private static final String STARTING_ASYNC = "Starting Liquibase asynchronously";
+	private static final String STARTING_SYNC = "Starting Liquibase synchronously";
+	private static final String EXCEPTION = "Liquibase could not start correctly, your database is not ready：{}";
+	private static final String STARTED = "Liquibase has updated your database in {} ms";
+	private static final String SLOWNESS = "Liquibase took more than {} seconds to start up!";
 
-	private final Environment environment;
+	private static final long SLOWNESS_THRESHOLD = 5;
 
-	public AsyncSpringLiquibase(Executor asyncTaskExecutor, Environment environment) {
-		this.asyncTaskExecutor = asyncTaskExecutor;
-		this.environment = environment;
-	}
+	private final boolean aysnc;
+
+	private final AsyncTaskExecutor executor;
 
 	@Override
 	public void afterPropertiesSet() throws LiquibaseException {
-		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
+		if (aysnc) {
 			try (Connection ignored = getDataSource().getConnection()) {
-				asyncTaskExecutor.execute(
+				executor.execute(
 					() -> {
 						try {
-							log.debug(MSG_STARTING_ASYNC);
+							log.debug(STARTING_ASYNC);
 							initDb();
 						} catch (LiquibaseException e) {
-							log.error(MSG_EXCEPTION, e.getMessage(), e);
+							log.error(EXCEPTION, e.getMessage(), e);
 						}
 					});
 			} catch (SQLException e) {
-				log.error(MSG_EXCEPTION, e.getMessage(), e);
+				log.error(EXCEPTION, e.getMessage(), e);
 			}
 		} else {
-			log.debug(MSG_STARTING_SYNC);
+			log.debug(STARTING_SYNC);
 			initDb();
 		}
 	}
 
 	protected void initDb() throws LiquibaseException {
-		StopWatch watch = new StopWatch();
-		watch.start(STOP_WATCH_ID);
+		StopWatch watch = new StopWatch("liquibase");
+		watch.start();
 		super.afterPropertiesSet();
 		watch.stop();
-		log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+		log.debug(STARTED, watch.getTotalTimeMillis());
 		if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-			log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
+			log.warn(SLOWNESS, SLOWNESS_THRESHOLD);
 		}
 	}
 }

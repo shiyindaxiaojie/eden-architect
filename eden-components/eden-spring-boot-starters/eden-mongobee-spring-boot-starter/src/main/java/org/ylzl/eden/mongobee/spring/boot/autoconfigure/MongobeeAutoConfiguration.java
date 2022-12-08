@@ -19,6 +19,7 @@ package org.ylzl.eden.mongobee.spring.boot.autoconfigure;
 
 import com.github.mongobee.Mongobee;
 import com.mongodb.MongoClient;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -30,13 +31,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.mongobee.spring.boot.env.MongobeeProperties;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.boot.info.contributor.InfoContributorProvider;
 import org.ylzl.eden.spring.data.mongobee.async.AsyncMongobee;
 
@@ -46,10 +47,16 @@ import org.ylzl.eden.spring.data.mongobee.async.AsyncMongobee;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = MongobeeProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
 @ConditionalOnClass({Mongobee.class})
-@ConditionalOnProperty(prefix = "mongobee", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(MongobeeProperties.class)
 @Import(MongoAutoConfiguration.class)
+@RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class MongobeeAutoConfiguration {
@@ -58,14 +65,13 @@ public class MongobeeAutoConfiguration {
 
 	private static final String MSG_AUTOWIRED_MONGOBEE = "Autowired Mongobee";
 
-	private final Environment environment;
-
 	private final MongobeeProperties mongobeeProperties;
 
-	public MongobeeAutoConfiguration(Environment environment, MongobeeProperties mongobeeProperties) {
-		this.environment = environment;
-		this.mongobeeProperties = mongobeeProperties;
-	}
+	private final MongoProperties mongoProperties;
+
+	private final MongoClient mongoClient;
+
+	private final MongoTemplate mongoTemplate;
 
 	@Bean
 	public LocalValidatorFactoryBean localValidator() {
@@ -78,14 +84,10 @@ public class MongobeeAutoConfiguration {
 	}
 
 	@Bean
-	public Mongobee mongobee(
-		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) TaskExecutor taskExecutor,
-		InfoContributorProvider infoContributorProvider,
-		MongoClient mongoClient,
-		MongoTemplate mongoTemplate,
-		MongoProperties mongoProperties) {
+	public Mongobee mongobee(InfoContributorProvider infoContributorProvider,
+		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) TaskExecutor taskExecutor) {
 		log.debug(MSG_AUTOWIRED_MONGOBEE);
-		Mongobee mongobee = new AsyncMongobee(mongoClient, environment, taskExecutor);
+		Mongobee mongobee = new AsyncMongobee(mongobeeProperties.isAsync(), taskExecutor, mongoClient);
 		mongobee.setDbName(mongoProperties.getMongoClientDatabase());
 		mongobee.setMongoTemplate(mongoTemplate);
 		if (StringUtils.isNotBlank(mongobeeProperties.getChangeLogsScanPackage())) {

@@ -6,4 +6,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.info.autoconfigure.InfoContributorAutoConfiguration,\
   org.ylzl.eden.spring.boot.profile.autoconfigure.ProfileEndpointAutoConfiguration,\
   org.ylzl.eden.spring.boot.task.autoconfigure.AsyncTaskExecutionAutoConfiguration,\
-  org.ylzl.eden.spring.boot.web.autoconfigure.CustomRestTemplateAutoConfiguration
+  org.ylzl.eden.spring.boot.web.autoconfigure.EnhancedRestTemplateAutoConfiguration

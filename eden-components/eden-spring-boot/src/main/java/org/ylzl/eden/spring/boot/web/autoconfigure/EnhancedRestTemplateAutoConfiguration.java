@@ -17,13 +17,13 @@
 
 package org.ylzl.eden.spring.boot.web.autoconfigure;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -41,20 +41,19 @@ import java.util.List;
  */
 @AutoConfigureAfter(RestTemplateAutoConfiguration.class)
 @ConditionalOnClass({RestTemplate.class})
+@RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class CustomRestTemplateAutoConfiguration {
+public class EnhancedRestTemplateAutoConfiguration implements InitializingBean {
 
-	private static final String AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";
+	private static final String INITIALIZING_REST_TEMPLATE = "Initializing RestTemplate";
 
-	@ConditionalOnBean(RestTemplateBuilder.class)
-	@ConditionalOnMissingBean
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-		log.debug(AUTOWIRED_REST_TEMPLATE);
-		RestTemplate restTemplate = restTemplateBuilder.build();
+	private final RestTemplate restTemplate;
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		log.debug(INITIALIZING_REST_TEMPLATE);
 		this.setDefaultCharset(restTemplate.getMessageConverters());
-		return restTemplate;
 	}
 
 	private void setDefaultCharset(List<HttpMessageConverter<?>> httpMessageConverters) {
@@ -64,6 +63,19 @@ public class CustomRestTemplateAutoConfiguration {
 					.setDefaultCharset(Charsets.UTF_8);
 				break;
 			}
+		}
+	}
+
+	@ConditionalOnMissingBean(RestTemplate.class)
+	@Configuration(proxyBeanMethods = false)
+	public static class MissingRestTemplateAutoConfiguration {
+
+		private static final String AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";
+
+		@Bean
+		public RestTemplate restTemplate() {
+			log.debug(AUTOWIRED_REST_TEMPLATE);
+			return new RestTemplate();
 		}
 	}
 }

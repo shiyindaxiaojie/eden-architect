@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableCatDubbo;
 
 /**
@@ -16,9 +17,14 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableCatDubbo;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = "dubbo",
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
 @ConditionalOnClass(Filter.class)
 @ConditionalOnBean(CatAutoConfiguration.class)
-@ConditionalOnProperty(prefix = "dubbo", name = "enabled", matchIfMissing = true)
 @RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)

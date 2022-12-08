@@ -29,10 +29,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "spring.mongobee")
+@ConfigurationProperties(prefix = MongobeeProperties.PREFIX)
 public class MongobeeProperties {
 
+	public static final String PREFIX = "spring.mongobee";
+
 	private boolean enabled;
+
+	private boolean async;
 
 	private String changeLogsScanPackage;
 }
