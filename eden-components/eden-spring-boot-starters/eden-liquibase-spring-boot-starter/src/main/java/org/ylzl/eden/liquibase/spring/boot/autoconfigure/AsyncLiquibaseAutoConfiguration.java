@@ -19,10 +19,11 @@ package org.ylzl.eden.liquibase.spring.boot.autoconfigure;
 
 import liquibase.change.DatabaseChange;
 import liquibase.integration.spring.SpringLiquibase;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -39,7 +40,10 @@ import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguratio
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Role;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.ylzl.eden.liquibase.spring.boot.env.ExtendLiquibaseProperties;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.data.liquibase.util.SpringLiquibaseUtils;
 
 import javax.sql.DataSource;
@@ -51,44 +55,41 @@ import java.util.concurrent.Executor;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+
+@ConditionalOnProperty(
+	prefix = "spring.liquibase",
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
+@ConditionalOnBean({DataSource.class, Executor.class})
+@ConditionalOnClass({SpringLiquibase.class, DatabaseChange.class})
 @AutoConfigureAfter({
 	DataSourceAutoConfiguration.class,
 	HibernateJpaAutoConfiguration.class
 })
 @AutoConfigureBefore({LiquibaseAutoConfiguration.class})
-@ConditionalOnBean({DataSource.class, Executor.class})
-@ConditionalOnClass({SpringLiquibase.class, DatabaseChange.class})
-@ConditionalOnProperty(prefix = "spring.liquibase", name = "enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties({LiquibaseProperties.class})
+@EnableConfigurationProperties({LiquibaseProperties.class, ExtendLiquibaseProperties.class})
+@RequiredArgsConstructor
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class AsyncLiquibaseAutoConfiguration {
-
-	private static final String DEFAULT_CHANGE_LOG = "classpath*:db/master.xml";
 
 	private static final String MSG_AUTOWIRED_LIQUIBASE = "Autowired SpringLiquibase";
 
 	private final LiquibaseProperties properties;
 
-	private final Environment env;
-
-	public AsyncLiquibaseAutoConfiguration(LiquibaseProperties properties, Environment env) {
-		this.properties = properties;
-		this.env = env;
-	}
+	private final ExtendLiquibaseProperties extendProperties;
 
 	@ConditionalOnMissingBean
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
-	public SpringLiquibase liquibase(
-		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) Executor taskExecutor,
-		@LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource,
-		ObjectProvider<DataSource> dataSource,
-		DataSourceProperties dataSourceProperties,
-		@Value("${spring.liquibase.change-log:" + DEFAULT_CHANGE_LOG + "}") String changeLog) {
+	public SpringLiquibase liquibase(ObjectProvider<DataSource> dataSource, DataSourceProperties dataSourceProperties,
+		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor,
+		@LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource) {
 		log.debug(MSG_AUTOWIRED_LIQUIBASE);
-		SpringLiquibase liquibase =
-			SpringLiquibaseUtils.createAsyncSpringLiquibase(
-				this.env,
+		SpringLiquibase liquibase = SpringLiquibaseUtils.createAsyncSpringLiquibase(
+				extendProperties.isAsync(),
 				taskExecutor,
 				liquibaseDataSource.getIfAvailable(),
 				properties,
@@ -105,7 +106,7 @@ public class AsyncLiquibaseAutoConfiguration {
 		liquibase.setChangeLogParameters(properties.getParameters());
 		liquibase.setRollbackFile(properties.getRollbackFile());
 		liquibase.setTestRollbackOnUpdate(properties.isTestRollbackOnUpdate());
-		liquibase.setChangeLog(changeLog);
+		liquibase.setChangeLog(properties.getChangeLog());
 		return liquibase;
 	}
 }

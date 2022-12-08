@@ -48,7 +48,7 @@ import java.util.concurrent.Executor;
 @Configuration(proxyBeanMethods = false)
 public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 
-	public static final String AUTOWIRED_ASYNC_TASK_EXECUTOR = "Autowired " + TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
+	public static final String AUTOWIRED_ASYNC_TASK_EXECUTOR = "Autowired ApplicationTaskExecutor";
 
 	public static final int POOL_SIZE_LIMIT = Runtime.getRuntime().availableProcessors();
 

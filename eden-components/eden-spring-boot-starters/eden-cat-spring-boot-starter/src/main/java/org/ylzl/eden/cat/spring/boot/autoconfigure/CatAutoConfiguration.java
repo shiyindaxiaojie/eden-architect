@@ -11,8 +11,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
+import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessorRegister;
@@ -23,9 +24,14 @@ import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessor
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Import(CatAnnotationProcessorRegister.class)
-@ConditionalOnProperty(prefix = CatProperties.PREFIX, name = "enabled", matchIfMissing = true)
+@ConditionalOnProperty(
+	prefix = CatProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
 @ConditionalOnClass(Cat.class)
+@Import(CatAnnotationProcessorRegister.class)
 @EnableConfigurationProperties(CatProperties.class)
 @RequiredArgsConstructor
 @Slf4j

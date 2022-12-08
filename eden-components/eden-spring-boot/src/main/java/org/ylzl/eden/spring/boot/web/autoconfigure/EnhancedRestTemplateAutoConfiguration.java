@@ -22,7 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -61,6 +63,19 @@ public class EnhancedRestTemplateAutoConfiguration implements InitializingBean {
 					.setDefaultCharset(Charsets.UTF_8);
 				break;
 			}
+		}
+	}
+
+	@ConditionalOnMissingBean(RestTemplate.class)
+	@Configuration(proxyBeanMethods = false)
+	public static class MissingRestTemplateAutoConfiguration {
+
+		private static final String AUTOWIRED_REST_TEMPLATE = "Autowired RestTemplate";
+
+		@Bean
+		public RestTemplate restTemplate() {
+			log.debug(AUTOWIRED_REST_TEMPLATE);
+			return new RestTemplate();
 		}
 	}
 }

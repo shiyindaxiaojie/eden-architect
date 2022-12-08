@@ -84,7 +84,12 @@ public class DynamicDataSourceAutoConfiguration {
 		return dataSource;
 	}
 
-	@ConditionalOnProperty(prefix = DynamicDataSourceProperties.PREFIX + ".aop", name = "enabled", havingValue = "true", matchIfMissing = true)
+	@ConditionalOnProperty(
+		prefix = DynamicDataSourceProperties.PREFIX + ".aop",
+		name = Conditions.ENABLED,
+		havingValue = Conditions.TRUE,
+		matchIfMissing = true
+	)
 	@Primary
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean

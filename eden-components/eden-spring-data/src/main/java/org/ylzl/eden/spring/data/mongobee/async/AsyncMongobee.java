@@ -20,11 +20,8 @@ package org.ylzl.eden.spring.data.mongobee.async;
 import com.github.mongobee.Mongobee;
 import com.mongodb.MongoClient;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 
 /**
  * 异步 Mongobee
@@ -35,52 +32,50 @@ import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProfiles;
 @Slf4j
 public class AsyncMongobee extends Mongobee {
 
-	public static final long SLOWNESS_THRESHOLD = 5;
-	private static final String MSG_STARTING_ASYNC = "Starting Mongobee asynchronously";
-	private static final String MSG_STARTING_SYNC = "Starting Mongobee synchronously";
-	private static final String MSG_EXCEPTION =
-		"Mongobee could not start correctly, your database is not ready: {}";
-	private static final String MSG_STARTED = "Mongobee has updated your database in {} ms";
-	private static final String MSG_SLOWNESS = "Mongobee took more than {} seconds to start up!";
-	private static final String STOP_WATCH_ID = "mongobee";
-	private final TaskExecutor taskExecutor;
+	private static final String STARTING_ASYNC = "Starting Mongobee asynchronously";
+	private static final String STARTING_SYNC = "Starting Mongobee synchronously";
+	private static final String EXCEPTION = "Mongobee could not start correctly, your database is not ready: {}";
+	private static final String STARTED = "Mongobee has updated your database in {} ms";
+	private static final String SLOWNESS = "Mongobee took more than {} seconds to start up!";
 
-	private final Environment environment;
+	private static final long SLOWNESS_THRESHOLD = 5;
 
-	public AsyncMongobee(
-		MongoClient mongoClient, Environment environment, TaskExecutor taskExecutor) {
+	private final boolean aysnc;
+
+	private final AsyncTaskExecutor executor;
+
+	public AsyncMongobee(boolean aysnc, AsyncTaskExecutor executor, MongoClient mongoClient) {
 		super(mongoClient);
-		this.environment = environment;
-		this.taskExecutor = taskExecutor;
+		this.aysnc = aysnc;
+		this.executor = executor;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		if (environment.acceptsProfiles(
-			Profiles.of(SpringProfiles.SPRING_PROFILE_DEVELOPMENT))) {
-			taskExecutor.execute(
+		if (aysnc) {
+			executor.execute(
 				() -> {
 					try {
-						log.debug(MSG_STARTING_ASYNC);
+						log.debug(STARTING_ASYNC);
 						initDb();
 					} catch (Exception e) {
-						log.error(MSG_EXCEPTION, e.getMessage(), e);
+						log.error(EXCEPTION, e.getMessage(), e);
 					}
 				});
 		} else {
-			log.debug(MSG_STARTING_SYNC);
+			log.debug(STARTING_SYNC);
 			initDb();
 		}
 	}
 
 	protected void initDb() throws Exception {
-		StopWatch watch = new StopWatch();
-		watch.start(STOP_WATCH_ID);
+		StopWatch watch = new StopWatch("mongobee");
+		watch.start();
 		super.afterPropertiesSet();
 		watch.stop();
-		log.debug(MSG_STARTED, watch.getTotalTimeMillis());
+		log.debug(STARTED, watch.getTotalTimeMillis());
 		if (watch.getTotalTimeMillis() > SLOWNESS_THRESHOLD * 1000L) {
-			log.warn(MSG_SLOWNESS, SLOWNESS_THRESHOLD);
+			log.warn(SLOWNESS, SLOWNESS_THRESHOLD);
 		}
 	}
 }
