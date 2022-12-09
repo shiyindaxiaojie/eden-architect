@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -85,7 +85,7 @@ public class MongobeeAutoConfiguration {
 
 	@Bean
 	public Mongobee mongobee(InfoContributorProvider infoContributorProvider,
-		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) TaskExecutor taskExecutor) {
+		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor) {
 		log.debug(MSG_AUTOWIRED_MONGOBEE);
 		Mongobee mongobee = new AsyncMongobee(mongobeeProperties.isAsync(), taskExecutor, mongoClient);
 		mongobee.setDbName(mongoProperties.getMongoClientDatabase());

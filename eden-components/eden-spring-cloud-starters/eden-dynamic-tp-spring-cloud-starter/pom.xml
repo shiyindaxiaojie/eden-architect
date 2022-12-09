@@ -23,14 +23,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.ylzl</groupId>
-		<artifactId>eden-spring-boot-starters</artifactId>
+		<artifactId>eden-spring-cloud-starters</artifactId>
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-mq-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Message Queue</description>
+	<name>eden-dynamic-tp-spring-cloud-starter</name>
+	<description>Spring Cloud Starter For Dynamic Thread Pool</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
@@ -46,23 +46,31 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- 通用组件 -->
+		<!-- DynamicTP -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-dynamic-mq</artifactId>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-cloud-starter-nacos</artifactId>
 		</dependency>
-
-		<!-- Kafka -->
 		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!-- RocketMQ -->
 		<dependency>
-			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot-starter</artifactId>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
 			<optional>true</optional>
 		</dependency>
     </dependencies>
