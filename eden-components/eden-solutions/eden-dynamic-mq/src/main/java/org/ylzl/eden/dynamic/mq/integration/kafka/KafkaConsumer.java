@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.ylzl.eden.dynamic.mq.integration.kafka;
 
 import com.google.common.collect.Lists;
@@ -12,12 +28,12 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.dynamic.mq.model.Message;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.dynamic.mq.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.MessageQueueListener;
-import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.dynamic.mq.integration.kafka.config.KafkaConfig;
+import org.ylzl.eden.dynamic.mq.model.Message;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,13 +60,13 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final List<Consumer<String, String>> consumers = Lists.newArrayList();
 
-	private final Function<String, Boolean> matcher;
-
-	private final KafkaProperties kafkaProperties;
+	private final KafkaConfig kafkaConfig;
 
 	private final List<MessageQueueConsumer> messageQueueConsumers;
 
 	private final ConsumerFactory<String, String> consumerFactory;
+
+	private final Function<String, Boolean> matcher;
 
 	@Override
 	public void afterPropertiesSet() {
@@ -68,11 +84,11 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 				while (true) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
-							consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
+							consumer.poll(kafkaConfig.getConsumer().getFetchMaxWait());
 						if (consumerRecords == null || consumerRecords.isEmpty()) {
 							continue;
 						}
-						int maxPollRecords = kafkaProperties.getConsumer().getMaxPollRecords();
+						int maxPollRecords = kafkaConfig.getConsumer().getMaxPollRecords();
 						Map<TopicPartition, OffsetAndMetadata> offsets = Maps.newHashMapWithExpectedSize(maxPollRecords);
 						List<Message> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
 						consumerRecords.forEach(record -> {
@@ -110,13 +126,13 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		String topic = annotation.topic();
 
 		String group = null;
-		if (StringUtils.isNotBlank(annotation.group())) {
+		if (StringUtils.isNotBlank(kafkaConfig.getConsumer().getGroupId())) {
+			group = kafkaConfig.getConsumer().getGroupId() + Strings.UNDERLINE + topic;
+		} else if (StringUtils.isNotBlank(annotation.group())) {
 			group = annotation.group();
-		} else if (StringUtils.isNotBlank(kafkaProperties.getConsumer().getGroupId())) {
-			group = kafkaProperties.getConsumer().getGroupId() + Strings.UNDERLINE + topic;
 		}
 
-		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaProperties.getClientId());
+		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaConfig.getClientId());
 		consumer.subscribe(Collections.singleton(topic));
 
 		log.debug(CREATE_CONSUMER_FROM_CONSUMER_FACTORY_GROUP_TOPIC, group, topic);

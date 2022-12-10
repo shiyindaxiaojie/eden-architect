@@ -1,3 +1,19 @@
+/*
+ * Copyright 2012-2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.ylzl.eden.dynamic.mq.integration.rocketmq;
 
 import lombok.RequiredArgsConstructor;
@@ -8,11 +24,11 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
-import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
+import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
+import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
-import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQProducerConfig;
 
 import java.nio.charset.StandardCharsets;
 
@@ -30,9 +46,9 @@ public class RocketMQProvider implements MessageQueueProvider {
 
 	private static final String ROCKETMQ_PROVIDER_CONSUME_ERROR = "RocketMQProvider send error: {}";
 
-	private final RocketMQTemplate rocketMQTemplate;
+	private final RocketMQConfig rocketMQConfig;
 
-	private final RocketMQProducerConfig rocketMQProducerConfig;
+	private final RocketMQTemplate rocketMQTemplate;
 
 	/**
 	 * 同步发送消息
@@ -64,10 +80,10 @@ public class RocketMQProvider implements MessageQueueProvider {
 	@Override
 	public void asyncSend(Message message, MessageSendCallback messageCallback) {
 		DefaultMQProducer producer = rocketMQTemplate.getProducer();
-		if (StringUtils.isNotBlank(message.getNamespace())) {
+		if (StringUtils.isNotBlank(rocketMQConfig.getProducer().getNamespace())) {
+			producer.setNamespace(rocketMQConfig.getProducer().getNamespace());
+		} else if (StringUtils.isNotBlank(message.getNamespace())) {
 			producer.setNamespace(message.getNamespace());
-		} else if (StringUtils.isNotBlank(rocketMQProducerConfig.getNamespace())) {
-			producer.setNamespace(rocketMQProducerConfig.getNamespace());
 		}
 
 		try {
