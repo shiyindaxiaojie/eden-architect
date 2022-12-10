@@ -19,7 +19,8 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnProperty(
 	prefix = MessageQueueProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
 )
 @EnableConfigurationProperties(MessageQueueProperties.class)
 @RequiredArgsConstructor

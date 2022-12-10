@@ -1,4 +1,4 @@
-package org.ylzl.eden.dynamic.cache.core;
+package org.ylzl.eden.dynamic.cache.spring;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.support.AbstractValueAdaptingCache;

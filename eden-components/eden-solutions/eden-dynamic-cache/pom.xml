@@ -99,6 +99,16 @@
 		<dependency>
 			<groupId>com.jd.platform.hotkey</groupId>
 			<artifactId>common</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>grpc-api</artifactId>
+					<groupId>io.grpc</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>perfmark-api</artifactId>
+					<groupId>io.perfmark</groupId>
+				</exclusion>
+			</exclusions>
 			<!--<scope>system</scope>
 			<systemPath>${project.basedir}/lib/common-0.0.4-SNAPSHOT.jar</systemPath>-->
 		</dependency>
@@ -107,6 +117,12 @@
 			<artifactId>hotkey-client</artifactId>
 			<!--<scope>system</scope>
 			<systemPath>${project.basedir}/lib/hotkey-client-0.0.4-SNAPSHOT.jar</systemPath>-->
+		</dependency>
+
+		<!-- Spring Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
 		</dependency>
 	</dependencies>
 </project>

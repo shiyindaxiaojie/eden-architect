@@ -16,7 +16,7 @@ import org.ylzl.eden.dynamic.sms.spring.boot.support.SmsBeanNames;
 @ConfigurationProperties(prefix = SmsProperties.PREFIX)
 public class SmsProperties {
 
-	public static final String PREFIX = "dynamic-sms";
+	public static final String PREFIX = "spring.sms.dynamic";
 
 	private Boolean enabled;
 

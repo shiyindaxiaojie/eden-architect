@@ -1,4 +1,4 @@
-package org.ylzl.eden.dynamic.cache.core;
+package org.ylzl.eden.dynamic.cache.spring;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

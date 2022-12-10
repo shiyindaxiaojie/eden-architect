@@ -8,11 +8,11 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
-import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
+import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
+import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
-import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQProducerConfig;
 
 import java.nio.charset.StandardCharsets;
 
@@ -30,9 +30,9 @@ public class RocketMQProvider implements MessageQueueProvider {
 
 	private static final String ROCKETMQ_PROVIDER_CONSUME_ERROR = "RocketMQProvider send error: {}";
 
-	private final RocketMQTemplate rocketMQTemplate;
+	private final RocketMQConfig rocketMQConfig;
 
-	private final RocketMQProducerConfig rocketMQProducerConfig;
+	private final RocketMQTemplate rocketMQTemplate;
 
 	/**
 	 * 同步发送消息
@@ -64,10 +64,10 @@ public class RocketMQProvider implements MessageQueueProvider {
 	@Override
 	public void asyncSend(Message message, MessageSendCallback messageCallback) {
 		DefaultMQProducer producer = rocketMQTemplate.getProducer();
-		if (StringUtils.isNotBlank(message.getNamespace())) {
+		if (StringUtils.isNotBlank(rocketMQConfig.getProducer().getNamespace())) {
+			producer.setNamespace(rocketMQConfig.getProducer().getNamespace());
+		} else if (StringUtils.isNotBlank(message.getNamespace())) {
 			producer.setNamespace(message.getNamespace());
-		} else if (StringUtils.isNotBlank(rocketMQProducerConfig.getNamespace())) {
-			producer.setNamespace(rocketMQProducerConfig.getNamespace());
 		}
 
 		try {

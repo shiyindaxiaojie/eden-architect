@@ -1,4 +1,4 @@
-package org.ylzl.eden.arthas.spring.boot.listener;
+package org.ylzl.eden.arthas.spring.boot.autoconfigure;
 
 import com.alibaba.arthas.spring.ArthasProperties;
 import com.taobao.arthas.agent.attach.ArthasAgent;
@@ -10,7 +10,6 @@ import org.springframework.cloud.context.environment.EnvironmentChangeEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.arthas.spring.boot.autoconfigure.ArthasAutoConfiguration;
 import org.ylzl.eden.arthas.spring.boot.env.SpringArthasProperties;
 
 import java.util.Map;

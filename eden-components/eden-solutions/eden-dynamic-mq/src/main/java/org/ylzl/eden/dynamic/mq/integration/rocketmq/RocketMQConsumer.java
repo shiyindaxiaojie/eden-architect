@@ -1,6 +1,8 @@
 package org.ylzl.eden.dynamic.mq.integration.rocketmq;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -13,17 +15,17 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.RPCHook;
-import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.dynamic.mq.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.MessageQueueListener;
 import org.ylzl.eden.dynamic.mq.consumer.MessageConsumeException;
+import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.dynamic.mq.model.Message;
-import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConsumerConfig;
-import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
@@ -45,15 +47,14 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 
 	private static final String CREATE_DEFAULT_MQPUSH_CONSUMER_GROUP_NAMESPACE_TOPIC = "Create DefaultMQPushConsumer, group: {}, namespace: {}, topic: {}";
 
-	private final List<DefaultMQPushConsumer> consumers = Lists.newArrayList();
+	@Getter
+	private final Map<String, DefaultMQPushConsumer> consumers = Maps.newConcurrentMap();
 
-	private final Function<String, Boolean> matcher;
-
-	private final RocketMQProperties rocketMQProperties;
-
-	private final RocketMQConsumerConfig rocketMQConsumerConfig;
+	private final RocketMQConfig rocketMQConfig;
 
 	private final List<MessageQueueConsumer> messageQueueConsumers;
+
+	private final Function<String, Boolean> matcher;
 
 	@Override
 	public void afterPropertiesSet() {
@@ -67,7 +68,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 				if (consumer == null) {
 					continue;
 				}
-				consumers.add(consumer);
+
 				consumer.registerMessageListener((MessageListenerConcurrently) (messageExts, context) -> {
 					AtomicReference<ConsumeConcurrentlyStatus> status = new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
 					List<Message> messages = Lists.newArrayListWithCapacity(messageExts.size());
@@ -101,7 +102,9 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 	@Override
 	public void destroy() {
 		log.debug(DESTROY_ROCKETMQ_CONSUMER);
-		consumers.forEach(DefaultMQPushConsumer::shutdown);
+		consumers.forEach((k, v) -> {
+			v.shutdown();
+		});
 	}
 
 	private DefaultMQPushConsumer createConsumer(MessageQueueConsumer messageQueueConsumer) throws MQClientException {
@@ -112,44 +115,44 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 		}
 
 		String namespace = null;
-		if (StringUtils.isNotBlank(rocketMQConsumerConfig.getNamespace())) {
-			namespace = rocketMQConsumerConfig.getNamespace();
+		if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getNamespace())) {
+			namespace = rocketMQConfig.getConsumer().getNamespace();
 		}
 
 		String topic = null;
 		if (StringUtils.isNotBlank(annotation.topic())) {
 			topic = annotation.topic();
-		} else if (StringUtils.isNotBlank(rocketMQConsumerConfig.getTopic())) {
-			topic = rocketMQConsumerConfig.getTopic();
+		} else if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getTopic())) {
+			topic = rocketMQConfig.getConsumer().getTopic();
 		}
 
 		String group = null;
 		if (StringUtils.isNotBlank(annotation.group())) {
 			group = annotation.group();
-		} else if (StringUtils.isNotBlank(rocketMQConsumerConfig.getGroup())) {
-			group = rocketMQConsumerConfig.getGroup() + Strings.UNDERLINE + topic;
+		} else if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getGroup())) {
+			group = rocketMQConfig.getConsumer().getGroup() + Strings.UNDERLINE + topic;
 		}
 
 		String selectorExpression = null;
 		if (StringUtils.isNotBlank(annotation.selectorExpression())) {
 			selectorExpression = annotation.selectorExpression();
-		} else if (StringUtils.isNotBlank(rocketMQConsumerConfig.getSelectorExpression())) {
-			selectorExpression = rocketMQConsumerConfig.getSelectorExpression();
+		} else if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getSelectorExpression())) {
+			selectorExpression = rocketMQConfig.getConsumer().getSelectorExpression();
 		}
 
 		RPCHook rpcHook = null;
-		if (StringUtils.isNotBlank(rocketMQConsumerConfig.getAccessKey()) &&
-			StringUtils.isNotBlank(rocketMQConsumerConfig.getSecretKey())) {
+		if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getAccessKey()) &&
+			StringUtils.isNotBlank(rocketMQConfig.getConsumer().getSecretKey())) {
 			rpcHook = new AclClientRPCHook(new SessionCredentials(
-				rocketMQConsumerConfig.getAccessKey(),
-				rocketMQConsumerConfig.getSecretKey()));
+				rocketMQConfig.getConsumer().getAccessKey(),
+				rocketMQConfig.getConsumer().getSecretKey()));
 		}
 
 		int pullBatchSize = 32;
 		if (annotation.pullBatchSize() > 0) {
 			pullBatchSize = annotation.pullBatchSize();
-		} else if (rocketMQConsumerConfig.getPullBatchSize() > 0) {
-			pullBatchSize = rocketMQConsumerConfig.getPullBatchSize();
+		} else if (rocketMQConfig.getConsumer().getPullBatchSize() > 0) {
+			pullBatchSize = rocketMQConfig.getConsumer().getPullBatchSize();
 		}
 
 		int consumeMessageBatchMaxSize = 1;
@@ -158,13 +161,14 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean {
 		}
 
 		DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(namespace, group, rpcHook);
-		consumer.setNamesrvAddr(rocketMQProperties.getNameServer());
+		consumer.setNamesrvAddr(rocketMQConfig.getNameServer());
 		consumer.subscribe(topic, selectorExpression);
 		consumer.setPullBatchSize(pullBatchSize);
 		consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
-		consumer.setMessageModel(MessageModel.valueOf(rocketMQConsumerConfig.getMessageModel()));
+		consumer.setMessageModel(MessageModel.valueOf(rocketMQConfig.getConsumer().getMessageModel()));
 
 		log.debug(CREATE_DEFAULT_MQPUSH_CONSUMER_GROUP_NAMESPACE_TOPIC, group, namespace, topic);
+		consumers.put(topic, consumer);
 		return consumer;
 	}
 }

@@ -12,12 +12,12 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.dynamic.mq.model.Message;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.dynamic.mq.MessageQueueConsumer;
 import org.ylzl.eden.dynamic.mq.MessageQueueListener;
-import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.dynamic.mq.integration.kafka.config.KafkaConfig;
+import org.ylzl.eden.dynamic.mq.model.Message;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,13 +44,13 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final List<Consumer<String, String>> consumers = Lists.newArrayList();
 
-	private final Function<String, Boolean> matcher;
-
-	private final KafkaProperties kafkaProperties;
+	private final KafkaConfig kafkaConfig;
 
 	private final List<MessageQueueConsumer> messageQueueConsumers;
 
 	private final ConsumerFactory<String, String> consumerFactory;
+
+	private final Function<String, Boolean> matcher;
 
 	@Override
 	public void afterPropertiesSet() {
@@ -68,11 +68,11 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 				while (true) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
-							consumer.poll(kafkaProperties.getConsumer().getFetchMaxWait());
+							consumer.poll(kafkaConfig.getConsumer().getFetchMaxWait());
 						if (consumerRecords == null || consumerRecords.isEmpty()) {
 							continue;
 						}
-						int maxPollRecords = kafkaProperties.getConsumer().getMaxPollRecords();
+						int maxPollRecords = kafkaConfig.getConsumer().getMaxPollRecords();
 						Map<TopicPartition, OffsetAndMetadata> offsets = Maps.newHashMapWithExpectedSize(maxPollRecords);
 						List<Message> messages = Lists.newArrayListWithCapacity(consumerRecords.count());
 						consumerRecords.forEach(record -> {
@@ -110,13 +110,13 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		String topic = annotation.topic();
 
 		String group = null;
-		if (StringUtils.isNotBlank(annotation.group())) {
+		if (StringUtils.isNotBlank(kafkaConfig.getConsumer().getGroupId())) {
+			group = kafkaConfig.getConsumer().getGroupId() + Strings.UNDERLINE + topic;
+		} else if (StringUtils.isNotBlank(annotation.group())) {
 			group = annotation.group();
-		} else if (StringUtils.isNotBlank(kafkaProperties.getConsumer().getGroupId())) {
-			group = kafkaProperties.getConsumer().getGroupId() + Strings.UNDERLINE + topic;
 		}
 
-		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaProperties.getClientId());
+		Consumer<String, String> consumer = consumerFactory.createConsumer(group, kafkaConfig.getClientId());
 		consumer.subscribe(Collections.singleton(topic));
 
 		log.debug(CREATE_CONSUMER_FROM_CONSUMER_FACTORY_GROUP_TOPIC, group, topic);

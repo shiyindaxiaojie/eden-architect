@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.arthas.spring.boot.env.SpringArthasProperties;
-import org.ylzl.eden.arthas.spring.boot.listener.ArthasEnvironmentChangeListener;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 
 import java.util.HashMap;

@@ -102,6 +102,7 @@
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
 		<jnanoid.version>2.0.0</jnanoid.version>
 		<snakeyaml.version>1.33</snakeyaml.version>
+		<dynamictp.version>1.0.9</dynamictp.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.29</mysql.version>
@@ -517,6 +518,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-elasticsearch-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -705,6 +711,11 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-apollo-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1177,6 +1188,42 @@
 				<groupId>org.yaml</groupId>
 				<artifactId>snakeyaml</artifactId>
 				<version>${snakeyaml.version}</version>
+			</dependency>
+			<!-- Dynamic TP -->
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-cloud-starter-nacos</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
+				<version>${dynamictp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.dynamictp</groupId>
+				<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
+				<version>${dynamictp.version}</version>
 			</dependency>
 
 			<!-- 数据库 -->

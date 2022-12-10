@@ -46,6 +46,7 @@
 		<module>eden-dynamic-mail-spring-boot-starter</module>
 		<module>eden-dynamic-mq-spring-boot-starter</module>
 		<module>eden-dynamic-sms-spring-boot-starter</module>
+		<module>eden-dynamic-tp-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-flow-compose-spring-boot-starter</module>
 		<module>eden-flyway-spring-boot-starter</module>
