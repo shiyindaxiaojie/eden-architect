@@ -16,7 +16,7 @@ import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;
 @ConfigurationProperties(prefix = MailProperties.PREFIX)
 public class MailProperties {
 
-	public static final String PREFIX = "dynamic-mail";
+	public static final String PREFIX = "spring.mail.dynamic";
 
 	private Boolean enabled;
 

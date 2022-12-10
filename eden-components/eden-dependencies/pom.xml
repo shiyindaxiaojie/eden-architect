@@ -715,6 +715,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -726,11 +731,6 @@
 			<dependency>
 				<groupId>org.ylzl</groupId>
 				<artifactId>eden-eureka-server-spring-cloud-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>

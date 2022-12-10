@@ -16,9 +16,7 @@ import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanNames;
 @ConfigurationProperties(prefix = MessageQueueProperties.PREFIX)
 public class MessageQueueProperties {
 
-	public static final String PREFIX = "dynamic-mq";
-
-	public static final String ENABLED = PREFIX + ".enabled";
+	public static final String PREFIX = "spring.message-queue.dynamic";
 
 	private Boolean enabled;
 

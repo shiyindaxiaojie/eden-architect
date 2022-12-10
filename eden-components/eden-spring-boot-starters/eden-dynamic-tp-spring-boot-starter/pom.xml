@@ -51,5 +51,37 @@
 			<groupId>cn.dynamictp</groupId>
 			<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>cn.dynamictp</groupId>
+			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
+			<optional>true</optional>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot</artifactId>
+            <version>2.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ylzl</groupId>
+            <artifactId>eden-dynamic-mq</artifactId>
+        </dependency>
     </dependencies>
 </project>

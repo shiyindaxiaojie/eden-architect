@@ -1,6 +1,7 @@
 package org.ylzl.eden.zipkin2.spring.cloud.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,6 +17,7 @@ import org.ylzl.eden.zipkin2.spring.cloud.env.CustomSleuthWebProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnExpression("${spring.zipkin.enabled:false}")
 @ConditionalOnProperty(
 	prefix = "spring.sleuth",
 	name = "web.servlet.enabled",
