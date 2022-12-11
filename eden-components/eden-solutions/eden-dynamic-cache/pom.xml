@@ -36,16 +36,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-commons</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>error_prone_annotations</artifactId>
-					<groupId>com.google.errorprone</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>checker-qual</artifactId>
-					<groupId>org.checkerframework</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>

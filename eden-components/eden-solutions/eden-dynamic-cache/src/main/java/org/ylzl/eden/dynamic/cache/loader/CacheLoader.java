@@ -17,8 +17,8 @@
 package org.ylzl.eden.dynamic.cache.loader;
 
 import org.ylzl.eden.dynamic.cache.config.CacheSpec;
-import org.ylzl.eden.dynamic.cache.level.L2Cache;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.L2Cache;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;
@@ -30,7 +30,7 @@ import java.util.concurrent.Callable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@SPI("local")
+@SPI
 public interface CacheLoader<K, V> extends Serializable {
 
 	/**

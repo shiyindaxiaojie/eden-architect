@@ -19,8 +19,8 @@ package org.ylzl.eden.dynamic.cache.loader;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.dynamic.cache.level.L2Cache;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.L2Cache;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 
 import java.util.function.Function;
 

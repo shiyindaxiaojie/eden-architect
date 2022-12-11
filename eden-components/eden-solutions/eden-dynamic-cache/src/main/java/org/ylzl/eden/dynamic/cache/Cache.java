@@ -16,17 +16,11 @@
 
 package org.ylzl.eden.dynamic.cache;
 
-import org.ylzl.eden.dynamic.cache.value.NullValueUtils;
-import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
+import org.ylzl.eden.dynamic.cache.value.NullValueUtils;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 
 /**
  * 缓存接口
@@ -73,7 +67,7 @@ public interface Cache extends Serializable {
 		}
 		if (type != null && !type.isInstance(value)) {
 			throw new IllegalStateException(MessageFormatUtils.format(
-				"Cached value ‘{}‘ is not of required type ‘{}‘", value, type.getName()));
+				"Cached value '{}' is not of required type '{}'", value, type.getName()));
 		}
 		return (T) value;
 	}
@@ -125,24 +119,18 @@ public interface Cache extends Serializable {
 	 * @return 删除是否成功
 	 */
 	default boolean evictIfPresent(Object key) {
+		Object existingValue = get(key);
+		if (existingValue == null) {
+			return false;
+		}
 		evict(key);
-		return false;
+		return true;
 	}
 
 	/**
 	 * 清空缓存
 	 */
 	void clear();
-
-	/**
-	 * 缓存无效化
-	 *
-	 * @return 清空缓存是否成功
-	 */
-	default boolean invalidate() {
-		clear();
-		return false;
-	}
 
 	/**
 	 * 获取缓存实例ID
@@ -192,73 +180,73 @@ public interface Cache extends Serializable {
 		return NullValueUtils.toStoreValue(userValue, this.isAllowNullValues(), this.getCacheName());
 	}
 
-	default <K, V> Map<K, V> batchGet(Map<K, Object> keyMap, boolean isAllowNullValues) {
-		return new HashMap<>();
-	}
-
-	default <K, V> Map<K, V> batchGet(Map<K, Object> keyMap) {
-		return this.batchGet(keyMap, false);
-	}
-
-	default <K, V> Map<K, V> batchGet(List<K> keyList, Function<K, Object> cacheKeyBuilder) {
-		Map<K, Object> keyMap = new HashMap<>();
-		if (cacheKeyBuilder != null) {
-			keyList.forEach(key -> keyMap.put(key, cacheKeyBuilder.apply(key)));
-		} else {
-			keyList.forEach(key -> keyMap.put(key, key));
-		}
-		return this.batchGet(keyMap);
-	}
-
-	default <K, V> Map<K, V> batchGet(List<K> keyList) {
-		return this.batchGet(keyList, null);
-	}
-
-	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<K, Object> cacheKeyBuilder, Function<List<K>, Map<K, V>> valueLoader, boolean isAllowNullValues) {
-		if (CollectionUtils.isEmpty(keyList)) {
-			return Collections.emptyMap();
-		}
-
-		Map<K, Object> keyMap = new HashMap<>();
-		if (cacheKeyBuilder != null) {
-			keyList.forEach(key -> keyMap.put(key, cacheKeyBuilder.apply(key)));
-		} else {
-			keyList.forEach(key -> keyMap.put(key, key));
-		}
-		return this.batchGetOrLoad(keyMap, valueLoader, isAllowNullValues);
-	}
-
-	default <K, V> Map<K, V> batchGetOrLoad(Map<K, Object> keyMap, Function<List<K>, Map<K, V>> valueLoader, boolean isAllowNullValues) {
-		return Collections.emptyMap();
-	}
-
-	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<K, Object> cacheKeyBuilder, Function<List<K>, Map<K, V>> valueLoader) {
-		return this.batchGetOrLoad(keyList, cacheKeyBuilder, valueLoader, false);
-	}
-
-	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<List<K>, Map<K, V>> valueLoader) {
-		return this.batchGetOrLoad(keyList, null, valueLoader, false);
-	}
-
-	default <K, V> void batchPut(Map<K, V> dataMap, Function<K, Object> cacheKeyBuilder) {
-		if (CollectionUtils.isEmpty(dataMap)) {
-			return;
-		}
-		Map<Object, V> dataMapTemp = new HashMap<>();
-		if (cacheKeyBuilder != null) {
-			dataMap.forEach((key, value) -> {
-				dataMapTemp.put(cacheKeyBuilder.apply(key), value);
-			});
-		} else {
-			dataMapTemp.putAll(dataMap);
-		}
-		this.batchPut(dataMapTemp);
-	}
-
-	default <V> void batchPut(Map<Object, V> dataMap) {
-		if (CollectionUtils.isEmpty(dataMap)) {
-			return;
-		}
-		dataMap.forEach(this::put);
-	}
+//	default <K, V> Map<K, V> batchGet(Map<K, Object> keyMap, boolean isAllowNullValues) {
+//		return new HashMap<>();
+//	}
+//
+//	default <K, V> Map<K, V> batchGet(Map<K, Object> keyMap) {
+//		return this.batchGet(keyMap, false);
+//	}
+//
+//	default <K, V> Map<K, V> batchGet(List<K> keyList, Function<K, Object> cacheKeyBuilder) {
+//		Map<K, Object> keyMap = Maps.newHashMap();
+//		if (cacheKeyBuilder != null) {
+//			keyList.forEach(key -> keyMap.put(key, cacheKeyBuilder.apply(key)));
+//		} else {
+//			keyList.forEach(key -> keyMap.put(key, key));
+//		}
+//		return this.batchGet(keyMap);
+//	}
+//
+//	default <K, V> Map<K, V> batchGet(List<K> keyList) {
+//		return this.batchGet(keyList, null);
+//	}
+//
+//	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<K, Object> cacheKeyBuilder, Function<List<K>, Map<K, V>> valueLoader, boolean isAllowNullValues) {
+//		if (CollectionUtils.isEmpty(keyList)) {
+//			return Collections.emptyMap();
+//		}
+//
+//		Map<K, Object> keyMap = Maps.newHashMap();
+//		if (cacheKeyBuilder != null) {
+//			keyList.forEach(key -> keyMap.put(key, cacheKeyBuilder.apply(key)));
+//		} else {
+//			keyList.forEach(key -> keyMap.put(key, key));
+//		}
+//		return this.batchGetOrLoad(keyMap, valueLoader, isAllowNullValues);
+//	}
+//
+//	default <K, V> Map<K, V> batchGetOrLoad(Map<K, Object> keyMap, Function<List<K>, Map<K, V>> valueLoader, boolean isAllowNullValues) {
+//		return Collections.emptyMap();
+//	}
+//
+//	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<K, Object> cacheKeyBuilder, Function<List<K>, Map<K, V>> valueLoader) {
+//		return this.batchGetOrLoad(keyList, cacheKeyBuilder, valueLoader, false);
+//	}
+//
+//	default <K, V> Map<K, V> batchGetOrLoad(List<K> keyList, Function<List<K>, Map<K, V>> valueLoader) {
+//		return this.batchGetOrLoad(keyList, null, valueLoader, false);
+//	}
+//
+//	default <K, V> void batchPut(Map<K, V> dataMap, Function<K, Object> cacheKeyBuilder) {
+//		if (CollectionUtils.isEmpty(dataMap)) {
+//			return;
+//		}
+//		Map<Object, V> dataMapTemp = Maps.newHashMap();
+//		if (cacheKeyBuilder != null) {
+//			dataMap.forEach((key, value) -> {
+//				dataMapTemp.put(cacheKeyBuilder.apply(key), value);
+//			});
+//		} else {
+//			dataMapTemp.putAll(dataMap);
+//		}
+//		this.batchPut(dataMapTemp);
+//	}
+//
+//	default <V> void batchPut(Map<Object, V> dataMap) {
+//		if (CollectionUtils.isEmpty(dataMap)) {
+//			return;
+//		}
+//		dataMap.forEach(this::put);
+//	}
 }

@@ -25,7 +25,7 @@ import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
 import org.ylzl.eden.dynamic.cache.factory.CacheFactory;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 import java.util.Collection;

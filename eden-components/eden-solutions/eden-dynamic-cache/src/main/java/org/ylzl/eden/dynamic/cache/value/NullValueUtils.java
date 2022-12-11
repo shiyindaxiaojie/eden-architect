@@ -42,7 +42,7 @@ public class NullValueUtils {
 				return NullValue.INSTANCE;
 			}
 			throw new IllegalArgumentException(MessageFormatUtils.format(
-				"Cache ‘{}‘ is configured to not allow null values but null was provided", cacheName));
+				"Cache '{}' is configured to not allow null values but null was provided", cacheName));
 		}
 		return value;
 	}

@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.level;
+package org.ylzl.eden.dynamic.cache.consistency;

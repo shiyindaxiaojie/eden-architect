@@ -20,7 +20,7 @@ import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.config.CacheSpec;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;

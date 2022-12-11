@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.level;
+package org.ylzl.eden.dynamic.cache;
 
-import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 
 import java.util.Collection;
 import java.util.Set;

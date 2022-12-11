@@ -14,22 +14,36 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.sync;
+package org.ylzl.eden.spring.data.redis.redisson;
 
-import org.ylzl.eden.dynamic.cache.model.CacheInfo;
+import lombok.experimental.UtilityClass;
+import org.redisson.config.Config;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * 缓存同步监听器
+ * Redisson 助手
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface CacheSyncListener {
+@UtilityClass
+public class RedissonHelper {
 
 	/**
-	 * 消息处理
+	 * 解析 Redisson 配置文件
 	 *
-	 * @param info 缓存信息
+	 * @param yaml 配置文件路径
+	 * @return Config
+	 * @throws IOException 读取配置文件异常
 	 */
-	void onMessage(CacheInfo info);
+	public static Config fromYAML(String yaml) throws IOException {
+		try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(yaml)) {
+			if (is == null) {
+				throw new IllegalStateException("not found redisson yaml config file:" + yaml);
+			}
+			return Config.fromYAML(is);
+		}
+	}
 }

@@ -17,8 +17,8 @@
 package org.ylzl.eden.dynamic.cache.loader;
 
 import org.ylzl.eden.dynamic.cache.config.CacheSpec;
-import org.ylzl.eden.dynamic.cache.level.L2Cache;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.L2Cache;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 
 import java.util.concurrent.Callable;
 

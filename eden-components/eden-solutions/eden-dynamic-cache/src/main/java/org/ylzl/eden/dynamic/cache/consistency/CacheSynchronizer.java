@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.level;
+package org.ylzl.eden.dynamic.cache.consistency;
 
-import org.ylzl.eden.dynamic.cache.Cache;
+import org.ylzl.eden.extension.SPI;
 
 /**
- * 二级缓存接口
+ * 缓存同步器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface L2Cache extends Cache {
+@SPI
+public interface CacheSynchronizer {
 
 	/**
-	 * 构建key
+	 * 建立连接，订阅消息
 	 */
-	Object buildKey(Object key);
-
-	/**
-	 * 获取缓存过期时间
-	 */
-	long getExpireTime();
+	void connnect();
 }

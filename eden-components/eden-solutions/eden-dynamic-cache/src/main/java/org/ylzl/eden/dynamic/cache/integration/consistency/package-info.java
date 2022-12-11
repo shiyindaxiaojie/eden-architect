@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.integration.sync.rocketmq;
+package org.ylzl.eden.dynamic.cache.integration.consistency;

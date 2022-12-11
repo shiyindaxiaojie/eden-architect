@@ -141,6 +141,11 @@
 			<artifactId>commons-pool2</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- Hazelcast -->
 		<dependency>
@@ -379,5 +384,5 @@
 			<artifactId>groovy</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>

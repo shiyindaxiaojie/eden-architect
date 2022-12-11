@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.sync;
+package org.ylzl.eden.dynamic.cache.integration.consistency.kafka;

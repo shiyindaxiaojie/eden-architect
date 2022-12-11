@@ -21,10 +21,10 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.level.AbstractAdaptingCache;
-import org.ylzl.eden.dynamic.cache.level.L1Cache;
+import org.ylzl.eden.dynamic.cache.AbstractAdaptingCache;
+import org.ylzl.eden.dynamic.cache.L1Cache;
 import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
 
 import java.util.concurrent.Callable;
 
