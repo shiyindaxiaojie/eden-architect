@@ -19,13 +19,14 @@ package org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.dynamic.cache.builder.AbstractCacheBuilder;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.config.CacheSpec;
+import org.ylzl.eden.dynamic.cache.exception.CacheSpecException;
 import org.ylzl.eden.dynamic.cache.expire.CacheExpiredCause;
 import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
 import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 import java.util.HashMap;
@@ -90,19 +91,18 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder<CaffeineCache> {
 		if (caffeineSpec != null) {
 			return caffeineSpec;
 		}
+
 		String spec = this.getCaffeineSpec(cacheName, cacheConfig);
 		if (StringUtils.isBlank(spec)) {
-			throw new RuntimeException("Please setting caffeine spec config");
+			throw new CacheSpecException("Please setting caffeine spec config");
 		}
-		CustomCaffeineSpec newCaffeineSpec = CustomCaffeineSpec.parse(spec);
-		caffeineSpecMap.put(cacheName, newCaffeineSpec);
-		return newCaffeineSpec;
+
+		CustomCaffeineSpec parseCaffeineSpec = CustomCaffeineSpec.parse(spec);
+		caffeineSpecMap.put(cacheName, parseCaffeineSpec);
+		return parseCaffeineSpec;
 	}
 
 	private String getCaffeineSpec(String cacheName, CacheConfig cacheConfig) {
-		if (StringUtils.isBlank(cacheName)) {
-			return cacheConfig.getCaffeine().getDefaultSpec();
-		}
 		String spec = cacheConfig.getCaffeine().getSpecs().get(cacheName);
 		if (StringUtils.isBlank(spec)) {
 			return cacheConfig.getCaffeine().getDefaultSpec();

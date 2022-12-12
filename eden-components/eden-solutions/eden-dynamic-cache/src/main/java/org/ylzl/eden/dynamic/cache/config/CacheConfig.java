@@ -41,66 +41,53 @@ public class CacheConfig {
 	/** 缓存实例ID，默认使用 NanoId */
 	private String instanceId = NanoIdUtils.randomNanoId();
 
-	/** 默认缓存配置 */
-	private Config defaultConfig;
+	/**
+	 * 缓存类型
+	 *
+	 * @see CacheType
+	 */
+	private String cacheType = CacheType.COMPOSITE.name();
 
-	/** 缓存配置集合 */
-	private Map<String, Config> configMap = new HashMap<>();
+	/**
+	 * 允许动态创建缓存
+	 */
+	private boolean dynamic = true;
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Config {
+	/**
+	 * 是否存储 NullValue，可防止缓存穿透
+	 */
+	private boolean allowNullValues = true;
 
-		/**
-		 * 缓存类型
-		 *
-		 * @see CacheType
-		 */
-		private String cacheType = CacheType.COMPOSITE.name();
+	/**
+	 * NullValue 的过期时间（秒）
+	 */
+	private int nullValueExpireInSeconds = 60;
 
-		/**
-		 * 允许动态创建缓存
-		 */
-		private boolean dynamic = true;
+	/**
+	 * NullValue 的最大数量，超出该值后的下一次刷新缓存将进行淘汰
+	 */
+	private int nullValueMaxSize = 2048;
 
-		/**
-		 * 是否存储 NullValue，可防止缓存穿透
-		 */
-		private boolean allowNullValues = true;
+	/**
+	 * NullValue 的清理频率
+	 */
+	private int nullValueClearPeriodSeconds = 10;
 
-		/**
-		 * NullValue 的过期时间（秒）
-		 */
-		private int nullValueExpireInSeconds = 60;
+	private final Composite composite = new Composite();
 
-		/**
-		 * NullValue 的最大数量，超出该值后的下一次刷新缓存将进行淘汰
-		 */
-		private int nullValueMaxSize = 2048;
+	private final Caffeine caffeine = new Caffeine();
 
-		/**
-		 * NullValue 的清理频率
-		 */
-		private int nullValueClearPeriodSeconds = 10;
+	private final Guava guava = new Guava();
 
-		private final Composite composite = new Composite();
+	private final Ehcache ehcache = new Ehcache();
 
-		private final Caffeine caffeine = new Caffeine();
+	private final Redis redis = new Redis();
 
-		private final Guava guava = new Guava();
+	private final Dragonfly dragonfly = new Dragonfly();
 
-		private final Ehcache ehcache = new Ehcache();
+	private final Memcached memcached = new Memcached();
 
-		private final Redis redis = new Redis();
-
-		private final Dragonfly dragonfly = new Dragonfly();
-
-		private final Memcached memcached = new Memcached();
-
-		private final Hazelcast hazelcast = new Hazelcast();
-	}
+	private final Hazelcast hazelcast = new Hazelcast();
 
 	@EqualsAndHashCode
 	@ToString
@@ -143,6 +130,11 @@ public class CacheConfig {
 		 * 默认配置
 		 */
 		private String defaultSpec;
+
+		/**
+		 * 指定配置
+		 */
+		private Map<String, String> specs = new HashMap<>();
 	}
 
 	@EqualsAndHashCode
@@ -170,6 +162,11 @@ public class CacheConfig {
 		 * 默认配置
 		 */
 		private String defaultSpec;
+
+		/**
+		 * 指定配置
+		 */
+		private Map<String, String> specs = new HashMap<>();
 	}
 
 	@EqualsAndHashCode

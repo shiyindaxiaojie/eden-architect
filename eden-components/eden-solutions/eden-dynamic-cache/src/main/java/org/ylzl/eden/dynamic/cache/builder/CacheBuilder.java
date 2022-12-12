@@ -43,7 +43,7 @@ public interface CacheBuilder<T extends Cache> extends Serializable {
 	T build(String cacheName);
 
 	/**
-	 * 解析指定名称的缓存配置
+	 * 解析指定名称的一级缓存配置
 	 *
 	 * @param cacheName
 	 * @return
