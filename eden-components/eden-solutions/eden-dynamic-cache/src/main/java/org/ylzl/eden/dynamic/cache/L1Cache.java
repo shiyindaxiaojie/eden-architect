@@ -16,9 +16,6 @@
 
 package org.ylzl.eden.dynamic.cache;
 
-import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
-
 import java.util.Collection;
 import java.util.Set;
 
@@ -31,25 +28,6 @@ import java.util.Set;
 public interface L1Cache extends Cache {
 
 	/**
-	 * 缓存同步器
-	 *
-	 * @return
-	 */
-	CacheSynchronizer getCacheSynchronizer();
-
-	/**
-	 * 缓存加载器
-	 */
-	<K, V> CacheLoader<K, V> getCacheLoader();
-
-	/**
-	 * 清除指定key的本地缓存
-	 *
-	 * @param key
-	 */
-	void clearLocalCache(Object key);
-
-	/**
 	 * 是否为 LoadingCache
 	 *
 	 * @see com.github.benmanes.caffeine.cache.LoadingCache
@@ -59,9 +37,9 @@ public interface L1Cache extends Cache {
 	boolean isLoadingCache();
 
 	/**
-	 * 刷新指定key的缓存
+	 * 刷新指定 key 的缓存
 	 *
-	 * @param key
+	 * @param key 指定 key
 	 * @see L1Cache#isLoadingCache()
 	 */
 	void refresh(Object key);
@@ -73,24 +51,31 @@ public interface L1Cache extends Cache {
 	void refreshAll();
 
 	/**
-	 * 刷新指定key的过期缓存
+	 * 刷新指定 key 的过期缓存
 	 *
-	 * @param key
+	 * @param key 指定 key
 	 * @see L1Cache#isLoadingCache()
 	 */
-	void refreshExpireCache(Object key);
+	void refreshExpiredCache(Object key);
 
 	/**
 	 * 刷新所有过期缓存
 	 *
 	 * @see L1Cache#isLoadingCache()
 	 */
-	void refreshAllExpireCache();
+	void refreshAllExpiredCache();
 
 	/**
-	 * 获取所有缓存Key
+	 * 清除指定 key 的本地缓存
 	 *
-	 * @return
+	 * @param key 指定 key
+	 */
+	void invalidateLocalCache(Object key);
+
+	/**
+	 * 获取所有缓存 Key
+	 *
+	 * @return 缓存 Key 集合
 	 */
 	default Set<Object> keys() {
 		return null;
@@ -98,6 +83,8 @@ public interface L1Cache extends Cache {
 
 	/**
 	 * 获取所有缓存项
+	 *
+	 * @return 缓存 Key 集合
 	 */
 	default Collection<Object> values() {
 		return null;

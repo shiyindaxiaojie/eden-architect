@@ -16,11 +16,9 @@
 
 package org.ylzl.eden.dynamic.cache.builder;
 
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.config.CacheSpec;
 import org.ylzl.eden.dynamic.cache.Cache;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
+import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
 import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;
@@ -32,81 +30,52 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 @SPI
-public interface CacheBuilder<T extends Cache> extends Serializable {
+public interface CacheBuilder extends Serializable {
 
 	/**
-	 * 构建指定名称的缓存对象
+	 * 设置缓存名称
 	 *
-	 * @param cacheName
-	 * @return
+	 * @param cacheName 缓存名称
+	 * @return CacheBuilder
 	 */
-	T build(String cacheName);
+	CacheBuilder cacheName(String cacheName);
 
 	/**
-	 * 解析指定名称的一级缓存配置
+	 * 设置初始化容量
 	 *
-	 * @param cacheName
-	 * @return
+	 * @param initialCapacity 初始化容量
+	 * @return CacheBuilder
 	 */
-	CacheSpec parseSpec(String cacheName);
+	CacheBuilder initialCapacity(int initialCapacity);
 
 	/**
-	 * 获取缓存配置
+	 * 设置最大容量
 	 *
-	 * @return
+	 * @param maximumSize 最大容量
+	 * @return CacheBuilder
 	 */
-	CacheConfig getCacheConfig();
+	CacheBuilder maximumSize(long maximumSize);
 
 	/**
-	 * 设置缓存配置
+	 * 设置缓存失效监听器
 	 *
-	 * @param cacheConfig
-	 * @return
+	 * @param listener 缓存失效监听器
+	 * @return CacheBuilder
 	 */
-	CacheBuilder<T> setCacheConfig(CacheConfig cacheConfig);
+	CacheBuilder evictionListener(CacheRemovalListener listener);
 
 	/**
-	 * 获取缓存过期监听器
+	 * 构建 Cache 实例
 	 *
-	 * @return
+	 * @return Cache 实例
 	 */
-	CacheExpiredListener<Object, Object> getExpiredListener();
+	Cache build();
 
 	/**
-	 * 设置缓存过期监听器
+	 * 构建 Cache 实例
 	 *
-	 * @param cacheExpiredListener
-	 * @return
+	 * @param cacheLoader 缓存加载器
+	 * @return Cache 实例
 	 */
-	CacheBuilder<T> setExpiredListener(CacheExpiredListener<Object, Object> cacheExpiredListener);
-
-	/**
-	 * 获取缓存同步器
-	 *
-	 * @return
-	 */
-	CacheSynchronizer getCacheSynchronizer();
-
-	/**
-	 * 设置缓存同步器
-	 *
-	 * @param cacheSynchronizer
-	 * @return
-	 */
-	CacheBuilder<T> setCacheSynchronizer(CacheSynchronizer cacheSynchronizer);
-
-	/**
-	 * 获取实际执行的缓存客户端
-	 *
-	 * @return
-	 */
-	Object getCacheClient();
-
-	/**
-	 * 设置实际执行的缓存客户端
-	 *
-	 * @param cacheClient
-	 * @return
-	 */
-	CacheBuilder<T> setCacheClient(Object cacheClient);
+	Cache build(CacheLoader cacheLoader);
 }

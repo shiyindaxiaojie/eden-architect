@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.spring;
+package org.ylzl.eden.dynamic.cache.support.spring;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
@@ -43,12 +43,12 @@ public class SpringCache extends AbstractValueAdaptingCache {
 	/**
 	 * 有参构造函数
 	 *
-	 * @param allowNullValues
+	 * @param allowNullValue
 	 * @param name
 	 * @param cache
 	 */
-	public SpringCache(boolean allowNullValues, String name, Cache cache) {
-		super(allowNullValues);
+	public SpringCache(boolean allowNullValue, String name, Cache cache) {
+		super(allowNullValue);
 		this.name = name;
 		this.cache = cache;
 	}
@@ -65,12 +65,12 @@ public class SpringCache extends AbstractValueAdaptingCache {
 
 	@Override
 	protected Object lookup(@NotNull Object key) {
-		return this.cache.get(key);
+		return this.cache.getIfPresent(key);
 	}
 
 	@Override
 	public ValueWrapper get(@NotNull Object key) {
-		return toValueWrapper(this.cache.get(key));
+		return toValueWrapper(this.cache.getIfPresent(key));
 	}
 
 	@Override
@@ -90,11 +90,11 @@ public class SpringCache extends AbstractValueAdaptingCache {
 
 	@Override
 	public void evict(@NotNull Object key) {
-		this.cache.evict(key);
+		this.cache.invalidate(key);
 	}
 
 	@Override
 	public void clear() {
-		this.cache.clear();
+		this.cache.invalidateAll();
 	}
 }

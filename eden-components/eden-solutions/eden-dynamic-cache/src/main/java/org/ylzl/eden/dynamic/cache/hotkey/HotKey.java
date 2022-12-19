@@ -19,7 +19,6 @@ package org.ylzl.eden.dynamic.cache.hotkey;
 import org.ylzl.eden.extension.SPI;
 
 import java.io.Serializable;
-import java.util.function.Function;
 
 /**
  * 热key探测接口
@@ -30,5 +29,11 @@ import java.util.function.Function;
 @SPI
 public interface HotKey extends Serializable {
 
-	<K> boolean isHotKey(K key, Function<K, Object> builder);
+	/**
+	 * 判断是否为热Key
+	 *
+	 * @param key Key
+	 * @return 是否为热Key
+	 */
+	<K> boolean isHotKey(K key);
 }

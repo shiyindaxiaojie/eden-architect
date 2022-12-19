@@ -16,10 +16,9 @@
 
 package org.ylzl.eden.dynamic.cache.builder;
 
-import org.ylzl.eden.dynamic.cache.Cache;
+import lombok.Getter;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
 
 /**
  * 缓存构造器抽象
@@ -27,101 +26,64 @@ import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractCacheBuilder<T extends Cache> implements CacheBuilder<T>  {
+@Getter
+public abstract class AbstractCacheBuilder implements CacheBuilder {
+
+	private String cacheName;
 
 	private CacheConfig cacheConfig;
 
-	private CacheExpiredListener<Object, Object> cacheExpiredListener;
+	private int initialCapacity;
 
-	private CacheSynchronizer cacheSynchronizer;
+	private long maximumSize;
 
-	private volatile Object cacheClient;
-
-	/**
-	 * 获取缓存配置
-	 *
-	 * @return
-	 */
-	@Override
-	public CacheConfig getCacheConfig() {
-		return this.cacheConfig;
-	}
+	private CacheRemovalListener listener;
 
 	/**
-	 * 设置缓存配置
+	 * 设置缓存名称
 	 *
-	 * @param cacheConfig
-	 * @return
+	 * @param cacheName 缓存名称
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder<T> setCacheConfig(CacheConfig cacheConfig) {
-		this.cacheConfig = cacheConfig;
+	public CacheBuilder cacheName(String cacheName) {
+		this.cacheName = cacheName;
 		return this;
 	}
 
 	/**
-	 * 获取缓存过期监听器
+	 * 设置初始化容量
 	 *
-	 * @return
+	 * @param initialCapacity 初始化容量
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheExpiredListener<Object, Object> getExpiredListener() {
-		return this.cacheExpiredListener;
-	}
-
-	/**
-	 * 设置缓存过期监听器
-	 *
-	 * @param cacheExpiredListener
-	 * @return
-	 */
-	@Override
-	public CacheBuilder<T> setExpiredListener(CacheExpiredListener<Object, Object> cacheExpiredListener) {
-		this.cacheExpiredListener = cacheExpiredListener;
+	public CacheBuilder initialCapacity(int initialCapacity) {
+		this.initialCapacity = initialCapacity;
 		return this;
 	}
 
 	/**
-	 * 获取缓存同步器
+	 * 设置最大容量
 	 *
-	 * @return
+	 * @param maximumSize 最大容量
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheSynchronizer getCacheSynchronizer() {
-		return this.cacheSynchronizer;
-	}
-
-	/**
-	 * 设置缓存同步器
-	 *
-	 * @param cacheSynchronizer
-	 * @return
-	 */
-	@Override
-	public CacheBuilder<T> setCacheSynchronizer(CacheSynchronizer cacheSynchronizer) {
-		this.cacheSynchronizer = cacheSynchronizer;
+	public CacheBuilder maximumSize(long maximumSize) {
+		this.maximumSize = maximumSize;
 		return this;
 	}
 
 	/**
-	 * 获取实际执行的缓存客户端
+	 * 设置缓存失效监听器
 	 *
-	 * @return
+	 * @param listener 缓存失效监听器
+	 * @return CacheBuilder
 	 */
 	@Override
-	public Object getCacheClient() {
-		return this.cacheClient;
-	}
-
-	/**
-	 * 设置实际执行的缓存客户端
-	 *
-	 * @param cacheClient
-	 * @return
-	 */
-	@Override
-	public CacheBuilder<T> setCacheClient(Object cacheClient) {
-		this.cacheClient = cacheClient;
+	public CacheBuilder evictionListener(CacheRemovalListener listener) {
+		this.listener = listener;
 		return this;
 	}
 }

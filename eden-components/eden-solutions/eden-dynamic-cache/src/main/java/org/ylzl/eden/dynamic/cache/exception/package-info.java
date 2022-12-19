@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.strategy;
+package org.ylzl.eden.dynamic.cache.exception;

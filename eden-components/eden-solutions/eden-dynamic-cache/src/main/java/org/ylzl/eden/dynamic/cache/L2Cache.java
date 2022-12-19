@@ -24,13 +24,4 @@ package org.ylzl.eden.dynamic.cache;
  */
 public interface L2Cache extends Cache {
 
-	/**
-	 * 构建key
-	 */
-	Object buildKey(Object key);
-
-	/**
-	 * 获取缓存过期时间
-	 */
-	long getExpireTime();
 }

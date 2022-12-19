@@ -16,13 +16,11 @@
 
 package org.ylzl.eden.dynamic.cache.loader;
 
-import org.ylzl.eden.dynamic.cache.config.CacheSpec;
-import org.ylzl.eden.dynamic.cache.L2Cache;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
-import org.ylzl.eden.extension.SPI;
+import lombok.NonNull;
 
-import java.io.Serializable;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.Executor;
 
 /**
  * 缓存加载器
@@ -30,8 +28,7 @@ import java.util.concurrent.Callable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@SPI
-public interface CacheLoader<K, V> extends Serializable {
+public interface CacheLoader {
 
 	/**
 	 * 根据 Key 加载 Value
@@ -39,48 +36,24 @@ public interface CacheLoader<K, V> extends Serializable {
 	 * @param key 缓存Key
 	 * @return Value
 	 */
-	V load(K key);
+	<K, V> V load(K key);
 
 	/**
-	 * 添加 ValueLoader
+	 * 根据 Key 异步加载 Value
 	 *
 	 * @param key 缓存Key
-	 * @param valueLoader ValueLoader 实例
+	 * @param executor 执行器
+	 * @return CompletableFuture
 	 */
-	void addValueLoader(Object key, Callable<?> valueLoader);
-
-	/**
-	 * 移除 ValueLoader
-	 *
-	 * @param key 缓存Key
-	 */
-	void removeValueLoader(Object key);
-
-	/**
-	 * 设置二级缓存
-	 *
-	 * @param l2Cache 二级缓存实例
-	 */
-	void setL2Cache(L2Cache l2Cache);
-
-	/**
-	 * 设置缓存共享配置
-	 *
-	 * @param cacheSpec 缓存共享配置
-	 */
-	void setCacheSpec(CacheSpec cacheSpec);
-
-	/**
-	 * 设置缓存同步器
-	 *
-	 * @param cacheSynchronizer 缓存同步器
-	 */
-	void setCacheSynchronizer(CacheSynchronizer cacheSynchronizer);
-
-	/**
-	 * 设置是否允许空值
-	 *
-	 * @param allowNullValues 是否允许空值
-	 */
-	void setAllowNullValues(boolean allowNullValues);
+	default <K, V> CompletableFuture<V> asyncLoad(@NonNull K key, @NonNull Executor executor) {
+		return CompletableFuture.supplyAsync(() -> {
+			try {
+				return load(key);
+			} catch (RuntimeException e) {
+				throw e;
+			} catch (Exception e) {
+				throw new CompletionException(e);
+			}
+		}, executor);
+	}
 }

@@ -20,8 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.ylzl.eden.commons.id.NanoIdUtils;
-import org.ylzl.eden.dynamic.cache.enums.CacheType;
+import org.ylzl.eden.dynamic.cache.CacheType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,15 +37,16 @@ import java.util.Map;
 @Getter
 public class CacheConfig {
 
-	/** 缓存实例ID，默认使用 NanoId */
-	private String instanceId = NanoIdUtils.randomNanoId();
-
 	/**
 	 * 缓存类型
 	 *
 	 * @see CacheType
 	 */
 	private String cacheType = CacheType.COMPOSITE.name();
+
+	private int initialCapacity;
+
+	private long maximumSize;
 
 	/**
 	 * 允许动态创建缓存
@@ -56,7 +56,7 @@ public class CacheConfig {
 	/**
 	 * 是否存储 NullValue，可防止缓存穿透
 	 */
-	private boolean allowNullValues = true;
+	private boolean allowNullValue = true;
 
 	/**
 	 * NullValue 的过期时间（秒）

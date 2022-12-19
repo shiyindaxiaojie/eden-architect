@@ -14,44 +14,52 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.loader;
+package org.ylzl.eden.dynamic.cache.support;
 
-import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.dynamic.cache.L2Cache;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
-
-import java.util.function.Function;
+import org.ylzl.eden.dynamic.cache.Cache;
+import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 
 /**
- * TODO
+ * 缓存接口适配器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
-@Slf4j
-public class LoadFunction implements Function<Object, Object> {
-
-	private final String instanceId;
-
-	private final String cacheType;
+public abstract class AbstractAdaptingCache implements Cache {
 
 	private final String cacheName;
 
-	private final L2Cache l2Cache;
+	private final CacheConfig cacheConfig;
 
-	private final CacheSynchronizer cacheSynchronizer;
-
-	private final ValueLoaderWrapper valueLoader;
-
-	private final boolean allowNullValues;
-
-	private Cache<Object, Integer> nullValueCache;
-
+	/**
+	 * 获取缓存名称
+	 *
+	 * @return 缓存名称
+	 */
 	@Override
-	public Object apply(Object key) {
-		return null;
+	public String getCacheName() {
+		return this.cacheName;
+	}
+
+	/**
+	 * 判断是否允许存储 NULL，避免缓存击穿
+	 *
+	 * @return 是否允许存储 NULL
+	 */
+	@Override
+	public boolean isAllowNullValue() {
+		return cacheConfig.isAllowNullValue();
+	}
+
+	/**
+	 * 获取 NULL 的过期时间（秒）
+	 *
+	 * @return 过期时间
+	 */
+	@Override
+	public long getNullValueExpireInSeconds() {
+		return cacheConfig.getNullValueExpireInSeconds();
 	}
 }

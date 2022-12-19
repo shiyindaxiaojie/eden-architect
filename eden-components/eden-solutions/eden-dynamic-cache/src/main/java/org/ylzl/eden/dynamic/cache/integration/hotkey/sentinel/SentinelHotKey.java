@@ -18,8 +18,6 @@ package org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel;
 
 import org.ylzl.eden.dynamic.cache.hotkey.HotKey;
 
-import java.util.function.Function;
-
 /**
  * Sentinel热key探测
  *
@@ -28,8 +26,14 @@ import java.util.function.Function;
  */
 public class SentinelHotKey implements HotKey {
 
+	/**
+	 * 判断是否为热Key
+	 *
+	 * @param key Key
+	 * @return 是否为热Key
+	 */
 	@Override
-	public <K> boolean isHotKey(K key, Function<K, Object> builder) {
+	public <K> boolean isHotKey(K key) {
 		return false;
 	}
 }

@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.spring;
+package org.ylzl.eden.dynamic.cache.support.spring;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.factory.CacheFactory;
-import org.ylzl.eden.dynamic.cache.consistency.CacheSynchronizer;
-import org.ylzl.eden.extension.ExtensionLoader;
+import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -47,9 +43,7 @@ public class SpringCacheManager implements CacheManager {
 
 	private final CacheConfig config;
 
-	private final CacheSynchronizer synchronizer;
-
-	private final CacheExpiredListener<Object, Object> listener;
+	private final CacheRemovalListener removalListener;
 
 	private final Object cacheClient;
 
@@ -90,7 +84,7 @@ public class SpringCacheManager implements CacheManager {
 	 */
 	private Cache createSpringCache(String cacheType, String cacheName) {
 		org.ylzl.eden.dynamic.cache.Cache cache = createCache(cacheType, cacheName);
-		return new SpringCache(this.config.isAllowNullValues(), cacheName, cache);
+		return new SpringCache(this.config.isAllowNullValue(), cacheName, cache);
 	}
 
 	/**
@@ -102,16 +96,16 @@ public class SpringCacheManager implements CacheManager {
 	 * @return 缓存实例
 	 */
 	private org.ylzl.eden.dynamic.cache.Cache createCache(String cacheType, String cacheName) {
-		org.ylzl.eden.dynamic.cache.Cache cache = CacheFactory.getCache(cacheType, cacheName);
+		/*org.ylzl.eden.dynamic.cache.Cache cache = CacheFactory.getCache(cacheType, cacheName);
 		if (cache != null) {
 			return cache;
-		}
+		}*/
 
-		CacheBuilder<?> cacheBuilder = ExtensionLoader.getExtensionLoader(CacheBuilder.class).getExtension(cacheType);
-		cacheBuilder.setCacheConfig(this.config)
-			.setCacheSynchronizer(this.synchronizer)
-			.setExpiredListener(this.listener)
-			.setCacheClient(this.cacheClient);
-		return CacheFactory.getOrCreateCache(cacheType, cacheName, cacheBuilder);
+		/*CacheBuilder cacheBuilder = ExtensionLoader.getExtensionLoader(CacheBuilder.class).getExtension(cacheType);
+		cacheBuilder.cacheName(cacheName)
+				.evictionListener(removalListener)
+				.initialCapacity();
+		return CacheFactory.getOrCreateCache(cacheType, cacheName, cacheBuilder);*/
+		return null;
 	}
 }

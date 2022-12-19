@@ -14,27 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.strategy;
-
-import org.ylzl.eden.extension.strategy.LoadingStrategy;
+package org.ylzl.eden.dynamic.cache;
 
 /**
- * 缓存扩展点加载策略
+ * 缓存类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CacheLoadingStrategy implements LoadingStrategy {
+public enum CacheType {
 
-	public static final String META_INF_CACHE = "META-INF/cache/";
+	COMPOSITE,
+	CAFFEINE,
+	GUAVA,
+	EHCACHE,
+	REDIS,
+	MEMCACHED,
+	DRAGONFLY;
 
-	@Override
-	public String directory() {
-		return META_INF_CACHE;
-	}
-
-	@Override
-	public int getPriority() {
-		return MAX_PRIORITY;
+	public static CacheType parse(String type) {
+		for (CacheType cacheType : CacheType.values()) {
+			if (cacheType.name().equalsIgnoreCase(type)) {
+				return cacheType;
+			}
+		}
+		return null;
 	}
 }

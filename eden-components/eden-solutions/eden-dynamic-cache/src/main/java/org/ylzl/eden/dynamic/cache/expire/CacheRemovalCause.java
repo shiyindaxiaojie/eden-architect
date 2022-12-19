@@ -16,23 +16,53 @@
 
 package org.ylzl.eden.dynamic.cache.expire;
 
-import org.ylzl.eden.extension.SPI;
-
 /**
- * 缓存失效监听器
+ * 缓存失效原因
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI
-public interface CacheExpiredListener<K, V> {
+public enum CacheRemovalCause {
 
-	/**
-	 * 缓存过期触发
-	 *
-	 * @param key
-	 * @param value
-	 * @param cause
-	 */
-	void onExpired(K key, V value, CacheExpiredCause cause);
+	EXPLICIT {
+		@Override
+		public boolean wasEvicted() {
+			return false;
+		}
+	},
+	REPLACED {
+		@Override
+		public boolean wasEvicted() {
+			return false;
+		}
+	},
+	COLLECTED {
+		@Override
+		public boolean wasEvicted() {
+			return true;
+		}
+	},
+	EXPIRED {
+		@Override
+		public boolean wasEvicted() {
+			return true;
+		}
+	},
+	SIZE {
+		@Override
+		public boolean wasEvicted() {
+			return true;
+		}
+	};
+
+	public abstract boolean wasEvicted();
+
+	public static CacheRemovalCause parse(String type) {
+		for (CacheRemovalCause cause : CacheRemovalCause.values()) {
+			if (cause.name().equalsIgnoreCase(type)) {
+				return cause;
+			}
+		}
+		return null;
+	}
 }

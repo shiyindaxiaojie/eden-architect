@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.value;
+package org.ylzl.eden.dynamic.cache.support.value;
 
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
- * Null 值封装
+ * 封装 Null，避免缓存组件将 Null 视为过期 Key 清除
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

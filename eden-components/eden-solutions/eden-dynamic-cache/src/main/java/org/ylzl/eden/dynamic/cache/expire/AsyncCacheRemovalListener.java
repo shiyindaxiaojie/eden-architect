@@ -16,26 +16,38 @@
 
 package org.ylzl.eden.dynamic.cache.expire;
 
+import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
 /**
- * 缓存失效原因
+ * TODO
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public enum CacheExpiredCause {
+@RequiredArgsConstructor
+public class AsyncCacheRemovalListener {
 
-	EXPLICIT,
-	REPLACED,
-	COLLECTED,
-	EXPIRED,
-	SIZE;
+	private final CacheRemovalListener delegate;
 
-	public static CacheExpiredCause parse(String type) {
-		for (CacheExpiredCause cause : CacheExpiredCause.values()) {
-			if (cause.name().equalsIgnoreCase(type)) {
-				return cause;
-			}
+	private final Executor executor;
+
+	/**
+	 * 缓存过期触发
+	 *
+	 * @param key   Key
+	 * @param future CompletableFuture
+	 * @param cause 缓存失效原因
+	 */
+	public <K, V> void onRemoval(K key, CompletableFuture<V> future, CacheRemovalCause cause) {
+		if (future != null) {
+			future.thenAcceptAsync(value -> {
+				if (value != null) {
+					delegate.onRemoval(key, value, cause);
+				}
+			}, executor);
 		}
-		return null;
 	}
 }

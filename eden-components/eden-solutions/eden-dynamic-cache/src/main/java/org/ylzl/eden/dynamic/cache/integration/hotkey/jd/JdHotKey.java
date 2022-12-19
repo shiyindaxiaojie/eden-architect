@@ -17,10 +17,7 @@
 package org.ylzl.eden.dynamic.cache.integration.hotkey.jd;
 
 import com.jd.platform.hotkey.client.callback.JdHotKeyStore;
-import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.hotkey.HotKey;
-
-import java.util.function.Function;
 
 /**
  * 京东热key探测
@@ -30,9 +27,14 @@ import java.util.function.Function;
  */
 public class JdHotKey implements HotKey {
 
+	/**
+	 * 判断是否为热Key
+	 *
+	 * @param key Key
+	 * @return 是否为热Key
+	 */
 	@Override
-	public <K> boolean isHotKey(@NotNull K key, Function<K, Object> function) {
-		Object apply = function.apply(key);
-		return JdHotKeyStore.isHotKey(apply.toString());
+	public <K> boolean isHotKey(K key) {
+		return JdHotKeyStore.isHotKey(key.toString());
 	}
 }
