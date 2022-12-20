@@ -43,12 +43,12 @@ public class SpringCache extends AbstractValueAdaptingCache {
 	/**
 	 * 有参构造函数
 	 *
-	 * @param allowNullValue
-	 * @param name
-	 * @param cache
+	 * @param allowNullValues 是否允许空值
+	 * @param name 缓存名称
+	 * @param cache 缓存实例
 	 */
-	public SpringCache(boolean allowNullValue, String name, Cache cache) {
-		super(allowNullValue);
+	public SpringCache(boolean allowNullValues, String name, Cache cache) {
+		super(allowNullValues);
 		this.name = name;
 		this.cache = cache;
 	}
@@ -65,12 +65,12 @@ public class SpringCache extends AbstractValueAdaptingCache {
 
 	@Override
 	protected Object lookup(@NotNull Object key) {
-		return this.cache.getIfPresent(key);
+		return this.cache.get(key);
 	}
 
 	@Override
 	public ValueWrapper get(@NotNull Object key) {
-		return toValueWrapper(this.cache.getIfPresent(key));
+		return toValueWrapper(this.cache.get(key));
 	}
 
 	@Override
@@ -90,11 +90,11 @@ public class SpringCache extends AbstractValueAdaptingCache {
 
 	@Override
 	public void evict(@NotNull Object key) {
-		this.cache.invalidate(key);
+		this.cache.evict(key);
 	}
 
 	@Override
 	public void clear() {
-		this.cache.invalidateAll();
+		this.cache.clear();
 	}
 }

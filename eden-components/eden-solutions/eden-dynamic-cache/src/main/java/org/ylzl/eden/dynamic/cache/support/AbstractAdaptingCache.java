@@ -17,6 +17,8 @@
 package org.ylzl.eden.dynamic.cache.support;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.support.NullValue;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 
@@ -29,6 +31,9 @@ import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 @RequiredArgsConstructor
 public abstract class AbstractAdaptingCache implements Cache {
 
+	private static final String NOT_ALLOWED_NULL_VALUES =
+		"Cache '{}' is configured to not allow null values but null was provided";
+
 	private final String cacheName;
 
 	private final CacheConfig cacheConfig;
@@ -39,8 +44,17 @@ public abstract class AbstractAdaptingCache implements Cache {
 	 * @return 缓存名称
 	 */
 	@Override
-	public String getCacheName() {
+	public String getName() {
 		return this.cacheName;
+	}
+
+	/**
+	 * 获取缓存配置
+	 *
+	 * @return 缓存配置
+	 */
+	protected CacheConfig getCacheConfig() {
+		return this.cacheConfig;
 	}
 
 	/**
@@ -48,18 +62,36 @@ public abstract class AbstractAdaptingCache implements Cache {
 	 *
 	 * @return 是否允许存储 NULL
 	 */
-	@Override
-	public boolean isAllowNullValue() {
-		return cacheConfig.isAllowNullValue();
+	protected boolean isAllowNullValues() {
+		return cacheConfig.isAllowNullValues();
 	}
 
 	/**
-	 * 获取 NULL 的过期时间（秒）
+	 * 从缓存值解析为原始值
 	 *
-	 * @return 过期时间
+	 * @param storeValue 缓存值
+	 * @return 原始值
 	 */
-	@Override
-	public long getNullValueExpireInSeconds() {
-		return cacheConfig.getNullValueExpireInSeconds();
+	protected <V> V fromStoreValue(V storeValue) {
+		if (this.isAllowNullValues() && storeValue == NullValue.INSTANCE) {
+			return null;
+		}
+		return storeValue;
+	}
+
+	/**
+	 * 转换为缓存值
+	 *
+	 * @param userValue 原始值
+	 * @return 缓存值
+	 */
+	protected <V> Object toStoreValue(V userValue) {
+		if (userValue == null) {
+			if (this.isAllowNullValues()) {
+				return NullValue.INSTANCE;
+			}
+			throw new IllegalArgumentException(MessageFormatUtils.format(NOT_ALLOWED_NULL_VALUES, this.getName()));
+		}
+		return userValue;
 	}
 }

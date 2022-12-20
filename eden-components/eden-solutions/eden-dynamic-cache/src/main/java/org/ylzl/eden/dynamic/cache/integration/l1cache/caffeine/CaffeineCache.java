@@ -20,13 +20,17 @@ import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.dynamic.cache.CacheType;
 import org.ylzl.eden.dynamic.cache.L1Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
+import org.ylzl.eden.dynamic.cache.exception.ValueRetrievalException;
 import org.ylzl.eden.dynamic.cache.support.AbstractAdaptingCache;
 
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 /**
  * Caffeine 缓存
@@ -34,15 +38,14 @@ import java.util.concurrent.Callable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Getter
 @Slf4j
 public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 
-	private final Cache<?, ?> caffeineCache;
+	private final Cache<Object, Object> cache;
 
-	public CaffeineCache(String cacheName, CacheConfig cacheConfig, Cache<?, ?> caffeineCache) {
+	public CaffeineCache(String cacheName, CacheConfig cacheConfig, Cache<Object, Object> cache) {
 		super(cacheName, cacheConfig);
-		this.caffeineCache = caffeineCache;
+		this.cache = cache;
 	}
 
 	/**
@@ -63,18 +66,42 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 */
 	@Override
 	public Cache<?, ?> getNativeCache() {
-		return this.caffeineCache;
+		return this.cache;
 	}
 
 	/**
-	 * 获取指定key的缓存项，如果缓存项不存在，则通过 {@code valueLoader} 获取值
+	 * 获取指定key的缓存项
 	 *
 	 * @param key 缓存Key
-	 * @return 缓存值
+	 * @return 缓存项
 	 */
 	@Override
-	public <K, V> V getIfPresent(K key) {
-		return null;
+	public Object get(Object key) {
+		if (isLoadingCache()) {
+			Object value = ((LoadingCache) this.cache).get(key);
+			return fromStoreValue(value);
+		}
+		return fromStoreValue(this.cache.getIfPresent(key));
+	}
+
+	/**
+	 * 获取指定key的缓存项
+	 *
+	 * @param key  缓存Key
+	 * @param type 缓存类型
+	 * @return 缓存项
+	 */
+	@Override
+	public <T> T get(Object key, Class<T> type) {
+		Object value = get(key);
+		if (value == null) {
+			return null;
+		}
+		if (type != null && !type.isInstance(value)) {
+			throw new IllegalStateException(MessageFormatUtils.format(
+				"Caffeine Cached value '{}' is not of required type '{}'", value, type.getName()));
+		}
+		return (T) value;
 	}
 
 	/**
@@ -82,22 +109,36 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 *
 	 * @param key         缓存Key
 	 * @param valueLoader 缓存加载器
-	 * @return 缓存值
+	 * @return 缓存项
 	 */
 	@Override
-	public <K, V> V get(K key, Callable<V> valueLoader) {
-		return null;
+	public <T> T get(Object key, Callable<T> valueLoader) {
+		return (T) fromStoreValue(this.cache.get(key, new LoadFunction(valueLoader)));
 	}
 
 	/**
 	 * 设置指定key的缓存项
 	 *
 	 * @param key   缓存Key
-	 * @param value 缓存值
+	 * @param value 缓存项
 	 */
 	@Override
-	public <K, V> void put(K key, V value) {
+	public void put(Object key, Object value) {
+		this.cache.put(key, toStoreValue(value));
+	}
 
+	/**
+	 * 设置指定key的缓存项，如果已存在则忽略
+	 *
+	 * @param key   缓存Key
+	 * @param value 缓存项
+	 * @return 缓存项
+	 */
+	@Override
+	public Object putIfAbsent(Object key, Object value) {
+		PutIfAbsentFunction function = new PutIfAbsentFunction(value);
+		Object result = this.cache.get(key, function);
+		return function.isCalled() ? null : result;
 	}
 
 	/**
@@ -106,26 +147,50 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 * @param key 缓存Key
 	 */
 	@Override
-	public <K> void invalidate(K key) {
-
+	public void evict(Object key) {
+		this.cache.invalidate(key);
 	}
 
 	/**
-	 * 批量删除指定的缓存项
+	 * 删除指定的缓存项，如果不存在则返回 false
 	 *
-	 * @param keys 缓存Key集合
+	 * @param key 缓存Key
+	 * @return 删除是否成功
 	 */
 	@Override
-	public <K> void invalidateAll(Iterable<K> keys) {
-
+	public boolean evictIfPresent(Object key) {
+		return this.cache.asMap().remove(key) != null;
 	}
 
 	/**
 	 * 清空缓存
 	 */
 	@Override
-	public void invalidateAll() {
+	public void clear() {
+		this.cache.invalidateAll();
+	}
 
+	/**
+	 * 使缓存失效
+	 *
+	 * @return 是否执行成功
+	 */
+	@Override
+	public boolean invalidate() {
+		boolean notEmpty = !this.cache.asMap().isEmpty();
+		this.cache.invalidateAll();
+		return notEmpty;
+	}
+
+	/**
+	 * 判断Key是否存在
+	 *
+	 * @param key Key
+	 * @return 是否存在
+	 */
+	@Override
+	public boolean isExists(Object key) {
+		return this.cache.asMap().containsKey(key);
 	}
 
 	/**
@@ -137,58 +202,36 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 */
 	@Override
 	public boolean isLoadingCache() {
-		return false;
+		return cache instanceof LoadingCache || cache instanceof AsyncLoadingCache;
 	}
 
-	/**
-	 * 刷新指定 key 的缓存
-	 *
-	 * @param key 指定 key
-	 * @see L1Cache#isLoadingCache()
-	 */
-	@Override
-	public void refresh(Object key) {
+	@RequiredArgsConstructor
+	private class LoadFunction implements Function<Object, Object> {
 
+		private final Callable<?> valueLoader;
+
+		@Override
+		public Object apply(Object o) {
+			try {
+				return toStoreValue(this.valueLoader.call());
+			} catch (Exception ex) {
+				throw new ValueRetrievalException(o, this.valueLoader, ex);
+			}
+		}
 	}
 
-	/**
-	 * 刷新所有缓存
-	 *
-	 * @see L1Cache#isLoadingCache()
-	 */
-	@Override
-	public void refreshAll() {
+	@Getter
+	@RequiredArgsConstructor
+	private class PutIfAbsentFunction implements Function<Object, Object> {
 
-	}
+		private final Object value;
 
-	/**
-	 * 刷新指定 key 的过期缓存
-	 *
-	 * @param key 指定 key
-	 * @see L1Cache#isLoadingCache()
-	 */
-	@Override
-	public void refreshExpiredCache(Object key) {
+		private boolean called;
 
-	}
-
-	/**
-	 * 刷新所有过期缓存
-	 *
-	 * @see L1Cache#isLoadingCache()
-	 */
-	@Override
-	public void refreshAllExpiredCache() {
-
-	}
-
-	/**
-	 * 清除指定 key 的本地缓存
-	 *
-	 * @param key 指定 key
-	 */
-	@Override
-	public void invalidateLocalCache(Object key) {
-
+		@Override
+		public Object apply(Object key) {
+			this.called = true;
+			return toStoreValue(this.value);
+		}
 	}
 }

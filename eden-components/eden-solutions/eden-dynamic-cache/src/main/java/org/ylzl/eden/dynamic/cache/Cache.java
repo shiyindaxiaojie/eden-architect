@@ -27,18 +27,18 @@ import java.util.concurrent.Callable;
 public interface Cache {
 
 	/**
-	 * 获取缓存名称
-	 *
-	 * @return 缓存名称
-	 */
-	String getCacheName();
-
-	/**
 	 * 获取缓存类型
 	 *
 	 * @return 缓存类型
 	 */
 	String getCacheType();
+
+	/**
+	 * 获取缓存名称
+	 *
+	 * @return 缓存名称
+	 */
+	String getName();
 
 	/**
 	 * 使用原生缓存实例
@@ -48,40 +48,50 @@ public interface Cache {
 	Object getNativeCache();
 
 	/**
-	 * 获取指定key的缓存项，如果缓存项不存在，则通过 {@code valueLoader} 获取值
+	 * 获取指定key的缓存项
 	 *
 	 * @param key 缓存Key
-	 * @return 缓存值
+	 * @return 缓存项
 	 */
-	<K, V> V getIfPresent(K key);
+	Object get(Object key);
+
+	/**
+	 * 获取指定key的缓存项
+	 *
+	 * @param key 缓存Key
+	 * @param type 缓存类型
+	 * @return 缓存项
+	 * @param <T> Value
+	 */
+	<T> T get(Object key, Class<T> type);
 
 	/**
 	 * 获取指定key的缓存项，如果缓存项不存在，则通过 {@code valueLoader} 获取值
 	 *
 	 * @param key 缓存Key
 	 * @param valueLoader 缓存加载器
-	 * @return 缓存值
-	 * @param <V> 泛型
+	 * @return 缓存项
+	 * @param <T> Value
 	 */
-	<K, V> V get(K key, Callable<V> valueLoader);
+	<T> T get(Object key, Callable<T> valueLoader);
 
 	/**
 	 * 设置指定key的缓存项
 	 *
 	 * @param key 缓存Key
-	 * @param value 缓存值
+	 * @param value 缓存项
 	 */
-	<K, V> void put(K key, V value);
+	void put(Object key, Object value);
 
 	/**
 	 * 设置指定key的缓存项，如果已存在则忽略
 	 *
 	 * @param key 缓存Key
-	 * @param value 缓存值
-	 * @return 缓存值
+	 * @param value 缓存项
+	 * @return 缓存项
 	 */
-	default <K, V> V putIfAbsent(K key, V value) {
-		V existingValue = getIfPresent(key);
+	default Object putIfAbsent(Object key, Object value) {
+		Object existingValue = get(key);
 		if (existingValue == null) {
 			put(key, value);
 		}
@@ -89,50 +99,47 @@ public interface Cache {
 	}
 
 	/**
+	 * 删除指定的缓存项
+	 *
+	 * @param key 缓存Key
+	 */
+	void evict(Object key);
+
+	/**
 	 * 删除指定的缓存项，如果不存在则返回 false
 	 *
 	 * @param key 缓存Key
 	 * @return 删除是否成功
 	 */
-	default <K> boolean invalidateIfPresent(K key) {
-		Object existingValue = getIfPresent(key);
+	default boolean evictIfPresent(Object key) {
+		Object existingValue = get(key);
 		if (existingValue == null) {
 			return false;
 		}
-		invalidate(key);
+		evict(key);
 		return true;
 	}
 
 	/**
-	 * 删除指定的缓存项
+	 * 使缓存失效
 	 *
-	 * @param key 缓存Key
+	 * @return 是否执行成功
 	 */
-	<K> void invalidate(K key);
-
-	/**
-	 * 批量删除指定的缓存项
-	 *
-	 * @param keys 缓存Key集合
-	 */
-	<K> void invalidateAll(Iterable<K> keys);
+	default boolean invalidate() {
+		clear();
+		return false;
+	}
 
 	/**
 	 * 清空缓存
 	 */
-	void invalidateAll();
+	void clear();
 
 	/**
-	 * 判断是否允许存储 NULL，避免缓存击穿
+	 * 判断Key是否存在
 	 *
-	 * @return 是否允许存储 NULL
+	 * @param key Key
+	 * @return 是否存在
 	 */
-	boolean isAllowNullValue();
-
-	/**
-	 * 获取 NULL 的过期时间（秒）
-	 *
-	 * @return 过期时间
-	 */
-	long getNullValueExpireInSeconds();
+	boolean isExists(Object key);
 }

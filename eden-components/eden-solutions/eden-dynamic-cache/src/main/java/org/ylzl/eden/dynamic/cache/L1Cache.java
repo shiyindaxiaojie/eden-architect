@@ -37,42 +37,6 @@ public interface L1Cache extends Cache {
 	boolean isLoadingCache();
 
 	/**
-	 * 刷新指定 key 的缓存
-	 *
-	 * @param key 指定 key
-	 * @see L1Cache#isLoadingCache()
-	 */
-	void refresh(Object key);
-
-	/**
-	 * 刷新所有缓存
-	 * @see L1Cache#isLoadingCache()
-	 */
-	void refreshAll();
-
-	/**
-	 * 刷新指定 key 的过期缓存
-	 *
-	 * @param key 指定 key
-	 * @see L1Cache#isLoadingCache()
-	 */
-	void refreshExpiredCache(Object key);
-
-	/**
-	 * 刷新所有过期缓存
-	 *
-	 * @see L1Cache#isLoadingCache()
-	 */
-	void refreshAllExpiredCache();
-
-	/**
-	 * 清除指定 key 的本地缓存
-	 *
-	 * @param key 指定 key
-	 */
-	void invalidateLocalCache(Object key);
-
-	/**
 	 * 获取所有缓存 Key
 	 *
 	 * @return 缓存 Key 集合

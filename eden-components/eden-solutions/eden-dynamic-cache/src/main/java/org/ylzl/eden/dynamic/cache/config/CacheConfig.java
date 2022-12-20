@@ -16,10 +16,7 @@
 
 package org.ylzl.eden.dynamic.cache.config;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.ylzl.eden.dynamic.cache.CacheType;
 
 import java.util.HashMap;
@@ -37,57 +34,26 @@ import java.util.Map;
 @Getter
 public class CacheConfig {
 
-	/**
-	 * 缓存类型
-	 *
-	 * @see CacheType
-	 */
+	/** 缓存类型 */
 	private String cacheType = CacheType.COMPOSITE.name();
 
-	private int initialCapacity;
+	/** 是否存储 NullValue，可防止缓存穿透 */
+	private boolean allowNullValues = true;
 
-	private long maximumSize;
+	/** NullValue 的最大数量 */
+	private int nullValueMaximumSize = 2048;
 
-	/**
-	 * 允许动态创建缓存
-	 */
-	private boolean dynamic = true;
-
-	/**
-	 * 是否存储 NullValue，可防止缓存穿透
-	 */
-	private boolean allowNullValue = true;
-
-	/**
-	 * NullValue 的过期时间（秒）
-	 */
+	/** NullValue 的过期时间（秒）*/
 	private int nullValueExpireInSeconds = 60;
 
-	/**
-	 * NullValue 的最大数量，超出该值后的下一次刷新缓存将进行淘汰
-	 */
-	private int nullValueMaxSize = 2048;
-
-	/**
-	 * NullValue 的清理频率
-	 */
-	private int nullValueClearPeriodSeconds = 10;
+	/** NullValue 的清理频率（秒） */
+	private int nullValueRetentionInterval = 10;
 
 	private final Composite composite = new Composite();
 
-	private final Caffeine caffeine = new Caffeine();
+	private final L1Cache l1Cache = new L1Cache();
 
-	private final Guava guava = new Guava();
-
-	private final Ehcache ehcache = new Ehcache();
-
-	private final Redis redis = new Redis();
-
-	private final Dragonfly dragonfly = new Dragonfly();
-
-	private final Memcached memcached = new Memcached();
-
-	private final Hazelcast hazelcast = new Hazelcast();
+	private final L2Cache l2Cache = new L2Cache();
 
 	@EqualsAndHashCode
 	@ToString
@@ -109,103 +75,145 @@ public class CacheConfig {
 	@ToString
 	@Setter
 	@Getter
-	public static class Caffeine {
+	public static class L1Cache {
 
-		/**
-		 * 是否自动刷新过期缓存
-		 */
-		private boolean autoRefreshExpireCache = true;
+		/** 初始容量 */
+		private int initialCapacity;
 
-		/**
-		 * 自动刷新缓存的线程池大小
-		 */
-		private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+		/** 最大容量 */
+		private long maximumSize;
 
-		/**
-		 * 自动刷新缓存的时间间隔（秒）
-		 */
-		private int autoRefreshInSeconds = 30;
+		private final Caffeine caffeine = new Caffeine();
 
-		/**
-		 * 默认配置
-		 */
-		private String defaultSpec;
+		private final Guava guava = new Guava();
 
-		/**
-		 * 指定配置
-		 */
-		private Map<String, String> specs = new HashMap<>();
+		private final Ehcache ehcache = new Ehcache();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Caffeine {
+
+			/**
+			 * 是否自动刷新过期缓存
+			 */
+			private boolean autoRefreshExpireCache = true;
+
+			/**
+			 * 自动刷新缓存的线程池大小
+			 */
+			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+
+			/**
+			 * 自动刷新缓存的时间间隔（秒）
+			 */
+			private int autoRefreshInSeconds = 30;
+
+			/**
+			 * 默认配置
+			 */
+			private String defaultSpec;
+
+			/**
+			 * 指定配置
+			 */
+			private Map<String, String> specs = new HashMap<>();
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Guava {
+
+			/**
+			 * 是否自动刷新过期缓存
+			 */
+			private boolean autoRefreshExpireCache = true;
+
+			/**
+			 * 自动刷新缓存的线程池大小
+			 */
+			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+
+			/**
+			 * 自动刷新缓存的时间间隔（秒）
+			 */
+			private int autoRefreshInSeconds = 30;
+
+			/**
+			 * 默认配置
+			 */
+			private String defaultSpec;
+
+			/**
+			 * 指定配置
+			 */
+			private Map<String, String> specs = new HashMap<>();
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Ehcache {
+
+		}
 	}
 
 	@EqualsAndHashCode
 	@ToString
 	@Setter
 	@Getter
-	public static class Guava {
+	public static class L2Cache {
 
-		/**
-		 * 是否自动刷新过期缓存
-		 */
-		private boolean autoRefreshExpireCache = true;
+		private final Redis redis = new Redis();
 
-		/**
-		 * 自动刷新缓存的线程池大小
-		 */
-		private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+		private final Dragonfly dragonfly = new Dragonfly();
 
-		/**
-		 * 自动刷新缓存的时间间隔（秒）
-		 */
-		private int autoRefreshInSeconds = 30;
+		private final Memcached memcached = new Memcached();
 
-		/**
-		 * 默认配置
-		 */
-		private String defaultSpec;
+		private final Hazelcast hazelcast = new Hazelcast();
 
-		/**
-		 * 指定配置
-		 */
-		private Map<String, String> specs = new HashMap<>();
-	}
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Redis {
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Ehcache {
+			/** Key 分隔符 */
+			private String spilt = ":";
 
-	}
+			/** 尝试加锁 */
+			private boolean tryLock = true;
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Redis {
+			/** 默认过期时间（秒） */
+			private int defaultExpireInSeconds = 60;
+		}
 
-	}
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Dragonfly {
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Dragonfly {
+		}
 
-	}
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Memcached {
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Memcached {
+		}
 
-	}
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Hazelcast {
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class Hazelcast {
-
+		}
 	}
 }

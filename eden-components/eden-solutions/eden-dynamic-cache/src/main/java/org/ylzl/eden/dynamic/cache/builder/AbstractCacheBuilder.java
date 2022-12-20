@@ -17,8 +17,10 @@
 package org.ylzl.eden.dynamic.cache.builder;
 
 import lombok.Getter;
+import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
+import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
 
 /**
  * 缓存构造器抽象
@@ -33,11 +35,7 @@ public abstract class AbstractCacheBuilder implements CacheBuilder {
 
 	private CacheConfig cacheConfig;
 
-	private int initialCapacity;
-
-	private long maximumSize;
-
-	private CacheRemovalListener listener;
+	private CacheRemovalListener removalListener;
 
 	/**
 	 * 设置缓存名称
@@ -52,38 +50,37 @@ public abstract class AbstractCacheBuilder implements CacheBuilder {
 	}
 
 	/**
-	 * 设置初始化容量
+	 * 设置缓存配置
 	 *
-	 * @param initialCapacity 初始化容量
+	 * @param cacheConfig 缓存配置
 	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder initialCapacity(int initialCapacity) {
-		this.initialCapacity = initialCapacity;
-		return this;
-	}
-
-	/**
-	 * 设置最大容量
-	 *
-	 * @param maximumSize 最大容量
-	 * @return CacheBuilder
-	 */
-	@Override
-	public CacheBuilder maximumSize(long maximumSize) {
-		this.maximumSize = maximumSize;
+	public CacheBuilder cacheConfig(CacheConfig cacheConfig) {
+		this.cacheConfig = cacheConfig;
 		return this;
 	}
 
 	/**
 	 * 设置缓存失效监听器
 	 *
-	 * @param listener 缓存失效监听器
+	 * @param removalListener 缓存失效监听器
 	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder evictionListener(CacheRemovalListener listener) {
-		this.listener = listener;
+	public CacheBuilder evictionListener(CacheRemovalListener removalListener) {
+		this.removalListener = removalListener;
 		return this;
+	}
+
+	/**
+	 * 构建 Cache 实例
+	 *
+	 * @param cacheLoader 缓存加载器
+	 * @return Cache 实例
+	 */
+	@Override
+	public Cache build(CacheLoader cacheLoader) {
+		return build();
 	}
 }

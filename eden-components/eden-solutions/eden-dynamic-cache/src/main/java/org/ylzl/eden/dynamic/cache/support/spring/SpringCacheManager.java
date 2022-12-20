@@ -19,15 +19,10 @@ package org.ylzl.eden.dynamic.cache.support.spring;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
+import org.springframework.cache.support.AbstractCacheManager;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Spring 缓存管理器
@@ -37,75 +32,16 @@ import java.util.concurrent.ConcurrentMap;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class SpringCacheManager implements CacheManager {
+public class SpringCacheManager extends AbstractCacheManager {
 
-	private final ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<>(16);
+	private Collection<? extends SpringCache> caches = Collections.emptySet();
 
-	private final CacheConfig config;
+	public void setCaches(Collection<? extends SpringCache> caches) {
+		this.caches = caches;
+	}
 
-	private final CacheRemovalListener removalListener;
-
-	private final Object cacheClient;
-
-	/**
-	 * 获取缓存实例
-	 *
-	 * @param name 缓存名称
-	 * @return 缓存实例
-	 */
 	@Override
-	public Cache getCache(@NotNull String name) {
-		Cache cache = this.cacheMap.get(name);
-		if (cache == null && this.config.isDynamic()) {
-			synchronized (this.cacheMap) {
-				cache = this.cacheMap.computeIfAbsent(name, n -> this.createSpringCache(config.getCacheType(), n));
-			}
-		}
-		return cache;
-	}
-
-	/**
-	 * 获取缓存名称集合
-	 *
-	 * @return 缓存名称集合
-	 */
-	@Override
-	public @NotNull Collection<String> getCacheNames() {
-		return Collections.unmodifiableSet(this.cacheMap.keySet());
-	}
-
-	/**
-	 * 创建 Spring 包装缓存
-	 *
-	 * @see org.ylzl.eden.dynamic.cache.Cache
-	 * @param cacheType 缓存类型
-	 * @param cacheName 缓存名称
-	 * @return 缓存实例
-	 */
-	private Cache createSpringCache(String cacheType, String cacheName) {
-		org.ylzl.eden.dynamic.cache.Cache cache = createCache(cacheType, cacheName);
-		return new SpringCache(this.config.isAllowNullValue(), cacheName, cache);
-	}
-
-	/**
-	 * 创建 {@code Cache} 缓存实例
-	 *
-	 * @see org.ylzl.eden.dynamic.cache.Cache
-	 * @param cacheType 缓存类型
-	 * @param cacheName 缓存名称
-	 * @return 缓存实例
-	 */
-	private org.ylzl.eden.dynamic.cache.Cache createCache(String cacheType, String cacheName) {
-		/*org.ylzl.eden.dynamic.cache.Cache cache = CacheFactory.getCache(cacheType, cacheName);
-		if (cache != null) {
-			return cache;
-		}*/
-
-		/*CacheBuilder cacheBuilder = ExtensionLoader.getExtensionLoader(CacheBuilder.class).getExtension(cacheType);
-		cacheBuilder.cacheName(cacheName)
-				.evictionListener(removalListener)
-				.initialCapacity();
-		return CacheFactory.getOrCreateCache(cacheType, cacheName, cacheBuilder);*/
-		return null;
+	public @NotNull Collection<? extends SpringCache> loadCaches() {
+		return this.caches;
 	}
 }

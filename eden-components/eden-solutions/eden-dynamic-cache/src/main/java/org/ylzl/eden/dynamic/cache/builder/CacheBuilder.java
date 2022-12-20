@@ -17,11 +17,10 @@
 package org.ylzl.eden.dynamic.cache.builder;
 
 import org.ylzl.eden.dynamic.cache.Cache;
+import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
 import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
 import org.ylzl.eden.extension.SPI;
-
-import java.io.Serializable;
 
 /**
  * 缓存构造器
@@ -30,7 +29,7 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 @SPI
-public interface CacheBuilder extends Serializable {
+public interface CacheBuilder {
 
 	/**
 	 * 设置缓存名称
@@ -41,28 +40,20 @@ public interface CacheBuilder extends Serializable {
 	CacheBuilder cacheName(String cacheName);
 
 	/**
-	 * 设置初始化容量
+	 * 设置缓存配置
 	 *
-	 * @param initialCapacity 初始化容量
+	 * @param cacheConfig 缓存配置
 	 * @return CacheBuilder
 	 */
-	CacheBuilder initialCapacity(int initialCapacity);
-
-	/**
-	 * 设置最大容量
-	 *
-	 * @param maximumSize 最大容量
-	 * @return CacheBuilder
-	 */
-	CacheBuilder maximumSize(long maximumSize);
+	CacheBuilder cacheConfig(CacheConfig cacheConfig);
 
 	/**
 	 * 设置缓存失效监听器
 	 *
-	 * @param listener 缓存失效监听器
+	 * @param removalListener 缓存失效监听器
 	 * @return CacheBuilder
 	 */
-	CacheBuilder evictionListener(CacheRemovalListener listener);
+	CacheBuilder evictionListener(CacheRemovalListener removalListener);
 
 	/**
 	 * 构建 Cache 实例

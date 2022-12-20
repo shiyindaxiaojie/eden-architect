@@ -33,12 +33,9 @@ import lombok.ToString;
 @Setter
 public class CacheSpec {
 
-	/** 缓存过期时间（毫秒）*/
-	private long expireInMs;
-
 	/** 初始容量 */
 	private int initialCapacity;
 
 	/** 最大容量 */
-	private int maximumSize;
+	private long maximumSize;
 }

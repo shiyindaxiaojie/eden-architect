@@ -14,34 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.support.value;
-
-import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
+package org.ylzl.eden.dynamic.cache.exception;
 
 /**
- * 封装 Null，避免缓存组件将 Null 视为过期 Key 清除
+ * 尝试加锁异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
-@EqualsAndHashCode
-public final class NullValue implements Serializable {
+public class TryLockFailedException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
-
-	public static final Object INSTANCE = new NullValue();
-
-	private NullValue() {
+	public TryLockFailedException(String message) {
+		super(message);
 	}
 
-	private Object readResolve() {
-		return INSTANCE;
-	}
-
-	@Override
-	public String toString() {
-		return "null";
+	public TryLockFailedException(String message, Throwable ex) {
+		super(message, ex);
 	}
 }

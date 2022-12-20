@@ -18,13 +18,11 @@ package org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.builder.AbstractCacheBuilder;
 import org.ylzl.eden.dynamic.cache.expire.CacheRemovalCause;
 import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Caffeine 缓存构建器
@@ -35,8 +33,6 @@ import java.util.Map;
 @Slf4j
 public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 
-	private static final Map<String, CustomCaffeineSpec> caffeineSpecMap = new HashMap<>(16);
-
 	/**
 	 * 构建 Cache 实例
 	 *
@@ -44,13 +40,7 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public Cache build() {
-		com.github.benmanes.caffeine.cache.Cache<?, ?> cache = Caffeine.newBuilder()
-				.initialCapacity(this.getInitialCapacity())
-				.maximumSize(this.getMaximumSize())
-				.evictionListener((key, value, cause) -> {
-					this.getListener().onRemoval(key, value, CacheRemovalCause.parse(cause.name()));
-				})
-				.build();
+		com.github.benmanes.caffeine.cache.Cache<Object, Object> cache = newCaffeineBuilder().build();
 		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
 	}
 
@@ -62,13 +52,22 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public Cache build(CacheLoader cacheLoader) {
-		com.github.benmanes.caffeine.cache.LoadingCache<?, ?> cache = Caffeine.newBuilder()
-				.initialCapacity(this.getInitialCapacity())
-				.maximumSize(this.getMaximumSize())
-				.evictionListener((key, value, cause) -> {
-					this.getListener().onRemoval(key, value, CacheRemovalCause.parse(cause.name()));
-				})
-				.build((com.github.benmanes.caffeine.cache.CacheLoader) cacheLoader::load);
+		com.github.benmanes.caffeine.cache.LoadingCache<Object, Object> cache = newCaffeineBuilder().build(cacheLoader::load);
 		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
+	}
+
+	/**
+	 * 构建 CaffeineBuilder
+	 *
+	 * @return Caffeine
+	 */
+	@NotNull
+	private Caffeine<Object, Object> newCaffeineBuilder() {
+		return Caffeine.newBuilder()
+			.initialCapacity(this.getCacheConfig().getL1Cache().getInitialCapacity())
+			.maximumSize(this.getCacheConfig().getL1Cache().getMaximumSize())
+			.evictionListener((key, value, cause) -> {
+				this.getRemovalListener().onRemoval(key, value, CacheRemovalCause.parse(cause.name()));
+			});
 	}
 }
