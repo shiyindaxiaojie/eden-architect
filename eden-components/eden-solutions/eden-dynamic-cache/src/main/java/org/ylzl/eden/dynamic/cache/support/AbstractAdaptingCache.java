@@ -99,7 +99,7 @@ public abstract class AbstractAdaptingCache implements Cache {
 	 * 构建缓存Key
 	 *
 	 * @param key Key
-	 * @return Key
+	 * @return cacheName + cacheKey
 	 */
 	protected String buildKey(Object key) {
 		return this.getName() + this.getCacheConfig().getKeySeparator() + key;

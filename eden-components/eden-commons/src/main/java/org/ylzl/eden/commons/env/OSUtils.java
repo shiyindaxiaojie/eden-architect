@@ -134,7 +134,7 @@ public class OSUtils {
 	public static List<String> getIpAddresses() throws SocketException {
 		List<String> ipAddresses = new ArrayList<>();
 		List<InetAddress> inetAddresses = getLocalAllInetAddresses();
-		if (inetAddresses != null && inetAddresses.size() > 0) {
+		if (inetAddresses.size() > 0) {
 			for (InetAddress inetAddress : inetAddresses) {
 				if (!ipAddresses.contains(inetAddress.getHostAddress())) {
 					ipAddresses.add(inetAddress.getHostAddress().toLowerCase());

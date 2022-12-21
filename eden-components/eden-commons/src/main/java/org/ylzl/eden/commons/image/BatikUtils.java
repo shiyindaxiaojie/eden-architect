@@ -37,9 +37,10 @@ public class BatikUtils {
 	public static void toPng(@NonNull String svgCode, @NonNull String destPath)
 		throws IOException, TranscoderException {
 		File file = new File(destPath);
-		file.createNewFile();
-		try (FileOutputStream out = new FileOutputStream(file);) {
-			toPng(svgCode, out);
+		if (file.createNewFile()) {
+			try (FileOutputStream out = new FileOutputStream(file);) {
+				toPng(svgCode, out);
+			}
 		}
 	}
 

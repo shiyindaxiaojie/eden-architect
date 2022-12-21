@@ -170,16 +170,16 @@ public class CompositeCache extends AbstractAdaptingCache implements Cache {
 	 * @return 是否开启
 	 */
 	private boolean isL1CacheEnabled(Object key) {
-		if (!cacheConfig.getL1Cache().isEnabled()) {
+		if (!this.cacheConfig.getL1Cache().isEnabled()) {
 			return false;
 		}
 
-		Set<String> cacheNames = cacheConfig.getL1Cache().getCacheNames();
+		Set<String> cacheNames = this.cacheConfig.getL1Cache().getCacheNames();
 		if (CollectionUtils.isNotEmpty(cacheNames) && cacheNames.contains(this.getName())) {
 			return true;
 		}
 
-		Set<String> cacheKeys = cacheConfig.getL1Cache().getCacheKeys();
+		Set<String> cacheKeys = this.cacheConfig.getL1Cache().getCacheKeys();
 		if (CollectionUtils.isNotEmpty(cacheKeys) && cacheKeys.contains(key.toString())) {
 			return true;
 		}

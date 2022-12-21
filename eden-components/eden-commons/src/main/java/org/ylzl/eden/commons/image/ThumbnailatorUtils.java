@@ -51,14 +51,7 @@ public class ThumbnailatorUtils {
 		Thumbnails.of(srcFile).size(width, height).keepAspectRatio(false).toFile(destFile);
 	}
 
-	public static void zoom(
-		@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename)
-		throws IOException {
+	public static void zoom(@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height, Rename rename) throws IOException {
 		Thumbnails.of(fileNameArr).size(width, height).keepAspectRatio(false).toFiles(destFile, rename);
-	}
-
-	public static void zoom(
-		@NonNull String[] fileNameArr, @NonNull File destFile, int width, int height) {
-		zoom(fileNameArr, destFile, width, height);
 	}
 }

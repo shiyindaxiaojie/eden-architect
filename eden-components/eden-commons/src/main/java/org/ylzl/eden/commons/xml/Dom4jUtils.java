@@ -57,6 +57,10 @@ public class Dom4jUtils {
 	}
 
 	public static <T> Node selectSingleNode(@NonNull T obj, @NonNull String expression) {
+		if (obj instanceof Element) {
+			Element element = (Element) obj;
+			return element.selectSingleNode(expression);
+		}
 		if (obj instanceof Document) {
 			Document document = (Document) obj;
 			return document.selectSingleNode(expression);
@@ -65,14 +69,14 @@ public class Dom4jUtils {
 			Node node = (Node) obj;
 			return node.selectSingleNode(expression);
 		}
-		if (obj instanceof Element) {
-			Element element = (Element) obj;
-			return element.selectSingleNode(expression);
-		}
 		return null;
 	}
 
 	public static <T> List<?> selectNodes(@NonNull T obj, @NonNull String expression) {
+		if (obj instanceof Element) {
+			Element element = (Element) obj;
+			return element.selectNodes(expression);
+		}
 		if (obj instanceof Document) {
 			Document document = (Document) obj;
 			return document.selectNodes(expression);
@@ -80,10 +84,6 @@ public class Dom4jUtils {
 		if (obj instanceof Node) {
 			Node node = (Node) obj;
 			return node.selectNodes(expression);
-		}
-		if (obj instanceof Element) {
-			Element element = (Element) obj;
-			return element.selectNodes(expression);
 		}
 		return null;
 	}
