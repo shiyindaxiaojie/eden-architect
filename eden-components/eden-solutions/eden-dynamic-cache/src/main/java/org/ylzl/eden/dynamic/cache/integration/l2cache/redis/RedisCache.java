@@ -43,14 +43,17 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 
-	private final RedissonClient cache;
+	private final CacheConfig.L2Cache.Redis redisConfig;
+
+	private final RedissonClient redisClient;
 
 	private final RMap<Object, Object> rMap;
 
-	public RedisCache(String cacheName, CacheConfig cacheConfig, RedissonClient cache) {
+	public RedisCache(String cacheName, CacheConfig cacheConfig, RedissonClient redisClient) {
 		super(cacheName, cacheConfig);
-		this.cache = cache;
-		this.rMap = cache.getMap(cacheName);
+		this.redisConfig = cacheConfig.getL2Cache().getRedis();
+		this.redisClient = redisClient;
+		this.rMap = redisClient.getMap(cacheName);
 	}
 
 	/**
@@ -71,7 +74,7 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 	 */
 	@Override
 	public RedissonClient getNativeCache() {
-		return this.cache;
+		return this.redisClient;
 	}
 
 	/**
@@ -122,7 +125,7 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 		}
 
 		RLock lock = rMap.getLock(key);
-		if (this.getCacheConfig().getL2Cache().getRedis().isTryLock()) {
+		if (this.redisConfig.isTryLock()) {
 			if (!lock.tryLock()) {
 				throw new TryLockFailedException(MessageFormatUtils.format("Try lock fail, key = '{}'", key));
 			}
@@ -136,8 +139,7 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 			}
 			this.put(key, value);
 		} catch (Exception e) {
-			throw new ValueRetrievalException(MessageFormatUtils.format("Loading value fail, key = '{}'", key),
-				valueLoader, e);
+			throw new ValueRetrievalException(MessageFormatUtils.format("Loading value fail, key = '{}'", key), valueLoader, e);
 		} finally {
 			lock.unlock();
 		}
@@ -219,27 +221,17 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 	}
 
 	/**
-	 * 构建缓存Key
-	 *
-	 * @param key Key
-	 * @return Key
-	 */
-	private String buildKey(Object key) {
-		return this.getName() + this.getCacheConfig().getL2Cache().getRedis().getSpilt() + key;
-	}
-
-	/**
 	 * 获取Bucket实例
 	 *
 	 * @param key Key
 	 * @return Bucket实例
 	 */
 	private RBucket<Object> getBucket(Object key) {
-		return cache.getBucket(buildKey(key));
+		return redisClient.getBucket(buildKey(key));
 	}
 
 	private long getExpireTime(Object value) {
-		long expireTime = TimeUnit.SECONDS.toMillis(this.getCacheConfig().getL2Cache().getRedis().getDefaultExpireInSeconds());
+		long expireTime = TimeUnit.SECONDS.toMillis(this.redisConfig.getDefaultExpireInSeconds());
 		if (value instanceof NullValue) {
 			expireTime = TimeUnit.SECONDS.toMillis(this.getCacheConfig().getNullValueExpireInSeconds());
 		}

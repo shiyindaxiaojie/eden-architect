@@ -16,11 +16,16 @@
 
 package org.ylzl.eden.dynamic.cache.config;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.ylzl.eden.dynamic.cache.CacheType;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 缓存配置
@@ -49,6 +54,9 @@ public class CacheConfig {
 	/** NullValue 的清理频率（秒） */
 	private int nullValueRetentionInterval = 10;
 
+	/** Key 分隔符 */
+	private String keySeparator = ":";
+
 	private final Composite composite = new Composite();
 
 	private final L1Cache l1Cache = new L1Cache();
@@ -64,11 +72,11 @@ public class CacheConfig {
 		/** 一级缓存类型 */
 		private String l1CacheType = CacheType.CAFFEINE.name();
 
-		/** 二级缓存类型*/
+		/** 二级缓存类型 */
 		private String l2CacheType = CacheType.REDIS.name();
 
-		/** 是否开启一级缓存，默认开启 */
-		private boolean l1CacheEnabled = true;
+		/** 热Key类型 */
+		private String hotKeyType;
 	}
 
 	@EqualsAndHashCode
@@ -76,6 +84,15 @@ public class CacheConfig {
 	@Setter
 	@Getter
 	public static class L1Cache {
+
+		/** 是否开启一级缓存，默认关闭 */
+		private boolean enabled = false;
+
+		/** 缓存Key集合，默认不设置表示全部生效 */
+		private Set<String> cacheKeys = new HashSet<>();
+
+		/** CacheName集合，默认不设置表示全部生效 */
+		private Set<String> cacheNames = new HashSet<>();
 
 		/** 初始容量 */
 		private int initialCapacity;
@@ -181,9 +198,6 @@ public class CacheConfig {
 		@Setter
 		@Getter
 		public static class Redis {
-
-			/** Key 分隔符 */
-			private String spilt = ":";
 
 			/** 尝试加锁 */
 			private boolean tryLock = true;

@@ -22,14 +22,13 @@ package org.ylzl.eden.dynamic.cache.hotkey;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public enum HotkeyType {
+public enum HotKeyType {
 
-	NONE,
 	JD,
 	SENTINEL;
 
-	public static HotkeyType parse(String type) {
-		for (HotkeyType cacheType : HotkeyType.values()) {
+	public static HotKeyType parse(String type) {
+		for (HotKeyType cacheType : HotKeyType.values()) {
 			if (cacheType.name().equalsIgnoreCase(type)) {
 				return cacheType;
 			}
