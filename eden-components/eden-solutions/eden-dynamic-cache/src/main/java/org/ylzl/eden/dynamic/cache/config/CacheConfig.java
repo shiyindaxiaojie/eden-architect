@@ -20,6 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.redisson.config.Config;
 import org.ylzl.eden.dynamic.cache.CacheType;
 
 import java.util.HashMap;
@@ -63,6 +64,8 @@ public class CacheConfig {
 
 	private final L2Cache l2Cache = new L2Cache();
 
+	private final HotKey hotKey = new HotKey();
+
 	@EqualsAndHashCode
 	@ToString
 	@Setter
@@ -103,8 +106,6 @@ public class CacheConfig {
 		private final Caffeine caffeine = new Caffeine();
 
 		private final Guava guava = new Guava();
-
-		private final Ehcache ehcache = new Ehcache();
 
 		@EqualsAndHashCode
 		@ToString
@@ -169,14 +170,6 @@ public class CacheConfig {
 			 */
 			private Map<String, String> specs = new HashMap<>();
 		}
-
-		@EqualsAndHashCode
-		@ToString
-		@Setter
-		@Getter
-		public static class Ehcache {
-
-		}
 	}
 
 	@EqualsAndHashCode
@@ -188,8 +181,6 @@ public class CacheConfig {
 		private final Redis redis = new Redis();
 
 		private final Dragonfly dragonfly = new Dragonfly();
-
-		private final Memcached memcached = new Memcached();
 
 		private final Hazelcast hazelcast = new Hazelcast();
 
@@ -204,6 +195,9 @@ public class CacheConfig {
 
 			/** 默认过期时间（秒） */
 			private int defaultExpireInSeconds = 60;
+
+			/** Redisson 配置 */
+			private Config config;
 		}
 
 		@EqualsAndHashCode
@@ -218,15 +212,38 @@ public class CacheConfig {
 		@ToString
 		@Setter
 		@Getter
-		public static class Memcached {
+		public static class Hazelcast {
 
+		}
+	}
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class HotKey {
+
+		private final JD jd = new JD();
+
+		private final Sentinel sentinel = new Sentinel();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class JD {
+
+			private String appName;
+
+			private String etcdServer;
 		}
 
 		@EqualsAndHashCode
 		@ToString
 		@Setter
 		@Getter
-		public static class Hazelcast {
+		public static class Sentinel {
+
 
 		}
 	}

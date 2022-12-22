@@ -16,11 +16,11 @@
 
 package org.ylzl.eden.dynamic.cache.builder;
 
-import lombok.Getter;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.expire.CacheRemovalListener;
-import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
  * 缓存构造器抽象
@@ -28,14 +28,13 @@ import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Getter
 public abstract class AbstractCacheBuilder implements CacheBuilder {
 
 	private String cacheName;
 
 	private CacheConfig cacheConfig;
 
-	private CacheRemovalListener removalListener;
+	private L1CacheRemovalListener removalListener;
 
 	/**
 	 * 设置缓存名称
@@ -68,19 +67,61 @@ public abstract class AbstractCacheBuilder implements CacheBuilder {
 	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder evictionListener(CacheRemovalListener removalListener) {
+	public CacheBuilder evictionListener(L1CacheRemovalListener removalListener) {
 		this.removalListener = removalListener;
 		return this;
 	}
 
 	/**
-	 * 构建 Cache 实例
+	 * 设置二级缓存客户端
 	 *
-	 * @param cacheLoader 缓存加载器
+	 * @param l2CacheClient 二级缓存客户端
+	 * @return CacheBuilder
+	 */
+	@Override
+	public CacheBuilder l2CacheClient(Object l2CacheClient) {
+		return this;
+	}
+
+	/**
+	 * 构建一级缓存实例
+	 *
+	 * @param l1CacheLoader 缓存加载器
 	 * @return Cache 实例
 	 */
 	@Override
-	public Cache build(CacheLoader cacheLoader) {
+	public Cache build(L1CacheLoader l1CacheLoader) {
+		// 二级缓存不需要执行 CacheLoader
 		return build();
+	}
+
+	/**
+	 * 获取缓存名称
+	 *
+	 * @return 缓存名称
+	 */
+	public String getCacheName() {
+		return cacheName;
+	}
+
+	/**
+	 * 获取缓存配置
+	 *
+	 * @return 缓存配置
+	 */
+	public CacheConfig getCacheConfig() {
+		return cacheConfig;
+	}
+
+	/**
+	 * 获取缓存失效监听器
+	 *
+	 * @return
+	 */
+	public L1CacheRemovalListener getRemovalListener() {
+		if (removalListener == null) {
+			return ExtensionLoader.getExtensionLoader(L1CacheRemovalListener.class).getDefaultExtension();
+		}
+		return removalListener;
 	}
 }

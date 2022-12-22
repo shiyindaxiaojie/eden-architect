@@ -16,6 +16,11 @@
 
 package org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.EntryType;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.hotkey.HotKey;
 
 /**
@@ -29,11 +34,16 @@ public class SentinelHotKey implements HotKey {
 	/**
 	 * 判断是否为热Key
 	 *
-	 * @param key Key
+	 * @param name 资源名称
+	 * @param key  Key
 	 * @return 是否为热Key
 	 */
 	@Override
-	public <K> boolean isHotKey(K key) {
-		return false;
+	public boolean isHotKey(@NotNull String name, @NotNull Object key) {
+		try (Entry ignored = SphU.entry(name, EntryType.IN, 1, key)) {
+			return false;
+		} catch (BlockException ignored) {
+			return true;
+		}
 	}
 }

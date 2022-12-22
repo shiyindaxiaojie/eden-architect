@@ -43,6 +43,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 
+	private static final String CACHED_VALUE_IS_NOT_REQUIRED_TYPE = "Redis Cached value '{}' is not of required type '{}'";
+
 	private final CacheConfig.L2Cache.Redis redisConfig;
 
 	private final RedissonClient redisClient;
@@ -103,8 +105,7 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 			return null;
 		}
 		if (type != null && !type.isInstance(value)) {
-			throw new IllegalStateException(MessageFormatUtils.format(
-				"Redis Cached value '{}' is not of required type '{}'", value, type.getName()));
+			throw new IllegalStateException(MessageFormatUtils.format(CACHED_VALUE_IS_NOT_REQUIRED_TYPE, value, type.getName()));
 		}
 		return (T) value;
 	}

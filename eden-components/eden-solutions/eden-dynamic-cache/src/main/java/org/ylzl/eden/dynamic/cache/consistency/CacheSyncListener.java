@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.dynamic.cache.consistency;
 
-import org.ylzl.eden.dynamic.cache.model.CacheInfo;
+import org.ylzl.eden.dynamic.cache.consistency.model.CacheMessage;
 
 /**
  * 缓存同步监听器
@@ -31,5 +31,5 @@ public interface CacheSyncListener {
 	 *
 	 * @param info 缓存信息
 	 */
-	void onMessage(CacheInfo info);
+	void onMessage(CacheMessage info);
 }

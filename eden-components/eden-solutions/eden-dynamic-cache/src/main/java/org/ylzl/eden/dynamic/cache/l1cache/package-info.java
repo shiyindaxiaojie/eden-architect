@@ -14,22 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.expire;
-
-/**
- * 缓存失效监听器
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-public interface CacheRemovalListener {
-
-	/**
-	 * 缓存过期触发
-	 *
-	 * @param key Key
-	 * @param value Value
-	 * @param cause 缓存失效原因
-	 */
-	<K, V> void onRemoval(K key, V value, CacheRemovalCause cause);
-}
+package org.ylzl.eden.dynamic.cache.l1cache;

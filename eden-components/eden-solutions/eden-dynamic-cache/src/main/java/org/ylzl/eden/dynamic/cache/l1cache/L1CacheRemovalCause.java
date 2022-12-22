@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.expire;
+package org.ylzl.eden.dynamic.cache.l1cache;
 
 /**
  * 缓存失效原因
@@ -22,7 +22,7 @@ package org.ylzl.eden.dynamic.cache.expire;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public enum CacheRemovalCause {
+public enum L1CacheRemovalCause {
 
 	EXPLICIT {
 		@Override
@@ -57,8 +57,8 @@ public enum CacheRemovalCause {
 
 	public abstract boolean wasEvicted();
 
-	public static CacheRemovalCause parse(String type) {
-		for (CacheRemovalCause cause : CacheRemovalCause.values()) {
+	public static L1CacheRemovalCause parse(String type) {
+		for (L1CacheRemovalCause cause : L1CacheRemovalCause.values()) {
 			if (cause.name().equalsIgnoreCase(type)) {
 				return cause;
 			}

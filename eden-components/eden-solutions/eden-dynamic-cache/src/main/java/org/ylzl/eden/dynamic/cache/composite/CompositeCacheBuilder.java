@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.integration.l2cache.redis;
+package org.ylzl.eden.dynamic.cache.composite;
 
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.dynamic.cache.Cache;
+import org.ylzl.eden.dynamic.cache.L1Cache;
+import org.ylzl.eden.dynamic.cache.L2Cache;
 import org.ylzl.eden.dynamic.cache.builder.AbstractCacheBuilder;
 import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
  * Redis 缓存构建器
@@ -31,13 +31,9 @@ import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
  * @since 2.4.x
  */
 @Slf4j
-public class RedisCacheBuilder extends AbstractCacheBuilder {
+public class CompositeCacheBuilder extends AbstractCacheBuilder {
 
-	private static final String CACHE_CLIENT_IS_NOT_REQUIRED_TYPE = "Redis client '{}' is not of required type RedissonClient";
-
-	private volatile RedissonClient redissonClient;
-
-	private static final Object lock = new Object();
+	private Object l2CacheClient;
 
 	/**
 	 * 设置二级缓存客户端
@@ -48,10 +44,7 @@ public class RedisCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public CacheBuilder l2CacheClient(Object l2CacheClient) {
-		if (!(l2CacheClient instanceof RedissonClient)) {
-			throw new RuntimeException(MessageFormatUtils.format(CACHE_CLIENT_IS_NOT_REQUIRED_TYPE, l2CacheClient));
-		}
-		this.redissonClient = (RedissonClient) l2CacheClient;
+		this.l2CacheClient = l2CacheClient;
 		return this;
 	}
 
@@ -62,13 +55,23 @@ public class RedisCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public Cache build() {
-		if (redissonClient == null) {
-			synchronized (lock) {
-				if (redissonClient == null) {
-					redissonClient = Redisson.create(this.getCacheConfig().getL2Cache().getRedis().getConfig());
-				}
-			}
-		}
-		return new RedisCache(this.getCacheName(), this.getCacheConfig(), redissonClient);
+		String l1CacheType = this.getCacheConfig().getComposite().getL1CacheType();
+		L1Cache l1Cache = (L1Cache) newCacheBuilder(l1CacheType).build();
+
+		String l2CacheType = this.getCacheConfig().getComposite().getL2CacheType();
+		CacheBuilder cacheBuilder = newCacheBuilder(l2CacheType);
+		cacheBuilder.l2CacheClient(this.l2CacheClient);
+		L2Cache l2Cache = (L2Cache) cacheBuilder.build();
+		return new CompositeCache(this.getCacheName(), this.getCacheConfig(), l1Cache, l2Cache);
+	}
+
+	/**
+	 * 获取 CacheBuilder
+	 *
+	 * @param cacheType 缓存类型
+	 * @return CacheBuilder
+	 */
+	private CacheBuilder newCacheBuilder(String cacheType) {
+		return ExtensionLoader.getExtensionLoader(CacheBuilder.class).getExtension(cacheType);
 	}
 }

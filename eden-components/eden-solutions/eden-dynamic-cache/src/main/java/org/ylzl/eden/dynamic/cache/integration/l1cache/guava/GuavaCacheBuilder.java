@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine;
+package org.ylzl.eden.dynamic.cache.integration.l1cache.guava;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.google.common.cache.CacheBuilder;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.Cache;
@@ -26,13 +26,13 @@ import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalCause;
 
 /**
- * Caffeine 缓存构建器
+ * Guava 缓存构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
-public class CaffeineCacheBuilder extends AbstractCacheBuilder {
+public class GuavaCacheBuilder extends AbstractCacheBuilder {
 
 	/**
 	 * 构建 Cache 实例
@@ -41,8 +41,8 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public Cache build() {
-		com.github.benmanes.caffeine.cache.Cache<Object, Object> cache = newCaffeineBuilder().build();
-		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
+		com.google.common.cache.Cache<Object, Object> cache = newGuavaBuilder().build();
+		return new GuavaCache(this.getCacheName(), this.getCacheConfig(), cache);
 	}
 
 	/**
@@ -53,22 +53,30 @@ public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public Cache build(L1CacheLoader l1CacheLoader) {
-		LoadingCache<Object, Object> cache = newCaffeineBuilder().build(l1CacheLoader::load);
-		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
+		com.google.common.cache.LoadingCache<Object, Object> cache = newGuavaBuilder().build(
+			new com.google.common.cache.CacheLoader<Object, Object>() {
+
+				@Override
+				public Object load(@NonNull Object key) {
+					return l1CacheLoader.load(key);
+				}
+			});
+		return new GuavaCache(this.getCacheName(), this.getCacheConfig(), cache);
 	}
 
 	/**
-	 * 构建 Caffeine
+	 * 构建 Guava
 	 *
-	 * @return Caffeine
+	 * @return Guava
 	 */
 	@NotNull
-	private Caffeine<Object, Object> newCaffeineBuilder() {
-		return Caffeine.newBuilder()
+	private CacheBuilder<Object, Object> newGuavaBuilder() {
+		return CacheBuilder.newBuilder()
 			.initialCapacity(this.getCacheConfig().getL1Cache().getInitialCapacity())
 			.maximumSize(this.getCacheConfig().getL1Cache().getMaximumSize())
-			.evictionListener((key, value, cause) -> {
-				this.getRemovalListener().onRemoval(key, value, L1CacheRemovalCause.parse(cause.name()));
+			.removalListener(notification -> {
+				this.getRemovalListener().onRemoval(notification.getKey(), notification.getValue(),
+					L1CacheRemovalCause.parse(notification.getCause().name()));
 			});
 	}
 }

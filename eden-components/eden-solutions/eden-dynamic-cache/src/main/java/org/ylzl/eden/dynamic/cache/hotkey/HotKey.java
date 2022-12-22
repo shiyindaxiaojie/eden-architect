@@ -21,7 +21,7 @@ import org.ylzl.eden.extension.SPI;
 import java.io.Serializable;
 
 /**
- * 热key探测接口
+ * 热key探测
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -32,8 +32,9 @@ public interface HotKey extends Serializable {
 	/**
 	 * 判断是否为热Key
 	 *
-	 * @param key Key
+	 * @param name 资源名称
+	 * @param key  Key
 	 * @return 是否为热Key
 	 */
-	<K> boolean isHotKey(K key);
+	boolean isHotKey(String name, Object key);
 }

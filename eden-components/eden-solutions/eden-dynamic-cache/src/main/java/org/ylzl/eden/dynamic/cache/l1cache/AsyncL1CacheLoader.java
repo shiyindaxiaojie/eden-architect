@@ -14,40 +14,44 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.expire;
+package org.ylzl.eden.dynamic.cache.l1cache;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.Executor;
 
 /**
- * TODO
+ * 缓存加载器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
-public class AsyncCacheRemovalListener {
+public class AsyncL1CacheLoader {
 
-	private final CacheRemovalListener delegate;
+	private final L1CacheLoader delegate;
 
 	private final Executor executor;
 
 	/**
-	 * 缓存过期触发
+	 * 根据 Key 异步加载 Value
 	 *
-	 * @param key   Key
-	 * @param future CompletableFuture
-	 * @param cause 缓存失效原因
+	 * @param key 缓存Key
+	 * @param executor 执行器
+	 * @return CompletableFuture
 	 */
-	public <K, V> void onRemoval(K key, CompletableFuture<V> future, CacheRemovalCause cause) {
-		if (future != null) {
-			future.thenAcceptAsync(value -> {
-				if (value != null) {
-					delegate.onRemoval(key, value, cause);
-				}
-			}, executor);
-		}
+	<K, V> CompletableFuture<V> load(@NonNull K key, @NonNull Executor executor) {
+		return CompletableFuture.supplyAsync(() -> {
+			try {
+				return delegate.load(key);
+			} catch (RuntimeException e) {
+				throw e;
+			} catch (Exception e) {
+				throw new CompletionException(e);
+			}
+		}, executor);
 	}
 }

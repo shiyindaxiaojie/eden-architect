@@ -14,4 +14,37 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.loader;
+package org.ylzl.eden.dynamic.cache.consistency.model;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
+/**
+ * 缓存信息
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.13
+ */
+@Accessors(chain = true)
+@Getter
+@Setter
+public class CacheMessage implements Serializable {
+
+	/** 缓存名称 */
+	private String name;
+
+	/** 缓存类型 */
+	private String type;
+
+	/** 缓存key */
+	private String key;
+
+	/** 是否刷新 */
+	private boolean refresh;
+
+	/** 是否清除 */
+	private boolean clear;
+}

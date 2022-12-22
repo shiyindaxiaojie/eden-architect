@@ -14,46 +14,40 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.loader;
+package org.ylzl.eden.dynamic.cache.l1cache;
 
-import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 import java.util.concurrent.Executor;
 
 /**
- * 缓存加载器
+ * TODO
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface CacheLoader {
+@RequiredArgsConstructor
+public class AsyncL1CacheRemovalListener {
+
+	private final L1CacheRemovalListener delegate;
+
+	private final Executor executor;
 
 	/**
-	 * 根据 Key 加载 Value
+	 * 缓存过期触发
 	 *
-	 * @param key 缓存Key
-	 * @return Value
+	 * @param key   Key
+	 * @param future CompletableFuture
+	 * @param cause 缓存失效原因
 	 */
-	<K, V> V load(K key);
-
-	/**
-	 * 根据 Key 异步加载 Value
-	 *
-	 * @param key 缓存Key
-	 * @param executor 执行器
-	 * @return CompletableFuture
-	 */
-	default <K, V> CompletableFuture<V> asyncLoad(@NonNull K key, @NonNull Executor executor) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return load(key);
-			} catch (RuntimeException e) {
-				throw e;
-			} catch (Exception e) {
-				throw new CompletionException(e);
-			}
-		}, executor);
+	public <K, V> void onRemoval(K key, CompletableFuture<V> future, L1CacheRemovalCause cause) {
+		if (future != null) {
+			future.thenAcceptAsync(value -> {
+				if (value != null) {
+					delegate.onRemoval(key, value, cause);
+				}
+			}, executor);
+		}
 	}
 }

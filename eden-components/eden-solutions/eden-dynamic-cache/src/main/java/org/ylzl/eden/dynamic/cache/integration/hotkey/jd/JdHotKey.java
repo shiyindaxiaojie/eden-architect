@@ -17,6 +17,7 @@
 package org.ylzl.eden.dynamic.cache.integration.hotkey.jd;
 
 import com.jd.platform.hotkey.client.callback.JdHotKeyStore;
+import org.jetbrains.annotations.NotNull;
 import org.ylzl.eden.dynamic.cache.hotkey.HotKey;
 
 /**
@@ -30,11 +31,12 @@ public class JdHotKey implements HotKey {
 	/**
 	 * 判断是否为热Key
 	 *
-	 * @param key Key
+	 * @param name 资源名称
+	 * @param key  Key
 	 * @return 是否为热Key
 	 */
 	@Override
-	public <K> boolean isHotKey(K key) {
+	public boolean isHotKey(@NotNull String name, @NotNull Object key) {
 		return JdHotKeyStore.isHotKey(key.toString());
 	}
 }

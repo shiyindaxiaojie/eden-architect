@@ -1,7 +1,6 @@
 package org.ylzl.eden.dynamic.cache.composite;
 
 import org.ylzl.eden.commons.collections.CollectionUtils;
-import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.CacheType;
@@ -87,15 +86,10 @@ public class CompositeCache extends AbstractAdaptingCache implements Cache {
 	 */
 	@Override
 	public <T> T get(Object key, Class<T> type) {
-		Object value = get(key);
-		if (value == null) {
-			return null;
+		if (isL1CacheEnabled(key)) {
+			return l1Cache.get(key, type);
 		}
-		if (type != null && !type.isInstance(value)) {
-			throw new IllegalStateException(MessageFormatUtils.format(
-				"Composite Cached value '{}' is not of required type '{}'", value, type.getName()));
-		}
-		return (T) value;
+		return l2Cache.get(key, type);
 	}
 
 	/**
@@ -164,6 +158,24 @@ public class CompositeCache extends AbstractAdaptingCache implements Cache {
 	}
 
 	/**
+	 * 获取一级缓存实例
+	 *
+	 * @return 一级缓存实例
+	 */
+	public L1Cache getL1Cache() {
+		return l1Cache;
+	}
+
+	/**
+	 * 获取二级缓存实例
+	 *
+	 * @return 二级缓存实例
+	 */
+	public L2Cache getL2Cache() {
+		return l2Cache;
+	}
+
+	/**
 	 * 是否开启一级缓存
 	 *
 	 * @param key Key
@@ -187,7 +199,7 @@ public class CompositeCache extends AbstractAdaptingCache implements Cache {
 		String hotKeyType = this.cacheConfig.getComposite().getHotKeyType();
 		if (StringUtils.isNotBlank(hotKeyType)) {
 			HotKey hotKey = ExtensionLoader.getExtensionLoader(HotKey.class).getExtension(hotKeyType);
-			return hotKey.isHotKey(key);
+			return hotKey.isHotKey(this.getName(), key);
 		}
 		return false;
 	}

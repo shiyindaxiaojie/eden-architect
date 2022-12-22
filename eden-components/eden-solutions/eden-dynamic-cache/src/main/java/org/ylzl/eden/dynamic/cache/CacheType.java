@@ -27,10 +27,9 @@ public enum CacheType {
 	COMPOSITE,
 	CAFFEINE,
 	GUAVA,
-	EHCACHE,
 	REDIS,
-	MEMCACHED,
-	DRAGONFLY;
+	DRAGONFLY,
+	HAZELCAST;
 
 	public static CacheType parse(String type) {
 		for (CacheType cacheType : CacheType.values()) {

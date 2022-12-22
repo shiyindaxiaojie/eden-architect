@@ -14,38 +14,35 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine;
+package org.ylzl.eden.dynamic.cache.integration.l1cache.guava;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.LoadingCache;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.google.common.cache.Cache;
+import com.google.common.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.dynamic.cache.CacheType;
 import org.ylzl.eden.dynamic.cache.L1Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.exception.ValueRetrievalException;
 import org.ylzl.eden.dynamic.cache.support.AbstractAdaptingCache;
 
 import java.util.concurrent.Callable;
-import java.util.function.Function;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Caffeine 缓存
+ * Guava 缓存
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
-public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
+public class GuavaCache extends AbstractAdaptingCache implements L1Cache {
 
-	private static final String CACHED_VALUE_IS_NOT_REQUIRED_TYPE = "Caffeine Cached value '{}' is not of required type '{}'";
+	private static final String CACHED_VALUE_IS_NOT_REQUIRED_TYPE = "Guava Cached value '{}' is not of required type '{}'";
 
 	private final Cache<Object, Object> cache;
 
-	public CaffeineCache(String cacheName, CacheConfig cacheConfig, Cache<Object, Object> cache) {
+	public GuavaCache(String cacheName, CacheConfig cacheConfig, Cache<Object, Object> cache) {
 		super(cacheName, cacheConfig);
 		this.cache = cache;
 	}
@@ -57,7 +54,7 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 */
 	@Override
 	public String getCacheType() {
-		return CacheType.CAFFEINE.name();
+		return CacheType.GUAVA.name();
 	}
 
 	/**
@@ -80,7 +77,12 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	@Override
 	public Object get(Object key) {
 		if (isLoadingCache()) {
-			Object value = ((LoadingCache) this.cache).get(key);
+			Object value = null;
+			try {
+				value = ((LoadingCache) this.cache).get(key);
+			} catch (ExecutionException e) {
+				throw new RuntimeException(e);
+			}
 			return fromStoreValue(value);
 		}
 		return fromStoreValue(this.cache.getIfPresent(key));
@@ -114,7 +116,11 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 */
 	@Override
 	public <T> T get(Object key, Callable<T> valueLoader) {
-		return (T) fromStoreValue(this.cache.get(key, new LoadFunction(valueLoader)));
+		try {
+			return (T) fromStoreValue(this.cache.get(key, valueLoader));
+		} catch (ExecutionException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -137,9 +143,12 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	 */
 	@Override
 	public Object putIfAbsent(Object key, Object value) {
-		PutIfAbsentFunction function = new PutIfAbsentFunction(value);
-		Object result = this.cache.get(key, function);
-		return function.isCalled() ? null : result;
+		Object cacheValue = this.cache.getIfPresent(key);
+		if (cacheValue != null) {
+			return cacheValue;
+		}
+		put(key, value);
+		return value;
 	}
 
 	/**
@@ -204,41 +213,5 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	@Override
 	public boolean isLoadingCache() {
 		return cache instanceof LoadingCache || cache instanceof AsyncLoadingCache;
-	}
-
-	/**
-	 * Load 回调
-	 */
-	@RequiredArgsConstructor
-	private class LoadFunction implements Function<Object, Object> {
-
-		private final Callable<?> valueLoader;
-
-		@Override
-		public Object apply(Object o) {
-			try {
-				return toStoreValue(this.valueLoader.call());
-			} catch (Exception ex) {
-				throw new ValueRetrievalException(o, this.valueLoader, ex);
-			}
-		}
-	}
-
-	/**
-	 * PutIfAbsent 回调
-	 */
-	@Getter
-	@RequiredArgsConstructor
-	private class PutIfAbsentFunction implements Function<Object, Object> {
-
-		private final Object value;
-
-		private boolean called;
-
-		@Override
-		public Object apply(Object key) {
-			this.called = true;
-			return toStoreValue(this.value);
-		}
 	}
 }

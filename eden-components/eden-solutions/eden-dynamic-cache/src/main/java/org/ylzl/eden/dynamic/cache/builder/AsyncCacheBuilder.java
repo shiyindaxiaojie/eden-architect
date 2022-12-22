@@ -29,7 +29,7 @@ import org.ylzl.eden.extension.SPI;
  * @since 2.4.x
  */
 @SPI
-public interface CacheBuilder {
+public interface AsyncCacheBuilder {
 
 	/**
 	 * 设置缓存名称
@@ -37,7 +37,7 @@ public interface CacheBuilder {
 	 * @param cacheName 缓存名称
 	 * @return CacheBuilder
 	 */
-	CacheBuilder cacheName(String cacheName);
+	AsyncCacheBuilder cacheName(String cacheName);
 
 	/**
 	 * 设置缓存配置
@@ -45,7 +45,7 @@ public interface CacheBuilder {
 	 * @param cacheConfig 缓存配置
 	 * @return CacheBuilder
 	 */
-	CacheBuilder cacheConfig(CacheConfig cacheConfig);
+	AsyncCacheBuilder cacheConfig(CacheConfig cacheConfig);
 
 	/**
 	 * 设置缓存失效监听器
@@ -53,29 +53,20 @@ public interface CacheBuilder {
 	 * @param removalListener 缓存失效监听器
 	 * @return CacheBuilder
 	 */
-	CacheBuilder evictionListener(L1CacheRemovalListener removalListener);
-
-	/**
-	 * 设置二级缓存客户端
-	 * <p>预留入口，支持外部注入Bean</p>
-	 *
-	 * @param l2CacheClient 二级缓存客户端
-	 * @return CacheBuilder
-	 */
-	CacheBuilder l2CacheClient(Object l2CacheClient);
-
-	/**
-	 * 构建一级缓存实例
-	 *
-	 * @param l1CacheLoader 缓存加载器
-	 * @return Cache 实例
-	 */
-	Cache build(L1CacheLoader l1CacheLoader);
+	AsyncCacheBuilder evictionListener(L1CacheRemovalListener removalListener);
 
 	/**
 	 * 构建 Cache 实例
 	 *
 	 * @return Cache 实例
 	 */
-	Cache build();
+	Cache buildAsync();
+
+    /**
+     * 构建 Cache 实例
+	 *
+	 * @param l1CacheLoader 缓存加载器
+	 * @return Cache 实例
+	 */
+	Cache buildAsync(L1CacheLoader l1CacheLoader);
 }
