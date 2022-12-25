@@ -161,9 +161,9 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 		}
 
 		Object storeValue = toStoreValue(value);
-		long expireTime = this.getExpireTime(storeValue);
-		if (expireTime > 0) {
-			bucket.trySet(storeValue, expireTime, TimeUnit.MILLISECONDS);
+		long timeToLive = this.timeToLive(storeValue);
+		if (timeToLive > 0) {
+			bucket.trySet(storeValue, timeToLive, TimeUnit.SECONDS);
 		} else {
 			bucket.trySet(storeValue);
 		}
@@ -183,9 +183,9 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 		}
 
 		RBucket<Object> bucket = this.getBucket(key);
-		long expireTime = this.getExpireTime(value);
-		if (expireTime > 0) {
-			bucket.trySet(value, expireTime, TimeUnit.MILLISECONDS);
+		long timeToLive = this.timeToLive(value);
+		if (timeToLive > 0) {
+			bucket.trySet(value, timeToLive, TimeUnit.SECONDS);
 		} else {
 			bucket.trySet(value);
 		}
@@ -231,14 +231,19 @@ public class RedisCache extends AbstractAdaptingCache implements L2Cache {
 		return redisClient.getBucket(buildKey(key));
 	}
 
-	private long getExpireTime(Object value) {
-		long expireTime = TimeUnit.SECONDS.toMillis(this.redisConfig.getDefaultExpireInSeconds());
-		if (value instanceof NullValue) {
-			expireTime = TimeUnit.SECONDS.toMillis(this.getCacheConfig().getNullValueExpireInSeconds());
+	/**
+	 * 获取缓存值的存活时间
+	 *
+	 * @param value 缓存值
+	 * @return 缓存值的存活时间
+	 */
+	private long timeToLive(Object value) {
+		long timeToLive = value instanceof NullValue ?
+			this.getCacheConfig().getNullValueTimeToLive() :
+			this.redisConfig.getTimeToLive();
+		if (timeToLive < 0) {
+			timeToLive = 0;
 		}
-		if (expireTime < 0) {
-			expireTime = 0;
-		}
-		return expireTime;
+		return timeToLive;
 	}
 }

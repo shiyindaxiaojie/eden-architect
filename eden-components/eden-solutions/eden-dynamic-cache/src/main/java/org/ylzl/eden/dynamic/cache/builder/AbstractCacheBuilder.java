@@ -116,7 +116,7 @@ public abstract class AbstractCacheBuilder implements CacheBuilder {
 	/**
 	 * 获取缓存失效监听器
 	 *
-	 * @return
+	 * @return 缓存失效监听器
 	 */
 	public L1CacheRemovalListener getRemovalListener() {
 		if (removalListener == null) {

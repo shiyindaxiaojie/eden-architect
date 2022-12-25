@@ -50,7 +50,7 @@ public class CacheConfig {
 	private int nullValueMaximumSize = 2048;
 
 	/** NullValue 的过期时间（秒）*/
-	private int nullValueExpireInSeconds = 60;
+	private int nullValueTimeToLive = 60;
 
 	/** NullValue 的清理频率（秒） */
 	private int nullValueRetentionInterval = 10;
@@ -194,7 +194,7 @@ public class CacheConfig {
 			private boolean tryLock = true;
 
 			/** 默认过期时间（秒） */
-			private int defaultExpireInSeconds = 60;
+			private int timeToLive = 60;
 
 			/** Redisson 配置 */
 			private Config config;
