@@ -25,59 +25,118 @@ import lombok.Getter;
  */
 public enum WebServer {
 
-	// 常用
-	TOMCAT(() -> detect("/org/apache/catalina/startup/Bootstrap.class")
-		|| detect("/org/apache/catalina/startup/Embedded.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	UNDERTOW(() -> detect("/io/undertow/Version.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	JBOSS(() -> detect("/org/jboss/Main.class"),
-		"java:/"),
-	JETTY(() -> detect("/org/mortbay/jetty/Server.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	// 不常用
-	GERONIMO(() -> detect("/org/apache/geronimo/system/main/Daemon.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	GLASSFISH(() -> System.getProperty("com.sun.aas.instanceRoot") != null,
-		WebServer.JNDI_ENC_EJB_11),
-	GLASSFISH2(() -> System.getProperty("com.sun.aas.instanceRoot") != null
-		&& !("GlassFish/v3".equals(System.getProperty("product.name"))),
-		WebServer.JNDI_ENC_EJB_11),
-	GLASSFISH3(() -> System.getProperty("com.sun.aas.instanceRoot") != null
-		&& "GlassFish/v3".equals(System.getProperty("product.name")),
-		WebServer.JNDI_ENC_EJB_11),
-	JONAS(() -> detect("/org/objectweb/jonas/development/Server.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	OC4J(() -> detect("oracle.oc4j.util.ClassUtils"),
-		WebServer.JNDI_ENC_EJB_11),
-	RESIN(() -> detect("/com/caucho/development/resin/Resin.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	WEBLOGIC(() -> detect("/weblogic/Server.class"),
-		WebServer.JNDI_ENC_EJB_11),
-	WEBSPHERE(() -> detect("/com/ibm/websphere/product/VersionInfo.class"),
-		"java:comp/env/cas/");
+	TOMCAT(WebServer.JNDI_ENC_EJB_11) {
 
-	/**
-	 * 标准命名服务前缀，自 EJB 1.1 引入的规范
-	 */
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/org/apache/catalina/startup/Bootstrap.class") ||
+				detect("/org/apache/catalina/startup/Embedded.class");
+		}
+	},
+	UNDERTOW(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/io/undertow/Version.class");
+		}
+	},
+	JBOSS("java:/") {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/org/jboss/Main.class");
+		}
+	},
+	JETTY(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/org/mortbay/jetty/Server.class");
+		}
+	},
+	GERONIMO(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/org/apache/geronimo/system/main/Daemon.class");
+		}
+	},
+	GLASSFISH(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return System.getProperty("com.sun.aas.instanceRoot") != null;
+		}
+	},
+	GLASSFISH2(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return System.getProperty("com.sun.aas.instanceRoot") != null &&
+				!("GlassFish/v3".equals(System.getProperty("product.name")));
+		}
+	},
+	GLASSFISH3(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return System.getProperty("com.sun.aas.instanceRoot") != null &&
+				"GlassFish/v3".equals(System.getProperty("product.name"));
+		}
+	},
+	JONAS(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/org/objectweb/jonas/development/Server.class");
+		}
+	},
+	OC4J(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("oracle.oc4j.util.ClassUtils");
+		}
+	},
+	RESIN(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/com/caucho/development/resin/Resin.class");
+		}
+	},
+	WEBLOGIC(WebServer.JNDI_ENC_EJB_11) {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/weblogic/Server.class");
+		}
+	},
+	WEBSPHERE("java:comp/env/cas/") {
+
+		@Override
+		public boolean isCurrentWebServer() {
+			return detect("/com/ibm/websphere/product/VersionInfo.class");
+		}
+	};
+
+	/** 标准命名服务前缀，自 EJB 1.1 引入的规范 */
 	private static final String JNDI_ENC_EJB_11 = "java:comp/env/";
 
 	private static final String MSG_UNSUPPORTED_EXCEPTION = "Unsupported application container";
 
 	@Getter
-	private final Handler handler;
-
-	@Getter
 	private final String lookup;
 
-	WebServer(Handler handler, String lookup) {
-		this.handler = handler;
+	WebServer(String lookup) {
 		this.lookup = lookup;
 	}
 
+	public abstract boolean isCurrentWebServer();
+
 	public static WebServer parse() {
 		for (WebServer webServer : WebServer.values()) {
-			if (webServer.getHandler().isCurrentWebServer()) {
+			if (webServer.isCurrentWebServer()) {
 				return webServer;
 			}
 		}
@@ -94,10 +153,5 @@ public enum WebServer {
 			}
 		}
 		return true;
-	}
-
-	public interface Handler {
-
-		boolean isCurrentWebServer();
 	}
 }

@@ -30,7 +30,7 @@ public class Strings {
 
 	public static final String SPACE = " ";
 
-	public static final String HARD_QUOTE = "\'";
+	public static final String HARD_QUOTE = "'";
 
 	public static final String SOFT_QUOTE = "\"";
 

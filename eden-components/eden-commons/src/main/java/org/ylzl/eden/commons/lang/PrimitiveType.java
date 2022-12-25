@@ -20,43 +20,85 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
- * 基本类型枚举
+ * 基本类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 public enum PrimitiveType {
 
-	BOOLEAN(Boolean::parseBoolean, Boolean.class),
-	BYTE(value -> value == null ? (byte) 0 : Byte.parseByte(value), Byte.class),
-	CHAR(value -> value == null ? '\u0000' : value.charAt(0), Character.class),
-	DOUBLE(value -> value == null ? 0.0d : Double.parseDouble(value), Double.class),
-	FLOAT(value -> value == null ? 0.0f : Float.parseFloat(value), Float.class),
-	INTEGER(value -> value == null ? 0 : Integer.parseInt(value), Integer.class),
-	LONG(value -> value == null ? 0L : Long.parseLong(value), Long.class),
-	SHORT(value -> value == null ? (short) 0 : Short.parseShort(value), Short.class);
+	BOOLEAN(Boolean.class) {
 
-	@Getter
-	private final Handler handler;
+		@Override
+		public Object cast(String value) {
+			return Boolean.parseBoolean(value);
+		}
+	},
+	BYTE(Byte.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? (byte) 0 : Byte.parseByte(value);
+		}
+	},
+	CHAR(Character.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? '\u0000' : value.charAt(0);
+		}
+	},
+	DOUBLE(Double.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? 0.0d : Double.parseDouble(value);
+		}
+	},
+	FLOAT(Float.class) {
+
+		@Override
+		public Object cast(String value) {;
+			return value == null ? 0.0f : Float.parseFloat(value);
+		}
+	},
+	INTEGER(Integer.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? 0 : Integer.parseInt(value);
+		}
+	},
+	LONG(Long.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? 0L : Long.parseLong(value);
+		}
+	},
+	SHORT(Short.class) {
+
+		@Override
+		public Object cast(String value) {
+			return value == null ? (short) 0 : Short.parseShort(value);
+		}
+	};
 
 	@Getter
 	private final Class<?> wrapperClass;
 
-	PrimitiveType(Handler handler, Class<?> wrapperClass) {
-		this.handler = handler;
+	public abstract Object cast(String value);
+
+	PrimitiveType(Class<?> wrapperClass) {
 		this.wrapperClass = wrapperClass;
 	}
 
-	public static PrimitiveType toPrimitiveTypeEnum(@NonNull String type) {
+	public static PrimitiveType parse(@NonNull String type) {
 		for (PrimitiveType primitiveType : PrimitiveType.values()) {
 			if (primitiveType.name().equalsIgnoreCase(type)) {
 				return primitiveType;
 			}
 		}
 		return null;
-	}
-
-	public interface Handler {
-		Object cast(String value);
 	}
 }

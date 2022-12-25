@@ -18,7 +18,6 @@ package org.ylzl.eden.spring.boot.task.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
@@ -109,6 +108,8 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 
 	@Override
 	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-		return new SimpleAsyncUncaughtExceptionHandler();
+		return (ex, method, params) -> {
+			log.error("Unexpected exception occurred invoking async method: {}", method, ex);
+		};
 	}
 }

@@ -1,0 +1,4 @@
+composite=org.ylzl.eden.dynamic.cache.composite.CompositeCacheBuilder
+caffeine=org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine.CaffeineCacheBuilder
+guava=org.ylzl.eden.dynamic.cache.integration.l1cache.guava.GuavaCacheBuilder
+redis=org.ylzl.eden.dynamic.cache.integration.l2cache.redis.RedisCacheBuilder

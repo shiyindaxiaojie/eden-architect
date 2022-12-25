@@ -20,12 +20,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
-import org.ylzl.eden.dynamic.cache.enums.CacheType;
-import org.ylzl.eden.commons.id.NanoIdUtils;
+import org.redisson.config.Config;
+import org.ylzl.eden.dynamic.cache.CacheType;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 缓存配置
@@ -35,75 +36,215 @@ import java.util.Map;
  */
 @EqualsAndHashCode
 @ToString
-@Accessors(chain = true)
-@Getter
 @Setter
+@Getter
 public class CacheConfig {
 
-	/**
-	 * 缓存实例ID，默认使用 NanoId
-	 */
-	private String instanceId = NanoIdUtils.randomNanoId();
-
-	/**
-	 * 缓存类型
-	 *
-	 * @see CacheType
-	 */
+	/** 缓存类型 */
 	private String cacheType = CacheType.COMPOSITE.name();
 
-	/**
-	 * 允许动态创建缓存
-	 */
-	private boolean dynamic = true;
-
-	/**
-	 * 是否存储NULL，可防止缓存穿透
-	 */
+	/** 是否存储 NullValue，可防止缓存穿透 */
 	private boolean allowNullValues = true;
 
-	/**
-	 * NULL值的过期时间（秒）
-	 */
-	private int nullValueExpireInSeconds = 60;
+	/** NullValue 的最大数量 */
+	private int nullValueMaximumSize = 2048;
 
-	/**
-	 * NULL值的最大数量，超出该值后的下一次刷新缓存将进行淘汰
-	 */
-	private int nullValueMaxSize = 2048;
+	/** NullValue 的过期时间（秒）*/
+	private int nullValueTimeToLive = 60;
 
-	private final Caffeine caffeine = new Caffeine();
+	/** NullValue 的清理频率（秒） */
+	private int nullValueRetentionInterval = 10;
+
+	/** Key 分隔符 */
+	private String keySeparator = ":";
+
+	private final Composite composite = new Composite();
+
+	private final L1Cache l1Cache = new L1Cache();
+
+	private final L2Cache l2Cache = new L2Cache();
+
+	private final HotKey hotKey = new HotKey();
 
 	@EqualsAndHashCode
 	@ToString
-	@Accessors(chain = true)
-	@Getter
 	@Setter
-	public static class Caffeine {
+	@Getter
+	public static class Composite {
 
-		/**
-		 * 是否自动刷新过期缓存
-		 */
-		private boolean autoRefreshExpireCache = true;
+		/** 一级缓存类型 */
+		private String l1CacheType = CacheType.CAFFEINE.name();
 
-		/**
-		 * 自动刷新线程池大小
-		 */
-		private Integer autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+		/** 二级缓存类型 */
+		private String l2CacheType = CacheType.REDIS.name();
 
-		/**
-		 * 自动刷新间隔（秒）
-		 */
-		private Integer autoRefreshInSeconds = 30;
+		/** 热Key类型 */
+		private String hotKeyType;
+	}
 
-		/**
-		 * 默认配置
-		 */
-		private String defaultSpec;
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class L1Cache {
 
-		/**
-		 * 附加配置
-		 */
-		private Map<String, String> specs = new HashMap<>();
+		/** 是否开启一级缓存，默认关闭 */
+		private boolean enabled = false;
+
+		/** 缓存Key集合，默认不设置表示全部生效 */
+		private Set<String> cacheKeys = new HashSet<>();
+
+		/** CacheName集合，默认不设置表示全部生效 */
+		private Set<String> cacheNames = new HashSet<>();
+
+		/** 初始容量 */
+		private int initialCapacity;
+
+		/** 最大容量 */
+		private long maximumSize;
+
+		private final Caffeine caffeine = new Caffeine();
+
+		private final Guava guava = new Guava();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Caffeine {
+
+			/**
+			 * 是否自动刷新过期缓存
+			 */
+			private boolean autoRefreshExpireCache = true;
+
+			/**
+			 * 自动刷新缓存的线程池大小
+			 */
+			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+
+			/**
+			 * 自动刷新缓存的时间间隔（秒）
+			 */
+			private int autoRefreshInSeconds = 30;
+
+			/**
+			 * 默认配置
+			 */
+			private String defaultSpec;
+
+			/**
+			 * 指定配置
+			 */
+			private Map<String, String> specs = new HashMap<>();
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Guava {
+
+			/**
+			 * 是否自动刷新过期缓存
+			 */
+			private boolean autoRefreshExpireCache = true;
+
+			/**
+			 * 自动刷新缓存的线程池大小
+			 */
+			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
+
+			/**
+			 * 自动刷新缓存的时间间隔（秒）
+			 */
+			private int autoRefreshInSeconds = 30;
+
+			/**
+			 * 默认配置
+			 */
+			private String defaultSpec;
+
+			/**
+			 * 指定配置
+			 */
+			private Map<String, String> specs = new HashMap<>();
+		}
+	}
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class L2Cache {
+
+		private final Redis redis = new Redis();
+
+		private final Dragonfly dragonfly = new Dragonfly();
+
+		private final Hazelcast hazelcast = new Hazelcast();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Redis {
+
+			/** 尝试加锁 */
+			private boolean tryLock = true;
+
+			/** 默认过期时间（秒） */
+			private int timeToLive = 60;
+
+			/** Redisson 配置 */
+			private Config config;
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Dragonfly {
+
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Hazelcast {
+
+		}
+	}
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class HotKey {
+
+		private final JD jd = new JD();
+
+		private final Sentinel sentinel = new Sentinel();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class JD {
+
+			private String appName;
+
+			private String etcdServer;
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Sentinel {
+
+
+		}
 	}
 }

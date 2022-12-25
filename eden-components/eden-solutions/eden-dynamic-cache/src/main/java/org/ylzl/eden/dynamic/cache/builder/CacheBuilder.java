@@ -16,14 +16,11 @@
 
 package org.ylzl.eden.dynamic.cache.builder;
 
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.config.CacheSpec;
 import org.ylzl.eden.dynamic.cache.Cache;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.config.CacheConfig;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
 import org.ylzl.eden.extension.SPI;
-
-import java.io.Serializable;
 
 /**
  * 缓存构造器
@@ -32,81 +29,53 @@ import java.io.Serializable;
  * @since 2.4.x
  */
 @SPI
-public interface CacheBuilder<T extends Cache> extends Serializable {
+public interface CacheBuilder {
 
 	/**
-	 * 构建指定名称的缓存对象
+	 * 设置缓存名称
 	 *
-	 * @param cacheName
-	 * @return
+	 * @param cacheName 缓存名称
+	 * @return CacheBuilder
 	 */
-	T build(String cacheName);
-
-	/**
-	 * 解析指定名称的缓存配置
-	 *
-	 * @param cacheName
-	 * @return
-	 */
-	CacheSpec parseSpec(String cacheName);
-
-	/**
-	 * 获取缓存配置
-	 *
-	 * @return
-	 */
-	CacheConfig getCacheConfig();
+	CacheBuilder cacheName(String cacheName);
 
 	/**
 	 * 设置缓存配置
 	 *
-	 * @param cacheConfig
-	 * @return
+	 * @param cacheConfig 缓存配置
+	 * @return CacheBuilder
 	 */
-	CacheBuilder<T> setCacheConfig(CacheConfig cacheConfig);
+	CacheBuilder cacheConfig(CacheConfig cacheConfig);
 
 	/**
-	 * 获取缓存过期监听器
+	 * 设置缓存失效监听器
 	 *
-	 * @return
+	 * @param removalListener 缓存失效监听器
+	 * @return CacheBuilder
 	 */
-	CacheExpiredListener<Object, Object> getExpiredListener();
+	CacheBuilder evictionListener(L1CacheRemovalListener removalListener);
 
 	/**
-	 * 设置缓存过期监听器
+	 * 设置二级缓存客户端
+	 * <p>预留入口，支持外部注入Bean</p>
 	 *
-	 * @param cacheExpiredListener
-	 * @return
+	 * @param l2CacheClient 二级缓存客户端
+	 * @return CacheBuilder
 	 */
-	CacheBuilder<T> setExpiredListener(CacheExpiredListener<Object, Object> cacheExpiredListener);
+	CacheBuilder l2CacheClient(Object l2CacheClient);
 
 	/**
-	 * 获取缓存同步器
+	 * 构建一级缓存实例
 	 *
-	 * @return
+	 * @param l1CacheLoader 缓存加载器
+	 * @return Cache 实例
 	 */
-	CacheSynchronizer getCacheSynchronizer();
+	Cache build(L1CacheLoader l1CacheLoader);
 
 	/**
-	 * 设置缓存同步器
+	 * 构建 Cache 实例
 	 *
-	 * @param cacheSynchronizer
-	 * @return
+	 * @return Cache 实例
 	 */
-	CacheBuilder<T> setCacheSynchronizer(CacheSynchronizer cacheSynchronizer);
-
-	/**
-	 * 获取实际执行的缓存客户端
-	 *
-	 * @return
-	 */
-	Object getCacheClient();
-
-	/**
-	 * 设置实际执行的缓存客户端
-	 *
-	 * @param cacheClient
-	 * @return
-	 */
-	CacheBuilder<T> setCacheClient(Object cacheClient);
+	Cache build();
 }

@@ -38,10 +38,8 @@ import java.util.Map;
 public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 
 	@SuppressWarnings("unchecked")
-	public static <T> T toBean(
-		@NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException,
-		ParseException {
+	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject)
+		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
 		if (targetObject == null) {
 			targetObject = (T) clazz.newInstance();
 		}
@@ -73,17 +71,13 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 		return targetObject;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<T> targetClass)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException,
-		ParseException {
+		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
 		return toBean(sourceMap, targetClass, targetClass.newInstance());
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull T targetObject)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException,
-		ParseException {
+		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
 		return toBean(sourceMap, targetObject.getClass(), targetObject);
 	}
 }

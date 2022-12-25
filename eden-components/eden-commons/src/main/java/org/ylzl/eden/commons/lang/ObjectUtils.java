@@ -96,11 +96,9 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 			for (PrimitiveType primitiveType : PrimitiveType.values()) {
 				if (primitiveType.name().equalsIgnoreCase(simpleName)
 					|| clazz.equals(primitiveType.getWrapperClass())) {
-					return primitiveType.getHandler().cast(value);
+					return primitiveType.cast(value);
 				}
 			}
-		} else if (object == null) { // 引用类型
-			return null;
 		}
 		if (CharSequence.class.isAssignableFrom(clazz)) { // 字符串
 			return value;

@@ -83,6 +83,7 @@
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-net.version>3.9.0</commons-net.version>
 		<commons-cli.version>1.4</commons-cli.version>
+		<jackson-bom.version>2.14.1</jackson-bom.version>
 		<guava.version>30.0-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>

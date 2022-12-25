@@ -16,20 +16,14 @@
 
 package org.ylzl.eden.dynamic.cache.integration.l1cache.caffeine;
 
-import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.builder.AbstractCacheBuilder;
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.config.CacheSpec;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredCause;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.loader.CacheLoader;
-import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.extension.ExtensionLoader;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalCause;
 
 /**
  * Caffeine 缓存构建器
@@ -38,75 +32,43 @@ import java.util.Map;
  * @since 2.4.x
  */
 @Slf4j
-public class CaffeineCacheBuilder extends AbstractCacheBuilder<CaffeineCache> {
+public class CaffeineCacheBuilder extends AbstractCacheBuilder {
 
-	private static final Map<String, CustomCaffeineSpec> caffeineSpecMap = new HashMap<>(16);
-
+	/**
+	 * 构建 Cache 实例
+	 *
+	 * @return Cache 实例
+	 */
 	@Override
-	public CaffeineCache build(String cacheName) {
-		CacheLoader<Object, Object> cacheLoader = ExtensionLoader.getExtensionLoader(CacheLoader.class).getDefaultExtension();
-		cacheLoader.setCacheSpec(this.parseSpec(cacheName));
-		cacheLoader.setCacheSynchronizer(this.getCacheSynchronizer());
-		cacheLoader.setAllowNullValues(this.getCacheConfig().isAllowNullValues());
-
-		Cache<Object, Object> cache = this.buildCacheClient(cacheName, this.getCacheConfig(),
-			cacheLoader, this.getExpiredListener());
-
-		return new CaffeineCache(cacheName, this.getCacheConfig(), cache);
+	public Cache build() {
+		com.github.benmanes.caffeine.cache.Cache<Object, Object> cache = newCaffeineBuilder().build();
+		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
 	}
 
+	/**
+	 * 构建 Cache 实例
+	 *
+	 * @param l1CacheLoader 缓存加载器
+	 * @return Cache 实例
+	 */
 	@Override
-	public CacheSpec parseSpec(String cacheName) {
-		CustomCaffeineSpec caffeineSpec = this.buildCaffeineSpec(cacheName, this.getCacheConfig());
-		CacheSpec cacheSpec = new CacheSpec();
-		cacheSpec.setExpireInMs(caffeineSpec.getExpireInMs());
-		cacheSpec.setMaximumSize((int) caffeineSpec.getMaximumSize());
-		return cacheSpec;
+	public Cache build(L1CacheLoader l1CacheLoader) {
+		LoadingCache<Object, Object> cache = newCaffeineBuilder().build(l1CacheLoader::load);
+		return new CaffeineCache(this.getCacheName(), this.getCacheConfig(), cache);
 	}
 
-	private Cache<Object, Object> buildCacheClient(String cacheName, CacheConfig cacheConfig,
-												   CacheLoader<Object, Object> cacheLoader,
-												   CacheExpiredListener<Object, Object> cacheExpiredListener) {
-		CustomCaffeineSpec caffeineSpec = this.buildCaffeineSpec(cacheName, cacheConfig);
-		Caffeine<Object, Object> cacheBuilder = caffeineSpec.toBuilder();
-
-		if (cacheExpiredListener != null) {
-			cacheBuilder.removalListener((key, value, cause) -> {
-				cacheExpiredListener.onExpired(key, value, CacheExpiredCause.parse(cause.name()));
+	/**
+	 * 构建 Caffeine
+	 *
+	 * @return Caffeine
+	 */
+	@NotNull
+	private Caffeine<Object, Object> newCaffeineBuilder() {
+		return Caffeine.newBuilder()
+			.initialCapacity(this.getCacheConfig().getL1Cache().getInitialCapacity())
+			.maximumSize(this.getCacheConfig().getL1Cache().getMaximumSize())
+			.evictionListener((key, value, cause) -> {
+				this.getRemovalListener().onRemoval(key, value, L1CacheRemovalCause.parse(cause.name()));
 			});
-		}
-
-		if (cacheLoader == null) {
-			log.info("Create a native caffeine cache instance, cacheName={}", cacheName);
-			return cacheBuilder.build();
-		}
-
-		log.info("Create a native caffeine loadingCache instance, cacheName={}", cacheName);
-		return cacheBuilder.build(cacheLoader::load);
-	}
-
-	private CustomCaffeineSpec buildCaffeineSpec(String cacheName, CacheConfig cacheConfig) {
-		CustomCaffeineSpec caffeineSpec = caffeineSpecMap.get(cacheName);
-		if (caffeineSpec != null) {
-			return caffeineSpec;
-		}
-		String spec = this.getCaffeineSpec(cacheName, cacheConfig);
-		if (StringUtils.isBlank(spec)) {
-			throw new RuntimeException("Please setting caffeine spec config");
-		}
-		CustomCaffeineSpec newCaffeineSpec = CustomCaffeineSpec.parse(spec);
-		caffeineSpecMap.put(cacheName, newCaffeineSpec);
-		return newCaffeineSpec;
-	}
-
-	private String getCaffeineSpec(String cacheName, CacheConfig cacheConfig) {
-		if (StringUtils.isBlank(cacheName)) {
-			return cacheConfig.getCaffeine().getDefaultSpec();
-		}
-		String spec = cacheConfig.getCaffeine().getSpecs().get(cacheName);
-		if (StringUtils.isBlank(spec)) {
-			return cacheConfig.getCaffeine().getDefaultSpec();
-		}
-		return spec;
 	}
 }

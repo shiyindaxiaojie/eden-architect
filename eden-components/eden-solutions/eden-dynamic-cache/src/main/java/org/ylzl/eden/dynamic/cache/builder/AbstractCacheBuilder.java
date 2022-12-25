@@ -18,8 +18,9 @@ package org.ylzl.eden.dynamic.cache.builder;
 
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.expire.CacheExpiredListener;
-import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
  * 缓存构造器抽象
@@ -27,101 +28,100 @@ import org.ylzl.eden.dynamic.cache.sync.CacheSynchronizer;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractCacheBuilder<T extends Cache> implements CacheBuilder<T>  {
+public abstract class AbstractCacheBuilder implements CacheBuilder {
+
+	private String cacheName;
 
 	private CacheConfig cacheConfig;
 
-	private CacheExpiredListener<Object, Object> cacheExpiredListener;
-
-	private CacheSynchronizer cacheSynchronizer;
-
-	private volatile Object cacheClient;
+	private L1CacheRemovalListener removalListener;
 
 	/**
-	 * 获取缓存配置
+	 * 设置缓存名称
 	 *
-	 * @return
+	 * @param cacheName 缓存名称
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheConfig getCacheConfig() {
-		return this.cacheConfig;
+	public CacheBuilder cacheName(String cacheName) {
+		this.cacheName = cacheName;
+		return this;
 	}
 
 	/**
 	 * 设置缓存配置
 	 *
-	 * @param cacheConfig
-	 * @return
+	 * @param cacheConfig 缓存配置
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder<T> setCacheConfig(CacheConfig cacheConfig) {
+	public CacheBuilder cacheConfig(CacheConfig cacheConfig) {
 		this.cacheConfig = cacheConfig;
 		return this;
 	}
 
 	/**
-	 * 获取缓存过期监听器
+	 * 设置缓存失效监听器
 	 *
-	 * @return
+	 * @param removalListener 缓存失效监听器
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheExpiredListener<Object, Object> getExpiredListener() {
-		return this.cacheExpiredListener;
-	}
-
-	/**
-	 * 设置缓存过期监听器
-	 *
-	 * @param cacheExpiredListener
-	 * @return
-	 */
-	@Override
-	public CacheBuilder<T> setExpiredListener(CacheExpiredListener<Object, Object> cacheExpiredListener) {
-		this.cacheExpiredListener = cacheExpiredListener;
+	public CacheBuilder evictionListener(L1CacheRemovalListener removalListener) {
+		this.removalListener = removalListener;
 		return this;
 	}
 
 	/**
-	 * 获取缓存同步器
+	 * 设置二级缓存客户端
 	 *
-	 * @return
+	 * @param l2CacheClient 二级缓存客户端
+	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheSynchronizer getCacheSynchronizer() {
-		return this.cacheSynchronizer;
-	}
-
-	/**
-	 * 设置缓存同步器
-	 *
-	 * @param cacheSynchronizer
-	 * @return
-	 */
-	@Override
-	public CacheBuilder<T> setCacheSynchronizer(CacheSynchronizer cacheSynchronizer) {
-		this.cacheSynchronizer = cacheSynchronizer;
+	public CacheBuilder l2CacheClient(Object l2CacheClient) {
 		return this;
 	}
 
 	/**
-	 * 获取实际执行的缓存客户端
+	 * 构建一级缓存实例
 	 *
-	 * @return
+	 * @param l1CacheLoader 缓存加载器
+	 * @return Cache 实例
 	 */
 	@Override
-	public Object getCacheClient() {
-		return this.cacheClient;
+	public Cache build(L1CacheLoader l1CacheLoader) {
+		// 二级缓存不需要执行 CacheLoader
+		return build();
 	}
 
 	/**
-	 * 设置实际执行的缓存客户端
+	 * 获取缓存名称
 	 *
-	 * @param cacheClient
-	 * @return
+	 * @return 缓存名称
 	 */
-	@Override
-	public CacheBuilder<T> setCacheClient(Object cacheClient) {
-		this.cacheClient = cacheClient;
-		return this;
+	public String getCacheName() {
+		return cacheName;
+	}
+
+	/**
+	 * 获取缓存配置
+	 *
+	 * @return 缓存配置
+	 */
+	public CacheConfig getCacheConfig() {
+		return cacheConfig;
+	}
+
+	/**
+	 * 获取缓存失效监听器
+	 *
+	 * @return 缓存失效监听器
+	 */
+	public L1CacheRemovalListener getRemovalListener() {
+		if (removalListener == null) {
+			return ExtensionLoader.getExtensionLoader(L1CacheRemovalListener.class).getDefaultExtension();
+		}
+		return removalListener;
 	}
 }
