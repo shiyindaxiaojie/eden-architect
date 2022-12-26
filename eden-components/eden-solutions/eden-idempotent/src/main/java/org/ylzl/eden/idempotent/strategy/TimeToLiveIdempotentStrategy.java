@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public interface TtlIdempotentStrategy {
+public interface TimeToLiveIdempotentStrategy {
 
 	/**
 	 * 检查是否首次请求

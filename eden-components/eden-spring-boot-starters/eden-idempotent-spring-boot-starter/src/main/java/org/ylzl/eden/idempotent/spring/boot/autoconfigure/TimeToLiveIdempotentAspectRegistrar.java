@@ -22,7 +22,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.idempotent.aop.IdempotentTtlAspect;
+import org.ylzl.eden.idempotent.aop.TimeToLiveIdempotentAspect;
 
 /**
  * IdempotentAspect 注册器
@@ -31,14 +31,14 @@ import org.ylzl.eden.idempotent.aop.IdempotentTtlAspect;
  * @since 2.4.13
  */
 @Slf4j
-public class IdempotentAspectRegistrar implements ImportBeanDefinitionRegistrar {
+public class TimeToLiveIdempotentAspectRegistrar implements ImportBeanDefinitionRegistrar {
 
-	private static final String AUTOWIRED_IDEMPOTENT_TTL_ASPECT = "Autowired IdempotentTtlAspect";
+	private static final String AUTOWIRED_IDEMPOTENT_TTL_ASPECT = "Autowired TimeToLiveIdempotentAspect";
 
 	@Override
 	public void registerBeanDefinitions(@NotNull AnnotationMetadata annotationMetadata,
 										@NotNull BeanDefinitionRegistry beanDefinitionRegistry) {
 		log.debug(AUTOWIRED_IDEMPOTENT_TTL_ASPECT);
-		BeanDefinitionBuilder.rootBeanDefinition(IdempotentTtlAspect.class);
+		BeanDefinitionBuilder.rootBeanDefinition(TimeToLiveIdempotentAspect.class);
 	}
 }

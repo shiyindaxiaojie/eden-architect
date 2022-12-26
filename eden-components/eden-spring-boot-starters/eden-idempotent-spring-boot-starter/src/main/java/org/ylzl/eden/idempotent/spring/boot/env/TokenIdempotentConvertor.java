@@ -14,32 +14,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.idempotent.config;
+package org.ylzl.eden.idempotent.spring.boot.env;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
-
-import java.util.concurrent.TimeUnit;
+import org.mapstruct.Mapper;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.factory.Mappers;
+import org.ylzl.eden.idempotent.config.TokenIdempotentConfig;
 
 /**
- * 幂等请求配置
+ * 幂等配置转换器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@EqualsAndHashCode
-@ToString
-@Accessors(chain = true)
-@Getter
-@Setter
-public class IdempotentTokenConfig {
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+	nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+public interface TokenIdempotentConvertor {
 
-	private String prefix = "idempotent:token";
+	TokenIdempotentConvertor INSTANCE = Mappers.getMapper(TokenIdempotentConvertor.class);
 
-	private long ttl = 10L;
-
-	private TimeUnit timeUnit = TimeUnit.SECONDS;
+	TokenIdempotentConfig toConfig(TokenIdempotentProperties properties);
 }

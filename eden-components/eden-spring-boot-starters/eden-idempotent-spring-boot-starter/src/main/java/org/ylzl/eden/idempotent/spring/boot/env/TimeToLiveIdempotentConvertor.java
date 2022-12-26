@@ -20,7 +20,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
-import org.ylzl.eden.idempotent.config.IdempotentTtlConfig;
+import org.ylzl.eden.idempotent.config.TimeToLiveIdempotentConfig;
 
 /**
  * 幂等配置转换器
@@ -30,9 +30,9 @@ import org.ylzl.eden.idempotent.config.IdempotentTtlConfig;
  */
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
 	nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public interface IdempotentTtlConvertor {
+public interface TimeToLiveIdempotentConvertor {
 
-	IdempotentTtlConvertor INSTANCE = Mappers.getMapper(IdempotentTtlConvertor.class);
+	TimeToLiveIdempotentConvertor INSTANCE = Mappers.getMapper(TimeToLiveIdempotentConvertor.class);
 
-	IdempotentTtlConfig toConfig(IdempotentTtlProperties properties);
+	TimeToLiveIdempotentConfig toConfig(TimeToLiveIdempotentProperties properties);
 }

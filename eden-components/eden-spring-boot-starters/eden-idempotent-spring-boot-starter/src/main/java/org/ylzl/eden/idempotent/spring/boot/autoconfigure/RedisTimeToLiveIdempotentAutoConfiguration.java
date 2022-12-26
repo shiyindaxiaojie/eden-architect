@@ -24,10 +24,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.ylzl.eden.idempotent.integration.ttl.RedisTtlIdempotentStrategy;
-import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTtlConvertor;
-import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTtlProperties;
-import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
+import org.ylzl.eden.idempotent.integration.ttl.RedisTimeToLiveIdempotentStrategy;
+import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentConvertor;
+import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
+import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 
 /**
  * 幂等请求自动装配
@@ -36,22 +36,22 @@ import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
  * @since 2.4.13
  */
 @ConditionalOnBean(StringRedisTemplate.class)
-@ConditionalOnProperty(value = RedisTtlIdempotentAutoConfiguration.ENABLED, havingValue = "true")
+@ConditionalOnProperty(value = RedisTimeToLiveIdempotentAutoConfiguration.ENABLED, havingValue = "true")
 @RequiredArgsConstructor
-@Import(IdempotentAspectRegistrar.class)
+@Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class RedisTtlIdempotentAutoConfiguration {
+public class RedisTimeToLiveIdempotentAutoConfiguration {
 
-	public static final String ENABLED = IdempotentTtlProperties.PREFIX + ".redis.enabled";
+	public static final String ENABLED = TimeToLiveIdempotentProperties.PREFIX + ".redis.enabled";
 
-	private static final String AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY = "Autowired RedisTtlIdempotentStrategy";
+	private static final String AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY = "Autowired RedisTimeToLiveIdempotentStrategy";
 
-	private final IdempotentTtlProperties properties;
+	private final TimeToLiveIdempotentProperties properties;
 
 	@Bean
-	public TtlIdempotentStrategy ttlIdempotentStrategy(StringRedisTemplate redisTemplate) {
+	public TimeToLiveIdempotentStrategy ttlIdempotentStrategy(StringRedisTemplate redisTemplate) {
 		log.debug(AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY);
-		return new RedisTtlIdempotentStrategy(redisTemplate, IdempotentTtlConvertor.INSTANCE.toConfig(properties));
+		return new RedisTimeToLiveIdempotentStrategy(redisTemplate, TimeToLiveIdempotentConvertor.INSTANCE.toConfig(properties));
 	}
 }

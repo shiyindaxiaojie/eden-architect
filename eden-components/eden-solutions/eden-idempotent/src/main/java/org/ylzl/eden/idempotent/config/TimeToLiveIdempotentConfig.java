@@ -33,7 +33,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Getter
 @Setter
-public class IdempotentTtlConfig {
+public class TimeToLiveIdempotentConfig {
 
 	private String prefix = "idempotent:ttl";
 }

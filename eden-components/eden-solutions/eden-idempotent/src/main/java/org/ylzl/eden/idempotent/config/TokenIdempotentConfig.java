@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.idempotent.spring.boot.env;
+package org.ylzl.eden.idempotent.config;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 幂等请求配置
@@ -26,12 +30,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@EqualsAndHashCode
+@ToString
+@Accessors(chain = true)
 @Getter
 @Setter
-@ConfigurationProperties(prefix = IdempotentTtlProperties.PREFIX)
-public class IdempotentTtlProperties {
+public class TokenIdempotentConfig {
 
-	public static final String PREFIX = "idempotent.ttl";
+	private String prefix = "idempotent:token";
 
-	private String prefix = "idempotent:ttl";
+	private long ttl = 10L;
+
+	private TimeUnit timeUnit = TimeUnit.SECONDS;
 }

@@ -22,7 +22,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTtlProperties;
+import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
 
 /**
  * 幂等请求自动装配
@@ -30,12 +30,12 @@ import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTtlProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(prefix = IdempotentTtlProperties.PREFIX, matchIfMissing = true)
-@EnableConfigurationProperties(IdempotentTtlProperties.class)
+@ConditionalOnProperty(prefix = TimeToLiveIdempotentProperties.PREFIX, matchIfMissing = true)
+@EnableConfigurationProperties(TimeToLiveIdempotentProperties.class)
 @RequiredArgsConstructor
-@Import(IdempotentAspectRegistrar.class)
+@Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class TtlIdempotentAutoConfiguration {
+public class TimeToLiveIdempotentAutoConfiguration {
 
 }

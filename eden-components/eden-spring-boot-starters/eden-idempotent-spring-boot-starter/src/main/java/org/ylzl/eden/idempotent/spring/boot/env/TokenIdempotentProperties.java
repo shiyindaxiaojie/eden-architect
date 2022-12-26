@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = IdempotentTokenProperties.PREFIX)
-public class IdempotentTokenProperties {
+@ConfigurationProperties(prefix = TokenIdempotentProperties.PREFIX)
+public class TokenIdempotentProperties {
 
 	public static final String PREFIX = "idempotent.token";
 

@@ -19,8 +19,8 @@ package org.ylzl.eden.idempotent.integration.ttl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.ylzl.eden.idempotent.config.IdempotentTtlConfig;
-import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
+import org.ylzl.eden.idempotent.config.TimeToLiveIdempotentConfig;
+import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -33,11 +33,11 @@ import java.util.concurrent.TimeUnit;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class RedisTtlIdempotentStrategy implements TtlIdempotentStrategy {
+public class RedisTimeToLiveIdempotentStrategy implements TimeToLiveIdempotentStrategy {
 
 	private final StringRedisTemplate redisTemplate;
 
-	private final IdempotentTtlConfig config;
+	private final TimeToLiveIdempotentConfig config;
 
 	/**
 	 * 检查是否首次请求

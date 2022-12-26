@@ -25,8 +25,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.idempotent.integration.token.RedisTokenIdempotentStrategy;
-import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTokenConvertor;
-import org.ylzl.eden.idempotent.spring.boot.env.IdempotentTokenProperties;
+import org.ylzl.eden.idempotent.spring.boot.env.TokenIdempotentConvertor;
+import org.ylzl.eden.idempotent.spring.boot.env.TokenIdempotentProperties;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 
 /**
@@ -38,20 +38,20 @@ import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 @ConditionalOnBean(StringRedisTemplate.class)
 @ConditionalOnProperty(value = RedisTokenIdempotentAutoConfiguration.ENABLED, havingValue = "true")
 @RequiredArgsConstructor
-@Import(IdempotentAspectRegistrar.class)
+@Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class RedisTokenIdempotentAutoConfiguration {
 
-	public static final String ENABLED = IdempotentTokenProperties.PREFIX + ".redis.enabled";
+	public static final String ENABLED = TokenIdempotentProperties.PREFIX + ".redis.enabled";
 
 	private static final String AUTOWIRED_REDIS_TOKEN_IDEMPOTENT_STRATEGY = "Autowired RedisTokenIdempotentStrategy";
 
-	private final IdempotentTokenProperties properties;
+	private final TokenIdempotentProperties properties;
 
 	@Bean
 	public TokenIdempotentStrategy tokenIdempotentStrategy(StringRedisTemplate redisTemplate) {
 		log.debug(AUTOWIRED_REDIS_TOKEN_IDEMPOTENT_STRATEGY);
-		return new RedisTokenIdempotentStrategy(redisTemplate, IdempotentTokenConvertor.INSTANCE.toConfig(properties));
+		return new RedisTokenIdempotentStrategy(redisTemplate, TokenIdempotentConvertor.INSTANCE.toConfig(properties));
 	}
 }

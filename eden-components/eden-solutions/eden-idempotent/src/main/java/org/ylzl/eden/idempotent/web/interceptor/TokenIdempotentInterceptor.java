@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class IdempotentTokenInterceptor implements HandlerInterceptor {
+public class TokenIdempotentInterceptor implements HandlerInterceptor {
 
 	private final TokenIdempotentStrategy tokenIdempotentStrategy;
 

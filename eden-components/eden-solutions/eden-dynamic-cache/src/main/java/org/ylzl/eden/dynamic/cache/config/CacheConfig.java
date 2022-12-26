@@ -233,6 +233,8 @@ public class CacheConfig {
 		@Getter
 		public static class JD {
 
+			private boolean enabled;
+
 			private String appName;
 
 			private String etcdServer;
@@ -244,7 +246,7 @@ public class CacheConfig {
 		@Getter
 		public static class Sentinel {
 
-
+			private boolean enabled;
 		}
 	}
 }

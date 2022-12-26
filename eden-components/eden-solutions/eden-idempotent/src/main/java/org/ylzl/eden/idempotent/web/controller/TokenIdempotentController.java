@@ -14,17 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.exception;
+package org.ylzl.eden.idempotent.web.controller;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
+import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 /**
- * CacheSpec 异常
+ * 幂等请求令牌控制器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public class CacheSpecException extends RuntimeException {
+@RequiredArgsConstructor
+@Slf4j
+@RestController
+public class TokenIdempotentController {
 
-	public CacheSpecException(String message) {
-		super(message);
+	private final TokenIdempotentStrategy strategy;
+
+	@GetMapping("/token")
+	public Object generateToken() {
+		return ResponseBuilder.builder().buildSuccess(strategy.generateToken());
 	}
 }

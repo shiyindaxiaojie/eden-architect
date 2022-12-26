@@ -27,7 +27,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.Idempotent;
 import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
-import org.ylzl.eden.idempotent.strategy.TtlIdempotentStrategy;
+import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
 import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
@@ -43,9 +43,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Slf4j
 @Aspect
-public class IdempotentTtlAspect {
+public class TimeToLiveIdempotentAspect {
 
-	private final TtlIdempotentStrategy strategy;
+	private final TimeToLiveIdempotentStrategy strategy;
 
 	@Pointcut("@within(org.ylzl.eden.idempotent.Idempotent) && execution(public * *(..))")
 	public void pointcut() {
