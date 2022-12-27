@@ -24,12 +24,22 @@ package org.ylzl.eden.dynamic.cache;
  */
 public enum CacheType {
 
-	COMPOSITE,
-	CAFFEINE,
-	GUAVA,
-	REDIS,
-	DRAGONFLY,
-	HAZELCAST;
+	COMPOSITE(0),
+	CAFFEINE(1),
+	GUAVA(1),
+	REDIS(2),
+	DRAGONFLY(2),
+	HAZELCAST(2);
+
+	private final int level;
+
+	CacheType(int level) {
+		this.level = level;
+	}
+
+	public int getLevel() {
+		return level;
+	}
 
 	public static CacheType parse(String type) {
 		for (CacheType cacheType : CacheType.values()) {

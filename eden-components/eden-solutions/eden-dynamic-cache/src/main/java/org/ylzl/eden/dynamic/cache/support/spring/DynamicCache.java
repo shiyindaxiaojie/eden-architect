@@ -23,12 +23,12 @@ import org.ylzl.eden.dynamic.cache.Cache;
 import java.util.concurrent.Callable;
 
 /**
- * Spring 缓存
+ * 动态缓存
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class SpringCache extends AbstractValueAdaptingCache {
+public class DynamicCache extends AbstractValueAdaptingCache {
 
 	/**
 	 * 缓存名称
@@ -47,7 +47,7 @@ public class SpringCache extends AbstractValueAdaptingCache {
 	 * @param name 缓存名称
 	 * @param cache 缓存实例
 	 */
-	public SpringCache(boolean allowNullValues, String name, Cache cache) {
+	public DynamicCache(boolean allowNullValues, String name, Cache cache) {
 		super(allowNullValues);
 		this.name = name;
 		this.cache = cache;

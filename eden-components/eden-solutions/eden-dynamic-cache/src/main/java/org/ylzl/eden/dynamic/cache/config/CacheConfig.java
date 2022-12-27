@@ -40,6 +40,8 @@ import java.util.Set;
 @Getter
 public class CacheConfig {
 
+	private boolean enabled = true;
+
 	/** 缓存类型 */
 	private String cacheType = CacheType.COMPOSITE.name();
 
