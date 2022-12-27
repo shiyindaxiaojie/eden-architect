@@ -40,6 +40,7 @@ import java.util.Set;
 @Getter
 public class CacheConfig {
 
+	/** 缓存开关 */
 	private boolean enabled = true;
 
 	/** 缓存类型 */
