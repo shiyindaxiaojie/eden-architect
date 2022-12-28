@@ -19,7 +19,7 @@ package org.ylzl.eden.extension;
 import java.lang.annotation.*;
 
 /**
- * 扩展点顺序
+ * 扩展点顺序，相同扩展点名称根据 {@code Order} 优先加载
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

@@ -30,14 +30,10 @@ import java.util.concurrent.Callable;
  */
 public class DynamicCache extends AbstractValueAdaptingCache {
 
-	/**
-	 * 缓存名称
-	 */
+	/** 缓存名称 */
 	private final String name;
 
-	/**
-	 * 缓存接口
-	 */
+	/** 缓存接口 */
 	private final Cache cache;
 
 	/**

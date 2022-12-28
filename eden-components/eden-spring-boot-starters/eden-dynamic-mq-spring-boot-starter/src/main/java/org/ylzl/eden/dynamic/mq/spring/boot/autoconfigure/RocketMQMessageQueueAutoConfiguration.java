@@ -39,7 +39,7 @@ import org.ylzl.eden.dynamic.mq.spring.boot.env.MessageQueueProperties;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.RocketMQConsumerProperties;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.RocketMQProducerProperties;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.convertor.RocketMQConvertor;
-import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanNames;
+import org.ylzl.eden.dynamic.mq.MessageQueueType;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.List;
@@ -78,19 +78,19 @@ public class RocketMQMessageQueueAutoConfiguration {
 
 	private final RocketMQProperties rocketMQProperties;
 
-	@Bean(MessageQueueBeanNames.ROCKETMQ_CONSUMER)
+	@Bean
 	public RocketMQConsumer rocketMQConsumer(RocketMQConsumerProperties rocketMQConsumerProperties,
 											 ObjectProvider<List<MessageQueueConsumer>> messageListeners) {
 		log.debug(AUTOWIRED_ROCKET_MQ_CONSUMER);
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type) && messageQueueProperties.getPrimary() != null?
-			MessageQueueBeanNames.ROCKETMQ.name().equalsIgnoreCase(messageQueueProperties.getPrimary().name()):
-			MessageQueueBeanNames.ROCKETMQ.name().equalsIgnoreCase(type);
+			MessageQueueType.ROCKETMQ.name().equalsIgnoreCase(messageQueueProperties.getPrimary()):
+			MessageQueueType.ROCKETMQ.name().equalsIgnoreCase(type);
 		RocketMQConfig config = RocketMQConvertor.INSTANCE.toConfig(rocketMQProperties);
 		RocketMQConvertor.INSTANCE.updateConfigFromConsumer(rocketMQConsumerProperties, config.getConsumer());
 		return new RocketMQConsumer(config, messageListeners.getIfAvailable(), matcher);
 	}
 
-	@Bean(MessageQueueBeanNames.ROCKETMQ_PROVIDER)
+	@Bean
 	public MessageQueueProvider messageQueueProvider(RocketMQProducerProperties rocketMQProducerProperties,
 													 RocketMQTemplate rocketMQTemplate) {
 		log.debug(AUTOWIRED_ROCKET_MQ_PROVIDER);

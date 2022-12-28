@@ -26,9 +26,11 @@ import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 /**
  * COLA 响应体构建器
+ * <p>覆盖 {@code InternalResponseBuilder}</p>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
+ * @see org.ylzl.eden.spring.framework.web.extension.InternalResponseBuilder
  */
 @Order(-1)
 public class ColaResponseBuilder implements ResponseBuilder<Response> {

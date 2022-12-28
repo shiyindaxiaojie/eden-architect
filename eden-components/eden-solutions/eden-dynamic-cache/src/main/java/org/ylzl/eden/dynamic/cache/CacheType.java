@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.dynamic.cache;
 
+import java.util.Objects;
+
 /**
  * 缓存类型
  *
@@ -48,5 +50,17 @@ public enum CacheType {
 			}
 		}
 		return null;
+	}
+
+	public static boolean isCompositeCache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 0;
+	}
+
+	public static boolean isL1Cache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 1;
+	}
+
+	public static boolean isL2Cache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 2;
 	}
 }

@@ -19,7 +19,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
  * @since 2.4.13
  */
 @ConditionalOnProperty(
-	prefix = CacheProperties.PREFIX + ".dynamic.hotkey.jd",
+	prefix = CacheProperties.PREFIX + ".hotkey.jd",
 	name = Conditions.ENABLED,
 	havingValue = Conditions.TRUE,
 	matchIfMissing = true
@@ -37,7 +37,7 @@ public class JdHotKeyAutoConfiguration implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		log.debug(AUTOWIRED_JD_HOT_KEY);
-		CacheConfig.HotKey.JD jd = cacheProperties.getDynamic().getHotKey().getJd();
+		CacheConfig.HotKey.JD jd = cacheProperties.getHotKey().getJd();
 		ClientStarter.Builder builder = new ClientStarter.Builder();
 		ClientStarter starter = builder.setAppName(jd.getAppName()).setEtcdServer(jd.getEtcdServer()).build();
 		starter.startPipeline();

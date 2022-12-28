@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.zookeeper.ZookeeperDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
@@ -51,7 +50,7 @@ public class ZookeeperDistributedLockAutoConfiguration {
 	public static final String AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK = "Autowired ZookeeperDistributedLock";
 
 	@ConditionalOnBean(ZookeeperTemplate.class)
-	@Bean(DistributedLockBeanNames.ZOOKEEPER_DISTRIBUTED_LOCK)
+	@Bean
 	public DistributedLock distributedLock(ZookeeperTemplate zookeeperTemplate) {
 		log.debug(AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK);
 		return new ZookeeperDistributedLock(zookeeperTemplate.getZookeeper());

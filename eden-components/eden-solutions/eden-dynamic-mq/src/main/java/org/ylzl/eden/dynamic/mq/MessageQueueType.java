@@ -14,37 +14,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.consistency.model;
+package org.ylzl.eden.dynamic.mq;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
- * 缓存信息
+ * 消息队列类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@Accessors(chain = true)
 @Getter
-@Setter
-public class CacheMessage implements Serializable {
+public enum MessageQueueType {
 
-	/** 缓存名称 */
-	private String name;
+	KAFKA,
+	ROCKETMQ,
+	PULSAR;
 
-	/** 缓存类型 */
-	private String type;
-
-	/** 缓存key */
-	private String key;
-
-	/** 是否刷新 */
-	private boolean refresh;
-
-	/** 是否清除 */
-	private boolean clear;
+	public static MessageQueueType parse(String type) {
+		for (MessageQueueType messageQueueType : MessageQueueType.values()) {
+			if (messageQueueType.name().equalsIgnoreCase(type)) {
+				return messageQueueType;
+			}
+		}
+		return null;
+	}
 }

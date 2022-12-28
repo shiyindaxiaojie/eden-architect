@@ -19,8 +19,8 @@ package org.ylzl.eden.dynamic.mq.spring.boot.support;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.error.util.AssertUtils;
-import org.ylzl.eden.commons.lang.MessageFormatUtils;
+
+import java.util.Map;
 
 /**
  * 消息队列助手
@@ -31,23 +31,20 @@ import org.ylzl.eden.commons.lang.MessageFormatUtils;
 @RequiredArgsConstructor
 public class MessageQueueHelper {
 
-	private static final String BEAN_DEFINITION_NAMED_NOT_FOUND = "MessageQueueProvider beanDefinition named '{}' not found";
+	private static final String MQ_TYPE_NOT_FOUND = "Message queue type named '{}' not found";
 
-	private final MessageQueueBeanNames primary;
+	private final String primary;
 
-	public MessageQueueProvider getProviderBean() {
-		MessageQueueProvider messageQueueProvider = ApplicationContextHelper
-			.getBean(primary.getProviderBeanName(), MessageQueueProvider.class);
-		AssertUtils.notNull(messageQueueProvider, "SYS-ERROR-500", BEAN_DEFINITION_NAMED_NOT_FOUND,
-			primary.getProviderBeanName());
-		return messageQueueProvider;
+	public MessageQueueProvider getProvider() {
+		return getProvider(primary);
 	}
 
-	public MessageQueueProvider getProviderBean(MessageQueueBeanNames type) {
-		String beanName = type.getProviderBeanName();
-		MessageQueueProvider messageQueueProvider = ApplicationContextHelper.getBean(beanName, MessageQueueProvider.class);
-		AssertUtils.notNull(messageQueueProvider, "SYS-ERROR-500", MessageFormatUtils.format(
-			BEAN_DEFINITION_NAMED_NOT_FOUND, beanName));
-		return messageQueueProvider;
+	public MessageQueueProvider getProvider(String messageQueueType) {
+		Map<String, MessageQueueProvider> messageQueueProviders =
+			ApplicationContextHelper.getBeansOfType(MessageQueueProvider.class);
+		return messageQueueProviders.values().stream()
+			.filter(predicate -> predicate.messageQueueType().equalsIgnoreCase(messageQueueType))
+			.findFirst()
+			.orElseThrow(() -> new RuntimeException(MQ_TYPE_NOT_FOUND));
 	}
 }

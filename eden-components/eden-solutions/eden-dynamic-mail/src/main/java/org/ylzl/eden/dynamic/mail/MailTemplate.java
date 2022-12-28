@@ -30,6 +30,13 @@ import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailResponse;
 public interface MailTemplate {
 
 	/**
+	 * 邮件类型
+	 *
+	 * @return 邮件类型
+	 */
+	String mailType();
+
+	/**
 	 * 单条发送邮件
 	 *
 	 * @param request 发送邮件请求

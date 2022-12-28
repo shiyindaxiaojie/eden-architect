@@ -20,7 +20,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanNames;
 
 /**
  * 消息队列配置
@@ -34,9 +33,9 @@ public class MessageQueueProperties {
 
 	public static final String PREFIX = "spring.message-queue.dynamic";
 
-	private Boolean enabled;
+	private boolean enabled;
 
-	private MessageQueueBeanNames primary;
+	private String primary;
 
 	private final RocketMQ rocketMQ = new RocketMQ();
 

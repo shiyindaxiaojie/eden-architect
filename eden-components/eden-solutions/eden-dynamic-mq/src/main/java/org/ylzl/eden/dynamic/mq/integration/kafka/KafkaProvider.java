@@ -25,6 +25,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
+import org.ylzl.eden.dynamic.mq.MessageQueueType;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendException;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
@@ -45,6 +46,16 @@ public class KafkaProvider implements MessageQueueProvider {
 	private static final String KAFKA_PROVIDER_CONSUME_ERROR = "KafkaProvider send error: {}";
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
+
+	/**
+	 * 消息类型
+	 *
+	 * @return 消息类型
+	 */
+	@Override
+	public String messageQueueType() {
+		return MessageQueueType.KAFKA.name();
+	}
 
 	/**
 	 * 同步发送消息

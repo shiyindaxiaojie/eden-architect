@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.consistency;
+package org.ylzl.eden.dynamic.cache.l2cache;
 
-import org.ylzl.eden.dynamic.cache.consistency.model.CacheMessage;
+import org.ylzl.eden.extension.SPI;
 
 /**
- * 缓存同步监听器
+ * 缓存同步器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface CacheSyncListener {
+@SPI
+public interface CacheSynchronizer {
 
 	/**
-	 * 消息处理
-	 *
-	 * @param info 缓存信息
+	 * 建立连接，订阅消息
 	 */
-	void onMessage(CacheMessage info);
+	void connnect();
 }

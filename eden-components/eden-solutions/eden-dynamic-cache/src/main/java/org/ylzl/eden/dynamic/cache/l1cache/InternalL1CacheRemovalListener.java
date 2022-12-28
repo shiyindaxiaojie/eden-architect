@@ -1,5 +1,6 @@
 package org.ylzl.eden.dynamic.cache.l1cache;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.L2Cache;
@@ -7,13 +8,13 @@ import org.ylzl.eden.dynamic.cache.composite.CompositeCache;
 import org.ylzl.eden.dynamic.cache.support.value.NullValue;
 
 /**
- * TODO
+ * 内置一级缓存失效监听器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
-public class DefaultL1CacheRemovalListener implements L1CacheRemovalListener {
+public class InternalL1CacheRemovalListener implements L1CacheRemovalListener {
 
 	private Cache cache;
 
@@ -26,12 +27,7 @@ public class DefaultL1CacheRemovalListener implements L1CacheRemovalListener {
 	 */
 	@Override
 	public <K, V> void onRemoval(K key, V value, L1CacheRemovalCause cause) {
-		if (!(value instanceof NullValue)) {
-			return;
-		}
-
-		if (cache instanceof L2Cache) {
-			cache.evict(key);
+		if (!(value instanceof NullValue) || cache == null) {
 			return;
 		}
 
@@ -42,5 +38,15 @@ public class DefaultL1CacheRemovalListener implements L1CacheRemovalListener {
 			}
 			l2Cache.evict(key);
 		}
+	}
+
+	/**
+	 * 设置缓存实例
+	 *
+	 * @param cache 缓存实例
+	 */
+	@Override
+	public void setL2Cache(@NonNull Cache cache) {
+		this.cache = cache;
 	}
 }

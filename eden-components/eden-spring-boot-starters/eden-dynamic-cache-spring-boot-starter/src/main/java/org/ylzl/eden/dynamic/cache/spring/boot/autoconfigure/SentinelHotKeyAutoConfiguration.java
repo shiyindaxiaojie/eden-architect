@@ -59,7 +59,7 @@ public class SentinelHotKeyAutoConfiguration implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		log.debug(AUTOWIRED_SENTINEL_KEY);
-		CacheConfig.HotKey.Sentinel sentinelConfig = cacheProperties.getDynamic().getHotKey().getSentinel();
+		CacheConfig.HotKey.Sentinel sentinelConfig = cacheProperties.getHotKey().getSentinel();
 		this.initSentinel(sentinelConfig);
 		this.registerDataSource(sentinelConfig);
 	}

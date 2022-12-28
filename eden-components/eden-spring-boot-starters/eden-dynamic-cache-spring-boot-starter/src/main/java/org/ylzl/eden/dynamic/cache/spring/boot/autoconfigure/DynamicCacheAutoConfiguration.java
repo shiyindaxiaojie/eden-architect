@@ -28,7 +28,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
 import org.ylzl.eden.dynamic.cache.spring.boot.env.CacheProperties;
@@ -44,7 +43,7 @@ import java.util.List;
  * @since 2.4.13
  */
 @ConditionalOnProperty(
-	prefix = CacheProperties.PREFIX + ".dynamic",
+	prefix = CacheProperties.PREFIX,
 	name = Conditions.ENABLED,
 	havingValue = Conditions.TRUE,
 	matchIfMissing = true
@@ -72,11 +71,9 @@ public class DynamicCacheAutoConfiguration {
 	@Primary
 	@Bean
 	public DynamicCacheManager dynamicCacheManager(CacheManagerCustomizers customizers) {
-		CacheConfig cacheConfig = cacheProperties.getDynamic();
-		DynamicCacheManager cacheManager = new DynamicCacheManager(cacheConfig);
-
+		DynamicCacheManager cacheManager = new DynamicCacheManager(cacheProperties);
 		if (l1CacheRemovalListeners.getIfAvailable() != null) {
-			cacheManager.setL1CacheRemovalListener(l1CacheRemovalListeners.getIfAvailable());
+		   cacheManager.setL1CacheRemovalListener(l1CacheRemovalListeners.getIfAvailable());
 		}
 		if (l1CacheLoaders.getIfAvailable() != null) {
 			cacheManager.setL1CacheLoader(l1CacheLoaders.getIfAvailable());

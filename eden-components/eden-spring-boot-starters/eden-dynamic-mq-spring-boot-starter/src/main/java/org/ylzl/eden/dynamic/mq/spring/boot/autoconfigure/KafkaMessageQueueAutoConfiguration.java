@@ -37,7 +37,7 @@ import org.ylzl.eden.dynamic.mq.integration.kafka.KafkaProvider;
 import org.ylzl.eden.dynamic.mq.integration.kafka.config.KafkaConfig;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.MessageQueueProperties;
 import org.ylzl.eden.dynamic.mq.spring.boot.env.convertor.KafkaConvertor;
-import org.ylzl.eden.dynamic.mq.spring.boot.support.MessageQueueBeanNames;
+import org.ylzl.eden.dynamic.mq.MessageQueueType;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.List;
@@ -71,19 +71,19 @@ public class KafkaMessageQueueAutoConfiguration {
 
 	private final KafkaProperties kafkaProperties;
 
-	@Bean(MessageQueueBeanNames.KAFKA_CONSUMER)
+	@Bean
 	public KafkaConsumer kafkaConsumer(ObjectProvider<List<MessageQueueConsumer>> messageListeners,
 									   ObjectProvider<ConsumerFactory<String, String>> consumerFactory) {
 		log.debug(AUTOWIRED_KAKFA_CONSUMER);
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type) && messageQueueProperties.getPrimary() != null?
-			MessageQueueBeanNames.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getPrimary().name()):
-			MessageQueueBeanNames.KAFKA.name().equalsIgnoreCase(type);
+			MessageQueueType.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getPrimary()):
+			MessageQueueType.KAFKA.name().equalsIgnoreCase(type);
 		KafkaConfig kafkaConfig = KafkaConvertor.INSTANCE.toConfig(kafkaProperties);
 		return new KafkaConsumer(kafkaConfig, messageListeners.getIfAvailable(),
 			consumerFactory.getIfAvailable(), matcher);
 	}
 
-	@Bean(MessageQueueBeanNames.KAFKA_PROVIDER)
+	@Bean
 	public MessageQueueProvider messageQueueProvider(KafkaTemplate<String, String> kafkaTemplate) {
 		log.debug(AUTOWIRED_KAFKA_PROVIDER);
 		return new KafkaProvider(kafkaTemplate);

@@ -17,6 +17,7 @@
 package org.ylzl.eden.dynamic.cache.support.spring;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -45,8 +46,6 @@ import java.util.Collections;
 @Slf4j
 public class DynamicCacheManager extends AbstractCacheManager {
 
-	private Collection<? extends DynamicCache> caches = Collections.emptySet();
-
 	private final CacheConfig cacheConfig;
 
 	private L1CacheRemovalListener l1CacheRemovalListener;
@@ -55,31 +54,33 @@ public class DynamicCacheManager extends AbstractCacheManager {
 
 	private Object l2CacheClient;
 
-	public void setCaches(Collection<? extends DynamicCache> caches) {
-		this.caches = caches;
-	}
-
 	@Override
 	public @NotNull Collection<? extends DynamicCache> loadCaches() {
-		return this.caches;
+		return Collections.emptySet();
 	}
 
 	@Override
-	protected Cache getMissingCache(String name) {
+	protected Cache getMissingCache(@NonNull String name) {
 		String type = cacheConfig.getCacheType();
 		CacheBuilder cacheBuilder = ExtensionLoader.getExtensionLoader(CacheBuilder.class).getExtension(type);
 		cacheBuilder.cacheName(name).cacheConfig(cacheConfig);
-
-		if (l1CacheRemovalListener != null) {
-			cacheBuilder.l1CacheRemovalListener(l1CacheRemovalListener);
-		}
 		if (l2CacheClient != null) {
 			cacheBuilder.l2CacheClient(l2CacheClient);
 		}
 
+		L1CacheRemovalListener removalListener = getL1CacheRemovalListener();
+		cacheBuilder.l1CacheRemovalListener(removalListener);
 		CacheType cacheType = CacheType.parse(type);
 		org.ylzl.eden.dynamic.cache.Cache cache = cacheType.getLevel() == 1 && l1CacheLoader != null ?
 			cacheBuilder.build(l1CacheLoader) : cacheBuilder.build();
+		removalListener.setL2Cache(cache);
 		return new DynamicCache(cacheConfig.isAllowNullValues(), name, cache);
+	}
+
+	public L1CacheRemovalListener getL1CacheRemovalListener() {
+		if (this.l1CacheRemovalListener != null) {
+			 return this.l1CacheRemovalListener;
+		}
+		return ExtensionLoader.getExtensionLoader(L1CacheRemovalListener.class).getDefaultExtension();
 	}
 }

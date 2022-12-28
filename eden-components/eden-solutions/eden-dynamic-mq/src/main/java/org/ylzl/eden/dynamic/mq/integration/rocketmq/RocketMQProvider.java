@@ -24,6 +24,7 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.ylzl.eden.dynamic.mq.MessageQueueProvider;
+import org.ylzl.eden.dynamic.mq.MessageQueueType;
 import org.ylzl.eden.dynamic.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.dynamic.mq.model.Message;
 import org.ylzl.eden.dynamic.mq.producer.MessageSendCallback;
@@ -49,6 +50,16 @@ public class RocketMQProvider implements MessageQueueProvider {
 	private final RocketMQConfig rocketMQConfig;
 
 	private final RocketMQTemplate rocketMQTemplate;
+
+	/**
+	 * 消息类型
+	 *
+	 * @return 消息类型
+	 */
+	@Override
+	public String messageQueueType() {
+		return MessageQueueType.ROCKETMQ.name();
+	}
 
 	/**
 	 * 同步发送消息

@@ -29,7 +29,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
@@ -56,7 +55,7 @@ public class RedissonDistributedLockAutoConfiguration {
 
 	@ConditionalOnClass(Redisson.class)
 	@ConditionalOnBean(RedissonClient.class)
-	@Bean(DistributedLockBeanNames.REDISSON_DISTRIBUTED_LOCK)
+	@Bean
 	public DistributedLock distributedLock(RedissonClient redissonClient) {
 		log.debug(AUTOWIRED_REDISSON_DISTRIBUTED_LOCK);
 		return new RedissonDistributedLock(redissonClient);

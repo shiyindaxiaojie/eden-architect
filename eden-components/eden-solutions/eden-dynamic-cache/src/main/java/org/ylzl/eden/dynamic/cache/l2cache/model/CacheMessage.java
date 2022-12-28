@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.mail.spring.boot.env;
+package org.ylzl.eden.dynamic.cache.l2cache.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
- * 邮件配置
+ * 缓存信息
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Data
-@ConfigurationProperties(prefix = MailProperties.PREFIX)
-public class MailProperties {
+@Accessors(chain = true)
+@Getter
+@Setter
+public class CacheMessage implements Serializable {
 
-	public static final String PREFIX = "spring.mail.dynamic";
+	/** 缓存名称 */
+	private String name;
 
-	private boolean enabled;
+	/** 缓存类型 */
+	private String type;
 
-	private String primary;
+	/** 缓存key */
+	private String key;
 
-	private final JavaMail javaMail = new JavaMail();
+	/** 是否刷新 */
+	private boolean refresh;
 
-	@Setter
-	@Getter
-	public static class JavaMail {
-
-		public static final String PREFIX = MailProperties.PREFIX + ".javamail";
-
-		private boolean enabled;
-	}
+	/** 是否清除 */
+	private boolean clear;
 }

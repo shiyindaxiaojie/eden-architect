@@ -36,7 +36,7 @@ public class DistributedUIDProperties {
 
 	private DistributedUIDBeanNames primary;
 
-	private Boolean enabled;
+	private boolean enabled;
 
 	private final Leaf leaf = new Leaf();
 
@@ -52,7 +52,7 @@ public class DistributedUIDProperties {
 
 		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".leaf";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -61,7 +61,7 @@ public class DistributedUIDProperties {
 
 		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".snowflake";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -70,7 +70,7 @@ public class DistributedUIDProperties {
 
 		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".tiny-id";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 
 	@Setter
@@ -79,6 +79,6 @@ public class DistributedUIDProperties {
 
 		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".uid-generator";
 
-		private Boolean enabled;
+		private boolean enabled;
 	}
 }

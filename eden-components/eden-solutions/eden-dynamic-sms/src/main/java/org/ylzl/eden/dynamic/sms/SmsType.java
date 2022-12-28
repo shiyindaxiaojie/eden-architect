@@ -14,4 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.consistency;
+package org.ylzl.eden.dynamic.sms;
+
+import lombok.Getter;
+
+/**
+ * 短信类型
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
+@Getter
+public enum SmsType {
+
+	ALIYUN,
+	QCLOUD,
+	EMAY,
+	MONTNETS;
+
+	public static SmsType parse(String type) {
+		for (SmsType smsType : SmsType.values()) {
+			if (smsType.name().equalsIgnoreCase(type)) {
+				return smsType;
+			}
+		}
+		return null;
+	}
+}

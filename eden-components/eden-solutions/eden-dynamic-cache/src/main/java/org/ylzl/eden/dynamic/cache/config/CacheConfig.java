@@ -91,8 +91,8 @@ public class CacheConfig {
 	@Getter
 	public static class L1Cache {
 
-		/** 是否开启一级缓存，默认关闭 */
-		private boolean enabled = false;
+		/** 是否开启一级缓存，默认开启 */
+		private boolean enabled = true;
 
 		/** 缓存Key集合，默认不设置表示全部生效 */
 		private Set<String> cacheKeys = new HashSet<>();

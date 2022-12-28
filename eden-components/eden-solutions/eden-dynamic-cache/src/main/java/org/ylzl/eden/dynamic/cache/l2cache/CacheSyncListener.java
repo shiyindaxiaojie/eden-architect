@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.cache.consistency;
+package org.ylzl.eden.dynamic.cache.l2cache;
+
+import org.ylzl.eden.dynamic.cache.l2cache.model.CacheMessage;
 
 /**
- * 缓存同步类型
+ * 缓存同步监听器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
-public enum CacheSyncType {
+public interface CacheSyncListener {
 
-	REDIS,
-	KAFKA,
-	ROCKETMQ;
-
-	public static CacheSyncType parse(String type) {
-		for (CacheSyncType cacheSyncType : CacheSyncType.values()) {
-			if (cacheSyncType.name().equalsIgnoreCase(type)) {
-				return cacheSyncType;
-			}
-		}
-		return null;
-	}
+	/**
+	 * 消息处理
+	 *
+	 * @param info 缓存信息
+	 */
+	void onMessage(CacheMessage info);
 }

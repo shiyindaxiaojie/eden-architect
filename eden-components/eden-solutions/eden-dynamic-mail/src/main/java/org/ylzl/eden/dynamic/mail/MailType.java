@@ -14,33 +14,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.mail.spring.boot.support;
+package org.ylzl.eden.dynamic.mail;
 
 import lombok.Getter;
 
 /**
- * 邮件注册类型
+ * 邮件类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Getter
-public enum MailBeanNames {
+public enum MailType {
 
-	JAVAMAIL(MailBeanNames.JAVA_MAIL_TEMPLATE);
+	JAVAMAIL;
 
-	public static final String JAVA_MAIL_TEMPLATE = "javaMailTemplate";
-
-	private final String beanName;
-
-	MailBeanNames(String beanName) {
-		this.beanName = beanName;
-	}
-
-	public static MailBeanNames parse(String type) {
-		for (MailBeanNames mailBeanNames : MailBeanNames.values()) {
-			if (mailBeanNames.name().equalsIgnoreCase(type)) {
-				return mailBeanNames;
+	public static MailType parse(String type) {
+		for (MailType mailType : MailType.values()) {
+			if (mailType.name().equalsIgnoreCase(type)) {
+				return mailType;
 			}
 		}
 		return null;

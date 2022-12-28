@@ -14,37 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.dynamic.mail.spring.boot.env;
+package org.ylzl.eden.distributed.lock.spring.boot.support;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 邮件配置
+ * 分布式锁类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@Data
-@ConfigurationProperties(prefix = MailProperties.PREFIX)
-public class MailProperties {
+@Getter
+public enum DistributedLockType {
 
-	public static final String PREFIX = "spring.mail.dynamic";
+	REDISSON,
+	CURATOR,
+	JEDIS,
+	ZOOKEEPER;
 
-	private boolean enabled;
-
-	private String primary;
-
-	private final JavaMail javaMail = new JavaMail();
-
-	@Setter
-	@Getter
-	public static class JavaMail {
-
-		public static final String PREFIX = MailProperties.PREFIX + ".javamail";
-
-		private boolean enabled;
+	public static DistributedLockType parse(String type) {
+		for (DistributedLockType distributedLockType : DistributedLockType.values()) {
+			if (distributedLockType.name().equalsIgnoreCase(type)) {
+				return distributedLockType;
+			}
+		}
+		return null;
 	}
 }

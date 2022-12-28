@@ -26,7 +26,6 @@ import org.springframework.context.annotation.Configuration;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.curator.CuratorDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
@@ -48,7 +47,7 @@ public class CuratorDistributedLockAutoConfiguration {
 
 	public static final String AUTOWIRED_CURATOR_DISTRIBUTED_LOCK = "Autowired CuratorDistributedLock";
 
-	@Bean(DistributedLockBeanNames.CURATOR_DISTRIBUTED_LOCK)
+	@Bean
 	public DistributedLock distributedLock(CuratorFramework curatorFramework) {
 		log.debug(AUTOWIRED_CURATOR_DISTRIBUTED_LOCK);
 		return new CuratorDistributedLock(curatorFramework);
