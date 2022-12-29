@@ -443,11 +443,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-caffeine-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
