@@ -2150,12 +2150,6 @@
 				<artifactId>groovy</artifactId>
 				<version>${groovy4.version}</version>
 			</dependency>
-			<!--<dependency>
-				<groupId>org.apache.groovy</groupId>
-				<artifactId>groovy-all</artifactId>
-				<version>${groovy4.version}</version>
-				<type>pom</type>
-			</dependency>-->
 			<dependency>
 				<groupId>org.apiguardian</groupId>
 				<artifactId>apiguardian-api</artifactId>

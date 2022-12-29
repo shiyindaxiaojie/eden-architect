@@ -117,21 +117,6 @@ public class CacheConfig {
 		public static class Caffeine {
 
 			/**
-			 * 是否自动刷新过期缓存
-			 */
-			private boolean autoRefreshExpireCache = true;
-
-			/**
-			 * 自动刷新缓存的线程池大小
-			 */
-			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
-
-			/**
-			 * 自动刷新缓存的时间间隔（秒）
-			 */
-			private int autoRefreshInSeconds = 30;
-
-			/**
 			 * 默认配置
 			 */
 			private String defaultSpec;
@@ -147,21 +132,6 @@ public class CacheConfig {
 		@Setter
 		@Getter
 		public static class Guava {
-
-			/**
-			 * 是否自动刷新过期缓存
-			 */
-			private boolean autoRefreshExpireCache = true;
-
-			/**
-			 * 自动刷新缓存的线程池大小
-			 */
-			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
-
-			/**
-			 * 自动刷新缓存的时间间隔（秒）
-			 */
-			private int autoRefreshInSeconds = 30;
 
 			/**
 			 * 默认配置

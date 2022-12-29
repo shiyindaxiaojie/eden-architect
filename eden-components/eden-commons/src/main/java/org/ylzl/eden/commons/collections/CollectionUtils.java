@@ -92,9 +92,7 @@ public final class CollectionUtils {
 		}
 
 		Set<T> elements = new LinkedHashSet<>(size, loadFactor);
-		for (int i = 0; i < size; i++) {
-			elements.add(values[i]);
-		}
+		elements.addAll(Arrays.asList(values).subList(0, size));
 		return Collections.unmodifiableSet(elements);
 	}
 }
