@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.spring.data.mybatis.spi;
 
+import org.ylzl.eden.extension.SPI;
+
 import javax.sql.DataSource;
 
 /**
@@ -24,7 +26,16 @@ import javax.sql.DataSource;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public interface DataSourceUrlResolver {
+@SPI
+public interface DataSourceUrlParser {
 
+	String UNKNOWN_URL = "jdbc:database://host:port/unknown_db";
+
+	/**
+	 * 获取数据源地址
+	 *
+	 * @param dataSource 数据源
+	 * @return 数据源地址
+	 */
 	String getDataSourceUrl(DataSource dataSource);
 }

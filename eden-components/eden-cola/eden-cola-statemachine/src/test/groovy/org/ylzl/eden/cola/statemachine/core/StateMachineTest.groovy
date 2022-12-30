@@ -18,7 +18,8 @@ package org.ylzl.eden.cola.statemachine.core
 
 import org.ylzl.eden.cola.statemachine.StateMachine
 import org.ylzl.eden.cola.statemachine.factory.StateMachineFactory
-import spock.lang.*
+import org.ylzl.eden.cola.statemachine.visitor.plantuml.PlantUMLVisitor
+import spock.lang.Specification
 
 class StateMachineTest extends Specification {
 
@@ -59,9 +60,13 @@ class StateMachineTest extends Specification {
 
 		when:
 		States target = stateMachine.fireEvent(States.WAIT_BUYER_PAY, Events.PAY_SUCCESS, new Context())
+		PlantUMLVisitor visitor = new PlantUMLVisitor()
+		String uml = stateMachine.accept(visitor)
+		println(uml)
 
 		then:
 		target == States.TRADE_SUCCESS
+		uml == "@startuml\nWAIT_BUYER_PAY --> TRADE_SUCCESS : PAY_SUCCESS\n@enduml"
 	}
 }
 
