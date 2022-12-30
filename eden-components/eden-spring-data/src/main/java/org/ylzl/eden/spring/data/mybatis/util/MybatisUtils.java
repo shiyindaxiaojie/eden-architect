@@ -25,7 +25,7 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.ylzl.eden.spring.data.mybatis.spi.DataSourceUrlResolverLoader;
+import org.ylzl.eden.spring.data.mybatis.spi.DataSourceUrlParserLoader;
 
 import javax.sql.DataSource;
 import java.text.DateFormat;
@@ -50,7 +50,7 @@ public class MybatisUtils {
 		Configuration configuration = mappedStatement.getConfiguration();
 		Environment environment = configuration.getEnvironment();
 		DataSource dataSource = environment.getDataSource();
-		return DataSourceUrlResolverLoader.parse(dataSource);
+		return DataSourceUrlParserLoader.parse(dataSource);
 	}
 
 	public String getMethodName(MappedStatement mappedStatement) {

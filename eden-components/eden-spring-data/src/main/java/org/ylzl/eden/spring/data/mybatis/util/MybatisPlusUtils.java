@@ -81,7 +81,7 @@ public class MybatisPlusUtils {
 		Page<T> page = new Page(pageNum, pageSize);
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
 			String[] sortColumns = sortColumn.split(Strings.COLON);
-			List<OrderItem> orderItems = SortRuleEnum.ASC.name().equalsIgnoreCase(sortRule)
+			List<OrderItem> orderItems = SortRule.ASC.name().equalsIgnoreCase(sortRule)
 				? OrderItem.ascs(sortColumns)
 				: OrderItem.descs(sortColumns);
 			page.addOrder(orderItems);
@@ -114,7 +114,7 @@ public class MybatisPlusUtils {
 		if (StringUtils.isNotBlank(sortColumn) && StringUtils.isNotBlank(sortRule)) {
 			sql.append(" ORDER BY ");
 			String rule =
-				Arrays.stream(SortRuleEnum.values())
+				Arrays.stream(SortRule.values())
 					.filter(sortRuleEnum -> sortRuleEnum.name().equalsIgnoreCase(sortRule))
 					.findFirst()
 					.get()

@@ -22,7 +22,7 @@ package org.ylzl.eden.spring.data.mybatis.util;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public enum SortRuleEnum {
+public enum SortRule {
 	ASC,
 	DESC;
 }

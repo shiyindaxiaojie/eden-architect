@@ -26,7 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.ylzl.eden.spring.data.mybatis.util.SortRuleEnum;
+import org.ylzl.eden.spring.data.mybatis.util.SortRule;
 
 /**
  * Mybatis 工具集
@@ -63,7 +63,7 @@ public class ElasticsearchUtils {
 		queryBuilder.withSort(
 			SortBuilders.fieldSort(sortColumn)
 				.order(
-					SortRuleEnum.DESC.name().equalsIgnoreCase(sortRule)
+					SortRule.DESC.name().equalsIgnoreCase(sortRule)
 						? SortOrder.DESC
 						: SortOrder.ASC));
 	}

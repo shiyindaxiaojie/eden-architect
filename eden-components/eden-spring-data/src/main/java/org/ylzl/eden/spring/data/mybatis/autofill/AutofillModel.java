@@ -38,12 +38,12 @@ public class AutofillModel<T extends Model<?>> extends Model<T> implements Seria
 	/**
 	 * 创建时间
 	 */
-	@TableField(value = "create_date", fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 
 	/**
 	 * 最后修改时间
 	 */
-	@TableField(value = "last_modified_date", fill = FieldFill.INSERT_UPDATE)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime lastModifiedDate;
 }

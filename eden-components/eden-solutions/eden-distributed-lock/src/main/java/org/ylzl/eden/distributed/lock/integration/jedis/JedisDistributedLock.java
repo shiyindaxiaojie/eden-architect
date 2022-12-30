@@ -22,6 +22,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.distributed.lock.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLockType;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import redis.clients.jedis.Jedis;
@@ -52,6 +53,16 @@ public class JedisDistributedLock implements DistributedLock {
 	private final ThreadLocal<String> lock = new ThreadLocal<>();
 
 	private final RedisTemplate<String, Object> redisTemplate;
+
+	/**
+	 * 锁类型
+	 *
+	 * @return 锁类型
+	 */
+	@Override
+	public String lockType() {
+		return DistributedLockType.JEDIS.name();
+	}
 
 	/**
 	 * 阻塞加锁

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.lock.spring.boot.support;
+package org.ylzl.eden.distributed.lock;
 
 import lombok.Getter;
 

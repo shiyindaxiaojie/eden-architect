@@ -22,6 +22,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.distributed.lock.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLockType;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;
@@ -42,6 +43,16 @@ public class CuratorDistributedLock implements DistributedLock {
 	private static final ThreadLocal<InterProcessMutex> interProcessMutexThreadLocal = new ThreadLocal<>();
 
 	private final CuratorFramework curatorFramework;
+
+	/**
+	 * 锁类型
+	 *
+	 * @return 锁类型
+	 */
+	@Override
+	public String lockType() {
+		return DistributedLockType.CURATOR.name();
+	}
 
 	/**
 	 * 阻塞加锁
