@@ -1,0 +1,4 @@
+apollo=org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel.ApolloSentinelHotKeyDataSource
+nacos=org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel.NacosSentinelHotKeyDataSource
+zookeeper=org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel.ZookeeperSentinelHotKeyDataSource
+etcd=org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel.EtcdSentinelHotKeyDataSource

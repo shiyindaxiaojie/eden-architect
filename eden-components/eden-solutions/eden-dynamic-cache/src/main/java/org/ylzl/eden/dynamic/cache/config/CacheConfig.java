@@ -211,6 +211,10 @@ public class CacheConfig {
 			private String appName;
 
 			private String etcdServer;
+
+			private Long pushPeriod;
+
+			private int caffeineSize = 200000;
 		}
 
 		@EqualsAndHashCode
@@ -221,9 +225,13 @@ public class CacheConfig {
 
 			private boolean enabled;
 
+			private String appName;
+
+			private String dataSourceType = "nacos";
+
 			private Transport transport = new Transport();
 
-			private DataSource datasource = new DataSource();
+			private DataSource dataSource = new DataSource();
 
 			@EqualsAndHashCode
 			@ToString
