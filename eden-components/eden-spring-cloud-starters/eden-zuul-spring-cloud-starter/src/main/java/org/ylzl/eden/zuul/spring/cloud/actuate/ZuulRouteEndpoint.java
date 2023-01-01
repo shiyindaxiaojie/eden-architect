@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 网关端点
  *
- * <p>从 Spring Boot 1.X 升级到 2.X
+ * <p>从 Spring Boot 1.5.x 升级到 2.4.x</p>
  *
  * <ul>
  *   <li>org.springframework.boot.actuate.endpoint.AbstractEndpoint 变更为 {@link Endpoint}

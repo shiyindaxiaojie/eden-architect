@@ -37,10 +37,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-test</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-boot</artifactId>
-		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
@@ -57,18 +53,5 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!-- Spring Boot Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 	</dependencies>
-
 </project>

@@ -44,6 +44,12 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-data</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- 开发组件 -->

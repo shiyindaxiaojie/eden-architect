@@ -30,8 +30,7 @@ public enum CacheType {
 	CAFFEINE(1),
 	GUAVA(1),
 	REDIS(2),
-	DRAGONFLY(2),
-	HAZELCAST(2);
+	DRAGONFLY(2);
 
 	private final int level;
 

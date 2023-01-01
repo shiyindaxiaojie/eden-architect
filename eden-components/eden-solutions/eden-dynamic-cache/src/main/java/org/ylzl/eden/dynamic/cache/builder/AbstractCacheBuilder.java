@@ -23,7 +23,7 @@ import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
- * 缓存构造器抽象
+ * 缓存构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

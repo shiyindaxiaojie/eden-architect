@@ -1,6 +1,5 @@
 package org.ylzl.eden.dynamic.cache.spring.boot.autoconfigure;
 
-import com.jd.platform.hotkey.client.ClientStarter;
 import com.jd.platform.hotkey.client.callback.JdHotKeyStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-import org.ylzl.eden.dynamic.cache.config.CacheConfig;
+import org.ylzl.eden.dynamic.cache.integration.hotkey.jd.JdHotKeyClient;
 import org.ylzl.eden.dynamic.cache.spring.boot.env.CacheProperties;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
@@ -37,9 +36,6 @@ public class JdHotKeyAutoConfiguration implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		log.debug(AUTOWIRED_JD_HOT_KEY);
-		CacheConfig.HotKey.JD jd = cacheProperties.getHotKey().getJd();
-		ClientStarter.Builder builder = new ClientStarter.Builder();
-		ClientStarter starter = builder.setAppName(jd.getAppName()).setEtcdServer(jd.getEtcdServer()).build();
-		starter.startPipeline();
+		JdHotKeyClient.start(cacheProperties);
 	}
 }

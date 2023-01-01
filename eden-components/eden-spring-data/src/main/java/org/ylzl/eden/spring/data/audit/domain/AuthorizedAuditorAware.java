@@ -22,13 +22,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
-import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
 import java.util.Optional;
 
 /**
- * 认证的审计装饰器
+ * 审计处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -49,10 +48,8 @@ public class AuthorizedAuditorAware implements AuditorAware<String> {
 				}
 			}
 		} else {
-			RequestUtils.getRemoteUser();
 			authorizedUsername = RequestUtils.getRemoteUser();
 		}
-		AssertUtils.notNull(authorizedUsername);
-		return Optional.of(Optional.of(authorizedUsername).orElse(Globals.SYSTEM));
+		return Optional.of(Optional.ofNullable(authorizedUsername).orElse(Globals.ANONYMOUS_USER));
 	}
 }

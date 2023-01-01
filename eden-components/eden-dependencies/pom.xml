@@ -103,14 +103,16 @@
 		<jnanoid.version>2.0.0</jnanoid.version>
 		<snakeyaml.version>1.33</snakeyaml.version>
 		<dynamictp.version>1.0.9</dynamictp.version>
+		<javers.version>6.8.1</javers.version>
+		<ahocorasick.version>0.6.3</ahocorasick.version>
 
 		<!-- 关系型数据库 -->
 		<mysql.version>8.0.29</mysql.version>
 		<sqlite.version>3.30.1</sqlite.version>
 		<mybatis.version>3.5.6</mybatis.version>
-		<mybatis-plus.version>3.4.1</mybatis-plus.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
+		<mybatis-plus.version>3.5.3</mybatis-plus.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
@@ -129,8 +131,9 @@
 		<influxdb.version>6.4.0</influxdb.version>
 
 		<!-- 搜索引擎 -->
-		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
-		</spring-boot-starter-data-elasticsearch.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
+		<t-digest.version>3.2</t-digest.version>
+		<jopt-simple.version>5.0.4</jopt-simple.version>
 
 		<!-- 缓存组件 -->
 		<ehcache.version>2.10.4</ehcache.version>
@@ -361,17 +364,17 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-audit-log</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
-				<artifactId>eden-bigdata-filter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-consistency-task</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-data-auditor</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
+				<artifactId>eden-data-filter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -416,6 +419,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-event-auditor</artifactId>
+				<version>2.4.13-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-flow-compose</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -438,7 +446,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-bigdata-filter-spring-boot-starter</artifactId>
+				<artifactId>eden-data-filter-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -1220,6 +1228,33 @@
 				<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
 				<version>${dynamictp.version}</version>
 			</dependency>
+			<!-- Javers -->
+			<dependency>
+				<groupId>org.javers</groupId>
+				<artifactId>javers-core</artifactId>
+				<version>${javers.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javers</groupId>
+				<artifactId>javers-spring</artifactId>
+				<version>${javers.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javers</groupId>
+				<artifactId>javers-spring-boot-starter-sql</artifactId>
+				<version>${javers.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javers</groupId>
+				<artifactId>javers-spring-boot-starter-mongo</artifactId>
+				<version>${javers.version}</version>
+			</dependency>
+			<!-- Ahocorasick -->
+			<dependency>
+				<groupId>org.ahocorasick</groupId>
+				<artifactId>ahocorasick</artifactId>
+				<version>${ahocorasick.version}</version>
+			</dependency>
 
 			<!-- 数据库 -->
 			<!-- MySQL -->
@@ -1394,6 +1429,16 @@
 				<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 				<version>${spring-boot-starter-data-elasticsearch.version}
 				</version>
+			</dependency>
+			<dependency>
+				<groupId>com.tdunning</groupId>
+				<artifactId>t-digest</artifactId>
+				<version>${t-digest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jopt-simple</groupId>
+				<artifactId>jopt-simple</artifactId>
+				<version>${jopt-simple.version}</version>
 			</dependency>
 
 			<!-- 缓存 -->
