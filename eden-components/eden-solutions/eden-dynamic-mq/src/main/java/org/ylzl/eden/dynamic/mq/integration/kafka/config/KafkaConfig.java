@@ -16,8 +16,10 @@
 
 package org.ylzl.eden.dynamic.mq.integration.kafka.config;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -42,6 +44,8 @@ import java.util.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@EqualsAndHashCode
+@ToString
 @Getter
 @Setter
 public class KafkaConfig {

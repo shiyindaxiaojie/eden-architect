@@ -197,12 +197,17 @@
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-datasource-apollo</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-datasource-zookeeper</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
-			<artifactId>sentinel-datasource-apollo</artifactId>
+			<artifactId>sentinel-datasource-etcd</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<!-- Sentinel + Adapter -->

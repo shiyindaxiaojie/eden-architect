@@ -29,6 +29,13 @@ import java.util.concurrent.TimeUnit;
 public interface DistributedLock {
 
 	/**
+	 * 锁类型
+	 *
+	 * @return 锁类型
+	 */
+	String lockType();
+
+	/**
 	 * 加锁（阻塞）
 	 *
 	 * @param key 锁对象

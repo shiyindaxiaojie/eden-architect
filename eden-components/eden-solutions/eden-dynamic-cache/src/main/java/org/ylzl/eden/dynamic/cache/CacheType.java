@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.dynamic.cache;
 
+import java.util.Objects;
+
 /**
  * 缓存类型
  *
@@ -24,12 +26,22 @@ package org.ylzl.eden.dynamic.cache;
  */
 public enum CacheType {
 
-	COMPOSITE,
-	CAFFEINE,
-	GUAVA,
-	REDIS,
-	DRAGONFLY,
-	HAZELCAST;
+	COMPOSITE(0),
+	CAFFEINE(1),
+	GUAVA(1),
+	REDIS(2),
+	DRAGONFLY(2),
+	HAZELCAST(2);
+
+	private final int level;
+
+	CacheType(int level) {
+		this.level = level;
+	}
+
+	public int getLevel() {
+		return level;
+	}
 
 	public static CacheType parse(String type) {
 		for (CacheType cacheType : CacheType.values()) {
@@ -38,5 +50,17 @@ public enum CacheType {
 			}
 		}
 		return null;
+	}
+
+	public static boolean isCompositeCache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 0;
+	}
+
+	public static boolean isL1Cache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 1;
+	}
+
+	public static boolean isL2Cache(String type) {
+		return Objects.requireNonNull(parse(type)).getLevel() == 2;
 	}
 }

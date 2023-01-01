@@ -443,11 +443,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
-				<artifactId>eden-caffeine-spring-boot-starter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.ylzl</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
 				<version>2.4.13-SNAPSHOT</version>
 			</dependency>
@@ -1666,6 +1661,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-transport-common</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-transport-simple-http</artifactId>
 				<version>${sentinel.version}</version>
 			</dependency>
@@ -1737,6 +1737,11 @@
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-datasource-apollo</artifactId>
+				<version>${sentinel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-datasource-etcd</artifactId>
 				<version>${sentinel.version}</version>
 			</dependency>
 			<dependency>
@@ -2140,12 +2145,6 @@
 				<artifactId>groovy</artifactId>
 				<version>${groovy4.version}</version>
 			</dependency>
-			<!--<dependency>
-				<groupId>org.apache.groovy</groupId>
-				<artifactId>groovy-all</artifactId>
-				<version>${groovy4.version}</version>
-				<type>pom</type>
-			</dependency>-->
 			<dependency>
 				<groupId>org.apiguardian</groupId>
 				<artifactId>apiguardian-api</artifactId>

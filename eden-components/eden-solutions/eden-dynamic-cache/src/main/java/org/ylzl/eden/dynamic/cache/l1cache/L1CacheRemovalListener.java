@@ -16,16 +16,16 @@
 
 package org.ylzl.eden.dynamic.cache.l1cache;
 
+import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.extension.SPI;
 
 /**
- * 缓存失效监听器
+ * 一级缓存失效监听器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@FunctionalInterface
-@SPI("removal")
+@SPI("internal")
 public interface L1CacheRemovalListener {
 
 	/**
@@ -36,4 +36,11 @@ public interface L1CacheRemovalListener {
 	 * @param cause 缓存失效原因
 	 */
 	<K, V> void onRemoval(K key, V value, L1CacheRemovalCause cause);
+
+	/**
+	 * 设置缓存实例
+	 *
+	 * @param cache 缓存实例
+	 */
+	void setL2Cache(Cache cache);
 }

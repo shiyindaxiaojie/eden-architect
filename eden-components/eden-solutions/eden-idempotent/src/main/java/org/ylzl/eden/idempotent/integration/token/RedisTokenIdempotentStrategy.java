@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.idempotent.config.IdempotentTokenConfig;
+import org.ylzl.eden.idempotent.config.TokenIdempotentConfig;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
@@ -37,7 +37,7 @@ public class RedisTokenIdempotentStrategy implements TokenIdempotentStrategy {
 
 	private final StringRedisTemplate redisTemplate;
 
-	private final IdempotentTokenConfig config;
+	private final TokenIdempotentConfig config;
 
 	/**
 	 * 生成请求令牌

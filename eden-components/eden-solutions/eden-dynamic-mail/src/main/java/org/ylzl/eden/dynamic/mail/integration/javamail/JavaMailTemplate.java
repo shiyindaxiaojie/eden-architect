@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.ylzl.eden.dynamic.mail.MailType;
 import org.ylzl.eden.dynamic.mail.model.Mail;
 import org.ylzl.eden.dynamic.mail.MailTemplate;
 import org.ylzl.eden.dynamic.mail.exception.SendMailException;
@@ -40,6 +41,16 @@ import org.ylzl.eden.dynamic.mail.model.single.SingleSendMailResponse;
 public class JavaMailTemplate implements MailTemplate {
 
 	private final JavaMailSender javaMailSender;
+
+	/**
+	 * 邮件类型
+	 *
+	 * @return 邮件类型
+	 */
+	@Override
+	public String mailType() {
+		return MailType.JAVAMAIL.name();
+	}
 
 	/**
 	 * 单条发送邮件

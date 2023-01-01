@@ -20,9 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
-import java.text.MessageFormat;
+import java.util.Map;
 
 /**
  * 分布式锁操作实例助手
@@ -34,20 +33,19 @@ import java.text.MessageFormat;
 @Slf4j
 public class DistributedLockHelper {
 
-	private static final String BEAN_DEFINITION_NOT_FOUND = "DistributedLock bean definition named '{}' not found";
+	private static final String LOCK_TYPE_NOT_FOUND = "Distributed lock type named '{}' not found";
 
-	private final DistributedLockBeanNames primary;
+	private final String primary;
 
-	public DistributedLock getBean() {
-		DistributedLock distributedLock = ApplicationContextHelper.getBean(primary.getBeanName(), DistributedLock.class);
-		AssertUtils.notNull(distributedLock, "SYS-ERROR-500", BEAN_DEFINITION_NOT_FOUND, primary.getBeanName());
-		return distributedLock;
+	public DistributedLock getLock() {
+		return getLock(primary);
 	}
 
-	public DistributedLock getBean(DistributedLockBeanNames distributedLockBeanNames) {
-		String beanName = distributedLockBeanNames.getBeanName();
-		DistributedLock distributedLock = ApplicationContextHelper.getBean(beanName, DistributedLock.class);
-		AssertUtils.notNull(distributedLock, "SYS-ERROR-500", MessageFormat.format(BEAN_DEFINITION_NOT_FOUND, beanName));
-		return distributedLock;
+	public DistributedLock getLock(String lockType) {
+		Map<String, DistributedLock> distributedLocks = ApplicationContextHelper.getBeansOfType(DistributedLock.class);
+		return distributedLocks.values().stream()
+			.filter(predicate -> predicate.lockType().equalsIgnoreCase(lockType))
+			.findFirst()
+			.orElseThrow(() -> new RuntimeException(LOCK_TYPE_NOT_FOUND));
 	}
 }

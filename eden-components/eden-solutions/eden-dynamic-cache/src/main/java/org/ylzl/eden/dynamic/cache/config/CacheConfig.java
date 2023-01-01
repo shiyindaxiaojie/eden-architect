@@ -40,6 +40,9 @@ import java.util.Set;
 @Getter
 public class CacheConfig {
 
+	/** 缓存开关 */
+	private boolean enabled = true;
+
 	/** 缓存类型 */
 	private String cacheType = CacheType.COMPOSITE.name();
 
@@ -88,8 +91,8 @@ public class CacheConfig {
 	@Getter
 	public static class L1Cache {
 
-		/** 是否开启一级缓存，默认关闭 */
-		private boolean enabled = false;
+		/** 是否开启一级缓存，默认开启 */
+		private boolean enabled = true;
 
 		/** 缓存Key集合，默认不设置表示全部生效 */
 		private Set<String> cacheKeys = new HashSet<>();
@@ -114,21 +117,6 @@ public class CacheConfig {
 		public static class Caffeine {
 
 			/**
-			 * 是否自动刷新过期缓存
-			 */
-			private boolean autoRefreshExpireCache = true;
-
-			/**
-			 * 自动刷新缓存的线程池大小
-			 */
-			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
-
-			/**
-			 * 自动刷新缓存的时间间隔（秒）
-			 */
-			private int autoRefreshInSeconds = 30;
-
-			/**
 			 * 默认配置
 			 */
 			private String defaultSpec;
@@ -144,21 +132,6 @@ public class CacheConfig {
 		@Setter
 		@Getter
 		public static class Guava {
-
-			/**
-			 * 是否自动刷新过期缓存
-			 */
-			private boolean autoRefreshExpireCache = true;
-
-			/**
-			 * 自动刷新缓存的线程池大小
-			 */
-			private int autoRefreshPoolSize = Runtime.getRuntime().availableProcessors();
-
-			/**
-			 * 自动刷新缓存的时间间隔（秒）
-			 */
-			private int autoRefreshInSeconds = 30;
 
 			/**
 			 * 默认配置
@@ -233,6 +206,8 @@ public class CacheConfig {
 		@Getter
 		public static class JD {
 
+			private boolean enabled;
+
 			private String appName;
 
 			private String etcdServer;
@@ -244,7 +219,115 @@ public class CacheConfig {
 		@Getter
 		public static class Sentinel {
 
+			private boolean enabled;
 
+			private Transport transport = new Transport();
+
+			private DataSource datasource = new DataSource();
+
+			@EqualsAndHashCode
+			@ToString
+			@Setter
+			@Getter
+			public static class Transport {
+
+				private String port = "8719";
+
+				private String dashboard = "localhost:8719";
+
+				private String heartbeatIntervalMs;
+
+				private String clientIp;
+			}
+
+			@EqualsAndHashCode
+			@ToString
+			@Setter
+			@Getter
+			public static class DataSource {
+
+				private Nacos nacos = new Nacos();
+
+				private Apollo apollo = new Apollo();
+
+				private Zookeeper zk = new Zookeeper();
+
+				private Etcd etcd = new Etcd();
+
+				@EqualsAndHashCode
+				@ToString
+				@Setter
+				@Getter
+				public static class Nacos {
+
+					private String serverAddr;
+
+					private String username;
+
+					private String password;
+
+					private String groupId = "DEFAULT_GROUP";
+
+					private String dataId;
+
+					private String endpoint;
+
+					private String namespace;
+
+					private String accessKey;
+
+					private String secretKey;
+				}
+
+				@EqualsAndHashCode
+				@ToString
+				@Setter
+				@Getter
+				public static class Apollo {
+
+					private String serverAddr = "http://localhost:8080";
+
+					private String namespaceName;
+
+					private String flowRulesKey;
+
+					private String defaultFlowRuleValue;
+				}
+
+				@EqualsAndHashCode
+				@ToString
+				@Setter
+				@Getter
+				public static class Zookeeper {
+
+					private String serverAddr = "localhost:2181";
+
+					private String path;
+
+					private String groupId;
+
+					private String dataId;
+				}
+
+				@EqualsAndHashCode
+				@ToString
+				@Setter
+				@Getter
+				public static class Etcd {
+
+					private String endPoints;
+
+					private String user;
+
+					private String password;
+
+					private String charset = "UTF-8";
+
+					private boolean auth = true;
+
+					private String ruleKey;
+				}
+			}
 		}
 	}
 }

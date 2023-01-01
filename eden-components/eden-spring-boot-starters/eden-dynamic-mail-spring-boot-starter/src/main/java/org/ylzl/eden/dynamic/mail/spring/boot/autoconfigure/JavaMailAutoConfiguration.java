@@ -29,7 +29,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.ylzl.eden.dynamic.mail.MailTemplate;
 import org.ylzl.eden.dynamic.mail.integration.javamail.JavaMailTemplate;
 import org.ylzl.eden.dynamic.mail.spring.boot.env.MailProperties;
-import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
@@ -55,7 +54,7 @@ public class JavaMailAutoConfiguration {
 
 	private final JavaMailSender javaMailSender;
 
-	@Bean(MailBeanNames.JAVA_MAIL_TEMPLATE)
+	@Bean
 	public MailTemplate mailTemplate() {
 		log.debug(AUTOWIRED_JAVA_MAIL_TEMPLATE);
 		return new JavaMailTemplate(javaMailSender);

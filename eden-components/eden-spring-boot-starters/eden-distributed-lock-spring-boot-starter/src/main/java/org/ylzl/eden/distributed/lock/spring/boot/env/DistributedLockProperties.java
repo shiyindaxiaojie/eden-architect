@@ -19,7 +19,6 @@ package org.ylzl.eden.distributed.lock.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 
 /**
  * 分布式锁配置
@@ -34,9 +33,9 @@ public class DistributedLockProperties {
 
 	public static final String PREFIX = "distributed-lock";
 
-	private Boolean enabled;
+	private boolean enabled;
 
-	private DistributedLockBeanNames primary;
+	private String primary;
 
 	private final Redisson redisson = new Redisson();
 

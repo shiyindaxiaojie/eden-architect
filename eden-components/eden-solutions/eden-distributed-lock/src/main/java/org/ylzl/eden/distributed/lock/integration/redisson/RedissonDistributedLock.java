@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.ylzl.eden.distributed.lock.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLockType;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;
@@ -40,6 +41,16 @@ public class RedissonDistributedLock implements DistributedLock {
 	private static final ThreadLocal<RLock> rLockThreadLocal = new ThreadLocal<>();
 
 	private final RedissonClient redissonClient;
+
+	/**
+	 * 锁类型
+	 *
+	 * @return 锁类型
+	 */
+	@Override
+	public String lockType() {
+		return DistributedLockType.REDISSON.name();
+	}
 
 	/**
 	 * 阻塞加锁

@@ -18,8 +18,8 @@ package org.ylzl.eden.dynamic.cache.builder;
 
 import org.ylzl.eden.dynamic.cache.Cache;
 import org.ylzl.eden.dynamic.cache.config.CacheConfig;
-import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
+import org.ylzl.eden.dynamic.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
@@ -67,7 +67,7 @@ public abstract class AbstractCacheBuilder implements CacheBuilder {
 	 * @return CacheBuilder
 	 */
 	@Override
-	public CacheBuilder evictionListener(L1CacheRemovalListener removalListener) {
+	public CacheBuilder l1CacheRemovalListener(L1CacheRemovalListener removalListener) {
 		this.removalListener = removalListener;
 		return this;
 	}

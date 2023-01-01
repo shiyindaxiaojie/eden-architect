@@ -33,6 +33,8 @@ import org.ylzl.eden.dynamic.cache.builder.CacheBuilder;
 @Slf4j
 public class RedisCacheBuilder extends AbstractCacheBuilder {
 
+	private static final String CACHE_CLIENT_USE_DEFAULT = "Redis client is null, use default client";
+
 	private static final String CACHE_CLIENT_IS_NOT_REQUIRED_TYPE = "Redis client '{}' is not of required type RedissonClient";
 
 	private volatile RedissonClient redissonClient;
@@ -48,6 +50,10 @@ public class RedisCacheBuilder extends AbstractCacheBuilder {
 	 */
 	@Override
 	public CacheBuilder l2CacheClient(Object l2CacheClient) {
+		if (l2CacheClient == null) {
+			log.warn(CACHE_CLIENT_USE_DEFAULT);
+			return this;
+		}
 		if (!(l2CacheClient instanceof RedissonClient)) {
 			throw new RuntimeException(MessageFormatUtils.format(CACHE_CLIENT_IS_NOT_REQUIRED_TYPE, l2CacheClient));
 		}

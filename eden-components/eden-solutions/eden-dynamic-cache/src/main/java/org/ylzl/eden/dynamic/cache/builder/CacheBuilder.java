@@ -53,7 +53,7 @@ public interface CacheBuilder {
 	 * @param removalListener 缓存失效监听器
 	 * @return CacheBuilder
 	 */
-	CacheBuilder evictionListener(L1CacheRemovalListener removalListener);
+	CacheBuilder l1CacheRemovalListener(L1CacheRemovalListener removalListener);
 
 	/**
 	 * 设置二级缓存客户端

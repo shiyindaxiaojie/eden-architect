@@ -22,6 +22,7 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.ylzl.eden.distributed.lock.DistributedLock;
+import org.ylzl.eden.distributed.lock.DistributedLockType;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 
@@ -40,6 +41,16 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	private static final byte[] EMPTY_DATA = new byte[0];
 
 	private final ZooKeeper zooKeeper;
+
+	/**
+	 * 锁类型
+	 *
+	 * @return 锁类型
+	 */
+	@Override
+	public String lockType() {
+		return DistributedLockType.ZOOKEEPER.name();
+	}
 
 	/**
 	 * 阻塞加锁

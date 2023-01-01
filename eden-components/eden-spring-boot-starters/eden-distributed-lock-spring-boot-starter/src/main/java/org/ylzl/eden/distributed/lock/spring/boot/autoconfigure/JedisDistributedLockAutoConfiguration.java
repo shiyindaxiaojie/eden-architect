@@ -26,7 +26,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.jedis.JedisDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanNames;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import redis.clients.jedis.Jedis;
 
@@ -49,8 +48,7 @@ public class JedisDistributedLockAutoConfiguration {
 
 	public static final String AUTOWIRED_JEDIS_DISTRIBUTED_LOCK = "Autowired JedisDistributedLock";
 
-	@ConditionalOnClass(Jedis.class)
-	@Bean(DistributedLockBeanNames.JEDIS_DISTRIBUTED_LOCK)
+	@Bean
 	public DistributedLock distributedLock(RedisTemplate<String, Object> redisTemplate) {
 		log.debug(AUTOWIRED_JEDIS_DISTRIBUTED_LOCK);
 		return new JedisDistributedLock(redisTemplate);

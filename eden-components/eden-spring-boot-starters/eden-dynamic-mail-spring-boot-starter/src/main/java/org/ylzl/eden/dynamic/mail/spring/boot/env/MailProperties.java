@@ -20,7 +20,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.dynamic.mail.spring.boot.support.MailBeanNames;
 
 /**
  * 邮件配置
@@ -34,9 +33,9 @@ public class MailProperties {
 
 	public static final String PREFIX = "spring.mail.dynamic";
 
-	private Boolean enabled;
+	private boolean enabled;
 
-	private MailBeanNames primary;
+	private String primary;
 
 	private final JavaMail javaMail = new JavaMail();
 

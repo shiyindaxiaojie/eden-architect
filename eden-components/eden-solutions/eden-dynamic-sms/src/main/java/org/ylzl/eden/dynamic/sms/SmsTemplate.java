@@ -34,6 +34,13 @@ import org.ylzl.eden.dynamic.sms.model.template.SendTemplateSmsResponse;
 public interface SmsTemplate {
 
 	/**
+	 * 短信类型
+	 *
+	 * @return 短信类型
+	 */
+	String smsType();
+
+	/**
 	 * 单条发送
 	 *
 	 * @param request 发送短信请求

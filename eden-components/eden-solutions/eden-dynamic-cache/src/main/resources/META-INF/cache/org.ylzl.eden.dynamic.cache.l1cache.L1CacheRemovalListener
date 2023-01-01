@@ -1,1 +1,1 @@
-removal=org.ylzl.eden.dynamic.cache.l1cache.DefaultL1CacheRemovalListener
+internal=org.ylzl.eden.dynamic.cache.l1cache.InternalL1CacheRemovalListener

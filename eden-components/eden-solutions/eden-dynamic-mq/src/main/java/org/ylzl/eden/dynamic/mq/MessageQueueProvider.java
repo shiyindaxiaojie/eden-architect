@@ -29,6 +29,13 @@ import org.ylzl.eden.dynamic.mq.producer.MessageSendResult;
 public interface MessageQueueProvider {
 
 	/**
+	 * 消息类型
+	 *
+	 * @return 消息类型
+	 */
+	String messageQueueType();
+
+	/**
 	 * 同步发送消息
 	 *
 	 * @param message

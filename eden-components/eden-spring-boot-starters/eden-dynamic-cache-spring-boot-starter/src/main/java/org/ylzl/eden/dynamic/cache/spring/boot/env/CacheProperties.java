@@ -30,11 +30,7 @@ import org.ylzl.eden.dynamic.cache.config.CacheConfig;
 @Setter
 @Getter
 @ConfigurationProperties(prefix = CacheProperties.PREFIX)
-public class CacheProperties {
+public class CacheProperties extends CacheConfig {
 
 	public static final String PREFIX = "spring.cache.dynamic";
-
-	public static final String ENABLED = PREFIX + ".enabled";
-
-	private CacheConfig config;
 }

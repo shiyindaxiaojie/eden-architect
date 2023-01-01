@@ -20,7 +20,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.dynamic.sms.spring.boot.support.SmsBeanNames;
 
 /**
  * 短信配置
@@ -34,9 +33,9 @@ public class SmsProperties {
 
 	public static final String PREFIX = "spring.sms.dynamic";
 
-	private Boolean enabled;
+	private boolean enabled;
 
-	private SmsBeanNames primary;
+	private String primary;
 
 	private final Aliyun aliyun = new Aliyun();
 
