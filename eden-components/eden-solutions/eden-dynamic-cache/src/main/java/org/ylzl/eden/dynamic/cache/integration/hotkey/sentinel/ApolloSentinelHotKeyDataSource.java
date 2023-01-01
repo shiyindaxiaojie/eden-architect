@@ -34,6 +34,10 @@ import java.util.List;
  */
 public class ApolloSentinelHotKeyDataSource implements SentinelHotKeyDataSource {
 
+	private static final String APP_ID = "app.id";
+
+	private static final String APOLLO_META = "apollo.meta";
+
 	/**
 	 * 注册数据源
 	 *
@@ -42,8 +46,8 @@ public class ApolloSentinelHotKeyDataSource implements SentinelHotKeyDataSource 
 	@Override
 	public void registerDataSource(CacheConfig cacheConfig) {
 		CacheConfig.HotKey.Sentinel sentinelConfig = cacheConfig.getHotKey().getSentinel();
-		System.setProperty("app.id", sentinelConfig.getAppName());
-		System.setProperty("apollo.meta", sentinelConfig.getDataSource().getApollo().getServerAddr());
+		System.setProperty(APP_ID, sentinelConfig.getAppName());
+		System.setProperty(APOLLO_META, sentinelConfig.getDataSource().getApollo().getServerAddr());
 		ReadableDataSource<String, List<ParamFlowRule>> dataSource = new ApolloDataSource<>(
 			sentinelConfig.getDataSource().getApollo().getNamespaceName(),
 			sentinelConfig.getDataSource().getApollo().getFlowRulesKey(),

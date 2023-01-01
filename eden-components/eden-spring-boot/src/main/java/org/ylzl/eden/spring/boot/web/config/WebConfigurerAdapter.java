@@ -35,18 +35,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Web 配置适配器
  *
- * <p>从 Spring Boot 1.X 升级到 2.X
- *
+ * <p>从 Spring Boot 1.5.x 升级到 2.4.x</p>
  * <ul>
- *   <li>org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer 变更为 {@link
- *       WebServerFactoryCustomizer}
- *   <li>org.springframework.boot.context.embedded.MimeMappings 迁移到 {@link MimeMappings}
- *   <li>org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory 迁移到
- *       {@link JettyServletWebServerFactory}
- *   <li>org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory 迁移到
- *       {@link TomcatServletWebServerFactory}
- *   <li>org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory
- *       迁移到 {@link UndertowServletWebServerFactory}
+ *   <li>{@code org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer} 变更为 {@link WebServerFactoryCustomizer}
+ *   <li>{@code org.springframework.boot.context.embedded.MimeMappings} 迁移到 {@link MimeMappings}
+ *   <li>{@code org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory} 迁移到 {@link JettyServletWebServerFactory}
+ *   <li>{@code org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory} 迁移到 {@link TomcatServletWebServerFactory}
+ *   <li>{@code org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory} 迁移到 {@link UndertowServletWebServerFactory}
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>

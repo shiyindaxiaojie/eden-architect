@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.ylzl.eden.liquibase.spring.boot.env.ExtendLiquibaseProperties;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
-import org.ylzl.eden.spring.data.liquibase.util.SpringLiquibaseUtils;
+import org.ylzl.eden.liquibase.spring.boot.util.SpringLiquibaseUtils;
 
 import javax.sql.DataSource;
 import java.util.concurrent.Executor;

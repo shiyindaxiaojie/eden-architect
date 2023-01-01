@@ -36,24 +36,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-commons</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>checker-qual</artifactId>
-					<groupId>org.checkerframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>error_prone_annotations</artifactId>
-					<groupId>com.google.errorprone</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -152,12 +134,8 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<exclusions>
 				<exclusion>
-					<artifactId>scala-library</artifactId>
 					<groupId>org.scala-lang</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-reflect</artifactId>
-					<groupId>org.scala-lang</groupId>
+					<artifactId>*</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -178,12 +156,12 @@
 			<artifactId>embedded-redis</artifactId>
 			<exclusions>
 				<exclusion>
-					<artifactId>guava</artifactId>
 					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
 				</exclusion>
 				<exclusion>
-					<artifactId>logback-classic</artifactId>
 					<groupId>ch.qos.logback</groupId>
+					<artifactId>*</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

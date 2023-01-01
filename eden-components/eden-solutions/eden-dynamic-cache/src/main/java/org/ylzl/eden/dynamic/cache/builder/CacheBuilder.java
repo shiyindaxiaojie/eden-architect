@@ -23,7 +23,7 @@ import org.ylzl.eden.dynamic.cache.l1cache.L1CacheRemovalListener;
 import org.ylzl.eden.extension.SPI;
 
 /**
- * 缓存构造器
+ * 缓存构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
