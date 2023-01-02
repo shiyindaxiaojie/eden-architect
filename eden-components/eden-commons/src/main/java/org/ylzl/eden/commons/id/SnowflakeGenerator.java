@@ -16,6 +16,7 @@
 package org.ylzl.eden.commons.id;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Synchronized;
 
 /**
@@ -26,6 +27,7 @@ import lombok.Synchronized;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@NoArgsConstructor
 public class SnowflakeGenerator {
 
 	/**
@@ -81,12 +83,12 @@ public class SnowflakeGenerator {
 	/**
 	 * 机器 ID
 	 */
-	private long workerId;
+	private long workerId = 1L;
 
 	/**
 	 * 数据中心 ID
 	 */
-	private long dataCenterId;
+	private long dataCenterId = 1L;
 
 	/**
 	 * 毫秒内序列号

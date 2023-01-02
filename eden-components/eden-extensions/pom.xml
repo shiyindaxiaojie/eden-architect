@@ -32,6 +32,12 @@
 	<description>扩展点组件</description>
 
 	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-commons</artifactId>
+		</dependency>
+
 		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -68,12 +74,6 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- 内部组件 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-commons</artifactId>
 		</dependency>
 
 		<!-- 日志框架 -->

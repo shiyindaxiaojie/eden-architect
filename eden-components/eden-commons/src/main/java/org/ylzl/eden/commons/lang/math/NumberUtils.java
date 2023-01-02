@@ -23,6 +23,7 @@ import lombok.experimental.UtilityClass;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.lang3.math.NumberUtils
  */
 @UtilityClass
 public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {

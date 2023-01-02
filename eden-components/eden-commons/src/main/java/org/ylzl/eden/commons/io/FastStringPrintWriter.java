@@ -27,6 +27,7 @@ import java.io.PrintWriter;
  * @since 2.4.13
  */
 public class FastStringPrintWriter extends PrintWriter {
+
 	private final FastStringWriter writer;
 
 	public FastStringPrintWriter() {

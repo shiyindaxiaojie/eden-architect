@@ -16,11 +16,22 @@
 
 package org.ylzl.eden.data.filter;
 
+import java.util.List;
+
 /**
- * 敏感词过滤器
+ * 数据敏感词过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface DataSensitiveFilter {
+
+	/**
+	 * 加载敏感词库
+	 *
+	 * @return 敏感词库
+	 */
+	List<String> loadSensitiveWords();
+
+
 }

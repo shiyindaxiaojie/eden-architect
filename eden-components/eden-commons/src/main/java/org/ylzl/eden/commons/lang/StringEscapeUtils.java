@@ -23,6 +23,7 @@ import lombok.experimental.UtilityClass;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.text.StringEscapeUtils
  */
 @UtilityClass
 public class StringEscapeUtils extends org.apache.commons.text.StringEscapeUtils {

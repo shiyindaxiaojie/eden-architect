@@ -41,8 +41,7 @@ import java.util.Objects;
 @UtilityClass
 public class ImmutableMapUtils {
 
-	private static final Function DEFAULT_FUNCTION =
-		object -> object;
+	private static final Function DEFAULT_FUNCTION = object -> object;
 
 	public static <T, K, V> HashMap<K, V> buildHashMap(
 		@NonNull T[] objects, @NonNull Function<T, K> keyFn) {
