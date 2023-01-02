@@ -27,6 +27,7 @@ import java.util.List;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.lang3.StringUtils
  */
 @UtilityClass
 public class StringUtils extends org.apache.commons.lang3.StringUtils {

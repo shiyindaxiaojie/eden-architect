@@ -23,4 +23,6 @@ package org.ylzl.eden.data.filter;
  * @since 2.4.x
  */
 public interface DataDuplicateFilter {
+
+
 }

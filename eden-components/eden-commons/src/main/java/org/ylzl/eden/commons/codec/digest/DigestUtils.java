@@ -22,6 +22,7 @@ import lombok.experimental.UtilityClass;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.codec.digest.DigestUtils
  */
 @UtilityClass
 public class DigestUtils extends org.apache.commons.codec.digest.DigestUtils {

@@ -69,5 +69,12 @@
 			<groupId>org.ahocorasick</groupId>
 			<artifactId>ahocorasick</artifactId>
 		</dependency>
-	</dependencies>
+
+		<!-- Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+			<optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>

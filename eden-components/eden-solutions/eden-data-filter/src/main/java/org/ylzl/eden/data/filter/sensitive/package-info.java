@@ -14,22 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.bean.annotation;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * 别名注解
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-public @interface Alias {
-
-	String value() default "";
-}
+package org.ylzl.eden.data.filter.sensitive;

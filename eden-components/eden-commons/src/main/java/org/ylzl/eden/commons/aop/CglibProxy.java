@@ -14,22 +14,32 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.bean.annotation;
+package org.ylzl.eden.commons.aop;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.Enhancer;
 
 /**
- * 别名注解
+ * Cglib 代理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-public @interface Alias {
+public class CglibProxy {
 
-	String value() default "";
+	/**
+	 * 生成代理
+	 *
+	 * @param clazz
+	 * @param callback
+	 * @param <T>
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
+		Enhancer enhancer = new Enhancer();
+		enhancer.setSuperclass(clazz);
+		enhancer.setCallback(callback);
+		return (T) enhancer.create();
+	}
 }

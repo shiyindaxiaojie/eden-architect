@@ -19,12 +19,12 @@ package org.ylzl.eden.commons.bean;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.bean.annotation.Alias;
+import org.ylzl.eden.commons.bean.exception.BeanConvertException;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,17 +33,15 @@ import java.util.Map;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.beanutils.BeanUtils
  */
 @UtilityClass
 public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 
-	@SuppressWarnings("unchecked")
-	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
-		if (targetObject == null) {
-			targetObject = (T) clazz.newInstance();
-		}
+	private static final String CAN_NOT_CAST_TO_TYPE = "Field '{}' value '{}' can not cast to type {}";
 
+	@SuppressWarnings("unchecked")
+	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<? extends Object> clazz, T targetObject) throws BeanConvertException {
 		List<Field> fields = ReflectionUtils.getDeclaredFields(clazz);
 		for (Field field : fields) {
 			Object value;
@@ -60,24 +58,27 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 			}
 			ReflectionUtils.setAccessible(field);
 			try {
+				if (targetObject == null) {
+					targetObject = (T) clazz.newInstance();
+				}
 				field.set(targetObject, ObjectUtils.cast(value, field));
-			} catch (Exception e) {
-				throw new ParseException(
-					MessageFormat.format(
-						"字段 {0} 无法转换为类型 {1}，当前值为 {2}", field.getName(), field.getType(), value),
-					0);
+			} catch (Exception ex) {
+				throw new BeanConvertException(
+					MessageFormatUtils.format(CAN_NOT_CAST_TO_TYPE, field.getName(), value, field.getType()), ex);
 			}
 		}
 		return targetObject;
 	}
 
-	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<T> targetClass)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
-		return toBean(sourceMap, targetClass, targetClass.newInstance());
+	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull Class<T> targetClass) throws BeanConvertException {
+		try {
+			return toBean(sourceMap, targetClass, targetClass.newInstance());
+		} catch (Exception e) {
+			throw new BeanConvertException(e.getMessage(), e);
+		}
 	}
 
-	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull T targetObject)
-		throws InstantiationException, IllegalArgumentException, IllegalAccessException, ParseException {
+	public static <T> T toBean(@NonNull Map<?, ?> sourceMap, @NonNull T targetObject) throws BeanConvertException {
 		return toBean(sourceMap, targetObject.getClass(), targetObject);
 	}
 }

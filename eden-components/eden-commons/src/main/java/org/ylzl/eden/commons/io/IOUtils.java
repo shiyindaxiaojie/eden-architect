@@ -29,6 +29,7 @@ import java.nio.channels.FileChannel;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.io.IOUtils
  */
 @UtilityClass
 public class IOUtils extends org.apache.commons.io.IOUtils {

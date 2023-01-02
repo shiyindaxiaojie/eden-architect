@@ -36,6 +36,7 @@ import java.util.jar.JarFile;
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @see org.apache.commons.lang3.ClassUtils
  */
 @UtilityClass
 public class ClassUtils extends org.apache.commons.lang3.ClassUtils {

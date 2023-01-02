@@ -14,32 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.bytecode;
-
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Enhancer;
+package org.ylzl.eden.commons.bean.exception;
 
 /**
- * Cglib 代理
+ * Bean 转换异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CglibProxy {
+public class BeanConvertException extends RuntimeException {
 
-	/**
-	 * 生成代理
-	 *
-	 * @param clazz
-	 * @param callback
-	 * @param <T>
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T newProxyInstance(Class<T> clazz, Callback callback) {
-		Enhancer enhancer = new Enhancer();
-		enhancer.setSuperclass(clazz);
-		enhancer.setCallback(callback);
-		return (T) enhancer.create();
+	public BeanConvertException(String message) {
+		super(message);
+	}
+
+	public BeanConvertException(String message, Throwable ex) {
+		super(message, ex);
 	}
 }
