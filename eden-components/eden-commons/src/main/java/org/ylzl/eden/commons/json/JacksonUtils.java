@@ -42,9 +42,9 @@ import java.util.Map;
 @UtilityClass
 public class JacksonUtils {
 
-	private static DefaultObjectMapper defaultObjectMapper = new DefaultObjectMapper();
+	private static final DefaultObjectMapper defaultObjectMapper = new DefaultObjectMapper();
 
-	private static DefaultXmlMapper defaultXmlMapper = new DefaultXmlMapper();
+	private static final DefaultXmlMapper defaultXmlMapper = new DefaultXmlMapper();
 
 	public static <T> String toJSONString(T object, Include include, ObjectMapper objectMapper)
 		throws JsonProcessingException {
