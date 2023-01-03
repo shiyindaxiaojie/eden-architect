@@ -15,7 +15,6 @@
  */
 package org.ylzl.eden.spring.framework.web.util;
 
-import cn.hutool.json.JSONUtil;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.PropertyKey;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +26,7 @@ import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +61,7 @@ public class ResponseUtils {
 		response.setStatus(statueCode);
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
-		String result = JSONUtil.toJsonStr(ResponseBuilder.builder().buildSuccess());
+		String result = JSONHelper.json().toJSONString(ResponseBuilder.builder().buildSuccess());
 		out.write(result);
 	}
 
@@ -78,7 +78,7 @@ public class ResponseUtils {
 		response.setStatus(statueCode);
 		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
-		String result = JSONUtil.toJsonStr(ResponseBuilder.builder().buildFailure(errCode, errMessage, params));
+		String result = JSONHelper.json().toJSONString(ResponseBuilder.builder().buildFailure(errCode, errMessage, params));
 		out.write(result);
 	}
 

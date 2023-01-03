@@ -16,10 +16,10 @@
 
 package org.ylzl.eden.extension.wrapper;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -40,7 +40,7 @@ public class WrapperExtensionLoader {
 
 	public void cacheWrapperClass(Class<?> clazz) {
 		if (cachedWrapperClasses == null) {
-			cachedWrapperClasses = new ConcurrentHashSet<>();
+			cachedWrapperClasses = new HashSet<>();
 		}
 		cachedWrapperClasses.add(clazz);
 	}
