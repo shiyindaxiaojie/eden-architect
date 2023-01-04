@@ -2,6 +2,8 @@ package org.ylzl.eden.spring.framework.json;
 
 import org.ylzl.eden.extension.SPI;
 
+import java.util.List;
+
 /**
  * JSON 格式化
  *
@@ -19,4 +21,24 @@ public interface JSON {
 	 * @param <T> 泛型
 	 */
 	<T> String toJSONString(T object);
+
+	/**
+	 * 解析为对象
+	 *
+	 * @param text 文本内容
+	 * @param cls 目标类型
+	 * @return 对象实例
+	 * @param <T> 泛型
+	 */
+	<T> T parseObject(String text, Class<T> cls);
+
+	/**
+	 * 解析为对象列表
+	 *
+	 * @param text 文本内容
+	 * @param cls 目标类型
+	 * @return 对象实例列表
+	 * @param <T> 泛型
+	 */
+	<T> List<T> parseList(String text, Class<T> cls);
 }

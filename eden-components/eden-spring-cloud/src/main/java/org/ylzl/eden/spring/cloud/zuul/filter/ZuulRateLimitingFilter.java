@@ -27,7 +27,7 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
-import org.ylzl.eden.commons.json.JacksonUtils;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
 
 import javax.cache.Cache;
@@ -120,7 +120,7 @@ public class ZuulRateLimitingFilter extends ZuulFilter {
 		ctx.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
 		if (ctx.getResponseBody() == null) {
 			ctx.setSendZuulResponse(false);
-			ctx.setResponseBody(JacksonUtils.toJSONString(ResponseBuilder.builder().buildFailure("REQ-FLOW-429")));
+			ctx.setResponseBody(JSONHelper.json().toJSONString(ResponseBuilder.builder().buildFailure("REQ-FLOW-429")));
 		}
 	}
 }

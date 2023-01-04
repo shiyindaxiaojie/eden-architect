@@ -123,7 +123,7 @@ public class SnowflakeGenerator {
 	 *
 	 * @param dataCenterId 数据中心 ID
 	 * @param workerId     工作 ID
-	 * @return
+	 * @return snowflakeId
 	 */
 	public static long nextId(long dataCenterId, long workerId) {
 		return SnowflakeGenerator.builder().dataCenterId(dataCenterId).workerId(workerId).build().nextId();

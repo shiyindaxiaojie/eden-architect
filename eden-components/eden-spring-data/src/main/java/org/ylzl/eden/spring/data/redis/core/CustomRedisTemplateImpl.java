@@ -21,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.ylzl.eden.commons.json.JacksonUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -118,7 +118,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 		if (StringUtils.isBlank(value)) {
 			return Optional.empty();
 		}
-		return Optional.of(JacksonUtils.toList(value, clazz));
+		return Optional.of(JSONHelper.json().parseList(value, clazz));
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	 */
 	@Override
 	public <T> void set(String key, T data, long timeout, TimeUnit unit) {
-		String value = JacksonUtils.toJSONString(data);
+		String value = JSONHelper.json().toJSONString(data);
 		redisTemplate.opsForValue().set(key, value, timeout, unit);
 	}
 
@@ -229,7 +229,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 			return Optional.empty();
 		}
 		return Optional.of(list.stream()
-			.map(str -> JacksonUtils.toObject(str, clazz))
+			.map(str -> JSONHelper.json().parseObject(str, clazz))
 			.collect(Collectors.toList()));
 	}
 
@@ -244,7 +244,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void rightPushAll(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			values[i] = JacksonUtils.toJSONString(data.get(i));
+			values[i] = JSONHelper.json().toJSONString(data.get(i));
 		}
 		redisTemplate.opsForList().rightPushAll(key, values);
 	}
@@ -273,7 +273,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void add(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			values[i] = JacksonUtils.toJSONString(data.get(i));
+			values[i] = JSONHelper.json().toJSONString(data.get(i));
 		}
 		redisTemplate.opsForSet().add(key, values);
 	}
@@ -292,6 +292,6 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 		if (!optional.isPresent()) {
 			return optional;
 		}
-		return Optional.of(JacksonUtils.toObject(value, clazz));
+		return Optional.of(JSONHelper.json().parseObject(value, clazz));
 	}
 }

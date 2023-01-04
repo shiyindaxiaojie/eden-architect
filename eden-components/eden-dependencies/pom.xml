@@ -84,6 +84,8 @@
 		<commons-net.version>3.9.0</commons-net.version>
 		<commons-cli.version>1.4</commons-cli.version>
 		<jackson-bom.version>2.14.1</jackson-bom.version>
+		<fastjson.version>2.0.22</fastjson.version>
+		<fastjson2.version>2.0.22</fastjson2.version>
 		<guava.version>30.0-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
@@ -998,6 +1000,18 @@
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>${javassist.version}</version>
+			</dependency>
+			<!-- Fastjson -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<!-- Fastjson2 -->
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>${fastjson2.version}</version>
 			</dependency>
 			<!-- Guava -->
 			<dependency>
