@@ -24,5 +24,7 @@ package org.ylzl.eden.data.filter;
  */
 public interface DataDuplicateFilter {
 
+	<T> boolean mightContain(T object);
 
+	<T> boolean put(T object);
 }
