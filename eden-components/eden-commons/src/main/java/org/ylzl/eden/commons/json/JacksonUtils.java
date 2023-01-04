@@ -46,50 +46,74 @@ public class JacksonUtils {
 
 	private static final DefaultXmlMapper defaultXmlMapper = new DefaultXmlMapper();
 
-	public static <T> String toJSONString(T object, Include include, ObjectMapper objectMapper)
-		throws JsonProcessingException {
-		if (objectMapper == null) {
-			objectMapper = getDefaultObjectMapper();
-		}
-		return getObjectWriter(include, objectMapper).writeValueAsString(object);
+	public static <T> String toJSONString(T object) {
+		return toJSONString(object, Include.USE_DEFAULTS);
 	}
 
 	public static <T> String toJSONString(T object, Include include) {
+		return toJSONString(object, include, getDefaultObjectMapper());
+	}
+
+	public static <T> String toJSONString(T object, Include include, ObjectMapper objectMapper) {
+		if (objectMapper == null) {
+			objectMapper = getDefaultObjectMapper();
+		}
 		try {
-			return toJSONString(object, include, getDefaultObjectMapper());
+			return getObjectWriter(include, objectMapper).writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			throw new JacksonException(e);
 		}
 	}
 
-	public static <T> String toJSONString(T object) {
-		return toJSONString(object, null);
+	public static String toJSONString(String text, Class<?> cls) {
+		return toJSONString(text, cls, Include.USE_DEFAULTS, getDefaultObjectMapper(), getDefaultXmlMapper());
 	}
 
-	public static String toJSONString(
-		String xmlString,
-		Class<?> cls,
-		Include include,
-		ObjectMapper objectMapper,
-		XmlMapper xmlMapper)
-		throws IOException {
+	public static String toJSONString(String text, Class<?> cls, Include include) {
+		return toJSONString(text, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
+	}
+
+	public static String toJSONString(String text, Class<?> cls, Include include,
+									  ObjectMapper objectMapper, XmlMapper xmlMapper) {
 		if (objectMapper == null) {
 			objectMapper = getDefaultObjectMapper();
 		}
 		if (xmlMapper == null) {
 			xmlMapper = getDefaultXmlMapper();
 		}
-		Object object = xmlMapper.setSerializationInclusion(include).readValue(xmlString, cls);
-		return toJSONString(object, include, objectMapper);
+		try {
+			Object object = xmlMapper.setSerializationInclusion(include).readValue(text, cls);
+			return toJSONString(object, include, objectMapper);
+		} catch (JsonProcessingException e) {
+			throw new JacksonException(e);
+		}
 	}
 
-	public static String toJSONString(String xmlString, Class<?> cls, Include include)
-		throws IOException {
-		return toJSONString(xmlString, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
+	public static <T> T parseObject(String text, Class<T> cls, ObjectMapper objectMapper) {
+		try {
+			return objectMapper.readValue(text, cls);
+		} catch (IOException e) {
+			throw new JacksonException(e);
+		}
 	}
 
-	public static String toXMLString(
-		String jsonString, Include include, ObjectMapper objectMapper, XmlMapper xmlMapper)
+	public static <T> T parseObject(String text, Class<T> cls) {
+		return parseObject(text, cls, getDefaultObjectMapper());
+	}
+
+	public static <K, V, T> T parseObject(Map<K, V> map, Class<T> cls, ObjectMapper objectMapper) {
+		return objectMapper.convertValue(map, cls);
+	}
+
+	public static <K, V, T> T parseObject(Map<K, V> map, Class<T> cls) {
+		return parseObject(map, cls, getDefaultObjectMapper());
+	}
+
+	public static String toXMLString(String text, Include include) throws IOException {
+		return toXMLString(text, include, getDefaultObjectMapper(), getDefaultXmlMapper());
+	}
+
+	public static String toXMLString(String text, Include include, ObjectMapper objectMapper, XmlMapper xmlMapper)
 		throws IOException {
 		if (objectMapper == null) {
 			objectMapper = getDefaultObjectMapper();
@@ -99,28 +123,19 @@ public class JacksonUtils {
 		}
 		ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
 		return StringUtils.trimToEmpty(
-			objectWriter.writeValueAsString(objectMapper.readTree(jsonString)));
+			objectWriter.writeValueAsString(objectMapper.readTree(text)));
 	}
 
-	public static String toXMLString(String jsonString, Include include) throws IOException {
-		return toXMLString(jsonString, include, getDefaultObjectMapper(), getDefaultXmlMapper());
+	public static String toXMLString(String text, Class<?> cls, Include include) {
+		return toXMLString(text, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
 	}
 
-	public static String toXMLString(
-		String jsonString,
-		Class<?> cls,
-		Include include,
-		ObjectMapper objectMapper,
-		XmlMapper xmlMapper)
-		throws IOException {
-		Object object = toObject(jsonString, cls, objectMapper);
-		ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
-		return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
-	}
-
-	public static String toXMLString(String jsonString, Class<?> cls, Include include) {
+	public static String toXMLString(String text, Class<?> cls, Include include,
+									 ObjectMapper objectMapper, XmlMapper xmlMapper) {
 		try {
-			return toXMLString(jsonString, cls, include, getDefaultObjectMapper(), getDefaultXmlMapper());
+			Object object = parseObject(text, cls, objectMapper);
+			ObjectWriter objectWriter = getObjectWriter(include, xmlMapper);
+			return StringUtils.trimToEmpty(objectWriter.writeValueAsString(object));
 		} catch (IOException e) {
 			throw new JacksonException(e);
 		}
@@ -138,65 +153,44 @@ public class JacksonUtils {
 		return toXMLString(object, getDefaultXmlMapper());
 	}
 
-	public static <T> T toObject(String jsonString, Class<T> cls, ObjectMapper objectMapper)
-		throws IOException {
-		return objectMapper.readValue(jsonString, cls);
-	}
-
-	public static <T> T toObject(String jsonString, Class<T> cls) {
-		try {
-			return toObject(jsonString, cls, getDefaultObjectMapper());
-		} catch (IOException e) {
-			throw new JacksonException(e);
-		}
-	}
-
-	public static <K, V, T> T toObject(Map<K, V> map, Class<T> cls, ObjectMapper objectMapper) {
-		return objectMapper.convertValue(map, cls);
-	}
-
-	public static <K, V, T> T toObject(Map<K, V> map, Class<T> cls) {
-		return toObject(map, cls, getDefaultObjectMapper());
+	public static <K, V> Map<K, V> parseMap(String text) {
+		return parseMap(text, getDefaultObjectMapper());
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <K, V> Map<K, V> toMap(String jsonString, ObjectMapper objectMapper) {
+	public static <K, V> Map<K, V> parseMap(String text, ObjectMapper objectMapper) {
 		try {
-			return objectMapper.readValue(jsonString, Map.class);
+			return objectMapper.readValue(text, Map.class);
 		} catch (JsonProcessingException e) {
 			throw new JacksonException(e);
 		}
 	}
 
-	public static <K, V> Map<K, V> toMap(String jsonString) {
-		return toMap(jsonString, getDefaultObjectMapper());
+	public static <T> List<T> parseList(String text, Class<T> cls) {
+		return parseList(text, cls, getDefaultObjectMapper());
 	}
 
-	public static <T> List<T> toList(String jsonString, Class<T> cls, ObjectMapper objectMapper) {
+	public static <T> List<T> parseList(String text, Class<T> cls, ObjectMapper objectMapper) {
 		List<Map<Object, Object>> list;
 		try {
-			list = objectMapper.readValue(jsonString, new TypeReference<List<Map<Object, Object>>>() {
+			list = objectMapper.readValue(text, new TypeReference<List<Map<Object, Object>>>() {
 			});
 		} catch (JsonProcessingException e) {
 			throw new JacksonException(e);
 		}
 		List<T> result = new ArrayList<T>();
 		for (Map<Object, Object> map : list) {
-			result.add(toObject(map, cls, objectMapper));
+			result.add(parseObject(map, cls, objectMapper));
 		}
 		return result;
 	}
 
-	public static <T> List<T> toList(String jsonString, Class<T> cls) {
-		return toList(jsonString, cls, getDefaultObjectMapper());
+	private static ObjectWriter getObjectWriter(Include include, ObjectMapper objectMapper) {
+		return objectMapper.setSerializationInclusion(include).writer();
 	}
 
-	public static ObjectWriter getObjectWriter(Include include, ObjectMapper objectMapper) {
-		return objectMapper.setSerializationInclusion(include).writerWithDefaultPrettyPrinter();
-	}
-
-	public static ObjectWriter getObjectWriter(Include include, XmlMapper xmlMapper) {
-		return xmlMapper.setSerializationInclusion(include).writerWithDefaultPrettyPrinter();
+	private static ObjectWriter getObjectWriter(Include include, XmlMapper xmlMapper) {
+		return xmlMapper.setSerializationInclusion(include).writer();
 	}
 
 	private static ObjectMapper getDefaultObjectMapper() {

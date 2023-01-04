@@ -125,11 +125,11 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 				ParameterizedType parameterizedType = (ParameterizedType) genericType;
 				Type[] listActualTypeArguments = parameterizedType.getActualTypeArguments();
 				Class<?> listClass = (Class<?>) listActualTypeArguments[0];
-				return JacksonUtils.toList(value, listClass);
+				return JacksonUtils.parseList(value, listClass);
 			}
 		}
 		if (Map.class.isAssignableFrom(clazz)) { // 映射
-			return JacksonUtils.toMap(value);
+			return JacksonUtils.parseMap(value);
 		}
 		return cast(object, clazz);
 	}

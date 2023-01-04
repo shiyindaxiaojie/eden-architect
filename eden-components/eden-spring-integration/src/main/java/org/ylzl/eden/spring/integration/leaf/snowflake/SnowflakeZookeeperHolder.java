@@ -20,7 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.commons.json.JacksonUtils;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 
 import java.io.IOException;
 
@@ -44,11 +44,11 @@ public class SnowflakeZookeeperHolder {
 	private long lastUpdateTime;
 
 	private String buildEndpoint() throws JsonProcessingException {
-		return JacksonUtils.toJSONString(Endpoint.builder().ip(ip).port(port).timestamp(System.currentTimeMillis()).build());
+		return JSONHelper.json().toJSONString(Endpoint.builder().ip(ip).port(port).timestamp(System.currentTimeMillis()).build());
 	}
 
 	private Endpoint deBuildData(String json) throws IOException {
-		return JacksonUtils.toObject(json, Endpoint.class);
+		return JSONHelper.json().parseObject(json, Endpoint.class);
 	}
 
 	@Accessors(chain = true)

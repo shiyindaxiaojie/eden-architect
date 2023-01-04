@@ -23,7 +23,7 @@ public class JSONHelper {
 	/**
 	 * 获取 JSON 实现
 	 *
-	 * @param spi SPI类型
+	 * @param spi 扩展点类型
 	 * @return JSON 实例
 	 */
 	public static JSON json(String spi) {
