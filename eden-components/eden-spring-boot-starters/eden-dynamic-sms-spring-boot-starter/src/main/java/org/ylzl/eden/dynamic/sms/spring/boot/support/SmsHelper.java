@@ -24,7 +24,7 @@ import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import java.util.Map;
 
 /**
- * 短信操作助手
+ * 短信操作帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

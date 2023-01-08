@@ -1,0 +1,11 @@
+address=org.ylzl.eden.data.auditor.masker.spi.AddressDataMasker
+bank-card=org.ylzl.eden.data.auditor.masker.spi.BankCardDataMasker
+chinese-name=org.ylzl.eden.data.auditor.masker.spi.ChineseNameDataMasker
+email=org.ylzl.eden.data.auditor.masker.spi.EmailDataMasker
+id-card=org.ylzl.eden.data.auditor.masker.spi.IdCardDataMasker
+license-plate-number=org.ylzl.eden.data.auditor.masker.spi.LicensePlateNumberDataMasker
+mobile-phone=org.ylzl.eden.data.auditor.masker.spi.MobilePhoneDataMasker
+money=org.ylzl.eden.data.auditor.masker.spi.MoneyDataMasker
+password=org.ylzl.eden.data.auditor.masker.spi.PasswordDataMasker
+telephone=org.ylzl.eden.data.auditor.masker.spi.TelephoneDataMasker
+username=org.ylzl.eden.data.auditor.masker.spi.UsernameDataMasker

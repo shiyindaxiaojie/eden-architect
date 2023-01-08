@@ -148,7 +148,7 @@
 		<maven-invoker-plugin.version>3.2.1</maven-invoker-plugin.version>
 		<maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
-		<exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
 		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
 		</infinispan-protocol-parser-generator-maven-plugin.version>
@@ -267,6 +267,11 @@
 								<groupId>org.springframework.boot</groupId>
 								<artifactId>spring-boot-configuration-processor</artifactId>
 								<version>${spring-boot.version}</version>
+							</path>
+							<path>
+								<groupId>org.openjdk.jmh</groupId>
+								<artifactId>jmh-generator-annprocess</artifactId>
+								<version>${jmh.version}</version>
 							</path>
 						</annotationProcessorPaths>
 						<source>${java.version}</source>
@@ -815,6 +820,30 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>flatten-maven-plugin</artifactId>
 					<version>${flatten-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${exec-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>benchmarks</id>
+							<phase>integration-test</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<configuration>
+								<classpathScope>test</classpathScope>
+								<executable>java</executable>
+								<arguments>
+									<argument>-classpath</argument>
+									<classpath />
+									<argument>org.openjdk.jmh.Main</argument>
+									<argument>.*</argument>
+								</arguments>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 				<!-- OpenAPI 生成工具 -->
 				<plugin>

@@ -23,7 +23,7 @@ import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import java.util.Map;
 
 /**
- * 消息队列助手
+ * 消息队列帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

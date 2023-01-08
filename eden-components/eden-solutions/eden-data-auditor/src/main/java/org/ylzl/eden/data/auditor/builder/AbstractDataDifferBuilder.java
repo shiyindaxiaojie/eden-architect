@@ -45,7 +45,7 @@ public abstract class AbstractDataDifferBuilder implements DataDifferBuilder {
 	 *
 	 * @return 数据比对配置
 	 */
-	public DataDifferConfig getDataDifferConfig() {
+	protected DataDifferConfig getDataDifferConfig() {
 		return dataDifferConfig;
 	}
 }

@@ -43,5 +43,7 @@ public class DataDifferConfig {
 	public static class Javers {
 
 		private ListCompareAlgorithm listCompareAlgorithm = ListCompareAlgorithm.LEVENSHTEIN_DISTANCE;
+
+		private boolean usePrimitiveDefaults;
 	}
 }
