@@ -20,7 +20,7 @@ import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 import javax.sql.DataSource;
-import java.util.List;
+import java.util.Set;
 
 /**
  * 数据源地址解释器支持类
@@ -40,8 +40,10 @@ public class DataSourceUrlParserLoader {
 			}
 		}
 
-		List<DataSourceUrlParser> resolvers = ExtensionLoader.getExtensionLoader(DataSourceUrlParser.class).getLoadedExtensionInstances();
-		for (DataSourceUrlParser resolver : resolvers) {
+		ExtensionLoader<DataSourceUrlParser> extensionLoader = ExtensionLoader.getExtensionLoader(DataSourceUrlParser.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		for (String extension : extensions) {
+			DataSourceUrlParser resolver = extensionLoader.getExtension(extension);
 			String url = resolver.getDataSourceUrl(dataSource);
 			if (StringUtils.isNotEmpty(url)) {
 				return url;

@@ -25,7 +25,7 @@ import org.springframework.core.env.Environment;
 import java.util.Properties;
 
 /**
- * 配置属性绑定助手
+ * 配置属性绑定帮助支持
  *
  * <p>从 Spring Boot 1.5.x 升级到 2.4.x</p>
  *

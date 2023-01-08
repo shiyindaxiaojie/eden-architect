@@ -16,7 +16,14 @@
 
 package org.ylzl.eden.data.auditor.differ;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 比对结果
@@ -24,7 +31,19 @@ import java.io.Serializable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@EqualsAndHashCode
+@ToString
+@Setter
+@Getter
 public class Diff implements Serializable {
 
+	private List<Change> changes = new ArrayList<>();
 
+	public void addChange(Change change) {
+		this.changes.add(change);
+	}
+
+	public void addChanges(List<Change> changes) {
+		this.changes.addAll(changes);
+	}
 }

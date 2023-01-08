@@ -42,9 +42,17 @@ import java.util.Map;
 @UtilityClass
 public class JacksonUtils {
 
-	private static final DefaultObjectMapper defaultObjectMapper = new DefaultObjectMapper();
+	private static final ObjectMapper defaultObjectMapper = new DefaultObjectMapper();
 
-	private static final DefaultXmlMapper defaultXmlMapper = new DefaultXmlMapper();
+	private static final XmlMapper defaultXmlMapper = new DefaultXmlMapper();
+
+	public static ObjectMapper getDefaultObjectMapper() {
+		return defaultObjectMapper;
+	}
+
+	public static XmlMapper getDefaultXmlMapper() {
+		return defaultXmlMapper;
+	}
 
 	public static <T> String toJSONString(T object) {
 		return toJSONString(object, Include.USE_DEFAULTS);
@@ -193,11 +201,4 @@ public class JacksonUtils {
 		return xmlMapper.setSerializationInclusion(include).writer();
 	}
 
-	private static ObjectMapper getDefaultObjectMapper() {
-		return defaultObjectMapper;
-	}
-
-	private static XmlMapper getDefaultXmlMapper() {
-		return defaultXmlMapper;
-	}
 }

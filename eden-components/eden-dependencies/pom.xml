@@ -203,7 +203,7 @@
 		<embedded-redis.version>0.11.0</embedded-redis.version>
 		<testcontainers.version>2.2.2</testcontainers.version>
 		<gatling.version>3.2.1</gatling.version>
-		<jmh.version>1.23</jmh.version>
+		<jmh.version>1.36</jmh.version>
 		<junit.version>4.13.1</junit.version>
 		<spock.version>2.3-groovy-4.0</spock.version>
 		<groovy4.version>4.0.6</groovy4.version>

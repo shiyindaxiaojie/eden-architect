@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.boot.bootstrap.util.SpringProfileUtils;
 import java.net.InetAddress;
 
 /**
- * Spring Boot 应用启动助手
+ * Spring Boot 应用启动帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

@@ -18,6 +18,8 @@ package org.ylzl.eden.data.auditor;
 
 import org.ylzl.eden.data.auditor.differ.Diff;
 
+import java.util.Collection;
+
 /**
  * 数据比对
  *
@@ -34,11 +36,22 @@ public interface DataDiffer {
 	Object getDiffer();
 
 	/**
-	 * 比对
+	 * 单个比对
 	 *
 	 * @param oldVersion 历史版本
 	 * @param currentVersion 当前版本
 	 * @return 比对结果
 	 */
 	Diff compare(Object oldVersion, Object currentVersion);
+
+	/**
+	 * 集合比对
+	 *
+	 * @param oldVersion 历史版本
+	 * @param currentVersion 当前版本
+	 * @param itemClass 比对类
+	 * @return 比对结果
+	 * @param <T> 泛型
+	 */
+	<T> Diff compareCollections(Collection<T> oldVersion, Collection<T> currentVersion, Class<T> itemClass);
 }

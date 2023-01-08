@@ -16,13 +16,22 @@
 
 package org.ylzl.eden.data.auditor;
 
+import org.ylzl.eden.extension.SPI;
+
 /**
  * 数据脱敏
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@SPI
 public interface DataMasker {
 
-
+	/**
+	 * 脱敏处理
+	 *
+	 * @param data 原始数据
+	 * @return 脱敏数据
+	 */
+	String masking(String data);
 }

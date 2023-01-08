@@ -38,6 +38,7 @@ public class JaversDataDifferBuilder extends AbstractDataDifferBuilder {
 	public DataDiffer build() {
 		Javers javers = JaversBuilder.javers()
 			.withListCompareAlgorithm(this.getDataDifferConfig().getJavers().getListCompareAlgorithm())
+			.withUsePrimitiveDefaults(this.getDataDifferConfig().getJavers().isUsePrimitiveDefaults())
 			.build();
 		return new JaversDataDiffer(javers);
 	}

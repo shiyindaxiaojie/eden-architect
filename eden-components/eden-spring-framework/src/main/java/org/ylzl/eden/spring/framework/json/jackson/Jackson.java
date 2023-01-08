@@ -1,5 +1,6 @@
 package org.ylzl.eden.spring.framework.json.jackson;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ylzl.eden.commons.json.JacksonUtils;
 import org.ylzl.eden.spring.framework.json.JSON;
 
@@ -46,5 +47,14 @@ public class Jackson implements JSON {
 	@Override
 	public <T> List<T> parseList(String text, Class<T> cls) {
 		return JacksonUtils.parseList(text, cls);
+	}
+
+	/**
+	 * 获取 ObjectMapper
+	 *
+	 * @return ObjectMapper
+	 */
+	public ObjectMapper getObjectMapper() {
+		return JacksonUtils.getDefaultObjectMapper();
 	}
 }

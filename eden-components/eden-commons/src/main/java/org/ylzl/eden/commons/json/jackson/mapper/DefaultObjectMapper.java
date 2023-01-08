@@ -34,11 +34,11 @@ public class DefaultObjectMapper extends ObjectMapper {
 	public DefaultObjectMapper() {
 		super();
 
-		// 设置null值不参与序列化
+		// 序列化时忽略NULL
 		this.setSerializationInclusion(Include.NON_NULL);
-
-		// 禁用空对象转换json校验
-		this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		// 反序列化时忽略未知属性
 		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		// 禁用空对象转换校验
+		this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
 }

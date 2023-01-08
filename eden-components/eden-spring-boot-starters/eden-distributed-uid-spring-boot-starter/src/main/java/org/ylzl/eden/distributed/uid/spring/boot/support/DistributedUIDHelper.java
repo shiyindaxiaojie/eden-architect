@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import java.text.MessageFormat;
 
 /**
- * 分布式唯一ID操作助手
+ * 分布式唯一ID操作帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

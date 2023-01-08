@@ -26,7 +26,7 @@ import org.ylzl.eden.extension.SPI;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI
+@SPI("javers")
 public interface DataDifferBuilder {
 
 	/**
