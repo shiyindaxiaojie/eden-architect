@@ -17,17 +17,41 @@
 package org.ylzl.eden.data.auditor.integration.masker.fastjson;
 
 import com.alibaba.fastjson.serializer.ValueFilter;
+import org.ylzl.eden.commons.lang.ObjectUtils;
+import org.ylzl.eden.data.auditor.masker.DataMaskerManager;
+import org.ylzl.eden.data.auditor.masker.DataMasking;
+import org.ylzl.eden.spring.framework.json.fastjson.FastjsonFilter;
+
+import java.lang.reflect.Field;
 
 /**
- * TODO
+ * Fastjson 数据脱敏属性值过滤
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class FastjsonDataMaskingValueFilter implements ValueFilter {
+public class FastjsonDataMaskingValueFilter implements FastjsonFilter, ValueFilter {
 
     @Override
     public Object process(Object object, String name, Object value) {
-        return null;
-    }
+		if (!(value instanceof String) || ObjectUtils.isNull(value)) {
+			return value;
+		}
+		try {
+			Field field = object.getClass().getDeclaredField(name);
+			if (String.class != field.getType()) {
+				return value;
+			}
+
+			DataMasking dataMasking = field.getAnnotation(DataMasking.class);
+			if (dataMasking == null) {
+				return value;
+			}
+
+			String data = ObjectUtils.trimToString(value);
+			return DataMaskerManager.getDataMasker(dataMasking.value()).masking(data);
+		} catch (NoSuchFieldException e) {
+			throw new FastjsonValueFilterException(e);
+		}
+	}
 }

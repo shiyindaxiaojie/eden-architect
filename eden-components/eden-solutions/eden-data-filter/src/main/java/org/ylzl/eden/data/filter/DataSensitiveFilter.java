@@ -16,7 +16,9 @@
 
 package org.ylzl.eden.data.filter;
 
-import java.util.List;
+import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
+
+import java.util.Collection;
 
 /**
  * 数据敏感词过滤器
@@ -27,11 +29,10 @@ import java.util.List;
 public interface DataSensitiveFilter {
 
 	/**
-	 * 加载敏感词库
+	 * 解析文本
 	 *
-	 * @return 敏感词库
+	 * @param text 原始内容
+	 * @return 过滤后的内容
 	 */
-	List<String> loadSensitiveWords();
-
-
+	Collection<SensitiveWord> parseText(String text);
 }

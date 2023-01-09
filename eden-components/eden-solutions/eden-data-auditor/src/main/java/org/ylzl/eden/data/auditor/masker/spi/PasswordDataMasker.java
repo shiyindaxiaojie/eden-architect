@@ -34,6 +34,6 @@ public class PasswordDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return null;
+		return "******";
 	}
 }

@@ -34,6 +34,6 @@ public class TelephoneDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return null;
+		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
 	}
 }

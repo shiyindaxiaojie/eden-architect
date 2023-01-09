@@ -16,11 +16,40 @@
 
 package org.ylzl.eden.data.filter.builder;
 
+import org.ylzl.eden.data.filter.DataSensitiveFilter;
+import org.ylzl.eden.data.filter.config.DataSensitiveConfig;
+import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
+import org.ylzl.eden.extension.SPI;
+
 /**
- * 数据敏感词过滤构建器
+ * 敏感词过滤构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@SPI("aho-corasick")
 public interface DataSensitiveFilterBuilder {
+
+	/**
+	 * 设置敏感词过滤配置
+	 *
+	 * @param dataSensitiveConfig 敏感词过滤配置
+	 * @return DataSensitiveFilterBuilder
+	 */
+	DataSensitiveFilterBuilder dataSensitiveConfig(DataSensitiveConfig dataSensitiveConfig);
+
+	/**
+	 * 设置敏感词处理器
+	 *
+	 * @param sensitiveWordLoader 敏感词处理器
+	 * @return DataSensitiveFilterBuilder
+	 */
+	DataSensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader);
+
+	/**
+	 * 构建敏感词过滤器
+	 *
+	 * @return 敏感词过滤器
+	 */
+	DataSensitiveFilter build();
 }

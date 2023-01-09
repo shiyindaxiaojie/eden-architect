@@ -44,6 +44,6 @@ public class DataDifferConfig {
 
 		private ListCompareAlgorithm listCompareAlgorithm = ListCompareAlgorithm.LEVENSHTEIN_DISTANCE;
 
-		private boolean usePrimitiveDefaults;
+		private boolean usePrimitiveDefaults = false;
 	}
 }

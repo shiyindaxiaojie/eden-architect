@@ -14,26 +14,45 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.data.filter.sensitive;
 
-import org.ylzl.eden.data.auditor.DataMasker;
+import com.google.common.collect.Sets;
+import lombok.Getter;
+
+import java.util.Collection;
 
 /**
- * 车牌号码数据脱敏
+ * 敏感词加载器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LicensePlateNumberDataMasker implements DataMasker {
+@Getter
+public abstract class SensitiveWordLoader {
+
+	private final Collection<String> sensitiveWords = Sets.newConcurrentHashSet();
 
 	/**
-	 * 脱敏处理
+	 * 加载敏感词库
 	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
+	 * @return 敏感词库
 	 */
-	@Override
-	public String masking(String data) {
-		return null;
+	public abstract Collection<String> loadSensitiveWords();
+
+	/**
+	 * 清空敏感词库
+	 */
+	public void clearSensitiveWords() {
+		this.sensitiveWords.clear();
+	}
+
+	/**
+	 * 重载敏感词库
+	 *
+	 * @return 已更新的敏感词库
+	 */
+	public Collection<String> reloadSensitiveWords() {
+		clearSensitiveWords();
+		return loadSensitiveWords();
 	}
 }

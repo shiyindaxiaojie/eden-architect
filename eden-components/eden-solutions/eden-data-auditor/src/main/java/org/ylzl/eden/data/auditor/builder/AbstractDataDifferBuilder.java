@@ -26,7 +26,7 @@ import org.ylzl.eden.data.auditor.config.DataDifferConfig;
  */
 public abstract class AbstractDataDifferBuilder implements DataDifferBuilder {
 
-	private DataDifferConfig dataDifferConfig;
+	private DataDifferConfig dataDifferConfig = new DataDifferConfig();
 
 	/**
 	 * 设置数据比对配置

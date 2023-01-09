@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.data.filter.builder;
 
+import org.ylzl.eden.data.filter.config.DataDuplicateConfig;
+
 /**
  * 数据去重过滤构建器
  *
@@ -23,4 +25,12 @@ package org.ylzl.eden.data.filter.builder;
  * @since 2.4.x
  */
 public interface DataDuplicateFilterBuilder {
+
+	/**
+	 * 设置数据去重过滤配置
+	 *
+	 * @param dataDuplicateConfig 数据去重过滤配置
+	 * @return DataDuplicateFilterBuilder
+	 */
+	DataDuplicateFilterBuilder dataDuplicateConfig(DataDuplicateConfig dataDuplicateConfig);
 }

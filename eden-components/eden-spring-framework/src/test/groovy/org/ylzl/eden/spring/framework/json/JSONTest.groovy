@@ -1,6 +1,6 @@
 package org.ylzl.eden.spring.framework.json
 
-import com.alibaba.fastjson.annotation.JSONType
+
 import org.ylzl.eden.spring.framework.json.fastjson.Fastjson
 import org.ylzl.eden.spring.framework.json.fastjson2.Fastjson2
 import org.ylzl.eden.spring.framework.json.jackson.Jackson
@@ -9,61 +9,13 @@ import spock.lang.Specification
 
 class JSONTest extends Specification {
 
-	@JSONType(orders = ["id", "username", "actived"]) // fastjson 默认按字母排序
-	@com.alibaba.fastjson2.annotation.JSONType(orders = ["id", "username", "actived"])
-	static class User {
+	TestCase testCase = TestCase.builder()
+		.id(1L)
+		.username("mengxiangge")
+		.actived(true)
+		.build()
 
-		private Long id;
-
-		private String username;
-
-		private Boolean actived;
-
-		Long getId() {
-			return id
-		}
-
-		void setId(Long id) {
-			this.id = id
-		}
-
-		String getUsername() {
-			return username
-		}
-
-		void setUsername(String username) {
-			this.username = username
-		}
-
-		Boolean getActived() {
-			return actived
-		}
-
-		void setActived(Boolean actived) {
-			this.actived = actived
-		}
-
-		boolean equals(o) {
-			if (this.is(o)) return true
-			if (!(o instanceof User)) return false
-
-			User user = (User) o
-
-			if (actived != user.actived) return false
-			if (id != user.id) return false
-			if (username != user.username) return false
-
-			return true
-		}
-
-		int hashCode() {
-			int result
-			result = (id != null ? id.hashCode() : 0)
-			result = 31 * result + (username != null ? username.hashCode() : 0)
-			result = 31 * result + (actived != null ? actived.hashCode() : 0)
-			return result
-		}
-	}
+	static testJson = "{\"id\":1,\"username\":\"mengxiangge\",\"actived\":true}"
 
 	def "test extensions"() {
 		expect:
@@ -77,37 +29,25 @@ class JSONTest extends Specification {
 	}
 
 	def "test toJSONString"() {
-		given:
-		User user = new User()
-		user.setId(1L)
-		user.setUsername("test")
-		user.setActived(true)
-
 		expect:
-		json == JSONHelper.json(spi).toJSONString(user)
+		json == JSONHelper.json(spi).toJSONString(testCase)
 
 		where:
 		spi         || json
-		"jackson"   || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
-		"fastjson"  || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
-		"fastjson2" || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
+		"jackson"   || testJson
+		"fastjson"  || testJson
+		"fastjson2" || testJson
 	}
 
 	def "test parseObject"() {
-		given:
-		User user = new User()
-		user.setId(1L)
-		user.setUsername("test")
-		user.setActived(true)
-
 		expect:
-		user == JSONHelper.json(spi).parseObject(json, User.class)
+		testCase == JSONHelper.json(spi).parseObject(json, TestCase.class)
 
 		where:
 		spi         || json
-		"jackson"   || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
-		"fastjson"  || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
-		"fastjson2" || "{\"id\":1,\"username\":\"test\",\"actived\":true}"
+		"jackson"   || testJson
+		"fastjson"  || testJson
+		"fastjson2" || testJson
 	}
 }
 

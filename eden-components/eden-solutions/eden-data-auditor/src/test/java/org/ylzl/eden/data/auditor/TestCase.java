@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.data.auditor;
 
+import com.alibaba.fastjson.annotation.JSONType;
 import lombok.*;
 import org.ylzl.eden.data.auditor.masker.DataMasking;
 
@@ -31,6 +32,8 @@ import org.ylzl.eden.data.auditor.masker.DataMasking;
 @NoArgsConstructor
 @Builder
 @Data
+@JSONType(orders = {"address", "chineseName", "idCard", "mobilePhone"})
+@com.alibaba.fastjson2.annotation.JSONType(orders = {"address", "chineseName", "idCard", "mobilePhone"})
 public class TestCase {
 
 	@DataMasking("address")

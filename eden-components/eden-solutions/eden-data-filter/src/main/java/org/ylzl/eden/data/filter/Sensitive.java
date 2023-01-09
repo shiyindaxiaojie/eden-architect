@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.data.filter;
 
+import org.ylzl.eden.data.filter.sensitive.SensitiveWordStrategy;
+
 import java.lang.annotation.*;
 
 /**
@@ -28,4 +30,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface Sensitive {
+
+	SensitiveWordStrategy strategy() default SensitiveWordStrategy.REPLACE;
+
+	String replacement() default  "???";
 }

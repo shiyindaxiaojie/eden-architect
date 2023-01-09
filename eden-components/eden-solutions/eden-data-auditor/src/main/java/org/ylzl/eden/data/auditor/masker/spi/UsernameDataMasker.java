@@ -34,6 +34,6 @@ public class UsernameDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return data.replaceAll("(\\S)\\S(\\S*)", "$1****$2");
+		return data.replaceAll("(\\S)(\\S*)(\\S{2})", "$1****$3");
 	}
 }

@@ -28,7 +28,7 @@ import org.ylzl.eden.extension.ExtensionLoader;
  */
 public abstract class AbstractDataMaskerBuilder implements DataMaskerBuilder {
 
-	private DataMaskerConfig dataMaskerConfig;
+	private DataMaskerConfig dataMaskerConfig = new DataMaskerConfig();
 
 	private String strategy;
 

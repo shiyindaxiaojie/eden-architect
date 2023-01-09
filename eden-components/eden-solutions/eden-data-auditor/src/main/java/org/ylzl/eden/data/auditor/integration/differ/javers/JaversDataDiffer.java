@@ -18,11 +18,8 @@ package org.ylzl.eden.data.auditor.integration.differ.javers;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.javers.core.Changes;
 import org.javers.core.Javers;
-import org.javers.core.diff.changetype.NewObject;
-import org.javers.core.diff.changetype.ObjectRemoved;
-import org.javers.core.diff.changetype.ValueChange;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.data.auditor.DataDiffer;
 import org.ylzl.eden.data.auditor.differ.Change;
 import org.ylzl.eden.data.auditor.differ.ChangeType;
@@ -61,8 +58,7 @@ public class JaversDataDiffer implements DataDiffer {
 	 */
 	@Override
 	public Diff compare(Object oldVersion, Object currentVersion) {
-		org.javers.core.Changes changes = javers.compare(oldVersion, currentVersion).getChanges();
-		return convert(changes);
+		return convert(javers.compare(oldVersion, currentVersion));
 	}
 
 	/**
@@ -75,29 +71,43 @@ public class JaversDataDiffer implements DataDiffer {
 	 */
 	@Override
 	public <T> Diff compareCollections(Collection<T> oldVersion, Collection<T> currentVersion, Class<T> itemClass) {
-		org.javers.core.Changes changes = javers.compareCollections(oldVersion, currentVersion, itemClass).getChanges();
-		return convert(changes);
+		return convert(javers.compareCollections(oldVersion, currentVersion, itemClass));
 	}
 
 	/**
 	 * 转换比对结果
 	 *
-	 * @param changes 第三方比对结果
+	 * @param javersDiff 第三方比对结果
 	 * @return 统一比对结果
 	 */
-	private Diff convert(Changes changes) {
+	private Diff convert(org.javers.core.diff.Diff javersDiff) {
 		Diff diff = new Diff();
-		changes.forEach(change -> change.getAffectedObject().ifPresent(value -> {
-			ChangeType changeType = null;
-			if (change instanceof NewObject) {
-				changeType = ChangeType.NEW;
-			} else if (change instanceof ValueChange) {
-				changeType = ChangeType.MODIFIED;
-			} else if (change instanceof ObjectRemoved) {
-				changeType = ChangeType.REMOVED;
+		boolean hasChanges = javersDiff.hasChanges();
+		diff.setHasChanges(hasChanges);
+		if (!hasChanges) {
+			return diff;
+		}
+
+		javersDiff.groupByObject().forEach(group -> {
+			if (CollectionUtils.isNotEmpty(group.getNewObjects())) {
+				group.getNewObjects().forEach(newObject -> {
+					diff.addChange(new Change(newObject.getAffectedGlobalId().value(),
+						newObject.getAffectedObject().get(), ChangeType.NEW));
+				});
 			}
-			diff.addChange(new Change(change.getAffectedLocalId().toString(), value, changeType));
-		}));
+			if (CollectionUtils.isNotEmpty(group.getPropertyChanges())) {
+				group.getPropertyChanges().forEach(propertyChange -> {
+					diff.addChange(new Change(propertyChange.getAffectedGlobalId().value(),
+						propertyChange.getAffectedObject().get(), ChangeType.MODIFIED));
+				});
+			}
+			if (CollectionUtils.isNotEmpty(group.getObjectsRemoved())) {
+				group.getObjectsRemoved().forEach(objectRemoved -> {
+					diff.addChange(new Change(objectRemoved.getAffectedGlobalId().value(),
+						objectRemoved.getAffectedObject(), ChangeType.REMOVED));
+				});
+			}
+		});
 		return diff;
 	}
 }

@@ -1,8 +1,15 @@
 package org.ylzl.eden.spring.framework.json.fastjson2;
 
+import com.alibaba.fastjson2.filter.Filter;
+import com.google.common.collect.Lists;
+import org.ylzl.eden.commons.collections.CollectionUtils;
+import org.ylzl.eden.commons.lang.ArrayUtils;
+import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.json.JSON;
+import org.ylzl.eden.spring.framework.json.fastjson.FastjsonFilter;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Fastjson2
@@ -20,7 +27,10 @@ public class Fastjson2 implements JSON {
 	 */
 	@Override
 	public <T> String toJSONString(T object) {
-		return com.alibaba.fastjson2.JSON.toJSONString(object);
+		Filter[] filters = loadFilters();
+		return ArrayUtils.isNotEmpty(filters)?
+			com.alibaba.fastjson2.JSON.toJSONString(object, filters):
+			com.alibaba.fastjson2.JSON.toJSONString(object);
 	}
 
 	/**
@@ -45,5 +55,24 @@ public class Fastjson2 implements JSON {
 	@Override
 	public <T> List<T> parseList(String text, Class<T> cls) {
 		return com.alibaba.fastjson2.JSON.parseArray(text, cls);
+	}
+
+	/**
+	 * 加载扩展的过滤器
+	 *
+	 * @return 过滤器数组
+	 */
+	private Filter[] loadFilters() {
+		ExtensionLoader<FastjsonFilter> extensionLoader = ExtensionLoader.getExtensionLoader(FastjsonFilter.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		if (CollectionUtils.isEmpty(extensions)) {
+			return null;
+		}
+		List<Filter> filters = Lists.newArrayList();
+		for (String extension : extensions) {
+			FastjsonFilter filter = extensionLoader.getExtension(extension);
+			filters.add(filter);
+		}
+		return filters.toArray(new Filter[0]);
 	}
 }

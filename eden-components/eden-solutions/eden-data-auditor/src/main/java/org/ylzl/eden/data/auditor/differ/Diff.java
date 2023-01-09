@@ -37,6 +37,8 @@ import java.util.List;
 @Getter
 public class Diff implements Serializable {
 
+	private boolean hasChanges = false;
+
 	private List<Change> changes = new ArrayList<>();
 
 	public void addChange(Change change) {

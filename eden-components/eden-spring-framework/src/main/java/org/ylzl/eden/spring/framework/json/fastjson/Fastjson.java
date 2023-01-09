@@ -1,8 +1,14 @@
 package org.ylzl.eden.spring.framework.json.fastjson;
 
+import com.alibaba.fastjson.serializer.SerializeFilter;
+import com.google.common.collect.Lists;
+import org.ylzl.eden.commons.collections.CollectionUtils;
+import org.ylzl.eden.commons.lang.ArrayUtils;
+import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.json.JSON;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Fastjson
@@ -20,7 +26,10 @@ public class Fastjson implements JSON {
 	 */
 	@Override
 	public <T> String toJSONString(T object) {
-		return com.alibaba.fastjson.JSON.toJSONString(object);
+		SerializeFilter[] filters = loadFilters();
+		return ArrayUtils.isNotEmpty(filters)?
+			com.alibaba.fastjson.JSON.toJSONString(object, filters):
+			com.alibaba.fastjson.JSON.toJSONString(object);
 	}
 
 	/**
@@ -45,5 +54,24 @@ public class Fastjson implements JSON {
 	@Override
 	public <T> List<T> parseList(String text, Class<T> cls) {
 		return com.alibaba.fastjson.JSON.parseArray(text, cls);
+	}
+
+	/**
+	 * 加载扩展的过滤器
+	 *
+	 * @return 过滤器数组
+	 */
+	private SerializeFilter[] loadFilters() {
+		ExtensionLoader<FastjsonFilter> extensionLoader = ExtensionLoader.getExtensionLoader(FastjsonFilter.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		if (CollectionUtils.isEmpty(extensions)) {
+			return null;
+		}
+		List<SerializeFilter> filters = Lists.newArrayList();
+		for (String extension : extensions) {
+			FastjsonFilter filter = extensionLoader.getExtension(extension);
+			filters.add(filter);
+		}
+		return filters.toArray(new SerializeFilter[0]);
 	}
 }
