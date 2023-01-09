@@ -14,26 +14,36 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.data.auditor.support;
 
-import org.ylzl.eden.data.auditor.DataMasker;
+import org.ylzl.eden.data.auditor.DataDiffer;
+import org.ylzl.eden.data.auditor.builder.DataDifferBuilder;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
- * 座机数据脱敏
+ * 数据比对帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+public class DataDifferHelper {
 
 	/**
-	 * 脱敏处理
+	 * 获取数据比对实例
 	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
+	 * @return 数据比对实例
 	 */
-	@Override
-	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
+	public static DataDiffer dataDiffer() {
+		return ExtensionLoader.getExtensionLoader(DataDifferBuilder.class).getDefaultExtension().build();
+	}
+
+	/**
+	 * 获取数据比对实例
+	 *
+	 * @param spi 扩展点
+	 * @return 数据比对实例
+	 */
+	public static DataDiffer dataDiffer(String spi) {
+		return ExtensionLoader.getExtensionLoader(DataDifferBuilder.class).getExtension(spi).build();
 	}
 }

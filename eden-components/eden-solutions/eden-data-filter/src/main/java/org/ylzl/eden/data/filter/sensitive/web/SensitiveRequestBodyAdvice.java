@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.data.filter.sensitive.web;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -24,6 +25,7 @@ import org.springframework.http.converter.json.MappingJacksonInputMessage;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
+import org.ylzl.eden.data.filter.DataSensitiveFilter;
 import org.ylzl.eden.data.filter.Sensitive;
 
 import java.io.ByteArrayInputStream;
@@ -37,9 +39,12 @@ import java.nio.charset.StandardCharsets;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 @RestControllerAdvice
 public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
+
+	private final DataSensitiveFilter dataSensitiveFilter;
 
 	@Override
 	public boolean supports(MethodParameter methodParameter, Type targetType,
@@ -49,10 +54,10 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
 	@Override
 	public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter,
-										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType)
-		throws IOException {
+										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
 		String body = StreamUtils.copyToString(inputMessage.getBody(), StandardCharsets.UTF_8);
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8));
+		String filtered = dataSensitiveFilter.doFilter(body);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(filtered.getBytes(StandardCharsets.UTF_8));
 		return new MappingJacksonInputMessage(inputStream, inputMessage.getHeaders());
 	}
 }

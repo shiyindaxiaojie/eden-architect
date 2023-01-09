@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.data.auditor.integration.masker.fastjson2;
 
 import org.ylzl.eden.data.auditor.DataMasker;
+import org.ylzl.eden.data.auditor.builder.AbstractDataMaskerBuilder;
 
 /**
- * 座机数据脱敏
+ * Fastjson2 数据脱敏构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+public class Fastjson2DataMaskerBuilder extends AbstractDataMaskerBuilder {
 
 	/**
-	 * 脱敏处理
+	 * 构建数据脱敏实例
 	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
+	 * @return 数据脱敏实例
 	 */
 	@Override
-	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
+	public DataMasker build() {
+		return this.getDataMasker();
 	}
 }

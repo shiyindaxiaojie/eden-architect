@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.builder;
+package org.ylzl.eden.data.filter.builder;
 
-import org.ylzl.eden.data.auditor.config.DataDifferConfig;
+import org.ylzl.eden.data.filter.config.DataDuplicateConfig;
 
 /**
- * 数据比对构建器抽象
+ * 数据去重过滤构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractDataDifferBuilder implements DataDifferBuilder {
+public abstract class AbstractDataDuplicateFilterBuilder implements DataDuplicateFilterBuilder {
 
-	private DataDifferConfig dataDifferConfig = new DataDifferConfig();
+	private DataDuplicateConfig dataDuplicateConfig = new DataDuplicateConfig();
 
 	/**
-	 * 设置数据比对配置
+	 * 设置数据去重过滤配置
 	 *
-	 * @param dataDifferConfig 数据比对配置
-	 * @return DataDifferBuilder
+	 * @param dataDuplicateConfig 数据去重过滤配置
+	 * @return DataDuplicateFilterBuilder
 	 */
 	@Override
-	public DataDifferBuilder dataDifferConfig(DataDifferConfig dataDifferConfig) {
-		this.dataDifferConfig = dataDifferConfig;
+	public DataDuplicateFilterBuilder dataDuplicateConfig(DataDuplicateConfig dataDuplicateConfig) {
+		this.dataDuplicateConfig = dataDuplicateConfig;
 		return this;
 	}
 
 	/**
-	 * 获取数据比对配置
+	 * 获取数据去重过滤配置
 	 *
-	 * @return 数据比对配置
+	 * @return 数据去重过滤配置
 	 */
-	protected DataDifferConfig getDataDifferConfig() {
-		return dataDifferConfig;
+	protected DataDuplicateConfig getDataDuplicateConfig() {
+		return dataDuplicateConfig;
 	}
 }

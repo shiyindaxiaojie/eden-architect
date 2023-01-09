@@ -34,6 +34,6 @@ public class MoneyDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return data.replaceAll("(\\w{0})\\w*(\\w{0})", "$1***$2");
+		return "****";
 	}
 }

@@ -19,12 +19,12 @@ package org.ylzl.eden.data.auditor.masker.spi;
 import org.ylzl.eden.data.auditor.DataMasker;
 
 /**
- * 座机数据脱敏
+ * 车牌号码数据脱敏
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+public class CarLicenseDataMasker implements DataMasker {
 
 	/**
 	 * 脱敏处理
@@ -34,6 +34,6 @@ public class TelephoneDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
+		return data.replaceAll("(\\S)(\\d)(\\d*)(\\d)", "$1$2***$4");
 	}
 }

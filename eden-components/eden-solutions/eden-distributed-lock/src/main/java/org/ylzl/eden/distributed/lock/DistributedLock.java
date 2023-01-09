@@ -16,8 +16,6 @@
 
 package org.ylzl.eden.distributed.lock;
 
-import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
-
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -48,8 +46,7 @@ public interface DistributedLock {
 	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
-	 * @return
-	 * @throws DistributedLockAcquireException
+	 * @return 是否加锁成功
 	 */
 	boolean lock(String key, int waitTime, TimeUnit timeUnit);
 
@@ -57,7 +54,6 @@ public interface DistributedLock {
 	 * 释放锁
 	 *
 	 * @param key 锁对象
-	 * @throws DistributedLockAcquireException
 	 */
 	void unlock(String key);
 }

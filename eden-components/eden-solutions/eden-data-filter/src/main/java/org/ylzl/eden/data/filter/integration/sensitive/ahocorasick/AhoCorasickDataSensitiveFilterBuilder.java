@@ -14,40 +14,39 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.builder;
+package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 
+import org.ahocorasick.trie.Trie;
 import org.ylzl.eden.data.filter.DataSensitiveFilter;
-import org.ylzl.eden.data.filter.config.DataSensitiveConfig;
-import org.ylzl.eden.data.filter.sensitive.SensitiveWordProcessor;
+import org.ylzl.eden.data.filter.builder.AbstractDataSensitiveFilterBuilder;
+import org.ylzl.eden.data.filter.builder.DataSensitiveFilterBuilder;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 敏感词过滤构建器
+ * AhoCorasick 敏感词过滤构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataSensitiveFilterBuilder {
+public class AhoCorasickDataSensitiveFilterBuilder extends AbstractDataSensitiveFilterBuilder implements DataSensitiveFilterBuilder {
 
-	/**
-	 * 设置敏感词过滤配置
-	 *
-	 * @param dataSensitiveConfig 敏感词过滤配置
-	 * @return DataSensitiveFilterBuilder
-	 */
-	DataSensitiveFilterBuilder dataSensitiveConfig(DataSensitiveConfig dataSensitiveConfig);
+	private static Trie trie;
 
-	/**
-	 * 设置敏感词处理器
-	 *
-	 * @param sensitiveWordProcessor 敏感词处理器
-	 * @return DataSensitiveFilterBuilder
-	 */
-	DataSensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordProcessor sensitiveWordProcessor);
+	private static final AtomicBoolean BUILD_STATE = new AtomicBoolean(false);
 
 	/**
 	 * 构建敏感词过滤器
 	 *
 	 * @return 敏感词过滤器
 	 */
-	DataSensitiveFilter build();
+	@Override
+	public DataSensitiveFilter build() {
+		if (BUILD_STATE.compareAndSet(false, true)) {
+			trie = Trie.builder()
+				.addKeywords(getSensitiveWordProcessor().loadSensitiveWords())
+				.build();
+		}
+		return new AhoCorasickDataSensitiveFilter(trie);
+	}
 }

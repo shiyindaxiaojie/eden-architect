@@ -34,6 +34,6 @@ public class EmailDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return null;
+		return data.replaceAll("(\\S)(\\S*)@(\\S*)", "$1****@$3");
 	}
 }

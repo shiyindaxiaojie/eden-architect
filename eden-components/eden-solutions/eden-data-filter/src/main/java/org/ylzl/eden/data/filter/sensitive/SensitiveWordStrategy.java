@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
-
-import org.ylzl.eden.data.auditor.DataMasker;
+package org.ylzl.eden.data.filter.sensitive;
 
 /**
- * 车牌号码数据脱敏
+ * 敏感词处理策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LicensePlateNumberDataMasker implements DataMasker {
+public enum SensitiveWordStrategy {
 
-	/**
-	 * 脱敏处理
-	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
-	 */
-	@Override
-	public String masking(String data) {
-		return null;
-	}
+	REPLACE,
+	DELETE;
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.support;
+package org.ylzl.eden.data.auditor.support;
 
 import org.ylzl.eden.data.auditor.DataMasker;
 import org.ylzl.eden.data.auditor.builder.DataMaskerBuilder;

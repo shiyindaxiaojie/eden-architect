@@ -16,10 +16,7 @@
 
 package org.ylzl.eden.data.auditor.differ;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -31,8 +28,7 @@ import java.io.Serializable;
  */
 @EqualsAndHashCode
 @ToString
-@Setter
-@Getter
+@Data
 public class Change implements Serializable {
 
 	/** 变更ID */
@@ -44,9 +40,7 @@ public class Change implements Serializable {
 	/** 变更类型 */
 	private final ChangeType changeType;
 
-	public Change(String affectedId, Object affectedValue, ChangeType changeType) {
-		this.affectedId = affectedId;
-		this.affectedValue = affectedValue;
-		this.changeType = changeType;
+	public <T> T getAffectedValue() {
+		return (T) affectedValue;
 	}
 }

@@ -1,1 +1,3 @@
 jackson=org.ylzl.eden.data.auditor.integration.masker.jackson.JacksonDataMaskerBuilder
+fastjson=org.ylzl.eden.data.auditor.integration.masker.fastjson.FastjsonDataMaskerBuilder
+fastjson2=org.ylzl.eden.data.auditor.integration.masker.fastjson2.Fastjson2DataMaskerBuilder

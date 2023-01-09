@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.integration.masker.fastjson;
+package org.ylzl.eden.data.auditor.integration.masker.fastjson2;
 
-import com.alibaba.fastjson.serializer.ValueFilter;
+import com.alibaba.fastjson2.filter.ValueFilter;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.data.auditor.masker.DataMaskerManager;
 import org.ylzl.eden.data.auditor.masker.DataMasking;
@@ -30,10 +30,10 @@ import java.lang.reflect.Field;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class FastjsonDataMaskingValueFilter implements FastjsonFilter, ValueFilter {
+public class Fastjson2DataMaskingValueFilter implements FastjsonFilter, ValueFilter {
 
     @Override
-    public Object process(Object object, String name, Object value) {
+    public Object apply(Object object, String name, Object value) {
 		if (!(value instanceof String) || ObjectUtils.isNull(value)) {
 			return value;
 		}
@@ -51,7 +51,7 @@ public class FastjsonDataMaskingValueFilter implements FastjsonFilter, ValueFilt
 			String data = ObjectUtils.trimToString(value);
 			return DataMaskerManager.getDataMasker(dataMasking.value()).masking(data);
 		} catch (NoSuchFieldException e) {
-			throw new FastjsonValueFilterException(e);
+			throw new Fastjson2ValueFilterException(e);
 		}
 	}
 }

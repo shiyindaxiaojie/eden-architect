@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter;
+package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 
+import lombok.RequiredArgsConstructor;
+import org.ahocorasick.trie.Trie;
+import org.ylzl.eden.data.filter.DataSensitiveFilter;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
- * 数据敏感词过滤器
+ * AhoCorasick 敏感词过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataSensitiveFilter {
+@RequiredArgsConstructor
+public class AhoCorasickDataSensitiveFilter implements DataSensitiveFilter {
+
+	private final Trie trie;
 
 	/**
 	 * 解析文本
@@ -34,5 +41,14 @@ public interface DataSensitiveFilter {
 	 * @param text 原始内容
 	 * @return 过滤后的内容
 	 */
-	Collection<SensitiveWord> parseText(String text);
+	@Override
+	public Collection<SensitiveWord> parseText(String text) {
+		return trie.parseText(text).stream()
+			.map(emit -> SensitiveWord.builder()
+				.keyword(emit.getKeyword())
+				.start(emit.getStart())
+				.end(emit.getEnd())
+				.build())
+			.collect(Collectors.toList());
+	}
 }

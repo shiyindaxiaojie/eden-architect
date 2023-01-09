@@ -16,17 +16,20 @@
 
 package org.ylzl.eden.data.filter.builder;
 
-import org.ylzl.eden.data.filter.DataSensitiveFilter;
 import org.ylzl.eden.data.filter.config.DataSensitiveConfig;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordProcessor;
 
 /**
- * 敏感词过滤构建器
+ * 敏感词过滤构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataSensitiveFilterBuilder {
+public abstract class AbstractDataSensitiveFilterBuilder implements DataSensitiveFilterBuilder {
+
+	private DataSensitiveConfig dataSensitiveConfig = new DataSensitiveConfig();
+
+	private SensitiveWordProcessor sensitiveWordProcessor;
 
 	/**
 	 * 设置敏感词过滤配置
@@ -34,7 +37,11 @@ public interface DataSensitiveFilterBuilder {
 	 * @param dataSensitiveConfig 敏感词过滤配置
 	 * @return DataSensitiveFilterBuilder
 	 */
-	DataSensitiveFilterBuilder dataSensitiveConfig(DataSensitiveConfig dataSensitiveConfig);
+	@Override
+	public DataSensitiveFilterBuilder dataSensitiveConfig(DataSensitiveConfig dataSensitiveConfig) {
+		this.dataSensitiveConfig = dataSensitiveConfig;
+		return this;
+	}
 
 	/**
 	 * 设置敏感词处理器
@@ -42,12 +49,27 @@ public interface DataSensitiveFilterBuilder {
 	 * @param sensitiveWordProcessor 敏感词处理器
 	 * @return DataSensitiveFilterBuilder
 	 */
-	DataSensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordProcessor sensitiveWordProcessor);
+	@Override
+	public DataSensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordProcessor sensitiveWordProcessor) {
+		this.sensitiveWordProcessor = sensitiveWordProcessor;
+		return this;
+	}
 
 	/**
-	 * 构建敏感词过滤器
+	 * 获取敏感词过滤配置
 	 *
-	 * @return 敏感词过滤器
+	 * @return 数据比对配置
 	 */
-	DataSensitiveFilter build();
+	protected DataSensitiveConfig getDataSensitiveConfig() {
+		return dataSensitiveConfig;
+	}
+
+	/**
+	 * 获取敏感词过滤处理器
+	 *
+	 * @return 敏感词过滤处理器
+	 */
+	protected SensitiveWordProcessor getSensitiveWordProcessor() {
+		return sensitiveWordProcessor;
+	}
 }

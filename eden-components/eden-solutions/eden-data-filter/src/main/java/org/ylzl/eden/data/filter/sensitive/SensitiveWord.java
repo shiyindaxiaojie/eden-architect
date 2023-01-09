@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.data.filter.sensitive;
 
-import org.ylzl.eden.data.auditor.DataMasker;
+import lombok.*;
 
 /**
- * 座机数据脱敏
+ * 敏感词
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Data
+public class SensitiveWord {
 
-	/**
-	 * 脱敏处理
-	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
-	 */
-	@Override
-	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
+	private final String keyword;
+
+	private final int start;
+
+	private final int end;
+
+	public int size() {
+		return this.end - this.start + 1;
 	}
 }

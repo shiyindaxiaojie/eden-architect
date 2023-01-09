@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.spring.framework.json.fastjson;
 
-import org.ylzl.eden.data.auditor.DataMasker;
+import com.alibaba.fastjson.serializer.SerializeFilter;
+import org.ylzl.eden.extension.SPI;
 
 /**
- * 座机数据脱敏
+ * Fastjson 过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+@SPI
+public interface FastjsonFilter extends SerializeFilter {
 
-	/**
-	 * 脱敏处理
-	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
-	 */
-	@Override
-	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
-	}
 }

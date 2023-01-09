@@ -14,25 +14,47 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter;
-
-import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
+package org.ylzl.eden.data.filter.sensitive;
 
 import java.util.Collection;
 
 /**
- * 数据敏感词过滤器
+ * 敏感词处理器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataSensitiveFilter {
+public interface SensitiveWordProcessor {
 
 	/**
-	 * 解析文本
+	 * 加载敏感词库
 	 *
-	 * @param text 原始内容
-	 * @return 过滤后的内容
+	 * @return 敏感词库
 	 */
-	Collection<SensitiveWord> parseText(String text);
+	Collection<String> loadSensitiveWords();
+
+	/**
+	 * 敏感词处理
+	 *
+	 * @param fieldName 字段名
+	 * @param fieldValue 字段值
+	 * @param sensitiveWords 发现的敏感词集合
+	 * @return 处理后的字段值
+	 */
+	String handle(String fieldName, String fieldValue, Collection<SensitiveWord> sensitiveWords);
+
+	/**
+	 * 清空敏感词库
+	 */
+	void clearSensitiveWords();
+
+	/**
+	 * 重载敏感词库
+	 *
+	 * @return 已更新的敏感词库
+	 */
+	default Collection<String> reloadSensitiveWords() {
+		clearSensitiveWords();
+		return loadSensitiveWords();
+	}
 }

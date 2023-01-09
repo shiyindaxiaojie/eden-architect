@@ -16,13 +16,6 @@
 
 package org.ylzl.eden.data.auditor;
 
-/**
- * 数据脱敏基准测试
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -34,6 +27,12 @@ import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 数据脱敏基准测试
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Threads(4)
 @Fork(1)

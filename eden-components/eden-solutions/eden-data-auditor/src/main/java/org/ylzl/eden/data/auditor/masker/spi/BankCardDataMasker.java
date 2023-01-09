@@ -34,6 +34,6 @@ public class BankCardDataMasker implements DataMasker {
 	 */
 	@Override
 	public String masking(String data) {
-		return data.replaceAll("(?<=\\d{0})\\d(?=\\d{4})", "****");
+		return data.replaceAll("(\\d+)(\\d{4})", "****$2");
 	}
 }

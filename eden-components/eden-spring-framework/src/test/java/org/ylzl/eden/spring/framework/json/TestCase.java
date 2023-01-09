@@ -14,26 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.masker.spi;
+package org.ylzl.eden.spring.framework.json;
 
-import org.ylzl.eden.data.auditor.DataMasker;
+import com.alibaba.fastjson.annotation.JSONType;
+import lombok.*;
 
 /**
- * 座机数据脱敏
+ * 测试用例
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class TelephoneDataMasker implements DataMasker {
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+@JSONType(orders = {"id", "username", "actived"})
+@com.alibaba.fastjson2.annotation.JSONType(orders = {"id", "username", "actived"})
+public class TestCase {
 
-	/**
-	 * 脱敏处理
-	 *
-	 * @param data 原始数据
-	 * @return 脱敏数据
-	 */
-	@Override
-	public String masking(String data) {
-		return data.replaceAll("(\\d{3})(\\d*)(\\d{2})", "$1****$3");
-	}
+	private Long id;
+
+	private String username;
+
+	private Boolean actived;
 }
