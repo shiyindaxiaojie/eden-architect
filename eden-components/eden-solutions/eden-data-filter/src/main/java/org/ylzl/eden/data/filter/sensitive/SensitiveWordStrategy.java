@@ -24,6 +24,7 @@ package org.ylzl.eden.data.filter.sensitive;
  */
 public enum SensitiveWordStrategy {
 
+	NONE,
 	REPLACE,
 	DELETE;
 }

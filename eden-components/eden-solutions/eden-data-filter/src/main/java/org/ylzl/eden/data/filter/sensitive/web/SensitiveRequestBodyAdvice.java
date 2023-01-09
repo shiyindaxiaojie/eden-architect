@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 import org.ylzl.eden.data.filter.DataSensitiveFilter;
 import org.ylzl.eden.data.filter.Sensitive;
+import org.ylzl.eden.data.filter.support.DataSensitiveFilterHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -54,10 +55,11 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
 	@Override
 	public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter,
-										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
+										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType)
+		throws IOException {
 		String body = StreamUtils.copyToString(inputMessage.getBody(), StandardCharsets.UTF_8);
-		String filtered = dataSensitiveFilter.doFilter(body);
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(filtered.getBytes(StandardCharsets.UTF_8));
+		String sensitiveBody = DataSensitiveFilterHelper.doFilter(body, targetType.getClass(), dataSensitiveFilter);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(sensitiveBody.getBytes(StandardCharsets.UTF_8));
 		return new MappingJacksonInputMessage(inputStream, inputMessage.getHeaders());
 	}
 }

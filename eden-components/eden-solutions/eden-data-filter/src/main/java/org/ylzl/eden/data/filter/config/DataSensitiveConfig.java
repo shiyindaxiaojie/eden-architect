@@ -20,6 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.ahocorasick.trie.TrieConfig;
 
 /**
  * 数据敏感词配置
@@ -35,11 +36,11 @@ public class DataSensitiveConfig {
 
 	private final AhoCoraSick ahoCoraSick = new AhoCoraSick();
 
-	@EqualsAndHashCode
+	@EqualsAndHashCode(callSuper = false)
 	@ToString
 	@Setter
 	@Getter
-	public static class AhoCoraSick {
+	public static class AhoCoraSick extends TrieConfig {
 
 	}
 }

@@ -16,44 +16,42 @@
 
 package org.ylzl.eden.data.filter.sensitive;
 
+import com.google.common.collect.Sets;
+import lombok.Getter;
+
 import java.util.Collection;
 
 /**
- * 敏感词处理器
+ * 敏感词加载器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface SensitiveWordProcessor {
+@Getter
+public abstract class SensitiveWordLoader {
+
+	private final Collection<String> sensitiveWords = Sets.newConcurrentHashSet();
 
 	/**
 	 * 加载敏感词库
 	 *
 	 * @return 敏感词库
 	 */
-	Collection<String> loadSensitiveWords();
-
-	/**
-	 * 敏感词处理
-	 *
-	 * @param fieldName 字段名
-	 * @param fieldValue 字段值
-	 * @param sensitiveWords 发现的敏感词集合
-	 * @return 处理后的字段值
-	 */
-	String handle(String fieldName, String fieldValue, Collection<SensitiveWord> sensitiveWords);
+	public abstract Collection<String> loadSensitiveWords();
 
 	/**
 	 * 清空敏感词库
 	 */
-	void clearSensitiveWords();
+	public void clearSensitiveWords() {
+		this.sensitiveWords.clear();
+	}
 
 	/**
 	 * 重载敏感词库
 	 *
 	 * @return 已更新的敏感词库
 	 */
-	default Collection<String> reloadSensitiveWords() {
+	public Collection<String> reloadSensitiveWords() {
 		clearSensitiveWords();
 		return loadSensitiveWords();
 	}

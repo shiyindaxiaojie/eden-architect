@@ -25,7 +25,6 @@ import lombok.*;
  * @since 2.4.x
  */
 @Builder
-@AllArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString

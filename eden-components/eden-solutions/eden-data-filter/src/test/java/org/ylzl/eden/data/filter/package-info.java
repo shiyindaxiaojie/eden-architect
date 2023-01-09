@@ -15,23 +15,3 @@
  */
 
 package org.ylzl.eden.data.filter;
-
-import org.ylzl.eden.data.filter.sensitive.SensitiveWordStrategy;
-
-import java.lang.annotation.*;
-
-/**
- * 敏感词标记
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-@Inherited
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface Sensitive {
-
-	SensitiveWordStrategy strategy() default SensitiveWordStrategy.REPLACE;
-
-	String replacement() default  "???";
-}
