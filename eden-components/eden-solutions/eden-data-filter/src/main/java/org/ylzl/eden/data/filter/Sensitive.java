@@ -31,7 +31,9 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 public @interface Sensitive {
 
+	String DEFAULT_REPLACEMENT = "???";
+
 	SensitiveWordStrategy strategy() default SensitiveWordStrategy.REPLACE;
 
-	String replacement() default  "???";
+	String replacement() default DEFAULT_REPLACEMENT;
 }

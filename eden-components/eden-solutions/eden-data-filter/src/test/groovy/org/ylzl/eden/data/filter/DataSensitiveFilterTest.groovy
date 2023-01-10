@@ -26,19 +26,20 @@ class DataSensitiveFilterTest extends Specification {
 
 	static String sensitiveText = "我是大鸡巴美少女，喜欢玩美少女万华镜、3D定制女仆"
 
+	DataSensitiveFilter dataSensitiveFilter
+
 	def setup() {
-
-	}
-
-	def "test sensitive words"() {
-		given:
-		DataSensitiveFilter dataSensitiveFilter = DataSensitiveFilterHelper.dataSensitiveFilter(new SensitiveWordLoader() {
+		dataSensitiveFilter = DataSensitiveFilterHelper.dataSensitiveFilter(new SensitiveWordLoader() {
 
 			@Override
 			Collection<String> loadSensitiveWords() {
-				return Sets.newHashSet( "鸡巴", "女仆")
+				return Sets.newHashSet("鸡巴", "女仆")
 			}
 		})
+	}
+
+	def "test parse text"() {
+		given:
 		Collection<SensitiveWord> sensitiveWords = dataSensitiveFilter.parseText(sensitiveText)
 
 		expect:
@@ -51,6 +52,16 @@ class DataSensitiveFilterTest extends Specification {
 		index	|| 	keyword
 		0		||	"鸡巴"
 		1		||	"女仆"
+	}
+
+	def "test filter text"() {
+		expect:
+		replacedText == dataSensitiveFilter.replaceSensitiveWords(sensitiveText)
+		deletedText	== dataSensitiveFilter.deleteSensitiveWords(sensitiveText)
+
+		where:
+		replacedText 								|| deletedText
+		"我是大???美少女，喜欢玩美少女万华镜、3D定制???"	|| "我是大美少女，喜欢玩美少女万华镜、3D定制"
 	}
 }
 

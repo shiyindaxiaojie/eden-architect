@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.data.filter;
 
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
 
 import java.util.Collection;
@@ -32,7 +33,36 @@ public interface DataSensitiveFilter {
 	 * 解析文本
 	 *
 	 * @param text 原始内容
-	 * @return 过滤后的内容
+	 * @return 已解析的敏感词
 	 */
 	Collection<SensitiveWord> parseText(String text);
+
+	/**
+	 * 替换敏感词
+	 *
+	 * @param text 原始内容
+	 * @param replacement 替换内容
+	 * @return 过滤后的内容
+	 */
+	String replaceSensitiveWords(String text, String replacement);
+
+	/**
+	 * 替换敏感词
+	 *
+	 * @param text 原始内容
+	 * @return 过滤后的内容
+	 */
+	default String replaceSensitiveWords(String text) {
+		return replaceSensitiveWords(text, Sensitive.DEFAULT_REPLACEMENT);
+	}
+
+	/**
+	 * 删除敏感词
+	 *
+	 * @param text 原始内容
+	 * @return 过滤后的内容
+	 */
+	default String deleteSensitiveWords(String text) {
+		return replaceSensitiveWords(text, Strings.EMPTY);
+	}
 }

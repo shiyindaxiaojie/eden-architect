@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.distributed.lock.integration.curator;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
@@ -27,7 +28,6 @@ import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockReleaseException;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockTimeoutException;
 
-import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,7 +60,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(@NotNull String key) {
+	public boolean lock(@NonNull String key) {
 		log.debug("Curator create lock: {}", key);
 		if (!key.startsWith(Strings.SLASH)) {
 			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
@@ -85,7 +85,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @return
 	 */
 	@Override
-	public boolean lock(@NotNull String key, int waitTime, TimeUnit timeUnit) {
+	public boolean lock(@NonNull String key, int waitTime, TimeUnit timeUnit) {
 		log.debug("Curator create lock: {}, waitTime: {}", key, waitTime);
 		if (!key.startsWith(Strings.SLASH)) {
 			throw new DistributedLockAcquireException("Invalid curator lock: " + key);
@@ -110,7 +110,7 @@ public class CuratorDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public void unlock(String key) {
+	public void unlock(@NonNull String key) {
 		log.debug("Curator release lock: {}", key);
 		InterProcessMutex interProcessMutex = interProcessMutexThreadLocal.get();
 		if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
