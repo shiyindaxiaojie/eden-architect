@@ -19,17 +19,17 @@ package org.ylzl.eden.data.filter
 import com.google.common.collect.Sets
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader
-import org.ylzl.eden.data.filter.support.DataSensitiveFilterHelper
+import org.ylzl.eden.data.filter.support.SensitiveFilterHelper
 import spock.lang.Specification
 
-class DataSensitiveFilterTest extends Specification {
+class SensitiveWordFilterTest extends Specification {
 
 	static String sensitiveText = "我是大鸡巴美少女，喜欢玩美少女万华镜、3D定制女仆"
 
-	DataSensitiveFilter dataSensitiveFilter
+	SensitiveWordFilter sensitiveFilter
 
 	def setup() {
-		dataSensitiveFilter = DataSensitiveFilterHelper.dataSensitiveFilter(new SensitiveWordLoader() {
+		sensitiveFilter = SensitiveFilterHelper.sensitiveFilter(new SensitiveWordLoader() {
 
 			@Override
 			Collection<String> loadSensitiveWords() {
@@ -40,7 +40,7 @@ class DataSensitiveFilterTest extends Specification {
 
 	def "test parse text"() {
 		given:
-		Collection<SensitiveWord> sensitiveWords = dataSensitiveFilter.parseText(sensitiveText)
+		Collection<SensitiveWord> sensitiveWords = sensitiveFilter.parseText(sensitiveText)
 
 		expect:
 		sensitiveWords[index].getKeyword() == keyword
@@ -56,8 +56,8 @@ class DataSensitiveFilterTest extends Specification {
 
 	def "test filter text"() {
 		expect:
-		replacedText == dataSensitiveFilter.replaceSensitiveWords(sensitiveText)
-		deletedText	== dataSensitiveFilter.deleteSensitiveWords(sensitiveText)
+		replacedText == sensitiveFilter.replaceSensitiveWords(sensitiveText)
+		deletedText	== sensitiveFilter.deleteSensitiveWords(sensitiveText)
 
 		where:
 		replacedText 								|| deletedText

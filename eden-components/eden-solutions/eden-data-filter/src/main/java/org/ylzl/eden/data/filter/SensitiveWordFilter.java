@@ -27,7 +27,7 @@ import java.util.Collection;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataSensitiveFilter {
+public interface SensitiveWordFilter {
 
 	/**
 	 * 解析文本

@@ -14,33 +14,37 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.data.filter.integration.duplicate.bloom;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.ahocorasick.trie.TrieConfig;
+import org.ylzl.eden.data.filter.DuplicateFilter;
 
 /**
- * 数据敏感词配置
+ * 布隆过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@EqualsAndHashCode
-@ToString
-@Setter
-@Getter
-public class DataSensitiveConfig {
+public class BloomFilter implements DuplicateFilter {
 
-	private final AhoCoraSick ahoCoraSick = new AhoCoraSick();
+	/**
+	 * 可能包含（取否表示但一定不包含）
+	 *
+	 * @param object 匹配对象
+	 * @return 是否包含
+	 */
+	@Override
+	public <T> boolean mightContain(T object) {
+		return false;
+	}
 
-	@EqualsAndHashCode(callSuper = false)
-	@ToString
-	@Setter
-	@Getter
-	public static class AhoCoraSick extends TrieConfig {
-
+	/**
+	 * 存放对象
+	 *
+	 * @param object 存放对象
+	 * @return 是否存放成功
+	 */
+	@Override
+	public <T> boolean put(T object) {
+		return false;
 	}
 }

@@ -14,17 +14,33 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter;
+package org.ylzl.eden.data.filter.config;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.ahocorasick.trie.TrieConfig;
 
 /**
- * 数据去重过滤器
+ * 数据敏感词配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataDuplicateFilter {
+@EqualsAndHashCode
+@ToString
+@Setter
+@Getter
+public class SensitiveConfig {
 
-	<T> boolean mightContain(T object);
+	private final AhoCoraSick ahoCoraSick = new AhoCoraSick();
 
-	<T> boolean put(T object);
+	@EqualsAndHashCode(callSuper = false)
+	@ToString
+	@Setter
+	@Getter
+	public static class AhoCoraSick extends TrieConfig {
+
+	}
 }

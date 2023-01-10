@@ -31,7 +31,7 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class DataDuplicateConfig {
+public class DuplicateConfig {
 
 	private final BloomFilter bloomFilter = new BloomFilter();
 

@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.data.filter.builder;
 
-import org.ylzl.eden.data.filter.config.DataSensitiveConfig;
+import org.ylzl.eden.data.filter.config.SensitiveConfig;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
 
 /**
@@ -25,21 +25,21 @@ import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractDataSensitiveFilterBuilder implements DataSensitiveFilterBuilder {
+public abstract class AbstractSensitiveFilterBuilder implements SensitiveFilterBuilder {
 
-	private DataSensitiveConfig dataSensitiveConfig = new DataSensitiveConfig();
+	private SensitiveConfig sensitiveConfig = new SensitiveConfig();
 
 	private SensitiveWordLoader sensitiveWordLoader;
 
 	/**
 	 * 设置敏感词过滤配置
 	 *
-	 * @param dataSensitiveConfig 敏感词过滤配置
+	 * @param sensitiveConfig 敏感词过滤配置
 	 * @return DataSensitiveFilterBuilder
 	 */
 	@Override
-	public DataSensitiveFilterBuilder dataSensitiveConfig(DataSensitiveConfig dataSensitiveConfig) {
-		this.dataSensitiveConfig = dataSensitiveConfig;
+	public SensitiveFilterBuilder sensitiveConfig(SensitiveConfig sensitiveConfig) {
+		this.sensitiveConfig = sensitiveConfig;
 		return this;
 	}
 
@@ -50,7 +50,7 @@ public abstract class AbstractDataSensitiveFilterBuilder implements DataSensitiv
 	 * @return DataSensitiveFilterBuilder
 	 */
 	@Override
-	public DataSensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader) {
+	public SensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader) {
 		this.sensitiveWordLoader = sensitiveWordLoader;
 		return this;
 	}
@@ -60,8 +60,8 @@ public abstract class AbstractDataSensitiveFilterBuilder implements DataSensitiv
 	 *
 	 * @return 数据比对配置
 	 */
-	protected DataSensitiveConfig getDataSensitiveConfig() {
-		return dataSensitiveConfig;
+	protected SensitiveConfig getSensitiveConfig() {
+		return sensitiveConfig;
 	}
 
 	/**

@@ -16,36 +16,29 @@
 
 package org.ylzl.eden.data.filter.builder;
 
-import org.ylzl.eden.data.filter.config.DataDuplicateConfig;
+import org.ylzl.eden.data.filter.DuplicateFilter;
+import org.ylzl.eden.data.filter.config.DuplicateConfig;
 
 /**
- * 数据去重过滤构建器抽象
+ * 数据去重过滤构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractDataDuplicateFilterBuilder implements DataDuplicateFilterBuilder {
-
-	private DataDuplicateConfig dataDuplicateConfig = new DataDuplicateConfig();
+public interface DuplicateFilterBuilder {
 
 	/**
 	 * 设置数据去重过滤配置
 	 *
-	 * @param dataDuplicateConfig 数据去重过滤配置
+	 * @param duplicateConfig 数据去重过滤配置
 	 * @return DataDuplicateFilterBuilder
 	 */
-	@Override
-	public DataDuplicateFilterBuilder dataDuplicateConfig(DataDuplicateConfig dataDuplicateConfig) {
-		this.dataDuplicateConfig = dataDuplicateConfig;
-		return this;
-	}
+	DuplicateFilterBuilder duplicateConfig(DuplicateConfig duplicateConfig);
 
 	/**
-	 * 获取数据去重过滤配置
+	 * 构建数据去重过滤器
 	 *
-	 * @return 数据去重过滤配置
+	 * @return 数据去重过滤器
 	 */
-	protected DataDuplicateConfig getDataDuplicateConfig() {
-		return dataDuplicateConfig;
-	}
+	DuplicateFilter build();
 }

@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.builder;
-
-import org.ylzl.eden.data.filter.config.DataDuplicateConfig;
+package org.ylzl.eden.data.filter;
 
 /**
- * 数据去重过滤构建器
+ * 数据去重过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface DataDuplicateFilterBuilder {
+public interface DuplicateFilter {
 
 	/**
-	 * 设置数据去重过滤配置
+	 * 可能包含（取否表示但一定不包含）
 	 *
-	 * @param dataDuplicateConfig 数据去重过滤配置
-	 * @return DataDuplicateFilterBuilder
+	 * @param object 匹配对象
+	 * @return 是否包含
+	 * @param <T> 泛型
 	 */
-	DataDuplicateFilterBuilder dataDuplicateConfig(DataDuplicateConfig dataDuplicateConfig);
+	<T> boolean mightContain(T object);
+
+	/**
+	 * 存放对象
+	 *
+	 * @param object 存放对象
+	 * @return 是否存放成功
+	 * @param <T> 泛型
+	 */
+	<T> boolean put(T object);
 }

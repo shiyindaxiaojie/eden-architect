@@ -17,9 +17,9 @@
 package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 
 import org.ahocorasick.trie.Trie;
-import org.ylzl.eden.data.filter.DataSensitiveFilter;
-import org.ylzl.eden.data.filter.builder.AbstractDataSensitiveFilterBuilder;
-import org.ylzl.eden.data.filter.builder.DataSensitiveFilterBuilder;
+import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.builder.AbstractSensitiveFilterBuilder;
+import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class AhoCorasickDataSensitiveFilterBuilder extends AbstractDataSensitiveFilterBuilder implements DataSensitiveFilterBuilder {
+public class AhoCorasickSensitiveFilterBuilder extends AbstractSensitiveFilterBuilder implements SensitiveFilterBuilder {
 
 	private static Trie trie;
 
@@ -41,12 +41,12 @@ public class AhoCorasickDataSensitiveFilterBuilder extends AbstractDataSensitive
 	 * @return 敏感词过滤器
 	 */
 	@Override
-	public DataSensitiveFilter build() {
+	public SensitiveWordFilter build() {
 		if (BUILD_STATE.compareAndSet(false, true)) {
 			trie = Trie.builder()
 				.addKeywords(getSensitiveWordProcessor().loadSensitiveWords())
 				.build();
 		}
-		return new AhoCorasickDataSensitiveFilter(trie);
+		return new AhoCorasickSensitiveWordFilter(trie);
 	}
 }
