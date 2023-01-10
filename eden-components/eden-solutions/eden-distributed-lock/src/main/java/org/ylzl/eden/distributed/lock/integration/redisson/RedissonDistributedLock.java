@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.distributed.lock.integration.redisson;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -58,7 +59,7 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(String key) {
+	public boolean lock(@NonNull String key) {
 		log.debug("Redisson create lock: {}", key);
 		RLock rLock = redissonClient.getFairLock(key);
 		rLockThreadLocal.set(rLock);
@@ -79,7 +80,7 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @return
 	 */
 	@Override
-	public boolean lock(String key, int waitTime, TimeUnit timeUnit) {
+	public boolean lock(@NonNull String key, int waitTime, TimeUnit timeUnit) {
 		log.debug("Redisson create lock: {}", key);
 		RLock rLock = redissonClient.getFairLock(key);
 		rLockThreadLocal.set(rLock);
@@ -97,7 +98,7 @@ public class RedissonDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public void unlock(String key) {
+	public void unlock(@NonNull String key) {
 		log.debug("Redisson release lock: {}", key);
 		RLock rLock = rLockThreadLocal.get();
 		if (rLock.isHeldByCurrentThread()) {

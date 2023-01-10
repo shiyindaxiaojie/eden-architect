@@ -51,4 +51,21 @@ public class AhoCorasickDataSensitiveFilter implements DataSensitiveFilter {
 				.build())
 			.collect(Collectors.toList());
 	}
+
+	/**
+	 * 替换敏感词
+	 *
+	 * @param text 原始内容
+	 * @param replacement 替换内容
+	 * @return 过滤后的内容
+	 */
+	@Override
+	public String replaceSensitiveWords(String text, String replacement) {
+		String newText = text;
+		Collection<SensitiveWord> sensitiveWords = this.parseText(text);
+		for (SensitiveWord sensitiveWord : sensitiveWords) {
+			newText = newText.replaceAll(sensitiveWord.getKeyword(), replacement);
+		}
+		return newText;
+	}
 }

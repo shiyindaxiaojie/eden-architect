@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.distributed.lock.integration.zookeeper;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.CreateMode;
@@ -58,7 +59,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public boolean lock(String key) {
+	public boolean lock(@NonNull String key) {
 		log.debug("Zookeeper create lock: {}", key);
 		try {
 			zooKeeper.create(key, EMPTY_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
@@ -78,7 +79,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @return
 	 */
 	@Override
-	public boolean lock(String key, int waitTime, TimeUnit timeUnit) {
+	public boolean lock(@NonNull String key, int waitTime, TimeUnit timeUnit) {
 		log.warn("Zookeeper create lock: {}, not support waitTime", key);
 		return lock(key);
 	}
@@ -89,7 +90,7 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @param key 锁对象
 	 */
 	@Override
-	public void unlock(String key) {
+	public void unlock(@NonNull String key) {
 		log.debug("Zookeeper release lock: {}", key);
 		try {
 			zooKeeper.delete(key, -1);
