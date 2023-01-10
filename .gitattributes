@@ -1,11 +1,4 @@
-# This file is inspired by https://github.com/alexkaratarakis/gitattributes
-#
-# Auto detect text files and perform LF normalization
-# http://davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 * text=auto
-
-# The above will handle all files NOT found below
-# These files are text and should be normalized (Convert crlf => lf)
 
 *.bat           text eol=crlf
 *.coffee        text
@@ -72,14 +65,9 @@ TODO            text
 *.tif           binary
 *.tiff          binary
 *.ico           binary
-# SVG treated as an asset (binary) by default. If you want to treat it as text,
-# comment-out the following line and uncomment the line after.
 *.svg           binary
 #*.svg          text
 *.eps           binary
-
-# These files are binary and should be left untouched
-# (binary is a macro for -text -diff)
 *.class         binary
 *.jar           binary
 *.war           binary
