@@ -47,6 +47,6 @@ public class AhoCorasickSensitiveFilterBuilder extends AbstractSensitiveFilterBu
 				.addKeywords(getSensitiveWordProcessor().loadSensitiveWords())
 				.build();
 		}
-		return new AhoCorasickSensitiveWordFilter(trie);
+		return new AhoCorasickSensitiveFilter(trie);
 	}
 }

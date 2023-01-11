@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.duplicate.bloom;
+package org.ylzl.eden.data.auditor.integration.differ.objectdiffer;
 
-import org.ylzl.eden.data.filter.DuplicateFilter;
-import org.ylzl.eden.data.filter.builder.AbstractDuplicateFilterBuilder;
-import org.ylzl.eden.data.filter.builder.DuplicateFilterBuilder;
+import de.danielbechler.diff.ObjectDiffer;
+import de.danielbechler.diff.ObjectDifferBuilder;
+import org.ylzl.eden.data.auditor.DataDiffer;
+import org.ylzl.eden.data.auditor.builder.AbstractDataDifferBuilder;
 
 /**
- * 布隆过滤器构建
+ * JavaObjectDiff 数据比对构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class BloomFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
-
-
+public class ObjectDifferDataDifferBuilder extends AbstractDataDifferBuilder {
 
 	/**
-	 * 构建数据去重过滤器
+	 * 构建数据比对实例
 	 *
-	 * @return 数据去重过滤器
+	 * @return 数据比对实例
 	 */
 	@Override
-	public DuplicateFilter build() {
-		return null;
+	public DataDiffer build() {
+		ObjectDiffer objectDiffer = ObjectDifferBuilder.startBuilding().build();
+		return new ObjectDifferDataDiffer(objectDiffer);
 	}
 }

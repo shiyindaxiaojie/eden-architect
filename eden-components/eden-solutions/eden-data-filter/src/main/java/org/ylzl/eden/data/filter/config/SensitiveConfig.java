@@ -16,10 +16,7 @@
 
 package org.ylzl.eden.data.filter.config;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.ahocorasick.trie.TrieConfig;
 
 /**

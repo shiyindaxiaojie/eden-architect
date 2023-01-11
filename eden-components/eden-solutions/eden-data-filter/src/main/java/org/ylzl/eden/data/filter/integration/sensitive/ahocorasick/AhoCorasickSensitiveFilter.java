@@ -18,10 +18,12 @@ package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 
 import lombok.RequiredArgsConstructor;
 import org.ahocorasick.trie.Trie;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.data.filter.SensitiveWordFilter;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +33,7 @@ import java.util.stream.Collectors;
  * @since 2.4.x
  */
 @RequiredArgsConstructor
-public class AhoCorasickSensitiveWordFilter implements SensitiveWordFilter {
+public class AhoCorasickSensitiveFilter implements SensitiveWordFilter {
 
 	private final Trie trie;
 
@@ -61,11 +63,8 @@ public class AhoCorasickSensitiveWordFilter implements SensitiveWordFilter {
 	 */
 	@Override
 	public String replaceSensitiveWords(String text, String replacement) {
-		String newText = text;
 		Collection<SensitiveWord> sensitiveWords = this.parseText(text);
-		for (SensitiveWord sensitiveWord : sensitiveWords) {
-			newText = newText.replaceAll(sensitiveWord.getKeyword(), replacement);
-		}
-		return newText;
+		String regex = StringUtils.join(sensitiveWords.stream().map(SensitiveWord::getKeyword).collect(Collectors.toList()), "|");
+		return Pattern.compile(regex).matcher(text).replaceAll(replacement);
 	}
 }

@@ -106,10 +106,11 @@
 		<snakeyaml.version>1.33</snakeyaml.version>
 		<dynamictp.version>1.0.9</dynamictp.version>
 		<javers.version>6.8.1</javers.version>
+		<java-object-diff.version>0.95</java-object-diff.version>
 		<ahocorasick.version>0.6.3</ahocorasick.version>
 
 		<!-- 关系型数据库 -->
-		<mysql.version>8.0.29</mysql.version>
+		<mysql.version>8.0.31</mysql.version>
 		<sqlite.version>3.30.1</sqlite.version>
 		<mybatis.version>3.5.6</mybatis.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
@@ -1262,6 +1263,12 @@
 				<groupId>org.javers</groupId>
 				<artifactId>javers-spring-boot-starter-mongo</artifactId>
 				<version>${javers.version}</version>
+			</dependency>
+			<!-- Java Object Diff -->
+			<dependency>
+				<groupId>de.danielbechler</groupId>
+				<artifactId>java-object-diff</artifactId>
+				<version>${java-object-diff.version}</version>
 			</dependency>
 			<!-- Ahocorasick -->
 			<dependency>

@@ -36,6 +36,8 @@ public class DataDifferConfig {
 
 	private final Javers javers = new Javers();
 
+	private final JavaObjectDiff javaObjectDiff = new JavaObjectDiff();
+
 	@EqualsAndHashCode
 	@ToString
 	@Setter
@@ -45,5 +47,13 @@ public class DataDifferConfig {
 		private ListCompareAlgorithm listCompareAlgorithm = ListCompareAlgorithm.LEVENSHTEIN_DISTANCE;
 
 		private boolean usePrimitiveDefaults = false;
+	}
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class JavaObjectDiff {
+
 	}
 }

@@ -17,9 +17,11 @@
 package org.ylzl.eden.data.filter
 
 import com.google.common.collect.Sets
+import org.ylzl.eden.extension.ExtensionLoader
+import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder
+import org.ylzl.eden.data.filter.config.SensitiveConfig
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader
-import org.ylzl.eden.data.filter.support.SensitiveFilterHelper
 import spock.lang.Specification
 
 class SensitiveWordFilterTest extends Specification {
@@ -29,13 +31,19 @@ class SensitiveWordFilterTest extends Specification {
 	SensitiveWordFilter sensitiveFilter
 
 	def setup() {
-		sensitiveFilter = SensitiveFilterHelper.sensitiveFilter(new SensitiveWordLoader() {
+		SensitiveConfig sensitiveConfig = new SensitiveConfig();
+		sensitiveConfig.getAhoCoraSick().setOnlyWholeWords(true)
+		sensitiveFilter = ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class)
+			.getDefaultExtension()
+			.sensitiveConfig(sensitiveConfig)
+			.sensitiveWordProcessor(new SensitiveWordLoader() {
 
-			@Override
-			Collection<String> loadSensitiveWords() {
-				return Sets.newHashSet("鸡巴", "女仆")
-			}
-		})
+				@Override
+				Collection<String> loadSensitiveWords() {
+					return Sets.newHashSet("鸡巴", "女仆")
+				}
+			})
+			.build()
 	}
 
 	def "test parse text"() {
