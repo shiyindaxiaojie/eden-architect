@@ -18,11 +18,13 @@ package org.ylzl.eden.truelicense.spring.boot.autoconfigure;
 
 import de.schlichtherle.license.LicenseManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 import org.ylzl.eden.spring.integration.truelicense.core.LicenseInstall;
@@ -37,6 +39,7 @@ import org.ylzl.eden.spring.integration.truelicense.core.LicenseVerify;
 @ConditionalOnProperty(value = TrueLicenseProperties.PREFIX + ".client.enabled")
 @Import(TrueLicenseManagerConfiguration.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class TrueLicenseClientAutoConfiguration {
 

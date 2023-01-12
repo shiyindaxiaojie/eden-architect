@@ -19,8 +19,10 @@ package org.ylzl.eden.cat.spring.boot.autoconfigure;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.integration.cat.integration.rest.interceptor.CatRestTemplateTraceInterceptor;
 
@@ -38,6 +40,7 @@ import java.util.Collections;
 	RestTemplate.class
 })
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class RestCatAutoConfiguration implements InitializingBean {
 

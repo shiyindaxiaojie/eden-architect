@@ -16,8 +16,10 @@
 
 package org.ylzl.eden.spring.data.audit.config;
 
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
 
@@ -28,7 +30,8 @@ import org.ylzl.eden.spring.data.audit.domain.AuthorizedAuditorAware;
  * @since 2.4.13
  */
 @EnableJpaAuditing(auditorAwareRef = AuditorAwareConfiguration.BEAN_NAME)
-@Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+@Configuration(proxyBeanMethods = false)
 public class AuditorAwareConfiguration {
 
 	public static final String BEAN_NAME = "authorizedAuditorAware";

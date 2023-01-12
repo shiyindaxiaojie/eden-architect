@@ -21,12 +21,14 @@ import io.opentracing.contrib.redis.common.TracingConfiguration;
 import io.opentracing.contrib.redis.redisson.TracingRedissonClient;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.redisson.spring.boot.autoconfigure.RedissonAutoConfiguration;
 import org.ylzl.redisson.spring.boot.autoconfigure.util.RedissonUtils;
@@ -45,6 +47,7 @@ import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
 	matchIfMissing = true
 )
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class SleuthRedisAutoConfiguration {
 

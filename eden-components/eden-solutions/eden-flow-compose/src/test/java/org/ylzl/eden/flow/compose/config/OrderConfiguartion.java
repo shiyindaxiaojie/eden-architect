@@ -25,6 +25,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.4.13
  */
 @EnableFlowCompose("/META-INF/process.xml")
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class OrderConfiguartion {
 }

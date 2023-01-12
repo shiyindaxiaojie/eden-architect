@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -27,6 +28,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.redisson.RedissonDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
@@ -46,15 +48,15 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 )
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
-@ConditionalOnClass(RedissonClient.class)
+@ConditionalOnBean(RedissonClient.class)
+@ConditionalOnClass(Redisson.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class RedissonDistributedLockAutoConfiguration {
 
 	public static final String AUTOWIRED_REDISSON_DISTRIBUTED_LOCK = "Autowired RedissonDistributedLock";
 
-	@ConditionalOnClass(Redisson.class)
-	@ConditionalOnBean(RedissonClient.class)
 	@Bean
 	public DistributedLock distributedLock(RedissonClient redissonClient) {
 		log.debug(AUTOWIRED_REDISSON_DISTRIBUTED_LOCK);

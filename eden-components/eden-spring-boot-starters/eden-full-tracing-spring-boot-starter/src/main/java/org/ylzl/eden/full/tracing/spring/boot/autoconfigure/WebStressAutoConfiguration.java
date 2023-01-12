@@ -19,10 +19,12 @@ package org.ylzl.eden.full.tracing.spring.boot.autoconfigure;
 import brave.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.full.tracing.integration.web.WebStressTagFilter;
 
 /**
@@ -34,6 +36,7 @@ import org.ylzl.eden.full.tracing.integration.web.WebStressTagFilter;
 @ConditionalOnProperty(value = WebStressAutoConfiguration.ENABLED, havingValue = "true")
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class WebStressAutoConfiguration {
 

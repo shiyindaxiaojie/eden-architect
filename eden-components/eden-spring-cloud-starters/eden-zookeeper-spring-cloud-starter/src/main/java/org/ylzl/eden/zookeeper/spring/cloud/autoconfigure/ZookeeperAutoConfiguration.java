@@ -18,12 +18,14 @@ package org.ylzl.eden.zookeeper.spring.cloud.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.ZooKeeper;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.zookeeper.ZookeeperProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.cloud.zookeeper.config.ZookeeperConfig;
 import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 
@@ -36,6 +38,7 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 @ConditionalOnProperty(name = ZookeeperProperties.PREFIX + ".enabled", havingValue = "true")
 @ConditionalOnClass(ZooKeeper.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class ZookeeperAutoConfiguration {
 

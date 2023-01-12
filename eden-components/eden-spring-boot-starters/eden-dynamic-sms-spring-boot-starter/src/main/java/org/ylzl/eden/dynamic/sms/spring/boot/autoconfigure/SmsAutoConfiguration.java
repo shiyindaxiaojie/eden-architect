@@ -18,11 +18,13 @@ package org.ylzl.eden.dynamic.sms.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.dynamic.sms.SmsTemplate;
 import org.ylzl.eden.dynamic.sms.spring.boot.env.SmsProperties;
 import org.ylzl.eden.dynamic.sms.spring.boot.support.SmsHelper;
@@ -43,6 +45,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @EnableConfigurationProperties(SmsProperties.class)
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class SmsAutoConfiguration {
 

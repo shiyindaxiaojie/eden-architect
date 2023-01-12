@@ -18,6 +18,7 @@ package org.ylzl.eden.full.tracing.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
@@ -26,6 +27,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.ylzl.eden.full.tracing.integration.redis.RedisShadowAspect;
 import org.ylzl.eden.full.tracing.spring.boot.env.RedisShadowProperties;
@@ -43,6 +45,7 @@ import org.ylzl.eden.spring.data.redis.core.DynamicStringRedisTemplate;
 @EnableConfigurationProperties(RedisShadowProperties.class)
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class RedisStressAutoConfiguration {
 

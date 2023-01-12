@@ -18,10 +18,12 @@ package org.ylzl.eden.truelicense.spring.boot.autoconfigure;
 
 import de.schlichtherle.license.LicenseManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 import org.ylzl.eden.spring.integration.truelicense.manager.CustomLicenseManager;
@@ -34,7 +36,8 @@ import org.ylzl.eden.spring.integration.truelicense.manager.CustomLicenseManager
  */
 @EnableConfigurationProperties(TrueLicenseProperties.class)
 @Slf4j
-@Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+@Configuration(proxyBeanMethods = false)
 public class TrueLicenseManagerConfiguration {
 
 	private static final String MSG_AUTOWIRED_TRUE_LICENSE_MANAGER = "Autowired TureLicense manager";

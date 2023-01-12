@@ -17,12 +17,14 @@
 package org.ylzl.eden.zipkin2.spring.cloud.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.cloud.sleuth.web.WebMvcHandlerParser;
 import org.ylzl.eden.zipkin2.spring.cloud.env.CustomSleuthWebProperties;
@@ -43,6 +45,7 @@ import org.ylzl.eden.zipkin2.spring.cloud.env.CustomSleuthWebProperties;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(CustomSleuthWebProperties.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class SleuthWebAutoConfiguration {
 

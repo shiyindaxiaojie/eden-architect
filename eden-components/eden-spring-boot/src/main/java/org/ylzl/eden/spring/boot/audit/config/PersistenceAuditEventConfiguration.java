@@ -17,11 +17,13 @@
 package org.ylzl.eden.spring.boot.audit.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.boot.audit.event.AuditEventConverter;
 
 /**
@@ -33,7 +35,8 @@ import org.ylzl.eden.spring.boot.audit.event.AuditEventConverter;
  */
 @ConditionalOnClass(AuditEvent.class)
 @Slf4j
-@Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+@Configuration(proxyBeanMethods = false)
 public class PersistenceAuditEventConfiguration {
 
 	@ConditionalOnMissingBean

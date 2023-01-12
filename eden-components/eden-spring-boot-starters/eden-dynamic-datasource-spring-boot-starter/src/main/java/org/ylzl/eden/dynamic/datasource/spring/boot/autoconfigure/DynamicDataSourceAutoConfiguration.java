@@ -56,6 +56,7 @@ import javax.sql.DataSource;
 @ConditionalOnClass(DynamicDataSourceProvider.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class DynamicDataSourceAutoConfiguration {
 
@@ -70,7 +71,6 @@ public class DynamicDataSourceAutoConfiguration {
 	}
 
 	@Primary
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public DataSource dataSource() {
 		log.info(AUTOWIRED_DYNAMIC_ROUTING_DATA_SOURCE);
@@ -90,7 +90,6 @@ public class DynamicDataSourceAutoConfiguration {
 		matchIfMissing = true
 	)
 	@Primary
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public Advisor dynamicDatasourceAnnotationAdvisor(DsProcessor dsProcessor) {
 		log.debug(AUTOWIRED_DYNAMIC_DATASOURCE_ANNOTATION_ADVISOR);

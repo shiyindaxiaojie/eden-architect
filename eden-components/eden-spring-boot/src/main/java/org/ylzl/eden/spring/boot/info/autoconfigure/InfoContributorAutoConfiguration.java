@@ -16,12 +16,14 @@
 
 package org.ylzl.eden.spring.boot.info.autoconfigure;
 
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.ylzl.eden.spring.boot.info.contributor.ActiveProfilesInfoContributor;
 import org.ylzl.eden.spring.boot.info.contributor.InfoContributorProvider;
@@ -43,6 +45,7 @@ import org.ylzl.eden.spring.boot.info.contributor.MailEnabledInfoContributor;
  * @since 2.4.13
  */
 @AutoConfigureAfter(org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration.class)
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false, value = "enhancedInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {
 

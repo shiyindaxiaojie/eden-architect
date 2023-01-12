@@ -4,10 +4,12 @@ import com.alibaba.csp.sentinel.SphU;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.dynamic.cache.integration.hotkey.sentinel.SentinelHotKeyClient;
 import org.ylzl.eden.dynamic.cache.spring.boot.env.CacheProperties;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
@@ -28,6 +30,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnClass(SphU.class)
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class SentinelHotKeyAutoConfiguration implements InitializingBean {
 

@@ -17,8 +17,10 @@
 package org.ylzl.eden.flow.compose.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.flow.compose.processor.SpringBeanProcessorFactory;
 
 /**
@@ -28,6 +30,7 @@ import org.ylzl.eden.flow.compose.processor.SpringBeanProcessorFactory;
  * @since 2.4.13
  */
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class ProcessFactoryConfiguration {
 
@@ -35,6 +38,7 @@ public class ProcessFactoryConfiguration {
 
 	private static final String AUTOWIRED_SPRING_BEAN_PROCESSOR_FACTORY = "Autowired SpringBeanProcessorFactory";
 
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public SpringBeanProcessorFactory springBeanProcessorFactory() {
 		log.debug(AUTOWIRED_SPRING_BEAN_PROCESSOR_FACTORY);
