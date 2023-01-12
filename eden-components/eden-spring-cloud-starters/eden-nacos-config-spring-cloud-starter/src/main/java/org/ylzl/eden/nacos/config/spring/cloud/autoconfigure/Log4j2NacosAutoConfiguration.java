@@ -1,8 +1,9 @@
 package org.ylzl.eden.nacos.config.spring.cloud.autoconfigure;
 
 import com.alibaba.cloud.nacos.NacosConfigBootstrapConfiguration;
+import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
-import com.alibaba.nacos.api.config.annotation.NacosConfigListener;
+import com.alibaba.nacos.api.config.listener.Listener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.commons.lang.StringUtils;
@@ -22,6 +24,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.io.File;
 import java.net.URI;
+import java.util.concurrent.Executor;
 
 /**
  * Log4j2 基于 Nacos 刷新配置文件自动装配
@@ -33,7 +36,7 @@ import java.net.URI;
 	prefix = Log4j2NacosProperties.PREFIX,
 	name = Conditions.ENABLED,
 	havingValue = Conditions.TRUE,
-	matchIfMissing = true
+	matchIfMissing = false
 )
 @AutoConfigureAfter(NacosConfigBootstrapConfiguration.class)
 @EnableConfigurationProperties(Log4j2NacosProperties.class)
@@ -42,6 +45,7 @@ import java.net.URI;
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
+@RefreshScope
 public class Log4j2NacosAutoConfiguration implements InitializingBean {
 
 	private static final String RPC_CLIENT = "config_rpc_client";
@@ -52,8 +56,10 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 
 	private final Log4j2NacosProperties log4j2ConfigProperties;
 
+	private final NacosConfigManager nacosConfigManager;
+
 	@Override
-	public void afterPropertiesSet() {
+	public void afterPropertiesSet() throws Exception {
 		File configFile = this.getFile(RPC_CLIENT);
 		if (!configFile.exists()) {
 			configFile = this.getFile(getServerName());
@@ -68,15 +74,23 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 		loggerContext.setConfigLocation(uri);
 		loggerContext.reconfigure();
 		log.info("Loading log4j2 config file finished.");
-	}
 
-	@NacosConfigListener(
-		groupId = "${log4j2.nacos.group}",
-		dataId = "${log4j2.nacos.data-id}",
-		timeout = 3000
-	)
-	public void onChange(String xml) {
-		log.debug(xml);
+		nacosConfigManager.getConfigService()
+			.addListener(log4j2ConfigProperties.getNacos().getDataId(), log4j2ConfigProperties.getNacos().getGroup(),
+				new Listener() {
+
+					@Override
+					public void receiveConfigInfo(String configInfo) {
+						log.info("Reloading log4j2 config file from nacos listener, changed info: \n{}", configInfo);
+						loggerContext.setConfigLocation(uri);
+						loggerContext.reconfigure();
+					}
+
+					@Override
+					public Executor getExecutor() {
+						return null;
+					}
+				});
 	}
 
 	private File getFile(String name) {
