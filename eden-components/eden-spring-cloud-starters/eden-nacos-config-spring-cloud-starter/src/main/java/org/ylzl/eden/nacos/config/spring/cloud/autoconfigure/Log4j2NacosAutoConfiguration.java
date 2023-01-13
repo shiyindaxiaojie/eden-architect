@@ -7,16 +7,17 @@ import com.alibaba.nacos.api.config.listener.Listener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
+import org.springframework.core.Ordered;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.nacos.config.spring.cloud.env.Log4j2NacosProperties;
 import org.ylzl.eden.nacos.config.spring.cloud.util.LocalConfigInfoProcessorExporter;
@@ -35,9 +36,9 @@ import java.util.concurrent.Executor;
 @ConditionalOnProperty(
 	prefix = Log4j2NacosProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE,
-	matchIfMissing = false
+	havingValue = Conditions.TRUE
 )
+@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @AutoConfigureAfter(NacosConfigBootstrapConfiguration.class)
 @EnableConfigurationProperties(Log4j2NacosProperties.class)
 @ConditionalOnClass(LogManager.class)
@@ -45,7 +46,6 @@ import java.util.concurrent.Executor;
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
-@RefreshScope
 public class Log4j2NacosAutoConfiguration implements InitializingBean {
 
 	private static final String RPC_CLIENT = "config_rpc_client";
@@ -70,9 +70,7 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 		}
 		URI uri = configFile.toURI();
 		log.info("Loading log4j2 config file from nacos config cache: {}", uri);
-		LoggerContext loggerContext = (LoggerContext) LogManager.getContext();
-		loggerContext.setConfigLocation(uri);
-		loggerContext.reconfigure();
+		Configurator.reconfigure(uri);
 		log.info("Loading log4j2 config file finished.");
 
 		nacosConfigManager.getConfigService()
@@ -82,8 +80,7 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 					@Override
 					public void receiveConfigInfo(String configInfo) {
 						log.info("Reloading log4j2 config file from nacos listener, changed info: \n{}", configInfo);
-						loggerContext.setConfigLocation(uri);
-						loggerContext.reconfigure();
+						Configurator.reconfigure(uri);
 					}
 
 					@Override

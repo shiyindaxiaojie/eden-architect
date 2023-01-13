@@ -16,7 +16,6 @@ import java.lang.reflect.Method;
 @Slf4j
 public class EventAuditorInterceptor implements MethodInterceptor, SmartInitializingSingleton {
 
-
 	@Override
 	public void afterSingletonsInstantiated() {
 
