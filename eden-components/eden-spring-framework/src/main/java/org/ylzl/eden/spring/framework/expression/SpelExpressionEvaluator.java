@@ -14,48 +14,53 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.expression.util;
+package org.ylzl.eden.spring.framework.expression;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.lang.reflect.Method;
 
 /**
- * Spel 表达式解析工具
+ * SpEL 表达式解析器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@UtilityClass
-public class SpelExpressionUtils {
+public class SpelExpressionEvaluator {
 
-	private static final SpelExpressionParser PARSER = new SpelExpressionParser();
+	private static final ExpressionParser PARSER = new SpelExpressionParser();
 
-	private static final LocalVariableTableParameterNameDiscoverer DISCOVERER = new LocalVariableTableParameterNameDiscoverer();
+	private static final ParameterNameDiscoverer DISCOVERER = new LocalVariableTableParameterNameDiscoverer();
+
+	public static ExpressionParser getExpressionParser() {
+		return PARSER;
+	}
+
+	public static ParameterNameDiscoverer getParameterNameDiscoverer() {
+		return DISCOVERER;
+	}
 
 	/**
-	 * 解析 Spel 表达式
+	 * 解析 SpEL 表达式
 	 *
-	 * @param expressionString
-	 * @param method
-	 * @param arguments
-	 * @return
+	 * @param expressionString SpEL 表达式
+	 * @param method 方法
+	 * @param arguments 参数
+	 * @return 解析后的内容
 	 */
-	public static String parse(String expressionString, Method method, Object[] arguments) {
+	public static String parseExpression(String expressionString, Method method, Object[] arguments) {
 		String[] params = DISCOVERER.getParameterNames(method);
-		StandardEvaluationContext context = new StandardEvaluationContext();
-
 		if (params != null && params.length > 0) {
 			for (int i = 0; i < params.length; i++) {
-				context.setVariable(params[i], arguments[i]);
+				SpelEvaluationContext.setVariable(params[i], arguments[i]);
 			}
 		}
 
 		Expression expression = PARSER.parseExpression(expressionString);
-		return expression.getValue(context, String.class);
+		return expression.getValue(SpelEvaluationContext.getContext(), String.class);
 	}
 }

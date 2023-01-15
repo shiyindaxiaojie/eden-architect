@@ -67,7 +67,7 @@ public class TimeToLiveIdempotentAspect {
 
 	private String resolveKey(String key, ProceedingJoinPoint joinPoint) {
 		if (StringUtils.isNotBlank(key)) {
-			return AspectJAopUtils.parseSpelExpression(key, joinPoint);
+			return AspectJAopUtils.parseExpression(key, joinPoint);
 		}
 		String url = RequestUtils.getRequestURL();
 		String argString = Arrays.asList(joinPoint.getArgs()).toString();

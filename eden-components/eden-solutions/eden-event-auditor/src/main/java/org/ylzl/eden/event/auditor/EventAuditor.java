@@ -21,7 +21,7 @@ import org.ylzl.eden.commons.lang.Strings;
 import java.lang.annotation.*;
 
 /**
- * 事件审计
+ * 审计标记
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -33,37 +33,63 @@ import java.lang.annotation.*;
 public @interface EventAuditor {
 
 	/**
-	 * @return 审计对象
+	 * 操作对象，支持 SpEL 表达式
+	 *
+	 * @return 操作对象
 	 */
-	String auditor() default Strings.EMPTY;
+	String operator() default Strings.EMPTY;
 
 	/**
-	 * @return 业务
+	 * 操作角色，支持 SpEL 表达式
+	 * <br/> 用于区分运营人员和用户
+	 *
+	 * @return 操作角色
 	 */
-	String bizId() default Strings.EMPTY;
+	String role() default Strings.EMPTY;
 
 	/**
-	 * @return 用例
+	 * 业务场景，支持 SpEL 表达式
+	 * <br/> 推荐风格：产品线+用例+场景
+	 *
+	 * @return 业务场景
 	 */
-	String useCase() default Strings.EMPTY;
+	String bizScenario() default Strings.EMPTY;
 
 	/**
-	 * @return 场景
+	 * 记录内容
+	 *
+	 * @return 记录内容，支持 SpEL 表达式
 	 */
-	String scenario() default Strings.EMPTY;
+	String content() default Strings.EMPTY;
 
 	/**
-	 * @return 方法执行成功后的记录内容，支持 SpEL 表达式
+	 * 额外信息
+	 * <br/> 防止记录的内容过长无法展示，额外序列化保存
+	 *
+	 * @return 额外信息，支持 SpEL 表达式
 	 */
-	String onSuccess();
+	String extra() default Strings.EMPTY;
 
 	/**
-	 * @return 方法执行失败后的记录内容，支持 SpEL 表达式
-	 */
-	String onFail() default Strings.EMPTY;
-
-	/**
+	 * 触发条件
+	 *
 	 * @return 触发条件，为空表示默认触发
 	 */
 	String condition() default Strings.EMPTY;
+
+	/**
+	 * 调用方法之前解析 SpEL 参数
+	 * <br/>
+	 *
+	 * @return 是否提前解析
+	 */
+	boolean evalBeforeInvoke() default false;
+
+	/**
+	 * 是否记录返回值
+	 * <br/> 防止记录查询类返回的 List 大对象导致 OOM
+	 *
+	 * @return 是否记录
+	 */
+	boolean recordReturnValue() default false;
 }

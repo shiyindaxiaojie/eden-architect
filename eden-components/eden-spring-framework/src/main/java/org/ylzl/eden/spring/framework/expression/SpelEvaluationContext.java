@@ -1,4 +1,4 @@
-package org.ylzl.eden.event.auditor.context;
+package org.ylzl.eden.spring.framework.expression;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import org.springframework.expression.EvaluationContext;
@@ -10,7 +10,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class EventAuditorContext {
+public class SpelEvaluationContext {
 
 	private static final TransmittableThreadLocal<EvaluationContext> VARIABLES =
 		new TransmittableThreadLocal<EvaluationContext>() {

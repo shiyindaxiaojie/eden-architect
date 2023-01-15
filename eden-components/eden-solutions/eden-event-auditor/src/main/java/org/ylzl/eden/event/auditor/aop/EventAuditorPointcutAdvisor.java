@@ -6,7 +6,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 
 /**
- * 事件审计 BeanFactoryPointcutAdviso
+ * 事件审计切点声明
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -15,7 +15,7 @@ import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 @Slf4j
 public class EventAuditorPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
-	private final EventAuditorPointcut pointcut;
+	private final EventAuditorPointcut pointcut = new EventAuditorPointcut();
 
 	@Override
 	public Pointcut getPointcut() {

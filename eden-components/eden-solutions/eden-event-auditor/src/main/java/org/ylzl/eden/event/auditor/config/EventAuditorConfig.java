@@ -17,5 +17,5 @@ import lombok.ToString;
 @Getter
 public class EventAuditorConfig {
 
-
+	private String senderType;
 }
