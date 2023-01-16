@@ -17,6 +17,11 @@ public class EventAuditorPointcutAdvisor extends AbstractBeanFactoryPointcutAdvi
 
 	private final EventAuditorPointcut pointcut = new EventAuditorPointcut();
 
+	/**
+	 * 获取切点
+	 *
+	 * @return 切点
+	 */
 	@Override
 	public Pointcut getPointcut() {
 		return pointcut;

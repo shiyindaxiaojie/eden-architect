@@ -18,6 +18,13 @@ import java.lang.reflect.Method;
  */
 public class EventAuditorPointcut extends StaticMethodMatcherPointcut {
 
+	/**
+	 * 匹配切点
+	 *
+	 * @param method 调用方法
+	 * @param targetClass 目标类
+	 * @return 是否匹配
+	 */
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		if (!ReflectionUtils.isPublic(method)) {
@@ -32,10 +39,22 @@ public class EventAuditorPointcut extends StaticMethodMatcherPointcut {
 			matchesEventAuditors(specificMethod);
 	}
 
+	/**
+	 * 判断是否匹配 {@code EventAuditor} 注解
+	 *
+	 * @param method 调用方法
+	 * @return 是否匹配
+	 */
 	private boolean matchesEventAuditor(Method method) {
 		return !AnnotatedElementUtils.findAllMergedAnnotations(method, EventAuditor.class).isEmpty();
 	}
 
+	/**
+	 * 判断是否匹配 {@code EventAuditors} 注解
+	 *
+	 * @param method 调用方法
+	 * @return 是否匹配
+	 */
 	private boolean matchesEventAuditors(Method method) {
 		return !AnnotatedElementUtils.findAllMergedAnnotations(method, EventAuditors.class).isEmpty();
 	}

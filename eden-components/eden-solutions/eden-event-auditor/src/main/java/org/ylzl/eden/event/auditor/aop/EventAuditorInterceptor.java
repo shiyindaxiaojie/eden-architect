@@ -6,10 +6,6 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -32,14 +28,19 @@ import java.util.List;
  * @since 2.4.13
  */
 @Slf4j
-public class EventAuditorInterceptor implements MethodInterceptor, BeanFactoryAware, SmartInitializingSingleton {
+public class EventAuditorInterceptor implements MethodInterceptor {
 
 	private static final String RETURN = "_return";
 
 	private static final String ERROR_MSG = "_errorMsg";
 
-	private BeanFactory beanFactory;
-
+	/**
+	 * 方法调用拦截处理
+	 *
+	 * @param invocation 方法调用元信息
+	 * @return 返回值
+	 * @throws Throwable 异常
+	 */
 	@Override
 	public Object invoke(@NotNull MethodInvocation invocation) throws Throwable {
 		if (AopUtils.isAopProxy(invocation.getThis())) {
@@ -63,25 +64,52 @@ public class EventAuditorInterceptor implements MethodInterceptor, BeanFactoryAw
 		StopWatch stopWatch = new StopWatch(watchId);
 		stopWatch.start();
 		Object result = null;
+		boolean success = true;
+		long executionCost = 0L;
+		String errorMsg = null;
 		try {
 			result = invocation.proceed();
-			stopWatch.stop();
 		} catch (Throwable e) {
 			if (stopWatch.isRunning()) {
 				stopWatch.stop();
+				executionCost = stopWatch.getTotalTimeMillis();
+			}
+			success = false;
+			errorMsg = e.getMessage();
+			SpelEvaluationContext.setVariable(ERROR_MSG, errorMsg);	// 异常信息
+			throw e;
+		} finally {
+			if (stopWatch.isRunning()) {
+				stopWatch.stop();
+				executionCost = stopWatch.getTotalTimeMillis();
+			}
+			SpelEvaluationContext.setVariable(RETURN, result);	// 返回值处理
+			events.addAll(parseList(invocation, eventAuditors, false));
+			for (AuditingEvent event : events) {
+				event.setSuccess(success);
+				event.setExecutionCost(executionCost);
+				if (errorMsg != null) {
+					event.setThrowable(errorMsg);
+				}
 			}
 
-		} finally {
-			long executionCost = stopWatch.getTotalTimeMillis();
-
-			SpelEvaluationContext.setVariable(RETURN, result);	// 返回值处理
+			// TODO
+			// ExtensionLoader.getExtensionLoader(EventStore.class)
+			SpelEvaluationContext.remove(); // 清理当前线程变量
 		}
-		events.addAll(parseList(invocation, eventAuditors, false));
 		return result;
 	}
 
+	/**
+	 * 解析 {@code AuditingEvent} 列表
+	 *
+	 * @param invocation 方法调用元信息
+	 * @param eventAuditors 审计注解
+	 * @param evalBeforeInvoke 是否在调用方法之前提前解析
+	 * @return {@code AuditingEvent} 列表
+	 */
 	private List<AuditingEvent> parseList(@NotNull MethodInvocation invocation, EventAuditor[] eventAuditors,
-						   boolean evalBeforeInvoke) {
+										  boolean evalBeforeInvoke) {
 		List<AuditingEvent> events = Lists.newArrayList();
 		for (EventAuditor eventAuditor : eventAuditors) {
 			if (eventAuditor.evalBeforeInvoke() == evalBeforeInvoke) {
@@ -92,16 +120,6 @@ public class EventAuditorInterceptor implements MethodInterceptor, BeanFactoryAw
 			}
 		}
 		return events;
-	}
-
-	@Override
-	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-		this.beanFactory = beanFactory;
-	}
-
-	@Override
-	public void afterSingletonsInstantiated() {
-
 	}
 
 	/**
