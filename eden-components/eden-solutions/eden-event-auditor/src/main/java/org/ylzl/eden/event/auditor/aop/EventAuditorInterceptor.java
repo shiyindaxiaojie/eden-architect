@@ -1,6 +1,7 @@
 package org.ylzl.eden.event.auditor.aop;
 
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -9,11 +10,17 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.event.auditor.EventAuditor;
+import org.ylzl.eden.event.auditor.EventSender;
+import org.ylzl.eden.event.auditor.builder.EventSenderBuilder;
+import org.ylzl.eden.event.auditor.config.EventAuditorConfig;
+import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
+import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.expression.SpelEvaluationContext;
 import org.ylzl.eden.spring.framework.expression.SpelExpressionEvaluator;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
@@ -27,12 +34,15 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@RequiredArgsConstructor
 @Slf4j
 public class EventAuditorInterceptor implements MethodInterceptor {
 
 	private static final String RETURN = "_return";
 
 	private static final String ERROR_MSG = "_errorMsg";
+
+	private final EventAuditorConfig eventAuditorConfig;
 
 	/**
 	 * 方法调用拦截处理
@@ -93,11 +103,23 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 				}
 			}
 
-			// TODO
-			// ExtensionLoader.getExtensionLoader(EventStore.class)
+			send(events);
 			SpelEvaluationContext.remove(); // 清理当前线程变量
 		}
 		return result;
+	}
+
+	/**
+	 * 发送审计事件
+	 *
+	 * @param events 审计事件列表
+	 */
+	private void send(List<AuditingEvent> events) {
+		String senderType = eventAuditorConfig.getSender().getSenderType();
+		EventSenderBuilder eventSenderBuilder = ExtensionLoader.getExtensionLoader(EventSenderBuilder.class).getExtension(senderType);
+		eventSenderBuilder.setEventAuditorConfig(eventAuditorConfig);
+		EventSender eventSender = eventSenderBuilder.build();
+		eventSender.send(events);
 	}
 
 	/**
@@ -131,6 +153,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 	 */
 	private AuditingEvent parseModel(EventAuditor eventAuditor, MethodInvocation invocation) {
 		EvaluationContext context = SpelEvaluationContext.getContext();
+		CustomFunctionRegistrar.register((StandardEvaluationContext) context);
 		Method method = invocation.getMethod();
 		String[] parameterNames = SpelExpressionEvaluator.getParameterNameDiscoverer().getParameterNames(method);
 		Object[] arguments = invocation.getArguments();

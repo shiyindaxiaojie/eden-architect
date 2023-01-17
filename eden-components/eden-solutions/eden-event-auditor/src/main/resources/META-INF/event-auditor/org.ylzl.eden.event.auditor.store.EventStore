@@ -1,3 +1,0 @@
-slf4j=org.ylzl.eden.event.auditor.store.spi.Slf4jEventStore
-kafka=org.ylzl.eden.event.auditor.store.spi.KafkaEventStore
-rocketmq=org.ylzl.eden.event.auditor.store.spi.RocketMQEventStore

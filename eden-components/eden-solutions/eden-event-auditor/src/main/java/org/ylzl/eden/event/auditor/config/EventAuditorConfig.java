@@ -4,9 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.slf4j.event.Level;
 
 /**
- * TODO
+ * 事件审计配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -17,5 +18,45 @@ import lombok.ToString;
 @Getter
 public class EventAuditorConfig {
 
-	private String senderType;
+	private final Sender sender = new Sender();
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class Sender {
+
+		private String senderType = "logging";
+
+		private final Logging logging = new Logging();
+
+		private final Kafka kafka = new Kafka();
+
+		private final RocketMQ rocketMQ = new RocketMQ();
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Logging {
+
+			private Level level = Level.INFO;
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Kafka {
+
+		}
+
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class RocketMQ {
+
+		}
+	}
 }

@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2019 the original author or authors.
  *
@@ -14,28 +15,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.event.auditor.store.spi;
+package org.ylzl.eden.event.auditor.integration.logging;
 
-import org.ylzl.eden.event.auditor.model.AuditingEvent;
-import org.ylzl.eden.event.auditor.store.EventStore;
-
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.event.auditor.EventSender;
+import org.ylzl.eden.event.auditor.builder.AbstractEventSenderBuilder;
+import org.ylzl.eden.event.auditor.builder.EventSenderBuilder;
 
 /**
- * 基于 RocketMQ 存储审计事件
+ * 基于 Slf4j 发送审计事件构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class RocketMQEventStore implements EventStore {
+@Slf4j
+public class LoggingEventSenderBuilder extends AbstractEventSenderBuilder implements EventSenderBuilder {
 
 	/**
-	 * 存储审计事件列表
+	 * 构建事件审计实例
 	 *
-	 * @param events 审计事件列表
+	 * @return 事件审计实例
 	 */
 	@Override
-	public void store(List<AuditingEvent> events) {
-
+	public EventSender build() {
+		return new LoggingEventSender(getEventAuditorConfig().getSender().getLogging().getLevel());
 	}
 }

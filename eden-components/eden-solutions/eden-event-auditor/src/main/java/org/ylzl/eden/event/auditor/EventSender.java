@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.event.auditor.store;
+package org.ylzl.eden.event.auditor;
 
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
-import org.ylzl.eden.extension.SPI;
 
 import java.util.List;
 
 /**
- * 事件存储接口
+ * 事件发送接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI
-public interface EventStore {
+public interface EventSender {
 
 	/**
-	 * 存储审计事件列表
+	 * 发送审计事件列表
 	 *
 	 * @param events 审计事件列表
 	 */
-	void store(List<AuditingEvent> events);
+	void send(List<AuditingEvent> events);
 }

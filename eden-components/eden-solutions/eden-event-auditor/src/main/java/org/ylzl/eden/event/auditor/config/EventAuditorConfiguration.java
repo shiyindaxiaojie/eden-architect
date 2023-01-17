@@ -17,6 +17,7 @@
 package org.ylzl.eden.event.auditor.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.event.auditor.EnableEventAuditor;
 import org.ylzl.eden.event.auditor.aop.EventAuditorInterceptor;
 import org.ylzl.eden.event.auditor.aop.EventAuditorPointcutAdvisor;
+import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 
 /**
  * 事件审计配置
@@ -54,18 +56,23 @@ public class EventAuditorConfiguration implements ImportAware {
 
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
-	public EventAuditorInterceptor eventAuditorInterceptor() {
-		EventAuditorInterceptor interceptor = new EventAuditorInterceptor();
-		// TODO
-		return interceptor;
+	public EventAuditorInterceptor eventAuditorInterceptor(ObjectProvider<EventAuditorConfig> eventAuditorConfig) {
+		return new EventAuditorInterceptor(eventAuditorConfig.getIfUnique(EventAuditorConfig::new));
 	}
 
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public EventAuditorPointcutAdvisor eventAuditorPointcutAdvisor(EventAuditorInterceptor eventAuditorInterceptor) {
 		EventAuditorPointcutAdvisor pointcutAdvisor = new EventAuditorPointcutAdvisor();
+		pointcutAdvisor.setAdviceBeanName("eventAuditorPointcutAdvisor");
 		pointcutAdvisor.setAdvice(eventAuditorInterceptor);
 		pointcutAdvisor.setOrder(enableEventAuditor.getNumber("order"));
 		return pointcutAdvisor;
+	}
+
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+	@Bean
+	public CustomFunctionRegistrar customFunctionRegistrar() {
+		return new CustomFunctionRegistrar();
 	}
 }

@@ -35,9 +35,6 @@ class DataDifferTest extends Specification {
 		.address("广州市天河区珠江新城233区")
 		.build()
 
-	def setup() {
-	}
-
 	def "test data differing"() {
 		given:
 		DataDiffer dataDiffer = DataDifferHelper.dataDiffer(spi)

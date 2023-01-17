@@ -14,28 +14,37 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.event.auditor.store.spi;
+package org.ylzl.eden.event.auditor.builder;
 
-import org.ylzl.eden.event.auditor.model.AuditingEvent;
-import org.ylzl.eden.event.auditor.store.EventStore;
-
-import java.util.List;
+import org.ylzl.eden.event.auditor.config.EventAuditorConfig;
 
 /**
- * 基于 Slf4j 存储审计事件
+ * 事件发送构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class Slf4jEventStore implements EventStore {
+public abstract class AbstractEventSenderBuilder implements EventSenderBuilder {
+
+	private EventAuditorConfig eventAuditorConfig = new EventAuditorConfig();
 
 	/**
-	 * 存储审计事件列表
+	 * 设置事件审计配置
 	 *
-	 * @param events 审计事件列表
+	 * @param eventAuditorConfig 事件审计配置
 	 */
 	@Override
-	public void store(List<AuditingEvent> events) {
+	public EventSenderBuilder setEventAuditorConfig(EventAuditorConfig eventAuditorConfig) {
+		this.eventAuditorConfig = eventAuditorConfig;
+		return this;
+	}
 
+	/**
+	 * 获取事件审计配置
+	 *
+	 * @return 事件审计配置
+	 */
+	protected EventAuditorConfig getEventAuditorConfig() {
+		return eventAuditorConfig;
 	}
 }

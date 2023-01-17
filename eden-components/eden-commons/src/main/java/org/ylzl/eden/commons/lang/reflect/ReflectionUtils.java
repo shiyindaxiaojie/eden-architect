@@ -234,6 +234,10 @@ public class ReflectionUtils {
 		return Modifier.isFinal(field.getModifiers());
 	}
 
+	public static boolean isStaticMethod(@NonNull Method method) {
+		return Modifier.isStatic(method.getModifiers());
+	}
+
 	public static boolean isPrimitives(Class<?> cls) {
 		while (cls.isArray()) {
 			cls = cls.getComponentType();
