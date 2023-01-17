@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 import org.ylzl.eden.spring.framework.aop.util.AopUtils;
@@ -45,7 +46,7 @@ public class CustomFunctionRegistrar implements ApplicationContextAware {
 	 * @param applicationContext ApplicationContext
 	 */
 	private void initialize(ApplicationContext applicationContext) {
-		Map<String, Object> components = applicationContext.getBeansWithAnnotation(CustomFunction.class);
+		Map<String, Object> components = applicationContext.getBeansWithAnnotation(Component.class);
 		components.values().forEach(component -> {
 			Method[] methods = component.getClass().getMethods();
 			if (methods.length == 0) {
@@ -101,7 +102,7 @@ public class CustomFunctionRegistrar implements ApplicationContextAware {
 	private static void cache(CustomFunction annotation, Method method) {
 		String registerName = StringUtils.hasText(annotation.value()) ? annotation.value() : method.getName();
 		FUNCTION_CACHE.put(registerName, method);
-		log.debug("Register custom function '{}' as name '{}'", method, registerName);
+		log.info("Register custom function '{}' as name '{}'", method, registerName);
 	}
 
 	private CtClass constructCtClass(Method method, ClassPool pool, Class<?> targetClass, String staticallyClassName)

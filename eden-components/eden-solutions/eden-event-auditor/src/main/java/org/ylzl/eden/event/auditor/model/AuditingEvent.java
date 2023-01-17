@@ -19,6 +19,8 @@ package org.ylzl.eden.event.auditor.model;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * 审计事件
  *
@@ -41,7 +43,7 @@ public class AuditingEvent {
 	private String role;
 
 	/** 操作时间 */
-	private Long operateDate;
+	private LocalDateTime operateDate;
 
 	/** 业务场景 */
 	private String bizScenario;

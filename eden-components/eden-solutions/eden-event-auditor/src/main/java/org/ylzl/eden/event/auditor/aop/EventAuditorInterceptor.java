@@ -7,6 +7,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -18,14 +19,15 @@ import org.ylzl.eden.event.auditor.EventAuditor;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.builder.EventSenderBuilder;
 import org.ylzl.eden.event.auditor.config.EventAuditorConfig;
-import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.expression.SpelEvaluationContext;
 import org.ylzl.eden.spring.framework.expression.SpelExpressionEvaluator;
+import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,6 +46,8 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 
 	private final EventAuditorConfig eventAuditorConfig;
 
+	private AsyncTaskExecutor asyncTaskExecutor;
+
 	/**
 	 * 方法调用拦截处理
 	 *
@@ -57,6 +61,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 			return invocation.proceed();
 		}
 
+		LocalDateTime now = LocalDateTime.now();
 		Method method = invocation.getMethod();
 		EventAuditor[] eventAuditors;
 		try {
@@ -69,14 +74,14 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 		List<AuditingEvent> events = Lists.newArrayList();
 		events.addAll(parseList(invocation, eventAuditors, true));
 
-		// 执行耗时
-		String watchId = invocation.getClass() + Strings.DOT + invocation.getMethod().getName();
-		StopWatch stopWatch = new StopWatch(watchId);
-		stopWatch.start();
 		Object result = null;
 		boolean success = true;
 		long executionCost = 0L;
 		String errorMsg = null;
+		// 执行耗时
+		String watchId = invocation.getClass() + Strings.DOT + invocation.getMethod().getName();
+		StopWatch stopWatch = new StopWatch(watchId);
+		stopWatch.start();
 		try {
 			result = invocation.proceed();
 		} catch (Throwable e) {
@@ -97,6 +102,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 			events.addAll(parseList(invocation, eventAuditors, false));
 			for (AuditingEvent event : events) {
 				event.setSuccess(success);
+				event.setOperateDate(now);
 				event.setExecutionCost(executionCost);
 				if (errorMsg != null) {
 					event.setThrowable(errorMsg);
@@ -110,6 +116,15 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 	}
 
 	/**
+	 * 异步开启后需要设置 AsyncTaskExecutor
+	 *
+	 * @param asyncTaskExecutor 异步任务执行器
+	 */
+	public void setAsyncTaskExecutor(AsyncTaskExecutor asyncTaskExecutor) {
+		this.asyncTaskExecutor = asyncTaskExecutor;
+	}
+
+	/**
 	 * 发送审计事件
 	 *
 	 * @param events 审计事件列表
@@ -119,7 +134,11 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 		EventSenderBuilder eventSenderBuilder = ExtensionLoader.getExtensionLoader(EventSenderBuilder.class).getExtension(senderType);
 		eventSenderBuilder.setEventAuditorConfig(eventAuditorConfig);
 		EventSender eventSender = eventSenderBuilder.build();
-		eventSender.send(events);
+		if (eventAuditorConfig.getSender().isAsync() && asyncTaskExecutor != null) {
+			asyncTaskExecutor.execute(() -> eventSender.send(events));
+		} else {
+			eventSender.send(events);
+		}
 	}
 
 	/**

@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.event.auditor.EnableEventAuditor;
 import org.ylzl.eden.event.auditor.aop.EventAuditorInterceptor;
@@ -56,8 +57,11 @@ public class EventAuditorConfiguration implements ImportAware {
 
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
-	public EventAuditorInterceptor eventAuditorInterceptor(ObjectProvider<EventAuditorConfig> eventAuditorConfig) {
-		return new EventAuditorInterceptor(eventAuditorConfig.getIfUnique(EventAuditorConfig::new));
+	public EventAuditorInterceptor eventAuditorInterceptor(ObjectProvider<EventAuditorConfig> eventAuditorConfig,
+														   ObjectProvider<AsyncTaskExecutor> asyncTaskExecutor) {
+		EventAuditorInterceptor interceptor = new EventAuditorInterceptor(eventAuditorConfig.getIfUnique(EventAuditorConfig::new));
+		asyncTaskExecutor.ifAvailable(interceptor::setAsyncTaskExecutor);
+		return interceptor;
 	}
 
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -66,7 +70,9 @@ public class EventAuditorConfiguration implements ImportAware {
 		EventAuditorPointcutAdvisor pointcutAdvisor = new EventAuditorPointcutAdvisor();
 		pointcutAdvisor.setAdviceBeanName("eventAuditorPointcutAdvisor");
 		pointcutAdvisor.setAdvice(eventAuditorInterceptor);
-		pointcutAdvisor.setOrder(enableEventAuditor.getNumber("order"));
+		if (enableEventAuditor != null) {
+			pointcutAdvisor.setOrder(enableEventAuditor.getNumber("order"));
+		}
 		return pointcutAdvisor;
 	}
 

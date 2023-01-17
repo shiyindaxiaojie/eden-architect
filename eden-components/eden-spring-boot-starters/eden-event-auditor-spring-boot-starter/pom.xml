@@ -26,10 +26,10 @@
 		<version>2.4.13-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
+	<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-tp-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Thread Pool</description>
+	<name>eden-event-auditor-spring-boot-starter</name>
+	<description>Spring Boot Starter For Event Auditor</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
@@ -45,44 +45,10 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dynamic TP -->
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- RocketMQ -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot</artifactId>
-        </dependency>
-
-		<!-- Dynamic MQ -->
+		<!-- Event Auditor -->
         <dependency>
             <groupId>org.ylzl</groupId>
-            <artifactId>eden-dynamic-mq</artifactId>
+            <artifactId>eden-event-auditor</artifactId>
         </dependency>
     </dependencies>
 </project>
