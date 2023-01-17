@@ -25,9 +25,9 @@ import org.springframework.http.converter.json.MappingJacksonInputMessage;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
-import org.ylzl.eden.data.filter.DataSensitiveFilter;
+import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.data.filter.SensitiveWordFilter;
 import org.ylzl.eden.data.filter.Sensitive;
-import org.ylzl.eden.data.filter.support.DataSensitiveFilterHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -45,7 +45,7 @@ import java.nio.charset.StandardCharsets;
 @RestControllerAdvice
 public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
-	private final DataSensitiveFilter dataSensitiveFilter;
+	private final SensitiveWordFilter sensitiveWordFilter;
 
 	@Override
 	public boolean supports(MethodParameter methodParameter, Type targetType,
@@ -58,8 +58,32 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType)
 		throws IOException {
 		String body = StreamUtils.copyToString(inputMessage.getBody(), StandardCharsets.UTF_8);
-		String sensitiveBody = DataSensitiveFilterHelper.doFilter(body, targetType.getClass(), dataSensitiveFilter);
+		String sensitiveBody = doFilter(body, targetType.getClass(), sensitiveWordFilter);
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(sensitiveBody.getBytes(StandardCharsets.UTF_8));
 		return new MappingJacksonInputMessage(inputStream, inputMessage.getHeaders());
+	}
+
+	/**
+	 * 执行过滤
+	 *
+	 * @param text 文本内容
+	 * @param clazz 目标类型
+	 * @param sensitiveWordFilter 敏感词过滤器
+	 * @return 过滤后的内容
+	 */
+	private static String doFilter(String text, Class<?> clazz, SensitiveWordFilter sensitiveWordFilter) {
+		Sensitive sensitive = clazz.getAnnotation(Sensitive.class);
+		String replacement = null;
+		switch (sensitive.strategy()) {
+			case NONE:
+				return text;
+			case DELETE:
+				replacement = Strings.EMPTY;
+				break;
+			case REPLACE:
+				replacement = sensitive.replacement();
+				break;
+		}
+		return sensitiveWordFilter.replaceSensitiveWords(text, replacement);
 	}
 }

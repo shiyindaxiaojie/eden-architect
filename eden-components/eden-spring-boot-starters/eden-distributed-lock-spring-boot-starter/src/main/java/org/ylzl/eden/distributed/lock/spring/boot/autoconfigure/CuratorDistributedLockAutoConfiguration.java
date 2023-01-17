@@ -18,11 +18,13 @@ package org.ylzl.eden.distributed.lock.spring.boot.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.integration.curator.CuratorDistributedLock;
 import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
@@ -42,6 +44,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @ConditionalOnClass(CuratorFramework.class)
 @AutoConfigureBefore(DistributedLockAutoConfiguration.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class CuratorDistributedLockAutoConfiguration {
 

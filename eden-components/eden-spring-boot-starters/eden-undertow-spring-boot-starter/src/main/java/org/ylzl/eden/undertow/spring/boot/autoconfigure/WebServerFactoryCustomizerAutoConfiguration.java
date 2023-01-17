@@ -19,10 +19,12 @@ package org.ylzl.eden.undertow.spring.boot.autoconfigure;
 import io.undertow.server.DefaultByteBufferPool;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 
 /**
  * WebServerFactoryCustomizer 自动配置
@@ -34,6 +36,7 @@ import org.springframework.context.annotation.Configuration;
  * @link https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.embedded-container.customizing.programmatic
  */
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class WebServerFactoryCustomizerAutoConfiguration implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 

@@ -19,12 +19,14 @@ package org.ylzl.eden.ftpclient.spring.boot.autoconfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.ftpclient.spring.boot.env.FTPClientProperties;
 import org.ylzl.eden.spring.integration.ftpclient.config.FTPClientConfig;
 import org.ylzl.eden.spring.integration.ftpclient.pool2.FTPClientPool;
@@ -43,6 +45,7 @@ import org.ylzl.eden.spring.integration.ftpclient.pool2.factory.FTPClientPool2Fa
 @ConditionalOnClass(FTPClient.class)
 @EnableConfigurationProperties(FTPClientProperties.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class FTPClientAutoConfiguration {
 

@@ -18,6 +18,7 @@ package org.ylzl.eden.zuul.spring.cloud.autoconfigure;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -26,6 +27,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.zuul.spring.cloud.actuate.ZuulRouteEndpoint;
 
 /**
@@ -37,6 +39,7 @@ import org.ylzl.eden.zuul.spring.cloud.actuate.ZuulRouteEndpoint;
 @ConditionalOnBean({RouteLocator.class, DiscoveryClient.class})
 @ConditionalOnClass(ZuulFilter.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class ZuulEndpointAutoConfiguration {
 

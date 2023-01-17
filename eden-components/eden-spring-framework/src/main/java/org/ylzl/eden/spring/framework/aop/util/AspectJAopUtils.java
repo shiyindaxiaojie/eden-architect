@@ -21,7 +21,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
-import org.ylzl.eden.spring.framework.expression.util.SpelExpressionUtils;
+import org.ylzl.eden.spring.framework.expression.SpelExpressionEvaluator;
 
 import java.lang.reflect.Method;
 
@@ -63,10 +63,10 @@ public class AspectJAopUtils extends org.springframework.aop.aspectj.AspectJAopU
 	 * @param joinPoint
 	 * @return
 	 */
-	public static String parseSpelExpression(String expressionString, JoinPoint joinPoint) {
+	public static String parseExpression(String expressionString, JoinPoint joinPoint) {
 		Object[] arguments = joinPoint.getArgs();
 		Method method = getMethod(joinPoint);
-		String resolveValue = SpelExpressionUtils.parse(expressionString, method, arguments);
+		String resolveValue = SpelExpressionEvaluator.parseExpression(expressionString, method, arguments);
 		AssertUtils.notNull(resolveValue, MessageFormatUtils.format(SPEL_EXPRESSION_IS_INVALID, expressionString));
 		return resolveValue;
 	}

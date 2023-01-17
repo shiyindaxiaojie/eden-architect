@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,6 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.arthas.spring.boot.env.SpringArthasProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
@@ -52,7 +54,8 @@ import java.util.Map;
 @EnableConfigurationProperties(SpringArthasProperties.class)
 @RequiredArgsConstructor
 @Slf4j
-@Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+@Configuration(proxyBeanMethods = false)
 public class ArthasAutoConfiguration {
 
 	private static final String ARTHAS_CONFIG_MAP = "arthasConfigMap";

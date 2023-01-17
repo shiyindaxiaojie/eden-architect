@@ -18,10 +18,12 @@ package org.ylzl.eden.sentinel.spring.cloud.autoconfigure;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.cloud.sentinel.web.CustomBlockExceptionHandler;
 
 /**
@@ -33,6 +35,7 @@ import org.ylzl.eden.spring.cloud.sentinel.web.CustomBlockExceptionHandler;
 @ConditionalOnClass(BlockExceptionHandler.class)
 @ConditionalOnProperty(name = "spring.cloud.sentinel.enabled", matchIfMissing = true)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class SentinelBlockAutoConfiguration {
 

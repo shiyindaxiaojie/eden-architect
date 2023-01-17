@@ -21,11 +21,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
 import org.ylzl.eden.commons.lang.Strings;
@@ -51,6 +53,7 @@ import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessor
 @EnableConfigurationProperties(CatProperties.class)
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class CatAutoConfiguration implements InitializingBean {
 

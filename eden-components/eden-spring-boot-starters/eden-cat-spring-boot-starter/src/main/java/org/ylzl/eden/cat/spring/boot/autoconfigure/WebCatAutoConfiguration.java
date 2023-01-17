@@ -18,11 +18,13 @@ package org.ylzl.eden.cat.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceFilter;
 
 /**
@@ -35,11 +37,13 @@ import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceF
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class WebCatAutoConfiguration {
 
 	public static final String AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER = "Autowired CatHttpTraceFilterFilter";
 
+	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public FilterRegistrationBean<CatHttpTraceFilter> catHttpTraceFilterFilter() {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);

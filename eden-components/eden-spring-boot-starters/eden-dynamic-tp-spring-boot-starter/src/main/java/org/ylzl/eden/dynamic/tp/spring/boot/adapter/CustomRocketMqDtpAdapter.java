@@ -55,6 +55,7 @@ public class CustomRocketMqDtpAdapter extends RocketMqDtpAdapter {
             });
         }
 
+		// support dynamic-mq
         RocketMQConsumer rocketMQConsumer = ApplicationContextHolder.getBean(RocketMQConsumer.class);
         if (rocketMQConsumer != null && !rocketMQConsumer.getConsumers().isEmpty()) {
             rocketMQConsumer.getConsumers().forEach((k, v) -> {

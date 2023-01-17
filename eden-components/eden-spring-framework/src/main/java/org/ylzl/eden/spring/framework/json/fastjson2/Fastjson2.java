@@ -6,7 +6,6 @@ import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.ArrayUtils;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.json.JSON;
-import org.ylzl.eden.spring.framework.json.fastjson.FastjsonFilter;
 
 import java.util.List;
 import java.util.Set;
@@ -63,14 +62,14 @@ public class Fastjson2 implements JSON {
 	 * @return 过滤器数组
 	 */
 	private Filter[] loadFilters() {
-		ExtensionLoader<FastjsonFilter> extensionLoader = ExtensionLoader.getExtensionLoader(FastjsonFilter.class);
+		ExtensionLoader<Fastjson2Filter> extensionLoader = ExtensionLoader.getExtensionLoader(Fastjson2Filter.class);
 		Set<String> extensions = extensionLoader.getSupportedExtensions();
 		if (CollectionUtils.isEmpty(extensions)) {
 			return null;
 		}
 		List<Filter> filters = Lists.newArrayList();
 		for (String extension : extensions) {
-			FastjsonFilter filter = extensionLoader.getExtension(extension);
+			Fastjson2Filter filter = extensionLoader.getExtension(extension);
 			filters.add(filter);
 		}
 		return filters.toArray(new Filter[0]);

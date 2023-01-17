@@ -18,10 +18,12 @@ package org.ylzl.eden.idempotent.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
 
 /**
@@ -35,6 +37,7 @@ import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
 @RequiredArgsConstructor
 @Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class TimeToLiveIdempotentAutoConfiguration {
 

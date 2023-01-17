@@ -1,0 +1,3 @@
+logging=org.ylzl.eden.event.auditor.integration.logging.LoggingEventSenderBuilder
+kafka=org.ylzl.eden.event.auditor.integration.kafka.KafkaEventSenderBuilder
+rocketmq=org.ylzl.eden.event.auditor.integration.rocketmq.RocketMQEventSenderBuilder

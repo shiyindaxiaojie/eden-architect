@@ -19,12 +19,14 @@ package org.ylzl.eden.ftpserver.spring.boot.autoconfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.config.spring.factorybeans.FtpServerFactoryBean;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.ftpserver.spring.boot.env.FTPServerProperties;
 
 /**
@@ -37,6 +39,7 @@ import org.ylzl.eden.ftpserver.spring.boot.env.FTPServerProperties;
 @ConditionalOnClass(FtpServer.class)
 @EnableConfigurationProperties(FTPServerProperties.class)
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class FTPServerAutoConfiguration {
 

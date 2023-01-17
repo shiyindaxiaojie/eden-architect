@@ -17,12 +17,14 @@
 package org.ylzl.eden.redis.spring.boot.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.ylzl.eden.spring.data.redis.jedis.JedisTemplate;
@@ -37,6 +39,7 @@ import redis.clients.jedis.JedisCluster;
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({RedisOperations.class, JedisCluster.class})
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class RedisClusterAutoConfiguration {
 

@@ -71,6 +71,7 @@ import java.util.concurrent.Executor;
 @EnableConfigurationProperties({LiquibaseProperties.class, ExtendLiquibaseProperties.class})
 @RequiredArgsConstructor
 @Slf4j
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class AsyncLiquibaseAutoConfiguration {
 

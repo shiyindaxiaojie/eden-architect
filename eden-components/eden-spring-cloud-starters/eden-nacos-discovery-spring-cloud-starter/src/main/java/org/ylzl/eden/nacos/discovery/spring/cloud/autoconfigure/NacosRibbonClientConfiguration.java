@@ -19,10 +19,12 @@ package org.ylzl.eden.nacos.discovery.spring.cloud.autoconfigure;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.ServerList;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.netflix.ribbon.PropertiesFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.cloud.nacos.ribbon.NacosServerIntrospector;
 import org.ylzl.eden.spring.cloud.nacos.ribbon.NacosServerList;
 
@@ -32,8 +34,9 @@ import org.ylzl.eden.spring.cloud.nacos.ribbon.NacosServerList;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Configuration(proxyBeanMethods = false)
 @ConditionalOnRibbonNacos
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+@Configuration(proxyBeanMethods = false)
 public class NacosRibbonClientConfiguration {
 
 	private final PropertiesFactory propertiesFactory;
