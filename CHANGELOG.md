@@ -12,7 +12,14 @@
 - 封装授权认证组件，支持 `OAuth2`、`JWT` 无缝切换，详见 [`eden-dynamic-security`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-security)
 - 封装数据审计组件，提供数据比对、数据脱敏功能，详见 [`eden-data-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-auditor)
 - 封装数据过滤组件，提供数据去重、敏感词过滤功能，详见 [`eden-data-filter`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-filter)
-- 封装 Excel 组件，目前阿里的 `EasyExcel` 做的比较好，暂时只接入这块，详见 [`eden-dynamic-excel`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-excel)
+- 封装事件审计组件，支持 SpEL 表达式和自定义函数，详见 [`eden-event-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-event-auditor)
+- 封装 `Excel` 组件，目前阿里的 `EasyExcel` 做的比较好，暂时只接入这块，详见 [`eden-dynamic-excel`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-excel)
+
+### IMPROVEMENTS
+
+- `Nacos` 支持配置 log4j2.yaml，并实现动态刷新，方便您动态扩展 Appender 输出日志位置和日志级别。
+- `JSON` 序列化通用组件支持，支持 SPI 扩展，目前内置集成了 `Jackson`、`Fastjson`、`Fastjson2`
+- `SpEL` 表达式封装，提供简易的调用方法和上下文支持
 
 ## 2.4.13-SNAPSHOT(Dec 31, 2022)
 
@@ -33,7 +40,7 @@
 
 ### IMPROVEMENTS
 
-- 错误码通用设计，支持业务自定义错误码，基于 `eden-extensions` 的 SPI 扩展自定义的返回对象，此场景适用于前后端联调
+-  `ErrorCode` 错误码通用设计，支持业务自定义错误码和国际化语言，基于 `eden-extensions` 的 SPI 扩展自定义返回对象，此场景适用于前后端联调
 - `MyBatis` 增强，支持日志打印原生 SQL 解析语句和执行耗时
 - `Sentinel` 增强，支持 `Web`、`Dubbo` 等场景的流控，并提供 `Spring Boot Actuator` 监控端点
 - `XxlJob` 增强，支持应用动态注册到 XxlJob控制台

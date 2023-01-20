@@ -1,38 +1,36 @@
-# Intellij
-.idea/
-*.ids
-*.iml
-*.ipr
-*.iws
-*.orig
-classes/
-
-# Eclipse
-.classpath
-.factorypath
-.loadpath
-.metadata
-.project
-.settings/
-*.bak
-*.launch
-*.pydevproject
-*.swp
-*.tmp
-*~.nib
-log/
-local.properties
-.log
-
-# Visual Studio Code
-.vscode/
-
 # Java
 *.class
 *.db
 *.ear
 *.jar
 *.war
+
+# Intellij
+.idea/
+classes/
+*.ids
+*.iml
+*.ipr
+*.iws
+*.orig
+
+# Eclipse
+.settings/
+.classpath
+.factorypath
+.loadpath
+.metadata
+.project
+*.bak
+*.launch
+*.pydevproject
+*.swp
+*.tmp
+*~.nib
+local.properties
+
+# Visual Studio Code
+.vscode/
 
 # JRebel
 rebel.xml
@@ -45,9 +43,10 @@ target/
 .flattened-pom.xml
 
 # Gradle
-!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/maven-wrapper.jar
 .gradle/
 build/
+
 # SVN
 .svn/
 
@@ -61,9 +60,11 @@ build/
 .merge_file*
 Desktop.ini
 Thumbs.db
-logs/
 
 # Others
+logs/
+log/
+.log
 .buildpath
 .cproject
 .externalToolBuilders/**
