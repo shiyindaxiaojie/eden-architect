@@ -28,6 +28,8 @@ public class EventAuditorConfig {
 
 		private String senderType = "logging";
 
+		private boolean async = true;
+
 		private final Logging logging = new Logging();
 
 		private final Kafka kafka = new Kafka();

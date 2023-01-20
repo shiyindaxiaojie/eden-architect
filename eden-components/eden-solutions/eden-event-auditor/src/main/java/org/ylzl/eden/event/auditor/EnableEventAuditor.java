@@ -19,7 +19,7 @@ package org.ylzl.eden.event.auditor;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
-import org.ylzl.eden.event.auditor.config.EventAuditorConfiguration;
+import org.ylzl.eden.event.auditor.config.EventAuditorImportSelector;
 
 import java.lang.annotation.*;
 
@@ -29,7 +29,7 @@ import java.lang.annotation.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Import(EventAuditorConfiguration.class)
+@Import(EventAuditorImportSelector.class)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})

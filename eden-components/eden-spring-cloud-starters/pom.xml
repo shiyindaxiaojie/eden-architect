@@ -37,6 +37,7 @@
 		<module>eden-dynamic-tp-spring-cloud-starter</module>
 		<module>eden-eureka-client-spring-cloud-starter</module>
 		<module>eden-eureka-server-spring-cloud-starter</module>
+		<module>eden-grpc-spring-cloud-starter</module>
 		<module>eden-hystrix-spring-cloud-starter</module>
 		<module>eden-nacos-config-spring-cloud-starter</module>
 		<module>eden-nacos-discovery-spring-cloud-starter</module>
