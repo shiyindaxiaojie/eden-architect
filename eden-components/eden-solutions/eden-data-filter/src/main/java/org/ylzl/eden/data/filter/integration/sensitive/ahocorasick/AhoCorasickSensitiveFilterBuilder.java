@@ -17,7 +17,7 @@
 package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 
 import org.ahocorasick.trie.Trie;
-import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.builder.AbstractSensitiveFilterBuilder;
 import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder;
 
@@ -41,7 +41,7 @@ public class AhoCorasickSensitiveFilterBuilder extends AbstractSensitiveFilterBu
 	 * @return 敏感词过滤器
 	 */
 	@Override
-	public SensitiveWordFilter build() {
+	public SensitiveFilter build() {
 		if (BUILD_STATE.compareAndSet(false, true)) {
 			trie = Trie.builder()
 				.addKeywords(getSensitiveWordProcessor().loadSensitiveWords())

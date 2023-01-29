@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.data.filter.support;
 
-import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
 import org.ylzl.eden.extension.ExtensionLoader;
@@ -35,7 +35,7 @@ public class SensitiveFilterHelper {
 	 * @param sensitiveWordLoader 敏感词处理器
 	 * @return 敏感词过滤器实例
 	 */
-	public static SensitiveWordFilter sensitiveFilter(SensitiveWordLoader sensitiveWordLoader) {
+	public static SensitiveFilter sensitiveFilter(SensitiveWordLoader sensitiveWordLoader) {
 		return ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class).getDefaultExtension()
 			.sensitiveWordProcessor(sensitiveWordLoader).build();
 	}
@@ -47,7 +47,7 @@ public class SensitiveFilterHelper {
 	 * @param sensitiveWordLoader 敏感词处理器
 	 * @return 敏感词过滤器实例
 	 */
-	public static SensitiveWordFilter sensitiveFilter(String spi, SensitiveWordLoader sensitiveWordLoader) {
+	public static SensitiveFilter sensitiveFilter(String spi, SensitiveWordLoader sensitiveWordLoader) {
 		return ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class).getExtension(spi)
 			.sensitiveWordProcessor(sensitiveWordLoader).build();
 	}

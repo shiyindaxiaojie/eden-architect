@@ -54,13 +54,25 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Assertj -->
+		<!-- Spock 测试组件 -->
 		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-junit4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.groovy</groupId>
+			<artifactId>groovy</artifactId>
 		</dependency>
 
-		<!-- Cucumber -->
+		<!-- Cucumber 自动化测试 -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
@@ -70,56 +82,30 @@
 			<artifactId>cucumber-spring</artifactId>
 		</dependency>
 
-		<!-- Gatling -->
+		<!-- Gatling 性能测试 -->
 		<dependency>
 			<groupId>io.gatling.highcharts</groupId>
 			<artifactId>gatling-charts-highcharts</artifactId>
 			<exclusions>
 				<exclusion>
-					<artifactId>Saxon-HE</artifactId>
-					<groupId>net.sf.saxon</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>logback-classic</artifactId>
 					<groupId>ch.qos.logback</groupId>
+					<artifactId>*</artifactId>
 				</exclusion>
 				<exclusion>
-					<artifactId>logback-core</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>config</artifactId>
 					<groupId>com.typesafe</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-java8-compat_2.12</artifactId>
-					<groupId>org.scala-lang.modules</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-library</artifactId>
-					<groupId>org.scala-lang</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>scala-reflect</artifactId>
-					<groupId>org.scala-lang</groupId>
+					<artifactId>config</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 
-		<!-- H2 -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-
-		<!-- JMH -->
+		<!-- JMH 基准测试 -->
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>
 			<artifactId>jmh-core</artifactId>
 			<exclusions>
 				<exclusion>
-					<artifactId>jopt-simple</artifactId>
 					<groupId>net.sf.jopt-simple</groupId>
+					<artifactId>jopt-simple</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -128,7 +114,55 @@
 			<artifactId>jmh-generator-annprocess</artifactId>
 		</dependency>
 
-		<!-- Kafka -->
+		<!-- Testcontainers 容器测试 -->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>spock</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>nginx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mysql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mariadb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>tidb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>pulsar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>elasticsearch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mongodb</artifactId>
+		</dependency>
+
+		<!-- H2 内存数据库 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- Kafka 测试组件 -->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
@@ -140,7 +174,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- MongoDB -->
+		<!-- MongoDB 嵌入式组件 -->
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
@@ -150,15 +184,11 @@
 			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
 
-		<!-- Redis -->
+		<!-- Redis 嵌入式组件 -->
 		<dependency>
 			<groupId>com.github.codemonstur</groupId>
 			<artifactId>embedded-redis</artifactId>
 			<exclusions>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
 					<artifactId>*</artifactId>
@@ -166,18 +196,10 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Spock -->
+		<!-- Others -->
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.groovy</groupId>
-			<artifactId>groovy</artifactId>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>

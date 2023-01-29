@@ -36,7 +36,7 @@
 		<cargo.container.url>
 			https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/${tomcat.version}/tomcat-${tomcat.version}.zip
 		</cargo.container.url>
-		<tomcat.version>7.0.90</tomcat.version>
+		<tomcat.version>10.1.5</tomcat.version>
 	</properties>
 
 	<!--	<build>

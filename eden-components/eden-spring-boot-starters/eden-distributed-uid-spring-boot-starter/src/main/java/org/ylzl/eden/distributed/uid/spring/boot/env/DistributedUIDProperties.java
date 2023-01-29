@@ -19,7 +19,6 @@ package org.ylzl.eden.distributed.uid.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.distributed.uid.spring.boot.support.DistributedUIDBeanNames;
 
 /**
  * 分布式唯一ID配置
@@ -34,7 +33,7 @@ public class DistributedUIDProperties {
 
 	public static final String PREFIX = "distributed-uid";
 
-	private DistributedUIDBeanNames primary;
+	private String primary;
 
 	private boolean enabled;
 

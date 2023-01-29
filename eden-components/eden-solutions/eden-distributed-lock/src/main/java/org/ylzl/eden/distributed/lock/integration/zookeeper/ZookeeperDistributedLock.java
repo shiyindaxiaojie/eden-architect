@@ -16,12 +16,14 @@
 
 package org.ylzl.eden.distributed.lock.integration.zookeeper;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.distributed.lock.DistributedLock;
 import org.ylzl.eden.distributed.lock.DistributedLockType;
 import org.ylzl.eden.distributed.lock.exception.DistributedLockAcquireException;
@@ -38,6 +40,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 @Slf4j
 public class ZookeeperDistributedLock implements DistributedLock {
+
+	private static final TransmittableThreadLocal<String> threadLocal = new TransmittableThreadLocal<>();
 
 	private static final byte[] EMPTY_DATA = new byte[0];
 
@@ -60,14 +64,23 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 */
 	@Override
 	public boolean lock(@NonNull String key) {
-		log.debug("Zookeeper create lock: {}", key);
+		log.debug("Zookeeper create lock '{}'", key);
+		boolean isSuccess;
+		String result;
 		try {
-			zooKeeper.create(key, EMPTY_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+			result = zooKeeper.create(key, EMPTY_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+			isSuccess = StringUtils.isNotEmpty(result);
 		} catch (Exception e) {
-			log.error("Zookeeper create lock: {}, catch exception: {}", key, e.getMessage(), e);
+			log.error("Zookeeper create lock '{}', catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockAcquireException(e);
 		}
-		return true;
+		if (isSuccess) {
+			threadLocal.set(result);
+			log.debug("Zookeeper create lock '{}' successfully", key);
+		} else {
+			log.warn("Zookeeper create lock '{}' failed", key);
+		}
+		return isSuccess;
 	}
 
 	/**
@@ -76,11 +89,11 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
-	 * @return
+	 * @return 加锁是否成功
 	 */
 	@Override
 	public boolean lock(@NonNull String key, int waitTime, TimeUnit timeUnit) {
-		log.warn("Zookeeper create lock: {}, not support waitTime", key);
+		log.warn("Zookeeper create lock '{}' not support waitTime", key);
 		return lock(key);
 	}
 
@@ -91,12 +104,18 @@ public class ZookeeperDistributedLock implements DistributedLock {
 	 */
 	@Override
 	public void unlock(@NonNull String key) {
-		log.debug("Zookeeper release lock: {}", key);
+		log.debug("Zookeeper release lock '{}'", key);
+		String result = threadLocal.get();
+		if (result == null) {
+			log.warn("Zookeeper release lock '{}' failed due to thread local is null", key);
+			return;
+		}
 		try {
 			zooKeeper.delete(key, -1);
 		} catch (Exception e) {
-			log.error("Zookeeper release lock: {}, catch exception: {}", key, e.getMessage(), e);
+			log.error("Zookeeper release lock '{}', catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockReleaseException(e);
 		}
+		log.debug("Zookeeper release lock '{}' successfully", key);
 	}
 }

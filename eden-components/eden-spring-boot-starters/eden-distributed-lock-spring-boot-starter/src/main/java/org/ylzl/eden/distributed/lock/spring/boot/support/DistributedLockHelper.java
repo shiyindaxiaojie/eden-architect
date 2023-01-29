@@ -37,11 +37,11 @@ public class DistributedLockHelper {
 
 	private final String primary;
 
-	public DistributedLock getLock() {
-		return getLock(primary);
+	public DistributedLock getBean() {
+		return getBean(primary);
 	}
 
-	public DistributedLock getLock(String lockType) {
+	public DistributedLock getBean(String lockType) {
 		Map<String, DistributedLock> distributedLocks = ApplicationContextHelper.getBeansOfType(DistributedLock.class);
 		return distributedLocks.values().stream()
 			.filter(predicate -> predicate.lockType().equalsIgnoreCase(lockType))

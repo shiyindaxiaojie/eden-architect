@@ -74,7 +74,6 @@
 		<module>eden-redisson-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
-		<module>eden-spock-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-tinyid-spring-boot-starter</module>

@@ -281,6 +281,9 @@
 						<compilerArgs>
 							<arg>-Xlint</arg>
 						</compilerArgs>
+						<excludes>
+							<exclude>*.gitkeep</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 				<!-- 资源管理 -->

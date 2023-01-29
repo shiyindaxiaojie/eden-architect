@@ -26,7 +26,7 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.Sensitive;
 
 import java.io.ByteArrayInputStream;
@@ -45,7 +45,7 @@ import java.nio.charset.StandardCharsets;
 @RestControllerAdvice
 public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
-	private final SensitiveWordFilter sensitiveWordFilter;
+	private final SensitiveFilter sensitiveFilter;
 
 	@Override
 	public boolean supports(MethodParameter methodParameter, Type targetType,
@@ -58,7 +58,7 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType)
 		throws IOException {
 		String body = StreamUtils.copyToString(inputMessage.getBody(), StandardCharsets.UTF_8);
-		String sensitiveBody = doFilter(body, targetType.getClass(), sensitiveWordFilter);
+		String sensitiveBody = doFilter(body, targetType.getClass(), sensitiveFilter);
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(sensitiveBody.getBytes(StandardCharsets.UTF_8));
 		return new MappingJacksonInputMessage(inputStream, inputMessage.getHeaders());
 	}
@@ -68,10 +68,10 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 	 *
 	 * @param text 文本内容
 	 * @param clazz 目标类型
-	 * @param sensitiveWordFilter 敏感词过滤器
+	 * @param sensitiveFilter 敏感词过滤器
 	 * @return 过滤后的内容
 	 */
-	private static String doFilter(String text, Class<?> clazz, SensitiveWordFilter sensitiveWordFilter) {
+	private static String doFilter(String text, Class<?> clazz, SensitiveFilter sensitiveFilter) {
 		Sensitive sensitive = clazz.getAnnotation(Sensitive.class);
 		String replacement = null;
 		switch (sensitive.strategy()) {
@@ -84,6 +84,6 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 				replacement = sensitive.replacement();
 				break;
 		}
-		return sensitiveWordFilter.replaceSensitiveWords(text, replacement);
+		return sensitiveFilter.replaceSensitiveWords(text, replacement);
 	}
 }

@@ -19,7 +19,7 @@ package org.ylzl.eden.data.filter.integration.sensitive.ahocorasick;
 import lombok.RequiredArgsConstructor;
 import org.ahocorasick.trie.Trie;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord;
 
 import java.util.Collection;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * @since 2.4.x
  */
 @RequiredArgsConstructor
-public class AhoCorasickSensitiveFilter implements SensitiveWordFilter {
+public class AhoCorasickSensitiveFilter implements SensitiveFilter {
 
 	private final Trie trie;
 
