@@ -35,6 +35,6 @@ public class LeafSegmentGeneratorBuilder extends AbstractSegmentGeneratorBuilder
 	 */
 	@Override
 	public SegmentGenerator build() {
-		return null;
+		return new LeafSegmentGenerator(this.getConfig(), this.getDataSource());
 	}
 }

@@ -35,7 +35,7 @@ public interface IdGeneratorBuilder {
 	 * @param config ID生成器配置
 	 * @return this
 	 */
-	IdGeneratorBuilder idGeneratorBuilder(IdGeneratorConfig config);
+	IdGeneratorBuilder config(IdGeneratorConfig config);
 
 	/**
 	 * 构建ID生成器

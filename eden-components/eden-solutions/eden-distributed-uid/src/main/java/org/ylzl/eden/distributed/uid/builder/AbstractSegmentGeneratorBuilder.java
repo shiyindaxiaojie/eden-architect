@@ -18,6 +18,8 @@ package org.ylzl.eden.distributed.uid.builder;
 
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 
+import javax.sql.DataSource;
+
 /**
  * 号段生成器构建抽象
  *
@@ -28,6 +30,8 @@ public abstract class AbstractSegmentGeneratorBuilder implements SegmentGenerato
 
 	private SegmentGeneratorConfig config = new SegmentGeneratorConfig();
 
+	private DataSource dataSource;
+
 	/**
 	 * 设置号段生成器配置
 	 *
@@ -35,8 +39,20 @@ public abstract class AbstractSegmentGeneratorBuilder implements SegmentGenerato
 	 * @return this
 	 */
 	@Override
-	public SegmentGeneratorBuilder segmentGeneratorConfig(SegmentGeneratorConfig config) {
+	public SegmentGeneratorBuilder config(SegmentGeneratorConfig config) {
 		this.config = config;
+		return this;
+	}
+
+	/**
+	 * 设置数据源
+	 *
+	 * @param dataSource 数据源
+	 * @return this
+	 */
+	@Override
+	public SegmentGeneratorBuilder dataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 		return this;
 	}
 
@@ -45,7 +61,16 @@ public abstract class AbstractSegmentGeneratorBuilder implements SegmentGenerato
 	 *
 	 * @return 号段生成器配置
 	 */
-	protected SegmentGeneratorConfig getSegmentGeneratorConfig() {
+	protected SegmentGeneratorConfig getConfig() {
 		return config;
+	}
+
+	/**
+	 * 获取数据源
+	 *
+	 * @return 数据源
+	 */
+	public DataSource getDataSource() {
+		return dataSource;
 	}
 }

@@ -35,6 +35,6 @@ public class LeafIdGeneratorBuilder extends AbstractIdGeneratorBuilder implement
 	 */
 	@Override
 	public IdGenerator build() {
-		return new LeafIdGenerator(this.getIdGeneratorConfig());
+		return new LeafIdGenerator(this.getConfig());
 	}
 }

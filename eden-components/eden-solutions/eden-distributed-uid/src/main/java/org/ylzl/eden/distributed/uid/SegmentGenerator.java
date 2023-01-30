@@ -16,8 +16,6 @@
 
 package org.ylzl.eden.distributed.uid;
 
-import java.util.List;
-
 /**
  * 号段生成器
  *
@@ -39,5 +37,5 @@ public interface SegmentGenerator {
 	 * @param key Key
 	 * @return 号段
 	 */
-	List<Long> nextId(String key);
+	long nextId(String key);
 }

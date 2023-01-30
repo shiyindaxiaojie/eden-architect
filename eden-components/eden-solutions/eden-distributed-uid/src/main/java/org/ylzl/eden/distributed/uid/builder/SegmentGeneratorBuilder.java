@@ -20,6 +20,8 @@ import org.ylzl.eden.distributed.uid.SegmentGenerator;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 import org.ylzl.eden.extension.SPI;
 
+import javax.sql.DataSource;
+
 /**
  * 号段生成器构建
  *
@@ -35,7 +37,15 @@ public interface SegmentGeneratorBuilder {
 	 * @param config 号段生成器配置
 	 * @return this
 	 */
-	SegmentGeneratorBuilder segmentGeneratorConfig(SegmentGeneratorConfig config);
+	SegmentGeneratorBuilder config(SegmentGeneratorConfig config);
+
+	/**
+	 * 设置数据源
+	 *
+	 * @param dataSource 数据源
+	 * @return this
+	 */
+	SegmentGeneratorBuilder dataSource(DataSource dataSource);
 
 	/**
 	 * 构建号段生成器

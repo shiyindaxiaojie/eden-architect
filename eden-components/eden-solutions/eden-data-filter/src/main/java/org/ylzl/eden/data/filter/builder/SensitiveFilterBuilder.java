@@ -33,18 +33,18 @@ public interface SensitiveFilterBuilder {
 	/**
 	 * 设置敏感词过滤配置
 	 *
-	 * @param sensitiveConfig 敏感词过滤配置
+	 * @param config 敏感词过滤配置
 	 * @return DataSensitiveFilterBuilder
 	 */
-	SensitiveFilterBuilder sensitiveConfig(SensitiveConfig sensitiveConfig);
+	SensitiveFilterBuilder config(SensitiveConfig config);
 
 	/**
 	 * 设置敏感词处理器
 	 *
-	 * @param sensitiveWordLoader 敏感词处理器
+	 * @param sensitiveWordLoader 敏感词加载器
 	 * @return DataSensitiveFilterBuilder
 	 */
-	SensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader);
+	SensitiveFilterBuilder sensitiveWordLoader(SensitiveWordLoader sensitiveWordLoader);
 
 	/**
 	 * 构建敏感词过滤器

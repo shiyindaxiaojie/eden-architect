@@ -37,7 +37,7 @@ public class SensitiveFilterHelper {
 	 */
 	public static SensitiveFilter sensitiveFilter(SensitiveWordLoader sensitiveWordLoader) {
 		return ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class).getDefaultExtension()
-			.sensitiveWordProcessor(sensitiveWordLoader).build();
+			.sensitiveWordLoader(sensitiveWordLoader).build();
 	}
 
 	/**
@@ -49,6 +49,6 @@ public class SensitiveFilterHelper {
 	 */
 	public static SensitiveFilter sensitiveFilter(String spi, SensitiveWordLoader sensitiveWordLoader) {
 		return ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class).getExtension(spi)
-			.sensitiveWordProcessor(sensitiveWordLoader).build();
+			.sensitiveWordLoader(sensitiveWordLoader).build();
 	}
 }

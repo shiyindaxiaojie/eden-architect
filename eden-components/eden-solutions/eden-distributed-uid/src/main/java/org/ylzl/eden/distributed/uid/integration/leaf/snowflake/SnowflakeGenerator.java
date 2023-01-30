@@ -56,8 +56,8 @@ public class SnowflakeGenerator {
 	public SnowflakeGenerator(IdGeneratorConfig config) {
 		this.twepoch = config.getTwepoch();
 		AssertUtils.isTrue(timeGen() > twepoch, "Snowflake not support twepoch gt currentTime");
-		AssertUtils.isTrue(workerId >= 0 && workerId <= maxWorkerId, "Snowflake not support twepoch gt currentTime");
-		workerId = SnowflakeCoordinatorBuilder.build(config).getWorkerId();
+
+		this.workerId = SnowflakeCoordinatorBuilder.build(config).getWorkerId();
 		AssertUtils.isTrue(workerId >= 0 && workerId <= maxWorkerId, "Snowflake worker id must between 0 and 1023");
 	}
 
@@ -71,13 +71,13 @@ public class SnowflakeGenerator {
 					wait(offset << 1);
 					timestamp = timeGen();
 					if (timestamp < lastTimestamp) {
-						return -1;
+						throw new SnowflakeException("Snowflake last timestamp gt currentTime");
 					}
 				} catch (InterruptedException e) {
-					return -2;
+					throw new SnowflakeException("Snowflake next id wait interrupted");
 				}
 			} else {
-				return -3;
+				throw new SnowflakeException("Snowflake last timestamp offset gt 5");
 			}
 		}
 		if (lastTimestamp == timestamp) {

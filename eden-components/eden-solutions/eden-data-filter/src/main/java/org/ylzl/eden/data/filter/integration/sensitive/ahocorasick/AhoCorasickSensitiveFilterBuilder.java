@@ -44,7 +44,7 @@ public class AhoCorasickSensitiveFilterBuilder extends AbstractSensitiveFilterBu
 	public SensitiveFilter build() {
 		if (BUILD_STATE.compareAndSet(false, true)) {
 			trie = Trie.builder()
-				.addKeywords(getSensitiveWordProcessor().loadSensitiveWords())
+				.addKeywords(getSensitiveWordLoader().loadSensitiveWords())
 				.build();
 		}
 		return new AhoCorasickSensitiveFilter(trie);

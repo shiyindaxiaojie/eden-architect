@@ -16,8 +16,10 @@
 
 package org.ylzl.eden.distributed.uid.integration.leaf.segement;
 
+import liquibase.exception.LiquibaseException;
+import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.StopWatch;
+import org.springframework.util.StopWatch;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.dao.LeafAllocDAO;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.model.LeafAlloc;
@@ -38,6 +40,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class DatabaseSegmentGenerator {
 
+	private static final long LIQUIBASE_SLOWNESS_THRESHOLD = 5;
+
 	private final SegmentGeneratorConfig config;
 
 	private final LeafAllocDAO leafAllocDAO;
@@ -51,7 +55,8 @@ public class DatabaseSegmentGenerator {
 
 	public DatabaseSegmentGenerator(SegmentGeneratorConfig config, DataSource dataSource) {
 		this.config = config;
-		leafAllocDAO = new LeafAllocDAO(dataSource);
+		this.initDb(dataSource);
+		this.leafAllocDAO = new LeafAllocDAO(dataSource);
 		this.updateCacheFromDb();
 		this.initialized = true;
 		this.updateCacheFromDbAtEveryMinute();
@@ -79,6 +84,43 @@ public class DatabaseSegmentGenerator {
 			}
 		}
 		return getIdFromSegmentBuffer(cache.get(key));
+	}
+
+	private void initDb(DataSource dataSource) {
+		SpringLiquibase liquibase = buildLiquibase(dataSource);
+		StopWatch watch = new StopWatch();
+		watch.start();
+		try {
+			liquibase.afterPropertiesSet();
+		} catch (LiquibaseException e) {
+			throw new DatabaseSegmentException("Leaf liquibase has initialized your database error");
+		}
+		watch.stop();
+		log.debug("Leaf liquibase has initialized your database in {} ms", watch.getTotalTimeMillis());
+		if (watch.getTotalTimeMillis() > LIQUIBASE_SLOWNESS_THRESHOLD * 1000L) {
+			log.warn("Leaf liquibase took more than {} seconds to initialized your database!", LIQUIBASE_SLOWNESS_THRESHOLD);
+		}
+	}
+
+	private SpringLiquibase buildLiquibase(DataSource dataSource) {
+		SpringLiquibase liquibase = new SpringLiquibase();
+		liquibase.setDataSource(dataSource);
+		liquibase.setChangeLog(this.config.getLiquibase().getChangeLog());
+		liquibase.setClearCheckSums(this.config.getLiquibase().isClearChecksums());
+		liquibase.setContexts(this.config.getLiquibase().getContexts());
+		liquibase.setDefaultSchema(this.config.getLiquibase().getDefaultSchema());
+		liquibase.setLiquibaseSchema(this.config.getLiquibase().getLiquibaseSchema());
+		liquibase.setLiquibaseTablespace(this.config.getLiquibase().getLiquibaseTablespace());
+		liquibase.setDatabaseChangeLogTable(this.config.getLiquibase().getDatabaseChangeLogTable());
+		liquibase.setDatabaseChangeLogLockTable(this.config.getLiquibase().getDatabaseChangeLogLockTable());
+		liquibase.setDropFirst(this.config.getLiquibase().isDropFirst());
+		liquibase.setShouldRun(this.config.getLiquibase().isEnabled());
+		liquibase.setLabels(this.config.getLiquibase().getLabels());
+		liquibase.setChangeLogParameters(this.config.getLiquibase().getParameters());
+		liquibase.setRollbackFile(this.config.getLiquibase().getRollbackFile());
+		liquibase.setTestRollbackOnUpdate(this.config.getLiquibase().isTestRollbackOnUpdate());
+		liquibase.setTag(this.config.getLiquibase().getTag());
+		return liquibase;
 	}
 
 	private void updateCacheFromDb() {
@@ -129,7 +171,7 @@ public class DatabaseSegmentGenerator {
 		service.scheduleWithFixedDelay(this::updateCacheFromDb, 60, 60, TimeUnit.SECONDS);
 	}
 
-	public void updateSegmentFromDb(String key, Segment segment) {
+	private void updateSegmentFromDb(String key, Segment segment) {
 		StopWatch sw = new StopWatch();
 		SegmentBuffer buffer = segment.getBuffer();
 		LeafAlloc leafAlloc;
@@ -168,7 +210,7 @@ public class DatabaseSegmentGenerator {
 		sw.stop();
 	}
 
-	public long getIdFromSegmentBuffer(final SegmentBuffer buffer) {
+	private long getIdFromSegmentBuffer(final SegmentBuffer buffer) {
 		while (true) {
 			buffer.rLock().lock();
 			try {

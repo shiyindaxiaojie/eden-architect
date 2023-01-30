@@ -35,7 +35,7 @@ public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
 	 * @return this
 	 */
 	@Override
-	public IdGeneratorBuilder idGeneratorBuilder(IdGeneratorConfig config) {
+	public IdGeneratorBuilder config(IdGeneratorConfig config) {
 		this.config = config;
 		return this;
 	}
@@ -45,7 +45,7 @@ public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
 	 *
 	 * @return ID生成器配置
 	 */
-	protected IdGeneratorConfig getIdGeneratorConfig() {
+	protected IdGeneratorConfig getConfig() {
 		return config;
 	}
 }

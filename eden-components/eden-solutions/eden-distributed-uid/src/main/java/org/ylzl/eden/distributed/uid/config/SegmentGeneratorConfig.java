@@ -22,6 +22,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.ylzl.eden.distributed.uid.SegmentGeneratorType;
 
+import java.io.File;
+import java.util.Map;
+
 /**
  * 号段生成器配置
  *
@@ -41,4 +44,51 @@ public class SegmentGeneratorConfig {
 
 	/** 一个号段的维持时间，默认为15分钟 */
 	private long segmentTtl = 15 * 60 * 1000L;
+
+	private final Liquibase liquibase = new Liquibase();
+
+	@EqualsAndHashCode
+	@ToString
+	@Setter
+	@Getter
+	public static class Liquibase {
+
+		private String changeLog = "classpath:/db/changelog/leaf.changelog-master.yaml";
+
+		private boolean clearChecksums;
+
+		private String contexts;
+
+		private String defaultSchema;
+
+		private String liquibaseSchema;
+
+		private String liquibaseTablespace;
+
+		private String databaseChangeLogTable = "DATABASECHANGELOG";
+
+		private String databaseChangeLogLockTable = "DATABASECHANGELOGLOCK";
+
+		private boolean dropFirst;
+
+		private boolean enabled = true;
+
+		private String user;
+
+		private String password;
+
+		private String driverClassName;
+
+		private String url;
+
+		private String labels;
+
+		private Map<String, String> parameters;
+
+		private File rollbackFile;
+
+		private boolean testRollbackOnUpdate;
+
+		private String tag;
+	}
 }

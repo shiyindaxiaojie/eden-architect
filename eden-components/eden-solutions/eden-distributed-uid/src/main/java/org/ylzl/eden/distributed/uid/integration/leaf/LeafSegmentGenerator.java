@@ -18,8 +18,10 @@ package org.ylzl.eden.distributed.uid.integration.leaf;
 
 import org.ylzl.eden.distributed.uid.IdGeneratorType;
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
+import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.segement.DatabaseSegmentGenerator;
 
-import java.util.List;
+import javax.sql.DataSource;
 
 /**
  * Leaf号段生成器
@@ -28,6 +30,12 @@ import java.util.List;
  * @since 2.4.x
  */
 public class LeafSegmentGenerator implements SegmentGenerator {
+
+	private final DatabaseSegmentGenerator databaseSegmentGenerator;
+
+	public LeafSegmentGenerator(SegmentGeneratorConfig config, DataSource dataSource) {
+		this.databaseSegmentGenerator = new DatabaseSegmentGenerator(config, dataSource);
+	}
 
 	/**
 	 * 生成器类型
@@ -46,7 +54,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	 * @return 号段
 	 */
 	@Override
-	public List<Long> nextId(String key) {
-		return null;
+	public long nextId(String key) {
+		return databaseSegmentGenerator.nextId(key);
 	}
 }
