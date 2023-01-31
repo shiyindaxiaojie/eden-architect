@@ -51,7 +51,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 
 	private static final String LEAF_SCHEDULE_NAME = "leaf-zookeeper-schedule";
 
-	private static final String ZK_PATH_PATTERN = "/snowflake/{}/data";
+	private static final String ZK_PATH_PATTERN = "/leaf/snowflake/{}/node";
 
 	private static final String NODE_PREFIX_PATTERN = ZK_PATH_PATTERN + "/{}:{}-";
 
@@ -74,7 +74,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	public long getWorkerId() {
 		this.startCurator();
 		int workerId = 0;
-		String zkPath = MessageFormatUtils.format(ZK_PATH_PATTERN, config.getCoordinator().getName());
+		String zkPath = MessageFormatUtils.format(ZK_PATH_PATTERN, config.getName());
 		String zkNode;
 		try {
 			Stat stat = curatorFramework.checkExists().forPath(zkPath);
@@ -139,7 +139,8 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 		if (curatorFramework == null) {
 			synchronized (this) {
 				if (curatorFramework == null) {
-					curatorFramework = CuratorFrameworkFactory.builder().connectString(app.getIp() + ":" + app.getPort())
+					curatorFramework = CuratorFrameworkFactory.builder()
+						.connectString(config.getCoordinator().getZookeeper().getConnectString())
 						.retryPolicy(new RetryUntilElapsed(1000, 4))
 						.connectionTimeoutMs(10000)
 						.sessionTimeoutMs(6000)
@@ -158,7 +159,8 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	 * @return 创建成功后返回的 Zookeeper 的顺序节点
 	 */
 	private String createNode() {
-		String prefix = MessageFormatUtils.format(NODE_PREFIX_PATTERN, config.getCoordinator().getName(), app.getIp(), app.getPort());
+		String prefix = MessageFormatUtils.format(NODE_PREFIX_PATTERN, config.getName(),
+			app.getIp(), app.getPort());
 		String endpoint = Endpoint.build(app.getIp(), app.getPort());
 		try {
 			return curatorFramework.create()
@@ -166,7 +168,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 				.withMode(CreateMode.PERSISTENT_SEQUENTIAL)
 				.forPath(prefix, endpoint.getBytes());
 		} catch (Exception e) {
-			throw new IdGeneratorException("Create zookeeper node '" + prefix + "' failed");
+			throw new IdGeneratorException("Create zookeeper node '" + prefix + "' failed", e);
 		}
 	}
 
@@ -177,14 +179,14 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	 * @throws IOException
 	 */
 	private void updateLocalWorkerId(int workerId) throws IOException {
-		String pathname = MessageFormatUtils.format(CONF_PATH_PATTERN, config.getCoordinator().getName(), workerId);
+		String pathname = MessageFormatUtils.format(CONF_PATH_PATTERN, config.getName(), workerId);
 		File leafConfFile = new File(pathname);
 		if (leafConfFile.exists()) {
-			log.info("Update local config file with worker id is {}", workerId);
+			log.info("Update local config file '{}' with worker id is {}", pathname, workerId);
 			FileUtils.writeStringToFile(leafConfFile, "workerId=" + workerId, Charset.defaultCharset(), false);
 		} else {
 			boolean mkdirs = leafConfFile.getParentFile().mkdirs();
-			log.info("Initialize local config directory with worker id is {}", workerId);
+			log.info("Initialize local config file '{}' with worker id is {}", pathname, workerId);
 			if (mkdirs) {
 				throw new IdGeneratorException("Create local config directory failed");
 			}

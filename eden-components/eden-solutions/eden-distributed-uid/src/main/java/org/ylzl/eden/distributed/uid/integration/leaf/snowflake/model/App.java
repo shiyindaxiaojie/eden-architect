@@ -20,7 +20,14 @@ import java.io.Serializable;
 @Data
 public class App implements Serializable {
 
-	private String ip = IpConfigUtils.getIpAddress();
+	private String ip;
 
 	private Integer port;
+
+	public String getIp() {
+		if (ip == null) {
+			return IpConfigUtils.getIpAddress();
+		}
+		return ip;
+	}
 }

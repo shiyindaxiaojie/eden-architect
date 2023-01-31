@@ -21,12 +21,12 @@ import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
 
 /**
- * 嵌入式的 Redis
+ * 嵌入式的 Redis Server
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class EmbeddedRedis extends ExternalResource {
+public class EmbeddedRedisServer extends ExternalResource {
 
 	private static final String DEFAULT_BIND = "0.0.0.0";
 
@@ -40,14 +40,14 @@ public class EmbeddedRedis extends ExternalResource {
 
 	private boolean closed = true;
 
-	public EmbeddedRedis() {
+	public EmbeddedRedisServer() {
 		this.redisServerBuilder = new RedisServerBuilder()
 			.bind(DEFAULT_BIND)
 			.port(DEFAULT_PORT)
 			.setting(DEFAULT_MAX_HEAP);
 	}
 
-	public EmbeddedRedis(int port) {
+	public EmbeddedRedisServer(int port) {
 		this.redisServerBuilder = new RedisServerBuilder()
 			.bind(DEFAULT_BIND)
 			.port(port)

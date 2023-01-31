@@ -16,12 +16,24 @@
 
 package org.ylzl.eden.distributed.uid
 
+import org.apache.zookeeper.server.embedded.ZooKeeperServerEmbedded
 import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App
 import spock.lang.Specification
 import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper
 
 class IdGeneratorTest extends Specification {
+
+	ZooKeeperServerEmbedded zooKeeperServer
+
+	def setup() {
+		zooKeeperServer = ZooKeeperServerEmbedded.builder().build()
+		zooKeeperServer.start()
+	}
+
+	def cleanup() {
+		zooKeeperServer.close()
+	}
 
 	def "test next id"() {
 		when:

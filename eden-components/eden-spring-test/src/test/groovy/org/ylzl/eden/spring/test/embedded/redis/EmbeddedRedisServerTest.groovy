@@ -20,10 +20,10 @@ package org.ylzl.eden.spring.test.embedded.redis
 import spock.lang.Shared
 import spock.lang.Specification
 
-class EmbeddedRedisTest extends Specification {
+class EmbeddedRedisServerTest extends Specification {
     //Field redisServer of type RedisServer - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
 	@Shared
-    EmbeddedRedis embeddedRedis = new EmbeddedRedis(6379)
+    EmbeddedRedisServer embeddedRedis = new EmbeddedRedisServer(6379)
 
     def "test before"() {
         when:

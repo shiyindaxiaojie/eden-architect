@@ -36,6 +36,8 @@ public class IdGeneratorConfig {
 
 	private String type = IdGeneratorType.LEAF.name();
 
+	private String name = System.getProperty("spring.application.name", "app");
+
 	private long twepoch = 1288834974657L;
 
 	private final SnowflakeCoordinator coordinator = new SnowflakeCoordinator();
@@ -48,10 +50,15 @@ public class IdGeneratorConfig {
 
 		private String type = "zookeeper";
 
-		private String name = System.getProperty("leaf.name", "app");
+		private final Zookeeper zookeeper = new Zookeeper();
 
-		private String host = "localhost";
+		@EqualsAndHashCode
+		@ToString
+		@Setter
+		@Getter
+		public static class Zookeeper {
 
-		private int port = 2181;
+			private String connectString = "localhost:2181";
+		}
 	}
 }
