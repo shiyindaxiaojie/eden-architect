@@ -17,6 +17,7 @@
 package org.ylzl.eden.distributed.uid.builder;
 
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 
 /**
  * 雪花算法生成器构建抽象
@@ -27,6 +28,8 @@ import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
 public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
 
 	private IdGeneratorConfig config = new IdGeneratorConfig();
+
+	private App app = new App();
 
 	/**
 	 * 设置ID生成器配置
@@ -41,11 +44,32 @@ public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
 	}
 
 	/**
+	 * 设置应用信息
+	 *
+	 * @param app 应用信息
+	 * @return this
+	 */
+	@Override
+	public IdGeneratorBuilder app(App app) {
+		this.app = app;
+		return this;
+	}
+
+	/**
 	 * 获取ID生成器配置
 	 *
 	 * @return ID生成器配置
 	 */
 	protected IdGeneratorConfig getConfig() {
 		return config;
+	}
+
+	/**
+	 * 获取应用信息
+	 *
+	 * @return 应用信息
+	 */
+	protected App getApp() {
+		return app;
 	}
 }

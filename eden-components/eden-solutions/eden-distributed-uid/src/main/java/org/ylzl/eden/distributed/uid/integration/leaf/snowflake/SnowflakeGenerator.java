@@ -18,7 +18,9 @@ package org.ylzl.eden.distributed.uid.integration.leaf.snowflake;
 
 import lombok.Synchronized;
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.exception.IdGeneratorException;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinatorBuilder;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import java.util.Random;
@@ -45,7 +47,7 @@ public class SnowflakeGenerator {
 
 	private static final Random RANDOM = new Random();
 
-	private long workerId;
+	private final long workerId;
 
 	private long sequence = 0L;
 
@@ -53,11 +55,11 @@ public class SnowflakeGenerator {
 
 	private final long twepoch;
 
-	public SnowflakeGenerator(IdGeneratorConfig config) {
+	public SnowflakeGenerator(IdGeneratorConfig config, App app) {
 		this.twepoch = config.getTwepoch();
 		AssertUtils.isTrue(timeGen() > twepoch, "Snowflake not support twepoch gt currentTime");
 
-		this.workerId = SnowflakeCoordinatorBuilder.build(config).getWorkerId();
+		this.workerId = SnowflakeCoordinatorBuilder.build(config, app).getWorkerId();
 		AssertUtils.isTrue(workerId >= 0 && workerId <= maxWorkerId, "Snowflake worker id must between 0 and 1023");
 	}
 
@@ -71,13 +73,13 @@ public class SnowflakeGenerator {
 					wait(offset << 1);
 					timestamp = timeGen();
 					if (timestamp < lastTimestamp) {
-						throw new SnowflakeException("Snowflake last timestamp gt currentTime");
+						throw new IdGeneratorException("Snowflake last timestamp gt currentTime");
 					}
 				} catch (InterruptedException e) {
-					throw new SnowflakeException("Snowflake next id wait interrupted");
+					throw new IdGeneratorException("Snowflake next id wait interrupted");
 				}
 			} else {
-				throw new SnowflakeException("Snowflake last timestamp offset gt 5");
+				throw new IdGeneratorException("Snowflake last timestamp offset gt 5");
 			}
 		}
 		if (lastTimestamp == timestamp) {

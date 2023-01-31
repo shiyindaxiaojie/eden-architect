@@ -14,27 +14,39 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf;
+package org.ylzl.eden.distributed.uid.support;
 
 import org.ylzl.eden.distributed.uid.IdGenerator;
-import org.ylzl.eden.distributed.uid.builder.AbstractIdGeneratorBuilder;
 import org.ylzl.eden.distributed.uid.builder.IdGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
- * Leaf雪花算法生成器构建
+ * ID生成器帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LeafIdGeneratorBuilder extends AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
+public class IdGeneratorHelper {
 
 	/**
-	 * 构建雪花算法生成器
+	 * 获取ID生成器实例
 	 *
-	 * @return 雪花算法生成器
+	 * @param app 应用信息
+	 * @return ID生成器实例
 	 */
-	@Override
-	public IdGenerator build() {
-		return new LeafIdGenerator(this.getConfig(), this.getApp());
+	public static IdGenerator idGenerator(App app) {
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension().app(app).build();
+	}
+
+	/**
+	 * 获取ID生成器实例
+	 *
+	 * @param spi 扩展点
+	 * @param app 应用信息
+	 * @return ID生成器实例
+	 */
+	public static IdGenerator idGenerator(String spi, App app) {
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi).app(app).build();
 	}
 }

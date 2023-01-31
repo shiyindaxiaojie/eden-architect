@@ -17,9 +17,8 @@
 package org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
-
-import java.io.Serializable;
 
 /**
  * 上报端点
@@ -27,19 +26,20 @@ import java.io.Serializable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
-public class Endpoint implements Serializable {
-
-	private String ip;
-
-	private Integer port;
+public class Endpoint extends App {
 
 	private Long timestamp;
+
+	public Endpoint(String ip, Integer port, Long timestamp) {
+		super(ip, port);
+		this.timestamp = timestamp;
+	}
 
 	public static String build(String ip, int port) {
 		Endpoint endpoint = new Endpoint(ip, port, System.currentTimeMillis());

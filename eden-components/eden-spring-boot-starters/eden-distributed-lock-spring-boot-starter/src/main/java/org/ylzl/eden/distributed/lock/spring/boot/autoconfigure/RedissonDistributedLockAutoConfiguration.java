@@ -55,7 +55,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @Configuration(proxyBeanMethods = false)
 public class RedissonDistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_REDISSON_DISTRIBUTED_LOCK = "Autowired RedissonDistributedLock";
+	private static final String AUTOWIRED_REDISSON_DISTRIBUTED_LOCK = "Autowired RedissonDistributedLock";
 
 	@Bean
 	public DistributedLock distributedLock(RedissonClient redissonClient) {

@@ -20,6 +20,7 @@ import org.ylzl.eden.distributed.uid.IdGenerator;
 import org.ylzl.eden.distributed.uid.IdGeneratorType;
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.SnowflakeGenerator;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 
 /**
  * Leaf ID生成器
@@ -31,8 +32,8 @@ public class LeafIdGenerator implements IdGenerator {
 
 	private final SnowflakeGenerator snowflakeGenerator;
 
-	public LeafIdGenerator(IdGeneratorConfig config) {
-		this.snowflakeGenerator = new SnowflakeGenerator(config);
+	public LeafIdGenerator(IdGeneratorConfig config, App app) {
+		this.snowflakeGenerator = new SnowflakeGenerator(config, app);
 	}
 
 	/**

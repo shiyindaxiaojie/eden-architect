@@ -51,7 +51,7 @@ import org.ylzl.eden.spring.cloud.zookeeper.core.ZookeeperTemplate;
 @Configuration(proxyBeanMethods = false)
 public class ZookeeperDistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK = "Autowired ZookeeperDistributedLock";
+	private static final String AUTOWIRED_ZOOKEEPER_DISTRIBUTED_LOCK = "Autowired ZookeeperDistributedLock";
 
 	@Bean
 	public DistributedLock distributedLock(ZookeeperTemplate zookeeperTemplate) {

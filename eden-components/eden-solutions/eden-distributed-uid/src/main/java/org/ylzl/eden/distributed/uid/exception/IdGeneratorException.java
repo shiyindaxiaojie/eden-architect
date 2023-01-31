@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf.snowflake;
+package org.ylzl.eden.distributed.uid.exception;
 
 /**
- * 雪花算法异常
+ * ID生成异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class SnowflakeException extends RuntimeException {
+public class IdGeneratorException extends RuntimeException {
 
-	public SnowflakeException(String message) {
+	public IdGeneratorException(String message) {
 		super(message);
 	}
 
-	public SnowflakeException(String message, Throwable cause) {
+	public IdGeneratorException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

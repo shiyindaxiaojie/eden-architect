@@ -17,6 +17,7 @@
 package org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator;
 
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.extension.SPI;
 
 /**
@@ -42,4 +43,11 @@ public interface SnowflakeCoordinator {
 	 * @return this
 	 */
 	SnowflakeCoordinator config(IdGeneratorConfig config);
+
+	/**
+	 * 设置应用信息
+	 *
+	 * @param app 应用信息
+	 */
+	SnowflakeCoordinator app(App app);
 }

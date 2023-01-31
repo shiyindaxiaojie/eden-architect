@@ -19,6 +19,8 @@ package org.ylzl.eden.distributed.uid.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 
 /**
  * 分布式唯一ID配置
@@ -33,13 +35,11 @@ public class DistributedUIDProperties {
 
 	public static final String PREFIX = "distributed-uid";
 
-	private String primary;
+	private String primary = "leaf";
 
 	private boolean enabled;
 
 	private final Leaf leaf = new Leaf();
-
-	private final Snowflake snowflake = new Snowflake();
 
 	private final TinyId tinyId = new TinyId();
 
@@ -52,15 +52,10 @@ public class DistributedUIDProperties {
 		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".leaf";
 
 		private boolean enabled;
-	}
 
-	@Setter
-	@Getter
-	public static class Snowflake {
+		private final IdGeneratorConfig idGenerator = new IdGeneratorConfig();
 
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".snowflake";
-
-		private boolean enabled;
+		private final SegmentGeneratorConfig segmentGenerator = new SegmentGeneratorConfig();
 	}
 
 	@Setter

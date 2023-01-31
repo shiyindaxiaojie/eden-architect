@@ -14,27 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf;
-
-import org.ylzl.eden.distributed.uid.IdGenerator;
-import org.ylzl.eden.distributed.uid.builder.AbstractIdGeneratorBuilder;
-import org.ylzl.eden.distributed.uid.builder.IdGeneratorBuilder;
+package org.ylzl.eden.distributed.uid.exception;
 
 /**
- * Leaf雪花算法生成器构建
+ * 发号异常
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LeafIdGeneratorBuilder extends AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
+public class SegmentGeneratorException extends RuntimeException {
 
-	/**
-	 * 构建雪花算法生成器
-	 *
-	 * @return 雪花算法生成器
-	 */
-	@Override
-	public IdGenerator build() {
-		return new LeafIdGenerator(this.getConfig(), this.getApp());
+	public SegmentGeneratorException(String message) {
+		super(message);
+	}
+
+	public SegmentGeneratorException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }

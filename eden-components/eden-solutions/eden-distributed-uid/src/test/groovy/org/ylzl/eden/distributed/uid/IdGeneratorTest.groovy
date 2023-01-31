@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf.segement;
+package org.ylzl.eden.distributed.uid
 
-/**
- * 数据库发号异常
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-public class DatabaseSegmentException extends RuntimeException {
+import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App
+import spock.lang.Specification
+import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper
 
-	public DatabaseSegmentException(String message) {
-		super(message);
-	}
+class IdGeneratorTest extends Specification {
 
-	public DatabaseSegmentException(String message, Throwable cause) {
-		super(message, cause);
+	def "test next id"() {
+		when:
+		println IdGeneratorHelper.idGenerator("leaf", App.builder().port(8080).build()).nextId()
+
+		then:
+		notThrown(IdGeneratorException)
 	}
 }
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

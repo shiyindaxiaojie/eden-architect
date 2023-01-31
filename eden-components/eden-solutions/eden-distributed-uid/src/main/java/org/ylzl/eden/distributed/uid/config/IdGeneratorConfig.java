@@ -16,8 +16,10 @@
 
 package org.ylzl.eden.distributed.uid.config;
 
-import lombok.*;
-import org.ylzl.eden.commons.net.IpConfigUtils;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.ylzl.eden.distributed.uid.IdGeneratorType;
 
 /**
@@ -44,9 +46,11 @@ public class IdGeneratorConfig {
 	@Getter
 	public static class SnowflakeCoordinator {
 
-		private String name = System.getProperty("leaf.name");
+		private String type = "zookeeper";
 
-		private String host = IpConfigUtils.getIpAddress();
+		private String name = System.getProperty("leaf.name", "app");
+
+		private String host = "localhost";
 
 		private int port = 2181;
 	}

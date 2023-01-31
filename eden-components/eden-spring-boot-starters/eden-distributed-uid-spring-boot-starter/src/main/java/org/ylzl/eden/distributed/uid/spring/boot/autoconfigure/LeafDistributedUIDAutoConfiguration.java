@@ -16,34 +16,30 @@
 
 package org.ylzl.eden.distributed.uid.spring.boot.autoconfigure;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
- * 分布式唯一ID操作自动装配
+ * Leaf 分布式ID自动配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @ConditionalOnProperty(
-	prefix = DistributedUIDProperties.PREFIX,
+	prefix = DistributedUIDProperties.Leaf.PREFIX,
 	name = Conditions.ENABLED,
 	havingValue = Conditions.TRUE
 )
-@EnableConfigurationProperties(DistributedUIDProperties.class)
-@RequiredArgsConstructor
+@AutoConfigureBefore(DistributedUIDAutoConfiguration.class)
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
-public class DistributedUIDAutoConfiguration {
-
-	private final DistributedUIDProperties distributedUIDProperties;
+public class LeafDistributedUIDAutoConfiguration {
 
 }

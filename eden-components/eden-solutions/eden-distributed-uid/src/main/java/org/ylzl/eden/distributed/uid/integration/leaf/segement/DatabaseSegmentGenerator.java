@@ -21,6 +21,7 @@ import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
+import org.ylzl.eden.distributed.uid.exception.SegmentGeneratorException;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.dao.LeafAllocDAO;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.model.LeafAlloc;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.model.Segment;
@@ -64,10 +65,10 @@ public class DatabaseSegmentGenerator {
 
 	public long nextId(String key) {
 		if (!initialized) {
-			throw new DatabaseSegmentException("Database segment generator not initialized");
+			throw new SegmentGeneratorException("Database segment generator not initialized");
 		}
 		if (!cache.containsKey(key)) {
-			throw new DatabaseSegmentException("Database segment cache contains key '" + key + "'");
+			throw new SegmentGeneratorException("Database segment cache contains key '" + key + "'");
 		}
 		SegmentBuffer buffer = cache.get(key);
 		if (!buffer.isInitialized()) {
@@ -93,7 +94,7 @@ public class DatabaseSegmentGenerator {
 		try {
 			liquibase.afterPropertiesSet();
 		} catch (LiquibaseException e) {
-			throw new DatabaseSegmentException("Leaf liquibase has initialized your database error");
+			throw new SegmentGeneratorException("Leaf liquibase has initialized your database error");
 		}
 		watch.stop();
 		log.debug("Leaf liquibase has initialized your database in {} ms", watch.getTotalTimeMillis());
@@ -257,7 +258,7 @@ public class DatabaseSegmentGenerator {
 					buffer.switchPos();
 					buffer.setNextReady(false);
 				} else {
-					throw new DatabaseSegmentException("Both two segments in '" + buffer + "' are not ready!");
+					throw new SegmentGeneratorException("Both two segments in '" + buffer + "' are not ready!");
 				}
 			} finally {
 				buffer.wLock().unlock();

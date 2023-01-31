@@ -18,6 +18,7 @@ package org.ylzl.eden.distributed.uid.builder;
 
 import org.ylzl.eden.distributed.uid.IdGenerator;
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.extension.SPI;
 
 /**
@@ -36,6 +37,14 @@ public interface IdGeneratorBuilder {
 	 * @return this
 	 */
 	IdGeneratorBuilder config(IdGeneratorConfig config);
+
+	/**
+	 * 设置应用信息
+	 *
+	 * @param app 应用信息
+	 * @return this
+	 */
+	IdGeneratorBuilder app(App app);
 
 	/**
 	 * 构建ID生成器

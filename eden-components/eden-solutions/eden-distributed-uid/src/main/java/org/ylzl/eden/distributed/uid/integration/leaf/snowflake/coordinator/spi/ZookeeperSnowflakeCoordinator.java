@@ -27,9 +27,10 @@ import org.apache.zookeeper.data.Stat;
 import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.Endpoint;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinator;
-import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.SnowflakeException;
+import org.ylzl.eden.distributed.uid.exception.IdGeneratorException;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +61,8 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 
 	private IdGeneratorConfig config;
 
+	private App app;
+
 	private long lastUpdateTime;
 
 	/**
@@ -74,7 +77,6 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 		String zkPath = MessageFormatUtils.format(ZK_PATH_PATTERN, config.getCoordinator().getName());
 		String zkNode;
 		try {
-
 			Stat stat = curatorFramework.checkExists().forPath(zkPath);
 			if (stat == null) {
 				zkNode = createNode();
@@ -87,7 +89,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 					nodeIds.put(nodeKey[0], Integer.parseInt(nodeKey[1]));
 					nodes.put(nodeKey[0], key);
 				}
-				String listenAddress = config.getCoordinator().getHost() + ":" + config.getCoordinator().getPort();
+				String listenAddress = app.getIp() + ":" + app.getPort();
 				Integer nodeWorkerId = nodeIds.get(listenAddress);
 				if (nodeWorkerId != null) {
 					zkNode = zkPath + "/" + nodes.get(listenAddress);
@@ -102,7 +104,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 			this.updateLocalWorkerId(workerId);
 			this.scheduledEndpoint(zkNode);
 		} catch (Exception e) {
-			throw new SnowflakeException(e.getMessage(), e);
+			throw new IdGeneratorException(e.getMessage(), e);
 		}
 		return workerId;
 	}
@@ -120,13 +122,24 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	}
 
 	/**
+	 * 设置应用信息
+	 *
+	 * @param app 应用信息
+	 */
+	@Override
+	public SnowflakeCoordinator app(App app) {
+		this.app = app;
+		return this;
+	}
+
+	/**
 	 * 启动 CuratorFramework
 	 */
 	private void startCurator() {
 		if (curatorFramework == null) {
 			synchronized (this) {
 				if (curatorFramework == null) {
-					curatorFramework = CuratorFrameworkFactory.builder().connectString(config.getCoordinator().getHost() + ":" + config.getCoordinator().getPort())
+					curatorFramework = CuratorFrameworkFactory.builder().connectString(app.getIp() + ":" + app.getPort())
 						.retryPolicy(new RetryUntilElapsed(1000, 4))
 						.connectionTimeoutMs(10000)
 						.sessionTimeoutMs(6000)
@@ -145,14 +158,15 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	 * @return 创建成功后返回的 Zookeeper 的顺序节点
 	 */
 	private String createNode() {
-		String prefix = MessageFormatUtils.format(NODE_PREFIX_PATTERN, config.getCoordinator().getName(), config.getCoordinator().getHost(), config.getCoordinator().getPort());
+		String prefix = MessageFormatUtils.format(NODE_PREFIX_PATTERN, config.getCoordinator().getName(), app.getIp(), app.getPort());
+		String endpoint = Endpoint.build(app.getIp(), app.getPort());
 		try {
 			return curatorFramework.create()
 				.creatingParentsIfNeeded()
 				.withMode(CreateMode.PERSISTENT_SEQUENTIAL)
-				.forPath(prefix, Endpoint.build(config.getCoordinator().getHost(), config.getCoordinator().getPort()).getBytes());
+				.forPath(prefix, endpoint.getBytes());
 		} catch (Exception e) {
-			throw new SnowflakeException("Create zookeeper node '" + prefix + "' failed");
+			throw new IdGeneratorException("Create zookeeper node '" + prefix + "' failed");
 		}
 	}
 
@@ -172,7 +186,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 			boolean mkdirs = leafConfFile.getParentFile().mkdirs();
 			log.info("Initialize local config directory with worker id is {}", workerId);
 			if (mkdirs) {
-				throw new SnowflakeException("Create local config directory failed");
+				throw new IdGeneratorException("Create local config directory failed");
 			}
 			if (leafConfFile.createNewFile()) {
 				FileUtils.writeStringToFile(leafConfFile, "workerId=" + workerId, Charset.defaultCharset(), false);
@@ -192,11 +206,11 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 		try {
 			bytes = curatorFramework.getData().forPath(zkNode);
 		} catch (Exception e) {
-			throw new SnowflakeException("Get zookeeper node '" + zkNode + "' data error");
+			throw new IdGeneratorException("Get zookeeper node '" + zkNode + "' data error");
 		}
 		Endpoint endPoint = Endpoint.parse(new String(bytes));
 		if (endPoint.getTimestamp() > System.currentTimeMillis()) {
-			throw new SnowflakeException("Check endpoint timestamp invalid");
+			throw new IdGeneratorException("Check endpoint timestamp invalid");
 		}
 	}
 
@@ -215,9 +229,9 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 				return;
 			}
 			try {
-				curatorFramework.setData().forPath(zkNode, Endpoint.build(config.getCoordinator().getHost(), config.getCoordinator().getPort()).getBytes());
+				curatorFramework.setData().forPath(zkNode, Endpoint.build(app.getIp(), app.getPort()).getBytes());
 			} catch (Exception e) {
-				throw new SnowflakeException("Scheduled endpoint timestamp error", e);
+				throw new IdGeneratorException("Scheduled endpoint timestamp error", e);
 			}
 			lastUpdateTime = System.currentTimeMillis();
 		}, 1L, 3L, TimeUnit.SECONDS); // 每 3 秒上报一次数据
