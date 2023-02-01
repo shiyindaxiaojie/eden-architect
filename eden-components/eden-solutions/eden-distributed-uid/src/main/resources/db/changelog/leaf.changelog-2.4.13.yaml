@@ -43,7 +43,11 @@ databaseChangeLog:
                   remarks: 更新时间
                   defaultValueDate: ${now}
                   constraints:
-                      nullable: false
+                    nullable: false
+        - loadData:
+              tableName: leaf_alloc
+              file: db/changelog/leaf_alloc.csv
+              separator: ;
       rollback:
         - dropTable:
             tableName: leaf_alloc

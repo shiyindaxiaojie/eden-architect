@@ -16,34 +16,36 @@
 
 package org.ylzl.eden.distributed.uid
 
-import org.ylzl.eden.spring.test.embedded.zookeeper.EmbeddedZooKeeperServer
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
 import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
-import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App
+import org.ylzl.eden.distributed.uid.support.SegmentGeneratorHelper
 import spock.lang.Specification
-import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper
 
-class IdGeneratorTest extends Specification {
+import javax.sql.DataSource
 
-	EmbeddedZooKeeperServer zooKeeperServer = new EmbeddedZooKeeperServer()
+class SegementGeneratorTest extends Specification {
+
+	DataSource dataSource
 
 	def setup() {
-		zooKeeperServer = new EmbeddedZooKeeperServer()
-		zooKeeperServer.startup()
+		dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build()
 	}
 
 	def cleanup() {
-		zooKeeperServer.shutdown()
+
 	}
 
 	def "test next id"() {
 		given:
-		IdGenerator idGenerator = IdGeneratorHelper.idGenerator("leaf", App.builder().port(8080).build())
+		SegmentGenerator segmentGenerator = SegmentGeneratorHelper.segmentGenerator("leaf", dataSource)
 
 		when:
-		long id = idGenerator.nextId()
+		for (i in 0..< 1000) {
+			println segmentGenerator.nextId("default")
+		}
 
 		then:
-		id > 100_000_000_000_000_000
 		notThrown(IdGeneratorException)
 	}
 }

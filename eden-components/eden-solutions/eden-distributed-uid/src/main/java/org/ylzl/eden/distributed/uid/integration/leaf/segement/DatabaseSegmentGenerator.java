@@ -56,7 +56,9 @@ public class DatabaseSegmentGenerator {
 
 	public DatabaseSegmentGenerator(SegmentGeneratorConfig config, DataSource dataSource) {
 		this.config = config;
-		this.initDb(dataSource);
+		if (config.getLiquibase().isEnabled()) {
+			this.initDb(dataSource);
+		}
 		this.leafAllocDAO = new LeafAllocDAO(dataSource);
 		this.updateCacheFromDb();
 		this.initialized = true;
@@ -94,7 +96,7 @@ public class DatabaseSegmentGenerator {
 		try {
 			liquibase.afterPropertiesSet();
 		} catch (LiquibaseException e) {
-			throw new SegmentGeneratorException("Leaf liquibase has initialized your database error");
+			throw new SegmentGeneratorException("Leaf liquibase has initialized your database error", e);
 		}
 		watch.stop();
 		log.debug("Leaf liquibase has initialized your database in {} ms", watch.getTotalTimeMillis());
@@ -126,7 +128,6 @@ public class DatabaseSegmentGenerator {
 
 	private void updateCacheFromDb() {
 		log.info("Update cache from db");
-		StopWatch sw = new StopWatch();
 		try {
 			List<String> dbTags = leafAllocDAO.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
@@ -157,8 +158,6 @@ public class DatabaseSegmentGenerator {
 			}
 		} catch (Exception e) {
 			log.warn("Update cache from db exception", e);
-		} finally {
-			sw.stop();
 		}
 	}
 
@@ -173,7 +172,6 @@ public class DatabaseSegmentGenerator {
 	}
 
 	private void updateSegmentFromDb(String key, Segment segment) {
-		StopWatch sw = new StopWatch();
 		SegmentBuffer buffer = segment.getBuffer();
 		LeafAlloc leafAlloc;
 		if (!buffer.isInitialized()) {
@@ -208,7 +206,6 @@ public class DatabaseSegmentGenerator {
 		segment.getValue().set(value);
 		segment.setMax(leafAlloc.getMaxId());
 		segment.setStep(buffer.getStep());
-		sw.stop();
 	}
 
 	private long getIdFromSegmentBuffer(final SegmentBuffer buffer) {
