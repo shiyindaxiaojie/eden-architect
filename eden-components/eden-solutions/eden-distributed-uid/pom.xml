@@ -78,6 +78,11 @@
 
 		<!-- 测试组件 -->
 		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<scope>test</scope>

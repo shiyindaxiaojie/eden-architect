@@ -16,9 +16,11 @@
 
 package org.ylzl.eden.spring.test.embedded.redis;
 
-import org.junit.rules.ExternalResource;
+import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
+
+import java.io.IOException;
 
 /**
  * 嵌入式的 Redis Server
@@ -26,19 +28,19 @@ import redis.embedded.core.RedisServerBuilder;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class EmbeddedRedisServer extends ExternalResource {
+public class EmbeddedRedisServer implements EmbeddedServer {
 
 	private static final String DEFAULT_BIND = "0.0.0.0";
 
 	private static final int DEFAULT_PORT = 6379;
 
-	private static final String DEFAULT_MAX_HEAP = "maxheap 256MB";
+	private static final String DEFAULT_MAX_HEAP = "maxheap 64MB";
 
 	private final RedisServerBuilder redisServerBuilder;
 
 	private RedisServer redisServer;
 
-	private boolean closed = true;
+	private boolean isRunning = true;
 
 	public EmbeddedRedisServer() {
 		this.redisServerBuilder = new RedisServerBuilder()
@@ -47,46 +49,65 @@ public class EmbeddedRedisServer extends ExternalResource {
 			.setting(DEFAULT_MAX_HEAP);
 	}
 
-	public EmbeddedRedisServer(int port) {
-		this.redisServerBuilder = new RedisServerBuilder()
-			.bind(DEFAULT_BIND)
-			.port(port)
-			.setting(DEFAULT_MAX_HEAP);
-	}
-
-	public void addConfigLine(String configLine) {
-		this.redisServerBuilder.setting(configLine);
-	}
-
-	public void addRequirePass(String requirepass) {
-		this.redisServerBuilder.setting("requirepass " + requirepass);
-	}
-
+	/**
+	 * 设置端口
+	 *
+	 * @param port 端口
+	 * @return this
+	 */
 	@Override
-	public void before() {
+	public EmbeddedServer port(int port) {
+		redisServerBuilder.port(port);
+		return this;
+	}
+
+	/**
+	 * 设置密码
+	 *
+	 * @param password 密码
+	 * @return this
+	 */
+	@Override
+	public EmbeddedServer password(String password) {
+		this.redisServerBuilder.setting("requirepass " + password);
+		return this;
+	}
+
+	/**
+	 * 启动
+	 */
+	@Override
+	public void startup() {
 		try {
 			this.redisServer = redisServerBuilder.build();
 			this.redisServer.start();
-			closed = false;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		this.isRunning = true;
 	}
 
+	/**
+	 * 关闭
+	 */
 	@Override
-	public void after() {
-		if (!isOpen()) {
+	public void shutdown() {
+		if (!isRunning()) {
 			return;
 		}
 		try {
 			this.redisServer.stop();
-			closed = true;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public boolean isOpen() {
-		return !closed;
+	/**
+	 * 是否在运行中
+	 *
+	 * @return 是否在运行中
+	 */
+	public boolean isRunning() {
+		return !isRunning;
 	}
 }

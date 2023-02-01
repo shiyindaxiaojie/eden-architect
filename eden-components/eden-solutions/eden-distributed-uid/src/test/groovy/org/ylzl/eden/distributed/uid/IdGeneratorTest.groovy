@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.distributed.uid
 
-import org.apache.zookeeper.server.embedded.ZooKeeperServerEmbedded
+import org.ylzl.eden.spring.test.embedded.zookeeper.EmbeddedZooKeeperServer
 import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App
 import spock.lang.Specification
@@ -24,22 +24,23 @@ import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper
 
 class IdGeneratorTest extends Specification {
 
-	ZooKeeperServerEmbedded zooKeeperServer
+	EmbeddedZooKeeperServer zooKeeperServer = new EmbeddedZooKeeperServer()
 
 	def setup() {
-		zooKeeperServer = ZooKeeperServerEmbedded.builder().build()
-		zooKeeperServer.start()
+		zooKeeperServer = new EmbeddedZooKeeperServer()
+		zooKeeperServer.startup()
 	}
 
 	def cleanup() {
-		zooKeeperServer.close()
+		zooKeeperServer.shutdown()
 	}
 
 	def "test next id"() {
 		when:
-		println IdGeneratorHelper.idGenerator("leaf", App.builder().port(8080).build()).nextId()
+		long id = IdGeneratorHelper.idGenerator("leaf", App.builder().port(8080).build()).nextId()
 
 		then:
+		id > 100_000_000_000_000_000
 		notThrown(IdGeneratorException)
 	}
 }

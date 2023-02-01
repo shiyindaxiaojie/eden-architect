@@ -18,6 +18,7 @@ package org.ylzl.eden.spring.test.embedded.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
+import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 
 /**
  * 嵌入式的 Kafka
@@ -32,41 +33,62 @@ import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
  * @since 2.4.13
  */
 @Slf4j
-public class EmbeddedKafka extends EmbeddedKafkaRule {
+public class EmbeddedKafka implements EmbeddedServer {
 
 	private static final int DEFAULT_PORT = 9092;
 
-	private int port;
+	private static final int DEFAULT_ZOOKEEPER_PORT = 2181;
 
-	private boolean closed = true;
+	private static final int DEFAULT_BROKER_COUNT = 1;
 
-	public EmbeddedKafka(int count) {
-		super(count);
+	private final EmbeddedKafkaRule embeddedKafkaRule;
+
+	private boolean isRunning = true;
+
+	public EmbeddedKafka() {
+		embeddedKafkaRule = new EmbeddedKafkaRule(DEFAULT_BROKER_COUNT);
+		embeddedKafkaRule.kafkaPorts(DEFAULT_PORT);
+		embeddedKafkaRule.zkPort(DEFAULT_ZOOKEEPER_PORT);
 	}
 
-	public EmbeddedKafka(int count, boolean controlledShutdown, String... topics) {
-		super(count, controlledShutdown, topics);
-	}
-
-	public EmbeddedKafka(int count, boolean controlledShutdown, int partitions, String... topics) {
-		super(count, controlledShutdown, partitions, topics);
-	}
-
+	/**
+	 * 设置端口
+	 *
+	 * @param port 端口
+	 * @return this
+	 */
 	@Override
-	public void before() {
-		super.before();
-		closed = true;
+	public EmbeddedServer port(int port) {
+		embeddedKafkaRule.kafkaPorts(port);
+		return this;
 	}
 
+	/**
+	 * 启动
+	 */
 	@Override
-	public void after() {
-		if (!isOpen()) {
+	public void startup() {
+		embeddedKafkaRule.before();
+		this.isRunning = true;
+	}
+
+	/**
+	 * 关闭
+	 */
+	@Override
+	public void shutdown() {
+		if (!isRunning()) {
 			return;
 		}
-		this.after();
+		embeddedKafkaRule.after();
 	}
 
-	public boolean isOpen() {
-		return !closed;
+	/**
+	 * 是否在运行中
+	 *
+	 * @return 是否在运行中
+	 */
+	public boolean isRunning() {
+		return !isRunning;
 	}
 }

@@ -17,7 +17,12 @@
 package org.ylzl.eden.spring.test.embedded.zookeeper;
 
 import org.apache.zookeeper.server.embedded.ZooKeeperServerEmbedded;
-import org.junit.rules.ExternalResource;
+import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
+
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.Properties;
 
 /**
  * 嵌入式的 Zookeeper Server
@@ -25,37 +30,80 @@ import org.junit.rules.ExternalResource;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class EmbeddedZooKeeperServer extends ExternalResource {
+public class EmbeddedZooKeeperServer implements EmbeddedServer {
 
-    private ZooKeeperServerEmbedded zooKeeperServer;
+	private static final int DEFAULT_PORT = 2181;
 
-    private boolean closed = true;
+	private final ZooKeeperServerEmbedded zooKeeperServer;
 
-    @Override
-    public void before() {
-        try {
-            this.zooKeeperServer = ZooKeeperServerEmbedded.builder().build();
-            this.zooKeeperServer.start();
-            closed = false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	private boolean isRunning = true;
 
-    @Override
-    public void after() {
-        if (!isOpen()) {
-            return;
-        }
-        try {
-            this.zooKeeperServer.close();
-            closed = true;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	public EmbeddedZooKeeperServer() {
+		Properties configuration = new Properties();
+		configuration.put("clientPort", String.valueOf(DEFAULT_PORT));
+		configuration.put("host", "localhost");
+		configuration.put("ticktime", "2000");
+		configuration.put("initLimit", "10");
+		configuration.put("syncLimit", "5");
+		configuration.put("dataDir", "/tmp/zookeeper");
+//		configuration.put("admin.serverPort", "8181");
+//		configuration.put("metricsProvider.className", "org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider");
+//		configuration.put("metricsProvider.httpPort", "7000");
+//		configuration.put("metricsProvider.exportJvmInfo", "true");
+		try {
+			String path = EmbeddedZooKeeperServer.class.getClassLoader().getResource("").toURI().toString();
+			URI uri = new URL(path).toURI();
+			this.zooKeeperServer = ZooKeeperServerEmbedded.builder()
+				.baseDir(Paths.get(uri))
+				.configuration(configuration)
+				.build();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    public boolean isOpen() {
-        return !closed;
-    }
+	/**
+	 * 设置端口
+	 *
+	 * @param port 端口
+	 * @return this
+	 */
+	@Override
+	public EmbeddedServer port(int port) {
+		return this;
+	}
+
+	/**
+	 * 启动
+	 */
+	@Override
+	public void startup() {
+		try {
+			this.zooKeeperServer.start();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		this.isRunning = true;
+	}
+
+	/**
+	 * 关闭
+	 */
+	@Override
+	public void shutdown() {
+		if (!isRunning()) {
+			return;
+		}
+		this.zooKeeperServer.close();
+	}
+
+	/**
+	 * 是否在运行中
+	 *
+	 * @return 是否在运行中
+	 */
+	@Override
+	public boolean isRunning() {
+		return isRunning;
+	}
 }
