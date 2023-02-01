@@ -14,39 +14,25 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.test.embedded.redis
+package org.ylzl.eden.spring.test.embedded
 
-
-import spock.lang.Shared
+import org.ylzl.eden.spring.test.embedded.support.EmbeddedServerHelper
 import spock.lang.Specification
 
-class EmbeddedRedisServerTest extends Specification {
-    //Field redisServer of type RedisServer - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
-	@Shared
-    EmbeddedRedisServer embeddedRedis = new EmbeddedRedisServer(6379)
+class EmbeddedServerTest extends Specification {
 
-    def "test before"() {
-        when:
-        embeddedRedis.before()
+	def "test embedded server running"() {
+		expect:
+		EmbeddedServer embeddedServer = EmbeddedServerHelper.embeddedServer(spi, port)
+		embeddedServer.startup()
+		isRunning == embeddedServer.isRunning()
+		embeddedServer.shutdown()
 
-        then:
-		true
-    }
-
-    def "test is Open"() {
-        when:
-        boolean result = embeddedRedis.isOpen()
-
-        then:
-		result
-    }
-
-	def "test after"() {
-		when:
-		embeddedRedis.after()
-
-		then:
-		true
+		where:
+		spi			||	port	||	isRunning
+//		"kafka"		||	9092	||	true
+//		"redis"		||	6379	||	true
+		"zookeeper"	||	2181	||	true
 	}
 }
 

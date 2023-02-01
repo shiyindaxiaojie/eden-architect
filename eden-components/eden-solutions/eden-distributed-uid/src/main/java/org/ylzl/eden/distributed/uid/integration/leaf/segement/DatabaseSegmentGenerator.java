@@ -177,12 +177,12 @@ public class DatabaseSegmentGenerator {
 		if (!buffer.isInitialized()) {
 			leafAlloc = leafAllocDAO.updateMaxIdAndGetLeafAlloc(key);
 			buffer.setStep(leafAlloc.getStep());
-			buffer.setMinStep(leafAlloc.getStep());//leafAlloc中的step为DB中的step
+			buffer.setMinStep(leafAlloc.getStep());
 		} else if (buffer.getUpdateTimestamp() == 0) {
 			leafAlloc = leafAllocDAO.updateMaxIdAndGetLeafAlloc(key);
 			buffer.setUpdateTimestamp(System.currentTimeMillis());
 			buffer.setStep(leafAlloc.getStep());
-			buffer.setMinStep(leafAlloc.getStep());//leafAlloc中的step为DB中的step
+			buffer.setMinStep(leafAlloc.getStep());
 		} else {
 			long duration = System.currentTimeMillis() - buffer.getUpdateTimestamp();
 			int nextStep = buffer.getStep();

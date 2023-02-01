@@ -26,11 +26,11 @@ import org.ylzl.eden.extension.strategy.LoadingStrategy;
  */
 public class DistributedUIDLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF_UID = "META-INF/distributed-uid/";
+	public static final String META_INF = "META-INF/distributed-uid/";
 
 	@Override
 	public String directory() {
-		return META_INF_UID;
+		return META_INF;
 	}
 
 	@Override

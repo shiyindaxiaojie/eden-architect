@@ -26,11 +26,11 @@ import org.ylzl.eden.extension.strategy.LoadingStrategy;
  */
 public class CacheLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF_CACHE = "META-INF/cache/";
+	public static final String META_INF = "META-INF/cache/";
 
 	@Override
 	public String directory() {
-		return META_INF_CACHE;
+		return META_INF;
 	}
 
 	@Override

@@ -26,11 +26,11 @@ import org.ylzl.eden.extension.strategy.LoadingStrategy;
  */
 public class DataFilterLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF_DATA_FILTER = "META-INF/data-filter/";
+	public static final String META_INF = "META-INF/data-filter/";
 
 	@Override
 	public String directory() {
-		return META_INF_DATA_FILTER;
+		return META_INF;
 	}
 
 	@Override

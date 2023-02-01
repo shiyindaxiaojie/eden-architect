@@ -17,6 +17,7 @@
 package org.ylzl.eden.spring.test.embedded.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 
@@ -41,14 +42,14 @@ public class EmbeddedKafka implements EmbeddedServer {
 
 	private static final int DEFAULT_BROKER_COUNT = 1;
 
-	private final EmbeddedKafkaRule embeddedKafkaRule;
+	private final EmbeddedKafkaBroker kafkaBroker;
 
 	private boolean isRunning = true;
 
 	public EmbeddedKafka() {
-		embeddedKafkaRule = new EmbeddedKafkaRule(DEFAULT_BROKER_COUNT);
-		embeddedKafkaRule.kafkaPorts(DEFAULT_PORT);
-		embeddedKafkaRule.zkPort(DEFAULT_ZOOKEEPER_PORT);
+		kafkaBroker = new EmbeddedKafkaBroker(DEFAULT_BROKER_COUNT);
+		kafkaBroker.kafkaPorts(DEFAULT_PORT);
+		kafkaBroker.zkPort(DEFAULT_ZOOKEEPER_PORT);
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class EmbeddedKafka implements EmbeddedServer {
 	 */
 	@Override
 	public EmbeddedServer port(int port) {
-		embeddedKafkaRule.kafkaPorts(port);
+		kafkaBroker.kafkaPorts(port);
 		return this;
 	}
 
@@ -68,7 +69,7 @@ public class EmbeddedKafka implements EmbeddedServer {
 	 */
 	@Override
 	public void startup() {
-		embeddedKafkaRule.before();
+		kafkaBroker.afterPropertiesSet();
 		this.isRunning = true;
 	}
 
@@ -80,7 +81,7 @@ public class EmbeddedKafka implements EmbeddedServer {
 		if (!isRunning()) {
 			return;
 		}
-		embeddedKafkaRule.after();
+		kafkaBroker.destroy();
 	}
 
 	/**
@@ -88,7 +89,8 @@ public class EmbeddedKafka implements EmbeddedServer {
 	 *
 	 * @return 是否在运行中
 	 */
+	@Override
 	public boolean isRunning() {
-		return !isRunning;
+		return isRunning;
 	}
 }

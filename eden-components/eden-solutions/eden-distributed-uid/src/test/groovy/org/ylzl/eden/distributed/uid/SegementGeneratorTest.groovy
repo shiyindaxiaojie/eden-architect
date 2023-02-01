@@ -41,11 +41,13 @@ class SegementGeneratorTest extends Specification {
 		SegmentGenerator segmentGenerator = SegmentGeneratorHelper.segmentGenerator("leaf", dataSource)
 
 		when:
+		int id = 0
 		for (i in 0..< 1000) {
-			println segmentGenerator.nextId("default")
+			id += segmentGenerator.nextId("default")
 		}
 
 		then:
+		id == 500500
 		notThrown(IdGeneratorException)
 	}
 }

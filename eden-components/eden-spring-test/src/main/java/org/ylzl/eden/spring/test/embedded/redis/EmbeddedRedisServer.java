@@ -107,7 +107,8 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 	 *
 	 * @return 是否在运行中
 	 */
+	@Override
 	public boolean isRunning() {
-		return !isRunning;
+		return isRunning;
 	}
 }

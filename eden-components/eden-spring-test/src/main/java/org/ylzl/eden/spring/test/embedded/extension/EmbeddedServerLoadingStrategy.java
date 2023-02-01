@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.extension;
+package org.ylzl.eden.spring.test.embedded.extension;
 
 import org.ylzl.eden.extension.strategy.LoadingStrategy;
 
 /**
- * 数据审计扩展点加载策略
+ * 嵌入式服务扩展点加载策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class DataAuditorLoadingStrategy implements LoadingStrategy {
+public class EmbeddedServerLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF = "META-INF/data-auditor/";
+	public static final String META_INF = "META-INF/embedded-server/";
 
 	@Override
 	public String directory() {

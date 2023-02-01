@@ -14,27 +14,20 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.auditor.extension;
+package org.ylzl.eden.spring.test.embedded.support;
 
-import org.ylzl.eden.extension.strategy.LoadingStrategy;
+import org.ylzl.eden.extension.ExtensionLoader;
+import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 
 /**
- * 数据审计扩展点加载策略
+ * 嵌入式服务构建器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class DataAuditorLoadingStrategy implements LoadingStrategy {
+public class EmbeddedServerHelper {
 
-	public static final String META_INF = "META-INF/data-auditor/";
-
-	@Override
-	public String directory() {
-		return META_INF;
-	}
-
-	@Override
-	public int getPriority() {
-		return MAX_PRIORITY;
+	public static EmbeddedServer embeddedServer(String spi, int port) {
+		return ExtensionLoader.getExtensionLoader(EmbeddedServer.class).getExtension(spi).port(port);
 	}
 }

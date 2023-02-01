@@ -1,11 +1,14 @@
 package org.ylzl.eden.spring.test.embedded;
 
+import org.ylzl.eden.extension.SPI;
+
 /**
  * 嵌入式服务
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@SPI
 public interface EmbeddedServer {
 
 	/**
