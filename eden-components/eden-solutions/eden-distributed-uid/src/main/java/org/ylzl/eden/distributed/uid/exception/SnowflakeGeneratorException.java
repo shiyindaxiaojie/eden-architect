@@ -22,13 +22,13 @@ package org.ylzl.eden.distributed.uid.exception;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class IdGeneratorException extends RuntimeException {
+public class SnowflakeGeneratorException extends RuntimeException {
 
-	public IdGeneratorException(String message) {
+	public SnowflakeGeneratorException(String message) {
 		super(message);
 	}
 
-	public IdGeneratorException(String message, Throwable cause) {
+	public SnowflakeGeneratorException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

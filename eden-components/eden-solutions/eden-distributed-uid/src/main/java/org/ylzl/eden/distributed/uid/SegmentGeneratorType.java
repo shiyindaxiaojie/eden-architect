@@ -27,13 +27,12 @@ import lombok.Getter;
 @Getter
 public enum SegmentGeneratorType {
 
-	LEAF,
-	TINY_ID;
+	LEAF;
 
 	public static SegmentGeneratorType parse(String type) {
-		for (SegmentGeneratorType idGeneratorType : SegmentGeneratorType.values()) {
-			if (idGeneratorType.name().equalsIgnoreCase(type)) {
-				return idGeneratorType;
+		for (SegmentGeneratorType segmentGeneratorType : SegmentGeneratorType.values()) {
+			if (segmentGeneratorType.name().equalsIgnoreCase(type)) {
+				return segmentGeneratorType;
 			}
 		}
 		return null;

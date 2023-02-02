@@ -18,7 +18,7 @@ package org.ylzl.eden.distributed.uid
 
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
-import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
+import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException
 import org.ylzl.eden.distributed.uid.support.SegmentGeneratorHelper
 import spock.lang.Specification
 
@@ -48,7 +48,7 @@ class SegementGeneratorTest extends Specification {
 
 		then:
 		id == 500500
-		notThrown(IdGeneratorException)
+		notThrown(SnowflakeGeneratorException)
 	}
 }
 

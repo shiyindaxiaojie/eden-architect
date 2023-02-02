@@ -14,41 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.builder;
-
-import org.ylzl.eden.distributed.uid.IdGenerator;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
-import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
-import org.ylzl.eden.extension.SPI;
+package org.ylzl.eden.distributed.uid;
 
 /**
- * ID生成器构建
+ * 雪花算法生成器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
-@SPI("leaf")
-public interface IdGeneratorBuilder {
+public interface SnowflakeGenerator {
 
 	/**
-	 * 设置ID生成器配置
+	 * 生成器类型
 	 *
-	 * @param config ID生成器配置
-	 * @return this
+	 * @return 生成器类型
 	 */
-	IdGeneratorBuilder config(IdGeneratorConfig config);
+	String generatorType();
 
 	/**
-	 * 设置应用信息
+	 * 获取ID
 	 *
-	 * @param app 应用信息
-	 * @return this
+	 * @return ID
 	 */
-	IdGeneratorBuilder app(App app);
-
-	/**
-	 * 构建ID生成器
-	 * @return ID生成器
-	 */
-	IdGenerator build();
+	long nextId();
 }

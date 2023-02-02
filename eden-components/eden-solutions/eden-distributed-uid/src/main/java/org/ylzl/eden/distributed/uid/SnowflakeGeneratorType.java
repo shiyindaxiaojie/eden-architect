@@ -16,25 +16,27 @@
 
 package org.ylzl.eden.distributed.uid;
 
+import lombok.Getter;
+
 /**
- * ID生成器
+ * 雪花算法生成器类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface IdGenerator {
+@Getter
+public enum SnowflakeGeneratorType {
 
-	/**
-	 * 生成器类型
-	 *
-	 * @return 生成器类型
-	 */
-	String generatorType();
+	LEAF,
+	UID_GENERATOR,
+	TINY_ID;
 
-	/**
-	 * 获取ID
-	 *
-	 * @return ID
-	 */
-	long nextId();
+	public static SnowflakeGeneratorType parse(String type) {
+		for (SnowflakeGeneratorType snowflakeGeneratorType : SnowflakeGeneratorType.values()) {
+			if (snowflakeGeneratorType.name().equalsIgnoreCase(type)) {
+				return snowflakeGeneratorType;
+			}
+		}
+		return null;
+	}
 }

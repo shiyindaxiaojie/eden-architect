@@ -28,12 +28,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.commons.net.IpConfigUtils;
-import org.ylzl.eden.distributed.uid.IdGenerator;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
-import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper;
+import org.ylzl.eden.distributed.uid.support.SnowflakeGeneratorHelper;
 import org.ylzl.eden.distributed.uid.support.SegmentGeneratorHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
@@ -53,7 +53,7 @@ import javax.sql.DataSource;
 @Configuration(proxyBeanMethods = false)
 public class DistributedUIDAutoConfiguration {
 
-	private static final String AUTOWIRED_ID_GENERATOR = "Autowired IdGenerator";
+	private static final String AUTOWIRED_SNOWFLAKE_GENERATOR = "Autowired SnowflakeGenerator";
 
 	private static final String AUTOWIRED_SEGMENT_GENERATOR = "Autowired SegmentGenerator";
 
@@ -66,12 +66,12 @@ public class DistributedUIDAutoConfiguration {
 	)
 	@ConditionalOnMissingBean
 	@Bean
-	public IdGenerator idGenerator(@Value(SpringProperties.NAME_PATTERN) String applicationName,
-								   ServerProperties serverProperties) {
-		log.debug(AUTOWIRED_ID_GENERATOR);
-		IdGeneratorConfig config = properties.getIdGenerator();
+	public SnowflakeGenerator snowflakeGenerator(@Value(SpringProperties.NAME_PATTERN) String applicationName,
+                                          ServerProperties serverProperties) {
+		log.debug(AUTOWIRED_SNOWFLAKE_GENERATOR);
+		SnowflakeGeneratorConfig config = properties.getSnowflakeGenerator();
 		config.setName(applicationName);
-		return IdGeneratorHelper.idGenerator(properties.getIdGenerator().getType(),
+		return SnowflakeGeneratorHelper.snowflakeGenerator(properties.getSegmentGenerator().getType(),
 			App.builder().ip(IpConfigUtils.getIpAddress()).port(serverProperties.getPort()).build(), config);
 	}
 

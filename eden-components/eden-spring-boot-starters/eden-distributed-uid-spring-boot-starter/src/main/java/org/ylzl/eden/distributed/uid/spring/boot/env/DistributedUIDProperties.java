@@ -19,7 +19,7 @@ package org.ylzl.eden.distributed.uid.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 
 /**
@@ -39,7 +39,7 @@ public class DistributedUIDProperties {
 
 	public static final String SEGMENT_GENERATOR_PREFIX = PREFIX + ".segment-generator";
 
-	private final IdGeneratorConfig idGenerator = new IdGeneratorConfig();
+	private final SnowflakeGeneratorConfig snowflakeGenerator = new SnowflakeGeneratorConfig();
 
 	private final SegmentGeneratorConfig segmentGenerator = new SegmentGeneratorConfig();
 }

@@ -14,28 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid;
+package org.ylzl.eden.distributed.uid.integration.leaf;
 
-import lombok.Getter;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
+import org.ylzl.eden.distributed.uid.builder.AbstractSnowflakeGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.builder.SnowflakeGeneratorBuilder;
 
 /**
- * ID生成器类型
+ * Leaf雪花算法生成器构建
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Getter
-public enum IdGeneratorType {
+public class LeafSnowflakeGeneratorBuilder extends AbstractSnowflakeGeneratorBuilder implements SnowflakeGeneratorBuilder {
 
-	LEAF,
-	UID_GENERATOR;
-
-	public static IdGeneratorType parse(String type) {
-		for (IdGeneratorType idGeneratorType : IdGeneratorType.values()) {
-			if (idGeneratorType.name().equalsIgnoreCase(type)) {
-				return idGeneratorType;
-			}
-		}
-		return null;
+	/**
+	 * 构建雪花算法生成器
+	 *
+	 * @return 雪花算法生成器
+	 */
+	@Override
+	public SnowflakeGenerator build() {
+		return new LeafSnowflakeGenerator(this.getConfig(), this.getApp());
 	}
 }

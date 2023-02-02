@@ -14,27 +14,41 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf;
+package org.ylzl.eden.distributed.uid.builder;
 
-import org.ylzl.eden.distributed.uid.IdGenerator;
-import org.ylzl.eden.distributed.uid.builder.AbstractIdGeneratorBuilder;
-import org.ylzl.eden.distributed.uid.builder.IdGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
+import org.ylzl.eden.extension.SPI;
 
 /**
- * Leaf雪花算法生成器构建
+ * 雪花算法生成器构建
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LeafIdGeneratorBuilder extends AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
+@SPI("leaf")
+public interface SnowflakeGeneratorBuilder {
+
+	/**
+	 * 设置雪花算法生成器配置
+	 *
+	 * @param config 雪花算法生成器配置
+	 * @return this
+	 */
+	SnowflakeGeneratorBuilder config(SnowflakeGeneratorConfig config);
+
+	/**
+	 * 设置应用信息
+	 *
+	 * @param app 应用信息
+	 * @return this
+	 */
+	SnowflakeGeneratorBuilder app(App app);
 
 	/**
 	 * 构建雪花算法生成器
-	 *
 	 * @return 雪花算法生成器
 	 */
-	@Override
-	public IdGenerator build() {
-		return new LeafIdGenerator(this.getConfig(), this.getApp());
-	}
+	SnowflakeGenerator build();
 }

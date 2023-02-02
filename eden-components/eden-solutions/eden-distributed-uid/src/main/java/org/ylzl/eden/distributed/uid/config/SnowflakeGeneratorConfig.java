@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.ylzl.eden.distributed.uid.IdGeneratorType;
+import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
 
 /**
  * ID 生成器配置
@@ -32,23 +32,23 @@ import org.ylzl.eden.distributed.uid.IdGeneratorType;
 @ToString
 @Setter
 @Getter
-public class IdGeneratorConfig {
+public class SnowflakeGeneratorConfig {
 
 	private boolean enabled = false;
 
-	private String type = IdGeneratorType.LEAF.name();
+	private String type = SnowflakeGeneratorType.LEAF.name();
 
 	private String name = System.getProperty("spring.application.name", "app");
 
 	private long twepoch = 1288834974657L;
 
-	private final SnowflakeCoordinator coordinator = new SnowflakeCoordinator();
+	private final Coordinator coordinator = new Coordinator();
 
 	@EqualsAndHashCode
 	@ToString
 	@Setter
 	@Getter
-	public static class SnowflakeCoordinator {
+	public static class Coordinator {
 
 		private String type = "zookeeper";
 

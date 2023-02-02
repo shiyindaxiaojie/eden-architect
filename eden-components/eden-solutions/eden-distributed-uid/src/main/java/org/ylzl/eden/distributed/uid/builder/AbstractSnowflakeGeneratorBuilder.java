@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.distributed.uid.builder;
 
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 
 /**
@@ -25,20 +25,20 @@ import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
+public abstract class AbstractSnowflakeGeneratorBuilder implements SnowflakeGeneratorBuilder {
 
-	private IdGeneratorConfig config = new IdGeneratorConfig();
+	private SnowflakeGeneratorConfig config = new SnowflakeGeneratorConfig();
 
 	private App app = new App();
 
 	/**
-	 * 设置ID生成器配置
+	 * 设置雪花算法生成器配置
 	 *
-	 * @param config ID生成器配置
+	 * @param config 雪花算法生成器配置
 	 * @return this
 	 */
 	@Override
-	public IdGeneratorBuilder config(IdGeneratorConfig config) {
+	public SnowflakeGeneratorBuilder config(SnowflakeGeneratorConfig config) {
 		this.config = config;
 		return this;
 	}
@@ -50,17 +50,17 @@ public abstract class AbstractIdGeneratorBuilder implements IdGeneratorBuilder {
 	 * @return this
 	 */
 	@Override
-	public IdGeneratorBuilder app(App app) {
+	public SnowflakeGeneratorBuilder app(App app) {
 		this.app = app;
 		return this;
 	}
 
 	/**
-	 * 获取ID生成器配置
+	 * 获取雪花算法生成器配置
 	 *
-	 * @return ID生成器配置
+	 * @return 雪花算法生成器配置
 	 */
-	protected IdGeneratorConfig getConfig() {
+	protected SnowflakeGeneratorConfig getConfig() {
 		return config;
 	}
 

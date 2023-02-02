@@ -26,11 +26,11 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.Endpoint;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinator;
-import org.ylzl.eden.distributed.uid.exception.IdGeneratorException;
+import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +59,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 
 	private volatile CuratorFramework curatorFramework;
 
-	private IdGeneratorConfig config;
+	private SnowflakeGeneratorConfig config;
 
 	private App app;
 
@@ -104,7 +104,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 			this.updateLocalWorkerId(workerId);
 			this.scheduledEndpoint(zkNode);
 		} catch (Exception e) {
-			throw new IdGeneratorException(e.getMessage(), e);
+			throw new SnowflakeGeneratorException(e.getMessage(), e);
 		}
 		return workerId;
 	}
@@ -116,7 +116,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 	 * @return this
 	 */
 	@Override
-	public SnowflakeCoordinator config(IdGeneratorConfig config) {
+	public SnowflakeCoordinator config(SnowflakeGeneratorConfig config) {
 		this.config = config;
 		return this;
 	}
@@ -168,7 +168,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 				.withMode(CreateMode.PERSISTENT_SEQUENTIAL)
 				.forPath(prefix, endpoint.getBytes());
 		} catch (Exception e) {
-			throw new IdGeneratorException("Create zookeeper node '" + prefix + "' failed", e);
+			throw new SnowflakeGeneratorException("Create zookeeper node '" + prefix + "' failed", e);
 		}
 	}
 
@@ -207,11 +207,11 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 		try {
 			bytes = curatorFramework.getData().forPath(zkNode);
 		} catch (Exception e) {
-			throw new IdGeneratorException("Get zookeeper node '" + zkNode + "' data error");
+			throw new SnowflakeGeneratorException("Get zookeeper node '" + zkNode + "' data error");
 		}
 		Endpoint endPoint = Endpoint.parse(new String(bytes));
 		if (endPoint.getTimestamp() > System.currentTimeMillis()) {
-			throw new IdGeneratorException("Check endpoint timestamp invalid");
+			throw new SnowflakeGeneratorException("Check endpoint timestamp invalid");
 		}
 	}
 
@@ -232,7 +232,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 			try {
 				curatorFramework.setData().forPath(zkNode, Endpoint.build(app.getIp(), app.getPort()).getBytes());
 			} catch (Exception e) {
-				throw new IdGeneratorException("Scheduled endpoint timestamp error", e);
+				throw new SnowflakeGeneratorException("Scheduled endpoint timestamp error", e);
 			}
 			lastUpdateTime = System.currentTimeMillis();
 		}, 1L, 3L, TimeUnit.SECONDS); // 每 3 秒上报一次数据

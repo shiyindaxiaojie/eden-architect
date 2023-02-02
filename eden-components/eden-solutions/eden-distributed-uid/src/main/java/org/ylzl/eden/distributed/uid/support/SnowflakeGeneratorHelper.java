@@ -16,69 +16,69 @@
 
 package org.ylzl.eden.distributed.uid.support;
 
-import org.ylzl.eden.distributed.uid.IdGenerator;
-import org.ylzl.eden.distributed.uid.builder.IdGeneratorBuilder;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
+import org.ylzl.eden.distributed.uid.builder.SnowflakeGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
- * ID生成器帮助支持
+ * 雪花算法生成器帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class IdGeneratorHelper {
+public class SnowflakeGeneratorHelper {
 
 	/**
-	 * 获取ID生成器实例
+	 * 获取雪花算法生成器实例
 	 *
 	 * @param app 应用信息
-	 * @return ID生成器实例
+	 * @return 雪花算法生成器实例
 	 */
-	public static IdGenerator idGenerator(App app) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension()
+	public static SnowflakeGenerator snowflakeGenerator(App app) {
+		return ExtensionLoader.getExtensionLoader(SnowflakeGeneratorBuilder.class).getDefaultExtension()
 			.app(app)
 			.build();
 	}
 
 	/**
-	 * 获取ID生成器实例
+	 * 获取雪花算法生成器实例
 	 *
 	 * @param app 应用信息
 	 * @param config 配置信息
-	 * @return ID生成器实例
+	 * @return 雪花算法生成器实例
 	 */
-	public static IdGenerator idGenerator(App app, IdGeneratorConfig config) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension()
+	public static SnowflakeGenerator snowflakeGenerator(App app, SnowflakeGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(SnowflakeGeneratorBuilder.class).getDefaultExtension()
 			.app(app)
 			.config(config)
 			.build();
 	}
 
 	/**
-	 * 获取ID生成器实例
+	 * 获取雪花算法生成器实例
 	 *
 	 * @param spi 扩展点
 	 * @param app 应用信息
-	 * @return ID生成器实例
+	 * @return 雪花算法生成器实例
 	 */
-	public static IdGenerator idGenerator(String spi, App app) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi)
+	public static SnowflakeGenerator snowflakeGenerator(String spi, App app) {
+		return ExtensionLoader.getExtensionLoader(SnowflakeGeneratorBuilder.class).getExtension(spi)
 			.app(app)
 			.build();
 	}
 
 	/**
-	 * 获取ID生成器实例
+	 * 获取雪花算法生成器实例
 	 *
 	 * @param spi 扩展点
 	 * @param app 应用信息
 	 * @param config 配置信息
-	 * @return ID生成器实例
+	 * @return 雪花算法生成器实例
 	 */
-	public static IdGenerator idGenerator(String spi, App app, IdGeneratorConfig config) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi)
+	public static SnowflakeGenerator snowflakeGenerator(String spi, App app, SnowflakeGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(SnowflakeGeneratorBuilder.class).getExtension(spi)
 			.app(app)
 			.config(config)
 			.build();

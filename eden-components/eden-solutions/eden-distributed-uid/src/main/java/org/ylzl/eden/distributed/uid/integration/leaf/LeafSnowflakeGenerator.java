@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.uid.integration.leaf.snowflake;
+package org.ylzl.eden.distributed.uid.integration.leaf;
 
 import lombok.Synchronized;
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
-import org.ylzl.eden.distributed.uid.exception.IdGeneratorException;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
+import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
+import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinatorBuilder;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
@@ -26,12 +28,12 @@ import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import java.util.Random;
 
 /**
- * 雪花算法ID生成器
+ * Leaf 雪花算法生成器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class SnowflakeGenerator {
+public class LeafSnowflakeGenerator implements SnowflakeGenerator {
 
 	private static final long workerIdBits = 10L;
 
@@ -55,7 +57,7 @@ public class SnowflakeGenerator {
 
 	private final long twepoch;
 
-	public SnowflakeGenerator(IdGeneratorConfig config, App app) {
+	public LeafSnowflakeGenerator(SnowflakeGeneratorConfig config, App app) {
 		this.twepoch = config.getTwepoch();
 		AssertUtils.isTrue(timeGen() > twepoch, "Snowflake not support twepoch gt currentTime");
 
@@ -63,7 +65,23 @@ public class SnowflakeGenerator {
 		AssertUtils.isTrue(workerId >= 0 && workerId <= maxWorkerId, "Snowflake worker id must between 0 and 1023");
 	}
 
+	/**
+	 * 生成器类型
+	 *
+	 * @return 生成器类型
+	 */
+	@Override
+	public String generatorType() {
+		return SnowflakeGeneratorType.LEAF.name();
+	}
+
+	/**
+	 * 获取ID
+	 *
+	 * @return ID
+	 */
 	@Synchronized
+	@Override
 	public long nextId() {
 		long timestamp = timeGen();
 		if (timestamp < lastTimestamp) {
@@ -73,13 +91,13 @@ public class SnowflakeGenerator {
 					wait(offset << 1);
 					timestamp = timeGen();
 					if (timestamp < lastTimestamp) {
-						throw new IdGeneratorException("Snowflake last timestamp gt currentTime");
+						throw new SnowflakeGeneratorException("Snowflake last timestamp gt currentTime");
 					}
 				} catch (InterruptedException e) {
-					throw new IdGeneratorException("Snowflake next id wait interrupted");
+					throw new SnowflakeGeneratorException("Snowflake next id wait interrupted");
 				}
 			} else {
-				throw new IdGeneratorException("Snowflake last timestamp offset gt 5");
+				throw new SnowflakeGeneratorException("Snowflake last timestamp offset gt 5");
 			}
 		}
 		if (lastTimestamp == timestamp) {
@@ -106,4 +124,5 @@ public class SnowflakeGenerator {
 	private long timeGen() {
 		return System.currentTimeMillis();
 	}
+
 }

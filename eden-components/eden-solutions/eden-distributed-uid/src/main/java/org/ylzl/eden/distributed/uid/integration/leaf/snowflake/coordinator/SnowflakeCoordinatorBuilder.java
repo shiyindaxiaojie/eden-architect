@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator;
 
-import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.extension.ExtensionLoader;
 
@@ -31,11 +31,11 @@ public class SnowflakeCoordinatorBuilder {
 	/**
 	 * 构建雪花算法协调器
 	 *
-	 * @param config ID生成器配置
+	 * @param config 雪花算法生成器配置
 	 * @param app 应用信息
 	 * @return 雪花算法协调器实例
 	 */
-	public static SnowflakeCoordinator build(IdGeneratorConfig config, App app) {
+	public static SnowflakeCoordinator build(SnowflakeGeneratorConfig config, App app) {
 		return ExtensionLoader.getExtensionLoader(SnowflakeCoordinator.class)
 			.getExtension(config.getCoordinator().getType())
 			.config(config)

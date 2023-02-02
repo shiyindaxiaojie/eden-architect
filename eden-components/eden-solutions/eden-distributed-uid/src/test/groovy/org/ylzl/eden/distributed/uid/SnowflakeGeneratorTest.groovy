@@ -16,13 +16,13 @@
 
 package org.ylzl.eden.distributed.uid
 
-import org.ylzl.eden.spring.test.embedded.zookeeper.EmbeddedZooKeeperServer
-import org.ylzl.eden.distributed.uid.exception.IdGeneratorException
+import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App
+import org.ylzl.eden.distributed.uid.support.SnowflakeGeneratorHelper
+import org.ylzl.eden.spring.test.embedded.zookeeper.EmbeddedZooKeeperServer
 import spock.lang.Specification
-import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper
 
-class IdGeneratorTest extends Specification {
+class SnowflakeGeneratorTest extends Specification {
 
 	EmbeddedZooKeeperServer zooKeeperServer = new EmbeddedZooKeeperServer()
 
@@ -41,14 +41,14 @@ class IdGeneratorTest extends Specification {
 
 	def "test next id"() {
 		given:
-		IdGenerator idGenerator = IdGeneratorHelper.idGenerator("leaf", app)
+		SnowflakeGenerator snowflakeGenerator = SnowflakeGeneratorHelper.snowflakeGenerator("leaf", app)
 
 		when:
-		long id = idGenerator.nextId()
+		long id = snowflakeGenerator.nextId()
 
 		then:
 		id > 100_000_000_000_000_000
-		notThrown(IdGeneratorException)
+		notThrown(SnowflakeGeneratorException)
 	}
 }
 
