@@ -35,8 +35,8 @@ class SensitiveFilterTest extends Specification {
 		sensitiveConfig.getAhoCoraSick().setOnlyWholeWords(true)
 		sensitiveFilter = ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class)
 			.getDefaultExtension()
-			.sensitiveConfig(sensitiveConfig)
-			.sensitiveWordProcessor(new SensitiveWordLoader() {
+			.config(sensitiveConfig)
+			.sensitiveWordLoader(new SensitiveWordLoader() {
 
 				@Override
 				Collection<String> loadSensitiveWords() {

@@ -573,6 +573,8 @@
 					<configuration>
 						<tagNameFormat>v@{project.version}</tagNameFormat>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<useReleaseProfile>false</useReleaseProfile>
+						<allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
 					</configuration>
 				</plugin>
 				<!-- 容器化部署 -->
