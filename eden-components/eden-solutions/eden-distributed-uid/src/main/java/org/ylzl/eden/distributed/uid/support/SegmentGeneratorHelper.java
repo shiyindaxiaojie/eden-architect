@@ -18,6 +18,7 @@ package org.ylzl.eden.distributed.uid.support;
 
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
 import org.ylzl.eden.distributed.uid.builder.SegmentGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 import javax.sql.DataSource;
@@ -45,6 +46,21 @@ public class SegmentGeneratorHelper {
 	/**
 	 * 获取号段生成器实例
 	 *
+	 * @param dataSource 数据源
+	 * @param config 配置
+	 * @return 号段生成器实例
+	 */
+	public static SegmentGenerator segmentGenerator(DataSource dataSource, SegmentGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(SegmentGeneratorBuilder.class).getDefaultExtension()
+			.dataSource(dataSource)
+			.config(config)
+			.build();
+	}
+
+
+	/**
+	 * 获取号段生成器实例
+	 *
 	 * @param spi 扩展点
 	 * @param dataSource 数据源
 	 * @return 号段生成器实例
@@ -52,6 +68,21 @@ public class SegmentGeneratorHelper {
 	public static SegmentGenerator segmentGenerator(String spi, DataSource dataSource) {
 		return ExtensionLoader.getExtensionLoader(SegmentGeneratorBuilder.class).getExtension(spi)
 			.dataSource(dataSource)
+			.build();
+	}
+
+	/**
+	 * 获取号段生成器实例
+	 *
+	 * @param spi 扩展点
+	 * @param dataSource 数据源
+	 * @param config 配置
+	 * @return 号段生成器实例
+	 */
+	public static SegmentGenerator segmentGenerator(String spi, DataSource dataSource, SegmentGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(SegmentGeneratorBuilder.class).getExtension(spi)
+			.dataSource(dataSource)
+			.config(config)
 			.build();
 	}
 }

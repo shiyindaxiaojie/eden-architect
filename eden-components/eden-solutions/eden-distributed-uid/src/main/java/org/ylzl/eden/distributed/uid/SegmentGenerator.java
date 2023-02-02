@@ -34,8 +34,7 @@ public interface SegmentGenerator {
 	/**
 	 * 从号段获取ID
 	 *
-	 * @param key Key
 	 * @return 号段
 	 */
-	long nextId(String key);
+	long nextId();
 }

@@ -18,13 +18,27 @@ package org.ylzl.eden.distributed.uid.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
+import org.ylzl.eden.commons.net.IpConfigUtils;
+import org.ylzl.eden.distributed.uid.IdGenerator;
+import org.ylzl.eden.distributed.uid.SegmentGenerator;
+import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
+import org.ylzl.eden.distributed.uid.support.IdGeneratorHelper;
+import org.ylzl.eden.distributed.uid.support.SegmentGeneratorHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
+
+import javax.sql.DataSource;
 
 /**
  * 分布式唯一ID操作自动装配
@@ -32,11 +46,6 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(
-	prefix = DistributedUIDProperties.PREFIX,
-	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE
-)
 @EnableConfigurationProperties(DistributedUIDProperties.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -44,6 +53,39 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @Configuration(proxyBeanMethods = false)
 public class DistributedUIDAutoConfiguration {
 
-	private final DistributedUIDProperties distributedUIDProperties;
+	private static final String AUTOWIRED_ID_GENERATOR = "Autowired IdGenerator";
 
+	private static final String AUTOWIRED_SEGMENT_GENERATOR = "Autowired SegmentGenerator";
+
+	private final DistributedUIDProperties properties;
+
+	@ConditionalOnProperty(
+		prefix = DistributedUIDProperties.ID_GENERATOR_PREFIX,
+		name = Conditions.ENABLED,
+		havingValue = Conditions.FALSE
+	)
+	@ConditionalOnMissingBean
+	@Bean
+	public IdGenerator idGenerator(@Value(SpringProperties.NAME_PATTERN) String applicationName,
+								   ServerProperties serverProperties) {
+		log.debug(AUTOWIRED_ID_GENERATOR);
+		IdGeneratorConfig config = properties.getIdGenerator();
+		config.setName(applicationName);
+		return IdGeneratorHelper.idGenerator(properties.getIdGenerator().getType(),
+			App.builder().ip(IpConfigUtils.getIpAddress()).port(serverProperties.getPort()).build(), config);
+	}
+
+	@ConditionalOnProperty(
+		prefix = DistributedUIDProperties.SEGMENT_GENERATOR_PREFIX,
+		name = Conditions.ENABLED,
+		havingValue = Conditions.FALSE
+	)
+	@ConditionalOnMissingBean
+	@Bean
+	public SegmentGenerator segmentGenerator(DataSource dataSource) {
+		log.debug(AUTOWIRED_SEGMENT_GENERATOR);
+		return SegmentGeneratorHelper.segmentGenerator(properties.getSegmentGenerator().getType(),
+			dataSource,
+			properties.getSegmentGenerator());
+	}
 }

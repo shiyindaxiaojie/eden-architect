@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.spring.test.embedded.zookeeper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.server.embedded.ZooKeeperServerEmbedded;
 import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 
@@ -30,6 +31,7 @@ import java.util.Properties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@Slf4j
 public class EmbeddedZooKeeperServer implements EmbeddedServer {
 
 	private static final int DEFAULT_PORT = 2181;
@@ -80,10 +82,10 @@ public class EmbeddedZooKeeperServer implements EmbeddedServer {
 	public void startup() {
 		try {
 			this.zooKeeperServer.start();
+			this.isRunning = true;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			log.error("Startup embedded zookeeper server error", e);
 		}
-		this.isRunning = true;
 	}
 
 	/**
@@ -94,7 +96,11 @@ public class EmbeddedZooKeeperServer implements EmbeddedServer {
 		if (!isRunning()) {
 			return;
 		}
-		this.zooKeeperServer.close();
+		try {
+			this.zooKeeperServer.close();
+		} catch (Exception e) {
+			log.error("Shutdown embedded zookeeper server error", e);
+		}
 	}
 
 	/**

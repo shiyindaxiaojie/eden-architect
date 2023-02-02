@@ -34,6 +34,8 @@ import org.ylzl.eden.distributed.uid.IdGeneratorType;
 @Getter
 public class IdGeneratorConfig {
 
+	private boolean enabled = false;
+
 	private String type = IdGeneratorType.LEAF.name();
 
 	private String name = System.getProperty("spring.application.name", "app");

@@ -50,11 +50,10 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	/**
 	 * 从号段获取ID
 	 *
-	 * @param key Key
 	 * @return 号段
 	 */
 	@Override
-	public long nextId(String key) {
-		return databaseSegmentGenerator.nextId(key);
+	public long nextId() {
+		return databaseSegmentGenerator.nextId();
 	}
 }

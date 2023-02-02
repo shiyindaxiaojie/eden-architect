@@ -65,12 +65,13 @@ public class DatabaseSegmentGenerator {
 		this.updateCacheFromDbAtEveryMinute();
 	}
 
-	public long nextId(String key) {
+	public long nextId() {
 		if (!initialized) {
 			throw new SegmentGeneratorException("Database segment generator not initialized");
 		}
+		String key = config.getTenant();
 		if (!cache.containsKey(key)) {
-			throw new SegmentGeneratorException("Database segment cache contains key '" + key + "'");
+			throw new SegmentGeneratorException("Database segment cache contains key '" + key + "', please check database");
 		}
 		SegmentBuffer buffer = cache.get(key);
 		if (!buffer.isInitialized()) {
@@ -223,7 +224,7 @@ public class DatabaseSegmentGenerator {
 							updateOk = true;
 							log.info("Update segment {} from db {}", buffer.getKey(), next);
 						} catch (Exception e) {
-							log.warn(buffer.getKey() + " updateSegmentFromDb exception", e);
+							log.error("Update segment {} from db {} error", buffer.getKey(), e);
 						} finally {
 							if (updateOk) {
 								buffer.wLock().lock();

@@ -35,44 +35,11 @@ public class DistributedUIDProperties {
 
 	public static final String PREFIX = "distributed-uid";
 
-	private String primary = "leaf";
+	public static final String ID_GENERATOR_PREFIX = PREFIX + ".id-generator";
 
-	private boolean enabled;
+	public static final String SEGMENT_GENERATOR_PREFIX = PREFIX + ".segment-generator";
 
-	private final Leaf leaf = new Leaf();
+	private final IdGeneratorConfig idGenerator = new IdGeneratorConfig();
 
-	private final TinyId tinyId = new TinyId();
-
-	private final UidGenerator uidGenerator = new UidGenerator();
-
-	@Setter
-	@Getter
-	public static class Leaf {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".leaf";
-
-		private boolean enabled;
-
-		private final IdGeneratorConfig idGenerator = new IdGeneratorConfig();
-
-		private final SegmentGeneratorConfig segmentGenerator = new SegmentGeneratorConfig();
-	}
-
-	@Setter
-	@Getter
-	public static class TinyId {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".tiny-id";
-
-		private boolean enabled;
-	}
-
-	@Setter
-	@Getter
-	public static class UidGenerator {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".uid-generator";
-
-		private boolean enabled;
-	}
+	private final SegmentGeneratorConfig segmentGenerator = new SegmentGeneratorConfig();
 }

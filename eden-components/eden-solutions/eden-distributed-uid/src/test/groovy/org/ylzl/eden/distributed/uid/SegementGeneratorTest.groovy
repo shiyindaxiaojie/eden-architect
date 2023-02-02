@@ -43,7 +43,7 @@ class SegementGeneratorTest extends Specification {
 		when:
 		int id = 0
 		for (i in 0..< 1000) {
-			id += segmentGenerator.nextId("default")
+			id += segmentGenerator.nextId()
 		}
 
 		then:

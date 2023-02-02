@@ -69,8 +69,12 @@ public class EmbeddedKafka implements EmbeddedServer {
 	 */
 	@Override
 	public void startup() {
-		kafkaBroker.afterPropertiesSet();
-		this.isRunning = true;
+		try {
+			kafkaBroker.afterPropertiesSet();
+			this.isRunning = true;
+		} catch (Exception e) {
+			log.error("Startup embedded kafka server error", e);
+		}
 	}
 
 	/**
@@ -81,7 +85,11 @@ public class EmbeddedKafka implements EmbeddedServer {
 		if (!isRunning()) {
 			return;
 		}
-		kafkaBroker.destroy();
+		try {
+			kafkaBroker.destroy();
+		} catch (Exception e) {
+			log.error("Shutdown embedded kafka server error", e);
+		}
 	}
 
 	/**

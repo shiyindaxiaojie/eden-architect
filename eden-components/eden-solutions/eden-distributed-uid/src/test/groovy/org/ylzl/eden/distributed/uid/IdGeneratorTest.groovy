@@ -26,7 +26,11 @@ class IdGeneratorTest extends Specification {
 
 	EmbeddedZooKeeperServer zooKeeperServer = new EmbeddedZooKeeperServer()
 
+	App app
+
 	def setup() {
+		app = App.builder().port(8080).build()
+
 		zooKeeperServer = new EmbeddedZooKeeperServer()
 		zooKeeperServer.startup()
 	}
@@ -37,7 +41,7 @@ class IdGeneratorTest extends Specification {
 
 	def "test next id"() {
 		given:
-		IdGenerator idGenerator = IdGeneratorHelper.idGenerator("leaf", App.builder().port(8080).build())
+		IdGenerator idGenerator = IdGeneratorHelper.idGenerator("leaf", app)
 
 		when:
 		long id = idGenerator.nextId()

@@ -37,7 +37,12 @@ import java.util.Map;
 @Getter
 public class SegmentGeneratorConfig {
 
+	private boolean enabled = false;
+
 	private String type = SegmentGeneratorType.LEAF.name();
+
+	/** 租户 */
+	private String tenant = "default";
 
 	/** 最大步长，默认限制为 1_000_000*/
 	private int maxStep = 1_000_000;

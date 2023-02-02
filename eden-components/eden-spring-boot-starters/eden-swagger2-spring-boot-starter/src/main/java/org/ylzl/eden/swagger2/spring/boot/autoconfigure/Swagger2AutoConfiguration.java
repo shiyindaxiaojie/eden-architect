@@ -87,7 +87,9 @@ public class Swagger2AutoConfiguration {
 	private static final String MSG_AUTOWIRED_SWAGGER = "Autowired Swagger";
 
 	private static final String MSG_STARTD_SWAGGER = "Startded Swagger in {} ms";
+
 	private final Swagger2Properties properties;
+
 	private final ManagementServerProperties managementServerProperties;
 
 	@Value(SpringProperties.NAME_PATTERN)

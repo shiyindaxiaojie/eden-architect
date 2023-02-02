@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.4.13-SNAPSHOT(Jan ?, 2023)
+## 0.0.2-SNAPSHOT(Jan ?, 2023)
 
 > Coming soon...
 
@@ -21,7 +21,7 @@
 - `JSON` 序列化通用组件支持，支持 SPI 扩展，目前内置集成了 `Jackson`、`Fastjson`、`Fastjson2`
 - `SpEL` 表达式封装，提供简易的调用方法和上下文支持
 
-## 2.4.13-SNAPSHOT(Dec 31, 2022)
+## 0.0.1-SNAPSHOT(Dec 31, 2022)
 
 ### FEATURES
 

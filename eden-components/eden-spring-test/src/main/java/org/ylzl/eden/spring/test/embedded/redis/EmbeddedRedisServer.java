@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.spring.test.embedded.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 import redis.embedded.RedisServer;
 import redis.embedded.core.RedisServerBuilder;
@@ -28,6 +29,7 @@ import java.io.IOException;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Slf4j
 public class EmbeddedRedisServer implements EmbeddedServer {
 
 	private static final String DEFAULT_BIND = "0.0.0.0";
@@ -40,7 +42,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 
 	private RedisServer redisServer;
 
-	private boolean isRunning = true;
+	private boolean isRunning = false;
 
 	public EmbeddedRedisServer() {
 		this.redisServerBuilder = new RedisServerBuilder()
@@ -81,10 +83,10 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 		try {
 			this.redisServer = redisServerBuilder.build();
 			this.redisServer.start();
+			this.isRunning = true;
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			log.error("Startup embedded redis server error", e);
 		}
-		this.isRunning = true;
 	}
 
 	/**
@@ -98,7 +100,7 @@ public class EmbeddedRedisServer implements EmbeddedServer {
 		try {
 			this.redisServer.stop();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			log.error("Shutdown embedded redis server error", e);
 		}
 	}
 

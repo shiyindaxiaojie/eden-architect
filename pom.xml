@@ -28,7 +28,7 @@
 	</parent>
 	<groupId>org.ylzl</groupId>
 	<artifactId>eden-architect</artifactId>
-	<version>2.4.13-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>eden-architect</name>
 	<description>自研应用架构</description>
@@ -72,9 +72,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+		<maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
 	</properties>
@@ -87,6 +88,15 @@
 				<version>${versions-maven-plugin.version}</version>
 				<configuration>
 					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
 			<!--<plugin>

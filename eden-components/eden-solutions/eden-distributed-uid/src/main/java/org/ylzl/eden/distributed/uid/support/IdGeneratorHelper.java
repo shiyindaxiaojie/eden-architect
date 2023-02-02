@@ -18,6 +18,7 @@ package org.ylzl.eden.distributed.uid.support;
 
 import org.ylzl.eden.distributed.uid.IdGenerator;
 import org.ylzl.eden.distributed.uid.builder.IdGeneratorBuilder;
+import org.ylzl.eden.distributed.uid.config.IdGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.extension.ExtensionLoader;
 
@@ -36,7 +37,23 @@ public class IdGeneratorHelper {
 	 * @return ID生成器实例
 	 */
 	public static IdGenerator idGenerator(App app) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension().app(app).build();
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension()
+			.app(app)
+			.build();
+	}
+
+	/**
+	 * 获取ID生成器实例
+	 *
+	 * @param app 应用信息
+	 * @param config 配置信息
+	 * @return ID生成器实例
+	 */
+	public static IdGenerator idGenerator(App app, IdGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getDefaultExtension()
+			.app(app)
+			.config(config)
+			.build();
 	}
 
 	/**
@@ -47,6 +64,23 @@ public class IdGeneratorHelper {
 	 * @return ID生成器实例
 	 */
 	public static IdGenerator idGenerator(String spi, App app) {
-		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi).app(app).build();
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi)
+			.app(app)
+			.build();
+	}
+
+	/**
+	 * 获取ID生成器实例
+	 *
+	 * @param spi 扩展点
+	 * @param app 应用信息
+	 * @param config 配置信息
+	 * @return ID生成器实例
+	 */
+	public static IdGenerator idGenerator(String spi, App app, IdGeneratorConfig config) {
+		return ExtensionLoader.getExtensionLoader(IdGeneratorBuilder.class).getExtension(spi)
+			.app(app)
+			.config(config)
+			.build();
 	}
 }
