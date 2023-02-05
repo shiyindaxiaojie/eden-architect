@@ -14,27 +14,37 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.duplicate.bloom;
+package org.ylzl.eden.data.filter.integration.duplicate.cuckoo;
 
 import org.ylzl.eden.data.filter.DuplicateFilter;
-import org.ylzl.eden.data.filter.builder.AbstractDuplicateFilterBuilder;
-import org.ylzl.eden.data.filter.builder.DuplicateFilterBuilder;
 
 /**
- * 布隆过滤器构建
+ * 布谷鸟过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class BloomFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
+public class CuckooFilter implements DuplicateFilter {
 
 	/**
-	 * 构建数据去重过滤器
+	 * 可能包含（取否表示但一定不包含）
 	 *
-	 * @return 数据去重过滤器
+	 * @param object 匹配对象
+	 * @return 是否包含
 	 */
 	@Override
-	public DuplicateFilter build() {
-		return null;
+	public <T> boolean mightContain(T object) {
+		return false;
+	}
+
+	/**
+	 * 存放对象
+	 *
+	 * @param object 存放对象
+	 * @return 是否存放成功
+	 */
+	@Override
+	public <T> boolean put(T object) {
+		return false;
 	}
 }

@@ -28,13 +28,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.commons.net.IpConfigUtils;
-import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
 import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.spring.boot.env.DistributedUIDProperties;
-import org.ylzl.eden.distributed.uid.support.SnowflakeGeneratorHelper;
 import org.ylzl.eden.distributed.uid.support.SegmentGeneratorHelper;
+import org.ylzl.eden.distributed.uid.support.SnowflakeGeneratorHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 
@@ -71,8 +71,8 @@ public class DistributedUIDAutoConfiguration {
 		log.debug(AUTOWIRED_SNOWFLAKE_GENERATOR);
 		SnowflakeGeneratorConfig config = properties.getSnowflakeGenerator();
 		config.setName(applicationName);
-		return SnowflakeGeneratorHelper.snowflakeGenerator(properties.getSegmentGenerator().getType(),
-			App.builder().ip(IpConfigUtils.getIpAddress()).port(serverProperties.getPort()).build(), config);
+		return SnowflakeGeneratorHelper.snowflakeGenerator(config,
+			App.builder().ip(IpConfigUtils.getIpAddress()).port(serverProperties.getPort()).build());
 	}
 
 	@ConditionalOnProperty(
@@ -84,8 +84,6 @@ public class DistributedUIDAutoConfiguration {
 	@Bean
 	public SegmentGenerator segmentGenerator(DataSource dataSource) {
 		log.debug(AUTOWIRED_SEGMENT_GENERATOR);
-		return SegmentGeneratorHelper.segmentGenerator(properties.getSegmentGenerator().getType(),
-			dataSource,
-			properties.getSegmentGenerator());
+		return SegmentGeneratorHelper.segmentGenerator(properties.getSegmentGenerator(), dataSource);
 	}
 }

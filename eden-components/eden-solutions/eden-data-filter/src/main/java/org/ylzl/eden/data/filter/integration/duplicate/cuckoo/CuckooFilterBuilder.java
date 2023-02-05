@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.duplicate.bloom;
+package org.ylzl.eden.data.filter.integration.duplicate.cuckoo;
 
 import org.ylzl.eden.data.filter.DuplicateFilter;
 import org.ylzl.eden.data.filter.builder.AbstractDuplicateFilterBuilder;
 import org.ylzl.eden.data.filter.builder.DuplicateFilterBuilder;
 
 /**
- * 布隆过滤器构建
+ * 布谷鸟过滤器构建
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class BloomFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
+public class CuckooFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
 
 	/**
 	 * 构建数据去重过滤器

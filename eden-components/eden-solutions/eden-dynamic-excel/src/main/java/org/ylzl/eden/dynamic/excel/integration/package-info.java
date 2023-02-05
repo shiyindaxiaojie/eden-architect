@@ -14,27 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.duplicate.bloom;
-
-import org.ylzl.eden.data.filter.DuplicateFilter;
-import org.ylzl.eden.data.filter.builder.AbstractDuplicateFilterBuilder;
-import org.ylzl.eden.data.filter.builder.DuplicateFilterBuilder;
-
-/**
- * 布隆过滤器构建
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-public class BloomFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
-
-	/**
-	 * 构建数据去重过滤器
-	 *
-	 * @return 数据去重过滤器
-	 */
-	@Override
-	public DuplicateFilter build() {
-		return null;
-	}
-}
+package org.ylzl.eden.dynamic.excel.integration;
