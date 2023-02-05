@@ -49,7 +49,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @Configuration(proxyBeanMethods = false)
 public class DistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_DISTRIBUTED_LOCK_HELPER = "Autowired DistributedLockHelper";
+	private static final String AUTOWIRED_DISTRIBUTED_LOCK_HELPER = "Autowired DistributedLockHelper";
 
 	private final DistributedLockProperties distributedLockProperties;
 

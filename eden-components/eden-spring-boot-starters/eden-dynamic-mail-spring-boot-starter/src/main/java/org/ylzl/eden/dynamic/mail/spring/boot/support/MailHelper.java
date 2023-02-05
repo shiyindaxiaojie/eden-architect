@@ -35,11 +35,11 @@ public class MailHelper {
 
 	private final String primary;
 
-	public MailTemplate getTemplate() {
-		return getTemplate(primary);
+	public MailTemplate getBean() {
+		return getBean(primary);
 	}
 
-	public MailTemplate getTemplate(String mailType) {
+	public MailTemplate getBean(String mailType) {
 		Map<String, MailTemplate> mailTemplates = ApplicationContextHelper.getBeansOfType(MailTemplate.class);
 		return mailTemplates.values().stream()
 			.filter(predicate -> predicate.mailType().equalsIgnoreCase(mailType))

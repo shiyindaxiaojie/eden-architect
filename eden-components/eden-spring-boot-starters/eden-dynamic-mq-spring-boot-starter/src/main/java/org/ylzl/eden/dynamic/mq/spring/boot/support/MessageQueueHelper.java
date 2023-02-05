@@ -35,11 +35,11 @@ public class MessageQueueHelper {
 
 	private final String primary;
 
-	public MessageQueueProvider getProvider() {
-		return getProvider(primary);
+	public MessageQueueProvider getBean() {
+		return getBean(primary);
 	}
 
-	public MessageQueueProvider getProvider(String messageQueueType) {
+	public MessageQueueProvider getBean(String messageQueueType) {
 		Map<String, MessageQueueProvider> messageQueueProviders =
 			ApplicationContextHelper.getBeansOfType(MessageQueueProvider.class);
 		return messageQueueProviders.values().stream()

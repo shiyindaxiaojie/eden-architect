@@ -27,30 +27,30 @@ import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
  */
 public abstract class AbstractSensitiveFilterBuilder implements SensitiveFilterBuilder {
 
-	private SensitiveConfig sensitiveConfig = new SensitiveConfig();
+	private SensitiveConfig config = new SensitiveConfig();
 
 	private SensitiveWordLoader sensitiveWordLoader;
 
 	/**
 	 * 设置敏感词过滤配置
 	 *
-	 * @param sensitiveConfig 敏感词过滤配置
+	 * @param config 敏感词过滤配置
 	 * @return DataSensitiveFilterBuilder
 	 */
 	@Override
-	public SensitiveFilterBuilder sensitiveConfig(SensitiveConfig sensitiveConfig) {
-		this.sensitiveConfig = sensitiveConfig;
+	public SensitiveFilterBuilder config(SensitiveConfig config) {
+		this.config = config;
 		return this;
 	}
 
 	/**
-	 * 设置敏感词处理器
+	 * 设置敏感词加载器
 	 *
-	 * @param sensitiveWordLoader 敏感词处理器
+	 * @param sensitiveWordLoader 敏感词加载器
 	 * @return DataSensitiveFilterBuilder
 	 */
 	@Override
-	public SensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader) {
+	public SensitiveFilterBuilder sensitiveWordLoader(SensitiveWordLoader sensitiveWordLoader) {
 		this.sensitiveWordLoader = sensitiveWordLoader;
 		return this;
 	}
@@ -60,16 +60,16 @@ public abstract class AbstractSensitiveFilterBuilder implements SensitiveFilterB
 	 *
 	 * @return 数据比对配置
 	 */
-	protected SensitiveConfig getSensitiveConfig() {
-		return sensitiveConfig;
+	protected SensitiveConfig getConfig() {
+		return config;
 	}
 
 	/**
-	 * 获取敏感词过滤处理器
+	 * 获取敏感词加载器
 	 *
-	 * @return 敏感词过滤处理器
+	 * @return 敏感词加载器
 	 */
-	protected SensitiveWordLoader getSensitiveWordProcessor() {
+	protected SensitiveWordLoader getSensitiveWordLoader() {
 		return sensitiveWordLoader;
 	}
 }

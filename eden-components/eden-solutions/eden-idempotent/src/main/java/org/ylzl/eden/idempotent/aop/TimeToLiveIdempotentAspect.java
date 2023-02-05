@@ -55,12 +55,10 @@ public class TimeToLiveIdempotentAspect {
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
-		if (method.isAnnotationPresent(Idempotent.class)) {
-			Idempotent idempotent = method.getAnnotation(Idempotent.class);
-			if (IdempotentStrategy.TTL == idempotent.strategy()) {
-				String key = resolveKey(idempotent.key(), joinPoint);
-				strategy.checkFirstRequest(key, Strings.EMPTY, idempotent.ttl(), idempotent.timeUnit());
-			}
+		Idempotent idempotent = method.getAnnotation(Idempotent.class);
+		if (IdempotentStrategy.TTL == idempotent.strategy()) {
+			String key = resolveKey(idempotent.key(), joinPoint);
+			strategy.checkOnceRequest(key, Strings.EMPTY, idempotent.ttl(), idempotent.timeUnit());
 		}
 		return joinPoint.proceed();
 	}

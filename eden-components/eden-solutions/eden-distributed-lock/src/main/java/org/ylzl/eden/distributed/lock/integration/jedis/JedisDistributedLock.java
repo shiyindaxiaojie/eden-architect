@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.distributed.lock.integration.jedis;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class JedisDistributedLock implements DistributedLock {
 			+ "then return redis.call(\"del\",KEYS[1])"
 			+ "else return 0 end";
 
-	private final ThreadLocal<String> lock = new ThreadLocal<>();
+	private final TransmittableThreadLocal<String> threadLocal = new TransmittableThreadLocal<>();
 
 	private final Jedis jedis;
 
@@ -68,18 +69,25 @@ public class JedisDistributedLock implements DistributedLock {
 	 */
 	@Override
 	public boolean lock(@NonNull String key) {
-		log.debug("Jedis create lock: {}", key);
+		log.debug("Jedis create lock '{}'", key);
 		String value = UUID.randomUUID().toString();
-		lock.set(value);
 		SetParams setParams = new SetParams();
 		setParams.ex(-1);
+		boolean isSuccess;
 		try {
 			String result = jedis.set(key, value, setParams);
-			return StringUtils.isNotEmpty(result);
+			isSuccess = StringUtils.isNotEmpty(result);
 		} catch (Exception e) {
-			log.error("Jedis create lock: {}, catch exception: {}", key, e.getMessage(), e);
+			log.error("Jedis create lock '{}', catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockAcquireException(e);
 		}
+		if (isSuccess) {
+			threadLocal.set(value);
+			log.debug("Jedis create lock '{}' successfully", key);
+		} else {
+			log.warn("Jedis create lock '{}' failed", key);
+		}
+		return isSuccess;
 	}
 
 	/**
@@ -88,11 +96,11 @@ public class JedisDistributedLock implements DistributedLock {
 	 * @param key      锁对象
 	 * @param waitTime 等待时间
 	 * @param timeUnit 时间单位
-	 * @return
+	 * @return 加锁是否成功
 	 */
 	@Override
 	public boolean lock(@NonNull String key, int waitTime, TimeUnit timeUnit) {
-		log.warn("Jedis create lock: {}, not support waitTime", key);
+		log.warn("Jedis create lock '{}' not support waitTime", key);
 		return lock(key);
 	}
 
@@ -103,17 +111,25 @@ public class JedisDistributedLock implements DistributedLock {
 	 */
 	@Override
 	public void unlock(@NonNull String key) {
-		log.debug("Jedis release lock: {}", key);
+		log.debug("Jedis release lock '{}'", key);
+		String uuid = threadLocal.get();
+		if (uuid == null) {
+			log.warn("Jedis release lock '{}' failed due to thread local is null", key);
+			return;
+		}
+		List<String> args = Collections.singletonList(uuid);
+		List<String> keys = Collections.singletonList(key);
+		Long result;
 		try {
-			final List<String> keys = Collections.singletonList(key);
-			final List<String> args = Collections.singletonList(lock.get());
-			Long result = (Long) jedis.eval(UNLOCK_LUA, keys, args);
-			if (result == null || result == 0L) {
-				log.warn("Jedis release lock: {}, but it not work", key);
-			}
+			result = (Long) jedis.eval(UNLOCK_LUA, keys, args);
 		} catch (Exception e) {
-			log.error("Jedis release lock: {}, catch exception: {}", key, e.getMessage(), e);
+			log.error("Jedis release lock '{}', catch exception: {}", key, e.getMessage(), e);
 			throw new DistributedLockReleaseException(e);
+		}
+		if (result == null || result == 0L) {
+			log.warn("Jedis release lock '{}', but it not work", key);
+		} else {
+			log.debug("Jedis release lock '{}' successfully", key);
 		}
 	}
 }

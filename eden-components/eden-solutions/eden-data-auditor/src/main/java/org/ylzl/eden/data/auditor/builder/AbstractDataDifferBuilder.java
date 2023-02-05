@@ -26,17 +26,17 @@ import org.ylzl.eden.data.auditor.config.DataDifferConfig;
  */
 public abstract class AbstractDataDifferBuilder implements DataDifferBuilder {
 
-	private DataDifferConfig dataDifferConfig = new DataDifferConfig();
+	private DataDifferConfig config = new DataDifferConfig();
 
 	/**
 	 * 设置数据比对配置
 	 *
-	 * @param dataDifferConfig 数据比对配置
+	 * @param config 数据比对配置
 	 * @return DataDifferBuilder
 	 */
 	@Override
-	public DataDifferBuilder dataDifferConfig(DataDifferConfig dataDifferConfig) {
-		this.dataDifferConfig = dataDifferConfig;
+	public DataDifferBuilder config(DataDifferConfig config) {
+		this.config = config;
 		return this;
 	}
 
@@ -45,7 +45,7 @@ public abstract class AbstractDataDifferBuilder implements DataDifferBuilder {
 	 *
 	 * @return 数据比对配置
 	 */
-	protected DataDifferConfig getDataDifferConfig() {
-		return dataDifferConfig;
+	protected DataDifferConfig getConfig() {
+		return config;
 	}
 }

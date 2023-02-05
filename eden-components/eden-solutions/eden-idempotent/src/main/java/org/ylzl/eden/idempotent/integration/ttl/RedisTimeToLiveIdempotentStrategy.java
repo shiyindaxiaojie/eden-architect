@@ -48,7 +48,7 @@ public class RedisTimeToLiveIdempotentStrategy implements TimeToLiveIdempotentSt
 	 * @param timeUnit 时间单位
 	 */
 	@Override
-	public void checkFirstRequest(String key, String value, long ttl, TimeUnit timeUnit) {
+	public void checkOnceRequest(String key, String value, long ttl, TimeUnit timeUnit) {
 		String resolveKey = config.getPrefix() + ":" + key;
 
 		// 如果存在，表示已被其他请求处理，判定为重复请求

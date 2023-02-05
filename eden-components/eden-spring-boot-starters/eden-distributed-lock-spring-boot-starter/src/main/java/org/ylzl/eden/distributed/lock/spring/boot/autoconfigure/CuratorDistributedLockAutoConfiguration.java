@@ -48,7 +48,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 @Configuration(proxyBeanMethods = false)
 public class CuratorDistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_CURATOR_DISTRIBUTED_LOCK = "Autowired CuratorDistributedLock";
+	private static final String AUTOWIRED_CURATOR_DISTRIBUTED_LOCK = "Autowired CuratorDistributedLock";
 
 	@Bean
 	public DistributedLock distributedLock(CuratorFramework curatorFramework) {

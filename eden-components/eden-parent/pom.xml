@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-dependencies</artifactId>
-		<version>2.4.13-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-dependencies/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-parent</artifactId>
@@ -41,50 +41,52 @@
 		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
 		<spring.profiles.active/>
 		<!-- 清除编译目录 -->
-		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+		<maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
 		<!-- 编译代码 -->
-		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<!-- 依赖管理 -->
-		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+		<maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
 		<dependency-check-maven.version>3.3.1</dependency-check-maven.version>
 		<!-- 资源管理 -->
-		<maven-source-plugin.version.version>3.2.1</maven-source-plugin.version.version>
-		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
 		<!-- 打包成可执行程序 -->
 		<spring-boot-maven-plugin.version>2.4.13</spring-boot-maven-plugin.version>
 		<start-class/>
 		<build.layers.enabled>false</build.layers.enabled>
-		<maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
-		<maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
-		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
-		<maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+		<maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<node.version>v8.11.3</node.version>
 		<yarn.version>v1.9.2</yarn.version>
 		<!-- 安装到本地制品库-->
-		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
 		<!-- 部署到远程制品库 -->
-		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+		<!-- 发布版本 -->
+		<maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 		<!-- 代码质量 -->
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 		<!-- 单元测试 -->
-		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
 		<junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
 		<!-- 集成测试 -->
-		<maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M8</maven-failsafe-plugin.version>
 		<redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
 		<!-- 性能测试 -->
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
-		<!-- 版本管理 -->
-		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+		<!-- 版本控制 -->
+		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
-		<!-- Ant 构建工具 -->
-		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+		<!-- Ant 构建 -->
+		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 		<!-- 项目脚手架 -->
 		<archetype-packaging.version>3.2.0</archetype-packaging.version>
 		<maven-archetype-plugin.version>3.2.0</maven-archetype-plugin.version>
@@ -140,20 +142,16 @@
 		<gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
 		<groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
 		<!-- 其他 -->
-		<maven-help-plugin.version>3.2.0</maven-help-plugin.version>
-		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-		<maven-site-plugin.version>3.8.2</maven-site-plugin.version>
-		<maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+		<maven-help-plugin.version>3.3.0</maven-help-plugin.version>
+		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+		<maven-site-plugin.version>3.12.1</maven-site-plugin.version>
+		<maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
+		<maven-invoker-plugin.version>3.4.0</maven-invoker-plugin.version>
+		<maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
 		<maven-idea-plugin.version>2.2.1</maven-idea-plugin.version>
-		<maven-invoker-plugin.version>3.2.1</maven-invoker-plugin.version>
-		<maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
-		<infinispan-protocol-parser-generator-maven-plugin.version>${infinispan.version}
-		</infinispan-protocol-parser-generator-maven-plugin.version>
 		<javassist.version>3.26.0-GA</javassist.version>
-		<johnzon-maven-plugin.version>${johnzon.version}</johnzon-maven-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -279,8 +277,13 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<showWarnings>false</showWarnings>
 						<compilerArgs>
-							<arg>-Xlint</arg>
+							<arg>-Xlint:all</arg>
+							<arg>-Xlint:-processing</arg>
+							<arg>-parameters</arg>
 						</compilerArgs>
+						<excludes>
+							<exclude>*.gitkeep</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 				<!-- 资源管理 -->
@@ -561,8 +564,17 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+				<!-- 发布版本 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
 					<configuration>
-						<updateReleaseInfo>true</updateReleaseInfo>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<useReleaseProfile>false</useReleaseProfile>
+						<allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
 					</configuration>
 				</plugin>
 				<!-- 容器化部署 -->
@@ -986,6 +998,7 @@
 							<parallel>methods</parallel>
 							<threadCount>10</threadCount>
 							<testFailureIgnore>true</testFailureIgnore>
+							<useSystemClassLoader>false</useSystemClassLoader>
 							<includes>
 								<include>**/*Test</include>
 								<include>**/*Spec</include>

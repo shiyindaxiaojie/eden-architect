@@ -50,7 +50,7 @@ import redis.clients.jedis.Jedis;
 @Configuration(proxyBeanMethods = false)
 public class JedisDistributedLockAutoConfiguration {
 
-	public static final String AUTOWIRED_JEDIS_DISTRIBUTED_LOCK = "Autowired JedisDistributedLock";
+	private static final String AUTOWIRED_JEDIS_DISTRIBUTED_LOCK = "Autowired JedisDistributedLock";
 
 	@Bean
 	public DistributedLock distributedLock(Jedis jedis) {

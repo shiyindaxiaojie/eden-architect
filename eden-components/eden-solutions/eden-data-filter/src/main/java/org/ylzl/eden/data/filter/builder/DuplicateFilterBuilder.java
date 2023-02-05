@@ -30,10 +30,10 @@ public interface DuplicateFilterBuilder {
 	/**
 	 * 设置数据去重过滤配置
 	 *
-	 * @param duplicateConfig 数据去重过滤配置
+	 * @param config 数据去重过滤配置
 	 * @return DataDuplicateFilterBuilder
 	 */
-	DuplicateFilterBuilder duplicateConfig(DuplicateConfig duplicateConfig);
+	DuplicateFilterBuilder config(DuplicateConfig config);
 
 	/**
 	 * 构建数据去重过滤器

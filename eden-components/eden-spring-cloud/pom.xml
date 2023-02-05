@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-spring-cloud</artifactId>
@@ -208,6 +208,12 @@
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-datasource-etcd</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>perfmark-api</artifactId>
+					<groupId>io.perfmark</groupId>
+				</exclusion>
+			</exclusions>
 			<optional>true</optional>
 		</dependency>
 		<!-- Sentinel + Adapter -->
@@ -497,6 +503,12 @@
 			<groupId>org.apache.groovy</groupId>
 			<artifactId>groovy</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Docker -->
+		<dependency>
+			<groupId>com.github.docker-java</groupId>
+			<artifactId>docker-java</artifactId>
 		</dependency>
 	</dependencies>
 </project>

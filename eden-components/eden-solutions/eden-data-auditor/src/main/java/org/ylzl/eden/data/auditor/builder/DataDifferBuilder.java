@@ -32,10 +32,10 @@ public interface DataDifferBuilder {
 	/**
 	 * 设置数据比对配置
 	 *
-	 * @param dataDifferConfig 数据比对配置
+	 * @param config 数据比对配置
 	 * @return DataDifferBuilder
 	 */
-	DataDifferBuilder dataDifferConfig(DataDifferConfig dataDifferConfig);
+	DataDifferBuilder config(DataDifferConfig config);
 
 	/**
 	 * 构建数据比对实例

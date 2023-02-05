@@ -28,8 +28,6 @@ import org.ylzl.eden.data.filter.builder.DuplicateFilterBuilder;
  */
 public class BloomFilterBuilder extends AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
 
-
-
 	/**
 	 * 构建数据去重过滤器
 	 *

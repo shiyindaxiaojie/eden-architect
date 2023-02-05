@@ -36,11 +36,11 @@ public class SmsHelper {
 
 	private final String primary;
 
-	public SmsTemplate getTemplate() {
-		return getTemplate(primary);
+	public SmsTemplate getBean() {
+		return getBean(primary);
 	}
 
-	public SmsTemplate getTemplate(@NonNull String smsType) {
+	public SmsTemplate getBean(@NonNull String smsType) {
 		Map<String, SmsTemplate> smsTemplates = ApplicationContextHelper.getBeansOfType(SmsTemplate.class);
 		return smsTemplates.values().stream()
 			.filter(predicate -> predicate.smsType().equalsIgnoreCase(smsType))

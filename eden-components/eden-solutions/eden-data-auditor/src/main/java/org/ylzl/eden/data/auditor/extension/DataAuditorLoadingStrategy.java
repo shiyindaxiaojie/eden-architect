@@ -26,11 +26,11 @@ import org.ylzl.eden.extension.strategy.LoadingStrategy;
  */
 public class DataAuditorLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF_DATA_AUDITOR = "META-INF/data-auditor/";
+	public static final String META_INF = "META-INF/data-auditor/";
 
 	@Override
 	public String directory() {
-		return META_INF_DATA_AUDITOR;
+		return META_INF;
 	}
 
 	@Override

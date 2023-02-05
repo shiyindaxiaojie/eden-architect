@@ -26,17 +26,17 @@ import org.ylzl.eden.data.filter.config.DuplicateConfig;
  */
 public abstract class AbstractDuplicateFilterBuilder implements DuplicateFilterBuilder {
 
-	private DuplicateConfig duplicateConfig = new DuplicateConfig();
+	private DuplicateConfig config = new DuplicateConfig();
 
 	/**
 	 * 设置数据去重过滤配置
 	 *
-	 * @param duplicateConfig 数据去重过滤配置
+	 * @param config 数据去重过滤配置
 	 * @return DataDuplicateFilterBuilder
 	 */
 	@Override
-	public DuplicateFilterBuilder duplicateConfig(DuplicateConfig duplicateConfig) {
-		this.duplicateConfig = duplicateConfig;
+	public DuplicateFilterBuilder config(DuplicateConfig config) {
+		this.config = config;
 		return this;
 	}
 
@@ -45,7 +45,7 @@ public abstract class AbstractDuplicateFilterBuilder implements DuplicateFilterB
 	 *
 	 * @return 数据去重过滤配置
 	 */
-	protected DuplicateConfig getDataDuplicateConfig() {
-		return duplicateConfig;
+	protected DuplicateConfig getConfig() {
+		return config;
 	}
 }

@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.data.filter.builder;
 
-import org.ylzl.eden.data.filter.SensitiveWordFilter;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.config.SensitiveConfig;
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
 import org.ylzl.eden.extension.SPI;
@@ -33,23 +33,23 @@ public interface SensitiveFilterBuilder {
 	/**
 	 * 设置敏感词过滤配置
 	 *
-	 * @param sensitiveConfig 敏感词过滤配置
+	 * @param config 敏感词过滤配置
 	 * @return DataSensitiveFilterBuilder
 	 */
-	SensitiveFilterBuilder sensitiveConfig(SensitiveConfig sensitiveConfig);
+	SensitiveFilterBuilder config(SensitiveConfig config);
 
 	/**
 	 * 设置敏感词处理器
 	 *
-	 * @param sensitiveWordLoader 敏感词处理器
+	 * @param sensitiveWordLoader 敏感词加载器
 	 * @return DataSensitiveFilterBuilder
 	 */
-	SensitiveFilterBuilder sensitiveWordProcessor(SensitiveWordLoader sensitiveWordLoader);
+	SensitiveFilterBuilder sensitiveWordLoader(SensitiveWordLoader sensitiveWordLoader);
 
 	/**
 	 * 构建敏感词过滤器
 	 *
 	 * @return 敏感词过滤器
 	 */
-	SensitiveWordFilter build();
+	SensitiveFilter build();
 }

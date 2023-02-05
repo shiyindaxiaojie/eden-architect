@@ -20,7 +20,7 @@ import com.alibaba.fastjson2.filter.ValueFilter;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.data.auditor.masker.DataMaskerManager;
 import org.ylzl.eden.data.auditor.masker.DataMasking;
-import org.ylzl.eden.spring.framework.json.fastjson.FastjsonFilter;
+import org.ylzl.eden.spring.framework.json.fastjson2.Fastjson2Filter;
 
 import java.lang.reflect.Field;
 
@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class Fastjson2DataMaskingValueFilter implements FastjsonFilter, ValueFilter {
+public class Fastjson2DataMaskingValueFilter implements Fastjson2Filter, ValueFilter {
 
     @Override
     public Object apply(Object object, String name, Object value) {

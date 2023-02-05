@@ -19,7 +19,8 @@ package org.ylzl.eden.distributed.uid.spring.boot.env;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.distributed.uid.spring.boot.support.DistributedUIDBeanNames;
+import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
+import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 
 /**
  * 分布式唯一ID配置
@@ -34,51 +35,11 @@ public class DistributedUIDProperties {
 
 	public static final String PREFIX = "distributed-uid";
 
-	private DistributedUIDBeanNames primary;
+	public static final String ID_GENERATOR_PREFIX = PREFIX + ".id-generator";
 
-	private boolean enabled;
+	public static final String SEGMENT_GENERATOR_PREFIX = PREFIX + ".segment-generator";
 
-	private final Leaf leaf = new Leaf();
+	private final SnowflakeGeneratorConfig snowflakeGenerator = new SnowflakeGeneratorConfig();
 
-	private final Snowflake snowflake = new Snowflake();
-
-	private final TinyId tinyId = new TinyId();
-
-	private final UidGenerator uidGenerator = new UidGenerator();
-
-	@Setter
-	@Getter
-	public static class Leaf {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".leaf";
-
-		private boolean enabled;
-	}
-
-	@Setter
-	@Getter
-	public static class Snowflake {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".snowflake";
-
-		private boolean enabled;
-	}
-
-	@Setter
-	@Getter
-	public static class TinyId {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".tiny-id";
-
-		private boolean enabled;
-	}
-
-	@Setter
-	@Getter
-	public static class UidGenerator {
-
-		public static final String PREFIX = DistributedUIDProperties.PREFIX + ".uid-generator";
-
-		private boolean enabled;
-	}
+	private final SegmentGeneratorConfig segmentGenerator = new SegmentGeneratorConfig();
 }

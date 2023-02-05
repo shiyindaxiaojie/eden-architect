@@ -24,11 +24,11 @@ package org.ylzl.eden.extension.strategy;
  */
 public class InternalLoadingStrategy implements LoadingStrategy {
 
-	public static final String META_INF_INTERNAL = "META-INF/internal/";
+	public static final String META_INF = "META-INF/internal/";
 
 	@Override
 	public String directory() {
-		return META_INF_INTERNAL;
+		return META_INF;
 	}
 
 	@Override

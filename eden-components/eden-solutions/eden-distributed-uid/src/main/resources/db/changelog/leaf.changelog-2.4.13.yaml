@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - property:
+      name: version
+      value: 2.4.13
+  - changeSet:
+      id: initialize
+      author: gyl
+      comment: 初始化脚本
+      changes:
+        - createTable:
+            tableName: leaf_alloc
+            remarks: LEAF 分配表
+            columns:
+              - column:
+                  name: biz_tag
+                  type: varchar(128)
+                  remarks: 主键
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: max_id
+                  type: bigint(20)
+                  remarks: 最大值
+                  defaultValue: "1"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: step
+                  type: int(11)
+                  remarks: 步长
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(256)
+                  remarks: 描述
+                  constraints:
+                    nullable: true
+              - column:
+                  name: update_time
+                  type: timestamp
+                  remarks: 更新时间
+                  defaultValueDate: ${now}
+                  constraints:
+                    nullable: false
+        - loadData:
+              tableName: leaf_alloc
+              file: db/changelog/leaf_alloc.csv
+              separator: ;
+      rollback:
+        - dropTable:
+            tableName: leaf_alloc

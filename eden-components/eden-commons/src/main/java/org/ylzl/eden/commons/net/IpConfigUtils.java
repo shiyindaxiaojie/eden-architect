@@ -17,14 +17,16 @@ package org.ylzl.eden.commons.net;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.Chars;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * IP 配置工具集
@@ -36,12 +38,68 @@ import java.net.UnknownHostException;
 public class IpConfigUtils {
 
 	/**
+	 * 获取IP地址
+	 *
+	 * @return IP地址
+	 */
+	public static String getIpAddress() {
+		return getIpAddress(null);
+	}
+
+	/**
+	 * 获取IP地址
+	 *
+	 * @param interfaceName 网卡名称
+	 * @return IP地址
+	 */
+	public static String getIpAddress(String interfaceName) {
+		try {
+			List<String> ipList = getHostAddress(interfaceName);
+			return CollectionUtils.isNotEmpty(ipList) ? ipList.get(0) : Strings.EMPTY;
+		} catch (Exception ex) {
+			return Strings.EMPTY;
+		}
+	}
+
+	/**
+	 * 获取已激活网卡的IP地址
+	 *
+	 * @param interfaceName 网卡名称
+	 * @return 已激活网卡的IP地址
+	 * @throws SocketException 套接字异常
+	 */
+	private static List<String> getHostAddress(String interfaceName) throws SocketException {
+		List<String> ipList = new ArrayList<String>(5);
+		Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+		while (interfaces.hasMoreElements()) {
+			NetworkInterface networkInterface = interfaces.nextElement();
+			Enumeration<InetAddress> allAddress = networkInterface.getInetAddresses();
+			while (allAddress.hasMoreElements()) {
+				InetAddress address = allAddress.nextElement();
+				if (address.isLoopbackAddress()) {
+					continue;
+				}
+				if (address instanceof Inet6Address) {
+					continue;
+				}
+				String hostAddress = address.getHostAddress();
+				if (interfaceName == null) {
+					ipList.add(hostAddress);
+				} else if (networkInterface.getDisplayName().equals(interfaceName)) {
+					ipList.add(hostAddress);
+				}
+			}
+		}
+		return ipList;
+	}
+
+	/**
 	 * 获取客户端请求的 IP 地址
 	 *
 	 * @param request
 	 * @return
 	 */
-	public static String getIpAddress(@NonNull HttpServletRequest request) {
+	public static String parseIpAddress(@NonNull HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");
 		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");

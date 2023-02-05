@@ -35,7 +35,7 @@ public @interface EnableFlowCompose {
 	/**
 	 * 配置文件
 	 *
-	 * @return
+	 * @return 配置文件
 	 */
 	String value();
 }

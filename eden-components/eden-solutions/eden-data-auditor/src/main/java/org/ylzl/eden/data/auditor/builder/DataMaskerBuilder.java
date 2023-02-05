@@ -32,10 +32,10 @@ public interface DataMaskerBuilder {
 	/**
 	 * 设置数据脱敏配置
 	 *
-	 * @param dataMaskerConfig 数据脱敏配置
+	 * @param config 数据脱敏配置
 	 * @return DataMaskerBuilder
 	 */
-	DataMaskerBuilder dataMaskerConfig(DataMaskerConfig dataMaskerConfig);
+	DataMaskerBuilder config(DataMaskerConfig config);
 
 	/**
 	 * 设置数据脱敏策略

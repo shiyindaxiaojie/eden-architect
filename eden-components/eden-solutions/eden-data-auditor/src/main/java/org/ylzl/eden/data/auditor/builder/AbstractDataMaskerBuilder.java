@@ -28,19 +28,19 @@ import org.ylzl.eden.extension.ExtensionLoader;
  */
 public abstract class AbstractDataMaskerBuilder implements DataMaskerBuilder {
 
-	private DataMaskerConfig dataMaskerConfig = new DataMaskerConfig();
+	private DataMaskerConfig config = new DataMaskerConfig();
 
 	private String strategy;
 
 	/**
 	 * 设置数据脱敏配置
 	 *
-	 * @param dataMaskerConfig 数据脱敏配置
+	 * @param config 数据脱敏配置
 	 * @return DataMaskerBuilder
 	 */
 	@Override
-	public DataMaskerBuilder dataMaskerConfig(DataMaskerConfig dataMaskerConfig) {
-		this.dataMaskerConfig = dataMaskerConfig;
+	public DataMaskerBuilder config(DataMaskerConfig config) {
+		this.config = config;
 		return this;
 	}
 
@@ -61,8 +61,8 @@ public abstract class AbstractDataMaskerBuilder implements DataMaskerBuilder {
 	 *
 	 * @return 数据脱敏配置
 	 */
-	protected DataMaskerConfig getDataMaskerConfig() {
-		return dataMaskerConfig;
+	protected DataMaskerConfig getConfig() {
+		return config;
 	}
 
 	/**
