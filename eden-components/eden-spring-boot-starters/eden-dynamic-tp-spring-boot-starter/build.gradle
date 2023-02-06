@@ -16,7 +16,7 @@ dependencies {
     api 'cn.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc:1.0.9'
     api 'cn.dynamictp:dynamic-tp-spring-boot-starter-adapter-hystrix:1.0.9'
     api 'org.apache.rocketmq:rocketmq-spring-boot:2.1.1'
-    api project(':eden-dynamic-mq')
+    api project(':eden-common-mq')
 }
 
 description = 'eden-dynamic-tp-spring-boot-starter'

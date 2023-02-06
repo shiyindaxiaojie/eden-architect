@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.ylzl.eden.common.cache.spring.boot.autoconfigure.DynamicCacheAutoConfiguration,\
+  org.ylzl.eden.common.cache.spring.boot.autoconfigure.JdHotKeyAutoConfiguration,\
+  org.ylzl.eden.common.cache.spring.boot.autoconfigure.SentinelHotKeyAutoConfiguration

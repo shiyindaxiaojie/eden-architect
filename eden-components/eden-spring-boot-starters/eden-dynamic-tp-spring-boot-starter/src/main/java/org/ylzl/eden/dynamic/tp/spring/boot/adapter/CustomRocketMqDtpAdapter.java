@@ -28,7 +28,7 @@ import org.apache.rocketmq.client.impl.consumer.ConsumeMessageService;
 import org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl;
 import org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer;
 import org.ylzl.eden.commons.collections.CollectionUtils;
-import org.ylzl.eden.dynamic.mq.integration.rocketmq.RocketMQConsumer;
+import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQConsumer;
 
 import java.util.Map;
 import java.util.Objects;
