@@ -39,11 +39,11 @@
 		<module>eden-distributed-lock-spring-boot-starter</module>
 		<module>eden-distributed-uid-spring-boot-starter</module>
 		<module>eden-druid-spring-boot-starter</module>
-		<module>eden-dynamic-cache-spring-boot-starter</module>
+		<module>eden-common-cache-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
-		<module>eden-dynamic-mail-spring-boot-starter</module>
-		<module>eden-dynamic-mq-spring-boot-starter</module>
-		<module>eden-dynamic-sms-spring-boot-starter</module>
+		<module>eden-common-mail-spring-boot-starter</module>
+		<module>eden-common-mq-spring-boot-starter</module>
+		<module>eden-common-sms-spring-boot-starter</module>
 		<module>eden-dynamic-tp-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
 		<module>eden-event-auditor-spring-boot-starter</module>

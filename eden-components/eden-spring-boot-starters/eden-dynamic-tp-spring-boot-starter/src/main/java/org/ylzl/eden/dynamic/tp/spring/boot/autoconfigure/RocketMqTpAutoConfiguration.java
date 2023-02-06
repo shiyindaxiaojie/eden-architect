@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.dynamic.mq.integration.rocketmq.RocketMQConsumer;
+import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQConsumer;
 import org.ylzl.eden.dynamic.tp.spring.boot.adapter.CustomRocketMqDtpAdapter;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
