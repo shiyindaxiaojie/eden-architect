@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.easyexcel;
+package org.ylzl.eden.common.excel;
+
+import org.ylzl.eden.common.excel.importer.ReadEventListener;
+
+import java.io.File;
+import java.io.InputStream;
+
+/**
+ * TODO
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
+public interface ExcelReader {
+
+	void read(InputStream inputStream, Class<?> head, ReadEventListener<?> readEventListener);
+
+	void read(File file, Class<?> head, ReadEventListener<?> readEventListener);
+}
