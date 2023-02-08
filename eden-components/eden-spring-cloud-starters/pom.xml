@@ -39,6 +39,7 @@
 		<module>eden-eureka-server-spring-cloud-starter</module>
 		<module>eden-grpc-spring-cloud-starter</module>
 		<module>eden-hystrix-spring-cloud-starter</module>
+		<module>eden-jaeger-spring-cloud-starter</module>
 		<module>eden-nacos-config-spring-cloud-starter</module>
 		<module>eden-nacos-discovery-spring-cloud-starter</module>
 		<module>eden-openfeign-spring-cloud-starter</module>
