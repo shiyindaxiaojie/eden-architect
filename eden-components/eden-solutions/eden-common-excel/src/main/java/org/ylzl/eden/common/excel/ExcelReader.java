@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.common.excel;
 
-import org.ylzl.eden.common.excel.importer.ReadEventListener;
+import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 
 import java.io.File;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ import java.io.InputStream;
  */
 public interface ExcelReader {
 
-	void read(InputStream inputStream, Class<?> head, ReadEventListener<?> readEventListener);
+	void read(InputStream inputStream, Class<?> head, ExcelReadListener<?> excelReadListener);
 
-	void read(File file, Class<?> head, ReadEventListener<?> readEventListener);
+	void read(File file, Class<?> head, ExcelReadListener<?> excelReadListener);
 }

@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.common.excel;
 
-import org.ylzl.eden.common.excel.importer.ReadEventListener;
+import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 
 import java.lang.annotation.*;
 
@@ -33,7 +33,7 @@ public @interface ExcelImporter {
 
 	String fileName() default "file";
 
-	Class<? extends ReadEventListener<?>> readEventListener();
+	Class<? extends ExcelReadListener<?>> readEventListener();
 
 	boolean ignoreEmptyRow() default false;
 

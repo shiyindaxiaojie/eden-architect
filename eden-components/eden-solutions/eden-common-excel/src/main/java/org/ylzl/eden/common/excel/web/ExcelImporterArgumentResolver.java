@@ -27,7 +27,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartRequest;
 import org.ylzl.eden.common.excel.ExcelImporter;
-import org.ylzl.eden.common.excel.importer.ReadEventListener;
+import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,19 +54,22 @@ public class ExcelImporterArgumentResolver implements HandlerMethodArgumentResol
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 								  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 		Class<?> parameterType = parameter.getParameterType();
-		AssertUtils.isAssignable(parameterType, List.class, "@ExcelImporter parameter is not List " + parameterType);
+		AssertUtils.isAssignable(parameterType, List.class,
+			"@ExcelImporter parameter '" + parameterType + "' is not assign from List");
 
 		ExcelImporter excelImporter =  parameter.getParameterAnnotation(ExcelImporter.class);
 		AssertUtils.notNull(excelImporter, "@ExcelImporter is null");
 
-		Class<? extends ReadEventListener<?>> eventListenerClass = excelImporter.readEventListener();
-		ReadEventListener<?> eventListener = BeanUtils.instantiateClass(eventListenerClass);
+		Class<? extends ExcelReadListener<?>> eventListenerClass = excelImporter.readEventListener();
+		ExcelReadListener<?> eventListener = BeanUtils.instantiateClass(eventListenerClass);
 
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 		InputStream inputStream = request instanceof MultipartRequest?
 			Objects.requireNonNull(((MultipartRequest) request).getFile(excelImporter.fileName())).getInputStream():
 			Objects.requireNonNull(request).getInputStream();
-		Class<?> excelModelClass = ResolvableType.forMethodParameter(parameter).getGeneric(0).resolve();
+		Class<?> targetClass = ResolvableType.forMethodParameter(parameter).getGeneric(0).resolve();
+
+
 		return null;
 	}
 }

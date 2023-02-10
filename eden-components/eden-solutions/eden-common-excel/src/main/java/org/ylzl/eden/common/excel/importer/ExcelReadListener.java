@@ -26,9 +26,20 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public interface ReadEventListener<T> {
+public interface ExcelReadListener<T> {
 
-	List<T> getDatas();
+	/**
+	 * 每读取一行调用一次
+	 *
+	 * @param data 读取到的数据
+	 * @param context 读取上下文
+	 */
+	void read(T data, ExcelReadContext context);
 
+	/**
+	 * 获取所有校验错误信息
+	 *
+	 * @return 错误信息清单
+	 */
 	List<ValidationErrors> getErrors();
 }
