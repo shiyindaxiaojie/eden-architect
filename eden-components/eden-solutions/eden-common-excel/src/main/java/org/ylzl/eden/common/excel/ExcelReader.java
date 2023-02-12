@@ -22,14 +22,28 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
- * TODO
+ * Excel 读取接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface ExcelReader {
 
+	/**
+	 * 读取 Excel
+	 *
+	 * @param inputStream 输入流
+	 * @param head 标题映射
+	 * @param excelReadListener 读取监听器
+	 */
 	void read(InputStream inputStream, Class<?> head, ExcelReadListener<?> excelReadListener);
 
+	/**
+	 * 读取 Excel
+	 *
+	 * @param file 文件
+	 * @param head 标题映射
+	 * @param excelReadListener 读取监听器
+	 */
 	void read(File file, Class<?> head, ExcelReadListener<?> excelReadListener);
 }

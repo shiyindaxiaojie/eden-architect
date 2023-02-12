@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2019 the original author or authors.
  *
@@ -14,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.common.excel.config;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 数据去重配置
+ * Excel 配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -31,27 +32,20 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class DuplicateConfig {
+public class ExcelConfig {
 
-	private String type = "bloom-filter";
+	private String type = "easy-excel";
 
-	private final BloomFilter bloomFilter = new BloomFilter();
-
-	private final CuckooFilter cuckooFilter = new CuckooFilter();
+	private final EasyExcel easyExcel = new EasyExcel();
 
 	@EqualsAndHashCode
 	@ToString
 	@Setter
 	@Getter
-	public static class BloomFilter {
+	public static class EasyExcel {
 
-	}
+		private boolean ignoreEmptyRow;
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class CuckooFilter {
-
+		private int headRowNumber;
 	}
 }

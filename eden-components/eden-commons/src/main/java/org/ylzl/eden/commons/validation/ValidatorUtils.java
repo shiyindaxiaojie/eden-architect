@@ -14,44 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.commons.validation;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.UtilityClass;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
- * 数据去重配置
+ * Validator 校验工具
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@EqualsAndHashCode
-@ToString
-@Setter
-@Getter
-public class DuplicateConfig {
+@UtilityClass
+public class ValidatorUtils {
 
-	private String type = "bloom-filter";
+	private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
-	private final BloomFilter bloomFilter = new BloomFilter();
-
-	private final CuckooFilter cuckooFilter = new CuckooFilter();
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class BloomFilter {
-
-	}
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class CuckooFilter {
-
+	public static <T> Set<ConstraintViolation<T>> validate(T object) {
+		return VALIDATOR.validate(object);
 	}
 }

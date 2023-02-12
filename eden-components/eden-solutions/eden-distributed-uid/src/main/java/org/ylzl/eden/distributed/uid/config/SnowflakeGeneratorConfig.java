@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
 
 /**
  * ID 生成器配置
@@ -36,7 +35,7 @@ public class SnowflakeGeneratorConfig {
 
 	private boolean enabled = false;
 
-	private String type = SnowflakeGeneratorType.LEAF.name();
+	private String type = "leaf";
 
 	private String name = System.getProperty("spring.application.name", "app");
 

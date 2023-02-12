@@ -37,8 +37,8 @@ import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistra
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Slf4j
-@Role(BeanDefinition.ROLE_APPLICATION)
 @Configuration(proxyBeanMethods = false)
 public class EventAuditorConfiguration implements ImportAware {
 
@@ -55,7 +55,6 @@ public class EventAuditorConfiguration implements ImportAware {
 		}
 	}
 
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public EventAuditorInterceptor eventAuditorInterceptor(ObjectProvider<EventAuditorConfig> eventAuditorConfig,
 														   ObjectProvider<AsyncTaskExecutor> asyncTaskExecutor) {
@@ -64,7 +63,6 @@ public class EventAuditorConfiguration implements ImportAware {
 		return interceptor;
 	}
 
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public EventAuditorPointcutAdvisor eventAuditorPointcutAdvisor(EventAuditorInterceptor eventAuditorInterceptor) {
 		EventAuditorPointcutAdvisor pointcutAdvisor = new EventAuditorPointcutAdvisor();
@@ -76,7 +74,6 @@ public class EventAuditorConfiguration implements ImportAware {
 		return pointcutAdvisor;
 	}
 
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public CustomFunctionRegistrar customFunctionRegistrar() {
 		return new CustomFunctionRegistrar();

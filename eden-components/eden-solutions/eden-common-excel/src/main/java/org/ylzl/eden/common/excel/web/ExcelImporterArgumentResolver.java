@@ -16,17 +16,22 @@
 
 package org.ylzl.eden.common.excel.web;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ResolvableType;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartRequest;
 import org.ylzl.eden.common.excel.ExcelImporter;
+import org.ylzl.eden.common.excel.ExcelReader;
 import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
@@ -41,8 +46,13 @@ import java.util.Objects;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 public class ExcelImporterArgumentResolver implements HandlerMethodArgumentResolver {
+
+	private static final String OBJECT_NAME = "excel";
+
+	private final ExcelReader excelReader;
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
@@ -57,19 +67,22 @@ public class ExcelImporterArgumentResolver implements HandlerMethodArgumentResol
 		AssertUtils.isAssignable(parameterType, List.class,
 			"@ExcelImporter parameter '" + parameterType + "' is not assign from List");
 
-		ExcelImporter excelImporter =  parameter.getParameterAnnotation(ExcelImporter.class);
-		AssertUtils.notNull(excelImporter, "@ExcelImporter is null");
+		ExcelImporter excelImporter = parameter.getParameterAnnotation(ExcelImporter.class);
+		AssertUtils.notNull(excelImporter, "@ExcelImporter is not null");
 
 		Class<? extends ExcelReadListener<?>> eventListenerClass = excelImporter.readEventListener();
-		ExcelReadListener<?> eventListener = BeanUtils.instantiateClass(eventListenerClass);
+		ExcelReadListener<?> readListener = BeanUtils.instantiateClass(eventListenerClass);
 
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 		InputStream inputStream = request instanceof MultipartRequest?
 			Objects.requireNonNull(((MultipartRequest) request).getFile(excelImporter.fileName())).getInputStream():
 			Objects.requireNonNull(request).getInputStream();
 		Class<?> targetClass = ResolvableType.forMethodParameter(parameter).getGeneric(0).resolve();
+		excelReader.read(inputStream, targetClass, readListener);
 
-
-		return null;
+		WebDataBinder dataBinder = binderFactory.createBinder(webRequest, readListener.getErrors(), OBJECT_NAME);
+		ModelMap model = mavContainer.getModel();
+		model.put(BindingResult.MODEL_KEY_PREFIX + OBJECT_NAME, dataBinder.getBindingResult());
+		return readListener.getDatas();
 	}
 }

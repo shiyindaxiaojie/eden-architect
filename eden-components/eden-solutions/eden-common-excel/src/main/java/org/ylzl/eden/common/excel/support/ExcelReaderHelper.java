@@ -14,33 +14,36 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel.builder;
+package org.ylzl.eden.common.excel.support;
 
 import org.ylzl.eden.common.excel.ExcelReader;
-import org.ylzl.eden.common.excel.config.ExcelConfig;
-import org.ylzl.eden.extension.SPI;
+import org.ylzl.eden.common.excel.builder.ExcelReaderBuilder;
+import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
- * Excel 读取器构建
+ * Excel 读取帮助支持
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI("easy-excel")
-public interface ExcelReaderBuilder {
+public class ExcelReaderHelper {
 
 	/**
-	 * 设置 Excel 配置
-	 *
-	 * @param config Excel 配置
-	 * @return this
-	 */
-	ExcelReaderBuilder config(ExcelConfig config);
-
-	/**
-	 * 构建 Excel 读取器
+	 * 获取 Excel 读取器实例
 	 *
 	 * @return Excel 读取器实例
 	 */
-	ExcelReader build();
+	public static ExcelReader excelReader() {
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class).getDefaultExtension().build();
+	}
+
+	/**
+	 * 获取敏感词过滤器实例
+	 *
+	 * @param spi 扩展点
+	 * @return 敏感词过滤器实例
+	 */
+	public static ExcelReader excelReader(String spi) {
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class).getExtension(spi).build();
+	}
 }

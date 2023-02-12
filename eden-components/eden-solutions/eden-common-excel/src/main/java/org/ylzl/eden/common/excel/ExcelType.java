@@ -14,44 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.common.excel;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
- * 数据去重配置
+ * Excel类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@EqualsAndHashCode
-@ToString
-@Setter
 @Getter
-public class DuplicateConfig {
+public enum ExcelType {
 
-	private String type = "bloom-filter";
+	EASY_EXCEL;
 
-	private final BloomFilter bloomFilter = new BloomFilter();
-
-	private final CuckooFilter cuckooFilter = new CuckooFilter();
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class BloomFilter {
-
-	}
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class CuckooFilter {
-
+	public static ExcelType parse(String type) {
+		for (ExcelType excelType : ExcelType.values()) {
+			if (excelType.name().equalsIgnoreCase(type)) {
+				return excelType;
+			}
+		}
+		return null;
 	}
 }

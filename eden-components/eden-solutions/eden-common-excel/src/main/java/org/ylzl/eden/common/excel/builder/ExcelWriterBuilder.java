@@ -14,44 +14,33 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.common.excel.builder;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.ylzl.eden.common.excel.ExcelWriter;
+import org.ylzl.eden.common.excel.config.ExcelConfig;
+import org.ylzl.eden.extension.SPI;
 
 /**
- * 数据去重配置
+ * Excel 写入器构建
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@EqualsAndHashCode
-@ToString
-@Setter
-@Getter
-public class DuplicateConfig {
+@SPI("easy-excel")
+public interface ExcelWriterBuilder {
 
-	private String type = "bloom-filter";
+	/**
+	 * 设置 Excel 配置
+	 *
+	 * @param config Excel 配置
+	 * @return this
+	 */
+	ExcelWriterBuilder config(ExcelConfig config);
 
-	private final BloomFilter bloomFilter = new BloomFilter();
-
-	private final CuckooFilter cuckooFilter = new CuckooFilter();
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class BloomFilter {
-
-	}
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class CuckooFilter {
-
-	}
+	/**
+	 * 构建 Excel 写入器
+	 *
+	 * @return Excel 写入器实例
+	 */
+	ExcelWriter build();
 }

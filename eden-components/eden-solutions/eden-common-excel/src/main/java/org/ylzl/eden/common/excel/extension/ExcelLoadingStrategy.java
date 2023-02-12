@@ -14,44 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.config;
+package org.ylzl.eden.common.excel.extension;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.ylzl.eden.extension.strategy.LoadingStrategy;
 
 /**
- * 数据去重配置
+ * Excel扩展点加载策略
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
-@EqualsAndHashCode
-@ToString
-@Setter
-@Getter
-public class DuplicateConfig {
+public class ExcelLoadingStrategy implements LoadingStrategy {
 
-	private String type = "bloom-filter";
+	public static final String META_INF = "META-INF/excel/";
 
-	private final BloomFilter bloomFilter = new BloomFilter();
-
-	private final CuckooFilter cuckooFilter = new CuckooFilter();
-
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class BloomFilter {
-
+	@Override
+	public String directory() {
+		return META_INF;
 	}
 
-	@EqualsAndHashCode
-	@ToString
-	@Setter
-	@Getter
-	public static class CuckooFilter {
-
+	@Override
+	public int getPriority() {
+		return MAX_PRIORITY;
 	}
 }

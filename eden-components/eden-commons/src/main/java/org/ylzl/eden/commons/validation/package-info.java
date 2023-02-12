@@ -14,19 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel;
-
-import java.lang.annotation.*;
-
-/**
- * Excel 导出
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface ExcelExporter {
-
-}
+package org.ylzl.eden.commons.validation;

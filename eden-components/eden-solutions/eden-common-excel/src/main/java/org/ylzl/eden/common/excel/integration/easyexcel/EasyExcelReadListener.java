@@ -1,25 +1,43 @@
 package org.ylzl.eden.common.excel.integration.easyexcel;
 
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
+import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.common.excel.ExcelLine;
 import org.ylzl.eden.common.excel.importer.ExcelReadContext;
 import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 import org.ylzl.eden.common.excel.model.ValidationErrors;
+import org.ylzl.eden.commons.collections.CollectionUtils;
+import org.ylzl.eden.commons.validation.ValidatorUtils;
 
+import javax.validation.ConstraintViolation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * TODO
+ * EasyExcel 读取事件监听
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class EasyExcelReadListener extends AnalysisEventListener<Object> implements ExcelReadListener<Object> {
+@Slf4j
+public class EasyExcelReadListener implements ExcelReadListener<Object> {
 
+	/**
+	 * 保存读取的数据
+	 */
+	private final List<Object> datas = new ArrayList<>();
+
+	/**
+	 * 读取过程中产生的错误信息
+	 */
 	private final List<ValidationErrors> errors = new ArrayList<>();
 
-	private Long rowNumber = 1L;
+	/**
+	 * 当前读取所在的行数
+	 */
+	private int rowNumber = 1;
 
 	/**
 	 * 每读取一行调用一次
@@ -31,7 +49,34 @@ public class EasyExcelReadListener extends AnalysisEventListener<Object> impleme
 	public void read(Object data, ExcelReadContext context) {
 		rowNumber++;
 
+		Set<ConstraintViolation<Object>> violations = ValidatorUtils.validate(data);
+		if (CollectionUtils.isNotEmpty(violations)) {
+			Set<String> messageSet = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet());
+			errors.add(new ValidationErrors(rowNumber, messageSet));
+		} else {
+			Field[] fields = data.getClass().getDeclaredFields();
+			for (Field field : fields) {
+				if (field.isAnnotationPresent(ExcelLine.class) && field.getType() == Integer.class) {
+					try {
+						field.setAccessible(true);
+						field.set(data, rowNumber);
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			datas.add(data);
+		}
+	}
 
+	/**
+	 * 获取读取的数据
+	 *
+	 * @return 数据
+	 */
+	@Override
+	public List<Object> getDatas() {
+		return datas;
 	}
 
 	/**
@@ -41,16 +86,6 @@ public class EasyExcelReadListener extends AnalysisEventListener<Object> impleme
 	 */
 	@Override
 	public List<ValidationErrors> getErrors() {
-		return null;
-	}
-
-	@Override
-	public void invoke(Object data, AnalysisContext context) {
-		read(data, null);
-	}
-
-	@Override
-	public void doAfterAllAnalysed(AnalysisContext context) {
-
+		return errors;
 	}
 }

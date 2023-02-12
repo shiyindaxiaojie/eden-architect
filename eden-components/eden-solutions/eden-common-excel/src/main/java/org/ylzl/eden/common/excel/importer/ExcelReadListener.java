@@ -21,7 +21,7 @@ import org.ylzl.eden.common.excel.model.ValidationErrors;
 import java.util.List;
 
 /**
- * TODO
+ * Excel 读取事件监听
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -34,7 +34,14 @@ public interface ExcelReadListener<T> {
 	 * @param data 读取到的数据
 	 * @param context 读取上下文
 	 */
-	void read(T data, ExcelReadContext context);
+	void read(Object data, ExcelReadContext context);
+
+	/**
+	 * 获取读取的数据
+	 *
+	 * @return 数据
+	 */
+	List<T> getDatas();
 
 	/**
 	 * 获取所有校验错误信息
