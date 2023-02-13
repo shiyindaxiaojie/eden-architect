@@ -33,8 +33,6 @@ public @interface ExcelImporter {
 
 	String fileName() default "file";
 
-
-
 	Class<? extends ExcelReadListener<?>> readEventListener();
 
 	boolean ignoreEmptyRow() default false;

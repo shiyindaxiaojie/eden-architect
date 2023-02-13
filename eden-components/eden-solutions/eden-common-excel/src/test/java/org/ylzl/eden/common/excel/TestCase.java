@@ -18,6 +18,7 @@ package org.ylzl.eden.common.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.*;
+import org.ylzl.eden.common.excel.integration.easyexcel.converter.SexConverter;
 
 import java.time.LocalDateTime;
 

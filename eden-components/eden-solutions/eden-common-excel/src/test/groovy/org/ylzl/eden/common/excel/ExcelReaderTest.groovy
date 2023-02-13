@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.common.excel
 
-import org.ylzl.eden.common.excel.importer.AbstractExcelReadListener
+import org.ylzl.eden.common.excel.importer.PersistenceExcelReadListener
 import org.ylzl.eden.commons.io.ResourceUtils
 import org.ylzl.eden.common.excel.support.ExcelReaderHelper
 import spock.lang.Specification
@@ -29,15 +29,15 @@ class ExcelReaderTest extends Specification {
 			InputStream is = ResourceUtils.getInputStreamFromResource("test/test-case.xlsx")
 		) {
 			assert is != null
-			AbstractExcelReadListener listener = new AbstractExcelReadListener() {
+			PersistenceExcelReadListener<TestCase> listener = new PersistenceExcelReadListener<TestCase>() {
 
 				@Override
-				void batchData(List<Object> data) {
-					println(data)
+				void batchSaveData(List<TestCase> data) {
+					println("Save: " + data)
 				}
 			}
 			listener.setBatchSize(5)
-			ExcelReaderHelper.excelReader("easy-excel").read(is, TestCase.class, listener)
+			ExcelReaderHelper.excelReader().read(is, TestCase.class, listener)
 		}
 
 		then:

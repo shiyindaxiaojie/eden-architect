@@ -15,17 +15,23 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Excel 读取事件监听抽象
+ * Excel 读取事件监听持久化
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
-public abstract class AbstractExcelReadListener implements ExcelReadListener<Object> {
+public abstract class PersistenceExcelReadListener<T> implements ExcelReadListener<T> {
 
+	/**
+	 * 批次处理大小
+	 */
 	private int batchSize = 100;
 
-	private List<Object> cache = ListUtils.newArrayListWithExpectedSize(batchSize);
+	/**
+	 * 缓存读取的数据
+	 */
+	private List<T> cache = ListUtils.newArrayListWithExpectedSize(batchSize);
 
 	/**
 	 * 读取过程中产生的错误信息
@@ -54,27 +60,26 @@ public abstract class AbstractExcelReadListener implements ExcelReadListener<Obj
 			return;
 		}
 
-		if (context.isReadExcelLine()) {
-			Field[] fields = data.getClass().getDeclaredFields();
-			for (Field field : fields) {
-				if (field.isAnnotationPresent(ExcelLine.class) && field.getType() == Integer.class) {
-					try {
-						field.setAccessible(true);
-						field.set(data, rowNumber);
-					} catch (IllegalAccessException e) {
-						log.error(e.getMessage(), e);
-						return;
-					}
+		Field[] fields = data.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(ExcelLine.class) && field.getType() == Integer.class) {
+				try {
+					field.setAccessible(true);
+					field.set(data, rowNumber);
+				} catch (IllegalAccessException e) {
+					log.error(e.getMessage(), e);
+					return;
 				}
 			}
 		}
 
-		cache.add(data);
+		cache.add((T) data);
 		if (cache.size() >= batchSize) {
-			batchData(cache);
+			batchSaveData(cache);
 			cache.clear();
 			cache = ListUtils.newArrayListWithExpectedSize(batchSize);
 		}
+
 	}
 
 	/**
@@ -93,7 +98,7 @@ public abstract class AbstractExcelReadListener implements ExcelReadListener<Obj
 	 * @return 数据
 	 */
 	@Override
-	public List<Object> getBatchData() {
+	public List<T> getBatchData() {
 		return cache;
 	}
 
@@ -109,9 +114,9 @@ public abstract class AbstractExcelReadListener implements ExcelReadListener<Obj
 	}
 
 	/**
-	 * 分批处理数据
+	 * 分批保存数据
 	 *
 	 * @param data 缓存的数据
 	 */
-	public abstract void batchData(List<Object> data);
+	public abstract void batchSaveData(List<T> data);
 }

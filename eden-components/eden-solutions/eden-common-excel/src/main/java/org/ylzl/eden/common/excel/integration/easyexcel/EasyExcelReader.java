@@ -19,6 +19,7 @@ package org.ylzl.eden.common.excel.integration.easyexcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.common.excel.ExcelReader;
 import org.ylzl.eden.common.excel.importer.ExcelReadListener;
@@ -33,9 +34,12 @@ import java.io.InputStream;
  * @since 2.4.x
  */
 @RequiredArgsConstructor
+@Data
 public class EasyExcelReader implements ExcelReader {
 
 	private final ExcelReaderBuilder excelReaderBuilder;
+
+	private boolean readExcelLine = false;
 
 	/**
 	 * 读取 Excel
