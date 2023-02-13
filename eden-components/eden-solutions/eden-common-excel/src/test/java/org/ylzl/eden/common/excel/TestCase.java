@@ -16,28 +16,34 @@
 
 package org.ylzl.eden.common.excel;
 
-import org.ylzl.eden.common.excel.importer.ExcelReadListener;
+import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.*;
 
-import java.lang.annotation.*;
+import java.time.LocalDateTime;
 
 /**
- * Excel 导入
+ * 测试用例
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER})
-public @interface ExcelImporter {
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+public class TestCase {
 
-	String fileName() default "file";
+	@ExcelProperty("用户名")
+	private String username;
 
+	@ExcelProperty("中文名")
+	private String chineseName;
 
+	@ExcelProperty(value = "性别", converter = SexConverter.class)
+	private Integer sex;
 
-	Class<? extends ExcelReadListener<?>> readEventListener();
-
-	boolean ignoreEmptyRow() default false;
-
-	int headRowNumber() default 1;
+	@ExcelProperty("创建时间")
+	private LocalDateTime createdDate;
 }

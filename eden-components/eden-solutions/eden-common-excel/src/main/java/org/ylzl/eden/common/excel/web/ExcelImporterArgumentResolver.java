@@ -83,6 +83,6 @@ public class ExcelImporterArgumentResolver implements HandlerMethodArgumentResol
 		WebDataBinder dataBinder = binderFactory.createBinder(webRequest, readListener.getErrors(), OBJECT_NAME);
 		ModelMap model = mavContainer.getModel();
 		model.put(BindingResult.MODEL_KEY_PREFIX + OBJECT_NAME, dataBinder.getBindingResult());
-		return readListener.getDatas();
+		return readListener.getBatchData();
 	}
 }

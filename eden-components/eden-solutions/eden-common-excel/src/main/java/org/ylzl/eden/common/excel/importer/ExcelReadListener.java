@@ -37,11 +37,18 @@ public interface ExcelReadListener<T> {
 	void read(Object data, ExcelReadContext context);
 
 	/**
-	 * 获取读取的数据
+	 * 根据批次大小读取相应的数据
 	 *
 	 * @return 数据
 	 */
-	List<T> getDatas();
+	List<T> getBatchData();
+
+	/**
+	 * 设置批次大小
+	 *
+	 * @param batchSize 批次大小
+	 */
+	void setBatchSize(int batchSize);
 
 	/**
 	 * 获取所有校验错误信息

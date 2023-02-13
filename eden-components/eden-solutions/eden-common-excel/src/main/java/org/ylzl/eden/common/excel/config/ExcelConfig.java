@@ -44,8 +44,8 @@ public class ExcelConfig {
 	@Getter
 	public static class EasyExcel {
 
-		private boolean ignoreEmptyRow;
+		private boolean ignoreEmptyRow = false;
 
-		private int headRowNumber;
+		private int headRowNumber = 1;
 	}
 }

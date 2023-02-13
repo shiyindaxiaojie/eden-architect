@@ -61,6 +61,12 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+		<!-- Jakarta Validator -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.el</artifactId>
+		</dependency>
+
 		<!-- CGlib -->
 		<dependency>
 			<groupId>cglib</groupId>

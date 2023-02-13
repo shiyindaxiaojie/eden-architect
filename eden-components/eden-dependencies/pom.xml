@@ -76,6 +76,7 @@
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<commons-io.version>2.7</commons-io.version>
 		<commons-logging.version>1.2</commons-logging.version>
+		<commons-math3.version>3.6.1</commons-math3.version>
 		<commons-net.version>3.9.0</commons-net.version>
 		<commons-cli.version>1.4</commons-cli.version>
 		<jackson-bom.version>2.14.1</jackson-bom.version>
@@ -86,6 +87,7 @@
 		<errorprone.version>2.10.0</errorprone.version>
 		<hutool.version>5.7.14</hutool.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
+		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
 		<easyexcel.version>3.2.0</easyexcel.version>
 		<poi.version>4.1.1</poi.version>
@@ -1056,6 +1058,11 @@
 				<version>${commons-logging.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-math3</artifactId>
+				<version>${commons-math3.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
 				<version>${commons-net.version}</version>
@@ -1075,6 +1082,12 @@
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
 				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<!-- Jakarta Validator -->
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.el</artifactId>
+				<version>${jakarta.el.version}</version>
 			</dependency>
 			<!-- EasyExcel -->
 			<dependency>

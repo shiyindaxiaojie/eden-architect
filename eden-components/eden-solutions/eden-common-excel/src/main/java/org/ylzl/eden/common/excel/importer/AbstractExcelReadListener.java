@@ -1,9 +1,8 @@
-package org.ylzl.eden.common.excel.integration.easyexcel;
+package org.ylzl.eden.common.excel.importer;
 
+import com.alibaba.excel.util.ListUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.common.excel.ExcelLine;
-import org.ylzl.eden.common.excel.importer.ExcelReadContext;
-import org.ylzl.eden.common.excel.importer.ExcelReadListener;
 import org.ylzl.eden.common.excel.model.ValidationErrors;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.validation.ValidatorUtils;
@@ -16,18 +15,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * EasyExcel 读取事件监听
+ * Excel 读取事件监听抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
-public class EasyExcelReadListener implements ExcelReadListener<Object> {
+public abstract class AbstractExcelReadListener implements ExcelReadListener<Object> {
 
-	/**
-	 * 保存读取的数据
-	 */
-	private final List<Object> datas = new ArrayList<>();
+	private int batchSize = 100;
+
+	private List<Object> cache = ListUtils.newArrayListWithExpectedSize(batchSize);
 
 	/**
 	 * 读取过程中产生的错误信息
@@ -53,7 +51,10 @@ public class EasyExcelReadListener implements ExcelReadListener<Object> {
 		if (CollectionUtils.isNotEmpty(violations)) {
 			Set<String> messageSet = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet());
 			errors.add(new ValidationErrors(rowNumber, messageSet));
-		} else {
+			return;
+		}
+
+		if (context.isReadExcelLine()) {
 			Field[] fields = data.getClass().getDeclaredFields();
 			for (Field field : fields) {
 				if (field.isAnnotationPresent(ExcelLine.class) && field.getType() == Integer.class) {
@@ -61,22 +62,19 @@ public class EasyExcelReadListener implements ExcelReadListener<Object> {
 						field.setAccessible(true);
 						field.set(data, rowNumber);
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+						log.error(e.getMessage(), e);
+						return;
 					}
 				}
 			}
-			datas.add(data);
 		}
-	}
 
-	/**
-	 * 获取读取的数据
-	 *
-	 * @return 数据
-	 */
-	@Override
-	public List<Object> getDatas() {
-		return datas;
+		cache.add(data);
+		if (cache.size() >= batchSize) {
+			batchData(cache);
+			cache.clear();
+			cache = ListUtils.newArrayListWithExpectedSize(batchSize);
+		}
 	}
 
 	/**
@@ -88,4 +86,32 @@ public class EasyExcelReadListener implements ExcelReadListener<Object> {
 	public List<ValidationErrors> getErrors() {
 		return errors;
 	}
+
+	/**
+	 * 根据批次大小读取相应的数据
+	 *
+	 * @return 数据
+	 */
+	@Override
+	public List<Object> getBatchData() {
+		return cache;
+	}
+
+	/**
+	 * 设置批次大小
+	 *
+	 * @param batchSize 批次大小
+	 */
+	@Override
+	public void setBatchSize(int batchSize) {
+		this.batchSize = batchSize;
+		this.cache = ListUtils.newArrayListWithExpectedSize(batchSize);
+	}
+
+	/**
+	 * 分批处理数据
+	 *
+	 * @param data 缓存的数据
+	 */
+	public abstract void batchData(List<Object> data);
 }
