@@ -59,6 +59,7 @@ public class CatHttpTraceFilter extends CatFilter {
 			Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 
 			MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
+//			servletRequest.setAttribute("t", t);
 			filterChain.doFilter(servletRequest, servletResponse);
 			t.setStatus(Transaction.SUCCESS);
 		} catch (ServletException | IOException e) {

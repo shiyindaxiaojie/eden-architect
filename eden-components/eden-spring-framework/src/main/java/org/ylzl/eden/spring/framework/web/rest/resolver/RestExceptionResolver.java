@@ -142,6 +142,7 @@ public class RestExceptionResolver {
 	 */
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<?> resolveClientException(ClientException ex) {
+//		Object object = RequestUtils.getRequest().getAttribute("t");
 		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
@@ -185,6 +186,5 @@ public class RestExceptionResolver {
 
 	private void postProcess(Throwable e) {
 		log.error(EXCEPTION_HANDLER_CATCH, e.getMessage(), e);
-
 	}
 }
