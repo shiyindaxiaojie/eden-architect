@@ -26,7 +26,7 @@ import org.apache.dubbo.rpc.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = {CommonConstants.CONSUMER}, value = "cat")
+@Activate(group = {CommonConstants.CONSUMER}, value = "cat", order = -3)
 public class CatDubboConsumerFilter implements Filter {
 
 	@Override

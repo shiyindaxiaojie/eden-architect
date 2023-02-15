@@ -34,16 +34,16 @@ import javax.servlet.http.HttpSession;
 @UtilityClass
 public class RequestUtils {
 
-	public static ServletRequestAttributes getServletRequestAttributes() {
+	public static ServletRequestAttributes getRequestAttributes() {
 		return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 	}
 
 	public static HttpServletRequest getRequest() {
-		return getServletRequestAttributes().getRequest();
+		return getRequestAttributes().getRequest();
 	}
 
 	public static HttpServletResponse getResponse() {
-		return getServletRequestAttributes().getResponse();
+		return getRequestAttributes().getResponse();
 	}
 
 	public static HttpSession getSession() {

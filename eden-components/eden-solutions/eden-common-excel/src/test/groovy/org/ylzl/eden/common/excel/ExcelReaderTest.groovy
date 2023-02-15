@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.common.excel
 
-import org.ylzl.eden.common.excel.importer.PersistenceExcelReadListener
+import org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
 import org.ylzl.eden.commons.io.ResourceUtils
 import org.ylzl.eden.common.excel.support.ExcelReaderHelper
 import spock.lang.Specification
@@ -33,11 +33,12 @@ class ExcelReaderTest extends Specification {
 
 				@Override
 				void batchSaveData(List<TestCase> data) {
-					println("Save: " + data)
+					println("Batch save data: " + data)
 				}
 			}
 			listener.setBatchSize(5)
 			ExcelReaderHelper.excelReader().read(is, TestCase.class, listener)
+			println("Batch save data validated errors: " + listener.getErrors())
 		}
 
 		then:

@@ -20,6 +20,9 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.*;
 import org.ylzl.eden.common.excel.integration.easyexcel.converter.SexConverter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
@@ -36,12 +39,16 @@ import java.time.LocalDateTime;
 @Data
 public class TestCase {
 
+	@NotBlank(message = "用户名不能为空")
 	@ExcelProperty("用户名")
 	private String username;
 
+	@NotBlank(message = "中文名不能为空")
 	@ExcelProperty("中文名")
 	private String chineseName;
 
+	@Min(value = 0, message = "性别错误")
+	@Max(value = 1, message = "性别错误")
 	@ExcelProperty(value = "性别", converter = SexConverter.class)
 	private Integer sex;
 

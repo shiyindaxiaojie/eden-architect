@@ -50,16 +50,34 @@ public class SexConverter implements Converter<Integer> {
 	@Override
 	public Integer convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
 									 GlobalConfiguration globalConfiguration) {
-		return MALE.equals(cellData.getStringValue()) ? 1 : 0;
+		if (MALE.equals(cellData.getStringValue())) {
+			return 1;
+		}
+		if (FEMALE.equals(cellData.getStringValue())) {
+			return 0;
+		}
+		return -1;
 	}
 
 	@Override
 	public Integer convertToJavaData(ReadConverterContext<?> context) {
-		return MALE.equals(context.getReadCellData().getStringValue()) ? 1 : 0;
+		if (MALE.equals(context.getReadCellData().getStringValue())) {
+			return 1;
+		}
+		if (FEMALE.equals(context.getReadCellData().getStringValue())) {
+			return 0;
+		}
+		return -1;
 	}
 
 	@Override
 	public WriteCellData<?> convertToExcelData(WriteConverterContext<Integer> context) {
-		return new WriteCellData<>(context.getValue() == 1? MALE : FEMALE);
+		if (context.getValue() == 1) {
+			return new WriteCellData<>(MALE);
+		}
+		if (context.getValue() == 0) {
+			return new WriteCellData<>(FEMALE);
+		}
+		return new WriteCellData<>("?");
 	}
 }

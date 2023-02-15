@@ -14,27 +14,40 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel.web;
+package org.ylzl.eden.common.excel.exporter;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.ylzl.eden.common.excel.ExcelExporter;
+import org.ylzl.eden.commons.env.Charsets;
+import org.ylzl.eden.commons.id.NanoIdUtils;
+import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
- * ExcelExporter 返回值解析
+ * Excel 导出处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
-public class ExcelExporterReturnValueHandler implements HandlerMethodReturnValueHandler {
+public class ExcelExportHandler implements HandlerMethodReturnValueHandler {
+
+	private static final String DEFAULT_CONTENT_TYPE = "application/vnd.ms-excel";
+
+	public static final String DEFAULT_CONTENT_DISPOSITION = "attachment;filename*={}''{}";
 
 	@Override
 	public boolean supportsReturnType(MethodParameter parameter) {
@@ -51,5 +64,23 @@ public class ExcelExporterReturnValueHandler implements HandlerMethodReturnValue
 		HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
 		mavContainer.setRequestHandled(true);
 
+	}
+
+	@SneakyThrows(UnsupportedEncodingException.class)
+	public void export(HttpServletResponse response, List<Object> data, ExcelExporter excelExporter) {
+		String name = excelExporter.name();
+		if (name == null) {
+			name = NanoIdUtils.randomNanoId();
+		}
+
+		String fileName = URLEncoder.encode(name, Charsets.UTF_8_NAME) + excelExporter.format().getValue();
+		String contentType = MediaTypeFactory.getMediaType(fileName)
+			.map(MediaType::toString)
+			.orElse(DEFAULT_CONTENT_TYPE);
+		response.setContentType(contentType);
+		response.setCharacterEncoding(Charsets.UTF_8_NAME);
+		response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+			MessageFormatUtils.format(DEFAULT_CONTENT_DISPOSITION, Charsets.UTF_8_NAME, fileName));
+		// TODO
 	}
 }

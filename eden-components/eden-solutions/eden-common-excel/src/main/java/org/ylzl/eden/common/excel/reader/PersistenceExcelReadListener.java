@@ -1,4 +1,4 @@
-package org.ylzl.eden.common.excel.importer;
+package org.ylzl.eden.common.excel.reader;
 
 import com.alibaba.excel.util.ListUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -46,11 +46,10 @@ public abstract class PersistenceExcelReadListener<T> implements ExcelReadListen
 	/**
 	 * 每读取一行调用一次
 	 *
-	 * @param data    读取到的数据
-	 * @param context 读取上下文
+	 * @param data 读取到的数据
 	 */
 	@Override
-	public void read(Object data, ExcelReadContext context) {
+	public void read(Object data) {
 		rowNumber++;
 
 		Set<ConstraintViolation<Object>> violations = ValidatorUtils.validate(data);
@@ -79,7 +78,16 @@ public abstract class PersistenceExcelReadListener<T> implements ExcelReadListen
 			cache.clear();
 			cache = ListUtils.newArrayListWithExpectedSize(batchSize);
 		}
+	}
 
+	/**
+	 * 读取完成
+	 */
+	@Override
+	public void finish() {
+		if (CollectionUtils.isNotEmpty(cache)) {
+			batchSaveData(cache);
+		}
 	}
 
 	/**

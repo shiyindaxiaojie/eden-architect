@@ -16,6 +16,10 @@
 
 package org.ylzl.eden.common.excel;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.util.List;
+
 /**
  * Excel 写入接口
  *
@@ -24,4 +28,19 @@ package org.ylzl.eden.common.excel;
  */
 public interface ExcelWriter {
 
+	/**
+	 * 写入 Excel
+	 *
+	 * @param os 输出流
+	 * @param data 填充数据
+	 */
+	void write(OutputStream os, List<Object> data, Class<?> head);
+
+	/**
+	 * 写入 Excel
+	 *
+	 * @param file 文件
+	 * @param data 填充数据
+	 */
+	void write(File file, List<Object> data, Class<?> head);
 }

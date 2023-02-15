@@ -14,28 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel;
-
-import org.ylzl.eden.common.excel.reader.ExcelReadListener;
-
-import java.lang.annotation.*;
-
-/**
- * Excel 导入
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER})
-public @interface ExcelImporter {
-
-	String fileName() default "file";
-
-	Class<? extends ExcelReadListener<?>> readEventListener();
-
-	boolean ignoreEmptyRow() default false;
-
-	int headRowNumber() default 1;
-}
+package org.ylzl.eden.common.excel.writer;

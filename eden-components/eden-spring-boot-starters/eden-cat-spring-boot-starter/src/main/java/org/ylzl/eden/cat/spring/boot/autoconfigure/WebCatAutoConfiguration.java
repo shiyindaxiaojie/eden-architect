@@ -43,7 +43,6 @@ public class WebCatAutoConfiguration {
 
 	public static final String AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER = "Autowired CatHttpTraceFilterFilter";
 
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public FilterRegistrationBean<CatHttpTraceFilter> catHttpTraceFilterFilter() {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);

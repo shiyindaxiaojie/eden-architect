@@ -43,7 +43,7 @@ import java.util.UUID;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, value = "cat", order = -9000)
+@Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, value = "cat", order = -2)
 public class CatDubboTraceFilter implements Filter {
 
 	private final static String TYPE_PROVIDER = "Dubbo.provider";

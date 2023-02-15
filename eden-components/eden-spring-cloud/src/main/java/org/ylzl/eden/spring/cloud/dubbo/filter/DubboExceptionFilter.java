@@ -34,8 +34,10 @@ import java.lang.reflect.Method;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = CommonConstants.PROVIDER, order = -1)
+@Activate(group = CommonConstants.PROVIDER, order = DubboExceptionFilter.ORDER)
 public class DubboExceptionFilter implements Filter, Filter.Listener {
+
+	public static final int ORDER = -1;
 
 	private static final Logger logger = LoggerFactory.getLogger(DubboExceptionFilter.class);
 

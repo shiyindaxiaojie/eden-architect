@@ -17,9 +17,6 @@
 package org.ylzl.eden.spring.framework.web.rest.resolver;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +37,6 @@ import org.ylzl.eden.spring.framework.error.http.BadRequestException;
 import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
-import org.ylzl.eden.spring.framework.web.rest.event.RestExceptionEvent;
 
 import java.util.List;
 
@@ -52,16 +48,9 @@ import java.util.List;
  */
 @Slf4j
 @RestControllerAdvice
-public class RestExceptionResolver implements ApplicationEventPublisherAware {
+public class RestExceptionResolver {
 
-	private static final String EXCEPTION_HANDLER_CATCH = "ExceptionHandler catch: {}";
-
-	private ApplicationEventPublisher eventPublisher;
-
-	@Override
-	public void setApplicationEventPublisher(@NotNull ApplicationEventPublisher eventPublisher) {
-		this.eventPublisher = eventPublisher;
-	}
+	private static final String EXCEPTION_HANDLER_CATCH = "ExceptionHandler catch error: {}";
 
 	/**
 	 * HTTP 500 错误处理
@@ -81,7 +70,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 			builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
 			response = builder().buildFailure("SYS-ERROR-500", ex.getMessage());
 		}
-		this.process(ex, response);
+		this.postProcess(ex);
 		return builder.body(response);
 	}
 
@@ -96,9 +85,8 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		String message = StringUtils.join(fieldErrors.toArray(), ",");
-
 		Object response = builder().buildFailure("REQ-ERROR-400", message);
-		return this.buildResponseEntity(ex, HttpStatus.BAD_REQUEST, response);
+		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, response);
 	}
 
 	/**
@@ -110,7 +98,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
 		Object response = builder().buildFailure("REQ-ERROR-400", "不支持的请求方法");
-		return this.buildResponseEntity(ex, HttpStatus.METHOD_NOT_ALLOWED, response);
+		return this.buildResponseEntity(HttpStatus.METHOD_NOT_ALLOWED, response);
 	}
 
 	/**
@@ -121,7 +109,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<?> resolveBadRequestException(BadRequestException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.BAD_REQUEST);
+		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
 	/**
@@ -132,7 +120,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResponseEntity<?> resolveUnauthorizedException(UnauthorizedException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.UNAUTHORIZED);
+		return this.buildResponseEntity(HttpStatus.UNAUTHORIZED, ex);
 	}
 
 	/**
@@ -143,7 +131,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(ForbiddenException.class)
 	public ResponseEntity<?> resolveForbiddenException(ForbiddenException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.FORBIDDEN);
+		return this.buildResponseEntity(HttpStatus.FORBIDDEN, ex);
 	}
 
 	/**
@@ -154,7 +142,7 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<?> resolveClientException(ClientException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.BAD_REQUEST);
+		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
 	/**
@@ -165,7 +153,8 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(ServerException.class)
 	public ResponseEntity<?> resolveServerException(ServerException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+		this.postProcess(ex);
+		return this.buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex);
 	}
 
 	/**
@@ -176,27 +165,26 @@ public class RestExceptionResolver implements ApplicationEventPublisherAware {
 	 */
 	@ExceptionHandler(ThirdServiceException.class)
 	public ResponseEntity<?> resolveThirdServiceException(ThirdServiceException ex) {
-		return this.buildResponseEntity(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+		this.postProcess(ex);
+		return this.buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex);
 	}
 
 	private ResponseBuilder<?> builder() {
 		return ResponseBuilder.builder();
 	}
 
-	private ResponseEntity<?> buildResponseEntity(Exception ex, HttpStatus httpStatus,
-												  Object response) {
+	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, Object response) {
 		BodyBuilder builder = ResponseEntity.status(httpStatus);
-		this.process(ex, response);
 		return builder.body(response);
 	}
 
-	private ResponseEntity<?> buildResponseEntity(BaseException ex, HttpStatus httpStatus) {
+	private ResponseEntity<?> buildResponseEntity(HttpStatus httpStatus, BaseException ex) {
 		Object response = builder().buildFailure(ex.getErrCode(), ex.getErrMessage(), ex.getParams());
-		return this.buildResponseEntity(ex, httpStatus, response);
+		return this.buildResponseEntity(httpStatus, response);
 	}
 
-	private void process(Throwable e, Object response) {
+	private void postProcess(Throwable e) {
 		log.error(EXCEPTION_HANDLER_CATCH, e.getMessage(), e);
-		eventPublisher.publishEvent(RestExceptionEvent.builder().response(response).build());
+
 	}
 }

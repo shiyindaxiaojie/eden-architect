@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel.importer;
+package org.ylzl.eden.common.excel.reader;
 
 import org.ylzl.eden.common.excel.model.ValidationErrors;
 
@@ -32,9 +32,13 @@ public interface ExcelReadListener<T> {
 	 * 每读取一行调用一次
 	 *
 	 * @param data 读取到的数据
-	 * @param context 读取上下文
 	 */
-	void read(Object data, ExcelReadContext context);
+	void read(Object data);
+
+	/**
+	 * 读取完成
+	 */
+	void finish();
 
 	/**
 	 * 根据批次大小读取相应的数据

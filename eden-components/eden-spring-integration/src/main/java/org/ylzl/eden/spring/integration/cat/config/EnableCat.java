@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.autoconfigure;
+package org.ylzl.eden.spring.integration.cat.config;
 
 import org.springframework.context.annotation.Import;
 

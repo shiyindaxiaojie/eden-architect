@@ -22,7 +22,7 @@ import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.common.excel.ExcelReader;
-import org.ylzl.eden.common.excel.importer.ExcelReadListener;
+import org.ylzl.eden.common.excel.reader.ExcelReadListener;
 
 import java.io.File;
 import java.io.InputStream;
@@ -56,12 +56,12 @@ public class EasyExcelReader implements ExcelReader {
 
 				@Override
 				public void invoke(Object data, AnalysisContext context) {
-					excelReadListener.read(data, null);
+					excelReadListener.read(data);
 				}
 
 				@Override
 				public void doAfterAllAnalysed(AnalysisContext context) {
-
+					excelReadListener.finish();
 				}
 			})
 			.sheet()
@@ -83,12 +83,12 @@ public class EasyExcelReader implements ExcelReader {
 
 				@Override
 				public void invoke(Object data, AnalysisContext context) {
-					excelReadListener.read(data, null);
+					excelReadListener.read(data);
 				}
 
 				@Override
 				public void doAfterAllAnalysed(AnalysisContext context) {
-
+					excelReadListener.finish();
 				}
 			})
 			.sheet()

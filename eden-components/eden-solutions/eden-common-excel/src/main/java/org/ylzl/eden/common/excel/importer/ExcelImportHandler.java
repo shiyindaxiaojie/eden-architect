@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel.web;
+package org.ylzl.eden.common.excel.importer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -32,7 +32,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartRequest;
 import org.ylzl.eden.common.excel.ExcelImporter;
 import org.ylzl.eden.common.excel.ExcelReader;
-import org.ylzl.eden.common.excel.importer.ExcelReadListener;
+import org.ylzl.eden.common.excel.reader.ExcelReadListener;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,14 +41,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * ExcelImporter 参数解析
+ * Excel 导入处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j
-public class ExcelImporterArgumentResolver implements HandlerMethodArgumentResolver {
+public class ExcelImportHandler implements HandlerMethodArgumentResolver {
 
 	private static final String OBJECT_NAME = "excel";
 

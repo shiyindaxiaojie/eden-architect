@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.common.excel;
 
-import org.ylzl.eden.common.excel.importer.ExcelReadListener;
+import org.ylzl.eden.common.excel.reader.ExcelReadListener;
 
 import java.io.File;
 import java.io.InputStream;
@@ -35,7 +35,7 @@ public interface ExcelReader {
 	 * @param inputStream 输入流
 	 * @param head 标题映射
 	 * @param excelReadListener 读取监听器
-	 * @see org.ylzl.eden.common.excel.importer.PersistenceExcelReadListener
+	 * @see org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
 	 */
 	void read(InputStream inputStream, Class<?> head, ExcelReadListener<?> excelReadListener);
 
@@ -45,7 +45,7 @@ public interface ExcelReader {
 	 * @param file 文件
 	 * @param head 标题映射
 	 * @param excelReadListener 读取监听器
-	 * @see org.ylzl.eden.common.excel.importer.PersistenceExcelReadListener
+	 * @see org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
 	 */
 	void read(File file, Class<?> head, ExcelReadListener<?> excelReadListener);
 }
