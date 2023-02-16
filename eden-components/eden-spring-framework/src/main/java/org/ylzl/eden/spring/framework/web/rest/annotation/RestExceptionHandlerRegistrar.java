@@ -22,7 +22,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
-import org.ylzl.eden.spring.framework.web.rest.resolver.RestExceptionResolver;
+import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionHandler;
 
 /**
  * RestExceptionResolver 注册器
@@ -31,11 +31,11 @@ import org.ylzl.eden.spring.framework.web.rest.resolver.RestExceptionResolver;
  * @since 2.4.13
  */
 @Slf4j
-public class RestExceptionResolverRegistrar implements ImportBeanDefinitionRegistrar {
+public class RestExceptionHandlerRegistrar implements ImportBeanDefinitionRegistrar {
 
 	@Override
 	public void registerBeanDefinitions(@NotNull AnnotationMetadata metadata,
 										@NotNull BeanDefinitionRegistry registry) {
-		ApplicationContextHelper.registerBean(RestExceptionResolver.class, registry);
+		ApplicationContextHelper.registerBean(RestExceptionHandler.class, registry);
 	}
 }

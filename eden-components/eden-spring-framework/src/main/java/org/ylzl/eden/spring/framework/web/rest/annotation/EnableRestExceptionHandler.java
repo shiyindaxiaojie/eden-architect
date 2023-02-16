@@ -26,9 +26,9 @@ import java.lang.annotation.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Import(RestExceptionResolverRegistrar.class)
+@Import(RestExceptionHandlerRegistrar.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnableRestExceptionResolver {
+public @interface EnableRestExceptionHandler {
 }

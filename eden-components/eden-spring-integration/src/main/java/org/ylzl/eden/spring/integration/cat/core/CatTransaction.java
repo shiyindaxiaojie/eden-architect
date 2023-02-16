@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * @since 2.4.13
  */
 @Documented
-@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface CatTransaction {
 }

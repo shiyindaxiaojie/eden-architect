@@ -17,10 +17,13 @@
 package org.ylzl.eden.spring.integration.cat.aop;
 
 import com.dianping.cat.Cat;
+import com.site.lookup.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.aop.AfterReturningAdvice;
-import org.springframework.aop.support.annotation.AnnotationMethodMatcher;
+import org.springframework.aop.framework.AopProxyUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.core.CatLogMetricForCount;
 
 import java.lang.reflect.Method;
@@ -33,15 +36,21 @@ import java.util.Objects;
  * @since 2.4.13
  */
 @RequiredArgsConstructor
-public class CatLogMetricForCountAdvice implements AfterReturningAdvice {
+public class CatLogMetricForCountAdvice implements MethodInterceptor {
 
 	private final CatLogMetricForCount catLogMetricForCount;
 
 	@Override
-	public void afterReturning(Object returnValue, @NotNull Method method, @NotNull Object[] args, Object target) {
-		AnnotationMethodMatcher matcher = new AnnotationMethodMatcher(CatLogMetricForCount.class);
-		if (matcher.matches(method, Objects.requireNonNull(target).getClass())) {
-			Cat.logMetricForCount(catLogMetricForCount.name(), catLogMetricForCount.count());
+	public Object invoke(@NotNull MethodInvocation invocation) throws Throwable {
+		Method method = invocation.getMethod();
+		Object target = invocation.getThis();
+		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(Objects.requireNonNull(target));
+		String name = StringUtils.isNotEmpty(catLogMetricForCount.name())?
+			catLogMetricForCount.name() : targetClass.getSimpleName() + Strings.DOT + method.getName();
+		try {
+			return invocation.proceed();
+		} finally {
+			Cat.logMetricForCount(name, catLogMetricForCount.count());
 		}
 	}
 }

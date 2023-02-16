@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.rest.resolver;
+package org.ylzl.eden.spring.framework.web.rest.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -28,7 +28,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.error.BaseException;
 import org.ylzl.eden.spring.framework.error.ClientException;
 import org.ylzl.eden.spring.framework.error.ServerException;
@@ -37,18 +39,22 @@ import org.ylzl.eden.spring.framework.error.http.BadRequestException;
 import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.web.util.RequestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Rest 异常解析器
+ * Rest 全局异常处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Slf4j
 @RestControllerAdvice
-public class RestExceptionResolver {
+public class RestExceptionHandler {
 
 	private static final String EXCEPTION_HANDLER_CATCH = "ExceptionHandler catch error: {}";
 
@@ -142,7 +148,6 @@ public class RestExceptionResolver {
 	 */
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<?> resolveClientException(ClientException ex) {
-//		Object object = RequestUtils.getRequest().getAttribute("t");
 		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
@@ -186,5 +191,17 @@ public class RestExceptionResolver {
 
 	private void postProcess(Throwable e) {
 		log.error(EXCEPTION_HANDLER_CATCH, e.getMessage(), e);
+
+		ExtensionLoader<RestExceptionPostProcessor> extensionLoader =
+			ExtensionLoader.getExtensionLoader(RestExceptionPostProcessor.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		if (CollectionUtils.isNotEmpty(extensions)) {
+			HttpServletRequest request = RequestUtils.getRequest();
+			HttpServletResponse response = RequestUtils.getResponse();
+			for (String extension : extensions) {
+				RestExceptionPostProcessor processor = extensionLoader.getExtension(extension);
+				processor.postProcess(request, response, e);
+			}
+		}
 	}
 }

@@ -37,7 +37,7 @@ public class TraceContext implements Cat.Context {
 
 	private final Map<String, String> properties = Maps.newHashMap();
 
-	private static final String UUID_KEY = "_catUUIDKey";
+	private static final String UUID_KEY = "CAT_UUID_KEY";
 
 	@Override
 	public void addProperty(String key, String value) {

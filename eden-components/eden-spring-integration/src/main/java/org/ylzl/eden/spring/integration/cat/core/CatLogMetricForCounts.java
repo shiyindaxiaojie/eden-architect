@@ -25,8 +25,8 @@ import java.lang.annotation.*;
  * @since 2.4.13
  */
 @Documented
-@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface CatLogMetricForCounts {
 
 	CatLogMetricForCount[] value();

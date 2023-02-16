@@ -20,6 +20,9 @@ import com.dianping.cat.Cat;
 import com.dianping.cat.message.Transaction;
 import com.dianping.cat.servlet.CatFilter;
 import org.slf4j.MDC;
+import org.ylzl.eden.extension.ExtensionLoader;
+import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
+import org.ylzl.eden.spring.integration.cat.integration.web.spi.CatRestExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
 import javax.servlet.FilterChain;
@@ -27,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -49,6 +53,7 @@ public class CatHttpTraceFilter extends CatFilter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 						 FilterChain filterChain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		Transaction t = Cat.newTransaction(TYPE_HTTP_TRACE, request.getRequestURI());
 		try {
 			Cat.Context context = TraceContext.getContext();
@@ -59,8 +64,9 @@ public class CatHttpTraceFilter extends CatFilter {
 			Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 
 			MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
-//			servletRequest.setAttribute("t", t);
 			filterChain.doFilter(servletRequest, servletResponse);
+
+			this.checkRestException(request, response);
 			t.setStatus(Transaction.SUCCESS);
 		} catch (ServletException | IOException e) {
 			t.setStatus(e);
@@ -75,4 +81,15 @@ public class CatHttpTraceFilter extends CatFilter {
 			TraceContext.remove();
 		}
 	}
+
+	private void checkRestException(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		RestExceptionPostProcessor processor = ExtensionLoader
+			.getExtensionLoader(RestExceptionPostProcessor.class)
+			.getExtension(CatRestExceptionPostProcessor.SPI);
+		Throwable throwable = processor.getThrowable(request, response);
+		if (throwable != null) {
+			throw throwable;
+		}
+	}
+
 }
