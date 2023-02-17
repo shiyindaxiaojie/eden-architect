@@ -22,8 +22,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
-import org.ylzl.eden.spring.integration.cat.aop.CatTransactionAdvice;
-import org.ylzl.eden.spring.integration.cat.core.CatTransaction;
+import org.ylzl.eden.spring.integration.cat.aop.CatTransactionMethodInterceptor;
+import org.ylzl.eden.spring.integration.cat.CatTransaction;
 
 /**
  * Transaction 注解处理器
@@ -39,7 +39,7 @@ public class CatTransactionAnnotationProcessor implements BeanPostProcessor, Pri
 		if (targetClass.isAnnotationPresent(CatTransaction.class)) {
 			ProxyFactory factory = new ProxyFactory();
 			factory.setTarget(bean);
-			factory.addAdvice(new CatTransactionAdvice());
+			factory.addAdvice(new CatTransactionMethodInterceptor());
 			return factory.getProxy();
 		}
 		return bean;

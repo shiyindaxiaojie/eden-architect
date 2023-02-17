@@ -26,12 +26,12 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * Transaction 方法拦截
+ * CatTransaction 方法拦截
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatTransactionAdvice implements MethodInterceptor {
+public class CatTransactionMethodInterceptor implements MethodInterceptor {
 
 	public static final String INNER_SERVICE = "InnerService";
 

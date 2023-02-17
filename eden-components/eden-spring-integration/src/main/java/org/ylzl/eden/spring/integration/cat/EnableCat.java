@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.config;
+package org.ylzl.eden.spring.integration.cat;
 
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
+import org.ylzl.eden.spring.integration.cat.config.CatImportSelector;
 
 import java.lang.annotation.*;
 
@@ -29,6 +32,28 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({CatAnnotationProcessorRegister.class})
+@Import({CatImportSelector.class})
 public @interface EnableCat {
+
+	/**
+	 * 是否开启 CGLIB 代理
+	 *
+	 * @return 是否开启 CGLIB 代理
+	 */
+	boolean proxyTargetClass() default false;
+
+	/**
+	 * PointcutAdvisor 代理模式
+	 *
+	 * @return 代理模式
+	 * @see org.springframework.context.annotation.AdviceModeImportSelector
+	 */
+	AdviceMode mode() default AdviceMode.PROXY;
+
+	/**
+	 * PointcutAdvisor 优先级
+	 *
+	 * @return 优先级
+	 */
+	int order() default Ordered.LOWEST_PRECEDENCE;
 }

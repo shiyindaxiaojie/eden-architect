@@ -25,7 +25,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
 import org.ylzl.eden.spring.integration.cat.aop.CatLogMetricForCountAdvice;
-import org.ylzl.eden.spring.integration.cat.core.CatLogMetricForCount;
+import org.ylzl.eden.spring.integration.cat.CatLogMetricForCount;
 
 /**
  * Cat.logMetricForCount 注解处理器

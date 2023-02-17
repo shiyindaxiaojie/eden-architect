@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.core;
+package org.ylzl.eden.spring.integration.cat;
 
 import java.lang.annotation.*;
 
