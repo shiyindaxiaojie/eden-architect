@@ -24,10 +24,10 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 import org.ylzl.eden.spring.integration.cat.EnableCat;
 import org.ylzl.eden.spring.integration.cat.aop.CatLogMetricForCountInterceptor;
 import org.ylzl.eden.spring.integration.cat.aop.CatLogMetricForCountPointcutAdvisor;
+import org.ylzl.eden.spring.integration.cat.aop.CatTransactionMethodInterceptor;
 
 /**
  * Cat 配置
@@ -71,7 +71,7 @@ public class CatConfiguration implements ImportAware {
 	}
 
 	@Bean
-	public CustomFunctionRegistrar customFunctionRegistrar() {
-		return new CustomFunctionRegistrar();
+	public CatTransactionMethodInterceptor catTransactionMethodInterceptor() {
+		return new CatTransactionMethodInterceptor();
 	}
 }

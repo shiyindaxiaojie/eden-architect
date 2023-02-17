@@ -26,7 +26,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
@@ -34,7 +33,7 @@ import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
-import org.ylzl.eden.spring.integration.cat.config.CatAnnotationProcessorRegister;
+import org.ylzl.eden.spring.integration.cat.EnableCat;
 
 /**
  * CAT 自动装配
@@ -49,7 +48,7 @@ import org.ylzl.eden.spring.integration.cat.config.CatAnnotationProcessorRegiste
 	matchIfMissing = true
 )
 @ConditionalOnClass(Cat.class)
-@Import(CatAnnotationProcessorRegister.class)
+@EnableCat
 @EnableConfigurationProperties(CatProperties.class)
 @RequiredArgsConstructor
 @Slf4j
