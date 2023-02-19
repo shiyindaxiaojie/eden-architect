@@ -29,8 +29,6 @@ import javax.sql.DataSource;
 @SPI
 public interface DataSourceUrlParser {
 
-	String UNKNOWN_URL = "jdbc:database://host:port/unknown_db";
-
 	/**
 	 * 获取数据源地址
 	 *

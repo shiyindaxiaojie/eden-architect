@@ -40,4 +40,11 @@ public @interface CatLogMetricForCount {
 	 * 调用计数
 	 */
 	int count() default 1;
+
+	/**
+	 * 是否启用 SpEL 表达式
+	 *
+	 * @return 开关
+	 */
+	boolean enableSpEL() default false;
 }

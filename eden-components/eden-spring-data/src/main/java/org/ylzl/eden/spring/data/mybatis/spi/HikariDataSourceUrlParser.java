@@ -25,6 +25,6 @@ public class HikariDataSourceUrlParser implements DataSourceUrlParser {
 		if (CLASS_NAME.equalsIgnoreCase(dataSource.getClass().getName())) {
 			return ((HikariDataSource) dataSource).getJdbcUrl();
 		}
-		return DataSourceUrlParser.UNKNOWN_URL;
+		return null;
 	}
 }

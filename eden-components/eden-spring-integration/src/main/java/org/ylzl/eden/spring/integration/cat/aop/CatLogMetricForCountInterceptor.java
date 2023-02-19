@@ -19,6 +19,7 @@ import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistra
 import org.ylzl.eden.spring.integration.cat.CatLogMetricForCount;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * CatLogMetricForCount 拦截器
@@ -59,7 +60,6 @@ public class CatLogMetricForCountInterceptor implements MethodInterceptor {
 		}
 	}
 
-
 	private void logMetricForCount(CatLogMetricForCount[] catLogMetricForCounts, MethodInvocation invocation) {
 		EvaluationContext context = SpelEvaluationContext.getContext();
 		CustomFunctionRegistrar.register((StandardEvaluationContext) context);
@@ -75,12 +75,15 @@ public class CatLogMetricForCountInterceptor implements MethodInterceptor {
 
 		ExpressionParser parser = SpelExpressionEvaluator.getExpressionParser();
 		for (CatLogMetricForCount catLogMetricForCount : catLogMetricForCounts) {
-			String name;
-			if (StringUtils.isNotBlank(catLogMetricForCount.name())) {
-				Expression expression = parser.parseExpression(catLogMetricForCount.name());
-				name = expression.getValue(context, String.class);
+			String name = catLogMetricForCount.name();
+			if (StringUtils.isNotBlank(name)) {
+				if (catLogMetricForCount.enableSpEL()) {
+					Expression expression = parser.parseExpression(catLogMetricForCount.name());
+					name = expression.getValue(context, String.class);
+				}
 			} else {
-				name = invocation.getClass().getSimpleName() + Strings.DOT + method.getName();
+				name = Objects.requireNonNull(invocation.getThis()).getClass().getSimpleName() +
+					Strings.DOT + method.getName();
 			}
 			Cat.logMetricForCount(name, catLogMetricForCount.count());
 		}

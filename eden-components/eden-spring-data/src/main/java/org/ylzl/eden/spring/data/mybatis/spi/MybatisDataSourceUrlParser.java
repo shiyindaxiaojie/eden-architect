@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
  * @since 2.4.13
  */
 @Slf4j
-public class PooledDataSourceUrlParser implements DataSourceUrlParser {
+public class MybatisDataSourceUrlParser implements DataSourceUrlParser {
 
 	private static final String DATA_SOURCE = "dataSource";
 
@@ -37,6 +37,6 @@ public class PooledDataSourceUrlParser implements DataSourceUrlParser {
 				throw new DataSourceUrlParserException(ex.getMessage(), ex);
 			}
 		}
-		return DataSourceUrlParser.UNKNOWN_URL;
+		return null;
 	}
 }

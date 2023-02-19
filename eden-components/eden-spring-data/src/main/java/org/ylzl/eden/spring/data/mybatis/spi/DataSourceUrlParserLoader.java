@@ -30,6 +30,8 @@ import java.util.Set;
  */
 public class DataSourceUrlParserLoader {
 
+	public static final String UNKNOWN_URL = "jdbc:database://host:port/unknown_db";
+
 	private static final String DS_CLASS_NAME = "com.baomidou.dynamic.datasource.DynamicRoutingDataSource";
 
 	public static String parse(DataSource dataSource) {
@@ -49,6 +51,6 @@ public class DataSourceUrlParserLoader {
 				return url;
 			}
 		}
-		return DataSourceUrlParser.UNKNOWN_URL;
+		return UNKNOWN_URL;
 	}
 }
