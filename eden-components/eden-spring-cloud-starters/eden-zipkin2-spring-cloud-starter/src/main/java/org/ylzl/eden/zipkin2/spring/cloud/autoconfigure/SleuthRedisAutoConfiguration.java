@@ -40,6 +40,7 @@ import org.ylzl.redisson.spring.boot.env.FixedRedissonProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnClass( { RedissonClient.class, FixedRedissonProperties.class})
 @ConditionalOnProperty(
 	prefix = "spring.redis",
 	value = Conditions.ENABLED,
@@ -55,8 +56,8 @@ public class SleuthRedisAutoConfiguration {
 
 	public static final String SERVER_ADDRESS = "Server Address";
 
-	@ConditionalOnClass(RedissonClient.class)
-	@ConditionalOnBean(RedissonAutoConfiguration.class)
+	@ConditionalOnClass( { RedissonClient.class, FixedRedissonProperties.class})
+	@ConditionalOnBean({ RedissonAutoConfiguration.class, FixedRedissonProperties.class})
 	@Bean
 	public RedissonClient tracingRedissonClient(Tracer tracer, RedisProperties redisProperties,
 												FixedRedissonProperties fixedRedissonProperties) {

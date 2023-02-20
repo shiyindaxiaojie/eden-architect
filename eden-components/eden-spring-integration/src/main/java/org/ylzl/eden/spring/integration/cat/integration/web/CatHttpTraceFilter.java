@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.integration.web.filter;
+package org.ylzl.eden.spring.integration.cat.integration.web;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Transaction;
@@ -22,6 +22,7 @@ import com.dianping.cat.servlet.CatFilter;
 import org.slf4j.MDC;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
+import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 import org.ylzl.eden.spring.integration.cat.integration.web.spi.CatRestExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
@@ -41,29 +42,21 @@ import java.io.IOException;
  */
 public class CatHttpTraceFilter extends CatFilter {
 
-	public static final String TYPE_HTTP_TRACE = "Http.trace";
-
-	public static final String HTTP_HEADER_CHILD_MESSAGE_ID = "X-CAT-CHILD-MESSAGE-ID";
-
-	public static final String HTTP_HEADER_PARENT_MESSAGE_ID = "X-CAT-PARENT-MESSAGE-ID";
-
-	public static final String HTTP_HEADER_ROOT_MESSAGE_ID = "X-CAT-ROOT-MESSAGE-ID";
-
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 						 FilterChain filterChain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		Transaction t = Cat.newTransaction(TYPE_HTTP_TRACE, request.getRequestURI());
+		Transaction t = Cat.newTransaction(CatConstants.TYPE_URL, request.getRequestURI());
 		try {
 			Cat.Context context = TraceContext.getContext();
-			context.addProperty(Cat.Context.ROOT, request.getHeader(HTTP_HEADER_ROOT_MESSAGE_ID));
-			context.addProperty(Cat.Context.PARENT, request.getHeader(HTTP_HEADER_PARENT_MESSAGE_ID));
-			context.addProperty(Cat.Context.CHILD, request.getHeader(HTTP_HEADER_CHILD_MESSAGE_ID));
-			Cat.logEvent(TYPE_HTTP_TRACE, request.getRequestURI());
+			context.addProperty(Cat.Context.ROOT, request.getHeader(CatConstants.HTTP_HEADER_ROOT_MESSAGE_ID));
+			context.addProperty(Cat.Context.PARENT, request.getHeader(CatConstants.HTTP_HEADER_PARENT_MESSAGE_ID));
+			context.addProperty(Cat.Context.CHILD, request.getHeader(CatConstants.HTTP_HEADER_CHILD_MESSAGE_ID));
+			Cat.logEvent(CatConstants.TYPE_URL, request.getRequestURI());
 			Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 
-			MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
+			MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 			filterChain.doFilter(servletRequest, servletResponse);
 
 			this.checkRestException(request, response);

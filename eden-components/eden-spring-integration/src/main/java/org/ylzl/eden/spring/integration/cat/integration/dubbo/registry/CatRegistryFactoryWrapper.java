@@ -35,7 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CatRegistryFactoryWrapper implements RegistryFactory {
 
-	public static final String PROVIDER_APPLICATION_KEY = "provider.application";
+	private static final String PROVIDER_APPLICATION_KEY = "provider.application";
 
 	private final RegistryFactory registryFactory;
 
@@ -45,6 +45,7 @@ public class CatRegistryFactoryWrapper implements RegistryFactory {
 	}
 
 	public static String getProviderAppName(URL url) {
+		// 消费方从提供方传递的参数获取应用名
 		String appName = url.getParameter(PROVIDER_APPLICATION_KEY);
 		if (StringUtils.isBlank(appName)) {
 			String interfaceName = url.getParameter(CommonConstants.INTERFACE_KEY);
@@ -60,6 +61,7 @@ public class CatRegistryFactoryWrapper implements RegistryFactory {
 		private URL appendProviderAppName(URL url) {
 			String side = url.getParameter(CommonConstants.SIDE_KEY);
 			if (CommonConstants.PROVIDER_SIDE.equals(side)) {
+				// 让提供方传递应用名参数 -> CatRegistryFactoryWrapper.getProviderAppName
 				url = url.addParameter(PROVIDER_APPLICATION_KEY, url.getParameter(CommonConstants.APPLICATION_KEY));
 			}
 			return url;

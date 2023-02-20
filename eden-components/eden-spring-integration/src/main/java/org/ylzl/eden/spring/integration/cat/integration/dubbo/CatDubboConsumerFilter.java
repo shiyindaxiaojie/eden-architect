@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.integration.dubbo.filter;
+package org.ylzl.eden.spring.integration.cat.integration.dubbo;
 
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
@@ -26,13 +26,12 @@ import org.apache.dubbo.rpc.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = {CommonConstants.CONSUMER}, value = "cat", order = -3)
+@Activate(group = {CommonConstants.CONSUMER}, order = -3)
 public class CatDubboConsumerFilter implements Filter {
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		RpcContext.getContext().setAttachment(CommonConstants.APPLICATION_KEY,
-			invoker.getUrl().getParameter(CommonConstants.APPLICATION_KEY));
+		RpcContext.getContext().setAttachment(CommonConstants.APPLICATION_KEY, invoker.getUrl().getParameter(CommonConstants.APPLICATION_KEY));
 		return invoker.invoke(invocation);
 	}
 }

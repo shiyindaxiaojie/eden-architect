@@ -1,2 +1,2 @@
-cat-dubbo-consumer=org.ylzl.eden.spring.integration.cat.integration.dubbo.filter.CatDubboConsumerFilter
-cat-dubbo-tracing=org.ylzl.eden.spring.integration.cat.integration.dubbo.filter.CatDubboTraceFilter
+cat-dubbo-consumer=org.ylzl.eden.spring.integration.cat.integration.dubbo.CatDubboConsumerFilter
+cat-dubbo-tracing=org.ylzl.eden.spring.integration.cat.integration.dubbo.CatDubboTraceFilter

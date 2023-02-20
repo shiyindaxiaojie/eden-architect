@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.integration.dubbo.filter;
+package org.ylzl.eden.spring.integration.cat.integration.dubbo;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Event;
@@ -27,15 +27,14 @@ import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.remoting.RemotingException;
 import org.apache.dubbo.remoting.TimeoutException;
 import org.apache.dubbo.rpc.*;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.MDC;
+import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.CatRegistryFactoryWrapper;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
-import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableCatDubbo;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Dubbo 链路集成 CAT 过滤
@@ -43,28 +42,8 @@ import java.util.UUID;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, value = "cat", order = -2)
+@Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, order = -2)
 public class CatDubboTraceFilter implements Filter {
-
-	private final static String TYPE_PROVIDER = "Dubbo.provider";
-
-	private final static String TYPE_CONSUMER = "Dubbo.consumer";
-
-	private final static String TYPE_PROVIDER_SERVICE_APP = "Dubbo.provider.service.app";
-
-	private final static String TYPE_PROVIDER_SERVICE_HOST = "Dubbo.provider.service.host";
-
-	private final static String TYPE_CONSUMER_CALL_APP = "Dubbo.consumer.call.app";
-
-	private final static String TYPE_CONSUMER_CALL_HOST = "Dubbo.consumer.call.host";
-
-	private final static String TYPE_CONSUMER_CALL_PORT = "Dubbo.consumer.call.port";
-
-	private final static String TYPE_BIZ_ERROR = "Dubbo.biz.error";
-
-	private final static String TYPE_TIMEOUT_ERROR = "Dubbo.timeout.error";
-
-	private final static String TYPE_REMOTING_ERROR = "Dubbo.remoting.error";
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -72,17 +51,20 @@ public class CatDubboTraceFilter implements Filter {
 			return invoker.invoke(invocation);
 		}
 
+		// 识别是消费方还是提供方
 		URL url = invoker.getUrl();
 		String sideKey = url.getParameter(CommonConstants.SIDE_KEY);
 		boolean isConsumerSide = CommonConstants.CONSUMER_SIDE.equals(sideKey);
-		String type = isConsumerSide ? TYPE_CONSUMER : TYPE_PROVIDER;
+		String type = isConsumerSide ? CatConstants.TYPE_CONSUMER : CatConstants.TYPE_PROVIDER;
+
+		// 开启 Transaction
 		String name = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
 
-		String uuid = generateUUID();
+		String id = generateId();
 		Result result = null;
 		try {
-			Cat.Context context = initContext(uuid);
+			Cat.Context context = initContext(id);
 			if (isConsumerSide) {
 				addConsumerEvent(url, transaction);
 				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
@@ -99,16 +81,20 @@ public class CatDubboTraceFilter implements Filter {
 				if (RpcException.class == throwable.getClass()) {
 					Throwable caseBy = throwable.getCause();
 					if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-						event = Cat.newEvent(TYPE_TIMEOUT_ERROR, name);
+						event = Cat.newEvent(isConsumerSide?
+							CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR : CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR, name);
 					} else {
-						event = Cat.newEvent(TYPE_REMOTING_ERROR, name);
+						event = Cat.newEvent(isConsumerSide?
+							CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
 					}
 				} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-					event = Cat.newEvent(TYPE_REMOTING_ERROR, name);
+					event = Cat.newEvent(isConsumerSide?
+						CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
 				} else {
-					event = Cat.newEvent(TYPE_BIZ_ERROR, name);
+					event = Cat.newEvent(isConsumerSide?
+						CatConstants.TYPE_CONSUMER_BIZ_ERROR : CatConstants.TYPE_PROVIDER_BIZ_ERROR, name);
 				}
-				event.setStatus(result.getException());
+				event.setStatus(throwable);
 				completeEvent(event);
 				transaction.addChild(event);
 				transaction.setStatus(result.getException().getClass().getSimpleName());
@@ -121,12 +107,18 @@ public class CatDubboTraceFilter implements Filter {
 			if (RpcException.class == e.getClass()) {
 				Throwable caseBy = e.getCause();
 				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					event = Cat.newEvent(TYPE_TIMEOUT_ERROR, name);
+					event = Cat.newEvent(isConsumerSide?
+						CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR : CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR, name);
 				} else {
-					event = Cat.newEvent(TYPE_REMOTING_ERROR, name);
+					event = Cat.newEvent(isConsumerSide?
+						CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
 				}
+			} else if (RemotingException.class.isAssignableFrom(e.getClass())) {
+				event = Cat.newEvent(isConsumerSide?
+					CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
 			} else {
-				event = Cat.newEvent(TYPE_BIZ_ERROR, name);
+				event = Cat.newEvent(isConsumerSide?
+					CatConstants.TYPE_CONSUMER_BIZ_ERROR : CatConstants.TYPE_PROVIDER_BIZ_ERROR, name);
 			}
 			event.setStatus(e);
 			completeEvent(event);
@@ -140,20 +132,19 @@ public class CatDubboTraceFilter implements Filter {
 		} finally {
 			transaction.complete();
 			if (isConsumerSide) {
-				TraceContext.remove(uuid);
+				TraceContext.remove(id);
 			} else {
 				TraceContext.remove();
 			}
 		}
 	}
 
-	@NotNull
-	private static String generateUUID() {
-		return UUID.randomUUID().toString();
+	private static String generateId() {
+		return NanoIdUtils.randomNanoId();
 	}
 
-	private Cat.Context initContext(String uuid) {
-		Cat.Context context = TraceContext.getContext(uuid);
+	private Cat.Context initContext(String id) {
+		Cat.Context context = TraceContext.getContext(id);
 		Map<String, String> attachments = RpcContext.getContext().getAttachments();
 		if (attachments != null && attachments.size() > 0) {
 			for (Map.Entry<String, String> entry : attachments.entrySet()) {
@@ -168,29 +159,29 @@ public class CatDubboTraceFilter implements Filter {
 	}
 
 	private void addConsumerEvent(URL url, Transaction transaction) {
-		Event appEvent = Cat.newEvent(TYPE_CONSUMER_CALL_APP, CatRegistryFactoryWrapper.getProviderAppName(url));
+		Event appEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_APP, CatRegistryFactoryWrapper.getProviderAppName(url));
 		appEvent.setStatus(Event.SUCCESS);
 		completeEvent(appEvent);
 		transaction.addChild(appEvent);
 
-		Event hostEvent = Cat.newEvent(TYPE_CONSUMER_CALL_HOST, url.getHost());
+		Event hostEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_SERVER, url.getHost());
 		hostEvent.setStatus(Event.SUCCESS);
 		completeEvent(hostEvent);
 		transaction.addChild(hostEvent);
 
-		Event portEvent = Cat.newEvent(TYPE_CONSUMER_CALL_PORT, String.valueOf(url.getPort()));
+		Event portEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_PORT, String.valueOf(url.getPort()));
 		portEvent.setStatus(Event.SUCCESS);
 		completeEvent(portEvent);
 		transaction.addChild(portEvent);
 	}
 
 	private void addProviderEvent(URL url, Transaction transaction) {
-		Event appEvent = Cat.newEvent(TYPE_PROVIDER_SERVICE_APP, getConsumerAppName());
+		Event appEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_APP, getConsumerAppName());
 		appEvent.setStatus(Event.SUCCESS);
 		completeEvent(appEvent);
 		transaction.addChild(appEvent);
 
-		Event hostEvent = Cat.newEvent(TYPE_PROVIDER_SERVICE_HOST, url.getHost());
+		Event hostEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_SERVER, url.getHost());
 		hostEvent.setStatus(Event.SUCCESS);
 		completeEvent(hostEvent);
 		transaction.addChild(hostEvent);
@@ -204,15 +195,17 @@ public class CatDubboTraceFilter implements Filter {
 		return appName;
 	}
 
-	private void completeEvent(Event event) {
-		AbstractMessage message = (AbstractMessage) event;
-		message.setCompleted(true);
-	}
-
 	private void setAttachment(Cat.Context context) {
 		RpcContext.getContext().setAttachment(Cat.Context.ROOT, context.getProperty(Cat.Context.ROOT));
 		RpcContext.getContext().setAttachment(Cat.Context.CHILD, context.getProperty(Cat.Context.CHILD));
 		RpcContext.getContext().setAttachment(Cat.Context.PARENT, context.getProperty(Cat.Context.PARENT));
+
+		// 使用 Cat.Context.ROOT 作为链路ID
 		MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
+	}
+
+	private void completeEvent(Event event) {
+		AbstractMessage message = (AbstractMessage) event;
+		message.setCompleted(true);
 	}
 }

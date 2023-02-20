@@ -10,12 +10,10 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.expression.SpelEvaluationContext;
 import org.ylzl.eden.spring.framework.expression.SpelExpressionEvaluator;
-import org.ylzl.eden.spring.framework.expression.function.CustomFunctionRegistrar;
 import org.ylzl.eden.spring.integration.cat.CatLogMetricForCount;
 
 import java.lang.reflect.Method;
@@ -62,7 +60,6 @@ public class CatLogMetricForCountInterceptor implements MethodInterceptor {
 
 	private void logMetricForCount(CatLogMetricForCount[] catLogMetricForCounts, MethodInvocation invocation) {
 		EvaluationContext context = SpelEvaluationContext.getContext();
-		CustomFunctionRegistrar.register((StandardEvaluationContext) context);
 		Method method = invocation.getMethod();
 		String[] parameterNames = SpelExpressionEvaluator.getParameterNameDiscoverer().getParameterNames(method);
 		Object[] arguments = invocation.getArguments();

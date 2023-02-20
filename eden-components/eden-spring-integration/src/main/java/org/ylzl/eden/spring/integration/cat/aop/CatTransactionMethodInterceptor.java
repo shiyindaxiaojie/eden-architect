@@ -21,6 +21,7 @@ import com.dianping.cat.message.Transaction;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.framework.AopProxyUtils;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -40,7 +41,8 @@ public class CatTransactionMethodInterceptor implements MethodInterceptor {
 		Method method = invocation.getMethod();
 		Object target = invocation.getThis();
 		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(Objects.requireNonNull(target));
-		Transaction transaction = Cat.newTransaction(SERVICE, targetClass.getSimpleName() + "." + method.getName());
+		String name = targetClass.getSimpleName() + Strings.DOT + method.getName();
+		Transaction transaction = Cat.newTransaction(SERVICE, name);
 		try {
 			return invocation.proceed();
 		} finally {

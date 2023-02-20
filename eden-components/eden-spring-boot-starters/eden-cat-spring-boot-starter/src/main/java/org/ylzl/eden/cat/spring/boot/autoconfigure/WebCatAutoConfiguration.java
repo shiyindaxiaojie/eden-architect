@@ -25,7 +25,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceFilter;
+import org.ylzl.eden.spring.integration.cat.integration.web.CatHttpTraceFilter;
 
 /**
  * Web 集成 CAT 自动装配

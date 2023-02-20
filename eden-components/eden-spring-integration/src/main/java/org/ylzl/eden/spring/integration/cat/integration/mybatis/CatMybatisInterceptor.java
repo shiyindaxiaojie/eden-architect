@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat.integration.mybatis.interceptor;
+package org.ylzl.eden.spring.integration.cat.integration.mybatis;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Message;
@@ -27,6 +27,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
+import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 
 /**
  * Mybatis 集成 CAT 插件
@@ -41,23 +42,17 @@ import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
 })
 public class CatMybatisInterceptor implements Interceptor {
 
-	public static final String TYPE_SQL = "SQL";
-
-	public static final String TYPE_SQL_DATABASE = "SQL.database";
-
-	public static final String TYPE_SQL_METHOD = "SQL.method";
-
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
 		String methodName = MybatisUtils.getMethodName(mappedStatement);
-		Transaction transaction = Cat.newTransaction(TYPE_SQL, methodName);
+		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_SQL, methodName);
 
 		String dataSourceUrl = MybatisUtils.getDatabaseUrl(mappedStatement);
-		Cat.logEvent(TYPE_SQL_DATABASE, dataSourceUrl);
+		Cat.logEvent(CatConstants.TYPE_SQL_DATABASE, dataSourceUrl);
 
 		String sql = MybatisUtils.getSql(mappedStatement, invocation);
-		Cat.logEvent(TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(), Message.SUCCESS, sql);
+		Cat.logEvent(CatConstants.TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(), Message.SUCCESS, sql);
 		try {
 			Object returnValue = invocation.proceed();
 			transaction.setStatus(Transaction.SUCCESS);

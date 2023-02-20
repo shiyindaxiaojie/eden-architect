@@ -24,7 +24,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.spring.integration.cat.integration.mybatis.interceptor.CatMybatisInterceptor;
+import org.ylzl.eden.spring.integration.cat.integration.mybatis.CatMybatisInterceptor;
 
 import java.util.List;
 
