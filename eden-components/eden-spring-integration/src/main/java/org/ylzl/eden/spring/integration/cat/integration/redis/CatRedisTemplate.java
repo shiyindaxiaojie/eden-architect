@@ -41,7 +41,7 @@ public class CatRedisTemplate<K, V> extends RedisTemplate<K, V> {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			String name = proxy.getClass().getSuperclass().getName() + Strings.DOT + method.getName();
+			String name = proxy.getClass().getSuperclass().getSuperclass().getName() + Strings.DOT + method.getName();
 			Transaction transaction = Cat.newTransaction(CatConstants.TYPE_CACHE, name);
 			Cat.logEvent(CatConstants.TYPE_CACHE_REDIS, "");
 			try {

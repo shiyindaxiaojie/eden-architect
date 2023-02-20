@@ -22,17 +22,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Role;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.ylzl.eden.spring.integration.cat.integration.redis.CatRedisTemplate;
-import org.ylzl.eden.spring.integration.cat.integration.redis.CatStringRedisTemplate;
+import org.ylzl.eden.spring.integration.cat.integration.redis.CatRedisAspect;
 
 /**
- * Redis 压测标记自动装配
+ * Redis 埋点 CAT 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -41,27 +38,15 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.CatStringRedisTemp
 	CatAutoConfiguration.class,
 	SqlSessionFactory.class
 })
-@AutoConfigureAfter(org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class)
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
 public class RedisCatAutoConfiguration {
 
-	@Primary
-	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-	@Bean(name = "redisTemplate")
-	public CatRedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		CatRedisTemplate<Object, Object> redisTemplate = new CatRedisTemplate<>();
-		redisTemplate.setConnectionFactory(redisConnectionFactory);
-		return redisTemplate;
-	}
-
-	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-	@Bean(name = "stringRedisTemplate")
-	public CatStringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		CatStringRedisTemplate redisTemplate = new CatStringRedisTemplate();
-		redisTemplate.setConnectionFactory(redisConnectionFactory);
-		return redisTemplate;
+	@Bean
+	public CatRedisAspect catRedisAspect() {
+		return new CatRedisAspect();
 	}
 }
