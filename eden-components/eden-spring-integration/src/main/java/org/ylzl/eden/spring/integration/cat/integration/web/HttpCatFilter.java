@@ -23,7 +23,7 @@ import org.slf4j.MDC;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
-import org.ylzl.eden.spring.integration.cat.integration.web.spi.CatRestExceptionPostProcessor;
+import org.ylzl.eden.spring.integration.cat.integration.web.spi.RestCatExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
 import javax.servlet.FilterChain;
@@ -40,7 +40,7 @@ import java.io.IOException;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatHttpTraceFilter extends CatFilter {
+public class HttpCatFilter extends CatFilter {
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -78,7 +78,7 @@ public class CatHttpTraceFilter extends CatFilter {
 	private void checkRestException(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		RestExceptionPostProcessor processor = ExtensionLoader
 			.getExtensionLoader(RestExceptionPostProcessor.class)
-			.getExtension(CatRestExceptionPostProcessor.SPI);
+			.getExtension(RestCatExceptionPostProcessor.SPI);
 		Throwable throwable = processor.getThrowable(request, response);
 		if (throwable != null) {
 			throw throwable;

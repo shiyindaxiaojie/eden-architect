@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatRestExceptionPostProcessor implements RestExceptionPostProcessor {
+public class RestCatExceptionPostProcessor implements RestExceptionPostProcessor {
 
 	public static final String SPI = "cat";
 

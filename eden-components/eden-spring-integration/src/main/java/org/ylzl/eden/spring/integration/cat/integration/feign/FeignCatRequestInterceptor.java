@@ -12,7 +12,7 @@ import org.ylzl.eden.spring.integration.cat.extension.CatContext;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatFeignRequestInterceptor implements RequestInterceptor {
+public class FeignCatRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {

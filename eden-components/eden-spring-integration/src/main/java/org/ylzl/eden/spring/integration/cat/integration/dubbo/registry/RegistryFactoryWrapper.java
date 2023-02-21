@@ -33,7 +33,7 @@ import java.util.List;
  * @since 2.4.13
  */
 @RequiredArgsConstructor
-public class CatRegistryFactoryWrapper implements RegistryFactory {
+public class RegistryFactoryWrapper implements RegistryFactory {
 
 	private static final String PROVIDER_APPLICATION_KEY = "provider.application";
 

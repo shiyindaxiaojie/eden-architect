@@ -34,7 +34,7 @@ import java.io.IOException;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatRestTemplateTraceInterceptor implements ClientHttpRequestInterceptor {
+public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor {
 
 	@Override
 	public @NotNull ClientHttpResponse intercept(HttpRequest req, byte[] body,

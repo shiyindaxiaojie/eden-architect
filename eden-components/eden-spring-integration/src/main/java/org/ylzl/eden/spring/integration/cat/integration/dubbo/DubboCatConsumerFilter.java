@@ -27,7 +27,7 @@ import org.apache.dubbo.rpc.*;
  * @since 2.4.13
  */
 @Activate(group = {CommonConstants.CONSUMER}, order = -3)
-public class CatDubboConsumerFilter implements Filter {
+public class DubboCatConsumerFilter implements Filter {
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

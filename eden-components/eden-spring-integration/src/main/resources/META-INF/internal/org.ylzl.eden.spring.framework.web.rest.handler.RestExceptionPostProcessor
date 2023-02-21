@@ -1,1 +1,1 @@
-cat=org.ylzl.eden.spring.integration.cat.integration.web.spi.CatRestExceptionPostProcessor
+cat=org.ylzl.eden.spring.integration.cat.integration.web.spi.RestCatExceptionPostProcessor

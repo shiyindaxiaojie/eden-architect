@@ -31,7 +31,7 @@ import org.slf4j.MDC;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
-import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.CatRegistryFactoryWrapper;
+import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
 import java.util.Map;
@@ -43,11 +43,11 @@ import java.util.Map;
  * @since 2.4.13
  */
 @Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, order = -2)
-public class CatDubboTraceFilter implements Filter {
+public class DubboCatTraceFilter implements Filter {
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		if (!EnableCatDubbo.isEnabled()) {
+		if (!EnableDubboCat.isEnabled()) {
 			return invoker.invoke(invocation);
 		}
 
@@ -159,7 +159,7 @@ public class CatDubboTraceFilter implements Filter {
 	}
 
 	private void addConsumerEvent(URL url, Transaction transaction) {
-		Event appEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_APP, CatRegistryFactoryWrapper.getProviderAppName(url));
+		Event appEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_APP, RegistryFactoryWrapper.getProviderAppName(url));
 		appEvent.setStatus(Event.SUCCESS);
 		completeEvent(appEvent);
 		transaction.addChild(appEvent);

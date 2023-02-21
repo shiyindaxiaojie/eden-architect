@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.spring.integration.cat.integration.redis;
 
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.util.CatTransactionUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -28,11 +29,15 @@ import java.util.function.Supplier;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class CatRedisSupport {
+public class RedisCatSupport {
 
 	private static final int MAX_KEY_LEN = 10;
 
 	private static final String REDIS = "Redis";
+
+	private static final String KEY = "key";
+
+	private static final String KEYS = "keys";
 
 	public static void execute(String command, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
@@ -41,19 +46,19 @@ public class CatRedisSupport {
 
 	public static void execute(String command, byte[] key, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
-		data.put("key", deserialize(key));
+		data.put(KEY, deserialize(key));
 		CatTransactionUtils.transaction(REDIS, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[][] keys, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
-		data.put("keys", toStringWithDeserialization(limitKeys(keys)));
+		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
 		CatTransactionUtils.transaction(REDIS, command, data, runnable);
 	}
 
 	public static <T> T execute(String command, byte[] key, Supplier<T> supplier) {
 		Map<String, Object> data = new HashMap<>(1);
-		data.put("key", deserialize(key));
+		data.put(KEY, deserialize(key));
 		return CatTransactionUtils.transaction(REDIS, command, data, supplier);
 	}
 
@@ -63,17 +68,17 @@ public class CatRedisSupport {
 
 	public static <T> T execute(String command, byte[][] keys, Supplier<T> supplier) {
 		Map<String, Object> data = new HashMap<>(1);
-		data.put("keys", toStringWithDeserialization(limitKeys(keys)));
+		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
 		return CatTransactionUtils.transaction(REDIS, command, data, supplier);
 	}
 
 	private static String deserialize(byte[] bytes) {
-		return (bytes == null ? "" : new String(bytes, StandardCharsets.UTF_8));
+		return (bytes == null ? Strings.EMPTY : new String(bytes, StandardCharsets.UTF_8));
 	}
 
 	private static String toStringWithDeserialization(byte[][] array) {
 		if (array == null) {
-			return "";
+			return Strings.EMPTY;
 		}
 
 		List<String> list = new ArrayList<>();

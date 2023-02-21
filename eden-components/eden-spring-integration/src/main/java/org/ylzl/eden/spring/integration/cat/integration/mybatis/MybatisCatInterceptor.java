@@ -40,7 +40,7 @@ import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
 	@Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class})
 })
-public class CatMybatisInterceptor implements Interceptor {
+public class MybatisCatInterceptor implements Interceptor {
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {

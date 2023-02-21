@@ -22,8 +22,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnection;
-import org.ylzl.eden.spring.integration.cat.integration.redis.connection.CatRedisClusterConnection;
-import org.ylzl.eden.spring.integration.cat.integration.redis.connection.CatRedisConnection;
+import org.ylzl.eden.spring.integration.cat.integration.redis.connection.RedisClusterConnectionWrapper;
+import org.ylzl.eden.spring.integration.cat.integration.redis.connection.RedisConnectionWrapper;
 
 /**
  * Redis 切入 CAT 埋点
@@ -32,26 +32,29 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.connection.CatRedi
  * @since 2.4.x
  */
 @Aspect
-public class CatRedisAspect {
+public class RedisCatAspect {
 
 	@Pointcut("target(org.springframework.data.redis.connection.RedisConnectionFactory)")
-	public void connectionFactory() {}
+	public void connectionFactory() {
+	}
 
 	@Pointcut("execution(org.springframework.data.redis.connection.RedisConnection *.getConnection(..))")
-	public void getConnection() {}
+	public void getConnection() {
+	}
 
 	@Pointcut("execution(org.springframework.data.redis.connection.RedisClusterConnection *.getClusterConnection(..))")
-	public void getClusterConnection() {}
+	public void getClusterConnection() {
+	}
 
 	@Around("getConnection() && connectionFactory()")
 	public Object aroundGetConnection(final ProceedingJoinPoint pjp) throws Throwable {
 		RedisConnection connection = (RedisConnection) pjp.proceed();
-		return new CatRedisConnection(connection);
+		return new RedisConnectionWrapper(connection);
 	}
 
 	@Around("getClusterConnection() && connectionFactory()")
 	public Object aroundGetClusterConnection(final ProceedingJoinPoint pjp) throws Throwable {
 		RedisClusterConnection clusterConnection = (RedisClusterConnection) pjp.proceed();
-		return new CatRedisClusterConnection(clusterConnection);
+		return new RedisClusterConnectionWrapper(clusterConnection);
 	}
 }

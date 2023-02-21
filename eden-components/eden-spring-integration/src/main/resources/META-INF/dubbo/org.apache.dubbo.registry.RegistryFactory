@@ -1,1 +1,1 @@
-cat-registry-factory=org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.CatRegistryFactoryWrapper
+cat-registry-factory=org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper

@@ -24,7 +24,7 @@ import com.dianping.cat.Cat;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class EnableCatDubbo {
+public class EnableDubboCat {
 
 	private static boolean enabled = true;
 

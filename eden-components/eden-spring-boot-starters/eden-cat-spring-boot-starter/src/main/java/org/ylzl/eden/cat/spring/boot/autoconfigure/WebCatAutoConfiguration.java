@@ -25,7 +25,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.spring.integration.cat.integration.web.CatHttpTraceFilter;
+import org.ylzl.eden.spring.integration.cat.integration.web.HttpCatFilter;
 
 /**
  * Web 集成 CAT 自动装配
@@ -44,10 +44,10 @@ public class WebCatAutoConfiguration {
 	public static final String AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER = "Autowired CatHttpTraceFilterFilter";
 
 	@Bean
-	public FilterRegistrationBean<CatHttpTraceFilter> catHttpTraceFilterFilter() {
+	public FilterRegistrationBean<HttpCatFilter> catHttpTraceFilterFilter() {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);
-		FilterRegistrationBean<CatHttpTraceFilter> registration =
-			new FilterRegistrationBean<>(new CatHttpTraceFilter());
+		FilterRegistrationBean<HttpCatFilter> registration =
+			new FilterRegistrationBean<>(new HttpCatFilter());
 		registration.setName("http-trace-cat-filter");
 		registration.addUrlPatterns("/*");
 		registration.setOrder(1);

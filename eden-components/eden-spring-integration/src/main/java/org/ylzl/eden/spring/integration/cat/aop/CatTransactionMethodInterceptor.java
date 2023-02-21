@@ -34,7 +34,7 @@ import java.util.Objects;
  */
 public class CatTransactionMethodInterceptor implements MethodInterceptor {
 
-	public static final String SERVICE = "RPC";
+	public static final String NAME = "InnerService";
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -42,7 +42,7 @@ public class CatTransactionMethodInterceptor implements MethodInterceptor {
 		Object target = invocation.getThis();
 		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(Objects.requireNonNull(target));
 		String name = targetClass.getSimpleName() + Strings.DOT + method.getName();
-		Transaction transaction = Cat.newTransaction(SERVICE, name);
+		Transaction transaction = Cat.newTransaction(NAME, name);
 		try {
 			return invocation.proceed();
 		} finally {
