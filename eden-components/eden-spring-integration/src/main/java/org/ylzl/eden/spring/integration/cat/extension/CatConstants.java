@@ -11,6 +11,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CatConstants extends com.dianping.cat.CatConstants {
 
+	public final static String TRACE_MODE = "X-CAT-TRACE-MODE";
+
 	// Dubbo
 	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
 	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
@@ -24,7 +26,6 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	public final static String TYPE_CONSUMER_APP = TYPE_CONSUMER + ".app";
 	public final static String TYPE_CONSUMER_SERVER = TYPE_CONSUMER + ".server";
 	public final static String TYPE_CONSUMER_PORT = TYPE_CONSUMER + ".port";
-	// 自定义类型
 	public final static String TYPE_CONSUMER_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
 	public final static String TYPE_CONSUMER_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
 	public final static String TYPE_CONSUMER_REMOTING_ERROR = TYPE_PROVIDER + ".remoting.error";
@@ -47,7 +48,9 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// 参考 com.dianping.cat.consumer.matrix.MessageAnalyzer
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer
 	public static final String TYPE_URL = "URL";
-
+	public static final String TYPE_URL_FORWARD = TYPE_URL + ".Forward";
+	public static final String TYPE_URL_SERVER = TYPE_URL + ".Server";
+	public static final String TYPE_URL_METHOD = TYPE_URL + ".Method";
 
 	// Trace
 	// 自定义链路传递参数

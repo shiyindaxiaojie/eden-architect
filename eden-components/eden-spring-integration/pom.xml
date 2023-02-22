@@ -31,6 +31,32 @@
 	<name>eden-spring-integration</name>
 	<description>Spring Integration 扩展</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>log4j-plugin-processor</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<phase>process-classes</phase>
+						<configuration>
+							<proc>only</proc>
+							<annotationProcessors>
+								<annotationProcessor>
+									org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor
+								</annotationProcessor>
+							</annotationProcessors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- 内部组件 -->
 		<dependency>
@@ -128,6 +154,13 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -333,6 +366,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- Spock -->
 		<dependency>
 			<groupId>org.spockframework</groupId>
@@ -348,10 +388,6 @@
 			<groupId>org.apache.groovy</groupId>
 			<artifactId>groovy</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
 		</dependency>
 	</dependencies>
 </project>
