@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
@@ -38,6 +39,7 @@ import java.util.List;
 	CatAutoConfiguration.class,
 	SqlSessionFactory.class
 })
+@AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

@@ -55,7 +55,7 @@ public class CatConfiguration implements ImportAware {
 
 	@Bean
 	public CatLogMetricForCountInterceptor catLogMetricForCountInterceptor() {
-		return  new CatLogMetricForCountInterceptor();
+		return new CatLogMetricForCountInterceptor();
 	}
 
 	@Bean

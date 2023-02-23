@@ -18,8 +18,8 @@ public class FeignCatRequestInterceptor implements RequestInterceptor {
 	public void apply(RequestTemplate requestTemplate) {
 		CatContext catContext = new CatContext();
 		Cat.logRemoteCallClient(catContext, Cat.getManager().getDomain());
-		requestTemplate.header(Cat.Context.ROOT, catContext.getProperty(CatConstants.HTTP_HEADER_ROOT_MESSAGE_ID));
-		requestTemplate.header(Cat.Context.PARENT,catContext.getProperty(CatConstants.HTTP_HEADER_PARENT_MESSAGE_ID));
-		requestTemplate.header(Cat.Context.CHILD, catContext.getProperty(CatConstants.HTTP_HEADER_CHILD_MESSAGE_ID));
+		requestTemplate.header(Cat.Context.ROOT, catContext.getProperty(CatConstants.X_CAT_ROOT_ID));
+		requestTemplate.header(Cat.Context.PARENT,catContext.getProperty(CatConstants.X_CAT_PARENT_ID));
+		requestTemplate.header(Cat.Context.CHILD, catContext.getProperty(CatConstants.X_CAT_ID));
 	}
 }

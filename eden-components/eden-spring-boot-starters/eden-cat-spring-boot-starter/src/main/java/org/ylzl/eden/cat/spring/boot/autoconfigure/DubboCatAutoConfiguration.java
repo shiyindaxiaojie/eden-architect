@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.rpc.Filter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -42,7 +43,7 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableDubboCat;
 	matchIfMissing = true
 )
 @ConditionalOnClass(Filter.class)
-@ConditionalOnBean(CatAutoConfiguration.class)
+@AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

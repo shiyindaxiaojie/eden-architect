@@ -14,6 +14,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.impl.ThrowableProxy;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.util.Booleans;
+import org.ylzl.eden.spring.integration.cat.extension.CatState;
 
 import java.io.Serializable;
 
@@ -30,7 +31,7 @@ public class Log4j2Appender extends AbstractAppender {
 
 	public static final String TYPE = "Log4j2";
 
-	private Level level = Level.ERROR;
+	private final Level level;
 
 	public Log4j2Appender(String name, Filter filter, Layout<? extends Serializable> layout,
 						  boolean ignoreExceptions, Property[] properties, Level level) {
@@ -40,6 +41,9 @@ public class Log4j2Appender extends AbstractAppender {
 
 	@Override
 	public void append(LogEvent event) {
+		if (!CatState.isInitialized()) {
+			return;
+		}
 		try {
 			if (event.getLevel().isMoreSpecificThan(level)) {
 				logCat(event, event.getLevel());
@@ -54,10 +58,9 @@ public class Log4j2Appender extends AbstractAppender {
 	private void logCat(LogEvent event, Level level) {
 		switch (level.getStandardLevel()) {
 			case INFO:
-				if (Cat.getManager().isTraceMode()) {
-					Cat.logEvent(TYPE, event.getLevel().name(), Message.SUCCESS,
-						event.getMessage().getFormattedMessage());
-				}
+			case WARN:
+				Cat.logEvent(TYPE, event.getLevel().name(), Message.SUCCESS,
+					event.getMessage().getFormattedMessage());
 			case ERROR:
 				ThrowableProxy proxy = event.getThrownProxy();
 				if (proxy != null) {
@@ -72,12 +75,11 @@ public class Log4j2Appender extends AbstractAppender {
 	}
 
 	@PluginFactory
-	public static Log4j2Appender createAppender(
+	public static Log4j2Appender build(
 		@PluginAttribute("name") String name,
 		@PluginElement("Filter") Filter filter,
 		@PluginElement("Layout") Layout<? extends Serializable> layout,
 		@PluginAttribute("ignoreExceptions") String ignore,
-		@PluginAttribute("properties") Property[] properties,
 		@PluginAttribute("level") Level level) {
 
 		if (name == null) {
@@ -86,7 +88,10 @@ public class Log4j2Appender extends AbstractAppender {
 		if (layout == null) {
 			layout = PatternLayout.createDefaultLayout();
 		}
+		if (level == null) {
+			level = Level.ERROR;
+		}
 		boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
-		return new Log4j2Appender(name, filter, layout, ignoreExceptions, properties, level);
+		return new Log4j2Appender(name, filter, layout, ignoreExceptions, null, level);
 	}
 }

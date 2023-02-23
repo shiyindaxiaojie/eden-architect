@@ -26,6 +26,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
 import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 
@@ -49,6 +50,9 @@ public class MybatisCatInterceptor implements Interceptor {
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_SQL, methodName);
 
 		String dataSourceUrl = MybatisUtils.getDatabaseUrl(mappedStatement);
+		if (dataSourceUrl != null && dataSourceUrl.contains(Strings.PLACEHOLDER)) {
+			dataSourceUrl = dataSourceUrl.substring(0, dataSourceUrl.indexOf(Strings.PLACEHOLDER));
+		}
 		Cat.logEvent(CatConstants.TYPE_SQL_DATABASE, dataSourceUrl);
 
 		String sql = MybatisUtils.getSql(mappedStatement, invocation);

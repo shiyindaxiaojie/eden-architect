@@ -38,7 +38,10 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisCatAspect;
 	CatAutoConfiguration.class,
 	SqlSessionFactory.class
 })
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfigureAfter({
+	CatAutoConfiguration.class,
+	RedisAutoConfiguration.class
+})
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

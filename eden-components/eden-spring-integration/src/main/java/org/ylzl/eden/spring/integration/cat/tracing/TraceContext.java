@@ -37,8 +37,6 @@ public class TraceContext implements Cat.Context {
 
 	private final Map<String, String> properties = Maps.newHashMap();
 
-	private static final String ID_KEY = "CAT_ID_KEY";
-
 	@Override
 	public void addProperty(String key, String value) {
 		if (key == null || value == null) {
@@ -58,23 +56,16 @@ public class TraceContext implements Cat.Context {
 	}
 
 	public static String getTraceId() {
-		return getContext(Cat.Context.ROOT).getProperty(ID_KEY);
-	}
-
-	public static Cat.Context getContext(String id) {
-		Cat.Context context = holder.get();
-		if (context == null) {
-			context = new TraceContext();
-			if (id != null) {
-				context.addProperty(ID_KEY, id);
-			}
-			holder.set(context);
-		}
-		return context;
+		return getContext().getProperty(Cat.Context.ROOT);
 	}
 
 	public static Cat.Context getContext() {
-		return getContext(null);
+		Cat.Context context = holder.get();
+		if (context == null) {
+			context = new TraceContext();
+			holder.set(context);
+		}
+		return context;
 	}
 
 	public static void remove(String id) {
@@ -83,8 +74,8 @@ public class TraceContext implements Cat.Context {
 		}
 		Cat.Context context = holder.get();
 		if (context != null) {
-			String uuidKey = context.getProperty(ID_KEY);
-			if (Objects.equals(id, uuidKey)) {
+			String traceId = context.getProperty(Cat.Context.ROOT);
+			if (Objects.equals(id, traceId)) {
 				remove();
 			}
 		}

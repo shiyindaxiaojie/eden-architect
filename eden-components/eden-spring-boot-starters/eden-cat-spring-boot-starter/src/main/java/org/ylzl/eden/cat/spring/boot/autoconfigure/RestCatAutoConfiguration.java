@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
@@ -34,11 +35,12 @@ import java.util.Collections;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@RequiredArgsConstructor
 @ConditionalOnBean({
 	CatAutoConfiguration.class,
 	RestTemplate.class
 })
+@AutoConfigureAfter(CatAutoConfiguration.class)
+@RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)

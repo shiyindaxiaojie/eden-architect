@@ -31,6 +31,7 @@ import org.slf4j.MDC;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
+import org.ylzl.eden.spring.integration.cat.extension.CatState;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
@@ -47,7 +48,7 @@ public class DubboCatTraceFilter implements Filter {
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		if (!EnableDubboCat.isEnabled()) {
+		if (!CatState.isInitialized()) {
 			return invoker.invoke(invocation);
 		}
 
@@ -61,10 +62,9 @@ public class DubboCatTraceFilter implements Filter {
 		String name = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
 
-		String id = generateId();
 		Result result = null;
 		try {
-			Cat.Context context = initContext(id);
+			Cat.Context context = initContext();
 			if (isConsumerSide) {
 				addConsumerEvent(url, transaction);
 				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
@@ -131,11 +131,7 @@ public class DubboCatTraceFilter implements Filter {
 			}
 		} finally {
 			transaction.complete();
-			if (isConsumerSide) {
-				TraceContext.remove(id);
-			} else {
-				TraceContext.remove();
-			}
+			TraceContext.remove();
 		}
 	}
 
@@ -143,8 +139,8 @@ public class DubboCatTraceFilter implements Filter {
 		return NanoIdUtils.randomNanoId();
 	}
 
-	private Cat.Context initContext(String id) {
-		Cat.Context context = TraceContext.getContext(id);
+	private Cat.Context initContext() {
+		Cat.Context context = TraceContext.getContext();
 		Map<String, String> attachments = RpcContext.getContext().getAttachments();
 		if (attachments != null && attachments.size() > 0) {
 			for (Map.Entry<String, String> entry : attachments.entrySet()) {

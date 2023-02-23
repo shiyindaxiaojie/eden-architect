@@ -11,7 +11,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CatConstants extends com.dianping.cat.CatConstants {
 
-	public final static String TRACE_MODE = "X-CAT-TRACE-MODE";
 
 	// Dubbo
 	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
@@ -32,7 +31,7 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 
 	// SQL
 	// 参考 com.dianping.cat.consumer.storage.builder.StorageSQLBuilder
-	public static final String TYPE_SQL = "SQL";
+	public static final String TYPE_SQL = com.dianping.cat.CatConstants.TYPE_SQL;
 	public static final String TYPE_SQL_DATABASE = "SQL.Database";
 	public static final String TYPE_SQL_METHOD = "SQL.Method";
 
@@ -47,14 +46,24 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// Http
 	// 参考 com.dianping.cat.consumer.matrix.MessageAnalyzer
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer
-	public static final String TYPE_URL = "URL";
-	public static final String TYPE_URL_FORWARD = TYPE_URL + ".Forward";
+	public static final String TYPE_URL = com.dianping.cat.CatConstants.TYPE_URL;
+	public static final String TYPE_URL_FORWARD = com.dianping.cat.CatConstants.TYPE_URL_FORWARD;
 	public static final String TYPE_URL_SERVER = TYPE_URL + ".Server";
 	public static final String TYPE_URL_METHOD = TYPE_URL + ".Method";
 
 	// Trace
 	// 自定义链路传递参数
-	public static final String HTTP_HEADER_CHILD_MESSAGE_ID = "X-CAT-CHILD-MESSAGE-ID";
-	public static final String HTTP_HEADER_PARENT_MESSAGE_ID = "X-CAT-PARENT-MESSAGE-ID";
-	public static final String HTTP_HEADER_ROOT_MESSAGE_ID = "X-CAT-ROOT-MESSAGE-ID";
+	public static final String X_FORWARDED_FOR = "x-forwarded-for";
+	public final static String X_CAT_TRACE_MODE = "X-CAT-TRACE-MODE";
+	public static final String X_CAT_SOURCE = "X-CAT-SOURCE";
+	public static final String X_CAT_ID = "X-CAT-ID";
+	public static final String X_CAT_ROOT_ID = "X-CAT-ROOT-ID";
+	public static final String X_CAT_PARENT_ID = "X-CAT-PARENT-ID";
+	public static final String X_CAT_SERVER = "X-CAT-SERVER";
+	public static final String SOURCE_CONTAINER ="container";
+
+	// Rewrite CatFilter
+	public static final String CAT_STATE = com.dianping.cat.CatConstants.CAT_STATE;
+	public static final String CAT_PAGE_URI = com.dianping.cat.CatConstants.CAT_PAGE_URI;
+	public static final String CAT_PAGE_TYPE = com.dianping.cat.CatConstants.CAT_PAGE_TYPE;
 }
