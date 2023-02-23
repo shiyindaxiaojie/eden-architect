@@ -33,6 +33,8 @@ import lombok.ToString;
 @Getter
 public class DuplicateConfig {
 
+	private String type = "bloom-filter";
+
 	private final BloomFilter bloomFilter = new BloomFilter();
 
 	private final CuckooFilter cuckooFilter = new CuckooFilter();

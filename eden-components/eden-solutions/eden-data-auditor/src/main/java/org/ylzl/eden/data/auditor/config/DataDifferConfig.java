@@ -34,6 +34,8 @@ import org.javers.core.diff.ListCompareAlgorithm;
 @Getter
 public class DataDifferConfig {
 
+	private String type = "javers";
+
 	private final Javers javers = new Javers();
 
 	private final JavaObjectDiff javaObjectDiff = new JavaObjectDiff();

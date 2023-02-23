@@ -34,6 +34,7 @@
 	<description>自研应用架构</description>
 
 	<modules>
+		<module>eden-agents</module>
 		<module>eden-components</module>
 		<module>eden-plugins</module>
 		<module>eden-tests</module>

@@ -19,13 +19,13 @@ package org.ylzl.eden.cat.spring.boot.autoconfigure;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceFilter;
+import org.ylzl.eden.spring.integration.cat.integration.web.HttpCatFilter;
 
 /**
  * Web 集成 CAT 自动装配
@@ -33,8 +33,8 @@ import org.ylzl.eden.spring.integration.cat.integration.web.filter.CatHttpTraceF
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnBean(CatAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -43,13 +43,11 @@ public class WebCatAutoConfiguration {
 
 	public static final String AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER = "Autowired CatHttpTraceFilterFilter";
 
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
-	public FilterRegistrationBean<CatHttpTraceFilter> catHttpTraceFilterFilter() {
+	public FilterRegistrationBean<HttpCatFilter> httpCatFilter() {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);
-		FilterRegistrationBean<CatHttpTraceFilter> registration =
-			new FilterRegistrationBean<>(new CatHttpTraceFilter());
-		registration.setName("http-trace-cat-filter");
+		FilterRegistrationBean<HttpCatFilter> registration = new FilterRegistrationBean<>(new HttpCatFilter());
+		registration.setName("http-cat-filter");
 		registration.addUrlPatterns("/*");
 		registration.setOrder(1);
 		return registration;

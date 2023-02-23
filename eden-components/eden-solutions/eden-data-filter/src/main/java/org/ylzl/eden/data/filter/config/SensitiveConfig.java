@@ -31,13 +31,15 @@ import org.ahocorasick.trie.TrieConfig;
 @Getter
 public class SensitiveConfig {
 
-	private final AhoCoraSick ahoCoraSick = new AhoCoraSick();
+	private String type = "aho-corasick";
+
+	private final AhoCorasick ahoCorasick = new AhoCorasick();
 
 	@EqualsAndHashCode(callSuper = false)
 	@ToString
 	@Setter
 	@Getter
-	public static class AhoCoraSick extends TrieConfig {
+	public static class AhoCorasick extends TrieConfig {
 
 	}
 }

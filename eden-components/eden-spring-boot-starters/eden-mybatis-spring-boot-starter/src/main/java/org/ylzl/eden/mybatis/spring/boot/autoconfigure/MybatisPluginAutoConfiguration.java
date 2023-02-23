@@ -39,7 +39,7 @@ import org.ylzl.eden.spring.data.mybatis.plugin.MybatisSqlLogInterceptor;
  */
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @ConditionalOnBean(SqlSessionFactory.class)
-@ConditionalOnProperty(name = MybatisPluginProperties.SQL_LOG_ENABLED, matchIfMissing = true)
+@ConditionalOnProperty(name = MybatisPluginProperties.SQL_LOG_ENABLED)
 @EnableConfigurationProperties({MybatisPluginProperties.class})
 @RequiredArgsConstructor
 @Slf4j

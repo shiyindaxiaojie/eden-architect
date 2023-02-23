@@ -83,7 +83,7 @@ public @interface EventAuditor {
 	 *
 	 * @return 是否提前解析
 	 */
-	boolean evalBeforeInvoke() default false;
+	boolean evalBeforeInvoke() default true;
 
 	/**
 	 * 是否记录返回值

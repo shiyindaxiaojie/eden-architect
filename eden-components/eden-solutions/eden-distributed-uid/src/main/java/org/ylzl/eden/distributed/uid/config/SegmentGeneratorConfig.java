@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.ylzl.eden.distributed.uid.SegmentGeneratorType;
 
 import java.io.File;
 import java.util.Map;
@@ -39,7 +38,7 @@ public class SegmentGeneratorConfig {
 
 	private boolean enabled = false;
 
-	private String type = SegmentGeneratorType.LEAF.name();
+	private String type = "leaf";
 
 	/** 租户 */
 	private String tenant = "default";

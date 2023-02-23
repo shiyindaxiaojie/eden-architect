@@ -54,7 +54,6 @@ public @interface EnableEventAuditor {
 	 * PointcutAdvisor 优先级
 	 *
 	 * @return 优先级
-	 * @see org.ylzl.eden.event.auditor.aop.EventAuditorPointcutAdvisor
 	 */
 	int order() default Ordered.LOWEST_PRECEDENCE;
 }

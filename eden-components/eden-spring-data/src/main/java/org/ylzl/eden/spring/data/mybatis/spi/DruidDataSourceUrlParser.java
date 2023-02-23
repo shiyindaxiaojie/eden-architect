@@ -25,6 +25,6 @@ public class DruidDataSourceUrlParser implements DataSourceUrlParser {
 		if (CLASS_NAME.equalsIgnoreCase(dataSource.getClass().getName())) {
 			return ((DruidDataSource) dataSource).getUrl();
 		}
-		return DataSourceUrlParser.UNKNOWN_URL;
+		return null;
 	}
 }

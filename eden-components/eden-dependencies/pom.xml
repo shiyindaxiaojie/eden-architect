@@ -63,11 +63,6 @@
 		<tomcat.version>10.1.5</tomcat.version>
 		<wildfly.version>1.5.2.Final</wildfly.version>
 
-		<!-- 日志组件 -->
-		<log4j2.version>2.17.2</log4j2.version>
-		<logback-extensions.version>0.1.5</logback-extensions.version>
-		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
-
 		<!-- 工具集 -->
 		<asm.version>7.3.1</asm.version>
 		<cglib.version>3.3.0</cglib.version>
@@ -81,6 +76,7 @@
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<commons-io.version>2.7</commons-io.version>
 		<commons-logging.version>1.2</commons-logging.version>
+		<commons-math3.version>3.6.1</commons-math3.version>
 		<commons-net.version>3.9.0</commons-net.version>
 		<commons-cli.version>1.4</commons-cli.version>
 		<jackson-bom.version>2.14.1</jackson-bom.version>
@@ -91,8 +87,9 @@
 		<errorprone.version>2.10.0</errorprone.version>
 		<hutool.version>5.7.14</hutool.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
+		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
-		<easyexcel.version>2.2.3</easyexcel.version>
+		<easyexcel.version>3.2.0</easyexcel.version>
 		<poi.version>4.1.1</poi.version>
 		<dom4j.version>2.1.3</dom4j.version>
 		<batik.version>1.12</batik.version>
@@ -167,12 +164,6 @@
 		<!-- 微服务组件 -->
 		<nacos.version>2.0.4</nacos.version>
 		<sentinel.version>1.8.5</sentinel.version>
-		<zipkin2.version>2.23.18</zipkin2.version>
-		<brave.version>5.13.10</brave.version>
-		<brave-opentracing.version>1.0.0</brave-opentracing.version>
-		<opentracing-redis.version>0.1.16</opentracing-redis.version>
-		<sofa.version>3.13.0</sofa.version>
-		<sofa-tracer-plugin.version>3.1.2</sofa-tracer-plugin.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
 		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
@@ -190,6 +181,11 @@
 		<netty.version>4.1.85.Final</netty.version>
 		<javamail.version>1.6.7</javamail.version>
 
+		<!-- 日志组件 -->
+		<log4j2.version>2.17.2</log4j2.version>
+		<logback-extensions.version>0.1.5</logback-extensions.version>
+		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
+
 		<!-- 监控组件 -->
 		<prometheus.version>0.16.0</prometheus.version>
 		<micrometer.version>1.9.1</micrometer.version>
@@ -199,6 +195,15 @@
 		<javamelody-theme.version>1.0</javamelody-theme.version>
 		<cat.version>3.1.0</cat.version>
 		<plexus.version>3.0.24</plexus.version>
+
+		<!-- 链路组件 -->
+		<zipkin2.version>2.23.18</zipkin2.version>
+		<brave.version>5.13.10</brave.version>
+		<brave-opentracing.version>1.0.0</brave-opentracing.version>
+		<opentracing-redis.version>0.1.16</opentracing-redis.version>
+		<opentracing-spring-jaeger-starter.version>3.3.1</opentracing-spring-jaeger-starter.version>
+		<sofa.version>3.13.0</sofa.version>
+		<sofa-tracer-plugin.version>3.1.2</sofa-tracer-plugin.version>
 
 		<!-- 测试组件 -->
 		<spock.version>2.3-groovy-4.0</spock.version>
@@ -758,6 +763,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-jaeger-spring-cloud-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
@@ -953,55 +963,6 @@
 				<version>${knife4j.version}</version>
 			</dependency>
 
-			<!-- 日志 -->
-			<!-- Log4j2 -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j-impl</artifactId>
-				<version>${log4j2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${log4j2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-jul</artifactId>
-				<version>${log4j2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-spring-cloud-config-client</artifactId>
-				<version>${log4j2.version}</version>
-			</dependency>
-			<!-- Logback -->
-			<dependency>
-				<groupId>org.logback-extensions</groupId>
-				<artifactId>logback-ext-spring</artifactId>
-				<version>${logback-extensions.version}</version>
-			</dependency>
-			<!-- Logstash -->
-			<dependency>
-				<groupId>net.logstash.logback</groupId>
-				<artifactId>logstash-logback-encoder</artifactId>
-				<version>${logstash-logback-encoder.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-core</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-classic</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-access</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-
 			<!-- 工具集 -->
 			<!-- ASM -->
 			<dependency>
@@ -1097,6 +1058,11 @@
 				<version>${commons-logging.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-math3</artifactId>
+				<version>${commons-math3.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
 				<version>${commons-net.version}</version>
@@ -1116,6 +1082,12 @@
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
 				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<!-- Jakarta Validator -->
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.el</artifactId>
+				<version>${jakarta.el.version}</version>
 			</dependency>
 			<!-- EasyExcel -->
 			<dependency>
@@ -1906,137 +1878,6 @@
 				<artifactId>spring-cloud-starter-netflix-archaius</artifactId>
 				<version>${spring-cloud-starter-netflix.version}</version>
 			</dependency>
-			<!-- Zipkin2 -->
-			<dependency>
-				<groupId>io.zipkin.zipkin2</groupId>
-				<artifactId>zipkin</artifactId>
-				<version>${zipkin2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-zipkin</artifactId>
-				<version>${spring-cloud-starter-zipkin.version}</version>
-			</dependency>
-			<!-- Brave -->
-			<dependency>
-				<groupId>io.zipkin.brave</groupId>
-				<artifactId>brave-bom</artifactId>
-				<version>${brave.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>io.opentracing.brave</groupId>
-				<artifactId>brave-opentracing</artifactId>
-				<version>${brave-opentracing.version}</version>
-			</dependency>
-			<!-- Opentracing -->
-			<dependency>
-				<groupId>io.opentracing.contrib</groupId>
-				<artifactId>opentracing-redis-redisson</artifactId>
-				<version>${opentracing-redis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.opentracing.contrib</groupId>
-				<artifactId>opentracing-redis-jedis3</artifactId>
-				<version>${opentracing-redis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.opentracing.contrib</groupId>
-				<artifactId>opentracing-redis-lettuce-5.2</artifactId>
-				<version>${opentracing-redis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.opentracing.contrib</groupId>
-				<artifactId>opentracing-redis-spring-data2</artifactId>
-				<version>${opentracing-redis.version}</version>
-			</dependency>
-			<!-- SOFA Tracer -->
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>tracer-sofa-boot-starter</artifactId>
-				<version>${sofa.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-datasource-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-dubbo-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-dubbo-common-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-redis-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-mongodb-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-resttmplate-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-httpclient-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-okhttp-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-kafkamq-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-rabbitmq-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-rocketmq-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-springmessage-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-springmvc-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-spring-cloud-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-flexible-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alipay.sofa</groupId>
-				<artifactId>sofa-tracer-zipkin-plugin</artifactId>
-				<version>${sofa-tracer-plugin.version}</version>
-			</dependency>
 
 			<!-- 网络 -->
 			<dependency>
@@ -2050,7 +1891,56 @@
 				<version>${javamail.version}</version>
 			</dependency>
 
-			<!-- 监控 -->
+			<!-- 日志组件 -->
+			<!-- Log4j2 -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-jul</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-spring-cloud-config-client</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<!-- Logback -->
+			<dependency>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>${logback-extensions.version}</version>
+			</dependency>
+			<!-- Logstash -->
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback-encoder.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-classic</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-access</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- 监控组件 -->
 			<!-- Spring Boot Admin -->
 			<dependency>
 				<groupId>de.codecentric</groupId>
@@ -2143,7 +2033,155 @@
 				<version>${plexus.version}</version>
 			</dependency>
 
-			<!-- 测试 -->
+			<!-- 链路组件 -->
+			<!-- Zipkin2 -->
+			<dependency>
+				<groupId>io.zipkin.zipkin2</groupId>
+				<artifactId>zipkin</artifactId>
+				<version>${zipkin2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>${spring-cloud-starter-zipkin.version}</version>
+			</dependency>
+			<!-- Brave -->
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-bom</artifactId>
+				<version>${brave.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.brave</groupId>
+				<artifactId>brave-opentracing</artifactId>
+				<version>${brave-opentracing.version}</version>
+			</dependency>
+			<!-- Opentracing -->
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-redisson</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-jedis3</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-lettuce-5.2</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-redis-spring-data2</artifactId>
+				<version>${opentracing-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-spring-jaeger-starter</artifactId>
+				<version>${opentracing-spring-jaeger-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+				<version>${opentracing-spring-jaeger-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+				<version>${opentracing-spring-jaeger-starter.version}</version>
+			</dependency>
+			<!-- SOFA Tracer -->
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>tracer-sofa-boot-starter</artifactId>
+				<version>${sofa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-datasource-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-dubbo-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-dubbo-common-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-redis-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-mongodb-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-resttmplate-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-httpclient-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-okhttp-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-kafkamq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-rabbitmq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-rocketmq-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-springmessage-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-springmvc-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-spring-cloud-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-flexible-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alipay.sofa</groupId>
+				<artifactId>sofa-tracer-zipkin-plugin</artifactId>
+				<version>${sofa-tracer-plugin.version}</version>
+			</dependency>
+
+			<!-- 测试组件 -->
 			<!-- Spock -->
 			<dependency>
 				<groupId>org.spockframework</groupId>
@@ -2326,6 +2364,16 @@
 			<dependency>
 				<groupId>com.github.docker-java</groupId>
 				<artifactId>docker-java</artifactId>
+				<version>${docker-java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.docker-java</groupId>
+				<artifactId>docker-java-api</artifactId>
+				<version>${docker-java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.docker-java</groupId>
+				<artifactId>docker-java-transport</artifactId>
 				<version>${docker-java.version}</version>
 			</dependency>
 		</dependencies>

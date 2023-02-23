@@ -63,4 +63,6 @@ public class Strings {
 	public static final String NULL = "null";
 
 	public static final String MSG_REPLACE = "%s";
+
+	public static final String PLACEHOLDER = "?";
 }

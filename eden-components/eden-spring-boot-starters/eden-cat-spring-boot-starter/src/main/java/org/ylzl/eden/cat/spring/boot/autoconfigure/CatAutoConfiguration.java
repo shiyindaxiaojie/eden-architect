@@ -22,11 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
@@ -34,7 +34,8 @@ import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
-import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessorRegister;
+import org.ylzl.eden.spring.integration.cat.EnableCat;
+import org.ylzl.eden.spring.integration.cat.extension.CatState;
 
 /**
  * CAT 自动装配
@@ -48,8 +49,9 @@ import org.ylzl.eden.spring.integration.cat.autoconfigure.CatAnnotationProcessor
 	havingValue = Conditions.TRUE,
 	matchIfMissing = true
 )
+@AutoConfigureBefore(WebCatAutoConfiguration.class)
 @ConditionalOnClass(Cat.class)
-@Import(CatAnnotationProcessorRegister.class)
+@EnableCat
 @EnableConfigurationProperties(CatProperties.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -87,5 +89,11 @@ public class CatAutoConfiguration implements InitializingBean {
 			catProperties.getTcpPort(),
 			catProperties.getHttpPort(),
 			servers.split(Strings.COMMA));
+
+		if (catProperties.isTraceMode()) {
+			Cat.getManager().setTraceMode(true);
+		}
+
+		CatState.setInitialized();
 	}
 }
