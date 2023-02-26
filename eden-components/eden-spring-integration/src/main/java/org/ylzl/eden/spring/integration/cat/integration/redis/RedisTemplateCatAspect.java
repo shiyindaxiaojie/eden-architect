@@ -32,7 +32,7 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.connection.RedisCo
  * @since 2.4.x
  */
 @Aspect
-public class RedisCatAspect {
+public class RedisTemplateCatAspect {
 
 	@Pointcut("target(org.springframework.data.redis.connection.RedisConnectionFactory)")
 	public void connectionFactory() {

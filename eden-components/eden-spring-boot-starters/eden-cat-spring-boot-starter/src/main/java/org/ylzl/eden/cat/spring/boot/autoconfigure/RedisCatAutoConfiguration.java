@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.spring.integration.cat.integration.redis.RedisCatAspect;
+import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAspect;
 
 /**
  * Redis 埋点 CAT 自动装配
@@ -49,7 +49,7 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisCatAspect;
 public class RedisCatAutoConfiguration {
 
 	@Bean
-	public RedisCatAspect catRedisAspect() {
-		return new RedisCatAspect();
+	public RedisTemplateCatAspect catRedisAspect() {
+		return new RedisTemplateCatAspect();
 	}
 }

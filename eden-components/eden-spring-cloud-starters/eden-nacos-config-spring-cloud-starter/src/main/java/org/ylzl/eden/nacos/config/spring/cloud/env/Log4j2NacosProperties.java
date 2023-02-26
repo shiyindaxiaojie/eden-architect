@@ -15,18 +15,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = Log4j2NacosProperties.PREFIX)
 public class Log4j2NacosProperties {
 
-	public static final String PREFIX = "log4j2";
+	public static final String PREFIX = "log4j2.nacos";
 
 	private boolean enabled = false;
 
-	private final Nacos nacos = new Nacos();
+	private String group;
 
-	@Setter
-	@Getter
-	public static class Nacos {
-
-		private String group;
-
-		private String dataId = "log4j2.yml";
-	}
+	private String dataId = "log4j2.yml";
 }

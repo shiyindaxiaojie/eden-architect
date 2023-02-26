@@ -17,6 +17,7 @@
 package org.ylzl.eden.spring.integration.cat.integration.redis;
 
 import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
 import org.ylzl.eden.spring.integration.cat.util.CatTransactionUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -29,11 +30,9 @@ import java.util.function.Supplier;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class RedisCatSupport {
+public class RedisTemplateCatSupport {
 
 	private static final int MAX_KEY_LEN = 10;
-
-	private static final String REDIS = "Redis";
 
 	private static final String KEY = "key";
 
@@ -41,35 +40,35 @@ public class RedisCatSupport {
 
 	public static void execute(String command, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
-		CatTransactionUtils.transaction(REDIS, command, data, runnable);
+		CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[] key, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEY, deserialize(key));
-		CatTransactionUtils.transaction(REDIS, command, data, runnable);
+		CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[][] keys, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
-		CatTransactionUtils.transaction(REDIS, command, data, runnable);
+		CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static <T> T execute(String command, byte[] key, Supplier<T> supplier) {
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEY, deserialize(key));
-		return CatTransactionUtils.transaction(REDIS, command, data, supplier);
+		return CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);
 	}
 
 	public static <T> T execute(String command, Supplier<T> supplier) {
-		return CatTransactionUtils.transaction(REDIS, command, supplier);
+		return CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, supplier);
 	}
 
 	public static <T> T execute(String command, byte[][] keys, Supplier<T> supplier) {
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
-		return CatTransactionUtils.transaction(REDIS, command, data, supplier);
+		return CatTransactionUtils.transaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);
 	}
 
 	private static String deserialize(byte[] bytes) {
