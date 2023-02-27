@@ -25,8 +25,8 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.ylzl.eden.spring.integration.cat.EnableCat;
-import org.ylzl.eden.spring.integration.cat.aop.CatLogMetricForCountInterceptor;
-import org.ylzl.eden.spring.integration.cat.aop.CatLogMetricForCountPointcutAdvisor;
+import org.ylzl.eden.spring.integration.cat.aop.CatMetricInterceptor;
+import org.ylzl.eden.spring.integration.cat.aop.CatMetricPointcutAdvisor;
 import org.ylzl.eden.spring.integration.cat.aop.CatTransactionMethodInterceptor;
 
 /**
@@ -54,16 +54,16 @@ public class CatConfiguration implements ImportAware {
 	}
 
 	@Bean
-	public CatLogMetricForCountInterceptor catLogMetricForCountInterceptor() {
-		return new CatLogMetricForCountInterceptor();
+	public CatMetricInterceptor catLogMetricForCountInterceptor() {
+		return new CatMetricInterceptor();
 	}
 
 	@Bean
-	public CatLogMetricForCountPointcutAdvisor CatLogMetricForCountPointcutAdvisor(
-		CatLogMetricForCountInterceptor CatLogMetricForCountInterceptor) {
-		CatLogMetricForCountPointcutAdvisor pointcutAdvisor = new CatLogMetricForCountPointcutAdvisor();
+	public CatMetricPointcutAdvisor CatLogMetricForCountPointcutAdvisor(
+		CatMetricInterceptor CatMetricInterceptor) {
+		CatMetricPointcutAdvisor pointcutAdvisor = new CatMetricPointcutAdvisor();
 		pointcutAdvisor.setAdviceBeanName("CatLogMetricForCountPointcutAdvisor");
-		pointcutAdvisor.setAdvice(CatLogMetricForCountInterceptor);
+		pointcutAdvisor.setAdvice(CatMetricInterceptor);
 		if (enableCat != null) {
 			pointcutAdvisor.setOrder(enableCat.getNumber("order"));
 		}

@@ -3,7 +3,7 @@ package org.ylzl.eden.spring.integration.cat.integration.feign;
 import com.dianping.cat.Cat;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.extension.CatContext;
 
 /**

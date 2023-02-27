@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.integration.cat;
 import java.lang.annotation.*;
 
 /**
- * Cat.logMetricForCount 注解
+ * CatMetric 注解集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -27,24 +27,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CatLogMetricForCount {
+public @interface CatMetrics {
 
-	/**
-	 * 指标名称
-	 *
-	 * @return
-	 */
-	String name() default "";
-
-	/**
-	 * 调用计数
-	 */
-	int count() default 1;
-
-	/**
-	 * 是否启用 SpEL 表达式
-	 *
-	 * @return 开关
-	 */
-	boolean enableSpEL() default false;
+	CatMetric[] value();
 }

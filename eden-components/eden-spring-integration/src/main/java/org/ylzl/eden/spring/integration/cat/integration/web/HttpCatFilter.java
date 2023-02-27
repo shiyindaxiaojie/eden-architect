@@ -34,7 +34,7 @@ import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.net.IpConfig;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
-import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.integration.web.spi.RestCatExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 

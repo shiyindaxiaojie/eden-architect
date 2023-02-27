@@ -28,7 +28,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
-import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 /**
  * Mybatis 集成 CAT 插件

@@ -13,9 +13,9 @@ import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class CatLogMetricForCountPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
+public class CatMetricPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
-	private final CatLogMetricForCountPointcut pointcut = new CatLogMetricForCountPointcut();
+	private final CatMetricPointcut pointcut = new CatMetricPointcut();
 
 	/**
 	 * 获取切点
