@@ -23,7 +23,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

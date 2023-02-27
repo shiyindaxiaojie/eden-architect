@@ -5,8 +5,8 @@ import org.springframework.core.BridgeMethodResolver;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ClassUtils;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
-import org.ylzl.eden.spring.integration.cat.CatLogMetricForCount;
-import org.ylzl.eden.spring.integration.cat.CatLogMetricForCounts;
+import org.ylzl.eden.spring.integration.cat.CatMetric;
+import org.ylzl.eden.spring.integration.cat.CatMetrics;
 
 import java.lang.reflect.Method;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class CatLogMetricForCountPointcut extends StaticMethodMatcherPointcut {
+public class CatMetricPointcut extends StaticMethodMatcherPointcut {
 
 	/**
 	 * 匹配切点
@@ -46,7 +46,7 @@ public class CatLogMetricForCountPointcut extends StaticMethodMatcherPointcut {
 	 * @return 是否匹配
 	 */
 	private boolean matchesCatLogMetricForCount(Method method) {
-		return !AnnotatedElementUtils.findAllMergedAnnotations(method, CatLogMetricForCount.class).isEmpty();
+		return !AnnotatedElementUtils.findAllMergedAnnotations(method, CatMetric.class).isEmpty();
 	}
 
 	/**
@@ -56,6 +56,6 @@ public class CatLogMetricForCountPointcut extends StaticMethodMatcherPointcut {
 	 * @return 是否匹配
 	 */
 	private boolean matchesCatLogMetricForCounts(Method method) {
-		return !AnnotatedElementUtils.findAllMergedAnnotations(method, CatLogMetricForCounts.class).isEmpty();
+		return !AnnotatedElementUtils.findAllMergedAnnotations(method, CatMetrics.class).isEmpty();
 	}
 }

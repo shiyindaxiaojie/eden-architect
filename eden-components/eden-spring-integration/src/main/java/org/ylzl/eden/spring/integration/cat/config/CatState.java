@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.cat.extension;
+package org.ylzl.eden.spring.integration.cat.config;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

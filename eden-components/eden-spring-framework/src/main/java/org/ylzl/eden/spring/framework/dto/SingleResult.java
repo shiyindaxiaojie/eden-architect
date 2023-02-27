@@ -14,20 +14,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.cat;
+package org.ylzl.eden.spring.framework.dto;
 
-import java.lang.annotation.*;
+import lombok.*;
 
 /**
- * CatLogMetricForCount 注解集
+ * 单个结果
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface CatLogMetricForCounts {
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@Data
+public class SingleResult<T> extends Result {
 
-	CatLogMetricForCount[] value();
+	private T data;
+
+	public static <T> SingleResult<T> build(T data) {
+		SingleResult<T> response = new SingleResult<>();
+		response.setSuccess(true);
+		response.setData(data);
+		return response;
+	}
 }

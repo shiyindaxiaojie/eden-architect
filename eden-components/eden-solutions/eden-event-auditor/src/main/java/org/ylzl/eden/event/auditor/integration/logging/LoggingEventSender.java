@@ -19,10 +19,12 @@ package org.ylzl.eden.event.auditor.integration.logging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.event.Level;
+import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 基于 Slf4j 发送审计事件
@@ -45,15 +47,21 @@ public class LoggingEventSender implements EventSender {
 	 */
 	@Override
 	public void send(List<AuditingEvent> events) {
+		if (CollectionUtils.isEmpty(events)) {
+			return;
+		}
+
+		List<String> contents = events.stream()
+			.map(AuditingEvent::getContent).collect(Collectors.toList());
 		switch (level) {
 			case DEBUG:
-				log.debug(AUDITING_EVENT, events);
+				log.debug(AUDITING_EVENT, contents);
 				break;
 			case INFO:
-				log.info(AUDITING_EVENT, events);
+				log.info(AUDITING_EVENT, contents);
 				break;
 			case WARN:
-				log.warn(AUDITING_EVENT, events);
+				log.warn(AUDITING_EVENT, contents);
 				break;
 		}
 	}

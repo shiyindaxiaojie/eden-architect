@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.integration.cat.extension;
+package org.ylzl.eden.spring.integration.cat;
 
 import lombok.experimental.UtilityClass;
 
@@ -10,7 +10,6 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class CatConstants extends com.dianping.cat.CatConstants {
-
 
 	// Dubbo
 	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder

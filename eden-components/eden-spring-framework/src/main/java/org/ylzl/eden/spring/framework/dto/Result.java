@@ -14,61 +14,34 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.mq.model;
+package org.ylzl.eden.spring.framework.dto;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
- * 消息模型
+ * 内置响应结果集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Accessors(chain = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
 @Data
-public class Message implements Serializable {
+public class Result implements Serializable {
 
-	/**
-	 * 命名空间
-	 */
-	private String namespace;
+	private boolean success;
 
-	/**
-	 * 主题
-	 */
-	private String topic;
+	private String code;
 
-	/**
-	 * 分区/队列
-	 */
-	private Integer partition;
+	private String message;
 
-	/**
-	 * 分区键
-	 */
-	private String key;
-
-	/**
-	 * 标签过滤
-	 */
-	private String tags;
-
-	/**
-	 * 消息体
-	 */
-	private String body;
-
-	/**
-	 * 延时等级
-	 */
-	@Builder.Default
-	private Integer delayTimeLevel = 0;
+	public static Result buildSuccess() {
+		Result result = new Result();
+		result.setSuccess(true);
+		return result;
+	}
 }

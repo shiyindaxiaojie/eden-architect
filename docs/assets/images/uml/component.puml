@@ -1,9 +1,9 @@
 @startuml
 
 !if %variable_exists("$THEME")
-title 架构图 - $THEME theme
+title 伊甸园架构 - $THEME theme
 !else
-title 架构图
+title 伊甸园架构
 !endif
 
 'skinparam BackgroundColor transparent
@@ -29,7 +29,11 @@ title 架构图
 [eden-cola] <<COLA架构>>
 [eden-cola-extensions] <<COLA扩展点>>
 [eden-cola-statemachine] <<COLA状态机>>
+
+[eden-agents] <<探针集合>>
+
 [eden-plugins] <<插件集合>>
+
 [eden-tests] <<测试集合>>
 [eden-deployment-tests] <<部署测试集>>
 [eden-integration-tests] <<集成测试集>>
@@ -56,8 +60,13 @@ skinparam component {
     backgroundColor<<COLA扩展点>> Plum
     backgroundColor<<COLA状态机>> Plum
 	backgroundColor<<解决方案>> PaleGreen
+
+	backgroundColor<<探针集合>> Khaki
+
     backgroundColor<<插件集合>> Khaki
+
 	backgroundColor<<测试集合>> Khaki
+
 	backgroundColor<<部署测试集>> Khaki
 	backgroundColor<<集成测试集>> Khaki
 	backgroundColor<<性能测试集>> Khaki
@@ -94,7 +103,11 @@ skinparam component {
 [eden-cola] -u-> [eden-spring-framework]
 [eden-cola-extensions] -u-> [eden-cola]
 [eden-cola-statemachine] -r-> [eden-cola]
+
+[eden-architect] <.u. [eden-agents]
+
 [eden-architect] <.u. [eden-plugins]
+
 [eden-architect] <.u. [eden-tests]
 [eden-tests] <-u- [eden-deployment-tests]
 [eden-tests] <-u- [eden-integration-tests]

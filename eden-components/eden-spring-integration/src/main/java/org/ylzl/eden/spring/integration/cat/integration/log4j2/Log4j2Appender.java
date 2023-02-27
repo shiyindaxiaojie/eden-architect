@@ -14,7 +14,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.impl.ThrowableProxy;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.util.Booleans;
-import org.ylzl.eden.spring.integration.cat.extension.CatState;
+import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 import java.io.Serializable;
 

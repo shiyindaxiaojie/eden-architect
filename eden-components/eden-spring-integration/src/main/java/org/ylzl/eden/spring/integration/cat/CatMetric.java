@@ -14,61 +14,60 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.mq.model;
+package org.ylzl.eden.spring.integration.cat;
 
-import lombok.*;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
+import java.lang.annotation.*;
 
 /**
- * 消息模型
+ * Cat.logMetricForCount 注解
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Accessors(chain = true)
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-@Data
-public class Message implements Serializable {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface CatMetric {
 
 	/**
-	 * 命名空间
+	 * 指标名称
+	 *
+	 * @return 名称
 	 */
-	private String namespace;
+	String name() default "";
 
 	/**
-	 * 主题
+	 * 标签键值对
+	 *
+	 * @return 标签键值对
 	 */
-	private String topic;
+	String[] tags() default {};
 
 	/**
-	 * 分区/队列
+	 * 计数
+	 *
+	 * @return 计数
 	 */
-	private Integer partition;
+	int count() default 0;
 
 	/**
-	 * 分区键
+	 * 数量
+	 *
+	 * @return 数量
 	 */
-	private String key;
+	String quantity() default "";
 
 	/**
-	 * 标签过滤
+	 * 耗时（毫秒）
+	 *
+	 * @return 耗时（毫秒）
 	 */
-	private String tags;
+	String durationInMillis() default "";
 
 	/**
-	 * 消息体
+	 * 总和
+	 *
+	 * @return 总和
 	 */
-	private String body;
-
-	/**
-	 * 延时等级
-	 */
-	@Builder.Default
-	private Integer delayTimeLevel = 0;
+	String sum() default "";
 }

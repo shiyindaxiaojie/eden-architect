@@ -35,7 +35,7 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 import org.ylzl.eden.spring.integration.cat.EnableCat;
-import org.ylzl.eden.spring.integration.cat.extension.CatState;
+import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 /**
  * CAT 自动装配

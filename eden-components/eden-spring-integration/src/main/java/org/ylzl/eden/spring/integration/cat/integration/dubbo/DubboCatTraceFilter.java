@@ -30,8 +30,8 @@ import org.apache.dubbo.rpc.*;
 import org.slf4j.MDC;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.spring.integration.cat.extension.CatConstants;
-import org.ylzl.eden.spring.integration.cat.extension.CatState;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
+import org.ylzl.eden.spring.integration.cat.config.CatState;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 

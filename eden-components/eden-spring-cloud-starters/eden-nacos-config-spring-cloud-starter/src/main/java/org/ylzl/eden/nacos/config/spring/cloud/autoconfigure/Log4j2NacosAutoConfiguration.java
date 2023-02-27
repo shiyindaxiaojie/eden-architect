@@ -30,6 +30,7 @@ import java.util.concurrent.Executor;
 /**
  * Log4j2 基于 Nacos 刷新配置文件自动装配
  * <p> Nacos 缓存配置路径规则：${user.home}/nacos/config/fixed-host_port-namespace_tenant/snapshot-tenant/namespace/group
+ *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
@@ -74,7 +75,7 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 		log.info("Loading log4j2 config file finished.");
 
 		nacosConfigManager.getConfigService()
-			.addListener(log4j2ConfigProperties.getNacos().getDataId(), log4j2ConfigProperties.getNacos().getGroup(),
+			.addListener(log4j2ConfigProperties.getDataId(), log4j2ConfigProperties.getGroup(),
 				new Listener() {
 
 					@Override
@@ -100,14 +101,14 @@ public class Log4j2NacosAutoConfiguration implements InitializingBean {
 
 	private File getSnapshotFile(String name) {
 		return LocalConfigInfoProcessorExporter.getSnapshotFile(name,
-			log4j2ConfigProperties.getNacos().getDataId(),
-			log4j2ConfigProperties.getNacos().getGroup(), getNamespace());
+			log4j2ConfigProperties.getDataId(),
+			log4j2ConfigProperties.getGroup(), getNamespace());
 	}
 
 	private File getFailoverFile(String name) {
 		return LocalConfigInfoProcessorExporter.getFailoverFile(name,
-			log4j2ConfigProperties.getNacos().getDataId(),
-			log4j2ConfigProperties.getNacos().getGroup(), getNamespace());
+			log4j2ConfigProperties.getDataId(),
+			log4j2ConfigProperties.getGroup(), getNamespace());
 	}
 
 	private String getServerName() {
