@@ -14,13 +14,13 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// Dubbo
 	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
 	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
-	public final static String TYPE_PROVIDER = "PigeonService";
+	public final static String TYPE_PROVIDER = "RPC.Service";
 	public final static String TYPE_PROVIDER_APP = TYPE_PROVIDER + ".app";
-	public final static String TYPE_PROVIDER_SERVER = TYPE_PROVIDER + ".server";
+	public final static String TYPE_PROVIDER_CLIENT = TYPE_PROVIDER + ".client";
 	public final static String TYPE_PROVIDER_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
 	public final static String TYPE_PROVIDER_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
 	public final static String TYPE_PROVIDER_REMOTING_ERROR = TYPE_PROVIDER + ".remoting.error";
-	public final static String TYPE_CONSUMER = "PigeonCall";
+	public final static String TYPE_CONSUMER = "RPC.Call";
 	public final static String TYPE_CONSUMER_APP = TYPE_CONSUMER + ".app";
 	public final static String TYPE_CONSUMER_SERVER = TYPE_CONSUMER + ".server";
 	public final static String TYPE_CONSUMER_PORT = TYPE_CONSUMER + ".port";
