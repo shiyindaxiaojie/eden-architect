@@ -37,6 +37,8 @@ public class CatProperties {
 
 	private boolean traceMode = false;
 
+	private boolean acceptTraceId = false;
+
 	private String home = "/tmp";
 
 	private String domain;

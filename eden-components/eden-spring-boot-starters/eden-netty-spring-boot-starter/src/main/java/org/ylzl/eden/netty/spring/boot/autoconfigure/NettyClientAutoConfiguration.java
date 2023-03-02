@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.netty.spring.boot.env.NettyClientProperties;
-import org.ylzl.eden.spring.integration.netty.core.NettyClient;
+import org.ylzl.eden.spring.integration.netty.NettyClient;
 
 import java.util.List;
 

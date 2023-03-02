@@ -54,6 +54,8 @@ public class HttpCatFilter extends CatFilter {
 
 	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(true);
 
+	private static final AtomicBoolean ACCEPT_TRACE_ID = new AtomicBoolean(false);
+
 	private String servers;
 
 	private Set<String> excludeUrls;
@@ -100,6 +102,10 @@ public class HttpCatFilter extends CatFilter {
 		this.logTransaction(chain, req, resp);
 	}
 
+	public static void setAcceptTraceId(boolean acceptTraceId) {
+		ACCEPT_TRACE_ID.set(acceptTraceId);
+	}
+
 	public static void setTraceMode(boolean traceMode) {
 		TRACE_MODE.set(traceMode);
 	}
@@ -117,13 +123,9 @@ public class HttpCatFilter extends CatFilter {
 			type = CatConstants.TYPE_URL_FORWARD;
 		}
 
-		String traceId = req.getHeader(CatConstants.X_CAT_ID);
-
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
 		try {
-			if (TRACE_MODE.get() && StringUtils.isNotBlank(traceId)) {
-				Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
-			}
+			setAcceptTraceId(req);
 			logPayload(req, top, type);
 			logCatMessageId(resp);
 
@@ -148,7 +150,14 @@ public class HttpCatFilter extends CatFilter {
 		}
 	}
 
-	protected void setTraceMode(HttpServletRequest req) {
+	private void setAcceptTraceId(HttpServletRequest req) {
+		String traceId = req.getHeader(CatConstants.X_CAT_ID);
+		if (ACCEPT_TRACE_ID.get() && StringUtils.isNotBlank(traceId)) {
+			Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
+		}
+	}
+
+	private void setTraceMode(HttpServletRequest req) {
 		if (Boolean.parseBoolean(req.getHeader(CatConstants.X_CAT_TRACE_MODE))) {
 			Cat.getManager().setTraceMode(true);
 		}

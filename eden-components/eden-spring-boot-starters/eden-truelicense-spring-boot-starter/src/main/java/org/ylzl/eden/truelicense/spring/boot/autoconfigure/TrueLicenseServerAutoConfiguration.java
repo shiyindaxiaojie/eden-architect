@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
-import org.ylzl.eden.spring.integration.truelicense.core.LicenseStore;
+import org.ylzl.eden.spring.integration.truelicense.LicenseStore;
 
 /**
  * TrueLicense 服务端配置

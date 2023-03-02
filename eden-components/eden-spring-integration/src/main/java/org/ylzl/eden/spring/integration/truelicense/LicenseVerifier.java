@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.truelicense.core;
+package org.ylzl.eden.spring.integration.truelicense;
 
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
@@ -27,11 +27,11 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2.4.13
  */
 @Slf4j
-public class LicenseVerify {
+public class LicenseVerifier {
 
 	private final LicenseManager licenseManager;
 
-	public LicenseVerify(LicenseManager licenseManager) {
+	public LicenseVerifier(LicenseManager licenseManager) {
 		this.licenseManager = licenseManager;
 	}
 

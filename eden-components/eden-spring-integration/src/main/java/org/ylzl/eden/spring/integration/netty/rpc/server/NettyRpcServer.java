@@ -20,7 +20,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import org.ylzl.eden.spring.integration.netty.core.NettyServer;
+import org.ylzl.eden.spring.integration.netty.NettyServer;
 import org.ylzl.eden.spring.integration.netty.rpc.model.RpcRequest;
 import org.ylzl.eden.spring.integration.netty.rpc.model.RpcResponse;
 import org.ylzl.eden.spring.integration.netty.rpc.RpcServer;

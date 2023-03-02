@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.truelicense.core;
+package org.ylzl.eden.spring.integration.truelicense;
 
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;
@@ -34,7 +34,7 @@ import java.io.File;
  * @since 2.4.13
  */
 @Slf4j
-public class LicenseInstall implements InitializingBean, DisposableBean {
+public class LicenseInstaller implements InitializingBean, DisposableBean {
 
 	private static final String STOP_WATCH_ID = "true-license";
 
@@ -42,7 +42,7 @@ public class LicenseInstall implements InitializingBean, DisposableBean {
 
 	private final LicenseManager licenseManager;
 
-	public LicenseInstall(
+	public LicenseInstaller(
 		TrueLicenseConfig trueLicenseConfig, LicenseManager licenseManager) {
 		this.trueLicenseConfig = trueLicenseConfig;
 		this.licenseManager = licenseManager;

@@ -14,52 +14,41 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.cat.spring.boot.autoconfigure;
+package org.ylzl.eden.cat.spring.cloud.autoconfigure;
 
+import feign.Feign;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.cat.spring.boot.env.CatProperties;
-import org.ylzl.eden.spring.integration.cat.integration.web.HttpCatFilter;
+import org.ylzl.eden.cat.spring.boot.autoconfigure.CatAutoConfiguration;
+import org.ylzl.eden.spring.integration.cat.integration.feign.FeignCatRequestInterceptor;
 
 /**
- * Web 集成 CAT 自动装配
+ * Dubbo 集成 CAT 自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@ConditionalOnClass(Feign.class)
 @ConditionalOnBean(CatAutoConfiguration.class)
 @AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
-public class WebCatAutoConfiguration {
+public class FeignCatAutoConfiguration {
 
-	private static final String AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER = "Autowired CatHttpTraceFilterFilter";
-
-	private static final String NAME = "http-cat-filter";
-
-	private final CatProperties catProperties;
+	private static final String AUTOWIRED_FEIGN_CAT_REQUEST_INTERCEPTOR = "Autowired FeignCatRequestInterceptor";
 
 	@Bean
-	public FilterRegistrationBean<HttpCatFilter> httpCatFilter() {
-		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);
-		HttpCatFilter httpCatFilter = new HttpCatFilter();
-		HttpCatFilter.setTraceMode(catProperties.isTraceMode());
-		HttpCatFilter.setAcceptTraceId(catProperties.isAcceptTraceId());
-		FilterRegistrationBean<HttpCatFilter> registration = new FilterRegistrationBean<>(httpCatFilter);
-		registration.setName(NAME);
-		registration.addUrlPatterns("/*");
-		registration.setOrder(1);
-		return registration;
+	public FeignCatRequestInterceptor feignCatRequestInterceptor() {
+		log.debug(AUTOWIRED_FEIGN_CAT_REQUEST_INTERCEPTOR);
+		return new FeignCatRequestInterceptor();
 	}
 }

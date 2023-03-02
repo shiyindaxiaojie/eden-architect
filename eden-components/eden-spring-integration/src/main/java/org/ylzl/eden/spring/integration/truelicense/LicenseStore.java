@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.truelicense.core;
+package org.ylzl.eden.spring.integration.truelicense;
 
 import de.schlichtherle.license.LicenseContent;
 import de.schlichtherle.license.LicenseManager;

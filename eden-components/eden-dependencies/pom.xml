@@ -733,6 +733,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl</groupId>
+				<artifactId>eden-cat-spring-cloud-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl</groupId>
 				<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>

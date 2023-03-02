@@ -33,6 +33,7 @@
 
 	<modules>
 		<module>eden-apollo-spring-cloud-starter</module>
+		<module>eden-cat-spring-cloud-starter</module>
 		<module>eden-dubbo-spring-cloud-starter</module>
 		<module>eden-dynamic-tp-spring-cloud-starter</module>
 		<module>eden-eureka-client-spring-cloud-starter</module>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.xxljob.core;
+package org.ylzl.eden.spring.integration.xxljob;
 
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import org.ylzl.eden.spring.integration.xxljob.enums.ExecutorRouteStrategy;
