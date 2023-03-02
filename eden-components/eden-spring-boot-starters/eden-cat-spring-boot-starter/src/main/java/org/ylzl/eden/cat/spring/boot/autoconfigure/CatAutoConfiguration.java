@@ -46,8 +46,7 @@ import org.ylzl.eden.spring.integration.cat.config.CatState;
 @ConditionalOnProperty(
 	prefix = CatProperties.PREFIX,
 	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE,
-	matchIfMissing = true
+	havingValue = Conditions.TRUE
 )
 @AutoConfigureBefore(WebCatAutoConfiguration.class)
 @ConditionalOnClass(Cat.class)
@@ -91,7 +90,7 @@ public class CatAutoConfiguration implements InitializingBean {
 			servers.split(Strings.COMMA));
 
 		if (catProperties.isTraceMode()) {
-			Cat.getManager().setTraceMode(true);
+			Cat.getManager().setTraceMode(true); // 这个感觉有Bug
 		}
 
 		CatState.setInitialized();

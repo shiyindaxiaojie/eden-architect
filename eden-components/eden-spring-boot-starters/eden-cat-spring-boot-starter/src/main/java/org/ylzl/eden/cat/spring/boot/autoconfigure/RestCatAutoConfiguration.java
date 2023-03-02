@@ -35,10 +35,7 @@ import java.util.Collections;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnBean({
-	CatAutoConfiguration.class,
-	RestTemplate.class
-})
+@ConditionalOnBean(CatAutoConfiguration.class)
 @AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -46,10 +43,13 @@ import java.util.Collections;
 @Configuration(proxyBeanMethods = false)
 public class RestCatAutoConfiguration implements InitializingBean {
 
+	private static final String AUTOWIRED_REST_TEMPLATE_CAT_INTERCEPTOR = "Autowired RestTemplateCatInterceptor";
+
 	private final RestTemplate restTemplate;
 
 	@Override
 	public void afterPropertiesSet() {
+		log.debug(AUTOWIRED_REST_TEMPLATE_CAT_INTERCEPTOR);
 		restTemplate.setInterceptors(Collections.singletonList(new RestTemplateCatInterceptor()));
 	}
 }

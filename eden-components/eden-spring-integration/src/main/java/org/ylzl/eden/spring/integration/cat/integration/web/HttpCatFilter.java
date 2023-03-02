@@ -27,6 +27,7 @@ import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.unidal.helper.Joiners;
 import org.ylzl.eden.commons.lang.Chars;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.net.IpConfig;
 import org.ylzl.eden.extension.ExtensionLoader;
@@ -51,7 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class HttpCatFilter extends CatFilter {
 
-	private static AtomicBoolean TRACE_MODE = new AtomicBoolean(true);
+	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(true);
 
 	private String servers;
 
@@ -116,8 +117,13 @@ public class HttpCatFilter extends CatFilter {
 			type = CatConstants.TYPE_URL_FORWARD;
 		}
 
+		String traceId = req.getHeader(CatConstants.X_CAT_ID);
+
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
 		try {
+			if (TRACE_MODE.get() && StringUtils.isNotBlank(traceId)) {
+				Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
+			}
 			logPayload(req, top, type);
 			logCatMessageId(resp);
 
@@ -189,7 +195,7 @@ public class HttpCatFilter extends CatFilter {
 	private void logCatMessageId(HttpServletResponse res) {
 		if (TRACE_MODE.get()) {
 			String id = Cat.getCurrentMessageId();
-			res.setHeader(CatConstants.X_CAT_ROOT_ID, id);
+			res.setHeader(CatConstants.X_CAT_ID, id);
 			res.setHeader(CatConstants.X_CAT_SERVER, getCatServer());
 		}
 	}
