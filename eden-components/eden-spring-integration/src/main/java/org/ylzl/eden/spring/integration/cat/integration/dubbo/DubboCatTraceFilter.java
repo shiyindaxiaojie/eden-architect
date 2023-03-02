@@ -28,7 +28,6 @@ import org.apache.dubbo.remoting.RemotingException;
 import org.apache.dubbo.remoting.TimeoutException;
 import org.apache.dubbo.rpc.*;
 import org.slf4j.MDC;
-import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
@@ -46,22 +45,28 @@ import java.util.Map;
 @Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, order = -2)
 public class DubboCatTraceFilter implements Filter {
 
+	public static final String IN_JVM = "injvm";
+
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
 		if (!CatState.isInitialized()) {
 			return invoker.invoke(invocation);
 		}
 
-		// 识别是消费方还是提供方
+		// 判断是否本地调用，防止消息树错乱
 		URL url = invoker.getUrl();
+		if (IN_JVM.equals(url.getProtocol())) {
+			return invoker.invoke(invocation);
+		}
+
+		// 识别是消费方还是提供方
 		String sideKey = url.getParameter(CommonConstants.SIDE_KEY);
 		boolean isConsumerSide = CommonConstants.CONSUMER_SIDE.equals(sideKey);
-		String type = isConsumerSide ? CatConstants.TYPE_CONSUMER : CatConstants.TYPE_PROVIDER;
 
 		// 开启 Transaction
+		String type = isConsumerSide ? CatConstants.TYPE_CONSUMER : CatConstants.TYPE_PROVIDER;
 		String name = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
-
 		Result result = null;
 		try {
 			Cat.Context context = initContext();
@@ -135,10 +140,6 @@ public class DubboCatTraceFilter implements Filter {
 		}
 	}
 
-	private static String generateId() {
-		return NanoIdUtils.randomNanoId();
-	}
-
 	private Cat.Context initContext() {
 		Cat.Context context = TraceContext.getContext();
 		Map<String, String> attachments = RpcContext.getContext().getAttachments();
@@ -177,7 +178,7 @@ public class DubboCatTraceFilter implements Filter {
 		completeEvent(appEvent);
 		transaction.addChild(appEvent);
 
-		Event hostEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_SERVER, url.getHost());
+		Event hostEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_CLIENT, url.getHost());
 		hostEvent.setStatus(Event.SUCCESS);
 		completeEvent(hostEvent);
 		transaction.addChild(hostEvent);
@@ -197,7 +198,7 @@ public class DubboCatTraceFilter implements Filter {
 		RpcContext.getContext().setAttachment(Cat.Context.PARENT, context.getProperty(Cat.Context.PARENT));
 
 		// 使用 Cat.Context.ROOT 作为链路ID
-		MDC.put(TraceContext.TRACE_ID, context.getProperty(Cat.Context.ROOT));
+		MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 	}
 
 	private void completeEvent(Event event) {

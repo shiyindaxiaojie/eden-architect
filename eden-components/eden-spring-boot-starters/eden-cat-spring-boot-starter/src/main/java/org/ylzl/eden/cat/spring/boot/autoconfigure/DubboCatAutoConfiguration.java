@@ -43,6 +43,7 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableDubboCat;
 	matchIfMissing = true
 )
 @ConditionalOnClass(Filter.class)
+@ConditionalOnBean(CatAutoConfiguration.class)
 @AutoConfigureAfter(CatAutoConfiguration.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -50,8 +51,11 @@ import org.ylzl.eden.spring.integration.cat.integration.dubbo.EnableDubboCat;
 @Configuration(proxyBeanMethods = false)
 public class DubboCatAutoConfiguration implements InitializingBean {
 
+	private static final String DUBBO_CAT_ENABLED = "Autowired DubboCat enabled";
+
 	@Override
 	public void afterPropertiesSet() {
+		log.debug(DUBBO_CAT_ENABLED);
 		EnableDubboCat.enable();
 	}
 }

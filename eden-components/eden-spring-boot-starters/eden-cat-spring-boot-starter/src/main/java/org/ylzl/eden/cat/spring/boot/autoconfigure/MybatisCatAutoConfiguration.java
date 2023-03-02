@@ -46,10 +46,13 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 public class MybatisCatAutoConfiguration implements InitializingBean {
 
+	private static final String AUTOWIRED_MYBATIS_CAT_INTERCEPTOR = "Autowired MybatisCatInterceptor";
+
 	private final List<SqlSessionFactory> sqlSessionFactories;
 
 	@Override
 	public void afterPropertiesSet() {
+		log.debug(AUTOWIRED_MYBATIS_CAT_INTERCEPTOR);
 		for (SqlSessionFactory sqlSessionFactory : sqlSessionFactories) {
 			if (sqlSessionFactory != null) {
 				sqlSessionFactory.getConfiguration().addInterceptor(new MybatisCatInterceptor());

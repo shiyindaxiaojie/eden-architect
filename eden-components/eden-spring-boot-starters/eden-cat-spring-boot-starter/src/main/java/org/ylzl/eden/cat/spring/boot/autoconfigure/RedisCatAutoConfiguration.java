@@ -18,7 +18,6 @@ package org.ylzl.eden.cat.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -34,10 +33,7 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAs
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnBean({
-	CatAutoConfiguration.class,
-	SqlSessionFactory.class
-})
+@ConditionalOnBean(CatAutoConfiguration.class)
 @AutoConfigureAfter({
 	CatAutoConfiguration.class,
 	RedisAutoConfiguration.class
@@ -48,8 +44,11 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAs
 @Configuration(proxyBeanMethods = false)
 public class RedisCatAutoConfiguration {
 
+	private static final String AUTOWIRED_REDIS_TEMPLATE_CAT_ASPECT = "Autowired RedisTemplateCatAspect";
+
 	@Bean
-	public RedisTemplateCatAspect catRedisAspect() {
+	public RedisTemplateCatAspect redisTemplateCatAspect() {
+		log.debug(AUTOWIRED_REDIS_TEMPLATE_CAT_ASPECT);
 		return new RedisTemplateCatAspect();
 	}
 }

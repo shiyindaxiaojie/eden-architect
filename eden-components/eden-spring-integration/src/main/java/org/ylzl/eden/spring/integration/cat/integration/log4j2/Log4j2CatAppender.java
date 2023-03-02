@@ -24,8 +24,8 @@ import java.io.Serializable;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Plugin(name = Log4j2Appender.NAME, category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
-public class Log4j2Appender extends AbstractAppender {
+@Plugin(name = Log4j2CatAppender.NAME, category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
+public class Log4j2CatAppender extends AbstractAppender {
 
 	public static final String NAME = "CAT";
 
@@ -33,8 +33,8 @@ public class Log4j2Appender extends AbstractAppender {
 
 	private final Level level;
 
-	public Log4j2Appender(String name, Filter filter, Layout<? extends Serializable> layout,
-						  boolean ignoreExceptions, Property[] properties, Level level) {
+	public Log4j2CatAppender(String name, Filter filter, Layout<? extends Serializable> layout,
+							 boolean ignoreExceptions, Property[] properties, Level level) {
 		super(name, filter, layout, ignoreExceptions, properties);
 		this.level = level;
 	}
@@ -75,7 +75,7 @@ public class Log4j2Appender extends AbstractAppender {
 	}
 
 	@PluginFactory
-	public static Log4j2Appender build(
+	public static Log4j2CatAppender build(
 		@PluginAttribute("name") String name,
 		@PluginElement("Filter") Filter filter,
 		@PluginElement("Layout") Layout<? extends Serializable> layout,
@@ -92,6 +92,6 @@ public class Log4j2Appender extends AbstractAppender {
 			level = Level.ERROR;
 		}
 		boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
-		return new Log4j2Appender(name, filter, layout, ignoreExceptions, null, level);
+		return new Log4j2CatAppender(name, filter, layout, ignoreExceptions, null, level);
 	}
 }

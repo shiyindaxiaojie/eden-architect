@@ -4,7 +4,7 @@ import com.dianping.cat.Cat;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
-import org.ylzl.eden.spring.integration.cat.extension.CatContext;
+import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
 
 /**
  * Feign 注入 CAT 拦截
@@ -16,10 +16,10 @@ public class FeignCatRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
-		CatContext catContext = new CatContext();
-		Cat.logRemoteCallClient(catContext, Cat.getManager().getDomain());
-		requestTemplate.header(Cat.Context.ROOT, catContext.getProperty(CatConstants.X_CAT_ROOT_ID));
-		requestTemplate.header(Cat.Context.PARENT,catContext.getProperty(CatConstants.X_CAT_PARENT_ID));
-		requestTemplate.header(Cat.Context.CHILD, catContext.getProperty(CatConstants.X_CAT_ID));
+		Cat.Context context = TraceContext.getContext();
+		Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
+		requestTemplate.header(Cat.Context.ROOT, context.getProperty(CatConstants.X_CAT_ROOT_ID));
+		requestTemplate.header(Cat.Context.PARENT,context.getProperty(CatConstants.X_CAT_PARENT_ID));
+		requestTemplate.header(Cat.Context.CHILD, context.getProperty(CatConstants.X_CAT_ID));
 	}
 }
