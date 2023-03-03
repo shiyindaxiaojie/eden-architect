@@ -55,7 +55,7 @@ public class WebCatAutoConfiguration {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);
 		HttpCatFilter httpCatFilter = new HttpCatFilter();
 		HttpCatFilter.setTraceMode(catProperties.isTraceMode());
-		HttpCatFilter.setAcceptTraceId(catProperties.isAcceptTraceId());
+		HttpCatFilter.setSupportOutTraceId(catProperties.isSupportOutTraceId());
 		FilterRegistrationBean<HttpCatFilter> registration = new FilterRegistrationBean<>(httpCatFilter);
 		registration.setName(NAME);
 		registration.addUrlPatterns("/*");

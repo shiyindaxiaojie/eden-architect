@@ -52,9 +52,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class HttpCatFilter extends CatFilter {
 
-	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(true);
+	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(false);
 
-	private static final AtomicBoolean ACCEPT_TRACE_ID = new AtomicBoolean(false);
+	private static final AtomicBoolean SUPPORT_OUT_TRACE_ID = new AtomicBoolean(false);
 
 	private String servers;
 
@@ -102,12 +102,12 @@ public class HttpCatFilter extends CatFilter {
 		this.logTransaction(chain, req, resp);
 	}
 
-	public static void setAcceptTraceId(boolean acceptTraceId) {
-		ACCEPT_TRACE_ID.set(acceptTraceId);
-	}
-
 	public static void setTraceMode(boolean traceMode) {
 		TRACE_MODE.set(traceMode);
+	}
+
+	public static void setSupportOutTraceId(boolean acceptTraceId) {
+		SUPPORT_OUT_TRACE_ID.set(acceptTraceId);
 	}
 
 	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp)
@@ -118,14 +118,14 @@ public class HttpCatFilter extends CatFilter {
 		boolean top = message == null;
 		if (top) {
 			type = CatConstants.TYPE_URL;
-			setTraceMode(req);
+			handleIfTraceModeOpen(req);
 		} else {
 			type = CatConstants.TYPE_URL_FORWARD;
 		}
 
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
 		try {
-			setAcceptTraceId(req);
+			handleIfTraceIdAvailable(req);
 			logPayload(req, top, type);
 			logCatMessageId(resp);
 
@@ -150,16 +150,16 @@ public class HttpCatFilter extends CatFilter {
 		}
 	}
 
-	private void setAcceptTraceId(HttpServletRequest req) {
-		String traceId = req.getHeader(CatConstants.X_CAT_ID);
-		if (ACCEPT_TRACE_ID.get() && StringUtils.isNotBlank(traceId)) {
-			Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
+	private void handleIfTraceModeOpen(HttpServletRequest req) {
+		if (Boolean.parseBoolean(req.getHeader(CatConstants.X_CAT_TRACE_MODE))) {
+			Cat.getManager().setTraceMode(true);
 		}
 	}
 
-	private void setTraceMode(HttpServletRequest req) {
-		if (Boolean.parseBoolean(req.getHeader(CatConstants.X_CAT_TRACE_MODE))) {
-			Cat.getManager().setTraceMode(true);
+	private void handleIfTraceIdAvailable(HttpServletRequest req) {
+		String traceId = req.getHeader(CatConstants.X_CAT_ID);
+		if (SUPPORT_OUT_TRACE_ID.get() && StringUtils.isNotBlank(traceId)) {
+			Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
 		}
 	}
 
