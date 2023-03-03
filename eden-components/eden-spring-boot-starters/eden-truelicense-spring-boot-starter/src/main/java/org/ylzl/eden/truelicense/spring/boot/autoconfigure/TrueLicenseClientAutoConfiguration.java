@@ -27,8 +27,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
-import org.ylzl.eden.spring.integration.truelicense.core.LicenseInstall;
-import org.ylzl.eden.spring.integration.truelicense.core.LicenseVerify;
+import org.ylzl.eden.spring.integration.truelicense.LicenseInstaller;
+import org.ylzl.eden.spring.integration.truelicense.LicenseVerifier;
 
 /**
  * TrueLicense 客户端配置
@@ -60,7 +60,7 @@ public class TrueLicenseClientAutoConfiguration {
 
 	@ConditionalOnMissingBean
 	@Bean
-	public LicenseInstall licenseInstall() {
+	public LicenseInstaller licenseInstall() {
 		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_INSTALL);
 		TrueLicenseConfig trueLicenseConfig = TrueLicenseConfig.builder()
 			.keyPass(trueLicenseProperties.getKeyPass())
@@ -73,13 +73,13 @@ public class TrueLicenseClientAutoConfiguration {
 			.publicKeysStorePath(trueLicenseProperties.getPublicKeysStorePath())
 			.publicAlias(trueLicenseProperties.getPublicAlias())
 			.build();
-		return new LicenseInstall(trueLicenseConfig, licenseManager);
+		return new LicenseInstaller(trueLicenseConfig, licenseManager);
 	}
 
 	@ConditionalOnMissingBean
 	@Bean
-	public LicenseVerify licenseVerify() {
+	public LicenseVerifier licenseVerify() {
 		log.debug(MSG_AUTOWIRED_TRUE_LICENSE_VERIFY);
-		return new LicenseVerify(licenseManager);
+		return new LicenseVerifier(licenseManager);
 	}
 }

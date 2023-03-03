@@ -52,7 +52,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class HttpCatFilter extends CatFilter {
 
-	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(true);
+	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(false);
+
+	private static final AtomicBoolean SUPPORT_OUT_TRACE_ID = new AtomicBoolean(false);
 
 	private String servers;
 
@@ -104,6 +106,10 @@ public class HttpCatFilter extends CatFilter {
 		TRACE_MODE.set(traceMode);
 	}
 
+	public static void setSupportOutTraceId(boolean acceptTraceId) {
+		SUPPORT_OUT_TRACE_ID.set(acceptTraceId);
+	}
+
 	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 		Message message = Cat.getManager().getThreadLocalMessageTree().getMessage();
@@ -112,18 +118,14 @@ public class HttpCatFilter extends CatFilter {
 		boolean top = message == null;
 		if (top) {
 			type = CatConstants.TYPE_URL;
-			setTraceMode(req);
+			handleIfTraceModeOpen(req);
 		} else {
 			type = CatConstants.TYPE_URL_FORWARD;
 		}
 
-		String traceId = req.getHeader(CatConstants.X_CAT_ID);
-
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
 		try {
-			if (TRACE_MODE.get() && StringUtils.isNotBlank(traceId)) {
-				Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
-			}
+			handleIfTraceIdAvailable(req);
 			logPayload(req, top, type);
 			logCatMessageId(resp);
 
@@ -148,9 +150,16 @@ public class HttpCatFilter extends CatFilter {
 		}
 	}
 
-	protected void setTraceMode(HttpServletRequest req) {
+	private void handleIfTraceModeOpen(HttpServletRequest req) {
 		if (Boolean.parseBoolean(req.getHeader(CatConstants.X_CAT_TRACE_MODE))) {
 			Cat.getManager().setTraceMode(true);
+		}
+	}
+
+	private void handleIfTraceIdAvailable(HttpServletRequest req) {
+		String traceId = req.getHeader(CatConstants.X_CAT_ID);
+		if (SUPPORT_OUT_TRACE_ID.get() && StringUtils.isNotBlank(traceId)) {
+			Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
 		}
 	}
 

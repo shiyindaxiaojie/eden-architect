@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.tinyid;
+package org.ylzl.eden.cat.spring.cloud;

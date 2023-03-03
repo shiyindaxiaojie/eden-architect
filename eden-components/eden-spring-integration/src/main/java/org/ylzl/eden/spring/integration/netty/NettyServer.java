@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.integration.netty.core;
+package org.ylzl.eden.spring.integration.netty;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import io.netty.bootstrap.Bootstrap;
+import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.ylzl.eden.spring.integration.netty.channel.ChannelOptions;
 
 import java.net.InetSocketAddress;
@@ -35,14 +37,14 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Netty 客户端
+ * Netty 服务端
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @SuppressWarnings("unchecked")
 @Slf4j
-public class NettyClient {
+public class NettyServer implements InitializingBean, DisposableBean {
 
 	private final AtomicBoolean initialized = new AtomicBoolean(false);
 
@@ -56,33 +58,54 @@ public class NettyClient {
 
 	private final List<ChannelFutureListener> channelFutureListeners = Lists.newArrayList();
 
-	private int channelThreads;
+	@Getter
+	private final ChannelOptions channelOptions = new ChannelOptions();
+
+	@Getter
+	private final ChannelOptions childChannelOptions = new ChannelOptions();
+
+	private int bossThreads;
+
+	private int workerThreads;
 
 	private int boundToPort = -1;
 
-	private EventLoopGroup channelEventLoopGroup;
+	private EventLoopGroup bossEventLoopGroup;
+
+	private EventLoopGroup workerEventLoopGroup;
 
 	@Setter
 	private boolean autoStartup = false;
 
-	@Getter
-	private ChannelOptions channelOptions = new ChannelOptions();
-
-	@Getter
-	private Channel channel;
-
-	public NettyClient(String name, String host, int port) {
+	public NettyServer(String name, String host, int port) {
 		this.name = name;
 		this.host = host;
 		this.port = port;
-		this.channelThreads = Runtime.getRuntime().availableProcessors();
+		this.bossThreads = Runtime.getRuntime().availableProcessors();
+		this.workerThreads = Runtime.getRuntime().availableProcessors();
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (autoStartup) {
+			checkState().startup();
+		}
+	}
+
+	@Override
+	public void destroy() {
+		shutdown();
 	}
 
 	public ListenableFuture<Void> startup() {
-		log.info("Starting Netty client '{}' with {} threads", name, channelThreads);
+		log.info(
+			"Starting Netty server '{}' with {} boss threads and {} worker threads",
+			name,
+			bossThreads,
+			workerThreads);
 
 		final SettableFuture<Void> result = SettableFuture.create(); // 锁住返回结果
-		final Bootstrap bootstrap = checkState().createBootstrap();
+		final ServerBootstrap bootstrap = checkState().createServerBootstrap();
 		final Channel channel = bootstrap.bind(host, port).syncUninterruptibly().channel();
 
 		new Thread(
@@ -91,7 +114,7 @@ public class NettyClient {
 				final String hostAddress = boundTo.getAddress().getHostAddress();
 
 				boundToPort = boundTo.getPort();
-				log.info("Started Netty client '{}' @{}:{}", name, hostAddress, boundToPort);
+				log.info("Started Netty server '{}' @{}:{}", name, hostAddress, boundToPort);
 
 				result.set(null);
 				channel.closeFuture().syncUninterruptibly();
@@ -103,10 +126,13 @@ public class NettyClient {
 	}
 
 	public void shutdown() {
-		log.info("Stopping Netty client '{}'", name);
+		log.info("Stopping Netty server '{}'", name);
 
-		channelEventLoopGroup.shutdownGracefully();
-		channelEventLoopGroup.terminationFuture().syncUninterruptibly();
+		workerEventLoopGroup.shutdownGracefully();
+		bossEventLoopGroup.shutdownGracefully();
+
+		workerEventLoopGroup.terminationFuture().syncUninterruptibly();
+		bossEventLoopGroup.terminationFuture().syncUninterruptibly();
 	}
 
 	public void addChannelHandler(final ChannelHandler channelHandler) {
@@ -126,31 +152,36 @@ public class NettyClient {
 		checkState().channelFutureListeners.addAll(channelFutureListeners);
 	}
 
-	public void setChannelThreads(final int channelThreads) {
-		checkState().channelThreads =
-			channelThreads > this.channelThreads ? this.channelThreads : channelThreads;
+	public void setBossThreads(final int bossThreads) {
+		checkState().bossThreads = bossThreads > this.bossThreads ? this.bossThreads : bossThreads;
+	}
+
+	public void setWorkerThreads(final int workerThreads) {
+		checkState().workerThreads =
+			workerThreads > this.workerThreads ? this.workerThreads : workerThreads;
 	}
 
 	public boolean isInitialized() {
 		return initialized.get();
 	}
 
-	private Bootstrap createBootstrap() {
-		channelEventLoopGroup = new NioEventLoopGroup(channelThreads);
+	private ServerBootstrap createServerBootstrap() {
+		bossEventLoopGroup = new NioEventLoopGroup(bossThreads);
+		workerEventLoopGroup = new NioEventLoopGroup(workerThreads);
 
-		final Bootstrap bootstrap = new Bootstrap();
-		bootstrap.group(channelEventLoopGroup);
+		final ServerBootstrap bootstrap = new ServerBootstrap();
+		bootstrap.group(bossEventLoopGroup, workerEventLoopGroup);
 
 		setOptions(bootstrap);
 		initialized.set(true);
 
-		return initBootstrap(bootstrap);
+		return initServerBootstrap(bootstrap);
 	}
 
-	private Bootstrap initBootstrap(final Bootstrap bootstrap) {
+	private ServerBootstrap initServerBootstrap(final ServerBootstrap bootstrap) {
 		return bootstrap
-			.channel(NioSocketChannel.class)
-			.handler(
+			.channel(NioServerSocketChannel.class)
+			.childHandler(
 				new ChannelInitializer<SocketChannel>() {
 					@Override
 					protected void initChannel(final SocketChannel socketChannel) {
@@ -178,15 +209,19 @@ public class NettyClient {
 		}
 	}
 
-	private void setOptions(final Bootstrap bootstrap) {
+	private void setOptions(final ServerBootstrap bootstrap) {
 		for (final Map.Entry<ChannelOption, Object> entry : channelOptions.get().entrySet()) {
 			bootstrap.option(entry.getKey(), entry.getValue());
 		}
+
+		for (final Map.Entry<ChannelOption, Object> entry : childChannelOptions.get().entrySet()) {
+			bootstrap.childOption(entry.getKey(), entry.getValue());
+		}
 	}
 
-	private NettyClient checkState() {
+	private NettyServer checkState() {
 		if (initialized.get()) {
-			throw new IllegalStateException("Netty client already initialized");
+			throw new IllegalStateException("Netty Server already initialized");
 		}
 		return this;
 	}

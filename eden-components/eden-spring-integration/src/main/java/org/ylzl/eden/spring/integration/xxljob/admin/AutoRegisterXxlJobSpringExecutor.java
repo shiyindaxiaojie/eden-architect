@@ -33,7 +33,7 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.ResponseEntity;
-import org.ylzl.eden.spring.integration.xxljob.core.XxlJobRegister;
+import org.ylzl.eden.spring.integration.xxljob.XxlJobRegister;
 import org.ylzl.eden.spring.integration.xxljob.model.XxlJobGroup;
 import org.ylzl.eden.spring.integration.xxljob.model.XxlJobInfo;
 
