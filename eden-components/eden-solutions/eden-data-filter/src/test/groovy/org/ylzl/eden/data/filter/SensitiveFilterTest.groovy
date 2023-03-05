@@ -32,7 +32,7 @@ class SensitiveFilterTest extends Specification {
 
 	def setup() {
 		SensitiveConfig sensitiveConfig = new SensitiveConfig();
-		sensitiveConfig.getAhoCoraSick().setOnlyWholeWords(true)
+		sensitiveConfig.getAhoCorasick().setOnlyWholeWords(true)
 		sensitiveFilter = ExtensionLoader.getExtensionLoader(SensitiveFilterBuilder.class)
 			.getDefaultExtension()
 			.config(sensitiveConfig)
