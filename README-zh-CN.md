@@ -90,11 +90,20 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * 面向数据模型的 **分层架构**，代码实例请查看 [eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)
 * 面向单机模型的 **MVC 架构**，代码实例可以查看 [eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)
 
-
 ## 版本规范
 
 项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
 
 * 孵化版本：0.0.1-SNAPSHOT
-* 不稳定版本：1.0.0-SNAPSHOT
-* 稳定版本：1.0.0
+* 开发版本：1.0.0-SNAPSHOT
+* 发布版本：1.0.0
+
+版本迭代规则：
+
+* 1.0.0 <> 1.0.1：兼容
+* 1.0.0 <> 1.1.0：基本兼容
+* 1.0.0 <> 2.0.0：不兼容
+
+## 变更日志
+
+请查阅 [CHANGELOG.md](https://github.com/shiyindaxiaojie/eden-architect/blob/main/CHANGELOG.md)
