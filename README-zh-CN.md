@@ -37,10 +37,10 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **eden-spring-integration**: 第三方集成组件，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件
 * **eden-spring-boot**: `Spring Boot`组件，根据实际的使用场景进行扩展
 * **eden-spring-boot-starters**: `Spring Boot`组件自动装配，对官方原生组件无感知增强，并扩充未集成的组件
-* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展 
+* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展
 * **eden-spring-cloud**: `Spring Cloud`组件，扩展了 `Nacos`、`Sentinel`、`Zookeeper` 等组件
 * **eden-spring-cloud-starters**: `Spring Cloud`组件自动装配，基于 `Spring Cloud Starters` 扩展
-* **eden-spring-test**: `Spring`测试组件，扩展了 `TestContainer`测试容器和嵌入式的中中间件，单元测试
+* **eden-spring-test**: `Spring`测试组件，扩展了 `TestContainer`测试容器和嵌入式的中间件，单元测试
 
 ## 如何构建
 
@@ -66,10 +66,10 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ```xml
 <parent>
-    <groupId>org.ylzl</groupId>
-    <artifactId>eden-parent</artifactId>
-    <version>1.0.0</version>
-    <relativePath/>
+	<groupId>org.ylzl</groupId>
+	<artifactId>eden-parent</artifactId>
+	<version>1.0.0</version>
+	<relativePath/>
 </parent>
 ```
 
@@ -77,8 +77,8 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ```xml
 <dependency>
-    <groupId>org.ylzl</groupId>
-    <artifactId>eden-mybatis-spring-boot-starter</artifactId>
+	<groupId>org.ylzl</groupId>
+	<artifactId>eden-mybatis-spring-boot-starter</artifactId>
 </dependency>
 ```
 
