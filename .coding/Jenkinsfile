@@ -84,7 +84,7 @@ pipeline {
 						"MAVEN_SNAPSHOTS_USERNAME=${MAVEN_SNAPSHOTS_USERNAME}",
 						"MAVEN_SNAPSHOTS_PASSWORD=${MAVEN_SNAPSHOTS_PASSWORD}"
 					]) {
-						sh 'mvn -Pcoding,unit-test test -s ./.coding/settings.xml'
+						sh 'mvn -T 4C -Pcoding,unit-test test -s ./.coding/settings.xml'
 					}
 				}
       }
