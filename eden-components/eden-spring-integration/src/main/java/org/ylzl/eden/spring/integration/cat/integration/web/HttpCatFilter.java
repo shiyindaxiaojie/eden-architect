@@ -106,8 +106,8 @@ public class HttpCatFilter extends CatFilter {
 		TRACE_MODE.set(traceMode);
 	}
 
-	public static void setSupportOutTraceId(boolean acceptTraceId) {
-		SUPPORT_OUT_TRACE_ID.set(acceptTraceId);
+	public static void setSupportOutTraceId(boolean traceId) {
+		SUPPORT_OUT_TRACE_ID.set(traceId);
 	}
 
 	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp)
