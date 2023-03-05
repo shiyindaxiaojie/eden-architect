@@ -185,7 +185,7 @@ public class ZookeeperSnowflakeCoordinator implements SnowflakeCoordinator {
 			log.info("Update local config file '{}' with worker id is {}", pathname, workerId);
 			FileUtils.writeStringToFile(leafConfFile, "workerId=" + workerId, Charset.defaultCharset(), false);
 		} else {
-			if (leafConfFile.getParentFile().isDirectory() && !leafConfFile.getParentFile().exists()) {
+			if (!leafConfFile.getParentFile().exists()) {
 				leafConfFile.getParentFile().mkdirs();
 			}
 			log.info("Initialize local config file '{}' with worker id is {}", pathname, workerId);
