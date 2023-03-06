@@ -14,7 +14,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 > 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki) 。
 
-## 主要功能
+## 功能特性
 
 * **依赖管理和插件封装**：统一管理依赖版本，解决依赖冲突问题，并提供常用插件的封装，让开发者减少在构建工具所消耗的时间。
 * **常用组件集成与封装**：在 Spring 官方的基础上扩展，提供 `XxlJob`、`CAT`、`Netty`、`Arthas` 等组件的集成。
@@ -25,22 +25,22 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/eden-architect/component.png)
 
-* **eden-dependencies**: 依赖管理组件，管理全局依赖的版本
-* **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置
-* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 、`HuTool` 扩展
-* **eden-extensions**: 扩展点组件，参考 `Dubbo` 扩展点改造，轻量级实现组件的扩展
-* **eden-cola**: `COLA` 组件，在 `COLA` 原生的基础上优化，完善了 `DDD` 领域模型、轻量级状态机、业务扩展点等组件
-* **eden-solutions**: 解决方案工具集，提供 `多级缓存`、`分布式锁`、`分布式唯一ID`、`数据去重`、`事件审计` 等场景的设计与实现
-* **eden-spring-framework**: 基础框架组件，支持自定义错误码、异常解析器
-* **eden-spring-data**: 数据存储组件，扩展了 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等组件
-* **eden-spring-security**: 授权认证组件，扩展了 `Spring Security OAuth2`、`Jwt`、`Shiro` 等组件
-* **eden-spring-integration**: 第三方集成组件，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件
-* **eden-spring-boot**: `Spring Boot`组件，根据实际的使用场景进行扩展
-* **eden-spring-boot-starters**: `Spring Boot`组件自动装配，对官方原生组件无感知增强，并扩充未集成的组件
-* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展
-* **eden-spring-cloud**: `Spring Cloud`组件，扩展了 `Nacos`、`Sentinel`、`Zookeeper` 等组件
-* **eden-spring-cloud-starters**: `Spring Cloud`组件自动装配，基于 `Spring Cloud Starters` 扩展
-* **eden-spring-test**: `Spring`测试组件，扩展了 `TestContainer`测试容器和嵌入式的中间件，单元测试
+* **eden-dependencies**: 依赖管理组件，管理全局依赖的版本。
+* **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置。
+* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 、`HuTool` 扩展。
+* **eden-extensions**: 扩展点组件，参考 `Dubbo` 扩展点改造，轻量级实现组件的扩展。
+* **eden-cola**: `COLA` 组件，在 `COLA` 原生的基础上优化，完善了 `DDD` 领域模型、轻量级状态机、业务扩展点等组件。
+* **eden-solutions**: 解决方案工具集，提供 `多级缓存`、`分布式锁`、`分布式唯一ID`、`数据去重`、`事件审计` 等场景的设计与实现。
+* **eden-spring-framework**: 基础框架组件，支持自定义错误码、异常解析器。
+* **eden-spring-data**: 数据存储组件，扩展了 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等组件。
+* **eden-spring-security**: 授权认证组件，扩展了 `Spring Security OAuth2`、`Jwt`、`Shiro` 等组件。
+* **eden-spring-integration**: 第三方集成组件，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件。
+* **eden-spring-boot**: `Spring Boot`组件，根据实际的使用场景进行扩展。
+* **eden-spring-boot-starters**: `Spring Boot`组件自动装配，对官方原生组件无感知增强，并扩充未集成的组件。
+* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展。
+* **eden-spring-cloud**: `Spring Cloud`组件，扩展了 `Nacos`、`Sentinel`、`Zookeeper` 等组件。
+* **eden-spring-cloud-starters**: `Spring Cloud`组件自动装配，基于 `Spring Cloud Starters` 扩展。
+* **eden-spring-test**: `Spring`测试组件，扩展了 `TestContainer`测试容器和嵌入式的中间件，单元测试。
 
 ## 如何构建
 
@@ -53,34 +53,53 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 本项目默认使用 Maven 来构建，最快的使用方式是 `git clone` 到本地，然后执行以下命令：
 
 ```bash
-./mvnw install
+./mvnw install -T 4C
 ```
 
 执行完毕后，项目将被安装到本地 Maven 仓库。
 
 ## 如何使用
 
-### 如何集成到您的服务
-
-首先，在您的项目 `pom.xml` 的 `parent` 节点引用 `eden-parent` 父工程。
+1. 首先，在您的项目 `pom.xml` 的 `parent` 节点引用 `eden-parent` 父工程。
 
 ```xml
 <parent>
     <groupId>org.ylzl</groupId>
     <artifactId>eden-parent</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <relativePath/>
 </parent>
 ```
 
-然后在 `dependencies` 节点中添加自己所需使用的依赖即可使用，例如，引入 Mybatis 组件。为了减少繁琐的依赖冲突解决工作，`eden-parent` 内置的 `eden-dependencies` 组件导入了常用的依赖，默认情况下，大多数组件依赖不需要填写版本号。
+2. 然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成 CAT，您可以在 `dependencies` 节点中添加以下内容：
 
 ```xml
-<dependency>
-    <groupId>org.ylzl</groupId>
-    <artifactId>eden-mybatis-spring-boot-starter</artifactId>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>org.ylzl</groupId>
+        <artifactId>eden-mybatis-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
 ```
+
+为了减少繁琐的依赖冲突解决工作，在第一步引入的 `eden-parent` 组件已经导入了常用的依赖，一般情况下，不需要填写版本号。
+
+3. 在您的项目配置文件如 `application.yml` ，开启相关配置，大多数组件以 `xxx.enabled` 属性项作为开关。
+
+````yaml
+cat:
+  enabled: false # 默认关闭，请按需开启
+  trace-mode: true # 开启访问观测
+  support-out-trace-id: false # 允许异构子系统间透传链路ID
+  home: /tmp
+  servers: localhost # CAT 地址
+  tcp-port: 2280
+  http-port: 8080
+````
+
+4. 业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/cat/tracing.png)
 
 ## 代码演示
 
