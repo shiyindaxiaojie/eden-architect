@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.common.excel.exporter;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -26,12 +27,14 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.ylzl.eden.common.excel.ExcelExporter;
+import org.ylzl.eden.common.excel.builder.ExcelWriterBuilder;
 import org.ylzl.eden.commons.env.Charsets;
 import org.ylzl.eden.commons.id.NanoIdUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -42,12 +45,15 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 public class ExcelExportHandler implements HandlerMethodReturnValueHandler {
 
 	private static final String DEFAULT_CONTENT_TYPE = "application/vnd.ms-excel";
 
-	public static final String DEFAULT_CONTENT_DISPOSITION = "attachment;filename*={}''{}";
+	private static final String DEFAULT_CONTENT_DISPOSITION = "attachment;filename*={}''{}";
+
+	private final ExcelWriterBuilder excelWriterBuilder;
 
 	@Override
 	public boolean supportsReturnType(MethodParameter parameter) {
@@ -66,7 +72,10 @@ public class ExcelExportHandler implements HandlerMethodReturnValueHandler {
 
 	}
 
-	@SneakyThrows(UnsupportedEncodingException.class)
+	@SneakyThrows({
+		UnsupportedEncodingException.class,
+		IOException.class
+	})
 	public void export(HttpServletResponse response, List<Object> data, ExcelExporter excelExporter) {
 		String name = excelExporter.name();
 		if (name == null) {
@@ -82,5 +91,8 @@ public class ExcelExportHandler implements HandlerMethodReturnValueHandler {
 		response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
 			MessageFormatUtils.format(DEFAULT_CONTENT_DISPOSITION, Charsets.UTF_8_NAME, fileName));
 		// TODO
+
+		excelWriterBuilder.build(excelExporter.format(), excelExporter.inMemory())
+			.write(response.getOutputStream(), data, null);
 	}
 }

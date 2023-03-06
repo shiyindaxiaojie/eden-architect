@@ -52,6 +52,7 @@ public class EasyExcelReader implements ExcelReader {
 	public void read(InputStream inputStream, Class<?> head, ExcelReadListener<?> excelReadListener) {
 		excelReaderBuilder.file(inputStream)
 			.head(head)
+			.autoCloseStream(true)
 			.registerReadListener(new AnalysisEventListener<Object>() {
 
 				@Override

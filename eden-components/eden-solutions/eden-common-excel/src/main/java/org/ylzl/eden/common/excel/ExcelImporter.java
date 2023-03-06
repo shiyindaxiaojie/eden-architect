@@ -31,11 +31,31 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 public @interface ExcelImporter {
 
+	/**
+	 * 文件名称
+	 *
+	 * @return 文件名称
+	 */
 	String fileName() default "file";
 
-	Class<? extends ExcelReadListener<?>> readEventListener();
-
+	/**
+	 * 忽略空行
+	 *
+	 * @return 是否忽略
+	 */
 	boolean ignoreEmptyRow() default false;
 
+	/**
+	 * 标题所在行数
+	 *
+	 * @return 行数
+	 */
 	int headRowNumber() default 1;
+
+	/**
+	 * 自定义处理器
+	 *
+	 * @return 自定义处理器
+	 */
+	Class<? extends ExcelReadListener<?>> readEventListener();
 }
