@@ -31,7 +31,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartRequest;
 import org.ylzl.eden.common.excel.ExcelImporter;
-import org.ylzl.eden.common.excel.ExcelReader;
+import org.ylzl.eden.common.excel.builder.ExcelReaderBuilder;
 import org.ylzl.eden.common.excel.reader.ExcelReadListener;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
@@ -52,7 +52,7 @@ public class ExcelImportHandler implements HandlerMethodArgumentResolver {
 
 	private static final String OBJECT_NAME = "excel";
 
-	private final ExcelReader excelReader;
+	private final ExcelReaderBuilder excelReaderBuilder;
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
@@ -78,7 +78,8 @@ public class ExcelImportHandler implements HandlerMethodArgumentResolver {
 			Objects.requireNonNull(((MultipartRequest) request).getFile(excelImporter.fileName())).getInputStream():
 			Objects.requireNonNull(request).getInputStream();
 		Class<?> targetClass = ResolvableType.forMethodParameter(parameter).getGeneric(0).resolve();
-		excelReader.read(inputStream, targetClass, readListener);
+		excelReaderBuilder.build(excelImporter.headRowNumber(), excelImporter.ignoreEmptyRow())
+			.read(inputStream, targetClass, readListener);
 
 		WebDataBinder dataBinder = binderFactory.createBinder(webRequest, readListener.getErrors(), OBJECT_NAME);
 		ModelMap model = mavContainer.getModel();

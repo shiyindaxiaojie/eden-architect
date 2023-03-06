@@ -31,16 +31,18 @@ public interface ExcelWriter {
 	/**
 	 * 写入 Excel
 	 *
-	 * @param os 输出流
+	 * @param outputStream 输出流
 	 * @param data 填充数据
+	 * @param head 标题
 	 */
-	void write(OutputStream os, List<Object> data, Class<?> head);
+	void write(OutputStream outputStream, List<Object> data, Class<?> head);
 
 	/**
 	 * 写入 Excel
 	 *
 	 * @param file 文件
 	 * @param data 填充数据
+	 * @param head 标题
 	 */
 	void write(File file, List<Object> data, Class<?> head);
 }

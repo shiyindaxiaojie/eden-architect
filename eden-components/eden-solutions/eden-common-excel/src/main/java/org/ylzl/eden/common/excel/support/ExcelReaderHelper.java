@@ -34,16 +34,47 @@ public class ExcelReaderHelper {
 	 * @return Excel 读取器实例
 	 */
 	public static ExcelReader excelReader() {
-		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class).getDefaultExtension().build();
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class)
+			.getDefaultExtension()
+			.build(1, true);
 	}
 
 	/**
-	 * 获取敏感词过滤器实例
+	 * 获取 Excel 读取器实例
+	 *
+	 * @param headRowNumber 标题行数
+	 * @param ignoreEmptyRow 忽略空行
+	 * @return Excel 读取器实例
+	 */
+	public static ExcelReader excelReader(int headRowNumber, boolean ignoreEmptyRow) {
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class)
+			.getDefaultExtension()
+			.build(headRowNumber, ignoreEmptyRow);
+	}
+
+	/**
+	 * 获取 Excel 读取器实例
 	 *
 	 * @param spi 扩展点
-	 * @return 敏感词过滤器实例
+	 * @return Excel 读取器实例
 	 */
 	public static ExcelReader excelReader(String spi) {
-		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class).getExtension(spi).build();
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class)
+			.getExtension(spi)
+			.build(1, true);
+	}
+
+	/**
+	 * 获取 Excel 读取器实例
+	 *
+	 * @param spi 扩展点
+	 * @param headRowNumber 标题行数
+	 * @param ignoreEmptyRow 忽略空行
+	 * @return Excel 读取器实例
+	 */
+	public static ExcelReader excelReader(String spi, int headRowNumber, boolean ignoreEmptyRow) {
+		return ExtensionLoader.getExtensionLoader(ExcelReaderBuilder.class)
+			.getExtension(spi)
+			.build(headRowNumber, ignoreEmptyRow);
 	}
 }

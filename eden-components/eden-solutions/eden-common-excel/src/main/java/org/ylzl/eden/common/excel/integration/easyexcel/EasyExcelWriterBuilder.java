@@ -14,29 +14,24 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.excel.builder;
+package org.ylzl.eden.common.excel.integration.easyexcel;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import org.ylzl.eden.common.excel.ExcelType;
 import org.ylzl.eden.common.excel.ExcelWriter;
-import org.ylzl.eden.common.excel.config.ExcelConfig;
-import org.ylzl.eden.extension.SPI;
+import org.ylzl.eden.common.excel.builder.AbstractExcelWriterBuilder;
+import org.ylzl.eden.common.excel.builder.ExcelWriterBuilder;
+import org.ylzl.eden.common.excel.integration.easyexcel.converter.LocalDateConverter;
+import org.ylzl.eden.common.excel.integration.easyexcel.converter.LocalDateTimeConverter;
 
 /**
- * Excel 写入器构建
+ * EasyExcel 写入 Excel
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI("easy-excel")
-public interface ExcelWriterBuilder {
-
-	/**
-	 * 设置 Excel 配置
-	 *
-	 * @param config Excel 配置
-	 * @return this
-	 */
-	ExcelWriterBuilder config(ExcelConfig config);
+public class EasyExcelWriterBuilder extends AbstractExcelWriterBuilder implements ExcelWriterBuilder {
 
 	/**
 	 * 构建 Excel 写入器
@@ -45,5 +40,12 @@ public interface ExcelWriterBuilder {
 	 * @param inMemory 是否在内存操作
 	 * @return Excel 写入器实例
 	 */
-	ExcelWriter build(ExcelType excelType, boolean inMemory);
+	@Override
+	public ExcelWriter build(ExcelType excelType, boolean inMemory) {
+		return new EasyExcelWriter(EasyExcel.write()
+			.registerConverter(LocalDateConverter.INSTANCE)
+			.registerConverter(LocalDateTimeConverter.INSTANCE)
+			.excelType(ExcelTypeEnum.valueOf(excelType.getValue()))
+			.inMemory(inMemory));
+	}
 }

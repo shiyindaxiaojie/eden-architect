@@ -34,14 +34,16 @@ public class EasyExcelReaderBuilder extends AbstractExcelReaderBuilder implement
 	/**
 	 * 构建 Excel 读取器
 	 *
+	 * @param headRowNumber 标题行数
+	 * @param ignoreEmptyRow 忽略空行
 	 * @return Excel 读取器实例
 	 */
 	@Override
-	public ExcelReader build() {
+	public ExcelReader build(int headRowNumber, boolean ignoreEmptyRow) {
 		return new EasyExcelReader(EasyExcel.read()
 			.registerConverter(LocalDateConverter.INSTANCE)
 			.registerConverter(LocalDateTimeConverter.INSTANCE)
-			.headRowNumber(getConfig().getEasyExcel().getHeadRowNumber())
-			.ignoreEmptyRow(getConfig().getEasyExcel().isIgnoreEmptyRow()));
+			.headRowNumber(headRowNumber)
+			.ignoreEmptyRow(ignoreEmptyRow));
 	}
 }
