@@ -100,7 +100,7 @@
 		<json-lib.version>2.4</json-lib.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
 		<jnanoid.version>2.0.0</jnanoid.version>
-		<snakeyaml.version>2.0</snakeyaml.version>
+		<snakeyaml.version>1.33</snakeyaml.version>
 		<dynamictp.version>1.0.9</dynamictp.version>
 		<javers.version>6.8.1</javers.version>
 		<java-object-diff.version>0.95</java-object-diff.version>

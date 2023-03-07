@@ -53,7 +53,7 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// Trace
 	// 自定义链路传递参数
 	public static final String X_FORWARDED_FOR = "x-forwarded-for";
-	public final static String X_CAT_TRACE_MODE = "X-CAT-TRACE-MODE";
+	public static final String X_CAT_TRACE_MODE = "X-CAT-TRACE-MODE";
 	public static final String X_CAT_SOURCE = "X-CAT-SOURCE";
 	public static final String X_CAT_ID = "X-CAT-ID";
 	public static final String X_CAT_ROOT_ID = "X-CAT-ROOT-ID";
