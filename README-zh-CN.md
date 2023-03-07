@@ -60,7 +60,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ## 如何使用
 
-1. 首先，在您的项目 `pom.xml` 的 `parent` 节点引用 `eden-parent` 父工程。
+首先，在您的项目 `pom.xml` 的 `parent` 节点引用 `eden-parent` 父工程。
 
 ```xml
 <parent>
@@ -71,7 +71,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 </parent>
 ```
 
-2. 然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成 CAT，您可以在 `dependencies` 节点中添加以下内容：
+然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成 CAT，您可以在 `dependencies` 节点中添加以下内容：
 
 ```xml
 <dependencies>
@@ -82,9 +82,9 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 </dependencies>
 ```
 
-为了减少繁琐的依赖冲突解决工作，在第一步引入的 `eden-parent` 组件已经导入了常用的依赖，一般情况下，不需要填写版本号。
+> 为了减少繁琐的依赖冲突解决工作，在第一步引入的 `eden-parent` 组件已经导入了常用的依赖，一般情况下，不需要填写版本号。
 
-3. 在您的项目配置文件如 `application.yml` ，开启相关配置，大多数组件以 `xxx.enabled` 属性项作为开关。
+在您的项目配置文件如 `application.yml` ，开启相关配置，大多数组件以 `xxx.enabled` 属性项作为开关。
 
 ````yaml
 cat:
@@ -97,7 +97,7 @@ cat:
   http-port: 8080
 ````
 
-4. 业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。 
+业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。 
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/cat/tracing.png)
 

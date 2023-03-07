@@ -196,24 +196,24 @@
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-codec</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
 					<groupId>xml-apis</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-svg-dom</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
 					<groupId>xml-apis</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- XML 处理 -->
@@ -233,6 +233,18 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>transmittable-thread-local</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>log4j2-ttl-thread-context-map</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 内存队列 -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- IDEA -->

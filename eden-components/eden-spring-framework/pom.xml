@@ -154,10 +154,20 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
 		</dependency>
+		<!-- 增加 TTL 对 MDC 的支持 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>log4j2-ttl-thread-context-map</artifactId>
+		</dependency>
 		<!-- 增加 Jackson 对 log4j2.yml 的支持 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
+		<!-- 增加 Disruptor 支持日志异步 -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
 		</dependency>
 		<!-- Fastjson -->
 		<dependency>

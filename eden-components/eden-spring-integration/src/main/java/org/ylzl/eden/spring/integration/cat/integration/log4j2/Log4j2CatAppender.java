@@ -2,6 +2,7 @@ package org.ylzl.eden.spring.integration.cat.integration.log4j2;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Message;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.*;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
@@ -12,11 +13,14 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.impl.ThrowableProxy;
+import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.util.Booleans;
+import org.ylzl.eden.commons.env.Charsets;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Log4j2 附加器
@@ -32,6 +36,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 	public static final String TYPE = "Log4j2";
 
 	private final Level level;
+
 
 	public Log4j2CatAppender(String name, Filter filter, Layout<? extends Serializable> layout,
 							 boolean ignoreExceptions, Property[] properties, Level level) {
@@ -59,8 +64,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 		switch (level.getStandardLevel()) {
 			case INFO:
 			case WARN:
-				Cat.logEvent(TYPE, event.getLevel().name(), Message.SUCCESS,
-					event.getMessage().getFormattedMessage());
+				tryAppend(event);
 			case ERROR:
 				ThrowableProxy proxy = event.getThrownProxy();
 				if (proxy != null) {
@@ -72,6 +76,23 @@ public class Log4j2CatAppender extends AbstractAppender {
 					}
 				}
 		}
+	}
+
+	@SneakyThrows(UnsupportedEncodingException.class)
+	private void tryAppend(final LogEvent event) {
+		Layout<? extends Serializable> layout = getLayout();
+		byte[] data;
+		if (layout instanceof JsonLayout) {
+			final byte[] header = layout.getHeader();
+			final byte[] body = layout.toByteArray(event);
+			data = new byte[header.length + body.length];
+			System.arraycopy(header, 0, data, 0, header.length);
+			System.arraycopy(body, 0, data, header.length, body.length);
+		} else {
+			data = layout.toByteArray(event);
+		}
+		String message = new String(data, Charsets.UTF_8_NAME);
+		Cat.logEvent(TYPE, event.getLevel().name(), Message.SUCCESS, message);
 	}
 
 	@PluginFactory

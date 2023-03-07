@@ -86,6 +86,7 @@
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
 		<hutool.version>5.7.14</hutool.version>
+		<disruptor.version>3.4.4</disruptor.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
@@ -99,6 +100,7 @@
 		<mvel.version>2.4.8.Final</mvel.version>
 		<json-lib.version>2.4</json-lib.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+		<log4j2-ttl-thread-context-map.version>1.4.0</log4j2-ttl-thread-context-map.version>
 		<jnanoid.version>2.0.0</jnanoid.version>
 		<snakeyaml.version>1.33</snakeyaml.version>
 		<dynamictp.version>1.0.9</dynamictp.version>
@@ -1021,6 +1023,12 @@
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
 			</dependency>
+			<!-- Disruptor -->
+			<dependency>
+				<groupId>com.lmax</groupId>
+				<artifactId>disruptor</artifactId>
+				<version>${disruptor.version}</version>
+			</dependency>
 			<!-- Apache Commons -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -1190,6 +1198,12 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>transmittable-thread-local</artifactId>
 				<version>${transmittable-thread-local.version}</version>
+			</dependency>
+			<!-- Alibaba Log4j2 TTL ThreadContextMap -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>log4j2-ttl-thread-context-map</artifactId>
+				<version>${log4j2-ttl-thread-context-map.version}</version>
 			</dependency>
 			<!-- JNanoId -->
 			<dependency>
