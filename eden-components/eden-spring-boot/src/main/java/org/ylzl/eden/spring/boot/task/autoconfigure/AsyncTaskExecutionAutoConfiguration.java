@@ -31,6 +31,8 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.ylzl.eden.spring.boot.task.TtlThreadPoolTaskExecutor;
 import org.ylzl.eden.spring.framework.task.interceptor.ExceptionHandlingAsyncTaskExecutor;
 
 import java.util.concurrent.Executor;
@@ -105,8 +107,9 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 		builder = builder.customizers(taskExecutorCustomizers.orderedStream()::iterator);
 		builder = builder.taskDecorator(taskDecorator.getIfUnique());
 
+		ThreadPoolTaskExecutor taskExecutor = builder.configure(new TtlThreadPoolTaskExecutor());
 		// Spring 默认装配的 Bean 对异常的处理不是很友好，需要替换
-		return new ExceptionHandlingAsyncTaskExecutor(builder.build());
+		return new ExceptionHandlingAsyncTaskExecutor(taskExecutor);
 	}
 
 	@Override

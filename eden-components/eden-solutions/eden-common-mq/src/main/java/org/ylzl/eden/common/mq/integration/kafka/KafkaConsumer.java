@@ -138,6 +138,4 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		log.debug(CREATE_CONSUMER_FROM_CONSUMER_FACTORY_GROUP_TOPIC, group, topic);
 		return consumer;
 	}
-
-
 }

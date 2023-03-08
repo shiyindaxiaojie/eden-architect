@@ -98,11 +98,11 @@ public class OSUtils {
 	}
 
 	public static OS getOSEnum() {
-		return OS.parse(System.getProperty(JavaEnvironment.OS_NAME));
+		return OS.parse(System.getProperty(SystemProperties.OS_NAME));
 	}
 
 	public static OSArchitect getOSArchEnum() {
-		return OSArchitect.parse(System.getProperty(JavaEnvironment.OS_ARCH));
+		return OSArchitect.parse(System.getProperty(SystemProperties.OS_ARCH));
 	}
 
 	/**
