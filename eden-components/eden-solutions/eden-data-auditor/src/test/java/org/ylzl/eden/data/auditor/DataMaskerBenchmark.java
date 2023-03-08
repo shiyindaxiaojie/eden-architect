@@ -33,13 +33,13 @@ import java.util.concurrent.TimeUnit;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Threads(4)
-@Fork(1)
-@Warmup(iterations = 3, time = 3)
-@Measurement(iterations = 3, time = 10)
+@Threads(16)
+@Fork(3)
+@Warmup(iterations = 1, time = 3)
+@Measurement(iterations = 1, time = 10)
 @State(value = Scope.Benchmark)
-@BenchmarkMode(Mode.Throughput)
+@BenchmarkMode(Mode.All)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class DataMaskerBenchmark {
 
 	private final TestCase testCase = TestCase.builder()
@@ -50,8 +50,20 @@ public class DataMaskerBenchmark {
 		.build();
 
 	@Benchmark
-	public void toJSONString(Blackhole blackhole) {
+	public void jacksonToJSONString(Blackhole blackhole) {
 		String json = JSONHelper.json("jackson").toJSONString(testCase);
+		blackhole.consume(json);
+	}
+
+	@Benchmark
+	public void fastjsonToJSONString(Blackhole blackhole) {
+		String json = JSONHelper.json("fastjson").toJSONString(testCase);
+		blackhole.consume(json);
+	}
+
+	@Benchmark
+	public void fastjson2ToJSONString(Blackhole blackhole) {
+		String json = JSONHelper.json("fastjson2").toJSONString(testCase);
 		blackhole.consume(json);
 	}
 
