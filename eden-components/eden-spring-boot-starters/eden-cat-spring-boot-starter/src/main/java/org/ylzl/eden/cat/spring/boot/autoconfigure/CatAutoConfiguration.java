@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -48,7 +47,6 @@ import org.ylzl.eden.spring.integration.cat.config.CatState;
 	name = Conditions.ENABLED,
 	havingValue = Conditions.TRUE
 )
-@AutoConfigureBefore(WebCatAutoConfiguration.class)
 @ConditionalOnClass(Cat.class)
 @EnableCat
 @EnableConfigurationProperties(CatProperties.class)

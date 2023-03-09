@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 @State(value = Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class TtlForkJoinPoolTest {
+public class TtlForkJoinPoolSubmitTest {
 
 	private final TestCase testCase = TestCase.builder()
 		.chineseName("梦想歌")
@@ -73,7 +73,7 @@ public class TtlForkJoinPoolTest {
 
 	@Benchmark
 	public void ten_thousand_commonPoolSubmit() {
-		TtlForkJoinPool.commonPoolSubmit(ten_thousand_data, JacksonUtils::toJSONString, 500);
+		ForkJoinPool.commonPoolSubmit(ten_thousand_data, JacksonUtils::toJSONString, 500);
 	}
 
 	@Benchmark
@@ -88,7 +88,7 @@ public class TtlForkJoinPoolTest {
 
 	@Benchmark
 	public void million_commonPoolSubmit() {
-		TtlForkJoinPool.commonPoolSubmit(million_data, JacksonUtils::toJSONString, 500);
+		ForkJoinPool.commonPoolSubmit(million_data, JacksonUtils::toJSONString, 500);
 	}
 
 	@Benchmark
@@ -103,12 +103,12 @@ public class TtlForkJoinPoolTest {
 
 	@Benchmark
 	public void ten_million_commonPoolSubmit() {
-		TtlForkJoinPool.commonPoolSubmit(ten_million_data, JacksonUtils::toJSONString, 500);
+		ForkJoinPool.commonPoolSubmit(ten_million_data, JacksonUtils::toJSONString, 500);
 	}
 
 	public static void main(String[] args) throws RunnerException {
 		Options opt = new OptionsBuilder()
-			.include(TtlForkJoinPoolTest.class.getSimpleName())
+			.include(TtlForkJoinPoolSubmitTest.class.getSimpleName())
 			.result("result.json")
 			.resultFormat(ResultFormatType.JSON).build();
 		new Runner(opt).run();

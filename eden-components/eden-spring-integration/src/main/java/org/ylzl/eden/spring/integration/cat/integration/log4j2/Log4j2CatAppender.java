@@ -37,7 +37,6 @@ public class Log4j2CatAppender extends AbstractAppender {
 
 	private final Level level;
 
-
 	public Log4j2CatAppender(String name, Filter filter, Layout<? extends Serializable> layout,
 							 boolean ignoreExceptions, Property[] properties, Level level) {
 		super(name, filter, layout, ignoreExceptions, properties);
