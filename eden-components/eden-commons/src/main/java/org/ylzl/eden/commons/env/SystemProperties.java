@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
  * @since 2.4.13
  */
 @UtilityClass
-public class JavaEnvironment {
+public class SystemProperties {
 
 	/**
 	 * Java 运行时环境版本

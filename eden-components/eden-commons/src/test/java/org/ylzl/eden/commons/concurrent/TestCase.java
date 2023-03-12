@@ -14,4 +14,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.ribbon.spring.cloud;
+package org.ylzl.eden.commons.concurrent;
+
+import lombok.*;
+
+/**
+ * 测试用例
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+public class TestCase {
+
+	private String address;
+
+	private String chineseName;
+
+	private String idCard;
+
+	private String mobilePhone;
+}

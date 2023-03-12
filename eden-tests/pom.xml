@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl</groupId>
+		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-components/eden-parent/pom.xml</relativePath>
@@ -38,6 +38,10 @@
 		<module>eden-smoke-tests</module>
 	</modules>
 
+	<properties>
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -49,6 +53,25 @@
 				<inherited>true</inherited>
 			</plugin>
 			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<inherited>true</inherited>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>none</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
@@ -57,10 +80,15 @@
 				<inherited>true</inherited>
 			</plugin>
 			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
+				<artifactId>maven-gpg-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>none</phase>
+					</execution>
+				</executions>
 				<inherited>true</inherited>
 			</plugin>
 		</plugins>

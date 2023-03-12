@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl</groupId>
+		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-components</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -86,6 +86,7 @@
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
 		<hutool.version>5.7.14</hutool.version>
+		<disruptor.version>3.4.4</disruptor.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
@@ -99,8 +100,9 @@
 		<mvel.version>2.4.8.Final</mvel.version>
 		<json-lib.version>2.4</json-lib.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+		<log4j2-ttl-thread-context-map.version>1.4.0</log4j2-ttl-thread-context-map.version>
 		<jnanoid.version>2.0.0</jnanoid.version>
-		<snakeyaml.version>2.0</snakeyaml.version>
+		<snakeyaml.version>1.33</snakeyaml.version>
 		<dynamictp.version>1.0.9</dynamictp.version>
 		<javers.version>6.8.1</javers.version>
 		<java-object-diff.version>0.95</java-object-diff.version>
@@ -150,7 +152,7 @@
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.0.12</dubbo.version>
+		<dubbo.version>3.0.14</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<curator.version>5.1.0</curator.version>
@@ -290,539 +292,539 @@
 
 			<!-- 基础组件 -->
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-all</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-catchlog</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-domain</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-dto</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-extension</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cola-statemachine</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-commons</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-extensions</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-boot</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-boot-test</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-cloud</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-data</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-framework</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-integration</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-security</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-spring-test</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<!-- 解决方案 -->
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-consistency-task</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-data-auditor</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-data-filter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-distributed-lock</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-distributed-uid</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-cache</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-excel</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-mail</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-mq</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-security</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-sms</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-event-auditor</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-flow-compose</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-full-tracing</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-idempotent</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<!-- 自定义 Spring Boot Starters -->
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-arthas-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-data-filter-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cat-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-consistency-task-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-curator-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-distributed-lock-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-distributed-uid-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-druid-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-cache-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-excel-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-mail-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-mq-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-security-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-common-sms-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-elasticsearch-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-flow-compose-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-flyway-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-ftpclient-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-ftpserver-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-full-tracing-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-hikaricp-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-idempotent-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-influxdb-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-javamail-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-jwt-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-kafka-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-leaf-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-liquibase-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-logstash-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-metrics-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-mongobee-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-mongodb-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-mybatis-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-netty-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-oauth2-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-prometheus-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-quartz-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-rabbitmq-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-redis-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-redisson-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-swagger2-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-swagger3-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-tinyid-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-tomcat-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-truelicense-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-undertow-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-uid-generator-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<!-- 自定义 Spring Cloud Starters -->
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-apollo-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-cat-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-eureka-client-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-eureka-server-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-grpc-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-hystrix-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-jaeger-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-openfeign-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-ribbon-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-sofa-tracer-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-zipkin2-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-zookeeper-config-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-zookeeper-discovery-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-zookeeper-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl</groupId>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-zuul-spring-cloud-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
@@ -1021,6 +1023,12 @@
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
 			</dependency>
+			<!-- Disruptor -->
+			<dependency>
+				<groupId>com.lmax</groupId>
+				<artifactId>disruptor</artifactId>
+				<version>${disruptor.version}</version>
+			</dependency>
 			<!-- Apache Commons -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -1190,6 +1198,12 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>transmittable-thread-local</artifactId>
 				<version>${transmittable-thread-local.version}</version>
+			</dependency>
+			<!-- Alibaba Log4j2 TTL ThreadContextMap -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>log4j2-ttl-thread-context-map</artifactId>
+				<version>${log4j2-ttl-thread-context-map.version}</version>
 			</dependency>
 			<!-- JNanoId -->
 			<dependency>
@@ -2343,11 +2357,6 @@
 				<version>${jna.version}</version>
 			</dependency>
 			<!-- Scala -->
-			<dependency>
-				<groupId>org.scala-lang</groupId>
-				<artifactId>scala-library</artifactId>
-				<version>${scala.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.scala-lang</groupId>
 				<artifactId>scala-library</artifactId>

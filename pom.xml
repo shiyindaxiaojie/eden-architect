@@ -26,7 +26,7 @@
 		<version>2.4.13</version>
 		<relativePath/>
 	</parent>
-	<groupId>org.ylzl</groupId>
+	<groupId>io.github.shiyindaxiaojie</groupId>
 	<artifactId>eden-architect</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -43,10 +43,11 @@
 	<developers>
 		<developer>
 			<id>sion</id>
-			<name>梦想歌</name>
+			<name>mengxiangge</name>
 			<email>shiyindaxiaojie@gmail.com</email>
 			<roles>
 				<role>Architect</role>
+				<role>Developer</role>
 			</roles>
 		</developer>
 	</developers>
@@ -73,23 +74,15 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 	</properties>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<version>${versions-maven-plugin.version}</version>
-				<configuration>
-					<generateBackupPoms>false</generateBackupPoms>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -97,6 +90,35 @@
 				<configuration>
 					<tagNameFormat>v@{project.version}</tagNameFormat>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<locale>en_US</locale>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<doclint>none</doclint>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions-maven-plugin.version}</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -121,80 +143,6 @@
 					</includeOnlyProperties>
 				</configuration>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<version>${flatten-maven-plugin.version}</version>
-				<configuration>
-					<updatePomFile>true</updatePomFile>
-					<flattenMode>resolveCiFriendliesOnly</flattenMode>
-				</configuration>
-				<executions>
-					<execution>
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>flatten.clean</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
-			<!--
-			<plugin>
-				<groupId>se.bjurr.gitchangelog</groupId>
-				<artifactId>git-changelog-maven-plugin</artifactId>
-				<version>${git-changelog-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>GenerateGitChangelog</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>git-changelog</goal>
-						</goals>
-						<configuration>
-							<templateContent>
-								<![CDATA[
-									{{#tags}}
-									## {{name}}
-									 {{#issues}}
-									  {{#hasIssue}}
-									   {{#hasLink}}
-									### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-									   {{/hasLink}}
-									   {{^hasLink}}
-									### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-									   {{/hasLink}}
-									  {{/hasIssue}}
-									  {{^hasIssue}}
-									### {{name}}
-									  {{/hasIssue}}
-
-									  {{#commits}}
-									**{{{messageTitle}}}**
-
-									{{#messageBodyItems}}
-									 * {{.}}
-									{{/messageBodyItems}}
-
-									[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
-
-									  {{/commits}}
-
-									 {{/issues}}
-									{{/tags}}
-									]]>
-							</templateContent>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
 		</plugins>
 	</build>
 
@@ -233,6 +181,75 @@
 					</snapshots>
 				</repository>
 			</repositories>
+		</profile>
+		<profile>
+			<id>sonatype-ossrh</id>
+			<properties>
+				<altReleaseDeploymentRepository>
+					sonatype-ossrh::default::https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+				</altReleaseDeploymentRepository>
+				<altSnapshotDeploymentRepository>
+					sonatype-ossrh::default::https://s01.oss.sonatype.org/content/repositories/snapshots/
+				</altSnapshotDeploymentRepository>
+			</properties>
+			<repositories>
+				<repository>
+					<id>central</id>
+					<name>Apache Maven Repository</name>
+					<url>https://repo1.maven.org/maven2/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>sonatype-ossrh</id>
+					<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+				<snapshotRepository>
+					<id>sonatype-ossrh</id>
+					<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven-gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${nexus-staging-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<executions>
+							<execution>
+								<phase>deploy</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<stagingProgressTimeoutMinutes>60</stagingProgressTimeoutMinutes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>

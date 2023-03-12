@@ -27,16 +27,16 @@ public interface DTOAssembler<DTO, Entity> {
 	/**
 	 * DTO 转 Entity
 	 *
-	 * @param dto
-	 * @return
+	 * @param dto 数据传输对象
+	 * @return 实体
 	 */
 	Entity toEntity(DTO dto);
 
 	/**
 	 * Entity 转 DTO
 	 *
-	 * @param entity
-	 * @return
+	 * @param entity 实体
+	 * @return 数据传输对象
 	 */
 	DTO toDTO(Entity entity);
 }

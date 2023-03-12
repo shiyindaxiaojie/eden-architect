@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl</groupId>
+		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-parent/pom.xml</relativePath>
@@ -196,24 +196,24 @@
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-codec</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
 					<groupId>xml-apis</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-svg-dom</artifactId>
+			<optional>true</optional>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
 					<groupId>xml-apis</groupId>
 				</exclusion>
 			</exclusions>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- XML 处理 -->
@@ -234,6 +234,18 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>transmittable-thread-local</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>log4j2-ttl-thread-context-map</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 内存队列 -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- IDEA -->
 		<dependency>
@@ -241,16 +253,36 @@
 			<artifactId>annotations</artifactId>
 		</dependency>
 
-		<!-- Spock -->
+		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.groovy</groupId>
-			<artifactId>groovy</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
