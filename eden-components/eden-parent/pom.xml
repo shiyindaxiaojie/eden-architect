@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl</groupId>
+		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-dependencies</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-dependencies/pom.xml</relativePath>
@@ -66,8 +66,10 @@
 		<maven-install-plugin.version>3.1.0</maven-install-plugin.version>
 		<!-- 部署到远程制品库 -->
 		<maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<!-- 发布版本 -->
 		<maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 		<!-- 代码质量 -->
@@ -82,7 +84,7 @@
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
 		<gatling.configFolder>${project.basedir}/src/test/gatling/conf</gatling.configFolder>
 		<!-- 版本控制 -->
-		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+		<maven-scm-plugin.version>2.0.0-M3</maven-scm-plugin.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 		<git-changelog-maven-plugin.version>1.95.2</git-changelog-maven-plugin.version>
 		<!-- Ant 构建 -->
@@ -143,7 +145,7 @@
 		<groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
 		<!-- 其他 -->
 		<maven-help-plugin.version>3.3.0</maven-help-plugin.version>
-		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
 		<maven-site-plugin.version>3.12.1</maven-site-plugin.version>
 		<maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
 		<maven-invoker-plugin.version>3.4.0</maven-invoker-plugin.version>
@@ -296,6 +298,15 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${maven-source-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -457,12 +468,9 @@
 				</plugin>
 				<!-- 版本管理 -->
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>versions-maven-plugin</artifactId>
-					<version>${versions-maven-plugin.version}</version>
-					<configuration>
-						<generateBackupPoms>false</generateBackupPoms>
-					</configuration>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>${maven-scm-plugin.version}</version>
 				</plugin>
 				<!-- 版本提交信息 -->
 				<plugin>
@@ -501,36 +509,36 @@
 							</goals>
 							<configuration>
 								<templateContent>
-<![CDATA[
-{{#tags}}
-## {{name}}
- {{#issues}}
-  {{#hasIssue}}
-   {{#hasLink}}
-### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-   {{/hasLink}}
-   {{^hasLink}}
-### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
-   {{/hasLink}}
-  {{/hasIssue}}
-  {{^hasIssue}}
-### {{name}}
-  {{/hasIssue}}
+								<![CDATA[
+								{{#tags}}
+								## {{name}}
+								 {{#issues}}
+								  {{#hasIssue}}
+								   {{#hasLink}}
+								### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+								   {{/hasLink}}
+								   {{^hasLink}}
+								### {{name}} {{issue}} {{title}} {{#hasIssueType}} *{{issueType}}* {{/hasIssueType}} {{#hasLabels}} {{#labels}} *{{.}}* {{/labels}} {{/hasLabels}}
+								   {{/hasLink}}
+								  {{/hasIssue}}
+								  {{^hasIssue}}
+								### {{name}}
+								  {{/hasIssue}}
 
-  {{#commits}}
-**{{{messageTitle}}}**
+								  {{#commits}}
+								**{{{messageTitle}}}**
 
-{{#messageBodyItems}}
- * {{.}}
-{{/messageBodyItems}}
+								{{#messageBodyItems}}
+								 * {{.}}
+								{{/messageBodyItems}}
 
-[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+								[{{hash}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
 
-  {{/commits}}
+								  {{/commits}}
 
- {{/issues}}
-{{/tags}}
-]]>
+								 {{/issues}}
+								{{/tags}}
+								]]>
 								</templateContent>
 							</configuration>
 						</execution>
@@ -570,6 +578,12 @@
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>${maven-deploy-plugin.version}</version>
 				</plugin>
+				<!-- 部署到中央仓库 -->
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>${nexus-staging-maven-plugin.version}</version>
+				</plugin>
 				<!-- 发布版本 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -580,6 +594,14 @@
 						<autoVersionSubmodules>true</autoVersionSubmodules>
 						<useReleaseProfile>false</useReleaseProfile>
 						<allowReleasePluginSnapshot>true</allowReleasePluginSnapshot>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions-maven-plugin.version}</version>
+					<configuration>
+						<generateBackupPoms>false</generateBackupPoms>
 					</configuration>
 				</plugin>
 				<!-- 容器化部署 -->
@@ -938,6 +960,10 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>

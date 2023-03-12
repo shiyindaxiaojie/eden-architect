@@ -50,6 +50,9 @@ public class ResponseUtils {
 
 	public static final String CONTENT_DISPOSITION_ATTACH = "attachment;filename={0}";
 
+	/** Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的 */
+	public static final String APPLICATION_JSON_UTF8_VALUE = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8";
+
 	/**
 	 * 封装响应
 	 *
@@ -59,7 +62,7 @@ public class ResponseUtils {
 	 */
 	public static void wrap(HttpServletResponse response, int statueCode) throws IOException {
 		response.setStatus(statueCode);
-		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+		response.setContentType(APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
 		String result = JSONHelper.json().toJSONString(ResponseBuilder.builder().buildSuccess());
 		out.write(result);
@@ -76,7 +79,7 @@ public class ResponseUtils {
 							@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
 							String errMessage, Object... params) throws IOException {
 		response.setStatus(statueCode);
-		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+		response.setContentType(APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
 		String result = JSONHelper.json().toJSONString(ResponseBuilder.builder().buildFailure(errCode, errMessage, params));
 		out.write(result);

@@ -40,6 +40,7 @@ public class Change implements Serializable {
 	/** 变更类型 */
 	private final ChangeType changeType;
 
+	@SuppressWarnings("unchecked")
 	public <T> T getAffectedValue() {
 		return (T) affectedValue;
 	}

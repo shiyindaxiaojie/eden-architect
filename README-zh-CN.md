@@ -64,7 +64,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ```xml
 <parent>
-    <groupId>org.ylzl</groupId>
+    <groupId>io.github.shiyindaxiaojie</groupId>
     <artifactId>eden-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath/>
@@ -76,7 +76,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 ```xml
 <dependencies>
     <dependency>
-        <groupId>org.ylzl</groupId>
+        <groupId>io.github.shiyindaxiaojie</groupId>
         <artifactId>eden-mybatis-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
