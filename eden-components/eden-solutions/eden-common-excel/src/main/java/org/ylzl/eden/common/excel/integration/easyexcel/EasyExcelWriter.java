@@ -52,4 +52,18 @@ public class EasyExcelWriter implements ExcelWriter {
 			.sheet()
 			.doWrite(data);
 	}
+
+	private com.alibaba.excel.ExcelWriter build(OutputStream outputStream) {
+		return excelWriterBuilder.file(outputStream)
+			.autoCloseStream(true)
+			.build();
+	}
+
+	private boolean isManySheets(Object data) {
+		if (data instanceof List) {
+			List<?> objList = (List<?>) data;
+			return !objList.isEmpty() && objList.get(0) instanceof List;
+		}
+		return false;
+	}
 }
