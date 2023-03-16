@@ -159,7 +159,9 @@ public class HttpCatFilter extends CatFilter {
 			Cat.Context context = initContext(req);
 			logPayload(req, top, type);
 			logCatMessageId(resp);
-			Cat.logRemoteCallServer(context);
+			if (supportOutTraceId && StringUtils.isNotBlank(req.getHeader(CatConstants.X_CAT_CHILD_ID))) {
+				Cat.logRemoteCallServer(context);
+			}
 			MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 
 			chain.doFilter(req, resp);
