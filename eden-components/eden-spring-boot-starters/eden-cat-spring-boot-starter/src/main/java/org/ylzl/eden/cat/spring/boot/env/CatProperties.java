@@ -48,4 +48,17 @@ public class CatProperties {
 	private int tcpPort = 2280;
 
 	private int httpPort = 80;
+
+	private final Http http = new Http();
+
+	@Getter
+	@Setter
+	public static class Http {
+
+		private String excludeUrls;
+
+		private String includeHeaders;
+
+		private boolean includeBody = false;
+	}
 }

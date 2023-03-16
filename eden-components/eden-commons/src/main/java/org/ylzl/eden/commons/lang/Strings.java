@@ -65,4 +65,6 @@ public class Strings {
 	public static final String MSG_REPLACE = "%s";
 
 	public static final String PLACEHOLDER = "?";
+
+	public static final String AND = "&";
 }

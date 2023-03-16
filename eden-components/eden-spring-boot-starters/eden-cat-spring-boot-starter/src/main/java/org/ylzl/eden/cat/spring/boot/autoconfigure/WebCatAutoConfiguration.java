@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.cat.spring.boot.autoconfigure;
 
+import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -28,6 +29,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
 import org.ylzl.eden.spring.integration.cat.integration.web.HttpCatFilter;
+
+import java.util.Map;
 
 /**
  * Web 集成 CAT 自动装配
@@ -53,10 +56,17 @@ public class WebCatAutoConfiguration {
 	@Bean
 	public FilterRegistrationBean<HttpCatFilter> httpCatFilter() {
 		log.debug(AUTOWIRED_CAT_HTTP_TRACE_FILTER_FILTER);
+
+		Map<String, String> initParameters = Maps.newHashMap();
+		initParameters.put(HttpCatFilter.TRACE_MODE, String.valueOf(catProperties.isTraceMode()));
+		initParameters.put(HttpCatFilter.SUPPORT_OUT_TRACE_ID, String.valueOf(catProperties.isSupportOutTraceId()));
+		initParameters.put(HttpCatFilter.EXCLUDE_URLS, catProperties.getHttp().getExcludeUrls());
+		initParameters.put(HttpCatFilter.INCLUDE_HEADERS, catProperties.getHttp().getIncludeHeaders());
+		initParameters.put(HttpCatFilter.INCLUDE_BODY, String.valueOf(catProperties.getHttp().isIncludeBody()));
+
 		HttpCatFilter httpCatFilter = new HttpCatFilter();
-		HttpCatFilter.setTraceMode(catProperties.isTraceMode());
-		HttpCatFilter.setSupportOutTraceId(catProperties.isSupportOutTraceId());
 		FilterRegistrationBean<HttpCatFilter> registration = new FilterRegistrationBean<>(httpCatFilter);
+		registration.setInitParameters(initParameters);
 		registration.setName(NAME);
 		registration.addUrlPatterns("/*");
 		registration.setOrder(1);
