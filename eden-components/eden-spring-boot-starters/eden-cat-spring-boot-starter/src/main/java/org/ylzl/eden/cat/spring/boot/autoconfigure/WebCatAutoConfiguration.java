@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.cat.spring.boot.env.CatProperties;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.cat.integration.web.HttpCatFilter;
 
 import java.util.Map;
@@ -60,9 +61,13 @@ public class WebCatAutoConfiguration {
 		Map<String, String> initParameters = Maps.newHashMap();
 		initParameters.put(HttpCatFilter.TRACE_MODE, String.valueOf(catProperties.isTraceMode()));
 		initParameters.put(HttpCatFilter.SUPPORT_OUT_TRACE_ID, String.valueOf(catProperties.isSupportOutTraceId()));
-		initParameters.put(HttpCatFilter.EXCLUDE_URLS, catProperties.getHttp().getExcludeUrls());
-		initParameters.put(HttpCatFilter.INCLUDE_HEADERS, catProperties.getHttp().getIncludeHeaders());
 		initParameters.put(HttpCatFilter.INCLUDE_BODY, String.valueOf(catProperties.getHttp().isIncludeBody()));
+		if (StringUtils.isNotBlank(catProperties.getHttp().getExcludeUrls())) {
+			initParameters.put(HttpCatFilter.EXCLUDE_URLS, catProperties.getHttp().getExcludeUrls());
+		}
+		if (StringUtils.isNotBlank(catProperties.getHttp().getIncludeHeaders())) {
+			initParameters.put(HttpCatFilter.INCLUDE_HEADERS, catProperties.getHttp().getIncludeHeaders());
+		}
 
 		HttpCatFilter httpCatFilter = new HttpCatFilter();
 		FilterRegistrationBean<HttpCatFilter> registration = new FilterRegistrationBean<>(httpCatFilter);
