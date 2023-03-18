@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.integration.cat.integration.redis;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.CatClient;
+import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -40,32 +41,53 @@ public class RedisTemplateCatSupport {
 
 	public static void execute(String command, Runnable runnable) {
 		Map<String, Object> data = new HashMap<>(1);
+		if (!CatState.isInitialized()) {
+			runnable.run();
+			return;
+		}
 		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[] key, Runnable runnable) {
+		if (!CatState.isInitialized()) {
+			runnable.run();
+			return;
+		}
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEY, deserialize(key));
 		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[][] keys, Runnable runnable) {
+		if (!CatState.isInitialized()) {
+			runnable.run();
+			return;
+		}
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
 		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
 	}
 
 	public static <T> T execute(String command, byte[] key, Supplier<T> supplier) {
+		if (!CatState.isInitialized()) {
+			return supplier.get();
+		}
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEY, deserialize(key));
 		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);
 	}
 
 	public static <T> T execute(String command, Supplier<T> supplier) {
+		if (!CatState.isInitialized()) {
+			return supplier.get();
+		}
 		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, supplier);
 	}
 
 	public static <T> T execute(String command, byte[][] keys, Supplier<T> supplier) {
+		if (!CatState.isInitialized()) {
+			return supplier.get();
+		}
 		Map<String, Object> data = new HashMap<>(1);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
 		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);

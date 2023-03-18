@@ -25,6 +25,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.web.client.RestTemplate;
+import org.ylzl.eden.cat.spring.boot.env.CatProperties;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.integration.cat.integration.rest.RestTemplateCatInterceptor;
 
 import java.util.Collections;
@@ -47,9 +49,18 @@ public class RestCatAutoConfiguration implements InitializingBean {
 
 	private final RestTemplate restTemplate;
 
+	private final CatProperties catProperties;
+
 	@Override
 	public void afterPropertiesSet() {
 		log.debug(AUTOWIRED_REST_TEMPLATE_CAT_INTERCEPTOR);
-		restTemplate.setInterceptors(Collections.singletonList(new RestTemplateCatInterceptor()));
+		RestTemplateCatInterceptor interceptor = new RestTemplateCatInterceptor();
+		if (StringUtils.isNotBlank(catProperties.getHttp().getIncludeHeaders())) {
+			interceptor.setIncludeHeaders(catProperties.getHttp().getIncludeHeaders());
+		}
+		if (catProperties.getHttp().isIncludeBody()) {
+			interceptor.setIncludeBody(true);
+		}
+		restTemplate.setInterceptors(Collections.singletonList(interceptor));
 	}
 }

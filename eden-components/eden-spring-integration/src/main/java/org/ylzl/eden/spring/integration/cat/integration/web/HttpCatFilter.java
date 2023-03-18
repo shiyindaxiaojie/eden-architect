@@ -22,7 +22,9 @@ import com.dianping.cat.message.Message;
 import com.dianping.cat.message.Transaction;
 import com.dianping.cat.message.internal.DefaultMessageManager;
 import com.dianping.cat.message.internal.DefaultTransaction;
+import com.dianping.cat.message.spi.MessageTree;
 import com.dianping.cat.servlet.CatFilter;
+import com.google.common.collect.Sets;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.unidal.helper.Joiners;
@@ -31,7 +33,9 @@ import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.net.IpConfig;
 import org.ylzl.eden.extension.ExtensionLoader;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.integration.web.spi.RestCatExceptionPostProcessor;
 import org.ylzl.eden.spring.integration.cat.tracing.TraceContext;
@@ -40,9 +44,10 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Http 链路过滤器
@@ -52,9 +57,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class HttpCatFilter extends CatFilter {
 
-	private static final AtomicBoolean TRACE_MODE = new AtomicBoolean(false);
+	public static final String TRACE_MODE = "traceMode";
 
-	private static final AtomicBoolean SUPPORT_OUT_TRACE_ID = new AtomicBoolean(false);
+	public static final String SUPPORT_OUT_TRACE_ID = "supportOutTraceId";
+
+	public static final String EXCLUDE_URLS = "excludeUrls";
+
+	public static final String INCLUDE_HEADERS = "includeHeaders";
+
+	public static final String INCLUDE_BODY = "includeBody";
+
+	private boolean traceMode = false;
+
+	private boolean supportOutTraceId = false;
 
 	private String servers;
 
@@ -62,12 +77,27 @@ public class HttpCatFilter extends CatFilter {
 
 	private Set<String> excludePrefixes;
 
+	private final Set<String> includeHeaders = Sets.newHashSet(
+		HttpHeaders.USER_AGENT,
+		HttpHeaders.REFERER,
+		HttpHeaders.AUTHORIZATION);
+
+	private boolean includeBody = false;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		String exclude = filterConfig.getInitParameter("exclude");
+		if (Boolean.parseBoolean(filterConfig.getInitParameter(TRACE_MODE))) {
+			traceMode = true;
+		}
+
+		if (Boolean.parseBoolean(filterConfig.getInitParameter(SUPPORT_OUT_TRACE_ID))) {
+			supportOutTraceId = true;
+		}
+
+		String exclude = filterConfig.getInitParameter(EXCLUDE_URLS);
 		if (exclude != null) {
 			excludeUrls = new HashSet<>();
-			String[] excludeUrls = exclude.split(";");
+			String[] excludeUrls = exclude.split(",");
 			for (String s : excludeUrls) {
 				int index = s.indexOf("*");
 				if (index > 0) {
@@ -79,6 +109,16 @@ public class HttpCatFilter extends CatFilter {
 					this.excludeUrls.add(s);
 				}
 			}
+		}
+
+		String includeHeadersParameter = filterConfig.getInitParameter(INCLUDE_HEADERS);
+		if (includeHeadersParameter != null) {
+			String[] includeHeadersSplit = includeHeadersParameter.split(",");
+			this.includeHeaders.addAll(Arrays.asList(includeHeadersSplit));
+		}
+
+		if (Boolean.parseBoolean(filterConfig.getInitParameter(INCLUDE_BODY))) {
+			includeBody = true;
 		}
 	}
 
@@ -102,18 +142,9 @@ public class HttpCatFilter extends CatFilter {
 		this.logTransaction(chain, req, resp);
 	}
 
-	public static void setTraceMode(boolean traceMode) {
-		TRACE_MODE.set(traceMode);
-	}
-
-	public static void setSupportOutTraceId(boolean traceId) {
-		SUPPORT_OUT_TRACE_ID.set(traceId);
-	}
-
 	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 		Message message = Cat.getManager().getThreadLocalMessageTree().getMessage();
-
 		String type;
 		boolean top = message == null;
 		if (top) {
@@ -125,12 +156,12 @@ public class HttpCatFilter extends CatFilter {
 
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
 		try {
-			handleIfTraceIdAvailable(req);
+			Cat.Context context = initContext(req);
 			logPayload(req, top, type);
 			logCatMessageId(resp);
-
-			Cat.Context context = TraceContext.getContext();
-			Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
+			if (supportOutTraceId && StringUtils.isNotBlank(req.getHeader(CatConstants.X_CAT_CHILD_ID))) {
+				Cat.logRemoteCallServer(context);
+			}
 			MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 
 			chain.doFilter(req, resp);
@@ -150,16 +181,43 @@ public class HttpCatFilter extends CatFilter {
 		}
 	}
 
+	private Cat.Context initContext(HttpServletRequest req) {
+		MessageTree tree = Cat.getManager().getThreadLocalMessageTree();
+
+		String parentId;
+		if (supportOutTraceId && StringUtils.isNotBlank(req.getHeader(CatConstants.X_CAT_PARENT_ID))) {
+			parentId = StringUtils.trimToEmpty(req.getHeader(CatConstants.X_CAT_PARENT_ID));
+		} else {
+			parentId = Cat.createMessageId();
+			tree.setMessageId(parentId);
+		}
+
+		Cat.Context context = TraceContext.getContext();
+
+		String rootId;
+		if (supportOutTraceId && StringUtils.isNotBlank(req.getHeader(CatConstants.X_CAT_ID))) {
+			rootId = StringUtils.trimToEmpty(req.getHeader(CatConstants.X_CAT_ID));
+		} else {
+			rootId = tree.getRootMessageId();
+			if (rootId == null) {
+				rootId = parentId;
+			}
+		}
+
+		String childId = null;
+		if (supportOutTraceId && StringUtils.isNotBlank(req.getHeader(CatConstants.X_CAT_CHILD_ID))) {
+			childId = StringUtils.trimToEmpty(req.getHeader(CatConstants.X_CAT_CHILD_ID));
+		}
+
+		context.addProperty(Cat.Context.ROOT, rootId);
+		context.addProperty(Cat.Context.PARENT, parentId);
+		context.addProperty(Cat.Context.CHILD, childId);
+		return context;
+	}
+
 	private void handleIfTraceModeOpen(HttpServletRequest req) {
 		if (Boolean.parseBoolean(req.getHeader(CatConstants.X_CAT_TRACE_MODE))) {
 			Cat.getManager().setTraceMode(true);
-		}
-	}
-
-	private void handleIfTraceIdAvailable(HttpServletRequest req) {
-		String traceId = req.getHeader(CatConstants.X_CAT_ID);
-		if (SUPPORT_OUT_TRACE_ID.get() && StringUtils.isNotBlank(traceId)) {
-			Cat.getManager().getThreadLocalMessageTree().setMessageId(traceId);
 		}
 	}
 
@@ -167,9 +225,9 @@ public class HttpCatFilter extends CatFilter {
 		try {
 			if (top) {
 				logRequestClientInfo(req, type);
-				logRequestPayload(req, type);
+				logRequestPayload(req, type, true);
 			} else {
-				logRequestPayload(req, type);
+				logRequestPayload(req, type, false);
 			}
 		} catch (Exception e) {
 			Cat.logError(e);
@@ -177,32 +235,56 @@ public class HttpCatFilter extends CatFilter {
 	}
 
 	private void logRequestClientInfo(HttpServletRequest req, String type) {
-		StringBuilder sb = new StringBuilder(1024);
+		StringBuilder serverInfo = new StringBuilder(1024);
 		String ipForwarded = req.getHeader(CatConstants.X_FORWARDED_FOR);
 		if (ipForwarded == null) {
-			sb.append("clientIp=").append(req.getRemoteAddr());
+			serverInfo.append("clientIp=").append(req.getRemoteAddr());
 		} else {
-			sb.append("clientIpForwarded=").append(ipForwarded);
+			serverInfo.append("clientIpForwarded=").append(ipForwarded);
 		}
-		sb.append("&serverIp=").append(req.getServerName());
-		sb.append("&referer=").append(req.getHeader(HttpHeaders.REFERER));
-		sb.append("&userAgent=").append(req.getHeader(HttpHeaders.USER_AGENT));
-		Cat.logEvent(type, CatConstants.TYPE_URL_SERVER, Message.SUCCESS, sb.toString());
+		serverInfo.append("&serverIp=").append(req.getServerName());
+		Cat.logEvent(type, CatConstants.TYPE_URL_SERVER, Message.SUCCESS, serverInfo.toString());
 	}
 
-	private void logRequestPayload(HttpServletRequest req, String type) {
-		StringBuilder sb = new StringBuilder(256);
-		sb.append(req.getScheme().toUpperCase()).append(Strings.SLASH);
-		sb.append(req.getMethod()).append(Strings.SPACE).append(req.getRequestURI());
+	private void logRequestPayload(HttpServletRequest req, String type, boolean top) {
+		StringBuilder methodInfo = new StringBuilder(256);
+		methodInfo.append(req.getScheme().toUpperCase()).append(Strings.SLASH);
+		methodInfo.append(req.getMethod()).append(Strings.SPACE).append(req.getRequestURI());
 		String queryString = req.getQueryString();
 		if (queryString != null) {
-			sb.append(Strings.PLACEHOLDER).append(queryString);
+			methodInfo.append(Strings.PLACEHOLDER).append(queryString);
 		}
-		Cat.logEvent(type, CatConstants.TYPE_URL_METHOD, Message.SUCCESS, sb.toString());
+		Cat.logEvent(type, top? CatConstants.TYPE_URL_METHOD : CatConstants.TYPE_URL_FORWARD_METHOD,
+			Message.SUCCESS, methodInfo.toString());
+
+		// 请求头埋点
+		StringBuilder headerInfo = new StringBuilder(256);
+		Enumeration<String> headerNames = req.getHeaderNames();
+		int i = 0;
+		while (headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			if (includeHeaders.contains(headerName)) {
+				if (i > 0) {
+					headerInfo.append(Strings.AND);
+				}
+				headerInfo.append(headerName).append(Strings.EQ).append(req.getHeader(headerName));
+				i++;
+			}
+		}
+		if (headerInfo.length() > 0) {
+			Cat.logEvent(type, top? CatConstants.TYPE_URL_HEADER : CatConstants.TYPE_URL_FORWARD_HEADER,
+				Message.SUCCESS, headerInfo.toString());
+		}
+
+		// 请求体埋点
+		if (includeBody) {
+			Cat.logEvent(type, top? CatConstants.TYPE_URL_BODY : CatConstants.TYPE_URL_FORWARD_BODY,
+				Message.SUCCESS, JSONHelper.json().toJSONString(ServletUtils.toMap(req)));
+		}
 	}
 
 	private void logCatMessageId(HttpServletResponse res) {
-		if (TRACE_MODE.get()) {
+		if (traceMode) {
 			String id = Cat.getCurrentMessageId();
 			res.setHeader(CatConstants.X_CAT_ID, id);
 			res.setHeader(CatConstants.X_CAT_SERVER, getCatServer());

@@ -45,7 +45,11 @@ import java.util.Map;
 @Activate(group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}, order = -2)
 public class DubboCatTraceFilter implements Filter {
 
-	public static final String IN_JVM = "injvm";
+	private static final String IN_JVM = "injvm";
+
+	private static final String BIZ_ERROR = "BIZ_ERROR";
+	private static final String TIMEOUT = "TIMEOUT";
+	private static final String REMOTING_ERROR = "REMOTING_ERROR";
 
 	@Override
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -69,65 +73,27 @@ public class DubboCatTraceFilter implements Filter {
 		Transaction transaction = Cat.newTransaction(type, name);
 		Result result = null;
 		try {
-			Cat.Context context = initContext();
+			Cat.Context context = this.initContext();
 			if (isConsumerSide) {
-				addConsumerEvent(url, transaction);
+				this.addConsumerEvent(url);
 				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 			} else {
-				addProviderEvent(url, transaction);
+				this.addProviderEvent(url);
 				Cat.logRemoteCallServer(context);
 			}
-			setAttachment(context);
+			this.setAttachment(context);
 
 			result = invoker.invoke(invocation);
 			if (result.hasException()) {
 				Throwable throwable = result.getException();
-				Event event;
-				if (RpcException.class == throwable.getClass()) {
-					Throwable caseBy = throwable.getCause();
-					if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-						event = Cat.newEvent(isConsumerSide?
-							CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR : CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR, name);
-					} else {
-						event = Cat.newEvent(isConsumerSide?
-							CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
-					}
-				} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-					event = Cat.newEvent(isConsumerSide?
-						CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
-				} else {
-					event = Cat.newEvent(isConsumerSide?
-						CatConstants.TYPE_CONSUMER_BIZ_ERROR : CatConstants.TYPE_PROVIDER_BIZ_ERROR, name);
-				}
-				event.setStatus(throwable);
-				completeEvent(event);
-				transaction.addChild(event);
+				this.logRpcErrorEvent(throwable, isConsumerSide, name);
 				transaction.setStatus(result.getException().getClass().getSimpleName());
 			} else {
 				transaction.setStatus(Message.SUCCESS);
 			}
 			return result;
 		} catch (RuntimeException e) {
-			Event event;
-			if (RpcException.class == e.getClass()) {
-				Throwable caseBy = e.getCause();
-				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					event = Cat.newEvent(isConsumerSide?
-						CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR : CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR, name);
-				} else {
-					event = Cat.newEvent(isConsumerSide?
-						CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
-				}
-			} else if (RemotingException.class.isAssignableFrom(e.getClass())) {
-				event = Cat.newEvent(isConsumerSide?
-					CatConstants.TYPE_CONSUMER_REMOTING_ERROR : CatConstants.TYPE_PROVIDER_REMOTING_ERROR, name);
-			} else {
-				event = Cat.newEvent(isConsumerSide?
-					CatConstants.TYPE_CONSUMER_BIZ_ERROR : CatConstants.TYPE_PROVIDER_BIZ_ERROR, name);
-			}
-			event.setStatus(e);
-			completeEvent(event);
-			transaction.addChild(event);
+			this.logRpcErrorEvent(e, isConsumerSide, name);
 			transaction.setStatus(e.getClass().getSimpleName());
 			if (result == null) {
 				throw e;
@@ -140,48 +106,87 @@ public class DubboCatTraceFilter implements Filter {
 		}
 	}
 
+	private void logRpcErrorEvent(Throwable throwable, boolean isConsumerSide, String nameValuePairs) {
+		if (isConsumerSide) {
+			if (RpcException.class == throwable.getClass()) {
+				Throwable caseBy = throwable.getCause();
+				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
+					Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR,
+						TIMEOUT, nameValuePairs);
+				} else {
+					Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_REMOTING_ERROR,
+						REMOTING_ERROR, nameValuePairs);
+				}
+			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
+				Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_REMOTING_ERROR,
+					REMOTING_ERROR, nameValuePairs);
+			} else {
+				Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_BIZ_ERROR,
+					BIZ_ERROR, nameValuePairs);
+			}
+		} else {
+			if (RpcException.class == throwable.getClass()) {
+				Throwable caseBy = throwable.getCause();
+				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
+					Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR,
+						TIMEOUT, nameValuePairs);
+				} else {
+					Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_REMOTING_ERROR,
+						REMOTING_ERROR, nameValuePairs);
+				}
+			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
+				Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_REMOTING_ERROR,
+					REMOTING_ERROR, nameValuePairs);
+			} else {
+				Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_BIZ_ERROR,
+					BIZ_ERROR, nameValuePairs);
+			}
+		}
+	}
+
 	private Cat.Context initContext() {
 		Cat.Context context = TraceContext.getContext();
 		Map<String, String> attachments = RpcContext.getContext().getAttachments();
 		if (attachments != null && attachments.size() > 0) {
 			for (Map.Entry<String, String> entry : attachments.entrySet()) {
-				if (Cat.Context.CHILD.equals(entry.getKey()) ||
-					Cat.Context.ROOT.equals(entry.getKey()) ||
-					Cat.Context.PARENT.equals(entry.getKey())) {
-					context.addProperty(entry.getKey(), entry.getValue());
+				if (CatConstants.X_CAT_ID.equals(entry.getKey())) {
+					context.addProperty(Cat.Context.ROOT, entry.getValue());
+				} else if (CatConstants.X_CAT_CHILD_ID.equals(entry.getKey())) {
+					context.addProperty(Cat.Context.CHILD, entry.getValue());
+				} else if (CatConstants.X_CAT_PARENT_ID.equals(entry.getKey())) {
+					context.addProperty(Cat.Context.PARENT, entry.getValue());
 				}
 			}
 		}
 		return context;
 	}
 
-	private void addConsumerEvent(URL url, Transaction transaction) {
-		Event appEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_APP, RegistryFactoryWrapper.getProviderAppName(url));
-		appEvent.setStatus(Event.SUCCESS);
-		completeEvent(appEvent);
-		transaction.addChild(appEvent);
+	private void setAttachment(Cat.Context context) {
+		RpcContext.getContext().setAttachment(CatConstants.X_CAT_ID, context.getProperty(Cat.Context.ROOT));
+		RpcContext.getContext().setAttachment(CatConstants.X_CAT_CHILD_ID, context.getProperty(Cat.Context.CHILD));
+		RpcContext.getContext().setAttachment(CatConstants.X_CAT_PARENT_ID, context.getProperty(Cat.Context.PARENT));
 
-		Event hostEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_SERVER, url.getHost());
-		hostEvent.setStatus(Event.SUCCESS);
-		completeEvent(hostEvent);
-		transaction.addChild(hostEvent);
-
-		Event portEvent = Cat.newEvent(CatConstants.TYPE_CONSUMER_PORT, String.valueOf(url.getPort()));
-		portEvent.setStatus(Event.SUCCESS);
-		completeEvent(portEvent);
-		transaction.addChild(portEvent);
+		// 使用 Cat.Context.ROOT 作为链路ID
+		MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 	}
 
-	private void addProviderEvent(URL url, Transaction transaction) {
-		Event appEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_APP, getConsumerAppName());
-		appEvent.setStatus(Event.SUCCESS);
-		completeEvent(appEvent);
-		transaction.addChild(appEvent);
+	private void addConsumerEvent(URL url) {
+		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_APP,
+			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
 
-		Event hostEvent = Cat.newEvent(CatConstants.TYPE_PROVIDER_CLIENT, url.getHost());
-		hostEvent.setStatus(Event.SUCCESS);
-		completeEvent(hostEvent);
-		transaction.addChild(hostEvent);
+		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_SERVER,
+			Event.SUCCESS, url.getHost());
+
+		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_PORT,
+			Event.SUCCESS, String.valueOf(url.getPort()));
+	}
+
+	private void addProviderEvent(URL url) {
+		Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_APP,
+			Event.SUCCESS, getConsumerAppName());
+
+		Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_CLIENT,
+			Event.SUCCESS, url.getHost());
 	}
 
 	private String getConsumerAppName() {
@@ -190,15 +195,6 @@ public class DubboCatTraceFilter implements Filter {
 			appName = RpcContext.getContext().getRemoteHost() + ":" + RpcContext.getContext().getRemotePort();
 		}
 		return appName;
-	}
-
-	private void setAttachment(Cat.Context context) {
-		RpcContext.getContext().setAttachment(Cat.Context.ROOT, context.getProperty(Cat.Context.ROOT));
-		RpcContext.getContext().setAttachment(Cat.Context.CHILD, context.getProperty(Cat.Context.CHILD));
-		RpcContext.getContext().setAttachment(Cat.Context.PARENT, context.getProperty(Cat.Context.PARENT));
-
-		// 使用 Cat.Context.ROOT 作为链路ID
-		MDC.put(TraceContext.TRACE_ID, TraceContext.getTraceId());
 	}
 
 	private void completeEvent(Event event) {

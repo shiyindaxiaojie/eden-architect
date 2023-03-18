@@ -56,13 +56,13 @@ import java.util.Set;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-	private static final String EXCEPTION_HANDLER_CATCH = "ExceptionHandler catch error: {}";
+	private static final String EXCEPTION_HANDLER_CATCH = "@RestControllerAdvice catch exception: {}";
 
 	/**
 	 * HTTP 500 错误处理
 	 *
 	 * @param ex 服务器内部异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> resolveException(Exception ex) {
@@ -84,7 +84,7 @@ public class RestExceptionHandler {
 	 * HTTP 400 错误处理
 	 *
 	 * @param ex 方法参数校验无效异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> resolveValidationException(MethodArgumentNotValidException ex) {
@@ -99,7 +99,7 @@ public class RestExceptionHandler {
 	 * HTTP 405 错误处理
 	 *
 	 * @param ex 不支持的请求方法异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> resolveMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
@@ -111,7 +111,7 @@ public class RestExceptionHandler {
 	 * HTTP 400 错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<?> resolveBadRequestException(BadRequestException ex) {
@@ -122,7 +122,7 @@ public class RestExceptionHandler {
 	 * HTTP 401 错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResponseEntity<?> resolveUnauthorizedException(UnauthorizedException ex) {
@@ -133,7 +133,7 @@ public class RestExceptionHandler {
 	 * HTTP 403 错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(ForbiddenException.class)
 	public ResponseEntity<?> resolveForbiddenException(ForbiddenException ex) {
@@ -144,10 +144,11 @@ public class RestExceptionHandler {
 	 * 客户端错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<?> resolveClientException(ClientException ex) {
+		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
 		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
@@ -155,10 +156,11 @@ public class RestExceptionHandler {
 	 * 服务端错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(ServerException.class)
 	public ResponseEntity<?> resolveServerException(ServerException ex) {
+		log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
 		this.postProcess(ex);
 		return this.buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex);
 	}
@@ -167,10 +169,11 @@ public class RestExceptionHandler {
 	 * 第三方服务错误处理
 	 *
 	 * @param ex 异常
-	 * @return
+	 * @return 响应体
 	 */
 	@ExceptionHandler(ThirdServiceException.class)
 	public ResponseEntity<?> resolveThirdServiceException(ThirdServiceException ex) {
+		log.error(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
 		this.postProcess(ex);
 		return this.buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex);
 	}
@@ -189,9 +192,7 @@ public class RestExceptionHandler {
 		return this.buildResponseEntity(httpStatus, response);
 	}
 
-	private void postProcess(Throwable e) {
-		log.error(EXCEPTION_HANDLER_CATCH, e.getMessage(), e);
-
+	private void postProcess(Throwable ex) {
 		ExtensionLoader<RestExceptionPostProcessor> extensionLoader =
 			ExtensionLoader.getExtensionLoader(RestExceptionPostProcessor.class);
 		Set<String> extensions = extensionLoader.getSupportedExtensions();
@@ -200,7 +201,7 @@ public class RestExceptionHandler {
 			HttpServletResponse response = RequestUtils.getResponse();
 			for (String extension : extensions) {
 				RestExceptionPostProcessor processor = extensionLoader.getExtension(extension);
-				processor.postProcess(request, response, e);
+				processor.postProcess(request, response, ex);
 			}
 		}
 	}

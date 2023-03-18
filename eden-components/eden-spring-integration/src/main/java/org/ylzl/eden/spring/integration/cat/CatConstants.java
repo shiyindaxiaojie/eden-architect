@@ -46,20 +46,29 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// 参考 com.dianping.cat.consumer.matrix.MessageAnalyzer
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer
 	public static final String TYPE_URL = com.dianping.cat.CatConstants.TYPE_URL;
-	public static final String TYPE_URL_FORWARD = com.dianping.cat.CatConstants.TYPE_URL_FORWARD;
 	public static final String TYPE_URL_SERVER = TYPE_URL + ".Server";
 	public static final String TYPE_URL_METHOD = TYPE_URL + ".Method";
+	public static final String TYPE_URL_HEADER = TYPE_URL + ".Header";
+	public static final String TYPE_URL_BODY = TYPE_URL + ".Body";
+	public static final String TYPE_URL_FORWARD = com.dianping.cat.CatConstants.TYPE_URL_FORWARD;
+	public static final String TYPE_URL_FORWARD_METHOD = TYPE_URL_FORWARD + ".Method";
+	public static final String TYPE_URL_FORWARD_HEADER = TYPE_URL_FORWARD + ".Header";
+	public static final String TYPE_URL_FORWARD_BODY = TYPE_URL_FORWARD + ".Body";
+	public final static String TYPE_URL_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
+	public final static String TYPE_URL_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
+	public final static String TYPE_URL_REDIRECTION_ERROR = TYPE_PROVIDER + ".redirection.error";
+	public final static String TYPE_URL_CLIENT_ERROR = TYPE_PROVIDER + ".client.error";
+	public final static String TYPE_URL_SERVER_ERROR = TYPE_PROVIDER + ".server.error";
 
 	// Trace
 	// 自定义链路传递参数
 	public static final String X_FORWARDED_FOR = "x-forwarded-for";
-	public static final String X_CAT_TRACE_MODE = "X-CAT-TRACE-MODE";
-	public static final String X_CAT_SOURCE = "X-CAT-SOURCE";
-	public static final String X_CAT_ID = "X-CAT-ID";
-	public static final String X_CAT_ROOT_ID = "X-CAT-ROOT-ID";
-	public static final String X_CAT_PARENT_ID = "X-CAT-PARENT-ID";
-	public static final String X_CAT_SERVER = "X-CAT-SERVER";
-	public static final String SOURCE_CONTAINER ="container";
+	public static final String X_CAT_TRACE_MODE = "x-cat-trace-mode";
+	public static final String X_CAT_SOURCE = "x-cat-source";
+	public static final String X_CAT_ID = "x-cat-id";
+	public static final String X_CAT_CHILD_ID = "x-cat-child-id";
+	public static final String X_CAT_PARENT_ID = "x-cat-parent-id";
+	public static final String X_CAT_SERVER = "x-cat-server";
 
 	// Rewrite CatFilter
 	public static final String CAT_STATE = com.dianping.cat.CatConstants.CAT_STATE;

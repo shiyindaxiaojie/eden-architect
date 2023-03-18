@@ -45,7 +45,23 @@ public class EasyExcelWriterBuilder extends AbstractExcelWriterBuilder implement
 		return new EasyExcelWriter(EasyExcel.write()
 			.registerConverter(LocalDateConverter.INSTANCE)
 			.registerConverter(LocalDateTimeConverter.INSTANCE)
-			.excelType(ExcelTypeEnum.valueOf(excelType.getValue()))
+			.excelType(this.valueOf(excelType))
 			.inMemory(inMemory));
+	}
+
+	/**
+	 * 枚举转换
+	 *
+	 * @param excelType 文件类型
+	 * @return EasyExcel 枚举
+	 */
+	private ExcelTypeEnum valueOf(ExcelType excelType) {
+		switch (excelType) {
+			case CSV:
+				return ExcelTypeEnum.CSV;
+			case XLS:
+				return ExcelTypeEnum.XLS;
+		}
+		return ExcelTypeEnum.XLSX;
 	}
 }

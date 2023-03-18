@@ -16,30 +16,24 @@
 
 package org.ylzl.eden.common.excel
 
-import org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
-import org.ylzl.eden.commons.io.ResourceUtils
 import org.ylzl.eden.common.excel.support.ExcelHelper
 import spock.lang.Specification
 
-class ExcelReaderTest extends Specification {
+class ExcelWriterTest extends Specification {
 
-	def "test read excel"() {
+    List<TestCase> cases = new ArrayList<>()
+
+	def setup() {
+		cases.add(TestCase.builder().chineseName("test1").build())
+		cases.add(TestCase.builder().chineseName("test2").build())
+		cases.add(TestCase.builder().chineseName("test3").build())
+	}
+
+	def "test write excel"() {
 		when:
-		try (
-			InputStream is = ResourceUtils.getInputStreamFromResource("test/test-case.xlsx")
-		) {
-			assert is != null
-			PersistenceExcelReadListener<TestCase> listener = new PersistenceExcelReadListener<TestCase>() {
+		File file = new File("target/test.xlsx")
 
-				@Override
-				void batchSaveData(List<TestCase> data) {
-					println("Batch save data: " + data)
-				}
-			}
-			listener.setBatchSize(5)
-			ExcelHelper.reader().read(is, TestCase.class, listener)
-			println("Batch save data validated errors: " + listener.getErrors())
-		}
+		ExcelHelper.writer().write(file, cases, TestCase.class)
 
 		then:
 		notThrown(Exception)

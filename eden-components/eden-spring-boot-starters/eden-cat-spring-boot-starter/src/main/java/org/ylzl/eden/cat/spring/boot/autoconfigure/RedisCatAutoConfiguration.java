@@ -24,7 +24,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAspect;
 
@@ -47,7 +46,6 @@ public class RedisCatAutoConfiguration {
 
 	private static final String AUTOWIRED_REDIS_TEMPLATE_CAT_ASPECT = "Autowired RedisTemplateCatAspect";
 
-	@DependsOn("catAutoConfiguration")
 	@Bean
 	public RedisTemplateCatAspect redisTemplateCatAspect() {
 		log.debug(AUTOWIRED_REDIS_TEMPLATE_CAT_ASPECT);
