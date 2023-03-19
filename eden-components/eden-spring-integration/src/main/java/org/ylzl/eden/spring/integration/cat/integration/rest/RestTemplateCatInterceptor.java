@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 /**
- * RestTemplate 链路过滤器
+ * RestTemplate 切入 CAT 埋点
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13

@@ -57,7 +57,7 @@ public class CatClient {
 		} catch (Exception e) {
 			Cat.logError(e);
 			if (e.getMessage() != null) {
-				Cat.logEvent(type + "." + name + ".error", e.getMessage());
+				Cat.logEvent(type + "." + name + ".Error", e.getMessage());
 			}
 			transaction.setStatus(e);
 			throw e;
@@ -98,7 +98,7 @@ public class CatClient {
 		} catch (Exception e) {
 			Cat.logError(e);
 			if (e.getMessage() != null) {
-				Cat.logEvent(type + "." + name + ".error", e.getMessage());
+				Cat.logEvent(type + "." + name + ".Error", e.getMessage());
 			}
 			transaction.setStatus(e);
 			throw e;
