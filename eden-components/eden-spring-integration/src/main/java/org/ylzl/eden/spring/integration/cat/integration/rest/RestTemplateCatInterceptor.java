@@ -66,6 +66,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 		ClientHttpResponse response;
 		String url = getUrl(req);
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_URL, url);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_REST_TEMPLATE);
 		try {
 			Cat.Context context = TraceContext.getContext();
 			this.logRequestClientInfo(req);

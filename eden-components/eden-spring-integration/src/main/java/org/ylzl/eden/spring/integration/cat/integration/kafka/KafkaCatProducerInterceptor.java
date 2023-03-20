@@ -19,7 +19,9 @@ package org.ylzl.eden.spring.integration.cat.integration.kafka;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,4 +51,6 @@ public class KafkaCatProducerInterceptor<K, V> implements ProducerInterceptor<K,
 	public void configure(Map<String, ?> configs) {
 
 	}
+
+
 }

@@ -29,6 +29,7 @@ import org.apache.dubbo.remoting.TimeoutException;
 import org.apache.dubbo.rpc.*;
 import org.slf4j.MDC;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper;
@@ -69,8 +70,11 @@ public class DubboCatTraceFilter implements Filter {
 
 		// 开启 Transaction
 		String type = isConsumerSide ? CatConstants.TYPE_RPC_PROVIDER : CatConstants.TYPE_MQ_CONSUMER;
-		String name = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
+		String name = invoker.getInterface().getSimpleName() + Strings.DOT + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
+		transaction.addData(CatConstants.DATA_VERSION, url.getVersion());
+		transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
 		Result result = null;
 		try {
 			Cat.Context context = this.initContext();
@@ -174,34 +178,28 @@ public class DubboCatTraceFilter implements Filter {
 		Cat.logEvent(CatConstants.TYPE_RPC_CONSUMER, CatConstants.TYPE_RPC_CONSUMER_APP,
 			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
 
-		Cat.logEvent(CatConstants.TYPE_RPC_CONSUMER, CatConstants.TYPE_RPC_CONSUMER_SERVER,
+		Cat.logEvent(CatConstants.TYPE_RPC_CONSUMER, CatConstants.TYPE_RPC_CONSUMER_HOST,
 			Event.SUCCESS, url.getHost());
 
 		Cat.logEvent(CatConstants.TYPE_RPC_CONSUMER, CatConstants.TYPE_RPC_CONSUMER_PORT,
 			Event.SUCCESS, String.valueOf(url.getPort()));
-
-		Cat.logEvent(CatConstants.TYPE_RPC_CONSUMER, CatConstants.TYPE_RPC_CONSUMER_PROTOCOL,
-			Event.SUCCESS, url.getProtocol());
 	}
 
 	private void addProviderEvent(URL url) {
 		Cat.logEvent(CatConstants.TYPE_RPC_PROVIDER, CatConstants.TYPE_RPC_PROVIDER_APP,
 			Event.SUCCESS, getConsumerAppName());
 
-		Cat.logEvent(CatConstants.TYPE_RPC_PROVIDER, CatConstants.TYPE_RPC_PROVIDER_CLIENT,
+		Cat.logEvent(CatConstants.TYPE_RPC_PROVIDER, CatConstants.TYPE_RPC_PROVIDER_HOST,
 			Event.SUCCESS, url.getHost());
 
 		Cat.logEvent(CatConstants.TYPE_RPC_PROVIDER, CatConstants.TYPE_RPC_PROVIDER_PORT,
 			Event.SUCCESS, String.valueOf(url.getPort()));
-
-		Cat.logEvent(CatConstants.TYPE_RPC_PROVIDER, CatConstants.TYPE_RPC_PROVIDER_PROTOCOL,
-			Event.SUCCESS, url.getProtocol());
 	}
 
 	private String getConsumerAppName() {
 		String appName = RpcContext.getContext().getAttachment(CommonConstants.APPLICATION_KEY);
 		if (StringUtils.isBlank(appName)) {
-			appName = RpcContext.getContext().getRemoteHost() + ":" + RpcContext.getContext().getRemotePort();
+			appName = RpcContext.getContext().getRemoteHost() + Strings.COLON + RpcContext.getContext().getRemotePort();
 		}
 		return appName;
 	}

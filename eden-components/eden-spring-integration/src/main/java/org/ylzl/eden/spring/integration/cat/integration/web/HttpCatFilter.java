@@ -155,6 +155,7 @@ public class HttpCatFilter extends CatFilter {
 		}
 
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
+
 		try {
 			Cat.Context context = initContext(req);
 			logPayload(req, top, type);

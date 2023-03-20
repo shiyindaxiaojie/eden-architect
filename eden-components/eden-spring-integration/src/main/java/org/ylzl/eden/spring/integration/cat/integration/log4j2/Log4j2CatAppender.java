@@ -17,6 +17,7 @@ import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.util.Booleans;
 import org.ylzl.eden.commons.env.Charsets;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 import java.io.Serializable;
@@ -32,8 +33,6 @@ import java.io.UnsupportedEncodingException;
 public class Log4j2CatAppender extends AbstractAppender {
 
 	public static final String NAME = "CAT";
-
-	public static final String TYPE = "Log4j2";
 
 	private final Level level;
 
@@ -91,7 +90,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 			data = layout.toByteArray(event);
 		}
 		String message = new String(data, Charsets.UTF_8_NAME);
-		Cat.logEvent(TYPE, event.getLevel().name(), Message.SUCCESS, message);
+		Cat.logEvent(CatConstants.TYPE_LOG_LOG4J2, event.getLevel().name(), Message.SUCCESS, message);
 	}
 
 	@PluginFactory
