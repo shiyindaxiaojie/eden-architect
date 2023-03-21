@@ -32,21 +32,21 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// RPC
 	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
 	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
-	public final static String TYPE_RPC_PROVIDER = "RpcProvider";
-	public final static String TYPE_RPC_PROVIDER_APP = TYPE_RPC_PROVIDER + ".App";
-	public final static String TYPE_RPC_PROVIDER_HOST = TYPE_RPC_PROVIDER + ".Host";
-	public final static String TYPE_RPC_PROVIDER_PORT = TYPE_RPC_PROVIDER + ".Port";
-	public final static String TYPE_RPC_PROVIDER_BIZ_ERROR = TYPE_RPC_PROVIDER + ".BizError";
-	public final static String TYPE_RPC_PROVIDER_TIMEOUT_ERROR = TYPE_RPC_PROVIDER + ".TimeoutError";
-	public final static String TYPE_RPC_PROVIDER_REMOTING_ERROR = TYPE_RPC_PROVIDER + ".RemotingError";
+	public final static String TYPE_RPC_CALL = "RpcCall";
+	public final static String TYPE_RPC_CALL_APP = TYPE_RPC_CALL + ".App";
+	public final static String TYPE_RPC_CALL_HOST = TYPE_RPC_CALL + ".Host";
+	public final static String TYPE_RPC_CALL_PORT = TYPE_RPC_CALL + ".Port";
+	public final static String TYPE_RPC_CALL_BIZ_ERROR = TYPE_RPC_CALL + ".BizError";
+	public final static String TYPE_RPC_CALL_TIMEOUT_ERROR = TYPE_RPC_CALL + ".TimeoutError";
+	public final static String TYPE_RPC_CALL_REMOTING_ERROR = TYPE_RPC_CALL + ".RemotingError";
 
-	public final static String TYPE_RPC_CONSUMER = "RpcConsumer";
-	public final static String TYPE_RPC_CONSUMER_APP = TYPE_RPC_CONSUMER + ".App";
-	public final static String TYPE_RPC_CONSUMER_HOST = TYPE_RPC_CONSUMER + ".Host";
-	public final static String TYPE_RPC_CONSUMER_PORT = TYPE_RPC_CONSUMER + ".Port";
-	public final static String TYPE_RPC_CONSUMER_BIZ_ERROR = TYPE_RPC_PROVIDER + ".BizError";
-	public final static String TYPE_RPC_CONSUMER_TIMEOUT_ERROR = TYPE_RPC_PROVIDER + ".TimeoutError";
-	public final static String TYPE_RPC_CONSUMER_REMOTING_ERROR = TYPE_RPC_PROVIDER + ".RemotingError";
+	public final static String TYPE_RPC_SERVICE = "RpcService";
+	public final static String TYPE_RPC_SERVICE_APP = TYPE_RPC_SERVICE + ".App";
+	public final static String TYPE_RPC_SERVICE_HOST = TYPE_RPC_SERVICE + ".Host";
+	public final static String TYPE_RPC_SERVICE_PORT = TYPE_RPC_SERVICE + ".Port";
+	public final static String TYPE_RPC_SERVICE_BIZ_ERROR = TYPE_RPC_SERVICE + ".BizError";
+	public final static String TYPE_RPC_SERVICE_TIMEOUT_ERROR = TYPE_RPC_SERVICE + ".TimeoutError";
+	public final static String TYPE_RPC_SERVICE_REMOTING_ERROR = TYPE_RPC_SERVICE + ".RemotingError";
 
 	// SQL
 	// 参考 com.dianping.cat.consumer.storage.builder.StorageSQLBuilder
