@@ -79,10 +79,10 @@ public class DubboCatTraceFilter implements Filter {
 		try {
 			Cat.Context context = this.initContext();
 			if (isConsumerSide) {
-				this.addProviderEvent(url);
+				this.addConsumerEvent(url);
 				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 			} else {
-				this.addConsumerEvent(url);
+				this.addProviderEvent(url);
 				Cat.logRemoteCallServer(context);
 			}
 			this.setAttachment(context);

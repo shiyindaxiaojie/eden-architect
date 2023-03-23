@@ -74,7 +74,7 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// 附加数据
 	public static final String DATA_VERSION = "version";
 	public static final String DATA_COMPONENT = "component";
-	public static final String DATA_PROTOCOL = "Protocol";
+	public static final String DATA_PROTOCOL = "protocol";
 	public static final String DATA_COMPONENT_DUBBO = "Dubbo";
 	public static final String DATA_COMPONENT_REST_TEMPLATE = "RestTemplate";
 	public static final String DATA_COMPONENT_FEIGN = "Feign";
