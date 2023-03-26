@@ -26,6 +26,7 @@ import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.client.trace.AsyncTraceDispatcher;
 import org.apache.rocketmq.client.trace.TraceContext;
 import org.apache.rocketmq.client.trace.TraceDispatcher;
+import org.apache.rocketmq.common.protocol.NamespaceUtil;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 /**
@@ -49,17 +50,17 @@ public class RocketMQCatSendMessageHook implements SendMessageHook {
 
 	@Override
 	public void sendMessageBefore(SendMessageContext context) {
-		//if it is message trace data,then it doesn't recorded
 		if (context == null || context.getMessage().getTopic().startsWith(((AsyncTraceDispatcher) localDispatcher).getTraceTopicName())) {
 			return;
 		}
 
-		context.setMqTraceContext(new TraceContext()); // 默认初始化时间戳
+		TraceContext traceContext = new TraceContext();
+		traceContext.setTimeStamp(System.currentTimeMillis());
+		context.setMqTraceContext(traceContext);
 	}
 
 	@Override
 	public void sendMessageAfter(SendMessageContext context) {
-		//if it is message trace data,then it doesn't recorded
 		if (context == null || context.getMessage().getTopic().startsWith(((AsyncTraceDispatcher) localDispatcher).getTraceTopicName())
 			|| context.getMqTraceContext() == null) {
 			return;
@@ -67,25 +68,27 @@ public class RocketMQCatSendMessageHook implements SendMessageHook {
 		if (context.getSendResult() == null) {
 			return;
 		}
-		if (context.getSendResult().getRegionId() == null || !context.getSendResult().isTraceOn()) {
-			// if switch is false,skip it
-			return;
-		}
 
-		TraceContext tuxeContext = (TraceContext) context.getMqTraceContext();
-		long costTime = System.currentTimeMillis() - tuxeContext.getTimeStamp();
+		TraceContext traceContext = (TraceContext) context.getMqTraceContext();
+		long costTime = System.currentTimeMillis() - traceContext.getTimeStamp();
 
-		String name = context.getNamespace() + context.getMessage().getTopic();
+		String name = NamespaceUtil.withoutNamespace(context.getMq().getTopic());
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
 		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
 		transaction.setDurationInMillis(costTime);
+
+		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_NAMESPACE, context.getNamespace());
+		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_BROKER, context.getBrokerAddr());
+		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_GROUP, NamespaceUtil.withoutNamespace(context.getProducerGroup()));
+
 		if (context.getSendResult().getSendStatus().equals(SendStatus.SEND_OK)) {
 			transaction.setSuccessStatus();
 		} else {
 			transaction.setStatus(context.getSendResult().getSendStatus().name());
 		}
-		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_TOPIC, context.getMq().getTopic());
-		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_ADDR, context.getBrokerAddr());
+		if (context.getException() != null) {
+			Cat.logError(context.getException());
+		}
 		transaction.complete();
 	}
 }

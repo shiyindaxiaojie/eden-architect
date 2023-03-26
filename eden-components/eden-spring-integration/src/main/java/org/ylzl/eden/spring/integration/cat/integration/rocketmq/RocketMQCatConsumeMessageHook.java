@@ -16,9 +16,16 @@
 
 package org.ylzl.eden.spring.integration.cat.integration.rocketmq;
 
+import com.dianping.cat.Cat;
+import com.dianping.cat.message.Transaction;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.hook.ConsumeMessageContext;
 import org.apache.rocketmq.client.hook.ConsumeMessageHook;
+import org.apache.rocketmq.client.trace.TraceContext;
+import org.apache.rocketmq.client.trace.TraceDispatcher;
+import org.apache.rocketmq.common.protocol.NamespaceUtil;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 /**
  * RocketMQ 消费消息切入 CAT 埋点
@@ -26,10 +33,13 @@ import org.apache.rocketmq.client.hook.ConsumeMessageHook;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 public class RocketMQCatConsumeMessageHook implements ConsumeMessageHook {
 
 	public static final String HOOK = "RocketMQCatConsumeMessageHook";
+
+	private final TraceDispatcher localDispatcher;
 
 	@Override
 	public String hookName() {
@@ -38,10 +48,38 @@ public class RocketMQCatConsumeMessageHook implements ConsumeMessageHook {
 
 	@Override
 	public void consumeMessageBefore(ConsumeMessageContext context) {
+		if (context == null || context.getMsgList() == null || context.getMsgList().isEmpty()) {
+			return;
+		}
 
+		TraceContext traceContext = new TraceContext();
+		traceContext.setTimeStamp(System.currentTimeMillis());
+		context.setMqTraceContext(traceContext);
 	}
 
 	@Override
 	public void consumeMessageAfter(ConsumeMessageContext context) {
+		if (context == null || context.getMsgList() == null || context.getMsgList().isEmpty()) {
+			return;
+		}
+
+		TraceContext traceContext = (TraceContext) context.getMqTraceContext();
+		long costTime = (System.currentTimeMillis() - traceContext.getTimeStamp()) / context.getMsgList().size();
+
+		String name = NamespaceUtil.withoutNamespace(context.getMq().getTopic());
+		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
+		transaction.setDurationInMillis(costTime);
+
+		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_NAMESPACE, context.getNamespace());
+		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_BROKER, context.getMq().getBrokerName());
+		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_GROUP, NamespaceUtil.withoutNamespace(context.getConsumerGroup()));
+
+		if (context.isSuccess()) {
+			transaction.setSuccessStatus();
+		} else {
+			transaction.setStatus(context.getStatus());
+		}
+		transaction.complete();
 	}
 }

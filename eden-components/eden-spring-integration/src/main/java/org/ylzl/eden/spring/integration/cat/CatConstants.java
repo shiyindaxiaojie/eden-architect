@@ -62,11 +62,13 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 
 	// MQ
 	public final static String TYPE_MQ_PRODUCER = "MQProducer";
-	public final static String TYPE_MQ_PRODUCER_TOPIC = TYPE_MQ_PRODUCER + ".Topic";
-	public final static String TYPE_MQ_PRODUCER_ADDR = TYPE_MQ_PRODUCER + ".Addr";
+	public final static String TYPE_MQ_PRODUCER_NAMESPACE = TYPE_MQ_PRODUCER + ".Namespace";
+	public final static String TYPE_MQ_PRODUCER_BROKER = TYPE_MQ_PRODUCER + ".Broker";
+	public final static String TYPE_MQ_PRODUCER_GROUP = TYPE_MQ_PRODUCER + ".Group";
 	public final static String TYPE_MQ_CONSUMER = "MQConsumer";
-	public final static String TYPE_MQ_CONSUMER_TOPIC = TYPE_MQ_CONSUMER + ".Topic";
-	public final static String TYPE_MQ_CONSUMER_ADDR = TYPE_MQ_CONSUMER + ".Addr";
+	public final static String TYPE_MQ_CONSUMER_NAMESPACE = TYPE_MQ_CONSUMER + ".Namespace";
+	public final static String TYPE_MQ_CONSUMER_BROKER = TYPE_MQ_CONSUMER + ".Broker";
+	public final static String TYPE_MQ_CONSUMER_GROUP = TYPE_MQ_CONSUMER + ".Group";
 
 	// Log
 	public static final String TYPE_LOG_LOG4J2 = "Log4j2";
