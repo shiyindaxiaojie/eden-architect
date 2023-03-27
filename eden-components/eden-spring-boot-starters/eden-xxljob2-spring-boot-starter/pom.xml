@@ -34,11 +34,11 @@
 	<dependencies>
 		<!-- 开发框架 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
