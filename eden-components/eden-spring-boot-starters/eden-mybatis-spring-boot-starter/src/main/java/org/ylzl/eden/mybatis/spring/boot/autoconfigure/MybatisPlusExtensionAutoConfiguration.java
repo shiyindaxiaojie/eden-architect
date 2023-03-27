@@ -59,7 +59,7 @@ public class MybatisPlusExtensionAutoConfiguration {
 	@Bean
 	public MetaObjectHandler metaObjectHandler(MybatisPlusExtensionProperties properties) {
 		log.debug(AUTOWIRED_META_OBJECT_HANDLER);
-		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreateDateFieldName(),
+		return new AutofillMetaObjectHandler(properties.getAutoFill().getCreatedDateFieldName(),
 			properties.getAutoFill().getLastModifiedDateFieldName());
 	}
 }

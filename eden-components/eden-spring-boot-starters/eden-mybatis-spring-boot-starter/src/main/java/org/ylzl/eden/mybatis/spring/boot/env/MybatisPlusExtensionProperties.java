@@ -40,7 +40,7 @@ public class MybatisPlusExtensionProperties {
 
 		private boolean enabled = true;
 
-		private String createDateFieldName = "create_date";
+		private String createdDateFieldName = "created_date";
 
 		private String lastModifiedDateFieldName = "last_modified_date";
 	}

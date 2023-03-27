@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 /**
- * RestTemplate 链路过滤器
+ * RestTemplate 切入 CAT 埋点
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -66,6 +66,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 		ClientHttpResponse response;
 		String url = getUrl(req);
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_URL, url);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_REST_TEMPLATE);
 		try {
 			Cat.Context context = TraceContext.getContext();
 			this.logRequestClientInfo(req);

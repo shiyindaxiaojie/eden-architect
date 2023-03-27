@@ -47,7 +47,9 @@ public class MybatisCatInterceptor implements Interceptor {
 	public Object intercept(Invocation invocation) throws Throwable {
 		MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
 		String methodName = MybatisUtils.getMethodName(mappedStatement);
+
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_SQL, methodName);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_MYBATIS);
 
 		String dataSourceUrl = MybatisUtils.getDatabaseUrl(mappedStatement);
 		if (dataSourceUrl != null && dataSourceUrl.contains(Strings.PLACEHOLDER)) {

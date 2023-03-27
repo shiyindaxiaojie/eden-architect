@@ -11,38 +11,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CatConstants extends com.dianping.cat.CatConstants {
 
-	// Dubbo
-	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
-	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
-	public final static String TYPE_PROVIDER = "RPC.Service";
-	public final static String TYPE_PROVIDER_APP = TYPE_PROVIDER + ".app";
-	public final static String TYPE_PROVIDER_CLIENT = TYPE_PROVIDER + ".client";
-	public final static String TYPE_PROVIDER_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
-	public final static String TYPE_PROVIDER_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
-	public final static String TYPE_PROVIDER_REMOTING_ERROR = TYPE_PROVIDER + ".remoting.error";
-	public final static String TYPE_CONSUMER = "RPC.Call";
-	public final static String TYPE_CONSUMER_APP = TYPE_CONSUMER + ".app";
-	public final static String TYPE_CONSUMER_SERVER = TYPE_CONSUMER + ".server";
-	public final static String TYPE_CONSUMER_PORT = TYPE_CONSUMER + ".port";
-	public final static String TYPE_CONSUMER_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
-	public final static String TYPE_CONSUMER_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
-	public final static String TYPE_CONSUMER_REMOTING_ERROR = TYPE_PROVIDER + ".remoting.error";
-
-	// SQL
-	// 参考 com.dianping.cat.consumer.storage.builder.StorageSQLBuilder
-	public static final String TYPE_SQL = com.dianping.cat.CatConstants.TYPE_SQL;
-	public static final String TYPE_SQL_DATABASE = "SQL.Database";
-	public static final String TYPE_SQL_METHOD = "SQL.Method";
-
-	// Cache
-	// 参考 com.dianping.cat.consumer.storage.builder.StorageCacheBuilder
-	public static final String TYPE_CACHE = "Cache";
-	public static final String TYPE_CACHE_SERVER = TYPE_CACHE + ".server";
-	public static final String TYPE_CACHE_REDIS = TYPE_CACHE + ".Redis";
-	public static final String TYPE_CACHE_CAFFEINE = TYPE_CACHE + ".Caffeine";
-	public static final String TYPE_CACHE_GUAVA = TYPE_CACHE + ".Guava";
-
-	// Http
+	// HTTP
 	// 参考 com.dianping.cat.consumer.matrix.MessageAnalyzer
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer
 	public static final String TYPE_URL = com.dianping.cat.CatConstants.TYPE_URL;
@@ -54,17 +23,74 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	public static final String TYPE_URL_FORWARD_METHOD = TYPE_URL_FORWARD + ".Method";
 	public static final String TYPE_URL_FORWARD_HEADER = TYPE_URL_FORWARD + ".Header";
 	public static final String TYPE_URL_FORWARD_BODY = TYPE_URL_FORWARD + ".Body";
-	public final static String TYPE_URL_BIZ_ERROR = TYPE_PROVIDER + ".biz.error";
-	public final static String TYPE_URL_TIMEOUT_ERROR = TYPE_PROVIDER + ".timeout.error";
-	public final static String TYPE_URL_REDIRECTION_ERROR = TYPE_PROVIDER + ".redirection.error";
-	public final static String TYPE_URL_CLIENT_ERROR = TYPE_PROVIDER + ".client.error";
-	public final static String TYPE_URL_SERVER_ERROR = TYPE_PROVIDER + ".server.error";
+	public final static String TYPE_URL_BIZ_ERROR = TYPE_URL + ".BizError";
+	public final static String TYPE_URL_TIMEOUT_ERROR = TYPE_URL + ".TimeoutError";
+	public final static String TYPE_URL_REDIRECTION_ERROR = TYPE_URL + ".RedirectionError";
+	public final static String TYPE_URL_CLIENT_ERROR = TYPE_URL + ".ClientError";
+	public final static String TYPE_URL_SERVER_ERROR = TYPE_URL + ".ServerError";
+
+	// RPC
+	// 参考：com.dianping.cat.consumer.storage.builder.StorageRPCBuilder
+	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
+	public final static String TYPE_RPC_CALL = "RpcCall";
+	public final static String TYPE_RPC_CALL_APP = TYPE_RPC_CALL + ".App";
+	public final static String TYPE_RPC_CALL_HOST = TYPE_RPC_CALL + ".Host";
+	public final static String TYPE_RPC_CALL_PORT = TYPE_RPC_CALL + ".Port";
+	public final static String TYPE_RPC_CALL_BIZ_ERROR = TYPE_RPC_CALL + ".BizError";
+	public final static String TYPE_RPC_CALL_TIMEOUT_ERROR = TYPE_RPC_CALL + ".TimeoutError";
+	public final static String TYPE_RPC_CALL_REMOTING_ERROR = TYPE_RPC_CALL + ".RemotingError";
+
+	public final static String TYPE_RPC_SERVICE = "RpcService";
+	public final static String TYPE_RPC_SERVICE_APP = TYPE_RPC_SERVICE + ".App";
+	public final static String TYPE_RPC_SERVICE_HOST = TYPE_RPC_SERVICE + ".Host";
+	public final static String TYPE_RPC_SERVICE_PORT = TYPE_RPC_SERVICE + ".Port";
+	public final static String TYPE_RPC_SERVICE_BIZ_ERROR = TYPE_RPC_SERVICE + ".BizError";
+	public final static String TYPE_RPC_SERVICE_TIMEOUT_ERROR = TYPE_RPC_SERVICE + ".TimeoutError";
+	public final static String TYPE_RPC_SERVICE_REMOTING_ERROR = TYPE_RPC_SERVICE + ".RemotingError";
+
+	// SQL
+	// 参考 com.dianping.cat.consumer.storage.builder.StorageSQLBuilder
+	public static final String TYPE_SQL = com.dianping.cat.CatConstants.TYPE_SQL;
+	public static final String TYPE_SQL_DATABASE = TYPE_SQL + ".Database";
+	public static final String TYPE_SQL_METHOD = TYPE_SQL + ".Method";
+
+	// Cache
+	// 参考 com.dianping.cat.consumer.storage.builder.StorageCacheBuilder
+	public static final String TYPE_CACHE = "Cache";
+	public static final String TYPE_CACHE_REDIS = TYPE_CACHE + ".Redis";
+	public static final String TYPE_CACHE_DATABASE = TYPE_CACHE + ".Database";
+
+	// MQ
+	public final static String TYPE_MQ_PRODUCER = "MQProducer";
+	public final static String TYPE_MQ_PRODUCER_NAMESPACE = TYPE_MQ_PRODUCER + ".Namespace";
+	public final static String TYPE_MQ_PRODUCER_BROKER = TYPE_MQ_PRODUCER + ".Broker";
+	public final static String TYPE_MQ_PRODUCER_GROUP = TYPE_MQ_PRODUCER + ".Group";
+	public final static String TYPE_MQ_CONSUMER = "MQConsumer";
+	public final static String TYPE_MQ_CONSUMER_NAMESPACE = TYPE_MQ_CONSUMER + ".Namespace";
+	public final static String TYPE_MQ_CONSUMER_BROKER = TYPE_MQ_CONSUMER + ".Broker";
+	public final static String TYPE_MQ_CONSUMER_GROUP = TYPE_MQ_CONSUMER + ".Group";
+
+	// Log
+	public static final String TYPE_LOG_LOG4J2 = "Log4j2";
+
+	// 附加数据
+	public static final String DATA_VERSION = "version";
+	public static final String DATA_COMPONENT = "component";
+	public static final String DATA_PROTOCOL = "protocol";
+	public static final String DATA_COMPONENT_DUBBO = "Dubbo";
+	public static final String DATA_COMPONENT_REST_TEMPLATE = "RestTemplate";
+	public static final String DATA_COMPONENT_FEIGN = "Feign";
+	public static final String DATA_COMPONENT_MYBATIS = "Mybatis";
+	public static final String DATA_COMPONENT_REDIS = "Redis";
+	public static final String DATA_COMPONENT_CAFFEINE = "Caffeine";
+	public static final String DATA_COMPONENT_GUAVA = "Guava";
+	public static final String DATA_COMPONENT_KAFKA = "Kafka";
+	public static final String DATA_COMPONENT_ROCKETMQ = "RocketMQ";
 
 	// Trace
 	// 自定义链路传递参数
 	public static final String X_FORWARDED_FOR = "x-forwarded-for";
 	public static final String X_CAT_TRACE_MODE = "x-cat-trace-mode";
-	public static final String X_CAT_SOURCE = "x-cat-source";
 	public static final String X_CAT_ID = "x-cat-id";
 	public static final String X_CAT_CHILD_ID = "x-cat-child-id";
 	public static final String X_CAT_PARENT_ID = "x-cat-parent-id";

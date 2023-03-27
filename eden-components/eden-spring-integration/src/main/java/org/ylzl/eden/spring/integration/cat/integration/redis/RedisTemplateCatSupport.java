@@ -40,12 +40,13 @@ public class RedisTemplateCatSupport {
 	private static final String KEYS = "keys";
 
 	public static void execute(String command, Runnable runnable) {
-		Map<String, Object> data = new HashMap<>(1);
 		if (!CatState.isInitialized()) {
 			runnable.run();
 			return;
 		}
-		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
+
+		Map<String, Object> data = initData(1);
+		CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[] key, Runnable runnable) {
@@ -53,9 +54,10 @@ public class RedisTemplateCatSupport {
 			runnable.run();
 			return;
 		}
-		Map<String, Object> data = new HashMap<>(1);
+
+		Map<String, Object> data = initData(2);
 		data.put(KEY, deserialize(key));
-		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
+		CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, runnable);
 	}
 
 	public static void execute(String command, byte[][] keys, Runnable runnable) {
@@ -63,34 +65,45 @@ public class RedisTemplateCatSupport {
 			runnable.run();
 			return;
 		}
-		Map<String, Object> data = new HashMap<>(1);
+
+		Map<String, Object> data = initData(2);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
-		CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, runnable);
+		CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, runnable);
 	}
 
 	public static <T> T execute(String command, byte[] key, Supplier<T> supplier) {
 		if (!CatState.isInitialized()) {
 			return supplier.get();
 		}
-		Map<String, Object> data = new HashMap<>(1);
+
+		Map<String, Object> data = initData(2);
 		data.put(KEY, deserialize(key));
-		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);
+		return CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, supplier);
 	}
 
 	public static <T> T execute(String command, Supplier<T> supplier) {
 		if (!CatState.isInitialized()) {
 			return supplier.get();
 		}
-		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, supplier);
+
+		Map<String, Object> data = initData(1);
+		return CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, supplier);
 	}
 
 	public static <T> T execute(String command, byte[][] keys, Supplier<T> supplier) {
 		if (!CatState.isInitialized()) {
 			return supplier.get();
 		}
-		Map<String, Object> data = new HashMap<>(1);
+
+		Map<String, Object> data = initData(2);
 		data.put(KEYS, toStringWithDeserialization(limitKeys(keys)));
-		return CatClient.newTransaction(CatConstants.TYPE_CACHE_REDIS, command, data, supplier);
+		return CatClient.newTransaction(CatConstants.TYPE_CACHE, command, data, supplier);
+	}
+
+	private static Map<String, Object> initData(int initialCapacity) {
+		Map<String, Object> data = new HashMap<>(initialCapacity);
+		data.put(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_REDIS);
+		return data;
 	}
 
 	private static String deserialize(byte[] bytes) {

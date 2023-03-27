@@ -726,6 +726,11 @@
 				<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-xxljob2-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 
 			<!-- 自定义 Spring Cloud Starters -->
 			<dependency>

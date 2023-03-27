@@ -67,7 +67,8 @@ public class CustomRocketMqDtpAdapter extends RocketMqDtpAdapter {
     }
 
     private void setThreadPoolExecutor(DefaultMQPushConsumer consumer, String group, String topic) {
-        DefaultMQPushConsumerImpl pushConsumer = (DefaultMQPushConsumerImpl) ReflectionUtil.getFieldValue(DefaultMQPushConsumer.class, "defaultMQPushConsumerImpl", consumer);
+        DefaultMQPushConsumerImpl pushConsumer = consumer.getDefaultMQPushConsumerImpl();
+//		DefaultMQPushConsumerImpl pushConsumer = (DefaultMQPushConsumerImpl) ReflectionUtil.getFieldValue(DefaultMQPushConsumer.class, "defaultMQPushConsumerImpl", consumer);
         if (!Objects.isNull(pushConsumer)) {
             String key = group + "#" + topic;
             ThreadPoolExecutor executor = null;

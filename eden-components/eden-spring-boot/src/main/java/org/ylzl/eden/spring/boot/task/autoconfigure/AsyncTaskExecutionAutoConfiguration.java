@@ -107,6 +107,7 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 		builder = builder.customizers(taskExecutorCustomizers.orderedStream()::iterator);
 		builder = builder.taskDecorator(taskDecorator.getIfUnique());
 
+		// 使用阿里巴巴 TTL 线程池
 		ThreadPoolTaskExecutor taskExecutor = builder.configure(new TtlThreadPoolTaskExecutor());
 		// Spring 默认装配的 Bean 对异常的处理不是很友好，需要替换
 		return new ExceptionHandlingAsyncTaskExecutor(taskExecutor);

@@ -31,7 +31,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AutofillMetaObjectHandler implements MetaObjectHandler {
 
-	private final String createDateFieldName;
+	private final String createdDateFieldName;
 
 	private final String lastModifiedDateFieldName;
 
@@ -43,8 +43,8 @@ public class AutofillMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void insertFill(MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		this.strictInsertFill(metaObject, createDateFieldName, LocalDateTime.class, now);
-		this.strictInsertFill(metaObject, lastModifiedDateFieldName, LocalDateTime.class, now);
+		this.strictInsertFill(metaObject, createdDateFieldName, LocalDateTime.class, now);
+		this.strictUpdateFill(metaObject, lastModifiedDateFieldName, LocalDateTime.class, now);
 	}
 
 	/**
@@ -55,6 +55,6 @@ public class AutofillMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		LocalDateTime now = LocalDateTime.now();
-		this.strictInsertFill(metaObject, lastModifiedDateFieldName, LocalDateTime.class, now);
+		this.strictUpdateFill(metaObject, lastModifiedDateFieldName, LocalDateTime.class, now);
 	}
 }

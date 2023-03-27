@@ -29,6 +29,7 @@ import org.apache.dubbo.remoting.TimeoutException;
 import org.apache.dubbo.rpc.*;
 import org.slf4j.MDC;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
 import org.ylzl.eden.spring.integration.cat.integration.dubbo.registry.RegistryFactoryWrapper;
@@ -68,9 +69,12 @@ public class DubboCatTraceFilter implements Filter {
 		boolean isConsumerSide = CommonConstants.CONSUMER_SIDE.equals(sideKey);
 
 		// 开启 Transaction
-		String type = isConsumerSide ? CatConstants.TYPE_CONSUMER : CatConstants.TYPE_PROVIDER;
-		String name = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
+		String type = isConsumerSide ? CatConstants.TYPE_RPC_CALL : CatConstants.TYPE_RPC_SERVICE;
+		String name = invoker.getInterface().getSimpleName() + Strings.DOT + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
+		transaction.addData(CatConstants.DATA_VERSION, url.getVersion());
+		transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
 		Result result = null;
 		try {
 			Cat.Context context = this.initContext();
@@ -111,34 +115,34 @@ public class DubboCatTraceFilter implements Filter {
 			if (RpcException.class == throwable.getClass()) {
 				Throwable caseBy = throwable.getCause();
 				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_TIMEOUT_ERROR,
+					Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_TIMEOUT_ERROR,
 						TIMEOUT, nameValuePairs);
 				} else {
-					Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_REMOTING_ERROR,
+					Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_REMOTING_ERROR,
 						REMOTING_ERROR, nameValuePairs);
 				}
 			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-				Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_REMOTING_ERROR,
+				Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_REMOTING_ERROR,
 					REMOTING_ERROR, nameValuePairs);
 			} else {
-				Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_BIZ_ERROR,
+				Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_BIZ_ERROR,
 					BIZ_ERROR, nameValuePairs);
 			}
 		} else {
 			if (RpcException.class == throwable.getClass()) {
 				Throwable caseBy = throwable.getCause();
 				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_TIMEOUT_ERROR,
+					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_TIMEOUT_ERROR,
 						TIMEOUT, nameValuePairs);
 				} else {
-					Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_REMOTING_ERROR,
+					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR,
 						REMOTING_ERROR, nameValuePairs);
 				}
 			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-				Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_REMOTING_ERROR,
+				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR,
 					REMOTING_ERROR, nameValuePairs);
 			} else {
-				Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_BIZ_ERROR,
+				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_BIZ_ERROR,
 					BIZ_ERROR, nameValuePairs);
 			}
 		}
@@ -171,28 +175,31 @@ public class DubboCatTraceFilter implements Filter {
 	}
 
 	private void addConsumerEvent(URL url) {
-		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_APP,
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_APP,
 			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
 
-		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_SERVER,
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_HOST,
 			Event.SUCCESS, url.getHost());
 
-		Cat.logEvent(CatConstants.TYPE_CONSUMER, CatConstants.TYPE_CONSUMER_PORT,
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_PORT,
 			Event.SUCCESS, String.valueOf(url.getPort()));
 	}
 
 	private void addProviderEvent(URL url) {
-		Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_APP,
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_APP,
 			Event.SUCCESS, getConsumerAppName());
 
-		Cat.logEvent(CatConstants.TYPE_PROVIDER, CatConstants.TYPE_PROVIDER_CLIENT,
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_HOST,
 			Event.SUCCESS, url.getHost());
+
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_PORT,
+			Event.SUCCESS, String.valueOf(url.getPort()));
 	}
 
 	private String getConsumerAppName() {
 		String appName = RpcContext.getContext().getAttachment(CommonConstants.APPLICATION_KEY);
 		if (StringUtils.isBlank(appName)) {
-			appName = RpcContext.getContext().getRemoteHost() + ":" + RpcContext.getContext().getRemotePort();
+			appName = RpcContext.getContext().getRemoteHost() + Strings.COLON + RpcContext.getContext().getRemotePort();
 		}
 		return appName;
 	}

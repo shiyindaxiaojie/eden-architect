@@ -82,5 +82,6 @@
 		<module>eden-undertow-spring-boot-starter</module>
 		<module>eden-uid-generator-spring-boot-starter</module>
 		<module>eden-xxljob-spring-boot-starter</module>
+		<module>eden-xxljob2-spring-boot-starter</module>
 	</modules>
 </project>
