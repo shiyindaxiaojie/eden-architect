@@ -5,4 +5,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.cat.spring.boot.autoconfigure.MybatisCatAutoConfiguration,\
   org.ylzl.eden.cat.spring.boot.autoconfigure.RedisCatAutoConfiguration,\
   org.ylzl.eden.cat.spring.boot.autoconfigure.RestCatAutoConfiguration,\
+  org.ylzl.eden.cat.spring.boot.autoconfigure.RocketMQCatAutoConfiguration,\
   org.ylzl.eden.cat.spring.boot.autoconfigure.WebCatAutoConfiguration

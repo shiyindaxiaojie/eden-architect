@@ -23,9 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.hook.SendMessageContext;
 import org.apache.rocketmq.client.hook.SendMessageHook;
 import org.apache.rocketmq.client.producer.SendStatus;
-import org.apache.rocketmq.client.trace.AsyncTraceDispatcher;
 import org.apache.rocketmq.client.trace.TraceContext;
-import org.apache.rocketmq.client.trace.TraceDispatcher;
 import org.apache.rocketmq.common.protocol.NamespaceUtil;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 
@@ -41,8 +39,6 @@ public class RocketMQCatSendMessageHook implements SendMessageHook {
 
 	private static final String HOOK = "RocketMQCatSendMessageHook";
 
-	private final TraceDispatcher localDispatcher;
-
 	@Override
 	public String hookName() {
 		return HOOK;
@@ -50,7 +46,7 @@ public class RocketMQCatSendMessageHook implements SendMessageHook {
 
 	@Override
 	public void sendMessageBefore(SendMessageContext context) {
-		if (context == null || context.getMessage().getTopic().startsWith(((AsyncTraceDispatcher) localDispatcher).getTraceTopicName())) {
+		if (context == null) {
 			return;
 		}
 
@@ -61,21 +57,17 @@ public class RocketMQCatSendMessageHook implements SendMessageHook {
 
 	@Override
 	public void sendMessageAfter(SendMessageContext context) {
-		if (context == null || context.getMessage().getTopic().startsWith(((AsyncTraceDispatcher) localDispatcher).getTraceTopicName())
-			|| context.getMqTraceContext() == null) {
-			return;
-		}
-		if (context.getSendResult() == null) {
+		if (context == null || context.getMqTraceContext() == null) {
 			return;
 		}
 
 		TraceContext traceContext = (TraceContext) context.getMqTraceContext();
-		long costTime = System.currentTimeMillis() - traceContext.getTimeStamp();
+		long latency = System.currentTimeMillis() - traceContext.getTimeStamp();
 
 		String name = NamespaceUtil.withoutNamespace(context.getMq().getTopic());
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
 		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
-		transaction.setDurationInMillis(costTime);
+		transaction.setDurationInMillis(latency);
 
 		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_NAMESPACE, context.getNamespace());
 		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_BROKER, context.getBrokerAddr());

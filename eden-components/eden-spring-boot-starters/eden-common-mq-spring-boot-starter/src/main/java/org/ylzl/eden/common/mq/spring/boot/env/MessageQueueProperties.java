@@ -35,7 +35,7 @@ public class MessageQueueProperties {
 
 	private boolean enabled;
 
-	private String primary;
+	private String primary = "RocketMQ";
 
 	private final RocketMQ rocketMQ = new RocketMQ();
 

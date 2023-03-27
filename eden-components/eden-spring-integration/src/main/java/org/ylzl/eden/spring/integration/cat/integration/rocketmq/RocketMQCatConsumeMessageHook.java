@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.hook.ConsumeMessageContext;
 import org.apache.rocketmq.client.hook.ConsumeMessageHook;
 import org.apache.rocketmq.client.trace.TraceContext;
-import org.apache.rocketmq.client.trace.TraceDispatcher;
 import org.apache.rocketmq.common.protocol.NamespaceUtil;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
 
@@ -38,8 +37,6 @@ import org.ylzl.eden.spring.integration.cat.CatConstants;
 public class RocketMQCatConsumeMessageHook implements ConsumeMessageHook {
 
 	public static final String HOOK = "RocketMQCatConsumeMessageHook";
-
-	private final TraceDispatcher localDispatcher;
 
 	@Override
 	public String hookName() {
@@ -64,12 +61,12 @@ public class RocketMQCatConsumeMessageHook implements ConsumeMessageHook {
 		}
 
 		TraceContext traceContext = (TraceContext) context.getMqTraceContext();
-		long costTime = (System.currentTimeMillis() - traceContext.getTimeStamp()) / context.getMsgList().size();
+		long latency = (System.currentTimeMillis() - traceContext.getTimeStamp()) / context.getMsgList().size();
 
 		String name = NamespaceUtil.withoutNamespace(context.getMq().getTopic());
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
 		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
-		transaction.setDurationInMillis(costTime);
+		transaction.setDurationInMillis(latency);
 
 		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_NAMESPACE, context.getNamespace());
 		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_BROKER, context.getMq().getBrokerName());

@@ -16,9 +16,12 @@
 
 package org.ylzl.eden.spring.integration.cat.integration.kafka;
 
+import com.dianping.cat.Cat;
+import com.dianping.cat.message.Transaction;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 import java.util.Map;
 
@@ -30,14 +33,32 @@ import java.util.Map;
  */
 public class KafkaCatProducerInterceptor<K, V> implements ProducerInterceptor<K, V> {
 
+	private Map<String, ?> configs;
+
 	@Override
 	public ProducerRecord<K, V> onSend(ProducerRecord<K, V> record) {
-		return null;
+		return record;
 	}
 
 	@Override
 	public void onAcknowledgement(RecordMetadata metadata, Exception exception) {
+		long latency = System.currentTimeMillis() - metadata.timestamp();
 
+		String name = metadata.topic();
+		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
+		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_KAFKA);
+		transaction.setDurationInMillis(latency);
+
+		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_BROKER, String.valueOf(configs.get("bootstrap.servers")));
+		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_GROUP, String.valueOf(configs.get("")));
+
+		if (exception == null) {
+			transaction.setSuccessStatus();
+		} else {
+			transaction.setStatus(exception.getCause());
+			Cat.logError(exception);
+		}
+		transaction.complete();
 	}
 
 	@Override
@@ -47,6 +68,6 @@ public class KafkaCatProducerInterceptor<K, V> implements ProducerInterceptor<K,
 
 	@Override
 	public void configure(Map<String, ?> configs) {
-
+		this.configs = configs;
 	}
 }

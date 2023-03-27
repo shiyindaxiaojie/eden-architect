@@ -31,14 +31,16 @@ import java.util.Map;
  */
 public class KafkaCatConsumerInterceptor<K, V> implements ConsumerInterceptor<K, V> {
 
+	private Map<String, ?> configs;
+
 	@Override
 	public ConsumerRecords<K, V> onConsume(ConsumerRecords<K, V> records) {
-		return null;
+		return records;
 	}
 
 	@Override
 	public void onCommit(Map<TopicPartition, OffsetAndMetadata> offsets) {
-
+		// TODO
 	}
 
 	@Override
@@ -48,6 +50,6 @@ public class KafkaCatConsumerInterceptor<K, V> implements ConsumerInterceptor<K,
 
 	@Override
 	public void configure(Map<String, ?> configs) {
-
+		this.configs = configs;
 	}
 }
