@@ -70,7 +70,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 					if (event.getMessage() != null) {
 						Cat.logError(event.getMessage().getFormattedMessage(), exception);
 					} else {
-						Cat.logError(exception);
+						Cat.logError(exception.getMessage(), exception);
 					}
 				}
 		}

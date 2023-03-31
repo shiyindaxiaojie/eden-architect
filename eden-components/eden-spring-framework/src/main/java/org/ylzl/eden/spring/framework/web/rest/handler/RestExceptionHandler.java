@@ -149,6 +149,7 @@ public class RestExceptionHandler {
 	@ExceptionHandler(ClientException.class)
 	public ResponseEntity<?> resolveClientException(ClientException ex) {
 		log.warn(EXCEPTION_HANDLER_CATCH, ex.getMessage(), ex);
+		this.postProcess(ex);
 		return this.buildResponseEntity(HttpStatus.BAD_REQUEST, ex);
 	}
 
