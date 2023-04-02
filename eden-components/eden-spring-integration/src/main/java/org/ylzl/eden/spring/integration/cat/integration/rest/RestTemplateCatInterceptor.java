@@ -93,7 +93,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_BIZ_ERROR, BIZ_ERROR, url);
 			}
 			transaction.setStatus(e);
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 			throw e;
 		} finally {
 			transaction.complete();

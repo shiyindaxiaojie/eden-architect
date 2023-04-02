@@ -96,7 +96,7 @@ public class CatClient {
 			runnable.run();
 			transaction.setStatus(Message.SUCCESS);
 		} catch (Exception e) {
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 			if (e.getMessage() != null) {
 				Cat.logEvent(type + "." + name + ".Error", e.getMessage());
 			}

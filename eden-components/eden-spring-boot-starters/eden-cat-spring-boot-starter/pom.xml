@@ -94,6 +94,7 @@
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-common-mq</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

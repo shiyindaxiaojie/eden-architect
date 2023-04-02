@@ -168,13 +168,13 @@ public class HttpCatFilter extends CatFilter {
 			chain.doFilter(req, resp);
 			checkRestException(req, resp);
 			customizeStatus(transaction, req);
-		} catch (ServletException | IOException e) {
+		} catch (RuntimeException e) {
 			transaction.setStatus(e);
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 			throw e;
 		} catch (Throwable e) {
 			transaction.setStatus(e);
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 			throw new RuntimeException(e);
 		} finally {
 			customizeUri(transaction, req);
@@ -231,7 +231,7 @@ public class HttpCatFilter extends CatFilter {
 				logRequestPayload(req, type, false);
 			}
 		} catch (Exception e) {
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 		}
 	}
 

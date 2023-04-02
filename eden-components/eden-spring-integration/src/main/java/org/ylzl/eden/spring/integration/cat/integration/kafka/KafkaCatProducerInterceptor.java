@@ -56,7 +56,7 @@ public class KafkaCatProducerInterceptor<K, V> implements ProducerInterceptor<K,
 			transaction.setSuccessStatus();
 		} else {
 			transaction.setStatus(exception.getCause());
-			Cat.logError(exception);
+			Cat.logError(exception.getMessage(), exception);
 		}
 		transaction.complete();
 	}

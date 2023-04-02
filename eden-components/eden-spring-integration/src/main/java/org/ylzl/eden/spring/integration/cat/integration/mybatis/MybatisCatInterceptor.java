@@ -65,7 +65,7 @@ public class MybatisCatInterceptor implements Interceptor {
 			return returnValue;
 		} catch (Throwable e) {
 			transaction.setStatus(e);
-			Cat.logError(e);
+			Cat.logError(e.getMessage(), e);
 			throw e;
 		} finally {
 			transaction.complete();
