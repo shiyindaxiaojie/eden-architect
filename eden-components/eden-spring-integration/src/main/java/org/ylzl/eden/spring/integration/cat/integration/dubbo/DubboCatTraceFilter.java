@@ -175,24 +175,24 @@ public class DubboCatTraceFilter implements Filter {
 	}
 
 	private void addConsumerEvent(URL url) {
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_APP,
-			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
-
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_HOST,
-			Event.SUCCESS, url.getHost());
-
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_PORT,
-			Event.SUCCESS, String.valueOf(url.getPort()));
-	}
-
-	private void addProviderEvent(URL url) {
 		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_APP,
-			Event.SUCCESS, getConsumerAppName());
+			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
 
 		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_HOST,
 			Event.SUCCESS, url.getHost());
 
 		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_PORT,
+			Event.SUCCESS, String.valueOf(url.getPort()));
+	}
+
+	private void addProviderEvent(URL url) {
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_APP,
+			Event.SUCCESS, getConsumerAppName());
+
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_HOST,
+			Event.SUCCESS, url.getHost());
+
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_PORT,
 			Event.SUCCESS, String.valueOf(url.getPort()));
 	}
 
