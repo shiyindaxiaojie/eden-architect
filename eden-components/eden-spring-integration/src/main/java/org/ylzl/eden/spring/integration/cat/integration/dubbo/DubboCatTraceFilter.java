@@ -17,10 +17,8 @@
 package org.ylzl.eden.spring.integration.cat.integration.dubbo;
 
 import com.dianping.cat.Cat;
-import com.dianping.cat.message.Event;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.Transaction;
-import com.dianping.cat.message.internal.AbstractMessage;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
@@ -75,6 +73,7 @@ public class DubboCatTraceFilter implements Filter {
 		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
 		transaction.addData(CatConstants.DATA_VERSION, url.getVersion());
 		transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
+
 		Result result = null;
 		try {
 			Cat.Context context = this.initContext();
@@ -175,25 +174,20 @@ public class DubboCatTraceFilter implements Filter {
 	}
 
 	private void addConsumerEvent(URL url) {
-		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_APP,
-			Event.SUCCESS, RegistryFactoryWrapper.getProviderAppName(url));
+		String providerAppName = RegistryFactoryWrapper.getProviderAppName(url);
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL_APP, providerAppName);
 
-		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_HOST,
-			Event.SUCCESS, url.getHost());
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL_HOST, url.getHost());
 
-		Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_PORT,
-			Event.SUCCESS, String.valueOf(url.getPort()));
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL_PORT, String.valueOf(url.getPort()));
 	}
 
 	private void addProviderEvent(URL url) {
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_APP,
-			Event.SUCCESS, getConsumerAppName());
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_APP, getConsumerAppName());
 
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_HOST,
-			Event.SUCCESS, url.getHost());
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_HOST, url.getHost());
 
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_PORT,
-			Event.SUCCESS, String.valueOf(url.getPort()));
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_PORT, String.valueOf(url.getPort()));
 	}
 
 	private String getConsumerAppName() {
@@ -202,10 +196,5 @@ public class DubboCatTraceFilter implements Filter {
 			appName = RpcContext.getContext().getRemoteHost() + Strings.COLON + RpcContext.getContext().getRemotePort();
 		}
 		return appName;
-	}
-
-	private void completeEvent(Event event) {
-		AbstractMessage message = (AbstractMessage) event;
-		message.setCompleted(true);
 	}
 }
