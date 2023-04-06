@@ -17,12 +17,10 @@ package org.ylzl.eden.commons.env;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.browser.Browser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Objects;
 
 /**
  * 浏览器工具集
@@ -33,7 +31,7 @@ import java.util.Objects;
 @UtilityClass
 public class BrowserUtils {
 
-	public static boolean isIE(@NonNull HttpServletRequest request) {
+	/*public static boolean isIE(@NonNull HttpServletRequest request) {
 		Browser browser = Browser.parse(request);
 		switch (Objects.requireNonNull(browser)) {
 			case IE6:
@@ -45,7 +43,7 @@ public class BrowserUtils {
 				return true;
 		}
 		return false;
-	}
+	}*/
 
 	public static String getLanguage(@NonNull HttpServletRequest request) {
 		return request.getLocale().getLanguage();
