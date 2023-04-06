@@ -244,7 +244,7 @@ public class HttpCatFilter extends CatFilter {
 			serverInfo.append("clientIpForwarded=").append(ipForwarded);
 		}
 		serverInfo.append("&serverIp=").append(req.getServerName());
-		Cat.logEvent(type, CatConstants.TYPE_URL_SERVER, Message.SUCCESS, serverInfo.toString());
+		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverInfo.toString());
 	}
 
 	private void logRequestPayload(HttpServletRequest req, String type, boolean top) {
@@ -255,8 +255,7 @@ public class HttpCatFilter extends CatFilter {
 		if (queryString != null) {
 			methodInfo.append(Strings.PLACEHOLDER).append(queryString);
 		}
-		Cat.logEvent(type, top? CatConstants.TYPE_URL_METHOD : CatConstants.TYPE_URL_FORWARD_METHOD,
-			Message.SUCCESS, methodInfo.toString());
+		Cat.logEvent(top? CatConstants.TYPE_URL_METHOD : CatConstants.TYPE_URL_FORWARD_METHOD, methodInfo.toString());
 
 		// 请求头埋点
 		StringBuilder headerInfo = new StringBuilder(256);
@@ -273,14 +272,14 @@ public class HttpCatFilter extends CatFilter {
 			}
 		}
 		if (headerInfo.length() > 0) {
-			Cat.logEvent(type, top? CatConstants.TYPE_URL_HEADER : CatConstants.TYPE_URL_FORWARD_HEADER,
-				Message.SUCCESS, headerInfo.toString());
+			Cat.logEvent(top? CatConstants.TYPE_URL_HEADER : CatConstants.TYPE_URL_FORWARD_HEADER,
+				headerInfo.toString());
 		}
 
 		// 请求体埋点
 		if (includeBody) {
-			Cat.logEvent(type, top? CatConstants.TYPE_URL_BODY : CatConstants.TYPE_URL_FORWARD_BODY,
-				Message.SUCCESS, JSONHelper.json().toJSONString(ServletUtils.toMap(req)));
+			Cat.logEvent(top? CatConstants.TYPE_URL_BODY : CatConstants.TYPE_URL_FORWARD_BODY,
+				JSONHelper.json().toJSONString(ServletUtils.toMap(req)));
 		}
 	}
 

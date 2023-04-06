@@ -201,7 +201,7 @@ public class MetricTagAggregator {
 
 		if (null == item) {
 			if (items.size() >= MAX_KEY_SIZE) {
-				Cat.logEvent("cat.TooManyTagValuesForMetric", key);
+				Cat.logEvent("Cat.TooManyTagValuesForMetric", key);
 				tagKey = OTHERS;
 			}
 

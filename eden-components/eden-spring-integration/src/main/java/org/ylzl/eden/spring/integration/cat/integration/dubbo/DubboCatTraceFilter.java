@@ -89,14 +89,14 @@ public class DubboCatTraceFilter implements Filter {
 			result = invoker.invoke(invocation);
 			if (result.hasException()) {
 				Throwable throwable = result.getException();
-				this.logRpcErrorEvent(throwable, isConsumerSide, name);
+				this.logRpcErrorEvent(throwable, isConsumerSide, name, throwable.getMessage());
 				transaction.setStatus(result.getException().getClass().getSimpleName());
 			} else {
 				transaction.setStatus(Message.SUCCESS);
 			}
 			return result;
 		} catch (RuntimeException e) {
-			this.logRpcErrorEvent(e, isConsumerSide, name);
+			this.logRpcErrorEvent(e, isConsumerSide, name, e.getMessage());
 			transaction.setStatus(e.getClass().getSimpleName());
 			if (result == null) {
 				throw e;
@@ -109,40 +109,33 @@ public class DubboCatTraceFilter implements Filter {
 		}
 	}
 
-	private void logRpcErrorEvent(Throwable throwable, boolean isConsumerSide, String nameValuePairs) {
+	private void logRpcErrorEvent(Throwable throwable, boolean isConsumerSide, String name,
+								  String nameValuePairs) {
 		if (isConsumerSide) {
 			if (RpcException.class == throwable.getClass()) {
 				Throwable caseBy = throwable.getCause();
 				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_TIMEOUT_ERROR,
-						TIMEOUT, nameValuePairs);
+					Cat.logEvent(CatConstants.TYPE_RPC_CALL_TIMEOUT_ERROR, name, TIMEOUT, nameValuePairs);
 				} else {
-					Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_REMOTING_ERROR,
-						REMOTING_ERROR, nameValuePairs);
+					Cat.logEvent(CatConstants.TYPE_RPC_CALL_REMOTING_ERROR, name, REMOTING_ERROR, nameValuePairs);
 				}
 			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-				Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_REMOTING_ERROR,
-					REMOTING_ERROR, nameValuePairs);
+				Cat.logEvent(CatConstants.TYPE_RPC_CALL_REMOTING_ERROR, name, REMOTING_ERROR, nameValuePairs);
 			} else {
-				Cat.logEvent(CatConstants.TYPE_RPC_CALL, CatConstants.TYPE_RPC_CALL_BIZ_ERROR,
-					BIZ_ERROR, nameValuePairs);
+				Cat.logEvent(CatConstants.TYPE_RPC_CALL_BIZ_ERROR, name, BIZ_ERROR, nameValuePairs);
 			}
 		} else {
 			if (RpcException.class == throwable.getClass()) {
 				Throwable caseBy = throwable.getCause();
 				if (caseBy != null && caseBy.getClass() == TimeoutException.class) {
-					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_TIMEOUT_ERROR,
-						TIMEOUT, nameValuePairs);
+					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_TIMEOUT_ERROR, name, TIMEOUT, nameValuePairs);
 				} else {
-					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR,
-						REMOTING_ERROR, nameValuePairs);
+					Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR, name, REMOTING_ERROR, nameValuePairs);
 				}
 			} else if (RemotingException.class.isAssignableFrom(throwable.getClass())) {
-				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR,
-					REMOTING_ERROR, nameValuePairs);
+				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_REMOTING_ERROR, REMOTING_ERROR, nameValuePairs);
 			} else {
-				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE, CatConstants.TYPE_RPC_SERVICE_BIZ_ERROR,
-					BIZ_ERROR, nameValuePairs);
+				Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_BIZ_ERROR, name, BIZ_ERROR, nameValuePairs);
 			}
 		}
 	}

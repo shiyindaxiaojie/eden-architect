@@ -50,9 +50,6 @@ import java.util.Set;
  */
 public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor {
 
-	private static final String BIZ_ERROR = "BIZ_ERROR";
-	private static final String TIMEOUT = "TIMEOUT";
-
 	private final Set<String> includeHeaders = Sets.newHashSet(
 		HttpHeaders.USER_AGENT,
 		HttpHeaders.REFERER,
@@ -76,21 +73,25 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 			this.setHeader(req);
 			response = execution.execute(req, body);
 			HttpStatus httpStatus = response.getStatusCode();
-			String status = httpStatus.is2xxSuccessful()? Message.SUCCESS : httpStatus.name();
+			String status = httpStatus.is2xxSuccessful()? Message.SUCCESS : String.valueOf(httpStatus.value());
 			if (httpStatus.is3xxRedirection()) {
-				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_REDIRECTION_ERROR, status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_REDIRECTION_ERROR, httpStatus.name(), status, url);
 			} else if (httpStatus.is4xxClientError()) {
-				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_CLIENT_ERROR, status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_CLIENT_ERROR, httpStatus.name(), status, url);
 			} else if (httpStatus.is5xxServerError()) {
-				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_SERVER_ERROR, status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_SERVER_ERROR, httpStatus.name(), status, url);
 			}
 			transaction.setStatus(status);
 			return response;
 		} catch (Exception e) {
 			if (e instanceof SocketTimeoutException) {
-				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_TIMEOUT_ERROR, TIMEOUT, url);
+				Cat.logEvent(CatConstants.TYPE_URL_TIMEOUT_ERROR,
+					HttpStatus.INTERNAL_SERVER_ERROR.name(),
+					String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), url);
 			} else {
-				Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_BIZ_ERROR, BIZ_ERROR, url);
+				Cat.logEvent(CatConstants.TYPE_URL_BIZ_ERROR,
+					HttpStatus.INTERNAL_SERVER_ERROR.name(),
+					String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), url);
 			}
 			transaction.setStatus(e);
 			Cat.logError(e.getMessage(), e);
@@ -120,7 +121,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 			serverInfo.append("clientIpForwarded=").append(ipForwarded);
 		}
 		serverInfo.append("&serverIp=").append(req.getURI().getHost());
-		Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_SERVER, Message.SUCCESS, serverInfo.toString());
+		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverInfo.toString());
 	}
 
 	@SneakyThrows(UnsupportedEncodingException.class)
@@ -132,7 +133,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 		if (queryString != null) {
 			methodInfo.append(Strings.PLACEHOLDER).append(queryString);
 		}
-		Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_METHOD, Message.SUCCESS, methodInfo.toString());
+		Cat.logEvent(CatConstants.TYPE_URL_METHOD, methodInfo.toString());
 
 		// 请求头埋点
 		StringBuilder headerInfo = new StringBuilder(256);
@@ -148,14 +149,12 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 			}
 		}
 		if (headerInfo.length() > 0) {
-			Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_HEADER, Message.SUCCESS,
-				headerInfo.toString());
+			Cat.logEvent(CatConstants.TYPE_URL_HEADER, headerInfo.toString());
 		}
 
 		// 请求体埋点
 		if (includeBody) {
-			Cat.logEvent(CatConstants.TYPE_URL, CatConstants.TYPE_URL_BODY,
-				Message.SUCCESS, new String(body, Charsets.UTF_8_NAME));
+			Cat.logEvent(CatConstants.TYPE_URL_BODY, new String(body, Charsets.UTF_8_NAME));
 		}
 	}
 
