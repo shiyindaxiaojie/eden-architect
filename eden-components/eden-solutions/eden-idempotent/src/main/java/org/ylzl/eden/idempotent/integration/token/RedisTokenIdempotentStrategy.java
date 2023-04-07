@@ -19,7 +19,7 @@ package org.ylzl.eden.idempotent.integration.token;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.ylzl.eden.commons.id.NanoIdUtils;
+import org.ylzl.eden.commons.id.NanoIdGenerator;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.config.TokenIdempotentConfig;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
@@ -46,7 +46,7 @@ public class RedisTokenIdempotentStrategy implements TokenIdempotentStrategy {
 	 */
 	@Override
 	public String generateToken() {
-		String token = NanoIdUtils.randomNanoId();
+		String token = NanoIdGenerator.randomNanoId();
 		String key = this.buildKey(token);
 		redisTemplate.opsForValue().set(key, Strings.EMPTY, config.getTtl(), config.getTimeUnit());
 		return token;

@@ -14,51 +14,49 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.env.os;
+package org.ylzl.eden.commons.env.browser;
 
-import lombok.Getter;
 import lombok.NonNull;
 import org.ylzl.eden.commons.regex.RegexUtils;
 
 /**
- * 操作系统架构
+ * 浏览器引擎
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@Getter
-public enum OSArchitect {
+public enum BrowserEngine {
 
-	ALPHA("alpha"),
-	AMD64("amd64"),
-	ARM("arm"),
-	ARMV41("armv41"),
-	I386("i386"),
-	I686("i686"),
-	IA64N("IA64N"),
-	MIPS("mips"),
-	OS390("02.10.00"),
-	PA_RISC("PA_RISC"),
-	PA_RISC2("PA_RISC2.0"),
-	PARISC("PA-RISC"),
-	POWER_RS("POWER_RS"),
-	POWERPC("PowerPC"),
-	PPC("ppc"),
-	PPC64("ppc64"),
-	SPARC("sparc"),
-	X86("x86"),
-	X86_64("x86_64");
+	TRIDENT("Trident", "trident"),
+	WEBKIT("Webkit", "webkit"),
+	CHROME("Chrome", "chrome"),
+	OPERA("Opera", "opera"),
+	PRESTO("Presto", "presto"),
+	GECKO("Gecko", "gecko"),
+	KHTML("KHTML", "khtml"),
+	KONQEROR("Konqeror", "konqueror"),
+	MIDP("MIDP", "MIDP");
 
 	private final String name;
+	private final String regex;
 
-	OSArchitect(String name) {
+	BrowserEngine(String name, String regex) {
 		this.name = name;
+		this.regex = regex;
 	}
 
-	public static OSArchitect parse(@NonNull String info) {
-		for (OSArchitect osArchitect : OSArchitect.values()) {
-			if (RegexUtils.find(osArchitect.getName(), info)) {
-				return osArchitect;
+	public String getName() {
+		return name;
+	}
+
+	public String getRegex() {
+		return regex;
+	}
+
+	public static BrowserEngine parse(@NonNull String info) {
+		for (BrowserEngine browserEngine : BrowserEngine.values()) {
+			if (RegexUtils.find(browserEngine.getRegex(), info)) {
+				return browserEngine;
 			}
 		}
 		return null;

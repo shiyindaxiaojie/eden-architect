@@ -28,6 +28,7 @@ import com.google.common.collect.Sets;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.unidal.helper.Joiners;
+import org.ylzl.eden.commons.env.BrowserUtils;
 import org.ylzl.eden.commons.lang.Chars;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
@@ -267,7 +268,14 @@ public class HttpCatFilter extends CatFilter {
 				if (i > 0) {
 					headerInfo.append(Strings.AND);
 				}
-				headerInfo.append(headerName).append(Strings.EQ).append(req.getHeader(headerName));
+				headerInfo.append(headerName).append(Strings.EQ);
+				String headerValue = req.getHeader(headerName);
+				if (HttpHeaders.USER_AGENT.equals(headerName)) {
+					headerInfo.append(BrowserUtils.parseBrowserWithVersion(headerValue));
+				} else {
+					headerInfo.append(headerValue);
+				}
+
 				i++;
 			}
 		}

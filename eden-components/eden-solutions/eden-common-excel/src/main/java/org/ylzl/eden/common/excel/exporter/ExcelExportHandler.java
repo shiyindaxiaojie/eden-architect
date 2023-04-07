@@ -29,7 +29,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.ylzl.eden.common.excel.ExcelExporter;
 import org.ylzl.eden.common.excel.builder.ExcelWriterBuilder;
 import org.ylzl.eden.commons.env.Charsets;
-import org.ylzl.eden.commons.id.NanoIdUtils;
+import org.ylzl.eden.commons.id.NanoIdGenerator;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
@@ -79,7 +79,7 @@ public class ExcelExportHandler implements HandlerMethodReturnValueHandler {
 	public void export(HttpServletResponse response, List<Object> data, ExcelExporter excelExporter) {
 		String name = excelExporter.name();
 		if (name == null) {
-			name = NanoIdUtils.randomNanoId();
+			name = NanoIdGenerator.randomNanoId();
 		}
 
 		String fileName = URLEncoder.encode(name, Charsets.UTF_8_NAME) + excelExporter.format().getValue();

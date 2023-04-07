@@ -30,32 +30,31 @@ import org.ylzl.eden.commons.lang.Strings;
 public class WebServerUtils {
 
 	public static boolean isTomcat() {
-		return WebServer.TOMCAT.name().equals(WebServer.parse().name());
+		return WebServer.TOMCAT == WebServer.parse();
 	}
 
 	public static boolean isUndertow() {
-		return WebServer.UNDERTOW.name().equals(WebServer.parse().name());
+		return WebServer.UNDERTOW == WebServer.parse();
 	}
 
 	public static boolean isJetty() {
-		return WebServer.JETTY.name().equals(WebServer.parse().name());
+		return WebServer.JETTY == WebServer.parse();
 	}
 
 	public static boolean isJBoss() {
-		return WebServer.JBOSS.name().equals(WebServer.parse().name());
+		return WebServer.JBOSS == WebServer.parse();
 	}
 
 	public static boolean isWebLogic() {
-		return WebServer.WEBLOGIC.name().equals(WebServer.parse().name());
+		return WebServer.WEBLOGIC == WebServer.parse();
 	}
 
 	public static boolean isWebSphere() {
-		return WebServer.WEBSPHERE.name().equals(WebServer.parse().name());
+		return WebServer.WEBSPHERE == WebServer.parse();
 	}
 
 	public static String getHome() {
-		return System.getProperty(
-			StringUtils.join(WebServer.parse().name(), "_HOME"), Strings.EMPTY);
+		return System.getProperty(StringUtils.join(WebServer.parse().name(), "_HOME"), Strings.EMPTY);
 	}
 
 	public static String getLookup() {

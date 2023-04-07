@@ -22,13 +22,13 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * NanoId 工具集
+ * NanoId 生成器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @UtilityClass
-public class NanoIdUtils {
+public class NanoIdGenerator {
 
 	public static final SecureRandom DEFAULT_NUMBER_GENERATOR = new SecureRandom();
 

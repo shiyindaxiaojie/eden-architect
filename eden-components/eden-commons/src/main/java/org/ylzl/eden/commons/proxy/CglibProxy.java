@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.aop;
+package org.ylzl.eden.commons.proxy;
 
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;

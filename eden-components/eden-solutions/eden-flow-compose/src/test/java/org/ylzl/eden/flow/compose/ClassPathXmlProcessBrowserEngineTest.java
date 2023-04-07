@@ -29,7 +29,7 @@ import org.ylzl.eden.flow.compose.parser.ClassPathXmlProcessParser;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class ClassPathXmlProcessEngineTest {
+public class ClassPathXmlProcessBrowserEngineTest {
 
 	@Test
 	public void assertThatClassPathXml() {

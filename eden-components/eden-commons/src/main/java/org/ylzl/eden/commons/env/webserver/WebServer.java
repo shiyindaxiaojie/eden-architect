@@ -146,7 +146,7 @@ public enum WebServer {
 	private static boolean detect(String className) {
 		try {
 			ClassLoader.getSystemClassLoader().loadClass(className);
-		} catch (ClassNotFoundException cnfe) {
+		} catch (ClassNotFoundException e) {
 			Class<?> c = WebServer.class;
 			if (c.getResource(className) == null) {
 				return false;

@@ -15,8 +15,10 @@
  */
 package org.ylzl.eden.commons.env;
 
+import com.google.common.net.HttpHeaders;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import org.ylzl.eden.commons.env.browser.Browser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -31,19 +33,7 @@ import java.net.URLEncoder;
 @UtilityClass
 public class BrowserUtils {
 
-	/*public static boolean isIE(@NonNull HttpServletRequest request) {
-		Browser browser = Browser.parse(request);
-		switch (Objects.requireNonNull(browser)) {
-			case IE6:
-			case IE7:
-			case IE8:
-			case IE9:
-			case IE10:
-			case IE11:
-				return true;
-		}
-		return false;
-	}*/
+	public static final String UNKNOWN_BROWSER = "Unknown Browser";
 
 	public static String getLanguage(@NonNull HttpServletRequest request) {
 		return request.getLocale().getLanguage();
@@ -51,5 +41,26 @@ public class BrowserUtils {
 
 	public static String resolveValue(@NonNull String value) throws UnsupportedEncodingException {
 		return URLEncoder.encode(value, String.valueOf(Charsets.UTF_8));
+	}
+
+	public static String parseBrowser(@NonNull HttpServletRequest request) {
+		Browser browser = Browser.parse(request);
+		if (browser != null) {
+			return Browser.parse(request).getName();
+		}
+		return UNKNOWN_BROWSER;
+	}
+
+	public static String parseBrowserWithVersion(@NonNull HttpServletRequest request) {
+		String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+		return parseBrowserWithVersion(userAgent);
+	}
+
+	public static String parseBrowserWithVersion(@NonNull String userAgent) {
+		Browser browser = Browser.parse(userAgent);
+		if (browser != null) {
+			return browser.getName() + browser.getVersion(userAgent);
+		}
+		return UNKNOWN_BROWSER;
 	}
 }

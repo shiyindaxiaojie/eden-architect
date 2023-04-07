@@ -24,10 +24,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * 操作系统工具集
@@ -73,28 +70,17 @@ public class OSUtils {
 
 	public static boolean isWindows() {
 		OS os = getOSEnum();
-		if (os == OS.WINDOWS) {
-			return true;
-		}
-		return false;
+		return os == OS.WINDOWS;
 	}
 
 	public static boolean isMacOS() {
 		OS os = getOSEnum();
-		switch (os) {
-			case MAS_OS:
-			case MAS_OS_X:
-				return true;
-		}
-		return false;
+		return Objects.requireNonNull(os) == OS.OSX;
 	}
 
 	public static boolean isLinux() {
 		OS os = getOSEnum();
-		if (os == OS.LINUX) {
-			return true;
-		}
-		return false;
+		return os == OS.LINUX;
 	}
 
 	public static OS getOSEnum() {

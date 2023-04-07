@@ -38,7 +38,7 @@ public class RegexUtils {
 	}
 
 	public static boolean find(@NonNull String regex, @NonNull CharSequence input) {
-		Pattern pattern = RegexCache.get(regex, Pattern.DOTALL);
+		Pattern pattern = RegexCache.get(regex, Pattern.CASE_INSENSITIVE);
 		return pattern.matcher(input).find();
 	}
 
