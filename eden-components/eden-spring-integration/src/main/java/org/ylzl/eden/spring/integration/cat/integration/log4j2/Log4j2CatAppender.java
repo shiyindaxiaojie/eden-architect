@@ -12,7 +12,6 @@ import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
-import org.apache.logging.log4j.core.impl.ThrowableProxy;
 import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.core.util.Booleans;
@@ -64,15 +63,17 @@ public class Log4j2CatAppender extends AbstractAppender {
 			case WARN:
 				tryAppend(event);
 			case ERROR:
-				ThrowableProxy proxy = event.getThrownProxy();
-				if (proxy != null) {
-					Throwable exception = proxy.getThrowable();
-					if (event.getMessage() != null) {
-						Cat.logError(event.getMessage().getFormattedMessage(), exception);
-					} else {
-						Cat.logError(exception.getMessage(), exception);
-					}
-				}
+				// 直接跳过，避免和业务重复输出
+				break;
+//				ThrowableProxy proxy = event.getThrownProxy();
+//				if (proxy != null) {
+//					Throwable exception = proxy.getThrowable();
+//					if (event.getMessage() != null) {
+//						Cat.logError(event.getMessage().getFormattedMessage(), exception);
+//					} else {
+//						Cat.logError(exception.getMessage(), exception);
+//					}
+//				}
 		}
 	}
 

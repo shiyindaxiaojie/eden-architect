@@ -237,15 +237,12 @@ public class HttpCatFilter extends CatFilter {
 	}
 
 	private void logRequestClientInfo(HttpServletRequest req, String type) {
-		StringBuilder serverInfo = new StringBuilder(1024);
-		String ipForwarded = req.getHeader(CatConstants.X_FORWARDED_FOR);
-		if (ipForwarded == null) {
-			serverInfo.append("clientIp=").append(req.getRemoteAddr());
-		} else {
-			serverInfo.append("clientIpForwarded=").append(ipForwarded);
-		}
-		serverInfo.append("&serverIp=").append(req.getServerName());
-		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverInfo.toString());
+		String serverIp = req.getServerName();
+		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverIp);
+
+	    String ipForwarded = req.getHeader(CatConstants.X_FORWARDED_FOR);
+		String clientIp = ipForwarded == null? req.getRemoteAddr() : ipForwarded;
+		Cat.logEvent(CatConstants.TYPE_URL_CLIENT, clientIp);
 	}
 
 	private void logRequestPayload(HttpServletRequest req, String type, boolean top) {

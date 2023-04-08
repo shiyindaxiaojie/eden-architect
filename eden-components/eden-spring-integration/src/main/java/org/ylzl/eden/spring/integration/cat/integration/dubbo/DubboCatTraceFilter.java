@@ -26,6 +26,7 @@ import org.apache.dubbo.remoting.RemotingException;
 import org.apache.dubbo.remoting.TimeoutException;
 import org.apache.dubbo.rpc.*;
 import org.slf4j.MDC;
+import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.integration.cat.CatConstants;
@@ -45,7 +46,7 @@ import java.util.Map;
 public class DubboCatTraceFilter implements Filter {
 
 	private static final String IN_JVM = "injvm";
-
+	public static final String CLIENT_IP = "client_ip";
 	private static final String BIZ_ERROR = "BIZ_ERROR";
 	private static final String TIMEOUT = "TIMEOUT";
 	private static final String REMOTING_ERROR = "REMOTING_ERROR";
@@ -71,8 +72,8 @@ public class DubboCatTraceFilter implements Filter {
 		String name = invoker.getInterface().getSimpleName() + Strings.DOT + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
 		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
-		transaction.addData(CatConstants.DATA_VERSION, url.getVersion());
 		transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
+		transaction.addData(CatConstants.DATA_VERSION, StringUtils.trimToEmpty(url.getVersion()));
 
 		Result result = null;
 		try {
@@ -81,7 +82,7 @@ public class DubboCatTraceFilter implements Filter {
 				this.addConsumerEvent(url);
 				Cat.logRemoteCallClient(context, Cat.getManager().getDomain());
 			} else {
-				this.addProviderEvent(url);
+				this.addProviderEvent(invocation);
 				Cat.logRemoteCallServer(context);
 			}
 			this.setAttachment(context);
@@ -170,17 +171,13 @@ public class DubboCatTraceFilter implements Filter {
 		String providerAppName = RegistryFactoryWrapper.getProviderAppName(url);
 		Cat.logEvent(CatConstants.TYPE_RPC_CALL_APP, providerAppName);
 
-		Cat.logEvent(CatConstants.TYPE_RPC_CALL_HOST, url.getHost());
-
-		Cat.logEvent(CatConstants.TYPE_RPC_CALL_PORT, String.valueOf(url.getPort()));
+		Cat.logEvent(CatConstants.TYPE_RPC_CALL_ADDR, url.getHost() + Strings.COLON + url.getPort());
 	}
 
-	private void addProviderEvent(URL url) {
+	private void addProviderEvent(Invocation invocation) {
 		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_APP, getConsumerAppName());
 
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_HOST, url.getHost());
-
-		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_PORT, String.valueOf(url.getPort()));
+		Cat.logEvent(CatConstants.TYPE_RPC_SERVICE_ADDR, ObjectUtils.trimToString(invocation.getAttributes().get(CLIENT_IP)));
 	}
 
 	private String getConsumerAppName() {

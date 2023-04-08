@@ -29,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.ylzl.eden.commons.env.BrowserUtils;
 import org.ylzl.eden.commons.env.Charsets;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
@@ -40,6 +41,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -113,15 +116,12 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 	}
 
 	private void logRequestClientInfo(HttpRequest req) {
-		StringBuilder serverInfo = new StringBuilder(1024);
+		String serverIp = req.getURI().getHost();
+		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverIp);
+
 		String ipForwarded = req.getHeaders().getFirst(CatConstants.X_FORWARDED_FOR);
-		if (ipForwarded == null) {
-			serverInfo.append("clientIp=").append(IpConfigUtils.getIpAddress());
-		} else {
-			serverInfo.append("clientIpForwarded=").append(ipForwarded);
-		}
-		serverInfo.append("&serverIp=").append(req.getURI().getHost());
-		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverInfo.toString());
+		String clientIp = ipForwarded == null? IpConfigUtils.getIpAddress() : ipForwarded;
+		Cat.logEvent(CatConstants.TYPE_URL_CLIENT, clientIp);
 	}
 
 	@SneakyThrows(UnsupportedEncodingException.class)
@@ -137,14 +137,18 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 
 		// 请求头埋点
 		StringBuilder headerInfo = new StringBuilder(256);
-		Set<String> headerNames = req.getHeaders().keySet();
+		Set<Map.Entry<String, List<String>>> headers = req.getHeaders().entrySet();
 		int i = 0;
-		for (String headerName : headerNames) {
-			if (includeHeaders.contains(headerName)) {
+		for (Map.Entry<String, List<String>> header : headers) {
+			if (includeHeaders.contains(header.getKey())) {
 				if (i > 0) {
 					headerInfo.append(Strings.AND);
 				}
-				headerInfo.append(headerName).append(Strings.EQ).append(req.getHeaders().get(headerName));
+				if (HttpHeaders.USER_AGENT.equals(header.getKey())) {
+					headerInfo.append(BrowserUtils.parseBrowserWithVersion(header.getValue().toString()));
+				} else {
+					headerInfo.append(header.getValue().toString());
+				}
 				i++;
 			}
 		}

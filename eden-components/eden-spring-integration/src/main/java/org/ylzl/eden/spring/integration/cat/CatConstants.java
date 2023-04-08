@@ -16,6 +16,7 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer
 	public static final String TYPE_URL = com.dianping.cat.CatConstants.TYPE_URL;
 	public static final String TYPE_URL_SERVER = TYPE_URL + ".Server";
+	public static final String TYPE_URL_CLIENT = TYPE_URL + ".Client";
 	public static final String TYPE_URL_METHOD = TYPE_URL + ".Method";
 	public static final String TYPE_URL_HEADER = TYPE_URL + ".Header";
 	public static final String TYPE_URL_BODY = TYPE_URL + ".Body";
@@ -34,16 +35,14 @@ public class CatConstants extends com.dianping.cat.CatConstants {
 	// 参考：com.dianping.cat.consumer.dependency.DependencyAnalyzer
 	public final static String TYPE_RPC_CALL = "RpcCall";
 	public final static String TYPE_RPC_CALL_APP = TYPE_RPC_CALL + ".App";
-	public final static String TYPE_RPC_CALL_HOST = TYPE_RPC_CALL + ".Host";
-	public final static String TYPE_RPC_CALL_PORT = TYPE_RPC_CALL + ".Port";
+	public final static String TYPE_RPC_CALL_ADDR = TYPE_RPC_CALL + ".Addr";
 	public final static String TYPE_RPC_CALL_BIZ_ERROR = TYPE_RPC_CALL + ".BizError";
 	public final static String TYPE_RPC_CALL_TIMEOUT_ERROR = TYPE_RPC_CALL + ".TimeoutError";
 	public final static String TYPE_RPC_CALL_REMOTING_ERROR = TYPE_RPC_CALL + ".RemotingError";
 
 	public final static String TYPE_RPC_SERVICE = "RpcService";
 	public final static String TYPE_RPC_SERVICE_APP = TYPE_RPC_SERVICE + ".App";
-	public final static String TYPE_RPC_SERVICE_HOST = TYPE_RPC_SERVICE + ".Host";
-	public final static String TYPE_RPC_SERVICE_PORT = TYPE_RPC_SERVICE + ".Port";
+	public final static String TYPE_RPC_SERVICE_ADDR = TYPE_RPC_SERVICE + ".Addr";
 	public final static String TYPE_RPC_SERVICE_BIZ_ERROR = TYPE_RPC_SERVICE + ".BizError";
 	public final static String TYPE_RPC_SERVICE_TIMEOUT_ERROR = TYPE_RPC_SERVICE + ".TimeoutError";
 	public final static String TYPE_RPC_SERVICE_REMOTING_ERROR = TYPE_RPC_SERVICE + ".RemotingError";
