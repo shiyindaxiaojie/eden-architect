@@ -55,7 +55,7 @@ public class CatProperties {
 	@Setter
 	public static class Http {
 
-		private String excludeUrls;
+		private String excludeUrls = "/favicon.ico,/js/*,/css/*,/image/*";
 
 		private String includeHeaders;
 
