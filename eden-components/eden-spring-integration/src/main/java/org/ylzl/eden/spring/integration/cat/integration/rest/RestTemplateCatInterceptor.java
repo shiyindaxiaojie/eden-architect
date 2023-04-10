@@ -78,22 +78,22 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 			HttpStatus httpStatus = response.getStatusCode();
 			String status = httpStatus.is2xxSuccessful()? Message.SUCCESS : String.valueOf(httpStatus.value());
 			if (httpStatus.is3xxRedirection()) {
-				Cat.logEvent(CatConstants.TYPE_URL_REDIRECTION_ERROR, httpStatus.name(), status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_REDIRECTION_ERROR, httpStatus.getReasonPhrase(), status, url);
 			} else if (httpStatus.is4xxClientError()) {
-				Cat.logEvent(CatConstants.TYPE_URL_CLIENT_ERROR, httpStatus.name(), status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_CLIENT_ERROR, httpStatus.getReasonPhrase(), status, url);
 			} else if (httpStatus.is5xxServerError()) {
-				Cat.logEvent(CatConstants.TYPE_URL_SERVER_ERROR, httpStatus.name(), status, url);
+				Cat.logEvent(CatConstants.TYPE_URL_SERVER_ERROR, httpStatus.getReasonPhrase(), status, url);
 			}
 			transaction.setStatus(status);
 			return response;
 		} catch (Exception e) {
 			if (e instanceof SocketTimeoutException) {
 				Cat.logEvent(CatConstants.TYPE_URL_TIMEOUT_ERROR,
-					HttpStatus.INTERNAL_SERVER_ERROR.name(),
+					e.getMessage(),
 					String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), url);
 			} else {
 				Cat.logEvent(CatConstants.TYPE_URL_BIZ_ERROR,
-					HttpStatus.INTERNAL_SERVER_ERROR.name(),
+					e.getMessage(),
 					String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), url);
 			}
 			transaction.setStatus(e);
