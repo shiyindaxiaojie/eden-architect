@@ -14,41 +14,29 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.profile.autoconfigure;
+package org.ylzl.eden.spring.boot.logging.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.springframework.core.env.Environment;
-import org.ylzl.eden.spring.boot.profile.env.ProfileProperties;
-import org.ylzl.eden.spring.boot.profile.endpoint.ProfileEndpoint;
+import org.ylzl.eden.spring.boot.logging.env.LoggingAspectProperties;
+import org.ylzl.eden.spring.framework.aop.logging.EnableLoggingAspect;
 
 /**
- * Profile 端点自动装配
+ * 日志切面自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@ConditionalOnProperty(ProfileProperties.PREFIX)
+@ConditionalOnProperty(LoggingAspectProperties.PREFIX)
 @Slf4j
-@EnableConfigurationProperties(ProfileProperties.class)
+@EnableLoggingAspect
+@EnableConfigurationProperties(LoggingAspectProperties.class)
 @Configuration(proxyBeanMethods = false)
-public class ProfileEndpointAutoConfiguration {
+public class LoggingAspectAutoConfiguration {
 
-	private static final String MSG_AUTOWIRED_PROFILE_ENDPOINT = "Autowired Profile Endpoint";
-
-	@ConditionalOnAvailableEndpoint
-	@ConditionalOnMissingBean
-	@Bean
-	public ProfileEndpoint profileEndpoint(Environment env, ProfileProperties profileProperties) {
-		log.debug(MSG_AUTOWIRED_PROFILE_ENDPOINT);
-		return new ProfileEndpoint(env, profileProperties);
-	}
 }

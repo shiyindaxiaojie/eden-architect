@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.logging;
+package org.ylzl.eden.spring.framework.aop.logging;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -55,21 +55,25 @@ public class LoggingAspectConfiguration implements ImportAware {
 
 	@Bean
 	public LoggingAspectInterceptor loggingAspectInterceptor(ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
-		LoggingAspectInterceptor interceptor = new LoggingAspectInterceptor(
-			loggingAspectConfig.getIfUnique(LoggingAspectConfig::new));
-		return interceptor;
+		return new LoggingAspectInterceptor(getLoggingAspectConfig(loggingAspectConfig));
 	}
 
 	@Bean
 	public LoggingAspectPointcutAdvisor loggingAspectPointcutAdvisor(LoggingAspectInterceptor loggingAspectInterceptor,
 		PathMatcher pathMatcher, ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
 		LoggingAspectPointcutAdvisor pointcutAdvisor = new LoggingAspectPointcutAdvisor(pathMatcher,
-				loggingAspectConfig.getIfUnique(LoggingAspectConfig::new).getPackages());
+			getLoggingAspectConfig(loggingAspectConfig).getPackages());
 		pointcutAdvisor.setAdviceBeanName(BEAN_NAME);
 		pointcutAdvisor.setAdvice(loggingAspectInterceptor);
 		if (enableLoggingAspect != null) {
 			pointcutAdvisor.setOrder(enableLoggingAspect.getNumber("order"));
 		}
 		return pointcutAdvisor;
+	}
+
+	private LoggingAspectConfig getLoggingAspectConfig(ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
+		LoggingAspectConfig config = new LoggingAspectConfig();
+		config.setPackages(enableLoggingAspect.getStringArray("packages"));
+		return loggingAspectConfig.getIfUnique(() -> config);
 	}
 }
