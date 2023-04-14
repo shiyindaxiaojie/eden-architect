@@ -16,12 +16,12 @@
 
 package org.ylzl.eden.spring.integration.cat.aop;
 
-import com.dianping.cat.Cat;
-import com.dianping.cat.message.Transaction;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.spring.integration.cat.CatClient;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -34,22 +34,19 @@ import java.util.Objects;
  */
 public class CatTransactionMethodInterceptor implements MethodInterceptor {
 
-	public static final String NAME = "InnerService";
-
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		Method method = invocation.getMethod();
 		Object target = invocation.getThis();
 		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(Objects.requireNonNull(target));
 		String name = targetClass.getSimpleName() + Strings.DOT + method.getName();
-		Transaction transaction = Cat.newTransaction(NAME, name);
-		try {
-			return invocation.proceed();
-		} finally {
-			if (transaction != null) {
-				transaction.complete();
+		return CatClient.newTransaction(CatConstants.TYPE_INNER_SERVICE, name, () -> {
+			try {
+				return invocation.proceed();
+			} catch (Throwable e) {
+				throw new RuntimeException(e);
 			}
-		}
+		});
 	}
 }
 

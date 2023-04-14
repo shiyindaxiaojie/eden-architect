@@ -14,4 +14,4 @@
 # limitations under the License.
 #
 
-org.ylzl.eden.cat.spring.boot.spi.CustomCatPropertyProvider
+org.ylzl.eden.spring.integration.cat.spi.CustomCatPropertyProvider

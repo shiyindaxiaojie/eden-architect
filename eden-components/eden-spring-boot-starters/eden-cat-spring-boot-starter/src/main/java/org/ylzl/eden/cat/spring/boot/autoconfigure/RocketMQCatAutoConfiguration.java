@@ -25,6 +25,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
@@ -37,6 +38,7 @@ import org.ylzl.eden.spring.integration.cat.integration.rocketmq.RocketMQCatSend
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnExpression("${cat.rocketmq.enabled:true}")
 @ConditionalOnBean({
 	CatAutoConfiguration.class,
 	RocketMQAutoConfiguration.class

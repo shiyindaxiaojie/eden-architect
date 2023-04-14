@@ -74,7 +74,7 @@ public class CatAutoConfiguration implements InitializingBean {
 		// 动态设置 cat-home 路径
 		System.setProperty(CAT_HOME, catProperties.getHome());
 
-		// 代替 META-INF/app.properites
+		// 代替 META-INF/app.properties
 		String domain;
 		if (StringUtils.isBlank(catProperties.getDomain())) {
 			domain = environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME);
@@ -82,6 +82,7 @@ public class CatAutoConfiguration implements InitializingBean {
 			domain = catProperties.getDomain();
 		}
 
+		// 初始化
 		Cat.initializeByDomain(domain,
 			catProperties.getTcpPort(),
 			catProperties.getHttpPort(),

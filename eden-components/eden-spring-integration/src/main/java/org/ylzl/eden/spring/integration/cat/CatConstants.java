@@ -11,6 +11,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CatConstants extends com.dianping.cat.CatConstants {
 
+	// Inner
+	public static final String TYPE_INNER_SERVICE = "InnerService";
+
 	// HTTP
 	// 参考 com.dianping.cat.consumer.matrix.MessageAnalyzer
 	// 参考 com.dianping.cat.consumer.dependency.DependencyAnalyzer

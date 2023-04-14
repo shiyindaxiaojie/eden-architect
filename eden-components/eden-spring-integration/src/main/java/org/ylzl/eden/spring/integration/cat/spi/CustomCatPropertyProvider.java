@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
+package org.ylzl.eden.spring.integration.cat.spi;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.aop.Advice;
-import org.springframework.aop.support.RegexpMethodPointcutAdvisor;
+import com.dianping.cat.CatPropertyProvider;
+import org.unidal.helper.Properties;
 
 /**
- * 日志切面检查点
+ * 自定义 CatPropertyProvider
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@RequiredArgsConstructor
-@Slf4j
-public class LoggingAspectPointcut extends RegexpMethodPointcutAdvisor {
+public class CustomCatPropertyProvider implements CatPropertyProvider {
 
-	public LoggingAspectPointcut(String[] patterns, Advice advice) {
-		super(patterns, advice);
+	private final Properties.PropertyAccessor<String> config;
+
+	public CustomCatPropertyProvider() {
+		super();
+		config = Properties.forString().fromEnv().fromSystem();
+	}
+
+	public String getProperty(final String name, final String defaultValue) {
+		return config.getProperty(name, defaultValue);
 	}
 }

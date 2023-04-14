@@ -60,7 +60,7 @@ public class CatClient {
 				Cat.logEvent(type + "." + name + ".Error", e.getMessage());
 			}
 			transaction.setStatus(e);
-			throw e;
+			throw new RuntimeException(e);
 		} finally {
 			transaction.complete();
 		}
@@ -101,7 +101,7 @@ public class CatClient {
 				Cat.logEvent(type + "." + name + ".Error", e.getMessage());
 			}
 			transaction.setStatus(e);
-			throw e;
+			throw new RuntimeException(e);
 		} finally {
 			transaction.complete();
 		}

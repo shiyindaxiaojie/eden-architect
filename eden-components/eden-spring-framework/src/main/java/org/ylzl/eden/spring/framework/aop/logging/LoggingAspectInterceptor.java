@@ -25,6 +25,7 @@ import org.springframework.aop.support.AopUtils;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Objects;
 
 /**
  * 日志拦截器
@@ -92,6 +93,8 @@ public class LoggingAspectInterceptor implements MethodInterceptor {
 	 */
 	private void logInvocation(MethodInvocation invocation, Object result, Throwable throwable, long elapsedMillis) {
 		StringBuilder sb = new StringBuilder();
+		sb.append(Objects.requireNonNull(invocation.getThis()).getClass().getName());
+		sb.append(".");
 		sb.append(invocation.getMethod().getName());
 		sb.append("(");
 

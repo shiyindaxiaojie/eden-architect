@@ -26,7 +26,7 @@ import org.apache.dubbo.rpc.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Activate(group = {CommonConstants.CONSUMER}, order = -3)
+@Activate(group = {CommonConstants.CONSUMER}, order = -3) // 注意：执行顺序在 DubboCatTraceFilter 之前
 public class DubboCatConsumerFilter implements Filter {
 
 	@Override

@@ -41,7 +41,7 @@ public class LoggingAspectConfig {
 	/**
 	 * 需要输出日志的包名
 	 */
-	private String[] packages = {};
+	private String expression;
 
 	/**
 	 * 日志输出采样率

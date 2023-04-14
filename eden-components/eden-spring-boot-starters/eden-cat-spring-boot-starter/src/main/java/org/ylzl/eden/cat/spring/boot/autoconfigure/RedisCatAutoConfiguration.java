@@ -21,11 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAspect;
 
 /**
@@ -34,6 +37,13 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAs
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@ConditionalOnProperty(
+	prefix = "spring.redis",
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
+)
+@ConditionalOnExpression("${cat.redis.enabled:true}")
 @ConditionalOnBean(CatAutoConfiguration.class)
 @AutoConfigureAfter({
 	CatAutoConfiguration.class,

@@ -56,5 +56,5 @@ public @interface EnableLoggingAspect {
 	 */
 	int order() default Ordered.LOWEST_PRECEDENCE;
 
-	String[] packages() default {};
+	String expression() default "";
 }

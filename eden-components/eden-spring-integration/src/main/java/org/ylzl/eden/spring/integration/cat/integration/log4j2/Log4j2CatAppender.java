@@ -33,12 +33,17 @@ public class Log4j2CatAppender extends AbstractAppender {
 
 	public static final String NAME = "CAT";
 
+	private static final int DEFAULT_MAX_LENGTH = 500;
+
 	private final Level level;
 
+	private final Integer maxLength;
+
 	public Log4j2CatAppender(String name, Filter filter, Layout<? extends Serializable> layout,
-							 boolean ignoreExceptions, Property[] properties, Level level) {
+							 boolean ignoreExceptions, Property[] properties, Level level, Integer maxLength) {
 		super(name, filter, layout, ignoreExceptions, properties);
 		this.level = level;
+		this.maxLength = maxLength;
 	}
 
 	@Override
@@ -59,21 +64,13 @@ public class Log4j2CatAppender extends AbstractAppender {
 
 	private void logCat(LogEvent event, Level level) {
 		switch (level.getStandardLevel()) {
+			case DEBUG:
 			case INFO:
 			case WARN:
 				tryAppend(event);
-			case ERROR:
+			default:
 				// 直接跳过，避免和业务重复输出
 				break;
-//				ThrowableProxy proxy = event.getThrownProxy();
-//				if (proxy != null) {
-//					Throwable exception = proxy.getThrowable();
-//					if (event.getMessage() != null) {
-//						Cat.logError(event.getMessage().getFormattedMessage(), exception);
-//					} else {
-//						Cat.logError(exception.getMessage(), exception);
-//					}
-//				}
 		}
 	}
 
@@ -90,7 +87,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 		} else {
 			data = layout.toByteArray(event);
 		}
-		String message = new String(data, Charsets.UTF_8_NAME);
+		String message = new String(data, 0, maxLength, Charsets.UTF_8_NAME);
 		Cat.logEvent(CatConstants.TYPE_LOG_LOG4J2, event.getLevel().name(), Message.SUCCESS, message);
 	}
 
@@ -100,7 +97,8 @@ public class Log4j2CatAppender extends AbstractAppender {
 		@PluginElement("Filter") Filter filter,
 		@PluginElement("Layout") Layout<? extends Serializable> layout,
 		@PluginAttribute("ignoreExceptions") String ignore,
-		@PluginAttribute("level") Level level) {
+		@PluginAttribute("level") Level level,
+		@PluginAttribute("maxLength") Integer maxLength) {
 
 		if (name == null) {
 			return null;
@@ -111,7 +109,10 @@ public class Log4j2CatAppender extends AbstractAppender {
 		if (level == null) {
 			level = Level.ERROR;
 		}
+		if (maxLength == null) {
+			maxLength = DEFAULT_MAX_LENGTH;
+		}
 		boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
-		return new Log4j2CatAppender(name, filter, layout, ignoreExceptions, null, level);
+		return new Log4j2CatAppender(name, filter, layout, ignoreExceptions, null, level, maxLength);
 	}
 }

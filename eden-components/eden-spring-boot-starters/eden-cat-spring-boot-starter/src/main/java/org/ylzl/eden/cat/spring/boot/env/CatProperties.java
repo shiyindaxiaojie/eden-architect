@@ -51,14 +51,61 @@ public class CatProperties {
 
 	private final Http http = new Http();
 
+	private final Dubbo dubbo = new Dubbo();
+
+	private final Mybatis mybatis = new Mybatis();
+
+	private final Redis redis = new Redis();
+
+	private final RocketMQ rocketMQ = new RocketMQ();
+
+	private final Kafka kafka = new Kafka();
+
 	@Getter
 	@Setter
 	public static class Http {
+
+		private boolean enabled = true;
 
 		private String excludeUrls = "/favicon.ico,/js/*,/css/*,/image/*";
 
 		private String includeHeaders;
 
 		private boolean includeBody = false;
+	}
+
+	@Getter
+	@Setter
+	public static class Dubbo {
+
+		private boolean enabled = true;
+	}
+
+	@Getter
+	@Setter
+	public static class Mybatis {
+
+		private boolean enabled = true;
+	}
+
+	@Getter
+	@Setter
+	public static class Redis {
+
+		private boolean enabled = true;
+	}
+
+	@Getter
+	@Setter
+	public static class RocketMQ {
+
+		private boolean enabled = true;
+	}
+
+	@Getter
+	@Setter
+	public static class Kafka {
+
+		private boolean enabled = true;
 	}
 }

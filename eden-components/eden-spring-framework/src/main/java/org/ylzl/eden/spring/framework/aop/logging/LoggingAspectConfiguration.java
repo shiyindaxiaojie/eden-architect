@@ -25,7 +25,6 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.util.PathMatcher;
 
 /**
  * 日志切面配置
@@ -40,8 +39,6 @@ public class LoggingAspectConfiguration implements ImportAware {
 
 	private static final String IMPORTING_META_NOT_FOUND = "@EnableLoggingAspect is not present on importing class";
 
-	private static final String BEAN_NAME = "loggingAspectPointcutAdvisor";
-
 	private AnnotationAttributes enableLoggingAspect;
 
 	@Override
@@ -54,26 +51,26 @@ public class LoggingAspectConfiguration implements ImportAware {
 	}
 
 	@Bean
-	public LoggingAspectInterceptor loggingAspectInterceptor(ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
-		return new LoggingAspectInterceptor(getLoggingAspectConfig(loggingAspectConfig));
+	public LoggingAspectPointcutAdvisor loggingAspectPointcutAdvisor(ObjectProvider<LoggingAspectConfig> configs,
+																	 LoggingAspectInterceptor interceptor) {
+		LoggingAspectPointcutAdvisor advisor = new LoggingAspectPointcutAdvisor();
+		String expression = getLoggingAspectConfig(configs).getExpression();
+		advisor.setExpression(expression);
+		advisor.setAdvice(interceptor);
+		if (enableLoggingAspect != null) {
+			advisor.setOrder(enableLoggingAspect.getNumber("order"));
+		}
+		return advisor;
 	}
 
 	@Bean
-	public LoggingAspectPointcutAdvisor loggingAspectPointcutAdvisor(LoggingAspectInterceptor loggingAspectInterceptor,
-		PathMatcher pathMatcher, ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
-		LoggingAspectPointcutAdvisor pointcutAdvisor = new LoggingAspectPointcutAdvisor(pathMatcher,
-			getLoggingAspectConfig(loggingAspectConfig).getPackages());
-		pointcutAdvisor.setAdviceBeanName(BEAN_NAME);
-		pointcutAdvisor.setAdvice(loggingAspectInterceptor);
-		if (enableLoggingAspect != null) {
-			pointcutAdvisor.setOrder(enableLoggingAspect.getNumber("order"));
-		}
-		return pointcutAdvisor;
+	public LoggingAspectInterceptor loggingAspectInterceptor(ObjectProvider<LoggingAspectConfig> configs) {
+		return new LoggingAspectInterceptor(getLoggingAspectConfig(configs));
 	}
 
 	private LoggingAspectConfig getLoggingAspectConfig(ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
 		LoggingAspectConfig config = new LoggingAspectConfig();
-		config.setPackages(enableLoggingAspect.getStringArray("packages"));
+		config.setExpression(enableLoggingAspect.getString("expression"));
 		return loggingAspectConfig.getIfUnique(() -> config);
 	}
 }
