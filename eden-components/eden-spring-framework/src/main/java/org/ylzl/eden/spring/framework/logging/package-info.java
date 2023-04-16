@@ -14,18 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
-
-/**
- * 日志切面正则匹配
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- */
-@Slf4j
-public class LoggingAspectPointcutAdvisor extends AspectJExpressionPointcutAdvisor {
-
-}
+package org.ylzl.eden.spring.framework.logging;

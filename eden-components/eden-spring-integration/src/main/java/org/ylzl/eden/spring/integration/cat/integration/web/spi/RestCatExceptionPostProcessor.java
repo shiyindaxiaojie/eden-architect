@@ -38,7 +38,7 @@ public class RestCatExceptionPostProcessor implements RestExceptionPostProcessor
 	 */
 	@Override
 	public Throwable getThrowable(HttpServletRequest request, HttpServletResponse response) {
-		Throwable throwable =  (Throwable) request.getAttribute(CAT_ERROR_KEY);
+		Throwable throwable = (Throwable) request.getAttribute(CAT_ERROR_KEY);
 		request.removeAttribute(CAT_ERROR_KEY);
 		return throwable;
 	}

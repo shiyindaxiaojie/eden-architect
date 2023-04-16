@@ -18,7 +18,7 @@ package org.ylzl.eden.spring.security.web.authentication;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +35,6 @@ public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
 	@Override
 	public void onAuthenticationSuccess(
 		HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-		ResponseUtils.wrap(response, HttpServletResponse.SC_OK);
+		ServletUtils.wrap(response, HttpServletResponse.SC_OK);
 	}
 }

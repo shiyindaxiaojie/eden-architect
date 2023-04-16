@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.security.web.authentication;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +35,6 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-		ResponseUtils.wrap(response, HttpServletResponse.SC_OK);
+		ServletUtils.wrap(response, HttpServletResponse.SC_OK);
 	}
 }

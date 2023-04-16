@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
+package org.ylzl.eden.spring.framework.logging.aop;
 
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
 
 /**
- * 日志切面装配选择器
+ * 访问日志切面装配选择器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-public class LoggingAspectImportSelector extends AdviceModeImportSelector<EnableLoggingAspect> {
+public class AccessLogAspectImportSelector extends AdviceModeImportSelector<EnableAccessLogAspect> {
 
 	@Override
 	protected String[] selectImports(AdviceMode adviceMode) {
@@ -34,11 +34,11 @@ public class LoggingAspectImportSelector extends AdviceModeImportSelector<Enable
 			case PROXY:
 				return new String[]{
 					AutoProxyRegistrar.class.getName(),
-					LoggingAspectConfiguration.class.getName()
+					AccessLogAspectConfiguration.class.getName()
 				};
 			case ASPECTJ:
 				return new String[]{
-					LoggingAspectConfiguration.class.getName()
+					AccessLogAspectConfiguration.class.getName()
 				};
 		}
 		return new String[0];

@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.security.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +37,6 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
 		log.error("用户未认证: {}", e.getMessage(), e);
-		ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", "用户未认证");
+		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", "用户未认证");
 	}
 }

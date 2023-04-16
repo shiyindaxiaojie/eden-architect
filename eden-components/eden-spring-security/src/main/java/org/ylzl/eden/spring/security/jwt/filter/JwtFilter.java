@@ -23,7 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.GenericFilterBean;
-import org.ylzl.eden.spring.framework.web.util.ResponseUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 import org.ylzl.eden.spring.security.jwt.model.AccessToken;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
@@ -59,7 +59,7 @@ public class JwtFilter extends GenericFilterBean {
 			try {
 				this.jwtTokenProvider.validateToken(accessToken);
 			} catch (Exception e) {
-				ResponseUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", e.getMessage());
+				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", e.getMessage());
 				return;
 			}
 			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);

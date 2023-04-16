@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
+package org.ylzl.eden.spring.framework.logging.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -25,9 +25,10 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
+import org.ylzl.eden.spring.framework.logging.config.AccessLogConfig;
 
 /**
- * 日志切面配置
+ * 访问日志切面配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -35,42 +36,42 @@ import org.springframework.core.type.AnnotationMetadata;
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-public class LoggingAspectConfiguration implements ImportAware {
+public class AccessLogAspectConfiguration implements ImportAware {
 
-	private static final String IMPORTING_META_NOT_FOUND = "@EnableLoggingAspect is not present on importing class";
+	private static final String IMPORTING_META_NOT_FOUND = "@EnableAccessLogAspect is not present on importing class";
 
-	private AnnotationAttributes enableLoggingAspect;
+	private AnnotationAttributes annotation;
 
 	@Override
 	public void setImportMetadata(AnnotationMetadata importMetadata) {
-		this.enableLoggingAspect = AnnotationAttributes.fromMap(
-			importMetadata.getAnnotationAttributes(EnableLoggingAspect.class.getName(), false));
-		if (this.enableLoggingAspect == null) {
+		this.annotation = AnnotationAttributes.fromMap(
+			importMetadata.getAnnotationAttributes(EnableAccessLogAspect.class.getName(), false));
+		if (this.annotation == null) {
 			log.warn(IMPORTING_META_NOT_FOUND);
 		}
 	}
 
 	@Bean
-	public LoggingAspectPointcutAdvisor loggingAspectPointcutAdvisor(ObjectProvider<LoggingAspectConfig> configs,
-																	 LoggingAspectInterceptor interceptor) {
-		LoggingAspectPointcutAdvisor advisor = new LoggingAspectPointcutAdvisor();
+	public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
+														 AccessLogInterceptor interceptor) {
+		AccessLogAdvisor advisor = new AccessLogAdvisor();
 		String expression = getLoggingAspectConfig(configs).getExpression();
 		advisor.setExpression(expression);
 		advisor.setAdvice(interceptor);
-		if (enableLoggingAspect != null) {
-			advisor.setOrder(enableLoggingAspect.getNumber("order"));
+		if (annotation != null) {
+			advisor.setOrder(annotation.getNumber("order"));
 		}
 		return advisor;
 	}
 
 	@Bean
-	public LoggingAspectInterceptor loggingAspectInterceptor(ObjectProvider<LoggingAspectConfig> configs) {
-		return new LoggingAspectInterceptor(getLoggingAspectConfig(configs));
+	public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
+		return new AccessLogInterceptor(getLoggingAspectConfig(configs));
 	}
 
-	private LoggingAspectConfig getLoggingAspectConfig(ObjectProvider<LoggingAspectConfig> loggingAspectConfig) {
-		LoggingAspectConfig config = new LoggingAspectConfig();
-		config.setExpression(enableLoggingAspect.getString("expression"));
+	private AccessLogConfig getLoggingAspectConfig(ObjectProvider<AccessLogConfig> loggingAspectConfig) {
+		AccessLogConfig config = new AccessLogConfig();
+		config.setExpression(annotation.getString("expression"));
 		return loggingAspectConfig.getIfUnique(() -> config);
 	}
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
+package org.ylzl.eden.spring.framework.logging.aop;
 
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
@@ -23,16 +23,16 @@ import org.springframework.core.Ordered;
 import java.lang.annotation.*;
 
 /**
- * 开启日志切面
+ * 开启访问日志切面
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Import(LoggingAspectImportSelector.class)
+@Import(AccessLogAspectImportSelector.class)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface EnableLoggingAspect {
+public @interface EnableAccessLogAspect {
 
 	/**
 	 * 是否开启 CGLIB 代理

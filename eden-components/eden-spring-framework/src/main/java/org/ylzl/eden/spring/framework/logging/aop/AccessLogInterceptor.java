@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.aop.logging;
+package org.ylzl.eden.spring.framework.logging.aop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,22 +22,23 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.support.AopUtils;
+import org.ylzl.eden.spring.framework.logging.config.AccessLogConfig;
+import org.ylzl.eden.spring.framework.logging.util.AccessLogHelper;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Objects;
 
 /**
- * 日志拦截器
+ * 访问日志拦截器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
-public class LoggingAspectInterceptor implements MethodInterceptor {
+public class AccessLogInterceptor implements MethodInterceptor {
 
-	private final LoggingAspectConfig config;
+	private final AccessLogConfig config;
 
 	/**
 	 * 方法调用拦截处理
@@ -54,7 +55,7 @@ public class LoggingAspectInterceptor implements MethodInterceptor {
 		}
 
 		// 判断是否需要输出日志
-		if (!shouldLog()) {
+		if (!AccessLogHelper.shouldLog(config.getSampleRate())) {
 			return invocation.proceed();
 		}
 
@@ -68,58 +69,8 @@ public class LoggingAspectInterceptor implements MethodInterceptor {
 			throwable = t;
 			throw t;
 		} finally {
-			long elapsedMillis = Duration.between(start, Instant.now()).toMillis();
-			logInvocation(invocation, result, throwable, elapsedMillis);
+			long duration = Duration.between(start, Instant.now()).toMillis();
+			AccessLogHelper.log(invocation, result, throwable, duration, config.isEnabledMdc(), config.getMaxLength());
 		}
-	}
-
-	/**
-	 * 根据采样率判断是否需要输出日志
-	 *
-	 * @return
-	 */
-	private boolean shouldLog() {
-		double sampleRate = config.getSampleRate();
-		return sampleRate >= 1.0 || Math.random() < sampleRate;
-	}
-
-	/**
-	 *
-	 *
-	 * @param invocation
-	 * @param result
-	 * @param throwable
-	 * @param elapsedMillis
-	 */
-	private void logInvocation(MethodInvocation invocation, Object result, Throwable throwable, long elapsedMillis) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Objects.requireNonNull(invocation.getThis()).getClass().getName());
-		sb.append(".");
-		sb.append(invocation.getMethod().getName());
-		sb.append("(");
-
-		Object[] args = invocation.getArguments();
-		for (int i = 0; i < args.length; i++) {
-			if (i > 0) {
-				sb.append(", ");
-			}
-			sb.append(args[i] == null ? "null" : args[i].toString());
-		}
-
-		sb.append(")");
-
-		if (throwable != null) {
-			sb.append(" threw exception: ");
-			sb.append(throwable);
-		} else {
-			sb.append(" returned: ");
-			sb.append(result);
-		}
-
-		sb.append(" (");
-		sb.append(elapsedMillis);
-		sb.append("ms)");
-
-		log.info(sb.toString());
 	}
 }

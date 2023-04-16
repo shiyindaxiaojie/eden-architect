@@ -29,7 +29,7 @@ import org.ylzl.eden.idempotent.Idempotent;
 import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 import org.ylzl.eden.spring.framework.aop.util.AspectJAopUtils;
-import org.ylzl.eden.spring.framework.web.util.RequestUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -67,7 +67,7 @@ public class TimeToLiveIdempotentAspect {
 		if (StringUtils.isNotBlank(key)) {
 			return AspectJAopUtils.parseExpression(key, joinPoint);
 		}
-		String url = RequestUtils.getRequestURL();
+		String url = ServletUtils.getRequestURL();
 		String argString = Arrays.asList(joinPoint.getArgs()).toString();
 		return url + argString;
 	}

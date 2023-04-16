@@ -39,7 +39,7 @@ import org.ylzl.eden.spring.framework.error.http.BadRequestException;
 import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
-import org.ylzl.eden.spring.framework.web.util.RequestUtils;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -198,8 +198,8 @@ public class RestExceptionHandler {
 			ExtensionLoader.getExtensionLoader(RestExceptionPostProcessor.class);
 		Set<String> extensions = extensionLoader.getSupportedExtensions();
 		if (CollectionUtils.isNotEmpty(extensions)) {
-			HttpServletRequest request = RequestUtils.getRequest();
-			HttpServletResponse response = RequestUtils.getResponse();
+			HttpServletRequest request = ServletUtils.getRequest();
+			HttpServletResponse response = ServletUtils.getResponse();
 			for (String extension : extensions) {
 				RestExceptionPostProcessor processor = extensionLoader.getExtension(extension);
 				processor.postProcess(request, response, ex);
