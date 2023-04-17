@@ -41,9 +41,7 @@ import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
 })
 public class MybatisSqlLogInterceptor implements Interceptor {
 
-	public static final String SQL_LOGGER = "\nExecute ID  : {}" +
-		"\nExecute SQL : {}" +
-		"\nExecute Time: {} ms";
+	public static final String SQL_LOGGER = "{} ({} ms) SQL: {} ";
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -52,7 +50,7 @@ public class MybatisSqlLogInterceptor implements Interceptor {
 		long start = SystemClock.now();
 		Object result = invocation.proceed();
 		long timing = SystemClock.now() - start;
-		log.info(SQL_LOGGER, mappedStatement.getId(), originalSql, timing);
+		log.info(SQL_LOGGER, mappedStatement.getId(), timing, originalSql);
 		return result;
 	}
 
