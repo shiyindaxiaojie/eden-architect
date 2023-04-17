@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.logging.aop;
+package org.ylzl.eden.spring.framework.logging;
 
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
+import org.ylzl.eden.spring.framework.logging.config.AccessLogAspectImportSelector;
 
 import java.lang.annotation.*;
 
@@ -56,5 +57,10 @@ public @interface EnableAccessLogAspect {
 	 */
 	int order() default Ordered.LOWEST_PRECEDENCE;
 
+	/**
+	 * AspectJ 切面表达式
+	 *
+	 * @return 表达式
+	 */
 	String expression() default "";
 }

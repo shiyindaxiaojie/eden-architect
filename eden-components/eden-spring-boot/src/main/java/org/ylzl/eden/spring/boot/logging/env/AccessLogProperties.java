@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.logging.config;
+package org.ylzl.eden.spring.boot.logging.env;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.ylzl.eden.spring.framework.logging.config.AccessLogConfig;
 
 /**
  * 日志切面配置
@@ -27,33 +29,15 @@ import lombok.ToString;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Setter
 @Getter
-public class AccessLogConfig {
+@ConfigurationProperties(prefix = AccessLogProperties.PREFIX)
+public class AccessLogProperties extends AccessLogConfig {
 
-	/* 需要输出日志的包名 */
-	private String expression;
+	public static final String PREFIX = "logging.access";
 
-	/* 日志输出采样率 */
-	private double sampleRate = 1.0;
-
-	/* 是否输出入参 */
-	private boolean logArguments = true;
-
-	/* 是否输出返回值 */
-	private boolean logReturnValue = true;
-
-	/* 是否输出方法执行耗时 */
-	private boolean logExecutionTime = true;
-
-	/* 是否保存到 MDC */
-	private boolean enabledMdc = true;
-
-	/* 最大长度 */
-	private int maxLength = 500;
-
-	/* 慢日志 */
-	private long slowLog = 1000;
+	/* 是否开启日志切面 */
+	private boolean enabled = false;
 }

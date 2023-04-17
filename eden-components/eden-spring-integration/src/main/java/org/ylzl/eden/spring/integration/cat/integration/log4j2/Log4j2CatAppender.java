@@ -43,7 +43,7 @@ public class Log4j2CatAppender extends AbstractAppender {
 							 boolean ignoreExceptions, Property[] properties, Level level, Integer maxLength) {
 		super(name, filter, layout, ignoreExceptions, properties);
 		this.level = level;
-		this.maxLength = maxLength;
+		this.maxLength = maxLength != null && maxLength > 0? maxLength : DEFAULT_MAX_LENGTH;
 	}
 
 	@Override
@@ -87,7 +87,9 @@ public class Log4j2CatAppender extends AbstractAppender {
 		} else {
 			data = layout.toByteArray(event);
 		}
-		String message = new String(data, 0, maxLength, Charsets.UTF_8_NAME);
+		String message = data.length > maxLength?
+			new String(data, 0, maxLength, Charsets.UTF_8_NAME) :
+			new String(data, Charsets.UTF_8_NAME);
 		Cat.logEvent(CatConstants.TYPE_LOG_LOG4J2, event.getLevel().name(), Message.SUCCESS, message);
 	}
 

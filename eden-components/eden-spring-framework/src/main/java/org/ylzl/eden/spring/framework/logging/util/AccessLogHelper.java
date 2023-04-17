@@ -22,6 +22,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.MDC;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.logging.config.AccessLogConstants;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
@@ -57,9 +58,10 @@ public class AccessLogHelper {
 	 * @param duration 耗时
 	 * @param enabledMdc 是否保存到 MDC
 	 * @param maxLength 最大长度
+	 * @param slowLog 慢日志
 	 */
 	public static void log(MethodInvocation invocation, Object result, Throwable throwable,
-						   long duration, boolean enabledMdc, int maxLength) {
+						   long duration, boolean enabledMdc, int maxLength, long slowLog) {
 		String className = Objects.requireNonNull(invocation.getThis()).getClass().getName();
 		String methodName = invocation.getMethod().getName();
 		String location = className + Strings.DOT + methodName;
@@ -77,7 +79,7 @@ public class AccessLogHelper {
 			arguments = arguments.substring(0, maxLength);
 		}
 
-		String returnValue = ObjectUtils.trimToString(result);
+		String returnValue = ObjectUtils.isEmpty(result)? Strings.EMPTY : JSONHelper.json().toJSONString(result);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}
@@ -91,7 +93,7 @@ public class AccessLogHelper {
 			MDC.put(AccessLogConstants.DURATION, String.valueOf(duration));
 		}
 
-		log(location, arguments, returnValue, throwable, duration);
+		log(location, arguments, returnValue, throwable, duration, slowLog);
 	}
 
 	/**
@@ -105,13 +107,13 @@ public class AccessLogHelper {
 	 * @param maxLength 最大长度
 	 */
 	public static void log(HttpServletRequest req, HttpServletResponse res, Throwable throwable,
-						   long duration, boolean enabledMdc, int maxLength) {
+						   long duration, boolean enabledMdc, int maxLength, long slowLog) {
 		String remoteUser = ServletUtils.getRemoteUser();
 		String remoteAddr = ServletUtils.getRemoteAddr();
 		String location = req.getRequestURI();
 
-		String arguments = ServletUtils.getRequestParameters(req) + Strings.COMMA + ServletUtils.getRequestBody(req);
-		if (arguments.length() > maxLength) {
+		String arguments = ServletUtils.getRequestBody(req);
+		if (arguments != null && arguments.length() > maxLength) {
 			arguments = arguments.substring(0, maxLength);
 		}
 
@@ -129,7 +131,7 @@ public class AccessLogHelper {
 			MDC.put(AccessLogConstants.DURATION, String.valueOf(duration));
 		}
 
-		log(location, arguments, returnValue, throwable, duration);
+		log(location, arguments, returnValue, throwable, duration, slowLog);
 	}
 
 	/**
@@ -140,20 +142,23 @@ public class AccessLogHelper {
 	 * @param returnValue 返回值
 	 * @param throwable 异常
 	 * @param duration 耗时
+	 * @param slowLog 慢日志
 	 */
 	public static void log(String location, String arguments, String returnValue,
-						   Throwable throwable, long duration) {
+						   Throwable throwable, long duration, long slowLog) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(location).append("(").append(arguments).append(")");
 
 		if (throwable != null) {
-			sb.append(" threw exception: ").append(throwable);
+			sb.append(" threw exception: ").append(throwable).append(" (").append(duration).append("ms)");
+			log.error(sb.toString());
 		} else {
-			sb.append(" returned: ").append(returnValue);
+			sb.append(" returned: ").append(returnValue).append(" (").append(duration).append("ms)");
+			if (duration >= slowLog) {
+				log.warn(sb.toString());
+			} else {
+				log.info(sb.toString());
+			}
 		}
-
-		sb.append(" (").append(duration).append("ms)");
-
-		log.info(sb.toString());
 	}
 }

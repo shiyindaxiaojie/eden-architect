@@ -223,6 +223,9 @@ public final class ServletUtils {
 	}
 
 	public static String getResponseBody(HttpServletResponse response) {
+		if (response instanceof CustomHttpServletResponseWrapper) {
+			return ((CustomHttpServletResponseWrapper) response).getContent();
+		}
 		String contentType = response.getContentType();
 		if (contentType != null && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
 			return response.toString();

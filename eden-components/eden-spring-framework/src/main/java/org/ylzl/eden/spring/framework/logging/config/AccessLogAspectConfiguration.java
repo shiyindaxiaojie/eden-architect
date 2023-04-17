@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.logging.aop;
+package org.ylzl.eden.spring.framework.logging.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -25,7 +25,9 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.spring.framework.logging.config.AccessLogConfig;
+import org.ylzl.eden.spring.framework.logging.aop.AccessLogAdvisor;
+import org.ylzl.eden.spring.framework.logging.aop.AccessLogInterceptor;
+import org.ylzl.eden.spring.framework.logging.EnableAccessLogAspect;
 
 /**
  * 访问日志切面配置
@@ -55,7 +57,7 @@ public class AccessLogAspectConfiguration implements ImportAware {
 	public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
 														 AccessLogInterceptor interceptor) {
 		AccessLogAdvisor advisor = new AccessLogAdvisor();
-		String expression = getLoggingAspectConfig(configs).getExpression();
+		String expression = getAccessLogConfig(configs).getExpression();
 		advisor.setExpression(expression);
 		advisor.setAdvice(interceptor);
 		if (annotation != null) {
@@ -66,12 +68,14 @@ public class AccessLogAspectConfiguration implements ImportAware {
 
 	@Bean
 	public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
-		return new AccessLogInterceptor(getLoggingAspectConfig(configs));
+		return new AccessLogInterceptor(getAccessLogConfig(configs));
 	}
 
-	private AccessLogConfig getLoggingAspectConfig(ObjectProvider<AccessLogConfig> loggingAspectConfig) {
-		AccessLogConfig config = new AccessLogConfig();
-		config.setExpression(annotation.getString("expression"));
-		return loggingAspectConfig.getIfUnique(() -> config);
+	private AccessLogConfig getAccessLogConfig(ObjectProvider<AccessLogConfig> accessLogConfigs) {
+		return accessLogConfigs.getIfUnique(() -> {
+			AccessLogConfig config = new AccessLogConfig();
+			config.setExpression(annotation.getString("expression"));
+			return config;
+		});
 	}
 }

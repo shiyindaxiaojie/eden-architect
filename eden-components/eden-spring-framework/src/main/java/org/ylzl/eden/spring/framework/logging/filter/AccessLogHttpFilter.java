@@ -18,7 +18,9 @@ package org.ylzl.eden.spring.framework.logging.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.framework.logging.util.AccessLogHelper;
+import org.ylzl.eden.spring.framework.web.util.CustomHttpServletResponseWrapper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -31,7 +33,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * TODO
+ * 访问日志过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
@@ -46,17 +48,37 @@ public class AccessLogHttpFilter extends HttpFilter {
 
 	public static final String MAX_LENGTH = "maxLength";
 
+	public static final String SLOW_LOG = "slowLog";
+
 	private boolean enabledMdc = false;
 
 	private double sampleRate = 1;
 
 	private int maxLength = 500;
 
+	private long slowLog = 1000;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		this.enabledMdc = Boolean.parseBoolean(filterConfig.getInitParameter(ENABLED_MDC));
-		this.sampleRate = Double.parseDouble(filterConfig.getInitParameter(SAMPLE_RATE));
-		this.maxLength = Integer.parseInt(filterConfig.getInitParameter(MAX_LENGTH));
+		String enabledMdc = filterConfig.getInitParameter(ENABLED_MDC);
+		if (StringUtils.isNotBlank(enabledMdc)) {
+			this.enabledMdc = Boolean.parseBoolean(enabledMdc);
+		}
+
+		String sampleRate = filterConfig.getInitParameter(SAMPLE_RATE);
+		if (StringUtils.isNotBlank(sampleRate)) {
+			this.sampleRate = Double.parseDouble(sampleRate);
+		}
+
+		String maxLength = filterConfig.getInitParameter(MAX_LENGTH);
+		if (StringUtils.isNotBlank(enabledMdc)) {
+			this.maxLength = Integer.parseInt(maxLength);
+		}
+
+		String slowLog = filterConfig.getInitParameter(SLOW_LOG);
+		if (StringUtils.isNotBlank(slowLog)) {
+			this.slowLog = Long.parseLong(slowLog);
+		}
 	}
 
 	@Override
@@ -67,16 +89,29 @@ public class AccessLogHttpFilter extends HttpFilter {
 			return;
 		}
 
+		CustomHttpServletResponseWrapper responseWrapper = new CustomHttpServletResponseWrapper(res);
 		Instant start = Instant.now();
 		Throwable throwable = null;
 		try {
-			chain.doFilter(req, res);
+			chain.doFilter(req, responseWrapper);
 		} catch (Throwable t) {
 			throwable = t;
 			throw t;
 		} finally {
 			long duration = Duration.between(start, Instant.now()).toMillis();
-			AccessLogHelper.log(req, res, throwable, duration, enabledMdc, maxLength);
+			AccessLogHelper.log(req, responseWrapper, throwable, duration, enabledMdc, maxLength, slowLog);
 		}
+	}
+
+	public void setEnabledMdc(boolean enabledMdc) {
+		this.enabledMdc = enabledMdc;
+	}
+
+	public void setSampleRate(double sampleRate) {
+		this.sampleRate = sampleRate;
+	}
+
+	public void setMaxLength(int maxLength) {
+		this.maxLength = maxLength;
 	}
 }

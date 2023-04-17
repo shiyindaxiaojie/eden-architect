@@ -70,7 +70,8 @@ public class AccessLogInterceptor implements MethodInterceptor {
 			throw t;
 		} finally {
 			long duration = Duration.between(start, Instant.now()).toMillis();
-			AccessLogHelper.log(invocation, result, throwable, duration, config.isEnabledMdc(), config.getMaxLength());
+			AccessLogHelper.log(invocation, result, throwable, duration,
+				config.isEnabledMdc(), config.getMaxLength(), config.getSlowLog());
 		}
 	}
 }

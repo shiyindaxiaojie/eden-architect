@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.logging.aop;
+package org.ylzl.eden.spring.framework.logging.config;
 
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
+import org.ylzl.eden.spring.framework.logging.EnableAccessLogAspect;
 
 /**
  * 访问日志切面装配选择器
