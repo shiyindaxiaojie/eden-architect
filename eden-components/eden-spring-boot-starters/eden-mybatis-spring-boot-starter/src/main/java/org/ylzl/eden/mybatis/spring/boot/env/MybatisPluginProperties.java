@@ -19,6 +19,8 @@ package org.ylzl.eden.mybatis.spring.boot.env;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.time.Duration;
+
 /**
  * Mybatis 插件配置
  *
@@ -39,5 +41,7 @@ public class MybatisPluginProperties {
 	public static class SqlLog {
 
 		private boolean enabled = true;
+
+		private Duration slownessThreshold = Duration.ofMillis(1000);
 	}
 }

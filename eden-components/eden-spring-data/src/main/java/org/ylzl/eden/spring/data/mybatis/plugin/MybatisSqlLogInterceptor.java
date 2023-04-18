@@ -17,7 +17,6 @@
 package org.ylzl.eden.spring.data.mybatis.plugin;
 
 import com.baomidou.mybatisplus.core.toolkit.SystemClock;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -25,7 +24,11 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
+
+import java.time.Duration;
 
 /**
  * SQL 日志拦截器
@@ -33,7 +36,6 @@ import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Slf4j
 @Intercepts({
 	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
 	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
@@ -41,16 +43,29 @@ import org.ylzl.eden.spring.data.mybatis.util.MybatisUtils;
 })
 public class MybatisSqlLogInterceptor implements Interceptor {
 
-	public static final String SQL_LOGGER = "{} ({} ms) SQL: {} ";
+	private static final Logger log = LoggerFactory.getLogger("MybatisSqlLog");
+
+	private static final String INFO_SQL = "{} execute sql: {} ({} ms)";
+
+	private static final String WARN_SQL = "{} execute sql took more than {} ms: {} ({} ms)";
+
+	private Duration slownessThreshold = Duration.ofMillis(1000);
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
+		String mapperId = mappedStatement.getId();
+
 		String originalSql = MybatisUtils.getSql(mappedStatement, invocation);
+
 		long start = SystemClock.now();
 		Object result = invocation.proceed();
-		long timing = SystemClock.now() - start;
-		log.info(SQL_LOGGER, mappedStatement.getId(), timing, originalSql);
+		long duration = SystemClock.now() - start;
+		if (Duration.ofMillis(duration).compareTo(slownessThreshold) < 0) {
+			log.info(INFO_SQL, mapperId, originalSql, duration);
+		} else {
+			log.warn(WARN_SQL, mapperId, slownessThreshold.toMillis(), originalSql, duration);
+		}
 		return result;
 	}
 
@@ -60,5 +75,9 @@ public class MybatisSqlLogInterceptor implements Interceptor {
 			return Plugin.wrap(target, this);
 		}
 		return target;
+	}
+
+	public void setSlownessThreshold(Duration slownessThreshold) {
+		this.slownessThreshold = slownessThreshold;
 	}
 }

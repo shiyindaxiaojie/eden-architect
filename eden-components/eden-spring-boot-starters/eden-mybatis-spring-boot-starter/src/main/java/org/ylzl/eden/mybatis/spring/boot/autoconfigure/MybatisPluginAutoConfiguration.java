@@ -49,9 +49,13 @@ public class MybatisPluginAutoConfiguration {
 
 	public static final String AUTOWIRED_MYBATIS_SQL_LOG_INTERCEPTOR = "Autowired MybatisSqlLogInterceptor";
 
+	private final MybatisPluginProperties mybatisPluginProperties;
+
 	@Bean
 	public MybatisSqlLogInterceptor mybatisSqlLogInterceptor() {
 		log.debug(AUTOWIRED_MYBATIS_SQL_LOG_INTERCEPTOR);
-		return new MybatisSqlLogInterceptor();
+		MybatisSqlLogInterceptor interceptor = new MybatisSqlLogInterceptor();
+		interceptor.setSlownessThreshold(mybatisPluginProperties.getSqlLog().getSlownessThreshold());
+		return interceptor;
 	}
 }
