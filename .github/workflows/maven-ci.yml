@@ -46,6 +46,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Publish to GitHub Packages Apache Maven
-        run: ./mvnw -ntp deploy -Pgithub -DskipTests -e -s $GITHUB_WORKSPACE/settings.xml
+        run: ./mvnw -ntp deploy -Pgithub -DskipTests -e -T 4C -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
