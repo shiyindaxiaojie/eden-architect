@@ -43,7 +43,9 @@ import java.time.Duration;
 })
 public class MybatisSqlLogInterceptor implements Interceptor {
 
-	private static final Logger log = LoggerFactory.getLogger("MybatisSqlLog");
+	private static final String MYBATIS_SQL_LOG = "MybatisSqlLog";
+
+	private static final Logger log = LoggerFactory.getLogger(MYBATIS_SQL_LOG);
 
 	private static final String INFO_SQL = "{} execute sql: {} ({} ms)";
 
