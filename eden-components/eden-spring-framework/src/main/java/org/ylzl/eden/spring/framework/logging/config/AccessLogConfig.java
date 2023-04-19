@@ -55,5 +55,5 @@ public class AccessLogConfig {
 	private int maxLength = 500;
 
 	/* 慢日志 */
-	private long slowLog = 1000;
+	private long slowThreshold = 1000;
 }

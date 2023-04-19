@@ -49,6 +49,7 @@ public class AccessLogFilterConfiguration {
 		httpFilter.setSampleRate(config.getSampleRate());
 		httpFilter.setMaxLength(config.getMaxLength());
 		httpFilter.setEnabledMdc(config.isEnabledMdc());
+		httpFilter.setSlowThreshold(config.getSlowThreshold());
 		return httpFilter;
 	}
 

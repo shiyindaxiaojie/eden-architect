@@ -24,6 +24,7 @@ import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.logging.config.AccessLogConstants;
+import org.ylzl.eden.spring.framework.logging.model.AccessLog;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,13 +59,18 @@ public class AccessLogHelper {
 	 * @param duration 耗时
 	 * @param enabledMdc 是否保存到 MDC
 	 * @param maxLength 最大长度
-	 * @param slowLog 慢日志
+	 * @param slowThreshold 慢访问阈值
 	 */
 	public static void log(MethodInvocation invocation, Object result, Throwable throwable,
-						   long duration, boolean enabledMdc, int maxLength, long slowLog) {
+						   long duration, boolean enabledMdc, int maxLength, long slowThreshold) {
+		AccessLog accessLog = new AccessLog();
+		accessLog.setThrowable(throwable);
+		accessLog.setDuration(duration);
+
 		String className = Objects.requireNonNull(invocation.getThis()).getClass().getName();
 		String methodName = invocation.getMethod().getName();
 		String location = className + Strings.DOT + methodName;
+		accessLog.setLocation(location);
 
 		Object[] args = invocation.getArguments();
 		StringBuilder argsBuilder = new StringBuilder();
@@ -78,11 +84,13 @@ public class AccessLogHelper {
 		if (arguments.length() > maxLength) {
 			arguments = arguments.substring(0, maxLength);
 		}
+		accessLog.setArguments(arguments);
 
 		String returnValue = ObjectUtils.isEmpty(result)? Strings.EMPTY : JSONHelper.json().toJSONString(result);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}
+		accessLog.setReturnValue(returnValue);
 
 		if (enabledMdc) {
 			MDC.put(AccessLogConstants.CLASS_NAME, className);
@@ -93,7 +101,7 @@ public class AccessLogHelper {
 			MDC.put(AccessLogConstants.DURATION, String.valueOf(duration));
 		}
 
-		log(location, arguments, returnValue, throwable, duration, slowLog);
+		log(accessLog, slowThreshold);
 	}
 
 	/**
@@ -105,22 +113,30 @@ public class AccessLogHelper {
 	 * @param duration 耗时
 	 * @param enabledMdc 是否保存到 MDC
 	 * @param maxLength 最大长度
+	 * @param slowThreshold 慢访问阈值
 	 */
 	public static void log(HttpServletRequest req, HttpServletResponse res, Throwable throwable,
-						   long duration, boolean enabledMdc, int maxLength, long slowLog) {
+						   long duration, boolean enabledMdc, int maxLength, long slowThreshold) {
+		AccessLog accessLog = new AccessLog();
+		accessLog.setThrowable(throwable);
+		accessLog.setDuration(duration);
+
 		String remoteUser = ServletUtils.getRemoteUser();
 		String remoteAddr = ServletUtils.getRemoteAddr();
 		String location = req.getRequestURI();
+		accessLog.setLocation(location);
 
 		String arguments = ServletUtils.getRequestBody(req);
 		if (arguments != null && arguments.length() > maxLength) {
 			arguments = arguments.substring(0, maxLength);
 		}
+		accessLog.setArguments(arguments);
 
 		String returnValue = ServletUtils.getResponseBody(res);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}
+		accessLog.setReturnValue(returnValue);
 
 		if (enabledMdc) {
 			MDC.put(AccessLogConstants.REMOTE_USER, remoteUser);
@@ -131,30 +147,27 @@ public class AccessLogHelper {
 			MDC.put(AccessLogConstants.DURATION, String.valueOf(duration));
 		}
 
-		log(location, arguments, returnValue, throwable, duration, slowLog);
+		log(accessLog, slowThreshold);
 	}
 
 	/**
 	 * 输出访问日志
 	 *
-	 * @param location 执行位置
-	 * @param arguments 参数
-	 * @param returnValue 返回值
-	 * @param throwable 异常
-	 * @param duration 耗时
-	 * @param slowLog 慢日志
+	 * @param accessLog 访问日志模型
+	 * @param slowThreshold 慢访问阈值
 	 */
-	public static void log(String location, String arguments, String returnValue,
-						   Throwable throwable, long duration, long slowLog) {
+	public static void log(AccessLog accessLog, long slowThreshold) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(location).append("(").append(arguments).append(")");
+		sb.append(accessLog.getLocation()).append("(").append(accessLog.getArguments()).append(")");
 
-		if (throwable != null) {
-			sb.append(" threw exception: ").append(throwable).append(" (").append(duration).append("ms)");
+		if (accessLog.getThrowable() != null) {
+			sb.append(" threw exception: ").append(accessLog.getThrowable())
+				.append(" (").append(accessLog.getDuration()).append("ms)");
 			log.error(sb.toString());
 		} else {
-			sb.append(" returned: ").append(returnValue).append(" (").append(duration).append("ms)");
-			if (duration >= slowLog) {
+			sb.append(" returned: ").append(accessLog.getReturnValue())
+				.append(" (").append(accessLog.getDuration()).append("ms)");
+			if (accessLog.getDuration() >= slowThreshold) {
 				log.warn(sb.toString());
 			} else {
 				log.info(sb.toString());

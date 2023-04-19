@@ -48,7 +48,7 @@ public class AccessLogHttpFilter extends HttpFilter {
 
 	public static final String MAX_LENGTH = "maxLength";
 
-	public static final String SLOW_LOG = "slowLog";
+	public static final String SLOW_THRESHOLD = "slowThreshold";
 
 	private boolean enabledMdc = false;
 
@@ -56,7 +56,7 @@ public class AccessLogHttpFilter extends HttpFilter {
 
 	private int maxLength = 500;
 
-	private long slowLog = 1000;
+	private long slowThreshold = 1000;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -75,9 +75,9 @@ public class AccessLogHttpFilter extends HttpFilter {
 			this.maxLength = Integer.parseInt(maxLength);
 		}
 
-		String slowLog = filterConfig.getInitParameter(SLOW_LOG);
-		if (StringUtils.isNotBlank(slowLog)) {
-			this.slowLog = Long.parseLong(slowLog);
+		String slowThreshold = filterConfig.getInitParameter(SLOW_THRESHOLD);
+		if (StringUtils.isNotBlank(slowThreshold)) {
+			this.slowThreshold = Long.parseLong(slowThreshold);
 		}
 	}
 
@@ -89,17 +89,17 @@ public class AccessLogHttpFilter extends HttpFilter {
 			return;
 		}
 
-		CustomHttpServletResponseWrapper responseWrapper = new CustomHttpServletResponseWrapper(res);
+		CustomHttpServletResponseWrapper resWrapper = new CustomHttpServletResponseWrapper(res);
 		Instant start = Instant.now();
 		Throwable throwable = null;
 		try {
-			chain.doFilter(req, responseWrapper);
+			chain.doFilter(req, resWrapper);
 		} catch (Throwable t) {
 			throwable = t;
 			throw t;
 		} finally {
 			long duration = Duration.between(start, Instant.now()).toMillis();
-			AccessLogHelper.log(req, responseWrapper, throwable, duration, enabledMdc, maxLength, slowLog);
+			AccessLogHelper.log(req, resWrapper, throwable, duration, enabledMdc, maxLength, slowThreshold);
 		}
 	}
 
@@ -113,5 +113,9 @@ public class AccessLogHttpFilter extends HttpFilter {
 
 	public void setMaxLength(int maxLength) {
 		this.maxLength = maxLength;
+	}
+
+	public void setSlowThreshold(long slowThreshold) {
+		this.slowThreshold = slowThreshold;
 	}
 }
