@@ -46,19 +46,26 @@ public class KafkaCatProducerInterceptor<K, V> implements ProducerInterceptor<K,
 
 		String name = metadata.topic();
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
-		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_KAFKA);
-		transaction.setDurationInMillis(latency);
+		try {
+			transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_KAFKA);
+			transaction.setDurationInMillis(latency);
 
-		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_BROKER, String.valueOf(configs.get("bootstrap.servers")));
-		Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_GROUP, String.valueOf(configs.get("")));
+			Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_BROKER, String.valueOf(configs.get("bootstrap.servers")));
+			Cat.logEvent(CatConstants.TYPE_MQ_PRODUCER_GROUP, String.valueOf(configs.get("")));
 
-		if (exception == null) {
-			transaction.setSuccessStatus();
-		} else {
-			transaction.setStatus(exception.getCause());
-			Cat.logError(exception.getMessage(), exception);
+			if (exception == null) {
+				transaction.setSuccessStatus();
+			} else {
+				transaction.setStatus(exception.getCause());
+				Cat.logError(exception.getMessage(), exception);
+			}
+		} catch (Exception e) {
+			transaction.setStatus(e);
+			Cat.logError(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} finally {
+			transaction.complete();
 		}
-		transaction.complete();
 	}
 
 	@Override

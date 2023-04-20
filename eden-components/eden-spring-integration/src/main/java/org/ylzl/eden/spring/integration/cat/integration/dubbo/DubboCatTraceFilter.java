@@ -71,12 +71,11 @@ public class DubboCatTraceFilter implements Filter {
 		String type = isConsumerSide ? CatConstants.TYPE_RPC_CALL : CatConstants.TYPE_RPC_SERVICE;
 		String name = invoker.getInterface().getSimpleName() + Strings.DOT + invocation.getMethodName();
 		Transaction transaction = Cat.newTransaction(type, name);
-		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
-		transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
-		transaction.addData(CatConstants.DATA_VERSION, StringUtils.trimToEmpty(url.getVersion()));
-
 		Result result = null;
 		try {
+			transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_DUBBO);
+			transaction.addData(CatConstants.DATA_PROTOCOL, url.getProtocol());
+			transaction.addData(CatConstants.DATA_VERSION, StringUtils.trimToEmpty(url.getVersion()));
 			Cat.Context context = this.initContext();
 			if (isConsumerSide) {
 				this.addConsumerEvent(url);

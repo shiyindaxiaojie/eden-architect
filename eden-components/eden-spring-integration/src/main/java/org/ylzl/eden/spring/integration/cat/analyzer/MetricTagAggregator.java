@@ -57,48 +57,54 @@ public class MetricTagAggregator {
 
 	private void buildMetricMessage(Long time, Map<String, Map<String, MetricTagItem>> datas) {
 		Transaction transaction = Cat.newTransaction(CatConstants.CAT_SYSTEM, this.getClass().getSimpleName());
+		try {
+			for (Entry<String, Map<String, MetricTagItem>> entry : datas.entrySet()) {
+				String key = entry.getKey();
+				Map<String, MetricTagItem> items = entry.getValue();
 
-		for (Entry<String, Map<String, MetricTagItem>> entry : datas.entrySet()) {
-			String key = entry.getKey();
-			Map<String, MetricTagItem> items = entry.getValue();
+				for (Entry<String, MetricTagItem> tagItem : items.entrySet()) {
+					String tagKey = tagItem.getKey();
+					MetricTagItem item = tagItem.getValue();
+					int count = item.getCount().get();
+					long sum = item.getSum().get();
 
-			for (Entry<String, MetricTagItem> tagItem : items.entrySet()) {
-				String tagKey = tagItem.getKey();
-				MetricTagItem item = tagItem.getValue();
-				int count = item.getCount().get();
-				long sum = item.getSum().get();
+					if (EMPTY.equals(tagKey)) {
+						int slowCount = item.getSlowCount();
 
-				if (EMPTY.equals(tagKey)) {
-					int slowCount = item.getSlowCount();
-
-					if (sum > 0) {
-						logMetric(key, "S,C", String.format("%s,%s", count, sum), time);
-					} else if (count > 0) {
-						logMetric(key, "C", String.valueOf(count), time);
-					}
-
-					if (slowCount > 0) {
-						logMetric(key + ".slowCount", "C", String.valueOf(item.getSlowCount()), time);
-					}
-				} else {
-					if (count > 0) {
 						if (sum > 0) {
-							logMetric(key, "TD", String.format("%s,%s,%s", count, sum, tagKey), time);
-						} else {
-							logMetric(key, "TC", String.format("%s,%s,%s", count, count, tagKey), time);
+							logMetric(key, "S,C", String.format("%s,%s", count, sum), time);
+						} else if (count > 0) {
+							logMetric(key, "C", String.valueOf(count), time);
+						}
+
+						if (slowCount > 0) {
+							logMetric(key + ".slowCount", "C", String.valueOf(item.getSlowCount()), time);
+						}
+					} else {
+						if (count > 0) {
+							if (sum > 0) {
+								logMetric(key, "TD", String.format("%s,%s,%s", count, sum, tagKey), time);
+							} else {
+								logMetric(key, "TC", String.format("%s,%s,%s", count, count, tagKey), time);
+							}
 						}
 					}
 				}
 			}
+
+			MessageTree tree = Cat.getManager().getThreadLocalMessageTree();
+
+			tree.setDomain(getDomain());
+			tree.setDiscardPrivate(false);
+
+			transaction.setStatus(Transaction.SUCCESS);
+		} catch (Exception e) {
+			transaction.setStatus(e);
+			Cat.logError(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} finally {
+			transaction.complete();
 		}
-
-		MessageTree tree = Cat.getManager().getThreadLocalMessageTree();
-
-		tree.setDomain(getDomain());
-		tree.setDiscardPrivate(false);
-
-		transaction.setStatus(Transaction.SUCCESS);
-		transaction.complete();
 	}
 
 	private MetricTagItem createMetricItem(String key) {
