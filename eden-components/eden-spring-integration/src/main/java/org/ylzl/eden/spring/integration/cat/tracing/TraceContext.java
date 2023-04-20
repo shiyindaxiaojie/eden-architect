@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.integration.cat.tracing;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.dianping.cat.Cat;
 import com.google.common.collect.Maps;
+import org.ylzl.eden.commons.lang.StringUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -56,7 +57,7 @@ public class TraceContext implements Cat.Context {
 	}
 
 	public static String getTraceId() {
-		return getContext().getProperty(Cat.Context.ROOT);
+		return StringUtils.trimToEmpty(getContext().getProperty(Cat.Context.ROOT));
 	}
 
 	public static Cat.Context getContext() {

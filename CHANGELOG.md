@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.2-SNAPSHOT(Jan ?, 2023)
+## 0.0.2-SNAPSHOT(Fri ?, 2023)
 
 > Coming soon...
 

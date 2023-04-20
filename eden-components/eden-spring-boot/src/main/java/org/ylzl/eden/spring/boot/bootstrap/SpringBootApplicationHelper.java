@@ -27,6 +27,7 @@ import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.math.NumberUtils;
 import org.ylzl.eden.spring.boot.bootstrap.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 
 import java.net.InetAddress;
 
@@ -41,18 +42,21 @@ import java.net.InetAddress;
 public class SpringBootApplicationHelper {
 
 	public static void run(Class<?> mainClass, String[] args, WebApplicationType webApplicationType) {
-		initSystemProperties();
+		setSystemProperties();
+		try {
+			SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
+			SpringProfileUtils.addDefaultProfile(app);
+			app.setBannerMode(Banner.Mode.OFF);
 
-		SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
-		SpringProfileUtils.addDefaultProfile(app);
-		app.setBannerMode(Banner.Mode.OFF);
-
-		ConfigurableApplicationContext context = app.run(args);
-		Environment env = context.getEnvironment();
-		logApplicationServerAfterRunning(env);
+			ConfigurableApplicationContext context = app.run(args);
+			Environment env = context.getEnvironment();
+			logApplicationServerAfterRunning(env);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
 	}
 
-	private static void initSystemProperties() {
+	private static void setSystemProperties() {
 		// Fixed elasticsearch error: availableProcessors is already set to [], rejecting []
 		System.setProperty("es.set.netty.runtime.available.processors", "false");
 
@@ -64,7 +68,8 @@ public class SpringBootApplicationHelper {
 	}
 
 	private static void logApplicationServerAfterRunning(Environment env) {
-		String applicationName = StringUtils.trimToEmpty(env.getProperty("spring.application.name"));
+		String appName = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
+		String profile = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_PROFILE_DEFAULT));
 		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
 		int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
 		String protocol = env.containsProperty("server.ssl.key-store") ? "https" : "http";
@@ -77,22 +82,15 @@ public class SpringBootApplicationHelper {
 			log.warn("The host name could not be determined, using ‘localhost‘ as fallback");
 		}
 
-		log.info(
-			"\n----------------------------------------------------------\n\t"
+		log.info("\n----------------------------------------------------------\n\t"
 				+ "Application '{}' is running! \n\t"
 				+ "Profile(s): \t{}\n\t"
 				+ "Local Access URL: \t{}://{}:{}{}\n\t"
 				+ "External Access URL: \t{}://{}:{}{}"
 				+ "\n----------------------------------------------------------",
-			applicationName,
-			env.getActiveProfiles(),
-			protocol,
-			localhostAddress,
-			serverPort,
-			contextPath,
-			protocol,
-			hostAddress,
-			serverPort,
-			contextPath);
+			appName,
+			profile,
+			protocol, localhostAddress, serverPort, contextPath,
+			protocol, hostAddress, serverPort, contextPath);
 	}
 }

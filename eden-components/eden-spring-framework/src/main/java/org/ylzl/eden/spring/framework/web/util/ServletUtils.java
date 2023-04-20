@@ -130,12 +130,21 @@ public final class ServletUtils {
 		return StringUtils.trimToEmpty(request.getRemoteHost());
 	}
 
+	public static String getLocalAddr() {
+		HttpServletRequest request = getRequest();
+		return getLocalAddr(request);
+	}
+
+	public static String getLocalAddr(HttpServletRequest request) {
+		return StringUtils.trimToEmpty(request.getLocalAddr());
+	}
+
 	public static String getRequestURI() {
 		return getRequestURI(getRequest());
 	}
 
 	public static String getRequestURI(HttpServletRequest request) {
-		return request.getRequestURI();
+		return StringUtils.trimToEmpty(request.getRequestURI());
 	}
 
 	public static String getRequestURL() {
@@ -152,7 +161,7 @@ public final class ServletUtils {
 	}
 
 	public static String getContextPath(HttpServletRequest request) {
-		return request.getContextPath();
+		return StringUtils.trimToEmpty(request.getContextPath());
 	}
 
 	public static String getQueryString() {
@@ -161,7 +170,7 @@ public final class ServletUtils {
 	}
 
 	public static String getQueryString(HttpServletRequest request) {
-		return request.getQueryString();
+		return StringUtils.trimToEmpty(request.getQueryString());
 	}
 
 	public static String getRequestPath() {
