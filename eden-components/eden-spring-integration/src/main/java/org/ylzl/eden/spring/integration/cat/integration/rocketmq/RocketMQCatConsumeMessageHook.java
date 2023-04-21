@@ -65,18 +65,25 @@ public class RocketMQCatConsumeMessageHook implements ConsumeMessageHook {
 
 		String name = NamespaceUtil.withoutNamespace(context.getMq().getTopic());
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_MQ_PRODUCER, name);
-		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
-		transaction.setDurationInMillis(latency);
+		try {
+			transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_ROCKETMQ);
+			transaction.setDurationInMillis(latency);
 
-		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_NAMESPACE, context.getNamespace());
-		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_BROKER, context.getMq().getBrokerName());
-		Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_GROUP, NamespaceUtil.withoutNamespace(context.getConsumerGroup()));
+			Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_NAMESPACE, context.getNamespace());
+			Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_BROKER, context.getMq().getBrokerName());
+			Cat.logEvent(CatConstants.TYPE_MQ_CONSUMER_GROUP, NamespaceUtil.withoutNamespace(context.getConsumerGroup()));
 
-		if (context.isSuccess()) {
-			transaction.setSuccessStatus();
-		} else {
-			transaction.setStatus(context.getStatus());
+			if (context.isSuccess()) {
+				transaction.setSuccessStatus();
+			} else {
+				transaction.setStatus(context.getStatus());
+			}
+		} catch (Exception e) {
+			transaction.setStatus(e);
+			Cat.logError(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} finally {
+			transaction.complete();
 		}
-		transaction.complete();
 	}
 }

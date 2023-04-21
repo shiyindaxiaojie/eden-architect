@@ -44,7 +44,10 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatAs
 	matchIfMissing = true
 )
 @ConditionalOnExpression("${cat.redis.enabled:true}")
-@ConditionalOnBean(CatAutoConfiguration.class)
+@ConditionalOnBean({
+	CatAutoConfiguration.class,
+	RedisTemplate.class
+})
 @AutoConfigureAfter({
 	CatAutoConfiguration.class,
 	RedisAutoConfiguration.class

@@ -47,6 +47,7 @@ public class BootstrapLogConfiguration {
 		BootstrapLogConfig config = bootstrapLogConfigs.getIfUnique(BootstrapLogConfig::new);
 		BootstrapLogHttpFilter httpFilter = new BootstrapLogHttpFilter(environment);
 		httpFilter.setEnabledMdc(config.isEnabledMdc());
+		httpFilter.setSlowThreshold(config.getSlowThreshold());
 		return httpFilter;
 	}
 

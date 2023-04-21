@@ -49,23 +49,25 @@ public class MybatisCatInterceptor implements Interceptor {
 		String methodName = MybatisUtils.getMethodName(mappedStatement);
 
 		Transaction transaction = Cat.newTransaction(CatConstants.TYPE_SQL, methodName);
-		transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_MYBATIS);
-
-		String dataSourceUrl = MybatisUtils.getDatabaseUrl(mappedStatement);
-		if (dataSourceUrl != null && dataSourceUrl.contains(Strings.PLACEHOLDER)) {
-			dataSourceUrl = dataSourceUrl.substring(0, dataSourceUrl.indexOf(Strings.PLACEHOLDER));
-		}
-		Cat.logEvent(CatConstants.TYPE_SQL_DATABASE, dataSourceUrl);
-
-		String sql = MybatisUtils.getSql(mappedStatement, invocation);
-		Cat.logEvent(CatConstants.TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(), Message.SUCCESS, sql);
 		try {
+			transaction.addData(CatConstants.DATA_COMPONENT, CatConstants.DATA_COMPONENT_MYBATIS);
+
+			String dataSourceUrl = MybatisUtils.getDatabaseUrl(mappedStatement);
+			if (dataSourceUrl != null && dataSourceUrl.contains(Strings.PLACEHOLDER)) {
+				dataSourceUrl = dataSourceUrl.substring(0, dataSourceUrl.indexOf(Strings.PLACEHOLDER));
+			}
+			Cat.logEvent(CatConstants.TYPE_SQL_DATABASE, dataSourceUrl);
+
+			String sql = MybatisUtils.getSql(mappedStatement, invocation);
+			Cat.logEvent(CatConstants.TYPE_SQL_METHOD, mappedStatement.getSqlCommandType().name(), Message.SUCCESS, sql);
+
 			Object returnValue = invocation.proceed();
 			transaction.setStatus(Transaction.SUCCESS);
 			return returnValue;
 		} catch (Throwable e) {
 			transaction.setStatus(e);
-			throw e;
+			Cat.logError(e.getMessage(), e);
+			throw new RuntimeException(e);
 		} finally {
 			transaction.complete();
 		}

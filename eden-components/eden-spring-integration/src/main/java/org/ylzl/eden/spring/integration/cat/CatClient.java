@@ -47,10 +47,10 @@ public class CatClient {
 	 */
 	public static <T> T newTransaction(String type, String name, Map<String, Object> data, Supplier<T> function) {
 		Transaction transaction = Cat.newTransaction(type, name);
-		if (data != null && !data.isEmpty()) {
-			data.forEach(transaction::addData);
-		}
 		try {
+			if (data != null && !data.isEmpty()) {
+				data.forEach(transaction::addData);
+			}
 			T result = function.get();
 			transaction.setStatus(Message.SUCCESS);
 			return result;
@@ -89,10 +89,10 @@ public class CatClient {
 	 */
 	public static void newTransaction(String type, String name, Map<String, Object> data, Runnable runnable) {
 		Transaction transaction = Cat.newTransaction(type, name);
-		if (data != null && !data.isEmpty()) {
-			data.forEach(transaction::addData);
-		}
 		try {
+			if (data != null && !data.isEmpty()) {
+				data.forEach(transaction::addData);
+			}
 			runnable.run();
 			transaction.setStatus(Message.SUCCESS);
 		} catch (Exception e) {

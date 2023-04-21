@@ -143,8 +143,7 @@ public class HttpCatFilter extends CatFilter {
 		this.logTransaction(chain, req, resp);
 	}
 
-	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp)
-		throws ServletException, IOException {
+	private void logTransaction(FilterChain chain, HttpServletRequest req, HttpServletResponse resp) {
 		Message message = Cat.getManager().getThreadLocalMessageTree().getMessage();
 		String type;
 		boolean top = message == null;
@@ -156,7 +155,6 @@ public class HttpCatFilter extends CatFilter {
 		}
 
 		Transaction transaction = Cat.newTransaction(type, req.getRequestURI());
-
 		try {
 			Cat.Context context = initContext(req);
 			logPayload(req, top, type);
