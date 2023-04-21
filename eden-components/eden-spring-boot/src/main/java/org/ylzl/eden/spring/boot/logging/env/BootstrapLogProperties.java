@@ -21,10 +21,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.ylzl.eden.spring.framework.logging.access.config.AccessLogConfig;
+import org.ylzl.eden.spring.framework.logging.bootstrap.config.BootstrapLogConfig;
 
 /**
- * 日志切面配置
+ * 全局日志配置
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -33,11 +33,13 @@ import org.ylzl.eden.spring.framework.logging.access.config.AccessLogConfig;
 @ToString
 @Setter
 @Getter
-@ConfigurationProperties(prefix = AccessLogProperties.PREFIX)
-public class AccessLogProperties extends AccessLogConfig {
+@ConfigurationProperties(prefix = BootstrapLogProperties.PREFIX)
+public class BootstrapLogProperties extends BootstrapLogConfig {
 
-	public static final String PREFIX = "logging.access";
+	public static final String PREFIX = "logging.bootstrap";
 
-	/* 是否开启日志切面 */
-	private boolean enabled = false;
+	public static final String ENABLED = PREFIX + ".enabled";
+
+	/* 是否开启日志配置 */
+	private boolean enabled = true;
 }
