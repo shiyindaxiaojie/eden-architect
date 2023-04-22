@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.spring.boot.logging.env.AccessLogProperties;
-import org.ylzl.eden.spring.framework.logging.EnableAccessLogAspect;
+import org.ylzl.eden.spring.framework.logging.EnableAccessLog;
 
 /**
  * 访问日志自动装配
@@ -25,7 +25,7 @@ import org.ylzl.eden.spring.framework.logging.EnableAccessLogAspect;
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Slf4j
 @Configuration(proxyBeanMethods = false)
-@EnableAccessLogAspect
-public class AccessLogAspectAutoConfiguration {
+@EnableAccessLog
+public class AccessLogAutoConfiguration {
 
 }
