@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.logging.MdcConstants;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
@@ -54,7 +55,7 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 			String profile = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_PROFILE_DEFAULT));
 			String requestURI = ServletUtils.getRequestURI(req);
 			String remoteUser = ServletUtils.getRemoteUser(req);
-			String remoteAddr = ServletUtils.getRemoteAddr(req);
+			String remoteAddr = IpConfigUtils.parseIpAddress(req);
 			String localAddr = ServletUtils.getLocalAddr(req);
 
 			MDC.put(MdcConstants.APP, appName);

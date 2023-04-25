@@ -37,6 +37,12 @@ import java.util.List;
 @UtilityClass
 public class IpConfigUtils {
 
+	private static final String X_FORWARDED_FOR = "X-Forwarded-For";
+
+	private static final String PROXY_CLIENT_IP = "Proxy-Client-IP";
+
+	private static final String WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
+
 	/**
 	 * 获取IP地址
 	 *
@@ -100,12 +106,12 @@ public class IpConfigUtils {
 	 * @return
 	 */
 	public static String parseIpAddress(@NonNull HttpServletRequest request) {
-		String ip = request.getHeader("x-forwarded-for");
+		String ip = request.getHeader(X_FORWARDED_FOR);
 		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
-			ip = request.getHeader("Proxy-Client-IP");
+			ip = request.getHeader(PROXY_CLIENT_IP);
 		}
 		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
-			ip = request.getHeader("WL-Proxy-Client-IP");
+			ip = request.getHeader(WL_PROXY_CLIENT_IP);
 		}
 		if (StringUtils.isEmpty(ip) || IpConfig.UNKNOWN_IP.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
