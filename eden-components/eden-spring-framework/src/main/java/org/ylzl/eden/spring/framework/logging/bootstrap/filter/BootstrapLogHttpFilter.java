@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.framework.logging.MdcConstants;
@@ -52,7 +53,7 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 		throws IOException, ServletException {
 		if (enabledMdc) {
 			String appName = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-			String profile = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_PROFILE_DEFAULT));
+			String profile = StringUtils.trimToEmpty(String.join(Strings.COMMA, getActiveProfiles(env)));
 			String requestURI = ServletUtils.getRequestURI(req);
 			String remoteUser = ServletUtils.getRemoteUser(req);
 			String remoteAddr = IpConfigUtils.parseIpAddress(req);
@@ -71,5 +72,13 @@ public class BootstrapLogHttpFilter extends HttpFilter {
 
 	public void setEnabledMdc(boolean enabledMdc) {
 		this.enabledMdc = enabledMdc;
+	}
+
+	private static String[] getActiveProfiles(Environment env) {
+		String[] profiles = env.getActiveProfiles();
+		if (profiles.length == 0) {
+			return env.getDefaultProfiles();
+		}
+		return profiles;
 	}
 }

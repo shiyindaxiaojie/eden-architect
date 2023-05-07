@@ -43,13 +43,15 @@ public class IpConfigUtils {
 
 	private static final String WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
 
+	private static final String IP_ADDRESS = getIpAddress(null);
+
 	/**
 	 * 获取IP地址
 	 *
 	 * @return IP地址
 	 */
 	public static String getIpAddress() {
-		return getIpAddress(null);
+		return IP_ADDRESS;
 	}
 
 	/**

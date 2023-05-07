@@ -21,6 +21,8 @@ import org.springframework.boot.autoconfigure.AutoConfigurationImportFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.redis.spring.boot.env.RedisEnvironment;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.Arrays;
 
@@ -31,10 +33,6 @@ import java.util.Arrays;
  * @since 2.4.x
  */
 public class RedisAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {
-
-	private static final String MATCH_KEY = "spring.redis.enabled";
-
-	private static final String DEFAULT_VALUE = "true";
 
 	private static final String[] IGNORE_CLASSES = {
 		"org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration",
@@ -51,7 +49,7 @@ public class RedisAutoConfigurationImportFilter implements AutoConfigurationImpo
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean disabled = !Boolean.parseBoolean(environment.getProperty(MATCH_KEY, DEFAULT_VALUE));
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(RedisEnvironment.ENABLED, Conditions.TRUE));
 		boolean[] match = new boolean[autoConfigurationClasses.length];
 		for (int i = 0; i < autoConfigurationClasses.length; i++) {
 			int index = i;

@@ -25,11 +25,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.commons.lang.math.NumberUtils;
-import org.ylzl.eden.spring.boot.bootstrap.util.SpringProfileUtils;
+import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.extension.ExtensionLoader;
+import org.ylzl.eden.spring.boot.bootstrap.env.EnvironmentInboundParser;
+import org.ylzl.eden.spring.boot.bootstrap.env.EnvironmentOutboundParser;
+import org.ylzl.eden.spring.boot.bootstrap.util.SpringBootProfileUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
+import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
 
-import java.net.InetAddress;
+import java.util.Set;
 
 /**
  * Spring Boot 应用启动帮助支持
@@ -45,12 +49,12 @@ public class SpringBootApplicationHelper {
 		setSystemProperties();
 		try {
 			SpringApplication app = new SpringApplicationBuilder(mainClass).web(webApplicationType).build();
-			SpringProfileUtils.addDefaultProfile(app);
+			SpringBootProfileUtils.addDefaultProfile(app);
 			app.setBannerMode(Banner.Mode.OFF);
 
 			ConfigurableApplicationContext context = app.run(args);
 			Environment env = context.getEnvironment();
-			logApplicationServerAfterRunning(env);
+			logAfterRunning(env);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -67,30 +71,44 @@ public class SpringBootApplicationHelper {
 		System.setProperty("jute.maxbuffer", String.valueOf(8192 * 1024));
 	}
 
-	private static void logApplicationServerAfterRunning(Environment env) {
+	private static void logAfterRunning(Environment env) {
 		String appName = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-		String profile = StringUtils.trimToEmpty(env.getProperty(SpringProperties.SPRING_PROFILE_DEFAULT));
-		String contextPath = StringUtils.trimToEmpty(env.getProperty("server.servlet.context-path"));
-		int serverPort = NumberUtils.toInt(env.getProperty("server.port"));
-		String protocol = env.containsProperty("server.ssl.key-store") ? "https" : "http";
-		String localhostAddress = "localhost";
-		String hostAddress;
-		try {
-			hostAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (Exception e) {
-			hostAddress = localhostAddress;
-			log.warn("The host name could not be determined, using ‘localhost‘ as fallback");
-		}
-
-		log.info("\n----------------------------------------------------------\n\t"
-				+ "Application '{}' is running! \n\t"
-				+ "Profile(s): \t{}\n\t"
-				+ "Local Access URL: \t{}://{}:{}{}\n\t"
-				+ "External Access URL: \t{}://{}:{}{}"
-				+ "\n----------------------------------------------------------",
+		String profile = String.join(Strings.COMMA, SpringProfileUtils.getActiveProfiles(env));
+		log.info("\n----------------------------------------------------------\n"
+				+ "Application '{}' is running!\n"
+				+ "Profile(s):\t{}\n"
+				+ getInboundInfo(env)
+				+ getOutboundInfo(env)
+ 				+ "----------------------------------------------------------",
 			appName,
-			profile,
-			protocol, localhostAddress, serverPort, contextPath,
-			protocol, hostAddress, serverPort, contextPath);
+			profile);
+	}
+
+	private String getInboundInfo(Environment env) {
+		ExtensionLoader<EnvironmentInboundParser> extensionLoader = ExtensionLoader.getExtensionLoader(EnvironmentInboundParser.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		StringBuilder logStr = new StringBuilder();
+		for (String extension : extensions) {
+			String info = extensionLoader.getExtension(extension).toString(env);
+			if (StringUtils.isBlank(info)) {
+				continue;
+			}
+			logStr.append(info).append("\n");
+		}
+		return logStr.toString();
+	}
+
+	private String getOutboundInfo(Environment env) {
+		ExtensionLoader<EnvironmentOutboundParser> extensionLoader = ExtensionLoader.getExtensionLoader(EnvironmentOutboundParser.class);
+		Set<String> extensions = extensionLoader.getSupportedExtensions();
+		StringBuilder logStr = new StringBuilder();
+		for (String extension : extensions) {
+			String info = extensionLoader.getExtension(extension).toString(env);
+			if (StringUtils.isBlank(info)) {
+				continue;
+			}
+			logStr.append(info).append("\n");
+		}
+		return logStr.toString();
 	}
 }

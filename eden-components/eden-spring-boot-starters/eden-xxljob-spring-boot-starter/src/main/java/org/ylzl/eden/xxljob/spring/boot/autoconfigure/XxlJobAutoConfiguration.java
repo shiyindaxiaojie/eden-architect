@@ -17,45 +17,38 @@
 package org.ylzl.eden.xxljob.spring.boot.autoconfigure;
 
 import com.xxl.job.core.executor.XxlJobExecutor;
-import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import com.xxl.job.core.util.IpUtil;
 import com.xxl.job.core.util.NetUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
+import org.ylzl.eden.commons.codec.digest.DigestUtils;
+import org.ylzl.eden.xxljob.spring.boot.admin.AutoRegisterXxlJobExecutor;
+import org.ylzl.eden.xxljob.spring.boot.admin.XxlJobAdminTemplate;
 import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
-import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
-import org.ylzl.eden.spring.integration.xxljob.admin.AutoRegisterXxlJobSpringExecutor;
-import org.ylzl.eden.spring.integration.xxljob.admin.XxlJobAdminTemplate;
 
 import java.io.File;
+import java.math.BigInteger;
 
-/**
- * XXLJob 自动配置
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- */
 @ConditionalOnClass(XxlJobExecutor.class)
 @ConditionalOnProperty(name = XxlJobProperties.ENABLED, havingValue = "true")
 @EnableConfigurationProperties(XxlJobProperties.class)
+@RequiredArgsConstructor
 @Slf4j
-@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class XxlJobAutoConfiguration {
 
-	private static final String AUTOWIRED_XXL_JOB_SPRING_EXECUTOR = "Autowired XxlJobSpringExecutor";
+	private static final String AUTOWIRED_XXL_JOB_EXECUTOR = "Autowired AutoRegisterXxlJobExecutor";
 
-	public static final String DEFAULT_JOB_HANDLER_LOGS_PATH = "/logs/xxl-job/job-handler";
+	public static final String AUTOWIRED_XXL_JOB_ADMIN_TEMPLATE = "Autowired XxlJobAdminTemplate";
 
 	private static final int MAX_PORT = 65535;
 
@@ -63,39 +56,38 @@ public class XxlJobAutoConfiguration {
 
 	private final XxlJobProperties xxlJobProperties;
 
-	public XxlJobAutoConfiguration(Environment environment, XxlJobProperties xxlJobProperties) {
-		this.environment = environment;
-		this.xxlJobProperties = xxlJobProperties;
-	}
-
-	@Bean
-	public XxlJobAdminTemplate xxlJobAdminTemplate(RestTemplate restTemplate) {
-		return new XxlJobAdminTemplate(restTemplate, xxlJobProperties.getAccessToken(),
-			xxlJobProperties.getAdmin().getAddresses());
-	}
-
-	@ConditionalOnMissingBean
 	@Bean(initMethod = "start", destroyMethod = "destroy")
-	public XxlJobSpringExecutor xxlJobSpringExecutor(XxlJobAdminTemplate xxlJobAdminTemplate) {
-		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
-		XxlJobSpringExecutor xxlJobSpringExecutor = new AutoRegisterXxlJobSpringExecutor(xxlJobAdminTemplate);
-		xxlJobSpringExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
+	public XxlJobExecutor xxlJobExecutor(ObjectProvider<XxlJobAdminTemplate> xxlJobAdminTemplate) {
+		log.info(AUTOWIRED_XXL_JOB_EXECUTOR);
+		XxlJobExecutor xxlJobExecutor =
+			xxlJobProperties.getAdmin().isAutoRegister() && xxlJobAdminTemplate.getIfAvailable() != null?
+				new AutoRegisterXxlJobExecutor(xxlJobAdminTemplate.getObject()):
+				new XxlJobExecutor();
+		xxlJobExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
 
 		if (StringUtils.isNotBlank(xxlJobProperties.getAccessToken())) {
-			xxlJobSpringExecutor.setAccessToken(xxlJobProperties.getAccessToken());
+			xxlJobExecutor.setAccessToken(xxlJobProperties.getAccessToken());
 		}
 
 		String appName = resolveAppName(xxlJobProperties.getExecutor().getAppName());
-		xxlJobSpringExecutor.setAppname(appName);
+		xxlJobExecutor.setAppName(appName);
 		if (StringUtils.isNotBlank(xxlJobProperties.getExecutor().getAddress())) {
-			xxlJobSpringExecutor.setAddress(xxlJobProperties.getExecutor().getAddress());
+			xxlJobExecutor.setAdminAddresses(xxlJobProperties.getExecutor().getAddress());
 		} else {
-			xxlJobSpringExecutor.setIp(resolveIp(xxlJobProperties.getExecutor().getIp()));
-			xxlJobSpringExecutor.setPort(resolvePort(xxlJobProperties.getExecutor().getPort()));
+			xxlJobExecutor.setIp(resolveIp(xxlJobProperties.getExecutor().getIp()));
+			xxlJobExecutor.setPort(resolvePort(xxlJobProperties.getExecutor().getPort()));
 		}
-		xxlJobSpringExecutor.setLogPath(resolveLogPath(xxlJobProperties.getExecutor().getLogPath(), appName));
-		xxlJobSpringExecutor.setLogRetentionDays(xxlJobProperties.getExecutor().getLogRetentionDays());
-		return xxlJobSpringExecutor;
+		xxlJobExecutor.setLogPath(resolveLogPath(xxlJobProperties.getExecutor().getLogPath(), appName));
+		xxlJobExecutor.setLogRetentionDays(xxlJobProperties.getExecutor().getLogRetentionDays());
+		return xxlJobExecutor;
+	}
+
+	@ConditionalOnProperty(name = XxlJobProperties.PREFIX + ".admin.auto-register", havingValue = "true")
+	@Bean
+	public XxlJobAdminTemplate xxlJobAdminTemplate(RestTemplate restTemplate, XxlJobProperties xxlJobProperties) {
+		log.debug(AUTOWIRED_XXL_JOB_ADMIN_TEMPLATE);
+		String accessToken = generatorAdminToken();
+		return new XxlJobAdminTemplate(restTemplate, accessToken, xxlJobProperties.getAdmin().getAddresses());
 	}
 
 	private String resolveAppName(String appName) {
@@ -103,7 +95,7 @@ public class XxlJobAutoConfiguration {
 			return appName;
 		}
 
-		return environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME);
+		return environment.getProperty("spring.application.name");
 	}
 
 	private String resolveIp(String ip) {
@@ -116,8 +108,8 @@ public class XxlJobAutoConfiguration {
 		return ip;
 	}
 
-	private int resolvePort(int port) {
-		if (port > 0) {
+	private int resolvePort(Integer port) {
+		if (port != null) {
 			return port;
 		}
 		port = NetUtil.findAvailablePort(MAX_PORT);
@@ -130,6 +122,13 @@ public class XxlJobAutoConfiguration {
 			return logPath;
 		}
 		String userHome = environment.getProperty("user.home");
-		return StringUtils.join(userHome, DEFAULT_JOB_HANDLER_LOGS_PATH, File.separator, appName);
+		return StringUtils.join(userHome, File.separator, "logs", File.separator,
+			"xxl-job", File.separator, appName);
+	}
+
+	private String generatorAdminToken() {
+		String md5 = DigestUtils.md5Hex(xxlJobProperties.getAdmin().getLoginUsername()
+			+ "_" + xxlJobProperties.getAdmin().getLoginPassword());
+		return new BigInteger(1, md5.getBytes()).toString(16);
 	}
 }

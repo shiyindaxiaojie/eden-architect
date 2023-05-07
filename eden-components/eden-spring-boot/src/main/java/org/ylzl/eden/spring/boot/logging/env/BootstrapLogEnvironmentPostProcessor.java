@@ -5,8 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
+import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
 import org.ylzl.eden.spring.framework.logging.MdcConstants;
 
 /**
@@ -22,7 +24,7 @@ public class BootstrapLogEnvironmentPostProcessor implements EnvironmentPostProc
 		if ((!environment.containsProperty(BootstrapLogProperties.ENABLED)) ||
 			Boolean.parseBoolean(StringUtils.trimToEmpty(environment.getProperty(BootstrapLogProperties.ENABLED)))) {
 			String appName = StringUtils.trimToEmpty(environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME));
-			String profile = StringUtils.trimToEmpty(environment.getProperty(SpringProperties.SPRING_PROFILE_DEFAULT));
+			String profile = StringUtils.trimToEmpty(String.join(Strings.COMMA, SpringProfileUtils.getActiveProfiles(environment)));
 			MDC.put(MdcConstants.APP, appName);
 			MDC.put(MdcConstants.PROFILE, profile);
 			MDC.put(MdcConstants.LOCAL_ADDR, IpConfigUtils.getIpAddress());
