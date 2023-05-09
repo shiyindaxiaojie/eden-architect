@@ -3,8 +3,8 @@ package org.ylzl.eden.shardingsphere.spring.boot.jdbc;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.driver.jdbc.context.JDBCContext;
 import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
-import org.ylzl.eden.spring.data.jdbc.datasource.spi.DataSourceUrlParser;
-import org.ylzl.eden.spring.data.jdbc.datasource.spi.DataSourceUrlParserException;
+import org.ylzl.eden.spring.data.jdbc.datasource.DataSourceUrlParser;
+import org.ylzl.eden.spring.data.jdbc.datasource.DataSourceUrlParserException;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;

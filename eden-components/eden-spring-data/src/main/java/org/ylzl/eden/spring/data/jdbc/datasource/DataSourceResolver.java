@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.data.jdbc.datasource.spi;
+package org.ylzl.eden.spring.data.jdbc.datasource;
 
 import org.ylzl.eden.extension.SPI;
 

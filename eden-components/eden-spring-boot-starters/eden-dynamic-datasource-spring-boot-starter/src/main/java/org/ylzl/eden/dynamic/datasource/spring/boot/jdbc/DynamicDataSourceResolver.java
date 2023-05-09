@@ -1,7 +1,8 @@
 package org.ylzl.eden.dynamic.datasource.spring.boot.jdbc;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
-import org.ylzl.eden.spring.data.jdbc.datasource.spi.DataSourceResolver;
+import com.baomidou.dynamic.datasource.ds.ItemDataSource;
+import org.ylzl.eden.spring.data.jdbc.datasource.DataSourceResolver;
 
 import javax.sql.DataSource;
 
@@ -22,9 +23,9 @@ public class DynamicDataSourceResolver implements DataSourceResolver {
 	@Override
 	public DataSource resolveDataSource(DataSource dataSource) {
 		if (DynamicRoutingDataSource.class.isAssignableFrom(dataSource.getClass())) {
-			dataSource = ((com.baomidou.dynamic.datasource.DynamicRoutingDataSource) dataSource).determineDataSource();
-			if (dataSource instanceof com.baomidou.dynamic.datasource.ds.ItemDataSource) {
-				dataSource = ((com.baomidou.dynamic.datasource.ds.ItemDataSource) dataSource).getRealDataSource();
+			dataSource = ((DynamicRoutingDataSource) dataSource).determineDataSource();
+			if (dataSource instanceof ItemDataSource) {
+				dataSource = ((ItemDataSource) dataSource).getRealDataSource();
 			}
 		}
 		return dataSource;

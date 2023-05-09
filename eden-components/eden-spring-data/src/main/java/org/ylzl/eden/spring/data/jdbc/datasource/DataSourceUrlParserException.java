@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.data.jdbc.datasource.spi;
+package org.ylzl.eden.spring.data.jdbc.datasource;
 
 /**
  * 数据源地址解析异常
