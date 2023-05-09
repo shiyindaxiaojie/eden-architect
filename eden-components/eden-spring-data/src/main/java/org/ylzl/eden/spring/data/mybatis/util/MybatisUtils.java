@@ -25,7 +25,7 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.ylzl.eden.spring.data.mybatis.spi.DataSourceUrlParserLoader;
+import org.ylzl.eden.spring.data.jdbc.datasource.spi.DataSourceUrlParserLoader;
 
 import javax.sql.DataSource;
 import java.text.DateFormat;

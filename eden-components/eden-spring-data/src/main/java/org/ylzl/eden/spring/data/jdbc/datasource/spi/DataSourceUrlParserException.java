@@ -1,4 +1,4 @@
-package org.ylzl.eden.spring.data.mybatis.spi;
+package org.ylzl.eden.spring.data.jdbc.datasource.spi;
 
 /**
  * 数据源地址解析异常

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.data.mybatis.spi;
+package org.ylzl.eden.spring.data.jdbc.datasource.spi;
 
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.extension.ExtensionLoader;
@@ -32,21 +32,19 @@ public class DataSourceUrlParserLoader {
 
 	public static final String UNKNOWN_URL = "jdbc:database://host:port/unknown_db";
 
-	private static final String DS_CLASS_NAME = "com.baomidou.dynamic.datasource.DynamicRoutingDataSource";
-
 	public static String parse(DataSource dataSource) {
-		if (DS_CLASS_NAME.equalsIgnoreCase(dataSource.getClass().getName())) {
-			dataSource = ((com.baomidou.dynamic.datasource.DynamicRoutingDataSource) dataSource).determineDataSource();
-			if (dataSource instanceof com.baomidou.dynamic.datasource.ds.ItemDataSource) {
-				dataSource = ((com.baomidou.dynamic.datasource.ds.ItemDataSource) dataSource).getRealDataSource();
-			}
+		ExtensionLoader<DataSourceResolver> resolverExtensionLoader = ExtensionLoader.getExtensionLoader(DataSourceResolver.class);
+		Set<String> resolverExtensions = resolverExtensionLoader.getSupportedExtensions();
+		for (String extension : resolverExtensions) {
+			DataSourceResolver resolver = resolverExtensionLoader.getExtension(extension);
+			dataSource = resolver.resolveDataSource(dataSource);
 		}
 
 		ExtensionLoader<DataSourceUrlParser> extensionLoader = ExtensionLoader.getExtensionLoader(DataSourceUrlParser.class);
 		Set<String> extensions = extensionLoader.getSupportedExtensions();
 		for (String extension : extensions) {
-			DataSourceUrlParser resolver = extensionLoader.getExtension(extension);
-			String url = resolver.getDataSourceUrl(dataSource);
+			DataSourceUrlParser parser = extensionLoader.getExtension(extension);
+			String url = parser.getDataSourceUrl(dataSource);
 			if (StringUtils.isNotEmpty(url)) {
 				return url;
 			}
