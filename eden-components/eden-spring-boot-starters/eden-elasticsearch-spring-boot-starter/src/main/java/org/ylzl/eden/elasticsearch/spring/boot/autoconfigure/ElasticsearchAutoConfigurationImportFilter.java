@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationImportFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurationMetadata;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.Arrays;
 
@@ -33,8 +34,6 @@ import java.util.Arrays;
 public class ElasticsearchAutoConfigurationImportFilter implements AutoConfigurationImportFilter, EnvironmentAware {
 
 	private static final String MATCH_KEY = "spring.elasticsearch.enabled";
-
-	private static final String DEFAULT_VALUE = "true";
 
 	private static final String[] IGNORE_CLASSES = {
 		"org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration",
@@ -54,7 +53,7 @@ public class ElasticsearchAutoConfigurationImportFilter implements AutoConfigura
 
 	@Override
 	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		boolean disabled = !Boolean.parseBoolean(environment.getProperty(MATCH_KEY, DEFAULT_VALUE));
+		boolean disabled = !Boolean.parseBoolean(environment.getProperty(MATCH_KEY, Conditions.TRUE));
 		boolean[] match = new boolean[autoConfigurationClasses.length];
 		for (int i = 0; i < autoConfigurationClasses.length; i++) {
 			int index = i;

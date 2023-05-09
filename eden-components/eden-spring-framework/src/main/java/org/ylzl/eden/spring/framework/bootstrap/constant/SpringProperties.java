@@ -39,9 +39,9 @@ public final class SpringProperties {
 	/** Spring Boot 读取应用程序索引 */
 	public static final String INDEX_PATTERN = "${vcap.application.instance_index:${spring.application.index:${server.port:${PORT:null}}}}";
 
-	/**  Spring Boot 读取运行环境 */
+	/**  Spring Boot 默认运行环境 */
 	public static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
 
-	/**  Spring Boot 读取应用程序名称 */
-	public static final String PROFILE_PATTERN = "${spring.profiles.default}";
+	/**  Spring Boot 指定运行环境 */
+	public static final String SPRING_PROFILE_ACTIVE = "spring.profiles.active";
 }

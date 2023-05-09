@@ -1,4 +1,4 @@
-<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/icon.png" align="right" />
+<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/icon.png" align="right" />
 
 [license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
 
@@ -8,7 +8,7 @@
 
 # Eden* Architect
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
 
 Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将 Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
 
@@ -23,7 +23,7 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 
 ## 组件构成
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/eden-architect/component.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-architect/component.png)
 
 * **eden-dependencies**: 依赖管理组件，管理全局依赖的版本。
 * **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置。
@@ -99,7 +99,7 @@ cat:
 
 启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/cat/tracing.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/cat/tracing.png)
 
 ## 代码演示
 
