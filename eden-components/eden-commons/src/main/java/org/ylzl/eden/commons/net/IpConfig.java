@@ -28,6 +28,11 @@ import lombok.experimental.UtilityClass;
 public class IpConfig {
 
 	/**
+	 * 回环域名
+	 */
+	public static final String LOCALHOST = "localhost";
+
+	/**
 	 * 未知IP
 	 */
 	public static final String UNKNOWN_IP = "unknown";

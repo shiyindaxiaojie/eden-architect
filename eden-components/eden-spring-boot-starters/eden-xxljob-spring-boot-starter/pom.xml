@@ -31,15 +31,21 @@
 	<name>eden-xxljob-spring-boot-starter</name>
 	<description>Spring Boot Starter For XxlJob</description>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.xuxueli</groupId>
+        <artifactId>xxl-job-core</artifactId>
+        <version>1.9.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 	<dependencies>
 		<!-- 开发框架 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-boot</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -69,5 +75,9 @@
 			<groupId>org.apache.groovy</groupId>
 			<artifactId>groovy</artifactId>
 		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+    </dependency>
+  </dependencies>
 </project>

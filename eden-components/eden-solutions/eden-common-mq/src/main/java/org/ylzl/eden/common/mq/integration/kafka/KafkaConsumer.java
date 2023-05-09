@@ -29,11 +29,11 @@ import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.common.mq.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.MessageQueueListener;
 import org.ylzl.eden.common.mq.integration.kafka.config.KafkaConfig;
 import org.ylzl.eden.common.mq.model.Message;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +68,8 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final Function<String, Boolean> matcher;
 
+	private volatile boolean threadRunning = false;
+
 	@Override
 	public void afterPropertiesSet() {
 		log.debug(INITIALIZING_KAFKA_CONSUMER);
@@ -81,7 +83,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 			}
 			consumers.add(consumer);
 			new Thread(() -> {
-				while (true) {
+				while (threadRunning) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
 							consumer.poll(kafkaConfig.getConsumer().getFetchMaxWait());
@@ -113,7 +115,9 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 	@Override
 	public void destroy() {
 		log.debug(DESTROY_KAFKA_CONSUMER);
+		threadRunning = false;
 		consumers.forEach(Consumer::unsubscribe);
+		consumers.clear();
 	}
 
 	private Consumer<String, String> createConsumer(MessageQueueConsumer messageQueueConsumer) {

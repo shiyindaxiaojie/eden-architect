@@ -28,6 +28,7 @@ import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
@@ -118,7 +119,7 @@ public final class ServletUtils {
 	}
 
 	public static String getRemoteAddr(HttpServletRequest request) {
-		return StringUtils.trimToEmpty(request.getRemoteAddr());
+		return StringUtils.trimToEmpty(IpConfigUtils.parseIpAddress(request));
 	}
 
 	public static String getRemoteHost() {

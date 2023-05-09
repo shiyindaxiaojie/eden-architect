@@ -21,7 +21,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.core.env.Environment;
 import org.ylzl.eden.spring.boot.profile.env.ProfileProperties;
-import org.ylzl.eden.spring.boot.bootstrap.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

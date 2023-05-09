@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.framework.logging.access.util;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
+import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.logging.MdcConstants;
 import org.ylzl.eden.spring.framework.logging.access.model.AccessLog;
@@ -122,7 +123,7 @@ public class AccessLogHelper {
 		accessLog.setDuration(duration);
 
 		String remoteUser = ServletUtils.getRemoteUser();
-		String remoteAddr = ServletUtils.getRemoteAddr();
+		String remoteAddr = IpConfigUtils.parseIpAddress(req);
 		String location = req.getRequestURI();
 		accessLog.setLocation(location);
 

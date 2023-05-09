@@ -1,0 +1,3 @@
+hikaricp=org.ylzl.eden.spring.data.jdbc.datasource.spi.HikariDataSourceUrlParser
+druid=org.ylzl.eden.spring.data.jdbc.datasource.spi.DruidDataSourceUrlParser
+mybatis=org.ylzl.eden.spring.data.jdbc.datasource.spi.MybatisDataSourceUrlParser
