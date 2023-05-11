@@ -30,7 +30,12 @@ import java.util.ResourceBundle;
  */
 public class ErrorCodeLoader {
 
+	public static final String INTERNAL_BUNDLE_NAME = "META-INF.error.internal";
+
 	public static final String BUNDLE_NAME = "META-INF.error.message";
+
+	private static final ResourceBundle INTERNAL_RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME,
+		Locale.SIMPLIFIED_CHINESE);
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME,
 		Locale.SIMPLIFIED_CHINESE);
@@ -41,6 +46,12 @@ public class ErrorCodeLoader {
 			String value = RESOURCE_BUNDLE.getString(errCode);
 			return MessageFormatter.arrayFormat(value, params).getMessage();
 		}
+
+		if (INTERNAL_RESOURCE_BUNDLE.containsKey(errCode)) {
+			String value = INTERNAL_RESOURCE_BUNDLE.getString(errCode);
+			return MessageFormatter.arrayFormat(value, params).getMessage();
+		}
+
 		return MessageFormatter.arrayFormat(errCode, params).getMessage();
 	}
 }
