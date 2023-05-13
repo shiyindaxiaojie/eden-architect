@@ -38,10 +38,10 @@ import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
  * @since 2.4.x
  */
 @ConditionalOnProperty(
-    prefix = "spring.dynamic.tp",
-    name = Conditions.ENABLED,
-    havingValue = Conditions.TRUE,
-    matchIfMissing = true
+	prefix = "spring.dynamic.tp",
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
 )
 @ConditionalOnBean(RocketMQConsumer.class)
 @AutoConfigureAfter({BaseBeanAutoConfiguration.class})
@@ -53,9 +53,9 @@ public class RocketMqTpAutoConfiguration {
 	private static final String AUTOWIRED_CUSTOM_ROCKET_MQ_DTP_ADAPTER = "Autowired CustomRocketMqDtpAdapter";
 
 	@Primary
-    @Bean
-    public RocketMqDtpAdapter rocketMqDtpHandler() {
-        log.debug(AUTOWIRED_CUSTOM_ROCKET_MQ_DTP_ADAPTER);
+	@Bean
+	public RocketMqDtpAdapter rocketMqDtpHandler() {
+		log.debug(AUTOWIRED_CUSTOM_ROCKET_MQ_DTP_ADAPTER);
 		return new CustomRocketMqDtpAdapter();
-    }
+	}
 }

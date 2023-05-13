@@ -27,10 +27,10 @@ import org.apache.zookeeper.data.Stat;
 import org.ylzl.eden.commons.io.FileUtils;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.distributed.uid.config.SnowflakeGeneratorConfig;
+import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException;
+import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinator;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.App;
 import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.model.Endpoint;
-import org.ylzl.eden.distributed.uid.integration.leaf.snowflake.coordinator.SnowflakeCoordinator;
-import org.ylzl.eden.distributed.uid.exception.SnowflakeGeneratorException;
 
 import java.io.File;
 import java.io.IOException;

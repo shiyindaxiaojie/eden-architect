@@ -16,7 +16,10 @@
 
 package org.ylzl.eden.spring.cloud.sentinel.prometheus;
 
-import io.prometheus.client.*;
+import io.prometheus.client.CollectorRegistry;
+import io.prometheus.client.Counter;
+import io.prometheus.client.Gauge;
+import io.prometheus.client.Histogram;
 import lombok.Getter;
 
 /**

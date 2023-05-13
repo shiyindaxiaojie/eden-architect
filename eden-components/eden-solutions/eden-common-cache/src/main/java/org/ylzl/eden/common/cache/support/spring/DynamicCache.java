@@ -30,18 +30,22 @@ import java.util.concurrent.Callable;
  */
 public class DynamicCache extends AbstractValueAdaptingCache {
 
-	/** 缓存名称 */
+	/**
+	 * 缓存名称
+	 */
 	private final String name;
 
-	/** 缓存接口 */
+	/**
+	 * 缓存接口
+	 */
 	private final Cache cache;
 
 	/**
 	 * 有参构造函数
 	 *
 	 * @param allowNullValues 是否允许空值
-	 * @param name 缓存名称
-	 * @param cache 缓存实例
+	 * @param name            缓存名称
+	 * @param cache           缓存实例
 	 */
 	public DynamicCache(boolean allowNullValues, String name, Cache cache) {
 		super(allowNullValues);

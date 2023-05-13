@@ -49,6 +49,7 @@ public interface SegmentGeneratorBuilder {
 
 	/**
 	 * 构建号段生成器
+	 *
 	 * @return 号段生成器
 	 */
 	SegmentGenerator build();

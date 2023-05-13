@@ -26,8 +26,8 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.Sensitive;
+import org.ylzl.eden.data.filter.SensitiveFilter;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -66,8 +66,8 @@ public class SensitiveRequestBodyAdvice extends RequestBodyAdviceAdapter {
 	/**
 	 * 执行过滤
 	 *
-	 * @param text 文本内容
-	 * @param clazz 目标类型
+	 * @param text            文本内容
+	 * @param clazz           目标类型
 	 * @param sensitiveFilter 敏感词过滤器
 	 * @return 过滤后的内容
 	 */

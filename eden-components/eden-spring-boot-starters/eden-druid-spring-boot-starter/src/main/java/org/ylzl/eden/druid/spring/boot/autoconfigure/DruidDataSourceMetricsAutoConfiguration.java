@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Role;
 import org.ylzl.eden.druid.spring.boot.jdbc.DruidDataSourcePoolMetadata;
 
 /**
- *  Druid 数据源监控连接池
+ * Druid 数据源监控连接池
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x

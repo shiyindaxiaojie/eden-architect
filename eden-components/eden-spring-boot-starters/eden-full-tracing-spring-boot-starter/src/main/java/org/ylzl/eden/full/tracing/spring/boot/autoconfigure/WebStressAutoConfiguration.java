@@ -40,7 +40,7 @@ import org.ylzl.eden.full.tracing.integration.web.WebStressTagFilter;
 @Configuration(proxyBeanMethods = false)
 public class WebStressAutoConfiguration {
 
-	public static final String ENABLED ="stress.web.enabled";
+	public static final String ENABLED = "stress.web.enabled";
 
 	@ConditionalOnMissingBean
 	@Bean

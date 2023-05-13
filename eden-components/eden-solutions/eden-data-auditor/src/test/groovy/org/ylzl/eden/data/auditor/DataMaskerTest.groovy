@@ -46,18 +46,18 @@ class DataMaskerTest extends Specification {
 		maskedData == dataMasker.masking(data)
 
 		where:
-		strategy        || 	data			    		|| maskedData
-		"address"   	|| 	"广州市天河区梅赛德斯奔驰911室"	|| "广州市****区梅赛德斯奔驰91****"
-		"bank-card"		||	"6227012345678900111"		|| "****0111"
-		"car-license"	||	"粤A88888"					|| "粤A8***8"
-		"chinese-name"	||	"梦想歌"						|| "梦*歌"
-		"email"			||	"1813986321@qq.com"			|| "1****@qq.com"
-		"id-card"		||	"440101199103020011"		|| "4401****0011"
-		"mobile-phone"	||	"13524678900"				|| "135****8900"
-		"money"			||	"1000000"					|| "****"
-		"password"		||	"A1S2D3F4G5"				|| "******"
-		"telephone"		||	"02012345"					|| "020****45"
-		"username"		||	"mengxiangge"				|| "m****ge"
+		strategy       || data                            || maskedData
+		"address"      || "广州市天河区梅赛德斯奔驰911室" || "广州市****区梅赛德斯奔驰91****"
+		"bank-card"    || "6227012345678900111"           || "****0111"
+		"car-license"  || "粤A88888"                      || "粤A8***8"
+		"chinese-name" || "梦想歌"                        || "梦*歌"
+		"email"        || "1813986321@qq.com"             || "1****@qq.com"
+		"id-card"      || "440101199103020011"            || "4401****0011"
+		"mobile-phone" || "13524678900"                   || "135****8900"
+		"money"        || "1000000"                       || "****"
+		"password"     || "A1S2D3F4G5"                    || "******"
+		"telephone"    || "02012345"                      || "020****45"
+		"username"     || "mengxiangge"                   || "m****ge"
 	}
 
 	def "test json masking"() {
@@ -65,10 +65,10 @@ class DataMaskerTest extends Specification {
 		JSONHelper.json(spi).toJSONString(testCase) == maskedJson
 
 		where:
-		spi        	|| 	maskedJson
-		"jackson"	||  testJson
-		"fastjson"	||  testJson
-		"fastjson2"	||  testJson
+		spi         || maskedJson
+		"jackson"   || testJson
+		"fastjson"  || testJson
+		"fastjson2" || testJson
 	}
 }
 

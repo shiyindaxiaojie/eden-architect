@@ -75,7 +75,7 @@
 		</dependency>
 
 		<!-- Ribbon -->
-        <dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
 			<exclusions>
@@ -93,6 +93,6 @@
 				</exclusion>
 			</exclusions>
 			<optional>true</optional>
-        </dependency>
-    </dependencies>
+		</dependency>
+	</dependencies>
 </project>

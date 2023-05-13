@@ -49,7 +49,7 @@ import org.ylzl.eden.spring.data.redis.core.DynamicStringRedisTemplate;
 @Configuration(proxyBeanMethods = false)
 public class RedisStressAutoConfiguration {
 
-	public static final String ENABLED ="stress.redis.enabled";
+	public static final String ENABLED = "stress.redis.enabled";
 
 	@Primary
 	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)

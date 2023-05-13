@@ -27,8 +27,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.common.mail.MailTemplate;
-import org.ylzl.eden.common.mail.spring.boot.support.MailHelper;
 import org.ylzl.eden.common.mail.spring.boot.env.MailProperties;
+import org.ylzl.eden.common.mail.spring.boot.support.MailHelper;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**

@@ -22,8 +22,8 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.ylzl.eden.flow.compose.parser.ClassPathXmlProcessParser;
 import org.ylzl.eden.flow.compose.context.ProcessContextFactory;
+import org.ylzl.eden.flow.compose.parser.ClassPathXmlProcessParser;
 
 import java.util.Objects;
 

@@ -27,9 +27,9 @@ import java.util.Map;
  * 第三方服务
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see ClientAssert
  * @see ServerAssert
+ * @since 2.4.13
  */
 public class ThirdServiceAssert {
 

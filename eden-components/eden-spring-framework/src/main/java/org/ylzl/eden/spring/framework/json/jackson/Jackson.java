@@ -28,8 +28,8 @@ public class Jackson implements JSON {
 	/**
 	 * 解析为对象
 	 *
-	 * @param text  文本内容
-	 * @param cls 目标类型
+	 * @param text 文本内容
+	 * @param cls  目标类型
 	 * @return 对象实例
 	 */
 	@Override

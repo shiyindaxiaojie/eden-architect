@@ -16,8 +16,8 @@
 
 package org.ylzl.eden.event.auditor.integration.rocketmq;
 
-import org.ylzl.eden.event.auditor.model.AuditingEvent;
 import org.ylzl.eden.event.auditor.EventSender;
+import org.ylzl.eden.event.auditor.model.AuditingEvent;
 
 import java.util.List;
 

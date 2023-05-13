@@ -25,8 +25,8 @@ import java.util.*;
  * 集合工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.collections4.CollectionUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public final class CollectionUtils {

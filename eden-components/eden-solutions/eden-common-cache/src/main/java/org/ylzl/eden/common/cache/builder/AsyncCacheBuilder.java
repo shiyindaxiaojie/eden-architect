@@ -17,9 +17,9 @@
 package org.ylzl.eden.common.cache.builder;
 
 import org.ylzl.eden.common.cache.Cache;
+import org.ylzl.eden.common.cache.config.CacheConfig;
 import org.ylzl.eden.common.cache.l1cache.L1CacheLoader;
 import org.ylzl.eden.common.cache.l1cache.L1CacheRemovalListener;
-import org.ylzl.eden.common.cache.config.CacheConfig;
 import org.ylzl.eden.extension.SPI;
 
 /**
@@ -62,8 +62,8 @@ public interface AsyncCacheBuilder {
 	 */
 	Cache buildAsync();
 
-    /**
-     * 构建 Cache 实例
+	/**
+	 * 构建 Cache 实例
 	 *
 	 * @param l1CacheLoader 缓存加载器
 	 * @return Cache 实例

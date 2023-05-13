@@ -16,8 +16,8 @@
 
 package org.ylzl.eden.cola.statemachine.visitor.plantuml;
 
-import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.StateMachine;
+import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.visitor.Visitor;
 
@@ -42,13 +42,13 @@ public class PlantUMLVisitor implements Visitor {
 	@Override
 	public <S, E, C> String visitOnEntry(State<S, E, C> state) {
 		StringBuilder sb = new StringBuilder();
-		for(Transition<S, E, C> transition: state.getAllTransitions()){
+		for (Transition<S, E, C> transition : state.getAllTransitions()) {
 			sb.append(transition.getSource().getId())
-			.append(" --> ")
-			.append(transition.getTarget().getId())
-			.append(" : ")
-			.append(transition.getEvent())
-			.append(LF);
+				.append(" --> ")
+				.append(transition.getTarget().getId())
+				.append(" : ")
+				.append(transition.getEvent())
+				.append(LF);
 		}
 		return sb.toString();
 	}

@@ -30,7 +30,8 @@ public class RuntimeCallback<S, E, C> implements Callback<S, E, C> {
 	private static final String FIRE_EVENT_FAILED = "Cannot fire event '{}' on current state '{}' with context '{}'";
 
 	@Override
-	public void onSuccess(S sourceState, E event, C context) {}
+	public void onSuccess(S sourceState, E event, C context) {
+	}
 
 	@Override
 	public void onFail(S sourceState, E event, C context) {

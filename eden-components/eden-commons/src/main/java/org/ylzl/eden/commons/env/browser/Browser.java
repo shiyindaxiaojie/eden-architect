@@ -63,7 +63,7 @@ public enum Browser {
 	EVOLUTION("Evolution", "evolution", "Evolution[\\/ ]([\\d\\w\\.\\-]+)"),
 	GABBLE("Gabble", "Gabble", "Gabble[\\/ ]([\\d\\w\\.\\-]+)"),
 	YAMMER_DESKTOP("Yammer Desktop", "AdobeAir", "([\\d\\w\\.\\-]+)\\/Yammer"),
-	YAMMER_MOBILE("Yammer Mobile", "Yammer[\\s]+([\\d\\w\\.\\-]+)",  "Yammer[\\s]+([\\d\\w\\.\\-]+)"),
+	YAMMER_MOBILE("Yammer Mobile", "Yammer[\\s]+([\\d\\w\\.\\-]+)", "Yammer[\\s]+([\\d\\w\\.\\-]+)"),
 	BLACKBERRY("BlackBerry", "BlackBerry", "BlackBerry[\\d]+\\/([\\d\\w\\.\\-]+)"),
 	APACHE_HTTP_CLIENT("Apache HTTP Client", "Apache\\\\-HttpClient", "Apache\\-HttpClient\\/([\\d\\w\\.\\-]+)"),
 	JAVA("Java", "Java", "Java\\/([\\d\\w\\.\\-]+)");

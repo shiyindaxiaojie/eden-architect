@@ -22,8 +22,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * XxlJob 配置
  *
- * @link <a href="https://github.com/xuxueli/xxl-job/blob/master/xxl-job-executor-samples/xxl-job-executor-sample-springboot/src/main/resources/application.properties">...</a>
  * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @link <a href="https://github.com/xuxueli/xxl-job/blob/master/xxl-job-executor-samples/xxl-job-executor-sample-springboot/src/main/resources/application.properties">...</a>
  * @since 2.4.13
  **/
 @Data

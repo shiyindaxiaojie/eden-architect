@@ -31,7 +31,7 @@ public interface L1CacheRemovalListener {
 	/**
 	 * 缓存过期触发
 	 *
-	 * @param key Key
+	 * @param key   Key
 	 * @param value Value
 	 * @param cause 缓存失效原因
 	 */

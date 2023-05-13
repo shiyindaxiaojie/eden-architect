@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
-import org.ylzl.eden.spring.boot.profile.env.ProfileProperties;
 import org.ylzl.eden.spring.boot.profile.endpoint.ProfileEndpoint;
+import org.ylzl.eden.spring.boot.profile.env.ProfileProperties;
 
 /**
  * Profile 端点自动装配

@@ -79,7 +79,7 @@ public class SpringBootApplicationHelper {
 				+ "Profile(s):\t{}\n"
 				+ getInboundInfo(env)
 				+ getOutboundInfo(env)
- 				+ "----------------------------------------------------------",
+				+ "----------------------------------------------------------",
 			appName,
 			profile);
 	}

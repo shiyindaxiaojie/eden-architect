@@ -46,9 +46,9 @@
 		</dependency>
 
 		<!-- Event Auditor -->
-        <dependency>
-            <groupId>io.github.shiyindaxiaojie</groupId>
-            <artifactId>eden-event-auditor</artifactId>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-event-auditor</artifactId>
+		</dependency>
+	</dependencies>
 </project>

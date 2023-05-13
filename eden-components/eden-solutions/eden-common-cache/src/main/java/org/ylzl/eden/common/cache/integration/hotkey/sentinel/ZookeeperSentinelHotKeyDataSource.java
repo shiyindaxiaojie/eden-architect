@@ -46,7 +46,8 @@ public class ZookeeperSentinelHotKeyDataSource implements SentinelHotKeyDataSour
 			sentinelConfig.getDataSource().getZk().getServerAddr(),
 			sentinelConfig.getDataSource().getZk().getGroupId(),
 			sentinelConfig.getDataSource().getZk().getDataId(),
-			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {}));
+			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {
+			}));
 		ParamFlowRuleManager.register2Property(dataSource.getProperty());
 	}
 }

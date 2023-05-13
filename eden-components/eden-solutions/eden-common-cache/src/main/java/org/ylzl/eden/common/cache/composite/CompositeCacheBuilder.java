@@ -19,9 +19,9 @@ package org.ylzl.eden.common.cache.composite;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.common.cache.Cache;
 import org.ylzl.eden.common.cache.L1Cache;
+import org.ylzl.eden.common.cache.L2Cache;
 import org.ylzl.eden.common.cache.builder.AbstractCacheBuilder;
 import org.ylzl.eden.common.cache.builder.CacheBuilder;
-import org.ylzl.eden.common.cache.L2Cache;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**

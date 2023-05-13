@@ -46,7 +46,7 @@ public class ResultBuilder implements ResponseBuilder<Result> {
 
 	@Override
 	public Result buildFailure(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-								  Object... params) {
+							   Object... params) {
 		Result result = new Result();
 		result.setSuccess(false);
 		result.setCode(errCode);
@@ -56,7 +56,7 @@ public class ResultBuilder implements ResponseBuilder<Result> {
 
 	@Override
 	public Result buildFailure(@PropertyKey(resourceBundle = ErrorCodeLoader.BUNDLE_NAME) String errCode,
-								  String errMessage, Object... params) {
+							   String errMessage, Object... params) {
 		Result result = new Result();
 		result.setSuccess(false);
 		result.setCode(errCode);

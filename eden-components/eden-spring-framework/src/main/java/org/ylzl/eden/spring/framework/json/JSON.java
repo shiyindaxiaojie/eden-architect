@@ -17,8 +17,8 @@ public interface JSON {
 	 * 转换为 JSON
 	 *
 	 * @param object 对象实例
+	 * @param <T>    泛型
 	 * @return JSON格式化内容
-	 * @param <T> 泛型
 	 */
 	<T> String toJSONString(T object);
 
@@ -26,9 +26,9 @@ public interface JSON {
 	 * 解析为对象
 	 *
 	 * @param text 文本内容
-	 * @param cls 目标类型
+	 * @param cls  目标类型
+	 * @param <T>  泛型
 	 * @return 对象实例
-	 * @param <T> 泛型
 	 */
 	<T> T parseObject(String text, Class<T> cls);
 
@@ -36,9 +36,9 @@ public interface JSON {
 	 * 解析为对象列表
 	 *
 	 * @param text 文本内容
-	 * @param cls 目标类型
+	 * @param cls  目标类型
+	 * @param <T>  泛型
 	 * @return 对象实例列表
-	 * @param <T> 泛型
 	 */
 	<T> List<T> parseList(String text, Class<T> cls);
 }

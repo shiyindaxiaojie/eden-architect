@@ -19,14 +19,14 @@ package org.ylzl.eden.cola.statemachine.transition.builder;
 import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.cola.statemachine.Action;
 import org.ylzl.eden.cola.statemachine.Condition;
-import org.ylzl.eden.cola.statemachine.state.State;
-import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.dsl.FromAmong;
 import org.ylzl.eden.cola.statemachine.dsl.On;
 import org.ylzl.eden.cola.statemachine.dsl.To;
 import org.ylzl.eden.cola.statemachine.dsl.When;
+import org.ylzl.eden.cola.statemachine.state.State;
 import org.ylzl.eden.cola.statemachine.state.StateStore;
 import org.ylzl.eden.cola.statemachine.transition.ExternalTransitions;
+import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.transition.TransitionType;
 
 import java.util.ArrayList;

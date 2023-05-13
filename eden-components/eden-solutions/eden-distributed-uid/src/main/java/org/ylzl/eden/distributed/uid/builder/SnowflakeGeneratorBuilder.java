@@ -48,6 +48,7 @@ public interface SnowflakeGeneratorBuilder {
 
 	/**
 	 * 构建雪花算法生成器
+	 *
 	 * @return 雪花算法生成器
 	 */
 	SnowflakeGenerator build();

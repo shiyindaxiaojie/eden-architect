@@ -43,7 +43,7 @@ public class SensitiveFilterHelper {
 	/**
 	 * 获取敏感词过滤器实例
 	 *
-	 * @param spi 扩展点
+	 * @param spi                 扩展点
 	 * @param sensitiveWordLoader 敏感词处理器
 	 * @return 敏感词过滤器实例
 	 */

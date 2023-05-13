@@ -25,10 +25,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
-import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 import org.ylzl.eden.spring.integration.truelicense.LicenseInstaller;
 import org.ylzl.eden.spring.integration.truelicense.LicenseVerifier;
+import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
+import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 
 /**
  * TrueLicense 客户端配置

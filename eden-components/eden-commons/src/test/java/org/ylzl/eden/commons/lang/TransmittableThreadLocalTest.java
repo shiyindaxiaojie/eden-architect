@@ -58,7 +58,7 @@ public class TransmittableThreadLocalTest {
 		}
 	}
 
-	static class ChildThread implements Runnable{
+	static class ChildThread implements Runnable {
 		private final String parentThreadName;
 
 		public ChildThread(String parentThreadName) {

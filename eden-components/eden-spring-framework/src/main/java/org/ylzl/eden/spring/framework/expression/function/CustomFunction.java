@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * @since 2.4.13
  */
 @Component
-@Target({ElementType.TYPE,ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomFunction {
 

@@ -87,7 +87,7 @@ public class MongobeeAutoConfiguration {
 
 	@Bean
 	public Mongobee mongobee(InfoContributorProvider infoContributorProvider,
-		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor) {
+							 @Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor) {
 		log.debug(MSG_AUTOWIRED_MONGOBEE);
 		Mongobee mongobee = new AsyncMongobee(mongobeeProperties.isAsync(), taskExecutor, mongoClient);
 		mongobee.setDbName(mongoProperties.getMongoClientDatabase());

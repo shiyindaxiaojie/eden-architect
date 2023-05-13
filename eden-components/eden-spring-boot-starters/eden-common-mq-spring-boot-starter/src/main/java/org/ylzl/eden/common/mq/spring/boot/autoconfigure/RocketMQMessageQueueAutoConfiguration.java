@@ -31,9 +31,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.common.mq.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.MessageQueueProvider;
+import org.ylzl.eden.common.mq.MessageQueueType;
 import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQConsumer;
 import org.ylzl.eden.common.mq.integration.rocketmq.RocketMQProvider;
 import org.ylzl.eden.common.mq.integration.rocketmq.config.RocketMQConfig;
@@ -41,7 +41,7 @@ import org.ylzl.eden.common.mq.spring.boot.env.MessageQueueProperties;
 import org.ylzl.eden.common.mq.spring.boot.env.RocketMQConsumerProperties;
 import org.ylzl.eden.common.mq.spring.boot.env.RocketMQProducerProperties;
 import org.ylzl.eden.common.mq.spring.boot.env.convertor.RocketMQConvertor;
-import org.ylzl.eden.common.mq.MessageQueueType;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import java.util.List;
@@ -85,8 +85,8 @@ public class RocketMQMessageQueueAutoConfiguration {
 	public RocketMQConsumer rocketMQConsumer(RocketMQConsumerProperties rocketMQConsumerProperties,
 											 ObjectProvider<List<MessageQueueConsumer>> messageListeners) {
 		log.debug(AUTOWIRED_ROCKET_MQ_CONSUMER);
-		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type) && messageQueueProperties.getPrimary() != null?
-			MessageQueueType.ROCKETMQ.name().equalsIgnoreCase(messageQueueProperties.getPrimary()):
+		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type) && messageQueueProperties.getPrimary() != null ?
+			MessageQueueType.ROCKETMQ.name().equalsIgnoreCase(messageQueueProperties.getPrimary()) :
 			MessageQueueType.ROCKETMQ.name().equalsIgnoreCase(type);
 		RocketMQConfig config = RocketMQConvertor.INSTANCE.toConfig(rocketMQProperties);
 		RocketMQConvertor.INSTANCE.updateConfigFromConsumer(rocketMQConsumerProperties, config.getConsumer());

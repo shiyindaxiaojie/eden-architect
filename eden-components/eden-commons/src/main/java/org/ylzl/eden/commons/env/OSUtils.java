@@ -16,8 +16,8 @@
 package org.ylzl.eden.commons.env;
 
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.commons.env.os.OSArchitect;
 import org.ylzl.eden.commons.env.os.OS;
+import org.ylzl.eden.commons.env.os.OSArchitect;
 import org.ylzl.eden.commons.lang.Strings;
 
 import java.io.IOException;

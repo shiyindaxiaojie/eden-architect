@@ -30,8 +30,8 @@ public interface ExtensionFactory {
 	 *
 	 * @param type
 	 * @param name
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	<T> T getExtension(Class<T> type, String name);
 }

@@ -54,12 +54,12 @@ public class PrometheusMetricExtension implements MetricExtension {
 	/**
 	 * Add current block count of the resource name.
 	 *
-	 * @param resource       resource name
-	 * @param n              count to add
-	 * @param origin         the original invoker.
-	 * @param ex 			 block exception related.
-	 * @param args           additional arguments of the resource, eg. if the resource is a method name,
-	 *                       the args will be the parameters of the method.
+	 * @param resource resource name
+	 * @param n        count to add
+	 * @param origin   the original invoker.
+	 * @param ex       block exception related.
+	 * @param args     additional arguments of the resource, eg. if the resource is a method name,
+	 *                 the args will be the parameters of the method.
 	 */
 	@Override
 	public void addBlock(String resource, int n, String origin, BlockException ex, Object... args) {
@@ -101,7 +101,7 @@ public class PrometheusMetricExtension implements MetricExtension {
 	 */
 	@Override
 	public void addRt(String resource, long rt, Object... args) {
-		getRegistry().getRtHist().labels(resource).observe(((double)rt) / 1000);
+		getRegistry().getRtHist().labels(resource).observe(((double) rt) / 1000);
 	}
 
 	/**

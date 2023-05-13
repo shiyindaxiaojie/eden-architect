@@ -34,25 +34,39 @@ import java.util.List;
  */
 public class RocketMQContainer extends GenericContainer<RocketMQContainer> {
 
-	/** 默认镜像名称 */
+	/**
+	 * 默认镜像名称
+	 */
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("apache/rocketmq");
 
-	/** 默认镜像标签 */
+	/**
+	 * 默认镜像标签
+	 */
 	private static final String DEFAULT_TAG = "4.9.4";
 
-	/** Name Server 端口 */
+	/**
+	 * Name Server 端口
+	 */
 	private static final int DEFAULT_NAMESRV_PORT = 9876;
 
-	/** Broker 端口 */
+	/**
+	 * Broker 端口
+	 */
 	private static final int DEFAULT_BROKER_PORT = 10911;
 
-	/** Broker VIP 端口 */
+	/**
+	 * Broker VIP 端口
+	 */
 	private static final int DEFAULT_VIP_PORT = DEFAULT_BROKER_PORT - 2;
 
-	/** 默认启动超时 */
+	/**
+	 * 默认启动超时
+	 */
 	private static final Duration DEFAULT_STARTUP_TIMEOUT = Duration.ofSeconds(60);
 
-	/** 读写权限 */
+	/**
+	 * 读写权限
+	 */
 	private static final int defaultBrokerPermission = 6;
 
 	public RocketMQContainer() {

@@ -60,8 +60,8 @@ public class XxlJobAutoConfiguration {
 	public XxlJobExecutor xxlJobExecutor(ObjectProvider<XxlJobAdminTemplate> xxlJobAdminTemplate) {
 		log.info(AUTOWIRED_XXL_JOB_EXECUTOR);
 		XxlJobExecutor xxlJobExecutor =
-			xxlJobProperties.getAdmin().isAutoRegister() && xxlJobAdminTemplate.getIfAvailable() != null?
-				new AutoRegisterXxlJobExecutor(xxlJobAdminTemplate.getObject()):
+			xxlJobProperties.getAdmin().isAutoRegister() && xxlJobAdminTemplate.getIfAvailable() != null ?
+				new AutoRegisterXxlJobExecutor(xxlJobAdminTemplate.getObject()) :
 				new XxlJobExecutor();
 		xxlJobExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
 

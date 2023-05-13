@@ -51,7 +51,8 @@ public class EtcdSentinelHotKeyDataSource implements SentinelHotKeyDataSource {
 		SentinelConfig.setConfig(EtcdConfig.AUTH_ENABLE, String.valueOf(sentinelConfig.getDataSource().getEtcd().isAuth()));
 		ReadableDataSource<String, List<ParamFlowRule>> dataSource = new EtcdDataSource<>(
 			sentinelConfig.getDataSource().getEtcd().getRuleKey(),
-			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {}));
+			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {
+			}));
 		ParamFlowRuleManager.register2Property(dataSource.getProperty());
 	}
 }

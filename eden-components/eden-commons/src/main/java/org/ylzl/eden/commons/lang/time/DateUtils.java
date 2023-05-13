@@ -28,8 +28,8 @@ import java.util.Date;
  * 日期工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.lang3.time.DateUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {

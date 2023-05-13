@@ -54,5 +54,5 @@
 			<groupId>cn.dynamictp</groupId>
 			<artifactId>dynamic-tp-spring-cloud-starter-nacos</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

@@ -52,7 +52,8 @@ public class ApolloSentinelHotKeyDataSource implements SentinelHotKeyDataSource 
 			sentinelConfig.getDataSource().getApollo().getNamespaceName(),
 			sentinelConfig.getDataSource().getApollo().getFlowRulesKey(),
 			sentinelConfig.getDataSource().getApollo().getDefaultFlowRuleValue(),
-			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {}));
+			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {
+			}));
 		ParamFlowRuleManager.register2Property(dataSource.getProperty());
 	}
 }

@@ -135,7 +135,8 @@
 		<influxdb.version>6.4.0</influxdb.version>
 
 		<!-- 搜索引擎 -->
-		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
+		</spring-boot-starter-data-elasticsearch.version>
 		<t-digest.version>3.2</t-digest.version>
 		<jopt-simple.version>5.0.4</jopt-simple.version>
 

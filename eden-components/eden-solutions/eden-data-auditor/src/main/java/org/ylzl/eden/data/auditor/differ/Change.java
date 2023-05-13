@@ -16,7 +16,9 @@
 
 package org.ylzl.eden.data.auditor.differ;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -31,13 +33,19 @@ import java.io.Serializable;
 @Data
 public class Change implements Serializable {
 
-	/** 变更ID */
+	/**
+	 * 变更ID
+	 */
 	private final String affectedId;
 
-	/** 变更值 */
+	/**
+	 * 变更值
+	 */
 	private final transient Object affectedValue;
 
-	/** 变更类型 */
+	/**
+	 * 变更类型
+	 */
 	private final ChangeType changeType;
 
 	@SuppressWarnings("unchecked")

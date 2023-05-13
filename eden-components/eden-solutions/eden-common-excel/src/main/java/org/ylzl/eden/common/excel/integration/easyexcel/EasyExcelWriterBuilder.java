@@ -37,7 +37,7 @@ public class EasyExcelWriterBuilder extends AbstractExcelWriterBuilder implement
 	 * 构建 Excel 写入器
 	 *
 	 * @param excelType 文件类型
-	 * @param inMemory 是否在内存操作
+	 * @param inMemory  是否在内存操作
 	 * @return Excel 写入器实例
 	 */
 	@Override

@@ -27,8 +27,8 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.common.mq.MessageQueueProvider;
 import org.ylzl.eden.common.mq.MessageQueueType;
 import org.ylzl.eden.common.mq.model.Message;
-import org.ylzl.eden.common.mq.producer.MessageSendException;
 import org.ylzl.eden.common.mq.producer.MessageSendCallback;
+import org.ylzl.eden.common.mq.producer.MessageSendException;
 import org.ylzl.eden.common.mq.producer.MessageSendResult;
 
 /**

@@ -20,8 +20,8 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
-import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
+import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 import org.ylzl.eden.distributed.uid.exception.SegmentGeneratorException;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.dao.LeafAllocDAO;
@@ -212,7 +212,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 			} else if (duration >= config.getSegmentTtl() * 2) {
 				nextStep = nextStep / 2 >= buffer.getMinStep() ? nextStep / 2 : nextStep;
 			}
-			log.info("leafKey[{}], step[{}], duration[{}mins], nextStep[{}]", key, buffer.getStep(), String.format("%.2f",((double)duration / (1000 * 60))), nextStep);
+			log.info("leafKey[{}], step[{}], duration[{}mins], nextStep[{}]", key, buffer.getStep(), String.format("%.2f", ((double) duration / (1000 * 60))), nextStep);
 			LeafAlloc temp = new LeafAlloc();
 			temp.setKey(key);
 			temp.setStep(nextStep);
@@ -286,12 +286,12 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 		int roll = 0;
 		while (buffer.getThreadRunning().get()) {
 			roll += 1;
-			if(roll > 10000) {
+			if (roll > 10000) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(10);
 					break;
 				} catch (InterruptedException e) {
-					log.warn("Thread {} Interrupted",Thread.currentThread().getName());
+					log.warn("Thread {} Interrupted", Thread.currentThread().getName());
 					break;
 				}
 			}

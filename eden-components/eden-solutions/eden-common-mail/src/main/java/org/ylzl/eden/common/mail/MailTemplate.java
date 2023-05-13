@@ -18,8 +18,8 @@ package org.ylzl.eden.common.mail;
 
 import org.ylzl.eden.common.mail.model.multi.MultiSendMailRequest;
 import org.ylzl.eden.common.mail.model.multi.MultiSendMailResponse;
-import org.ylzl.eden.common.mail.model.single.SingleSendMailResponse;
 import org.ylzl.eden.common.mail.model.single.SingleSendMailRequest;
+import org.ylzl.eden.common.mail.model.single.SingleSendMailResponse;
 
 /**
  * 邮件操作模板

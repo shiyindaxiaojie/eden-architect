@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface XxlJobRegister {
@@ -40,8 +40,6 @@ public @interface XxlJobRegister {
 	String cron() default "";
 
 	/**
-	 *
-	 *
 	 * @return
 	 */
 	String author() default "xxl-job";

@@ -18,8 +18,8 @@ package org.ylzl.eden.cola.statemachine.state;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.transition.EventTransitions;
+import org.ylzl.eden.cola.statemachine.transition.Transition;
 import org.ylzl.eden.cola.statemachine.transition.TransitionImpl;
 import org.ylzl.eden.cola.statemachine.transition.TransitionType;
 import org.ylzl.eden.cola.statemachine.visitor.Visitor;

@@ -3,15 +3,15 @@
  */
 
 plugins {
-    id 'java-library'
-    id 'maven-publish'
+  id 'java-library'
+  id 'maven-publish'
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
+  mavenLocal()
+  maven {
+    url = uri('https://repo.maven.apache.org/maven2/')
+  }
 }
 
 group = 'org.ylzl'
@@ -19,17 +19,17 @@ version = '0.0.1-SNAPSHOT'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
+  publications {
+    maven(MavenPublication) {
+      from(components.java)
     }
+  }
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+  options.encoding = 'UTF-8'
 }
 
 tasks.withType(Javadoc) {
-    options.encoding = 'UTF-8'
+  options.encoding = 'UTF-8'
 }
