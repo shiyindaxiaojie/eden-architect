@@ -17,8 +17,9 @@
 package org.ylzl.eden.spring.framework.logging.access.util;
 
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
@@ -39,9 +40,12 @@ import java.util.Objects;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Slf4j
 @UtilityClass
 public class AccessLogHelper {
+
+	public static final String ACCESS_LOG = "AccessLog";
+
+	public static final Logger log = LoggerFactory.getLogger(ACCESS_LOG);
 
 	/**
 	 * 根据采样率判断是否需要输出日志

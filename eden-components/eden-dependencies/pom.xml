@@ -153,7 +153,7 @@
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.0.14</dubbo.version>
+		<dubbo.version>3.1.10</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<curator.version>5.1.0</curator.version>
@@ -1661,9 +1661,36 @@
 				<artifactId>dubbo</artifactId>
 				<version>${dubbo.version}</version>
 			</dependency>
+			<!-- Dubbo For Nacos -->
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-registry-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-configcenter-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-metadata-report-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<!-- Dubbo For Zookeeper -->
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-registry-zookeeper</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-configcenter-zookeeper</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-metadata-report-zookeeper</artifactId>
 				<version>${dubbo.version}</version>
 			</dependency>
 			<!-- Zookeeper -->

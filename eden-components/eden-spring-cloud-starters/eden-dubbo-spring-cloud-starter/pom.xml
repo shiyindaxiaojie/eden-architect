@@ -77,5 +77,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-configcenter-nacos</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.dubbo</groupId>
+					<artifactId>dubbo-common</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-metadata-report-nacos</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -18,6 +18,7 @@ package org.ylzl.eden.data.filter.builder;
 
 import org.ylzl.eden.data.filter.DuplicateFilter;
 import org.ylzl.eden.data.filter.config.DuplicateConfig;
+import org.ylzl.eden.extension.SPI;
 
 /**
  * 数据去重过滤构建器
@@ -25,6 +26,7 @@ import org.ylzl.eden.data.filter.config.DuplicateConfig;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@SPI("bloom-filter")
 public interface DuplicateFilterBuilder {
 
 	/**

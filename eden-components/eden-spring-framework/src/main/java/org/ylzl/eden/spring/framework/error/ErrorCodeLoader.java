@@ -37,8 +37,15 @@ public class ErrorCodeLoader {
 	private static final ResourceBundle INTERNAL_RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME,
 		Locale.SIMPLIFIED_CHINESE);
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME,
-		Locale.SIMPLIFIED_CHINESE);
+	private static ResourceBundle RESOURCE_BUNDLE;
+
+	static {
+		try {
+			RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
+		} catch (Exception e){
+			RESOURCE_BUNDLE = ResourceBundle.getBundle(INTERNAL_BUNDLE_NAME, Locale.SIMPLIFIED_CHINESE);
+		}
+	}
 
 	public static String getErrMessage(@PropertyKey(resourceBundle = BUNDLE_NAME) String errCode,
 									   Object... params) {
