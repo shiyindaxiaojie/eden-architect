@@ -153,7 +153,7 @@
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.1.10</dubbo.version>
+		<dubbo.version>3.0.15</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<curator.version>5.1.0</curator.version>
@@ -165,7 +165,7 @@
 		<quartz.version>2.3.2</quartz.version>
 
 		<!-- 微服务组件 -->
-		<nacos.version>2.1.2</nacos.version>
+		<nacos.version>2.0.4</nacos.version>
 		<sentinel.version>1.8.5</sentinel.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
