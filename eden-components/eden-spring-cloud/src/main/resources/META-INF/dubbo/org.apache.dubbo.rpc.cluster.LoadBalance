@@ -1,0 +1,1 @@
+local-call-first=org.ylzl.eden.spring.cloud.dubbo.loadbalance.LocalCallFirstLoadBalance
