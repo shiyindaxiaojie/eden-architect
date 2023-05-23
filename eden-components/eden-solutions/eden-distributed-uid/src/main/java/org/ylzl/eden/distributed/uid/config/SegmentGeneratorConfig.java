@@ -40,13 +40,19 @@ public class SegmentGeneratorConfig {
 
 	private String type = "leaf";
 
-	/** 租户 */
+	/**
+	 * 租户
+	 */
 	private String tenant = "default";
 
-	/** 最大步长，默认限制为 1_000_000*/
+	/**
+	 * 最大步长，默认限制为 1_000_000
+	 */
 	private int maxStep = 1_000_000;
 
-	/** 一个号段的维持时间，默认为15分钟 */
+	/**
+	 * 一个号段的维持时间，默认为15分钟
+	 */
 	private long segmentTtl = 15 * 60 * 1000L;
 
 	private final Liquibase liquibase = new Liquibase();

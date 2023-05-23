@@ -19,9 +19,9 @@ package org.ylzl.eden.common.cache.l1cache;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.common.cache.Cache;
+import org.ylzl.eden.common.cache.L2Cache;
 import org.ylzl.eden.common.cache.composite.CompositeCache;
 import org.ylzl.eden.common.cache.support.value.NullValue;
-import org.ylzl.eden.common.cache.L2Cache;
 
 /**
  * 内置一级缓存失效监听器

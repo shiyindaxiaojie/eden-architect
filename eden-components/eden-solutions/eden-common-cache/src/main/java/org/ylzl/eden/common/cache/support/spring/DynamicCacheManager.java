@@ -25,10 +25,10 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.AbstractCacheManager;
 import org.ylzl.eden.common.cache.CacheType;
-import org.ylzl.eden.common.cache.l1cache.L1CacheLoader;
-import org.ylzl.eden.common.cache.l1cache.L1CacheRemovalListener;
 import org.ylzl.eden.common.cache.builder.CacheBuilder;
 import org.ylzl.eden.common.cache.config.CacheConfig;
+import org.ylzl.eden.common.cache.l1cache.L1CacheLoader;
+import org.ylzl.eden.common.cache.l1cache.L1CacheRemovalListener;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 import java.util.Collection;
@@ -79,7 +79,7 @@ public class DynamicCacheManager extends AbstractCacheManager {
 
 	public L1CacheRemovalListener getL1CacheRemovalListener() {
 		if (this.l1CacheRemovalListener != null) {
-			 return this.l1CacheRemovalListener;
+			return this.l1CacheRemovalListener;
 		}
 		return ExtensionLoader.getExtensionLoader(L1CacheRemovalListener.class).getDefaultExtension();
 	}

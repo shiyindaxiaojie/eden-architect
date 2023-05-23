@@ -22,8 +22,8 @@ import lombok.experimental.UtilityClass;
  * 哈希工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
  * @see cn.hutool.core.util.HashUtil
+ * @since 2.4.x
  */
 @UtilityClass
 public class HashUtils {
@@ -129,9 +129,9 @@ public class HashUtils {
 	/**
 	 * Zobrist Hashing (佐布里斯特散列)
 	 *
-	 * @param key 字符串
+	 * @param key  字符串
 	 * @param mask 掩码
-	 * @param tab 偏移值
+	 * @param tab  偏移值
 	 * @return 哈希值
 	 */
 	public static int zobrist(String key, int mask, int[][] tab) {

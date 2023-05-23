@@ -74,15 +74,15 @@
 		</dependency>
 
 		<!-- RocketMQ -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-spring-boot</artifactId>
+		</dependency>
 
 		<!-- Dynamic MQ -->
-        <dependency>
-            <groupId>io.github.shiyindaxiaojie</groupId>
-            <artifactId>eden-common-mq</artifactId>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-common-mq</artifactId>
+		</dependency>
+	</dependencies>
 </project>

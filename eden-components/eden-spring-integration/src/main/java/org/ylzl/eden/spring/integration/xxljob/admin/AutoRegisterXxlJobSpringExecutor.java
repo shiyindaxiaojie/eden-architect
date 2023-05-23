@@ -100,7 +100,7 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 		ReturnT<String> returnT = JSON.parseObject(responseEntity.getBody(), new TypeReference<ReturnT<String>>() {
 		});
 		if (returnT == null || returnT.getCode() == ReturnT.FAIL_CODE) {
-			log.warn("添加执行器 '{}' 失败，原因: {}", appName, returnT == null? "接口返回NULL" : returnT.getMsg());
+			log.warn("添加执行器 '{}' 失败，原因: {}", appName, returnT == null ? "接口返回NULL" : returnT.getMsg());
 			return;
 		}
 
@@ -117,7 +117,7 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 			ReturnT<String> result = JSON.parseObject(responseBody, new TypeReference<ReturnT<String>>() {
 			});
 			if (result == null || result.getCode() == ReturnT.FAIL_CODE) {
-				log.warn("添加任务 '{}' 失败，原因: {}", xxlJobInfo.getExecutorHandler(), result == null? "接口返回NULL" : result.getMsg());
+				log.warn("添加任务 '{}' 失败，原因: {}", xxlJobInfo.getExecutorHandler(), result == null ? "接口返回NULL" : result.getMsg());
 				return;
 			}
 

@@ -57,5 +57,5 @@
 			<artifactId>redisson</artifactId>
 			<optional>true</optional>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

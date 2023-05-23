@@ -35,10 +35,10 @@ import org.ylzl.eden.spring.boot.task.autoconfigure.AsyncTaskExecutionAutoConfig
  * @since 2.4.x
  */
 @ConditionalOnProperty(
-    prefix = EventAuditorProperties.PREFIX,
-    name = Conditions.ENABLED,
-    havingValue = Conditions.TRUE,
-    matchIfMissing = true
+	prefix = EventAuditorProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE,
+	matchIfMissing = true
 )
 @AutoConfigureAfter(AsyncTaskExecutionAutoConfiguration.class)
 @EnableEventAuditor

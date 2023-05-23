@@ -15,7 +15,7 @@ jobs:
       packages: write
     strategy:
       matrix:
-        java: ['8']
+        java: [ '8' ]
     steps:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

@@ -50,5 +50,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-distributed-uid</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

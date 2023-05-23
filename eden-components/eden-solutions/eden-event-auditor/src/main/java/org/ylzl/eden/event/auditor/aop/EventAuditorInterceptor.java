@@ -91,14 +91,14 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 			}
 			success = false;
 			errorMsg = e.getMessage();
-			SpelEvaluationContext.setVariable(ERROR_MSG, errorMsg);	// 异常信息
+			SpelEvaluationContext.setVariable(ERROR_MSG, errorMsg);    // 异常信息
 			throw e;
 		} finally {
 			if (stopWatch.isRunning()) {
 				stopWatch.stop();
 				executionCost = stopWatch.getTotalTimeMillis();
 			}
-			SpelEvaluationContext.setVariable(RETURN, result);	// 返回值处理
+			SpelEvaluationContext.setVariable(RETURN, result);    // 返回值处理
 			events.addAll(parseList(invocation, eventAuditors, false));
 			for (AuditingEvent event : events) {
 				event.setSuccess(success);
@@ -144,8 +144,8 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 	/**
 	 * 解析 {@code AuditingEvent} 列表
 	 *
-	 * @param invocation 方法调用元信息
-	 * @param eventAuditors 审计注解
+	 * @param invocation       方法调用元信息
+	 * @param eventAuditors    审计注解
 	 * @param evalBeforeInvoke 是否在调用方法之前提前解析
 	 * @return {@code AuditingEvent} 列表
 	 */
@@ -167,7 +167,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 	 * 解析模型
 	 *
 	 * @param eventAuditor 事件审计注解
-	 * @param invocation 方法调用元信息
+	 * @param invocation   方法调用元信息
 	 * @return 目标模型
 	 */
 	private AuditingEvent parseModel(EventAuditor eventAuditor, MethodInvocation invocation) {
@@ -215,7 +215,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 		if (StringUtils.isNotBlank(eventAuditor.extra())) {
 			Expression expression = parser.parseExpression(eventAuditor.extra());
 			Object extra = expression.getValue(context, Object.class);
-			auditingEvent.setExtra(extra instanceof String? (String) extra : JSONHelper.json().toJSONString(extra));
+			auditingEvent.setExtra(extra instanceof String ? (String) extra : JSONHelper.json().toJSONString(extra));
 		}
 		return auditingEvent;
 	}

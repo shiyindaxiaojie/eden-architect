@@ -27,9 +27,9 @@ import java.util.Map;
  * 服务端错误
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see ClientAssert
  * @see ThirdServiceAssert
+ * @since 2.4.13
  */
 public class ServerAssert {
 

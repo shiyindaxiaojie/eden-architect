@@ -26,8 +26,8 @@ public class AopUtils {
 			return object;
 		}
 		try {
-			return org.springframework.aop.support.AopUtils.isJdkDynamicProxy(object)?
-				getDynamicProxyTargetObjectFromJDK(object):
+			return org.springframework.aop.support.AopUtils.isJdkDynamicProxy(object) ?
+				getDynamicProxyTargetObjectFromJDK(object) :
 				getDynamicProxyTargetObjectByCglib(object);
 		} catch (Exception e) {
 			throw new RuntimeException(e);

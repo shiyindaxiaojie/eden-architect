@@ -219,7 +219,7 @@ public class AdaptiveClassCodeGenerator {
 		return String.format("if (arg%d == null) throw new IllegalArgumentException(\"%s argument == null\");\n",
 			index, type.getName()) +
 			String.format("if (arg%d.%s() == null) throw new IllegalArgumentException(\"%s argument %s() == null\");\n",
-			index, method, type.getName(), method) +
+				index, method, type.getName(), method) +
 			String.format("%s url = arg%d.%s();\n", URL.class.getName(), index, method);
 	}
 

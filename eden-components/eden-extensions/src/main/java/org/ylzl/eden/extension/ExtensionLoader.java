@@ -53,42 +53,66 @@ import java.util.concurrent.ConcurrentMap;
 @Slf4j
 public class ExtensionLoader<T> {
 
-	/** 扩展点加载器（延迟加载）*/
+	/**
+	 * 扩展点加载器（延迟加载）
+	 */
 	private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>(64);
 
-	/** 扩展点实例（延迟加载）*/
+	/**
+	 * 扩展点实例（延迟加载）
+	 */
 	private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>(64);
 
-	/** 缓存扩展点名称 */
+	/**
+	 * 缓存扩展点名称
+	 */
 	private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<>();
 
-	/** 缓存扩展点Class（重点）*/
+	/**
+	 * 缓存扩展点Class（重点）
+	 */
 	private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 
-	/** 缓存扩展点实例 */
+	/**
+	 * 缓存扩展点实例
+	 */
 	private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
 
-	/** 缓存异常信息 */
+	/**
+	 * 缓存异常信息
+	 */
 	private final Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<>();
 
-	/** 处理 @Active 扩展点 */
+	/**
+	 * 处理 @Active 扩展点
+	 */
 	private final ActiveExtensionLoader<T> activeExtensionLoader = new ActiveExtensionLoader<>(this);
 
-	/** 处理 @Wrapper 扩展点 */
+	/**
+	 * 处理 @Wrapper 扩展点
+	 */
 	private final WrapperExtensionLoader wrapperExtensionLoader = new WrapperExtensionLoader();
 
-	/** 处理 @Adaptive 扩展点 */
+	/**
+	 * 处理 @Adaptive 扩展点
+	 */
 	private final AdaptiveExtensionLoader<T> adaptiveExtensionLoader = new AdaptiveExtensionLoader<>(this);
 
-	/** 缓存默认的扩展点名称 */
+	/**
+	 * 缓存默认的扩展点名称
+	 */
 	@Getter
 	private String cachedDefaultName;
 
-	/** 扩展点类型 */
+	/**
+	 * 扩展点类型
+	 */
 	@Getter
 	private final Class<?> type;
 
-	/** 扩展点实例工厂 */
+	/**
+	 * 扩展点实例工厂
+	 */
 	private final ExtensionFactory objectFactory;
 
 	private ExtensionLoader(Class<?> type) {
@@ -101,8 +125,8 @@ public class ExtensionLoader<T> {
 	 * 获取扩展点加载器
 	 *
 	 * @param type
-	 * @return
 	 * @param <T>
+	 * @return
 	 */
 	public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
 		checkExtensionAnnotation(type);
@@ -341,7 +365,6 @@ public class ExtensionLoader<T> {
 
 	/**
 	 * 加载扩展点Classes
-	 *
 	 */
 	public Map<String, Class<?>> getExtensionClasses() {
 		Map<String, Class<?>> classes = cachedClasses.get();
@@ -362,6 +385,7 @@ public class ExtensionLoader<T> {
 
 	/**
 	 * 遍历 LoadingStrategy，获取扩展点Classes
+	 *
 	 * @return
 	 */
 	private Map<String, Class<?>> loadExtensionClasses() {
@@ -603,9 +627,9 @@ public class ExtensionLoader<T> {
 			// 新增顺序替换
 			if (clazz.isAnnotationPresent(Order.class) || c.isAnnotationPresent(Order.class)) {
 				Order destOrder = clazz.getAnnotation(Order.class);
-				int destValue = destOrder != null? destOrder.value() : 0;
+				int destValue = destOrder != null ? destOrder.value() : 0;
 				Order srcOrder = c.getAnnotation(Order.class);
-				int srcValue = srcOrder != null? srcOrder.value() : 0;
+				int srcValue = srcOrder != null ? srcOrder.value() : 0;
 				if (srcValue > destValue) {
 					log.debug("Compare extension " + type.getName() + " name " + name + " use " + clazz.getName() + " instead of " + c.getName());
 					extensionClasses.put(name, clazz);

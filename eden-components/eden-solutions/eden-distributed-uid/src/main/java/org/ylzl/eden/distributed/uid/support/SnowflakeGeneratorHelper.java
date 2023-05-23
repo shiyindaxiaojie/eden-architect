@@ -59,7 +59,7 @@ public class SnowflakeGeneratorHelper {
 	 * 获取雪花算法生成器实例
 	 *
 	 * @param config 配置信息
-	 * @param app 应用信息
+	 * @param app    应用信息
 	 * @return 雪花算法生成器实例
 	 */
 	public static SnowflakeGenerator snowflakeGenerator(SnowflakeGeneratorConfig config, App app) {

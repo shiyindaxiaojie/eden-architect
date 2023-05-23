@@ -29,10 +29,10 @@ class EmbeddedServerTest extends Specification {
 		embeddedServer.shutdown()
 
 		where:
-		spi			||	port	||	isRunning
+		spi         || port || isRunning
 //		"kafka"		||	9092	||	true
 //		"redis"		||	6379	||	true
-		"zookeeper"	||	2181	||	true
+		"zookeeper" || 2181 || true
 	}
 }
 

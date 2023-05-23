@@ -33,12 +33,12 @@ import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.RPCHook;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.common.mq.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.MessageQueueListener;
 import org.ylzl.eden.common.mq.consumer.MessageConsumeException;
 import org.ylzl.eden.common.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.common.mq.model.Message;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.List;
 import java.util.Map;

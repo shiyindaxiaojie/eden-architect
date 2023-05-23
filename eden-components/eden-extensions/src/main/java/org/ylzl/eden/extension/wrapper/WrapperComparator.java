@@ -24,8 +24,8 @@ import java.util.Comparator;
 /**
  * 针对 @Wrapper 排序
  *
- * @see Wrapper
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @see Wrapper
  * @since 2.4.13
  */
 public class WrapperComparator extends ActivateComparator {

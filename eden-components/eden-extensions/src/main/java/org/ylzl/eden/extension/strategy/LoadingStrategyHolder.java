@@ -26,8 +26,8 @@ import java.util.stream.StreamSupport;
 /**
  * LoadingStrategy 容器
  *
- * @see ServiceLoader
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @see ServiceLoader
  * @since 2.4.13
  */
 public class LoadingStrategyHolder {

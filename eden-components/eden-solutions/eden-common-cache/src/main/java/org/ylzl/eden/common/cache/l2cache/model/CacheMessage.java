@@ -33,18 +33,28 @@ import java.io.Serializable;
 @Setter
 public class CacheMessage implements Serializable {
 
-	/** 缓存名称 */
+	/**
+	 * 缓存名称
+	 */
 	private String name;
 
-	/** 缓存类型 */
+	/**
+	 * 缓存类型
+	 */
 	private String type;
 
-	/** 缓存key */
+	/**
+	 * 缓存key
+	 */
 	private String key;
 
-	/** 是否刷新 */
+	/**
+	 * 是否刷新
+	 */
 	private boolean refresh;
 
-	/** 是否清除 */
+	/**
+	 * 是否清除
+	 */
 	private boolean clear;
 }

@@ -40,7 +40,7 @@ import org.ylzl.eden.full.tracing.integration.gateway.GatewayStressTagFilter;
 @Configuration(proxyBeanMethods = false)
 public class GatewayStressAutoConfiguration {
 
-	public static final String ENABLED ="stress.gateway.enabled";
+	public static final String ENABLED = "stress.gateway.enabled";
 
 	@ConditionalOnMissingBean
 	@Bean

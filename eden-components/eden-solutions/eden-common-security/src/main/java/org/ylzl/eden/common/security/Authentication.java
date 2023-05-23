@@ -37,7 +37,7 @@ public interface Authentication {
 	/**
 	 * 认证
 	 *
-	 * @param id 认证ID
+	 * @param id     认证ID
 	 * @param device 设备标识
 	 */
 	void authenticate(Object id, String device);
@@ -45,7 +45,7 @@ public interface Authentication {
 	/**
 	 * 认证
 	 *
-	 * @param id 认证ID
+	 * @param id         认证ID
 	 * @param rememberMe 是否记住我
 	 */
 	void authenticate(Object id, boolean rememberMe);
@@ -53,7 +53,7 @@ public interface Authentication {
 	/**
 	 * 认证
 	 *
-	 * @param id 认证ID
+	 * @param id      认证ID
 	 * @param timeout 登录超时
 	 */
 	void authenticate(Object id, Duration timeout);
@@ -110,7 +110,7 @@ public interface Authentication {
 	 * 踢人下线
 	 *
 	 * @param loginId 认证ID
-	 * @param device 设备标识
+	 * @param device  设备标识
 	 */
 	void kickout(Object loginId, String device);
 
@@ -118,7 +118,7 @@ public interface Authentication {
 	 * 顶号上线
 	 *
 	 * @param loginId 认证ID
-	 * @param device 设备标识
+	 * @param device  设备标识
 	 */
 	void crowding(Object loginId, String device);
 }

@@ -16,7 +16,10 @@
 
 package org.ylzl.eden.cola.extension.register;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**

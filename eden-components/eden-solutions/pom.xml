@@ -47,5 +47,5 @@
 		<module>eden-flow-compose</module>
 		<module>eden-full-tracing</module>
 		<module>eden-idempotent</module>
-    </modules>
+	</modules>
 </project>

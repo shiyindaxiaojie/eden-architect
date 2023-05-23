@@ -32,7 +32,7 @@ public class SnowflakeCoordinatorBuilder {
 	 * 构建雪花算法协调器
 	 *
 	 * @param config 雪花算法生成器配置
-	 * @param app 应用信息
+	 * @param app    应用信息
 	 * @return 雪花算法协调器实例
 	 */
 	public static SnowflakeCoordinator build(SnowflakeGeneratorConfig config, App app) {

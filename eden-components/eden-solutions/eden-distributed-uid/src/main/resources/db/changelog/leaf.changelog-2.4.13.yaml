@@ -45,9 +45,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - loadData:
-              tableName: leaf_alloc
-              file: db/changelog/leaf_alloc.csv
-              separator: ;
+            tableName: leaf_alloc
+            file: db/changelog/leaf_alloc.csv
+            separator: ;
       rollback:
         - dropTable:
             tableName: leaf_alloc

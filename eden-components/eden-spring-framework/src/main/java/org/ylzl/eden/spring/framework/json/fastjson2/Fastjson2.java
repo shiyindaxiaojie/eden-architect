@@ -27,16 +27,16 @@ public class Fastjson2 implements JSON {
 	@Override
 	public <T> String toJSONString(T object) {
 		Filter[] filters = loadFilters();
-		return ArrayUtils.isNotEmpty(filters)?
-			com.alibaba.fastjson2.JSON.toJSONString(object, filters):
+		return ArrayUtils.isNotEmpty(filters) ?
+			com.alibaba.fastjson2.JSON.toJSONString(object, filters) :
 			com.alibaba.fastjson2.JSON.toJSONString(object);
 	}
 
 	/**
 	 * 解析为对象
 	 *
-	 * @param text  文本内容
-	 * @param cls 目标类型
+	 * @param text 文本内容
+	 * @param cls  目标类型
 	 * @return 对象实例
 	 */
 	@Override

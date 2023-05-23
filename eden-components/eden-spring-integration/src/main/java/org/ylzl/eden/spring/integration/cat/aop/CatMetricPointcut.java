@@ -21,7 +21,7 @@ public class CatMetricPointcut extends StaticMethodMatcherPointcut {
 	/**
 	 * 匹配切点
 	 *
-	 * @param method 调用方法
+	 * @param method      调用方法
 	 * @param targetClass 目标类
 	 * @return 是否匹配
 	 */

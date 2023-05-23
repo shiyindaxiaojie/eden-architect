@@ -42,8 +42,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.ylzl.eden.liquibase.spring.boot.env.ExtendLiquibaseProperties;
-import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 import org.ylzl.eden.liquibase.spring.boot.util.SpringLiquibaseUtils;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 import javax.sql.DataSource;
 import java.util.concurrent.Executor;
@@ -85,16 +85,16 @@ public class AsyncLiquibaseAutoConfiguration {
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	@Bean
 	public SpringLiquibase liquibase(ObjectProvider<DataSource> dataSource, DataSourceProperties dataSourceProperties,
-		@Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor,
-		@LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource) {
+									 @Qualifier(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncTaskExecutor taskExecutor,
+									 @LiquibaseDataSource ObjectProvider<DataSource> liquibaseDataSource) {
 		log.debug(MSG_AUTOWIRED_LIQUIBASE);
 		SpringLiquibase liquibase = SpringLiquibaseUtils.createAsyncSpringLiquibase(
-				extendProperties.isAsync(),
-				taskExecutor,
-				liquibaseDataSource.getIfAvailable(),
-				properties,
-				dataSource.getIfUnique(),
-				dataSourceProperties);
+			extendProperties.isAsync(),
+			taskExecutor,
+			liquibaseDataSource.getIfAvailable(),
+			properties,
+			dataSource.getIfUnique(),
+			dataSourceProperties);
 		liquibase.setContexts(properties.getContexts());
 		liquibase.setDefaultSchema(properties.getDefaultSchema());
 		liquibase.setLiquibaseSchema(properties.getLiquibaseSchema());

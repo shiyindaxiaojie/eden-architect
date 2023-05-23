@@ -78,7 +78,7 @@ public interface CustomRedisTemplate {
 	/**
 	 * 根据 key 获取 String 对象
 	 *
-	 * @param key   Redis 键
+	 * @param key Redis 键
 	 * @return
 	 */
 	Optional<String> get(String key);

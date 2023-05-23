@@ -10,7 +10,8 @@
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
 
-Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将 Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
+Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将
+Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
 
 > 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki) 。
 
@@ -19,7 +20,8 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 * **依赖管理和插件封装**：统一管理依赖版本，解决依赖冲突问题，并提供常用插件的封装，让开发者减少在构建工具所消耗的时间。
 * **常用组件集成与封装**：在 Spring 官方的基础上扩展，提供 `XxlJob`、`CAT`、`Netty`、`Arthas` 等组件的集成。
 * **组件适配及扩展点**：针对现有主流技术点进行高级抽象，提供 `消息队列`、`缓存`、`短信平台`、`邮件`、`Excel` 等组件的动态适配。
-* **通用场景解决方案**：提供`多级缓存`、`分布式锁`、`分布式唯一ID`、`幂等性处理`、`业务流程编排`、`最终一致性`、`全链路标记` 等解决方案工具。
+* **通用场景解决方案**：提供`多级缓存`、`分布式锁`、`分布式唯一ID`、`幂等性处理`、`业务流程编排`、`最终一致性`、`全链路标记`
+  等解决方案工具。
 
 ## 组件构成
 
@@ -71,7 +73,8 @@ Eden* Architect 致力于提供企业开发的一站式解决方案。此项目�
 </parent>
 ```
 
-然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成 CAT，您可以在 `dependencies` 节点中添加以下内容：
+然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成
+CAT，您可以在 `dependencies` 节点中添加以下内容：
 
 ```xml
 <dependencies>
@@ -97,7 +100,7 @@ cat:
   http-port: 8080
 ````
 
-业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。 
+业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/cat/tracing.png)
 
@@ -111,7 +114,8 @@ cat:
 
 ## 版本规范
 
-项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
+项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用
+0，即版本号为 `0.x.x` 的格式。
 
 * 孵化版本：0.0.1-SNAPSHOT
 * 开发版本：1.0.0-SNAPSHOT

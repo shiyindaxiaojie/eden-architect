@@ -509,7 +509,7 @@
 							</goals>
 							<configuration>
 								<templateContent>
-								<![CDATA[
+									<![CDATA[
 								{{#tags}}
 								## {{name}}
 								 {{#issues}}
@@ -876,7 +876,7 @@
 								<executable>java</executable>
 								<arguments>
 									<argument>-classpath</argument>
-									<classpath />
+									<classpath/>
 									<argument>org.openjdk.jmh.Main</argument>
 									<argument>.*</argument>
 								</arguments>

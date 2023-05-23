@@ -71,11 +71,11 @@
 		</dependency>
 
 		<!-- Web -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 			<optional>true</optional>
-        </dependency>
+		</dependency>
 
 		<!-- 测试组件 -->
 		<dependency>
@@ -113,5 +113,5 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

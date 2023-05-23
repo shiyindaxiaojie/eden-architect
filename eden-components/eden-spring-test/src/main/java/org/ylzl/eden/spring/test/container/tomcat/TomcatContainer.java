@@ -32,16 +32,24 @@ import java.time.Duration;
  */
 public class TomcatContainer extends GenericContainer<TomcatContainer> {
 
-	/** 默认镜像名称 */
+	/**
+	 * 默认镜像名称
+	 */
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("tomcat");
 
-	/** 默认镜像标签 */
+	/**
+	 * 默认镜像标签
+	 */
 	private static final String DEFAULT_TAG = "10.1.5";
 
-	/** 默认端口 */
+	/**
+	 * 默认端口
+	 */
 	private static final int DEFAULT_PORT = 8080;
 
-	/** 默认启动超时 */
+	/**
+	 * 默认启动超时
+	 */
 	private static final Duration DEFAULT_STARTUP_TIMEOUT = Duration.ofSeconds(60);
 
 	public TomcatContainer(String deployment, String context) {

@@ -47,10 +47,10 @@ public class ForkJoinPool {
 	public static <T> void commonPoolSubmit(List<T> data, Consumer<List<T>> worker) {
 		java.util.concurrent.ForkJoinPool.commonPool()
 			.submit(CollectionTtlRecursiveAction.<T>builder()
-			.data(data)
-			.worker(worker)
-			.threshold(DEFAULT_THRESHOLD)
-			.build());
+				.data(data)
+				.worker(worker)
+				.threshold(DEFAULT_THRESHOLD)
+				.build());
 	}
 
 	/**
@@ -63,24 +63,24 @@ public class ForkJoinPool {
 	 * @param <T>       泛型
 	 */
 	public static <T, R> R commonPoolInvoke(List<T> data, Function<List<T>, R> worker,
-											   Function<List<R>, R> merge, long threshold) {
+											Function<List<R>, R> merge, long threshold) {
 		java.util.concurrent.ForkJoinPool forkJoinPool = new java.util.concurrent.ForkJoinPool();
 		return forkJoinPool
 			.invoke(CollectionTtlRecursiveTask.<T, R>builder()
-			.data(data)
-			.worker(worker)
-			.merge(merge)
-			.threshold(threshold)
-			.build());
+				.data(data)
+				.worker(worker)
+				.merge(merge)
+				.threshold(threshold)
+				.build());
 	}
 
 	/**
 	 * 并行处理
 	 *
-	 * @param data      数据
-	 * @param worker    执行函数
-	 * @param merge     合并结果
-	 * @param <T>       泛型
+	 * @param data   数据
+	 * @param worker 执行函数
+	 * @param merge  合并结果
+	 * @param <T>    泛型
 	 */
 	public static <T, R> R commonPoolInvoke(List<T> data, Function<List<T>, R> worker,
 											Function<List<R>, R> merge) {

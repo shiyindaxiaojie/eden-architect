@@ -28,8 +28,9 @@ import java.util.Map;
 /**
  * RocketMQ 配置
  * <p>完善 RocketMQ 4.7.x 版本的配置</p>
- * @link 官方配置：<a href="https://github.com/apache/rocketmq-spring/blob/master/rocketmq-spring-boot/src/main/java/org/apache/rocketmq/spring/autoconfigure/RocketMQProperties.java">...</a>
+ *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @link 官方配置：<a href="https://github.com/apache/rocketmq-spring/blob/master/rocketmq-spring-boot/src/main/java/org/apache/rocketmq/spring/autoconfigure/RocketMQProperties.java">...</a>
  * @since 2.4.x
  */
 @EqualsAndHashCode

@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 @UtilityClass
 public class SpringLiquibaseUtils {
 
-	public static SpringLiquibase createSpringLiquibase (
+	public static SpringLiquibase createSpringLiquibase(
 		DataSource liquibaseDatasource,
 		LiquibaseProperties liquibaseProperties,
 		DataSource dataSource,
@@ -56,8 +56,8 @@ public class SpringLiquibaseUtils {
 	}
 
 	public static SpringLiquibase createAsyncSpringLiquibase(boolean aysnc, AsyncTaskExecutor executor,
-		DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties,
-		DataSource dataSource, DataSourceProperties dataSourceProperties) {
+															 DataSource liquibaseDatasource, LiquibaseProperties liquibaseProperties,
+															 DataSource dataSource, DataSourceProperties dataSourceProperties) {
 		DataSource liquibaseDataSource = getDataSource(liquibaseDatasource, liquibaseProperties, dataSource);
 		AsyncSpringLiquibase liquibase;
 		if (liquibaseDataSource != null) {

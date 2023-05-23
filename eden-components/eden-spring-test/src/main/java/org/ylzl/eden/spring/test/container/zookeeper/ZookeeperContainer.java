@@ -30,19 +30,29 @@ import java.time.Duration;
  */
 public class ZookeeperContainer extends GenericContainer<ZookeeperContainer> {
 
-	/** 默认镜像名称 */
+	/**
+	 * 默认镜像名称
+	 */
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("zookeeper");
 
-	/** 默认镜像标签 */
+	/**
+	 * 默认镜像标签
+	 */
 	private static final String DEFAULT_TAG = "3.7";
 
-	/** 默认 Client 端口 */
+	/**
+	 * 默认 Client 端口
+	 */
 	public static final int DEFAULT_CLIENT_PORT = 2181;
 
-	/** 默认 Admin 端口 */
+	/**
+	 * 默认 Admin 端口
+	 */
 	public static final int DEFAULT_ADMIN_PORT = 8181;
 
-	/** 默认启动超时 */
+	/**
+	 * 默认启动超时
+	 */
 	public static final Duration DEFAULT_STARTUP_TIMEOUT = Duration.ofSeconds(60);
 
 	public ZookeeperContainer() {

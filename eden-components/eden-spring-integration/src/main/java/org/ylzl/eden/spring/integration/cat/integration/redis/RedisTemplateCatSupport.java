@@ -17,8 +17,8 @@
 package org.ylzl.eden.spring.integration.cat.integration.redis;
 
 import org.ylzl.eden.commons.lang.Strings;
-import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.CatClient;
+import org.ylzl.eden.spring.integration.cat.CatConstants;
 import org.ylzl.eden.spring.integration.cat.config.CatState;
 
 import java.nio.charset.StandardCharsets;

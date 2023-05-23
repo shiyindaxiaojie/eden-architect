@@ -50,5 +50,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-flow-compose</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

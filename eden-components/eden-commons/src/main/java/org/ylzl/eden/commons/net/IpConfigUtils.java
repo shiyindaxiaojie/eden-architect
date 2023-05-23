@@ -45,6 +45,8 @@ public class IpConfigUtils {
 
 	private static final String IP_ADDRESS = getIpAddress(null);
 
+	public static final String SUBNET_MASK = "255.255.255.0";
+
 	/**
 	 * 获取IP地址
 	 *
@@ -150,5 +152,40 @@ public class IpConfigUtils {
 			sb.append(s.length() == 1 ? 0 + s : s);
 		}
 		return sb.toString().toUpperCase();
+	}
+
+
+	/**
+	 * 判断两个 IP 是否在同一网段
+	 *
+	 * @param ip1 第一个 IP
+	 * @param ip2 第二个 IP
+	 * @param subnetMask 子网掩码
+	 * @return true 如果两个 IP 在同一网段，否则返回 false
+	 */
+	public static boolean isSameSubnet(String ip1, String ip2, String subnetMask) throws UnknownHostException {
+		InetAddress address1 = InetAddress.getByName(ip1);
+		InetAddress address2 = InetAddress.getByName(ip2);
+		InetAddress subnet = InetAddress.getByName(subnetMask);
+		byte[] b1 = address1.getAddress();
+		byte[] b2 = address2.getAddress();
+		byte[] b3 = subnet.getAddress();
+		for (int i = 0; i < b1.length; i++) {
+			if ((b1[i] & b3[i]) != (b2[i] & b3[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 判断两个 IP 是否在同一网段
+	 *
+	 * @param ip1 第一个 IP
+	 * @param ip2 第二个 IP
+	 * @return true 如果两个 IP 在同一网段，否则返回 false
+	 */
+	public static boolean isSameSubnet(String ip1, String ip2) throws UnknownHostException {
+		return isSameSubnet(ip1, ip2, SUBNET_MASK);
 	}
 }

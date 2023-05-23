@@ -17,9 +17,9 @@
 package org.ylzl.eden.common.mq;
 
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.common.mq.consumer.MessageModel;
 import org.ylzl.eden.common.mq.consumer.MessageSelectorType;
+import org.ylzl.eden.commons.lang.Strings;
 
 import java.lang.annotation.*;
 

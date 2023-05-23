@@ -16,6 +16,11 @@
 
 package org.ylzl.eden.spring.framework.logging.access.util;
 
+import lombok.experimental.UtilityClass;
+import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
@@ -24,10 +29,6 @@ import org.ylzl.eden.spring.framework.json.support.JSONHelper;
 import org.ylzl.eden.spring.framework.logging.MdcConstants;
 import org.ylzl.eden.spring.framework.logging.access.model.AccessLog;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.intercept.MethodInvocation;
-import org.slf4j.MDC;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +40,12 @@ import java.util.Objects;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@Slf4j
 @UtilityClass
 public class AccessLogHelper {
+
+	public static final String ACCESS_LOG = "AccessLog";
+
+	public static final Logger log = LoggerFactory.getLogger(ACCESS_LOG);
 
 	/**
 	 * 根据采样率判断是否需要输出日志
@@ -55,12 +59,12 @@ public class AccessLogHelper {
 	/**
 	 * 输出访问日志
 	 *
-	 * @param invocation 方法拦截
-	 * @param result 返回值
-	 * @param throwable 异常
-	 * @param duration 耗时
-	 * @param enabledMdc 是否保存到 MDC
-	 * @param maxLength 最大长度
+	 * @param invocation    方法拦截
+	 * @param result        返回值
+	 * @param throwable     异常
+	 * @param duration      耗时
+	 * @param enabledMdc    是否保存到 MDC
+	 * @param maxLength     最大长度
 	 * @param slowThreshold 慢访问阈值
 	 */
 	public static void log(MethodInvocation invocation, Object result, Throwable throwable,
@@ -88,7 +92,7 @@ public class AccessLogHelper {
 		}
 		accessLog.setArguments(arguments);
 
-		String returnValue = ObjectUtils.isEmpty(result)? Strings.EMPTY : JSONHelper.json().toJSONString(result);
+		String returnValue = ObjectUtils.isEmpty(result) ? Strings.EMPTY : JSONHelper.json().toJSONString(result);
 		if (returnValue.length() > maxLength) {
 			returnValue = returnValue.substring(0, maxLength);
 		}
@@ -108,12 +112,12 @@ public class AccessLogHelper {
 	/**
 	 * 输出访问日志
 	 *
-	 * @param req 请求
-	 * @param res 响应
-	 * @param throwable 异常
-	 * @param duration 耗时
-	 * @param enabledMdc 是否保存到 MDC
-	 * @param maxLength 最大长度
+	 * @param req           请求
+	 * @param res           响应
+	 * @param throwable     异常
+	 * @param duration      耗时
+	 * @param enabledMdc    是否保存到 MDC
+	 * @param maxLength     最大长度
 	 * @param slowThreshold 慢访问阈值
 	 */
 	public static void log(HttpServletRequest req, HttpServletResponse res, Throwable throwable,
@@ -153,7 +157,7 @@ public class AccessLogHelper {
 	/**
 	 * 输出访问日志
 	 *
-	 * @param accessLog 访问日志模型
+	 * @param accessLog     访问日志模型
 	 * @param slowThreshold 慢访问阈值
 	 */
 	public static void log(AccessLog accessLog, long slowThreshold) {

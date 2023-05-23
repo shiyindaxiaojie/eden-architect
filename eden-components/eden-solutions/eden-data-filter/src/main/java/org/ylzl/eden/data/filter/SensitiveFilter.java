@@ -40,7 +40,7 @@ public interface SensitiveFilter {
 	/**
 	 * 替换敏感词
 	 *
-	 * @param text 原始内容
+	 * @param text        原始内容
 	 * @param replacement 替换内容
 	 * @return 过滤后的内容
 	 */

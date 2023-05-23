@@ -50,6 +50,6 @@ public class BlockResponseBuilder {
 		if (e instanceof AuthorityException) {
 			return builder.buildFailure("REQ-AUTH-429", e.getMessage());
 		}
-		return builder.buildFailure("REQ-LIMIT-429" , e.getMessage());
+		return builder.buildFailure("REQ-LIMIT-429", e.getMessage());
 	}
 }

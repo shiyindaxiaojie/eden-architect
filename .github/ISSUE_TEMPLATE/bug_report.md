@@ -23,6 +23,7 @@ Screenshots work as well, but don't screenshot your logs.
 **Steps to Reproduce**
 
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -31,6 +32,7 @@ Steps to reproduce the behavior:
 **The application's environment**
 
 Which versions do you use?
+
 * Spring (boot):
 * java: version + architecture (64bit?)
 * Other relevant libraries...

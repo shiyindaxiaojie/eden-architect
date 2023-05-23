@@ -47,7 +47,7 @@ public class SegmentGeneratorHelper {
 	 * 获取号段生成器实例
 	 *
 	 * @param dataSource 数据源
-	 * @param config 配置
+	 * @param config     配置
 	 * @return 号段生成器实例
 	 */
 	public static SegmentGenerator segmentGenerator(DataSource dataSource, SegmentGeneratorConfig config) {
@@ -61,7 +61,7 @@ public class SegmentGeneratorHelper {
 	/**
 	 * 获取号段生成器实例
 	 *
-	 * @param spi 扩展点
+	 * @param spi        扩展点
 	 * @param dataSource 数据源
 	 * @return 号段生成器实例
 	 */
@@ -75,7 +75,7 @@ public class SegmentGeneratorHelper {
 	/**
 	 * 获取号段生成器实例
 	 *
-	 * @param config 配置
+	 * @param config     配置
 	 * @param dataSource 数据源
 	 * @return 号段生成器实例
 	 */

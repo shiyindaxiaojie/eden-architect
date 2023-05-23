@@ -22,8 +22,8 @@ import lombok.experimental.UtilityClass;
  * Base32 工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.codec.binary.Base32
+ * @since 2.4.13
  */
 @UtilityClass
 public class Base32 extends org.apache.commons.codec.binary.Base32 {

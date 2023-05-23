@@ -63,7 +63,9 @@ public final class ServletUtils {
 
 	public static final String CONTENT_DISPOSITION_ATTACH = "attachment;filename={0}";
 
-	/** Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的 */
+	/**
+	 * Spring 已标记弃用，但用户不升级 Chrome 是无法解决问题的
+	 */
 	public static final String APPLICATION_JSON_UTF8_VALUE = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8";
 
 	public static Map<String, String> toMap(ServletRequest request) {
@@ -216,7 +218,7 @@ public final class ServletUtils {
 	}
 
 	public static String getRequestBody(HttpServletRequest request) {
-		try (BufferedReader reader = request.getReader()){
+		try (BufferedReader reader = request.getReader()) {
 			if (reader != null) {
 				return reader.lines().collect(Collectors.joining(System.lineSeparator()));
 			}

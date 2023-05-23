@@ -30,16 +30,24 @@ import java.time.Duration;
  */
 public class SentinelDashboardContainer extends GenericContainer<SentinelDashboardContainer> {
 
-	/** 默认镜像名称 */
+	/**
+	 * 默认镜像名称
+	 */
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("shiyindaxiaojie/sentinel-dashboard");
 
-	/** 默认镜像标签 */
+	/**
+	 * 默认镜像标签
+	 */
 	private static final String DEFAULT_TAG = "v2.0.4";
 
-	/** 默认服务端口 */
+	/**
+	 * 默认服务端口
+	 */
 	public static final int DEFAULT_PORT = 8080;
 
-	/** 默认启动超时 */
+	/**
+	 * 默认启动超时
+	 */
 	public static final Duration DEFAULT_STARTUP_TIMEOUT = Duration.ofSeconds(60);
 
 	public SentinelDashboardContainer() {

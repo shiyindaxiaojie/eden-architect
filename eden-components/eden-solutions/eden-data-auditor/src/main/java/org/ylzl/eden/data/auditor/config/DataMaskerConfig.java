@@ -33,6 +33,8 @@ import lombok.ToString;
 @Getter
 public class DataMaskerConfig {
 
-	/** 是否允许覆盖扩展点 */
+	/**
+	 * 是否允许覆盖扩展点
+	 */
 	private boolean allowExtensionOverriding = false;
 }

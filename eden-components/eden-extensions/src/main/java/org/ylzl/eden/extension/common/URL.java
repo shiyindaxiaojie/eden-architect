@@ -24,9 +24,9 @@ import java.util.Map;
 /**
  * 自定义资源路径
  *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @see java.net.URL
  * @see java.net.URI
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @RequiredArgsConstructor

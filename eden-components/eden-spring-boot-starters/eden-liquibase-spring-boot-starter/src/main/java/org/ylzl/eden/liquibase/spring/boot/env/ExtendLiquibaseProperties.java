@@ -31,7 +31,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = ExtendLiquibaseProperties.PREFIX)
 public class ExtendLiquibaseProperties {
 
-	/** 官方的 LiquibaseProperties 加了 {@code ignoreUnknownFields = false}，很坑 */
+	/**
+	 * 官方的 LiquibaseProperties 加了 {@code ignoreUnknownFields = false}，很坑
+	 */
 	public static final String PREFIX = "liquibase";
 
 	private boolean async;

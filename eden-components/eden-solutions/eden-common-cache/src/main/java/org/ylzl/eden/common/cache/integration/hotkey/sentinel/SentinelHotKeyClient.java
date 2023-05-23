@@ -18,8 +18,8 @@ package org.ylzl.eden.common.cache.integration.hotkey.sentinel;
 
 import com.alibaba.csp.sentinel.config.SentinelConfig;
 import com.alibaba.csp.sentinel.transport.config.TransportConfig;
-import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.common.cache.config.CacheConfig;
+import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**

@@ -16,7 +16,6 @@
 
 package org.ylzl.eden.spring.framework.logging.bootstrap.config;
 
-import org.ylzl.eden.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.spring.framework.logging.bootstrap.filter.BootstrapLogHttpFilter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

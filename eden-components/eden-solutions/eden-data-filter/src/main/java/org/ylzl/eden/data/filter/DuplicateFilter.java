@@ -28,8 +28,8 @@ public interface DuplicateFilter {
 	 * 可能包含（取否表示但一定不包含）
 	 *
 	 * @param object 匹配对象
+	 * @param <T>    泛型
 	 * @return 是否包含
-	 * @param <T> 泛型
 	 */
 	<T> boolean mightContain(T object);
 
@@ -37,8 +37,8 @@ public interface DuplicateFilter {
 	 * 存放对象
 	 *
 	 * @param object 存放对象
+	 * @param <T>    泛型
 	 * @return 是否存放成功
-	 * @param <T> 泛型
 	 */
 	<T> boolean put(T object);
 }

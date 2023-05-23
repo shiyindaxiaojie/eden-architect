@@ -48,8 +48,8 @@ public class SpelExpressionEvaluator {
 	 * 解析 SpEL 表达式
 	 *
 	 * @param expressionString SpEL 表达式
-	 * @param method 方法
-	 * @param arguments 参数
+	 * @param method           方法
+	 * @param arguments        参数
 	 * @return 解析后的内容
 	 */
 	public static String parseExpression(String expressionString, Method method, Object[] arguments) {

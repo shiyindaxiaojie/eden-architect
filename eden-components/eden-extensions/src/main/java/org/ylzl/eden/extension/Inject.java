@@ -35,7 +35,7 @@ public @interface Inject {
 
 	InjectType type() default ByName;
 
-	enum InjectType{
+	enum InjectType {
 		ByName,
 		ByType
 	}
