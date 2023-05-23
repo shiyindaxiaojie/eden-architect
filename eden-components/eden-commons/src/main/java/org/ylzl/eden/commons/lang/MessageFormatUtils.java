@@ -31,7 +31,7 @@ public class MessageFormatUtils {
 	/**
 	 * 格式化消息内容
 	 *
-	 * @param message 消息
+	 * @param message      消息
 	 * @param placeholders 占位符
 	 * @return 格式化内容
 	 */

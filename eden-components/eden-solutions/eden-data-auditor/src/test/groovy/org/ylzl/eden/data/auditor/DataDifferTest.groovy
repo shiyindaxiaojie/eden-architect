@@ -44,8 +44,8 @@ class DataDifferTest extends Specification {
 		diff == changeVersion.getAddress()
 
 		where:
-		spi    		|| diff
-		"javers"   	|| "广州市天河区珠江新城233区"
+		spi      || diff
+		"javers" || "广州市天河区珠江新城233区"
 	}
 }
 

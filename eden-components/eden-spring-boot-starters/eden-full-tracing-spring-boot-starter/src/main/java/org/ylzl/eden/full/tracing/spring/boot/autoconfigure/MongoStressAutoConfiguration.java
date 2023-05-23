@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
 @Configuration(proxyBeanMethods = false)
 public class MongoStressAutoConfiguration {
 
-	public static final String ENABLED ="stress.mongodb.enabled";
+	public static final String ENABLED = "stress.mongodb.enabled";
 
 	public static final String MONGO_CLIENT = "mongoCLient";
 

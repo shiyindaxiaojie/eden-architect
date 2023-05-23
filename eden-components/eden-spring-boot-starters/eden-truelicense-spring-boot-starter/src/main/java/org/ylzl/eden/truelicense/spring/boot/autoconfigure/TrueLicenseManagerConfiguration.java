@@ -24,9 +24,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 import org.ylzl.eden.spring.integration.truelicense.config.TrueLicenseConfig;
 import org.ylzl.eden.spring.integration.truelicense.manager.CustomLicenseManager;
+import org.ylzl.eden.truelicense.spring.boot.env.TrueLicenseProperties;
 
 /**
  * TrueLicense 配置

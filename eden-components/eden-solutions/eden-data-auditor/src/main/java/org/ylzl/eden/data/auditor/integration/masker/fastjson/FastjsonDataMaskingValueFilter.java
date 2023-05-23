@@ -32,8 +32,8 @@ import java.lang.reflect.Field;
  */
 public class FastjsonDataMaskingValueFilter implements FastjsonFilter, ValueFilter {
 
-    @Override
-    public Object process(Object object, String name, Object value) {
+	@Override
+	public Object process(Object object, String name, Object value) {
 		if (!(value instanceof String) || ObjectUtils.isNull(value)) {
 			return value;
 		}

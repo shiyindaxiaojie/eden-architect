@@ -89,10 +89,10 @@
 		</dependency>
 
 		<!-- Spring Boot Actuator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator-autoconfigure</artifactId>
 			<optional>true</optional>
-        </dependency>
-    </dependencies>
+		</dependency>
+	</dependencies>
 </project>

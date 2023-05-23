@@ -36,6 +36,6 @@ public class DynamicMongoTemplate extends MongoTemplate {
 	@NotNull
 	@Override
 	public MongoDatabase getDb() {
-		return MongoDatabaseSelector.get() == null? super.getDb() : MongoDatabaseSelector.get().getMongoDatabase();
+		return MongoDatabaseSelector.get() == null ? super.getDb() : MongoDatabaseSelector.get().getMongoDatabase();
 	}
 }

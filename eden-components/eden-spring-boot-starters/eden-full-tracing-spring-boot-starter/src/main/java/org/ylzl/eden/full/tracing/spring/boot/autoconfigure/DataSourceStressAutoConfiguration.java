@@ -44,7 +44,7 @@ import org.ylzl.eden.full.tracing.spring.boot.env.DataSourceShadowProperties;
 @Configuration(proxyBeanMethods = false)
 public class DataSourceStressAutoConfiguration {
 
-	public static final String ENABLED ="stress.jdbc.enabled";
+	public static final String ENABLED = "stress.jdbc.enabled";
 
 	@Bean
 	public DataSourceShadowAspect dataSourceShadowAspect(DataSourceShadowProperties dataSourceShadowProperties) {

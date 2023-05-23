@@ -36,33 +36,53 @@ import java.time.LocalDateTime;
 @Data
 public class AuditingEvent {
 
-	/** 操作对象 */
+	/**
+	 * 操作对象
+	 */
 	private String operator;
 
-	/** 操作角色 */
+	/**
+	 * 操作角色
+	 */
 	private String role;
 
-	/** 操作时间 */
+	/**
+	 * 操作时间
+	 */
 	private LocalDateTime operateDate;
 
-	/** 业务场景 */
+	/**
+	 * 业务场景
+	 */
 	private String bizScenario;
 
-	/** 记录内容 */
+	/**
+	 * 记录内容
+	 */
 	private String content;
 
-	/** 额外信息 */
+	/**
+	 * 额外信息
+	 */
 	private String extra;
 
-	/** 返回值 */
+	/**
+	 * 返回值
+	 */
 	private String returnValue;
 
-	/** 执行耗时 */
+	/**
+	 * 执行耗时
+	 */
 	private Long executionCost;
 
-	/** 执行是否成功 */
+	/**
+	 * 执行是否成功
+	 */
 	private Boolean success;
 
-	/** 异常信息 */
+	/**
+	 * 异常信息
+	 */
 	private String throwable;
 }

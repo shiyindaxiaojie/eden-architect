@@ -24,7 +24,7 @@ import spock.lang.Specification
 
 class ExtensionTest extends Specification {
 
-    interface ExtensionI {
+	interface ExtensionI {
 
 		String test()
 	}
@@ -59,16 +59,16 @@ class ExtensionTest extends Specification {
 		executor = new ExtensionExecutor(register)
 	}
 
-    def "test extension"() {
+	def "test extension"() {
 		expect:
 
 		result == executor.execute(ExtensionI.class, BizScenario.valueOf(bizId), ExtensionI::test)
 
 		where:
-		bizId   || result
-		"A"     || ExtensionA.class.getSimpleName()
-		"B"     || ExtensionB.class.getSimpleName()
-    }
+		bizId || result
+		"A"   || ExtensionA.class.getSimpleName()
+		"B"   || ExtensionB.class.getSimpleName()
+	}
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

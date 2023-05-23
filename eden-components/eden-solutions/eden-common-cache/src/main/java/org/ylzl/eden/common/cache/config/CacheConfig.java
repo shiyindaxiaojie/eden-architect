@@ -40,25 +40,39 @@ import java.util.Set;
 @Getter
 public class CacheConfig {
 
-	/** 缓存开关 */
+	/**
+	 * 缓存开关
+	 */
 	private boolean enabled = true;
 
-	/** 缓存类型 */
+	/**
+	 * 缓存类型
+	 */
 	private String cacheType = CacheType.COMPOSITE.name();
 
-	/** 是否存储 NullValue，可防止缓存穿透 */
+	/**
+	 * 是否存储 NullValue，可防止缓存穿透
+	 */
 	private boolean allowNullValues = true;
 
-	/** NullValue 的最大数量 */
+	/**
+	 * NullValue 的最大数量
+	 */
 	private int nullValueMaximumSize = 2048;
 
-	/** NullValue 的过期时间（秒）*/
+	/**
+	 * NullValue 的过期时间（秒）
+	 */
 	private int nullValueTimeToLive = 60;
 
-	/** NullValue 的清理频率（秒） */
+	/**
+	 * NullValue 的清理频率（秒）
+	 */
 	private int nullValueRetentionInterval = 10;
 
-	/** Key 分隔符 */
+	/**
+	 * Key 分隔符
+	 */
 	private String keySeparator = ":";
 
 	private final Composite composite = new Composite();
@@ -75,13 +89,19 @@ public class CacheConfig {
 	@Getter
 	public static class Composite {
 
-		/** 一级缓存类型 */
+		/**
+		 * 一级缓存类型
+		 */
 		private String l1CacheType = CacheType.CAFFEINE.name();
 
-		/** 二级缓存类型 */
+		/**
+		 * 二级缓存类型
+		 */
 		private String l2CacheType = CacheType.REDIS.name();
 
-		/** 热Key类型 */
+		/**
+		 * 热Key类型
+		 */
 		private String hotKeyType;
 	}
 
@@ -91,19 +111,29 @@ public class CacheConfig {
 	@Getter
 	public static class L1Cache {
 
-		/** 是否开启一级缓存，默认开启 */
+		/**
+		 * 是否开启一级缓存，默认开启
+		 */
 		private boolean enabled = true;
 
-		/** 缓存Key集合，默认不设置表示全部生效 */
+		/**
+		 * 缓存Key集合，默认不设置表示全部生效
+		 */
 		private Set<String> cacheKeys = new HashSet<>();
 
-		/** CacheName集合，默认不设置表示全部生效 */
+		/**
+		 * CacheName集合，默认不设置表示全部生效
+		 */
 		private Set<String> cacheNames = new HashSet<>();
 
-		/** 初始容量 */
+		/**
+		 * 初始容量
+		 */
 		private int initialCapacity;
 
-		/** 最大容量 */
+		/**
+		 * 最大容量
+		 */
 		private long maximumSize;
 
 		private final Caffeine caffeine = new Caffeine();
@@ -163,13 +193,19 @@ public class CacheConfig {
 		@Getter
 		public static class Redis {
 
-			/** 尝试加锁 */
+			/**
+			 * 尝试加锁
+			 */
 			private boolean tryLock = true;
 
-			/** 默认过期时间（秒） */
+			/**
+			 * 默认过期时间（秒）
+			 */
 			private int timeToLive = 60;
 
-			/** Redisson 配置 */
+			/**
+			 * Redisson 配置
+			 */
 			private Config config;
 		}
 

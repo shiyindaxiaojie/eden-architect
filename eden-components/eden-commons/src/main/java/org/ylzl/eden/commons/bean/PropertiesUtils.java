@@ -19,8 +19,8 @@ package org.ylzl.eden.commons.bean;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.io.ResourceUtils;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
 import java.io.File;

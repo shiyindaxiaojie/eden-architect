@@ -34,8 +34,8 @@ import org.apache.dubbo.rpc.*;
  * 修复 SentinelDubboProviderFilter
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see com.alibaba.csp.sentinel.adapter.dubbo3.SentinelDubboProviderFilter
+ * @since 2.4.13
  */
 @Activate(group = CommonConstants.PROVIDER, value = "sentinel-dubbo-provider")
 public class FixedSentinelDubboProviderFilter implements Filter {

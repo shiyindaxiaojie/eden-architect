@@ -26,7 +26,6 @@ import lombok.Getter;
 public enum WebServer {
 
 	TOMCAT(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/org/apache/catalina/startup/Bootstrap.class") ||
@@ -34,42 +33,36 @@ public enum WebServer {
 		}
 	},
 	UNDERTOW(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/io/undertow/Version.class");
 		}
 	},
 	JBOSS("java:/") {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/org/jboss/Main.class");
 		}
 	},
 	JETTY(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/org/mortbay/jetty/Server.class");
 		}
 	},
 	GERONIMO(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/org/apache/geronimo/system/main/Daemon.class");
 		}
 	},
 	GLASSFISH(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return System.getProperty("com.sun.aas.instanceRoot") != null;
 		}
 	},
 	GLASSFISH2(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return System.getProperty("com.sun.aas.instanceRoot") != null &&
@@ -77,7 +70,6 @@ public enum WebServer {
 		}
 	},
 	GLASSFISH3(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return System.getProperty("com.sun.aas.instanceRoot") != null &&
@@ -85,42 +77,39 @@ public enum WebServer {
 		}
 	},
 	JONAS(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/org/objectweb/jonas/development/Server.class");
 		}
 	},
 	OC4J(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("oracle.oc4j.util.ClassUtils");
 		}
 	},
 	RESIN(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/com/caucho/development/resin/Resin.class");
 		}
 	},
 	WEBLOGIC(WebServer.JNDI_ENC_EJB_11) {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/weblogic/Server.class");
 		}
 	},
 	WEBSPHERE("java:comp/env/cas/") {
-
 		@Override
 		public boolean isCurrentWebServer() {
 			return detect("/com/ibm/websphere/product/VersionInfo.class");
 		}
 	};
 
-	/** 标准命名服务前缀，自 EJB 1.1 引入的规范 */
+	/**
+	 * 标准命名服务前缀，自 EJB 1.1 引入的规范
+	 */
 	private static final String JNDI_ENC_EJB_11 = "java:comp/env/";
 
 	private static final String MSG_UNSUPPORTED_EXCEPTION = "Unsupported application container";

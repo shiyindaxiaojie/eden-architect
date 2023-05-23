@@ -25,8 +25,8 @@ public class EasyExcelWriter implements ExcelWriter {
 	 * 写入 Excel
 	 *
 	 * @param outputStream 输出流
-	 * @param data 填充数据
-	 * @param head 标题
+	 * @param data         填充数据
+	 * @param head         标题
 	 */
 	@Override
 	public void write(OutputStream outputStream, List<Object> data, Class<?> head) {

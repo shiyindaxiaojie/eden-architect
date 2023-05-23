@@ -32,7 +32,7 @@ public class SpringProfileUtils {
 	public static String[] getActiveProfiles(Environment env) {
 		String[] profiles = env.getActiveProfiles();
 		if (ArrayUtils.isEmpty(profiles)) {
-			String[] defaults =  env.getDefaultProfiles();
+			String[] defaults = env.getDefaultProfiles();
 			if (ArrayUtils.isEmpty(defaults)) {
 				return new String[0];
 			}

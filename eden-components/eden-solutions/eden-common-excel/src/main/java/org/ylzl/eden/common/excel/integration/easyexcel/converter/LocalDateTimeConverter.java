@@ -50,9 +50,9 @@ public enum LocalDateTimeConverter implements Converter<LocalDateTime> {
 
 	@Override
 	public LocalDateTime convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
-									   GlobalConfiguration globalConfiguration) {
+										   GlobalConfiguration globalConfiguration) {
 		String stringValue = cellData.getStringValue();
-		String pattern = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null?
+		String pattern = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null ?
 			switchDateFormat(stringValue) : contentProperty.getDateTimeFormatProperty().getFormat();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 		return LocalDateTime.parse(cellData.getStringValue(), formatter);
@@ -61,8 +61,8 @@ public enum LocalDateTimeConverter implements Converter<LocalDateTime> {
 	@Override
 	public WriteCellData<?> convertToExcelData(LocalDateTime value, ExcelContentProperty contentProperty,
 											   GlobalConfiguration globalConfiguration) {
-		String pattern = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null?
-			DateUtils.DATE_FORMAT_19: contentProperty.getDateTimeFormatProperty().getFormat();
+		String pattern = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null ?
+			DateUtils.DATE_FORMAT_19 : contentProperty.getDateTimeFormatProperty().getFormat();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 		return new WriteCellData<>(value.format(formatter));
 	}

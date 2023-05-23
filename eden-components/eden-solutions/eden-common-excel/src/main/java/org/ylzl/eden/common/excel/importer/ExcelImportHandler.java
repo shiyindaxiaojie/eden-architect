@@ -74,8 +74,8 @@ public class ExcelImportHandler implements HandlerMethodArgumentResolver {
 		ExcelReadListener<?> readListener = BeanUtils.instantiateClass(eventListenerClass);
 
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-		InputStream inputStream = request instanceof MultipartRequest?
-			Objects.requireNonNull(((MultipartRequest) request).getFile(excelImporter.fileName())).getInputStream():
+		InputStream inputStream = request instanceof MultipartRequest ?
+			Objects.requireNonNull(((MultipartRequest) request).getFile(excelImporter.fileName())).getInputStream() :
 			Objects.requireNonNull(request).getInputStream();
 		Class<?> targetClass = ResolvableType.forMethodParameter(parameter).getGeneric(0).resolve();
 		excelReaderBuilder.build(excelImporter.headRowNumber(), excelImporter.ignoreEmptyRow())

@@ -67,7 +67,7 @@ public class DistributedUIDAutoConfiguration {
 	@ConditionalOnMissingBean
 	@Bean
 	public SnowflakeGenerator snowflakeGenerator(@Value(SpringProperties.NAME_PATTERN) String applicationName,
-                                          ServerProperties serverProperties) {
+												 ServerProperties serverProperties) {
 		log.debug(AUTOWIRED_SNOWFLAKE_GENERATOR);
 		SnowflakeGeneratorConfig config = properties.getSnowflakeGenerator();
 		config.setName(applicationName);

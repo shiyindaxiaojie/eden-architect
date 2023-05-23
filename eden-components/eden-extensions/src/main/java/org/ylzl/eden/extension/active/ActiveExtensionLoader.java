@@ -42,7 +42,9 @@ public class ActiveExtensionLoader<T> {
 
 	public static final String DEFAULT_KEY = "default";
 
-	/** 缓存激活的扩展点 */
+	/**
+	 * 缓存激活的扩展点
+	 */
 	private final Map<String, Object> cachedActivates = new ConcurrentHashMap<>();
 
 	private final ExtensionLoader<T> extensionLoader;
@@ -134,7 +136,7 @@ public class ActiveExtensionLoader<T> {
 	public List<T> getActivateExtension(URL url, String key, String group) {
 		String value = url.getParameter(key);
 		return getActivateExtension(url, StringUtils.isEmpty(value) ? null :
-				Constants.COMMA_SPLIT_PATTERN.split(value), group);
+			Constants.COMMA_SPLIT_PATTERN.split(value), group);
 	}
 
 	public List<T> getActivateExtension(URL url, String[] values) {

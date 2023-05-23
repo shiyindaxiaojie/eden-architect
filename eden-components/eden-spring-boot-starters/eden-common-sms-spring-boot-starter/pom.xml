@@ -50,5 +50,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-common-sms</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

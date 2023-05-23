@@ -20,7 +20,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-    <parent>
+	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-solutions</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
@@ -95,11 +95,11 @@
 		</dependency>
 
 		<!-- Redis -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
 			<optional>true</optional>
-        </dependency>
+		</dependency>
 
 		<!-- MongoDB -->
 		<dependency>
@@ -110,5 +110,5 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

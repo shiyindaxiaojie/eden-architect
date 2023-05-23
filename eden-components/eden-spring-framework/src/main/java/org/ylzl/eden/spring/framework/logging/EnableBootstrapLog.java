@@ -16,8 +16,8 @@
 
 package org.ylzl.eden.spring.framework.logging;
 
-import org.ylzl.eden.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
 import org.springframework.context.annotation.Import;
+import org.ylzl.eden.spring.framework.logging.bootstrap.config.BootstrapLogConfiguration;
 
 import java.lang.annotation.*;
 

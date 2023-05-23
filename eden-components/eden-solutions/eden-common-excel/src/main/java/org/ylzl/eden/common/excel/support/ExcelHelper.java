@@ -45,7 +45,7 @@ public class ExcelHelper {
 	/**
 	 * 获取 Excel 读取器实例
 	 *
-	 * @param headRowNumber 标题行数
+	 * @param headRowNumber  标题行数
 	 * @param ignoreEmptyRow 忽略空行
 	 * @return Excel 读取器实例
 	 */
@@ -70,8 +70,8 @@ public class ExcelHelper {
 	/**
 	 * 获取 Excel 读取器实例
 	 *
-	 * @param spi 扩展点
-	 * @param headRowNumber 标题行数
+	 * @param spi            扩展点
+	 * @param headRowNumber  标题行数
 	 * @param ignoreEmptyRow 忽略空行
 	 * @return Excel 读取器实例
 	 */
@@ -96,7 +96,7 @@ public class ExcelHelper {
 	 * 获取 Excel 生成器实例
 	 *
 	 * @param excelType 文件类型
-	 * @param inMemory 是否在内存操作
+	 * @param inMemory  是否在内存操作
 	 * @return Excel 生成器实例
 	 */
 	public static ExcelWriter writer(ExcelType excelType, boolean inMemory) {
@@ -120,9 +120,9 @@ public class ExcelHelper {
 	/**
 	 * 获取 Excel 生成器实例
 	 *
-	 * @param spi 扩展点
+	 * @param spi       扩展点
 	 * @param excelType 文件类型
-	 * @param inMemory 是否在内存操作
+	 * @param inMemory  是否在内存操作
 	 * @return Excel 生成器实例
 	 */
 	public static ExcelWriter writer(String spi, ExcelType excelType, boolean inMemory) {

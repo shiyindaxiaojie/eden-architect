@@ -49,7 +49,8 @@ public class OnMessageQueueCondition extends AnyNestedCondition {
 	@ConditionalOnExpression("${rocketmq.enabled:true}")
 	@ConditionalOnBean(RocketMQProperties.class)
 	@ConditionalOnClass(RocketMQTemplate.class)
-	static class OnRocketMQCondition {}
+	static class OnRocketMQCondition {
+	}
 
 	@ConditionalOnProperty(
 		prefix = MessageQueueProperties.Kafka.PREFIX,
@@ -59,5 +60,6 @@ public class OnMessageQueueCondition extends AnyNestedCondition {
 	@ConditionalOnExpression("${spring.kafka.enabled:true}")
 	@ConditionalOnBean(KafkaProperties.class)
 	@ConditionalOnClass(KafkaTemplate.class)
-	static class OnKafkaCondition {}
+	static class OnKafkaCondition {
+	}
 }

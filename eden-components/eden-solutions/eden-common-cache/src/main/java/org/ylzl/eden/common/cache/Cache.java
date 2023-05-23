@@ -58,27 +58,27 @@ public interface Cache {
 	/**
 	 * 获取指定key的缓存项
 	 *
-	 * @param key 缓存Key
+	 * @param key  缓存Key
 	 * @param type 缓存类型
+	 * @param <T>  Value
 	 * @return 缓存项
-	 * @param <T> Value
 	 */
 	<T> T get(Object key, Class<T> type);
 
 	/**
 	 * 获取指定key的缓存项，如果缓存项不存在，则通过 {@code valueLoader} 获取值
 	 *
-	 * @param key 缓存Key
+	 * @param key         缓存Key
 	 * @param valueLoader 缓存加载器
+	 * @param <T>         Value
 	 * @return 缓存项
-	 * @param <T> Value
 	 */
 	<T> T get(Object key, Callable<T> valueLoader);
 
 	/**
 	 * 设置指定key的缓存项
 	 *
-	 * @param key 缓存Key
+	 * @param key   缓存Key
 	 * @param value 缓存项
 	 */
 	void put(Object key, Object value);
@@ -86,7 +86,7 @@ public interface Cache {
 	/**
 	 * 设置指定key的缓存项，如果已存在则忽略
 	 *
-	 * @param key 缓存Key
+	 * @param key   缓存Key
 	 * @param value 缓存项
 	 * @return 缓存项
 	 */

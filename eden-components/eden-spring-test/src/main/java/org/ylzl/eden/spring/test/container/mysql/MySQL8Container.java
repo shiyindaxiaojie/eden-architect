@@ -30,13 +30,19 @@ import java.time.Duration;
  */
 public class MySQL8Container extends MySQLContainer<MySQL8Container> {
 
-	/** 默认镜像名称 */
+	/**
+	 * 默认镜像名称
+	 */
 	private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("mysql");
 
-	/** 默认镜像标签 */
+	/**
+	 * 默认镜像标签
+	 */
 	private static final String DEFAULT_TAG = "8.0.32";
 
-	/** 默认启动超时 */
+	/**
+	 * 默认启动超时
+	 */
 	private static final Duration DEFAULT_STARTUP_TIMEOUT = Duration.ofSeconds(60);
 
 	public MySQL8Container() {

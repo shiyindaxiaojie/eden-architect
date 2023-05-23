@@ -60,7 +60,7 @@ public enum LocalDateConverter implements Converter<LocalDate> {
 	@Override
 	public WriteCellData<?> convertToExcelData(LocalDate value, ExcelContentProperty contentProperty,
 											   GlobalConfiguration globalConfiguration) {
-		DateTimeFormatter formatter = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null?
+		DateTimeFormatter formatter = contentProperty == null || contentProperty.getDateTimeFormatProperty() == null ?
 			DateTimeFormatter.ISO_LOCAL_DATE :
 			DateTimeFormatter.ofPattern(contentProperty.getDateTimeFormatProperty().getFormat());
 		return new WriteCellData<>(value.format(formatter));

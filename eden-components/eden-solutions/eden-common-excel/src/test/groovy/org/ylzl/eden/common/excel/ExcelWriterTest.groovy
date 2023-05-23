@@ -21,7 +21,7 @@ import spock.lang.Specification
 
 class ExcelWriterTest extends Specification {
 
-    List<TestCase> cases = new ArrayList<>()
+	List<TestCase> cases = new ArrayList<>()
 
 	def setup() {
 		cases.add(TestCase.builder().chineseName("test1").build())

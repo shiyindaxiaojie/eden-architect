@@ -22,8 +22,8 @@ import lombok.experimental.UtilityClass;
  * 字符串转义工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.text.StringEscapeUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public class StringEscapeUtils extends org.apache.commons.text.StringEscapeUtils {

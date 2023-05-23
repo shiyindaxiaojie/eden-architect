@@ -64,5 +64,5 @@
 			<artifactId>rocketmq-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

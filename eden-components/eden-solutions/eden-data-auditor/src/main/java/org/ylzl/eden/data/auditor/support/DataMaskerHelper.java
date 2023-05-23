@@ -41,7 +41,7 @@ public class DataMaskerHelper {
 	/**
 	 * 获取数据脱敏实例
 	 *
-	 * @param spi 扩展点
+	 * @param spi      扩展点
 	 * @param strategy 策略
 	 * @return 数据脱敏实例
 	 */

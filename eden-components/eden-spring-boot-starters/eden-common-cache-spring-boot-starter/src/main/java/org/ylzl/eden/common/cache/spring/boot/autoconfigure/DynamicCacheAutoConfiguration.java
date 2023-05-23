@@ -76,7 +76,7 @@ public class DynamicCacheAutoConfiguration {
 	public DynamicCacheManager dynamicCacheManager(CacheManagerCustomizers customizers) {
 		DynamicCacheManager cacheManager = new DynamicCacheManager(cacheProperties);
 		if (l1CacheRemovalListeners.getIfAvailable() != null) {
-		   cacheManager.setL1CacheRemovalListener(l1CacheRemovalListeners.getIfAvailable());
+			cacheManager.setL1CacheRemovalListener(l1CacheRemovalListeners.getIfAvailable());
 		}
 		if (l1CacheLoaders.getIfAvailable() != null) {
 			cacheManager.setL1CacheLoader(l1CacheLoaders.getIfAvailable());

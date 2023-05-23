@@ -32,8 +32,8 @@ public interface ExcelReader {
 	/**
 	 * 读取 Excel
 	 *
-	 * @param inputStream 输入流
-	 * @param head 标题映射
+	 * @param inputStream       输入流
+	 * @param head              标题映射
 	 * @param excelReadListener 读取监听器
 	 * @see org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
 	 */
@@ -42,8 +42,8 @@ public interface ExcelReader {
 	/**
 	 * 读取 Excel
 	 *
-	 * @param file 文件
-	 * @param head 标题映射
+	 * @param file              文件
+	 * @param head              标题映射
 	 * @param excelReadListener 读取监听器
 	 * @see org.ylzl.eden.common.excel.reader.PersistenceExcelReadListener
 	 */

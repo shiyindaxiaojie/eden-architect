@@ -47,7 +47,7 @@ public enum OS {
 	Y_POD("YPod", "iPod touch[\\s\\;]+iPhone.*os (\\d+)[._](\\d+)", "iPod touch[\\s\\;]+iPhone.*os (\\d+([._]\\d+)*)"),
 	Y_PAD("YPad", "iPad[\\s\\;]+iPhone.*os (\\d+)[._](\\d+)", "iPad[\\s\\;]+iPhone.*os (\\d+([._]\\d+)*)"),
 	Y_PHONE("YPhone", "iPhone[\\s\\;]+iPhone.*os (\\d+)[._](\\d+)", "iPhone[\\s\\;]+iPhone.*os (\\d+([._]\\d+)*)"),
-	SYMBIAN("Symbian", "symbian(os)?",""),
+	SYMBIAN("Symbian", "symbian(os)?", ""),
 	ADOBE_AIR("Adobe Air", "AdobeAir\\/([\\d\\w\\.\\-]+)", "AdobeAir\\/([\\d\\w\\.\\-]+)"),
 	WII("Wii", "wii", "wii libnup/(\\d+([._]\\d+)*)"),
 	PS3("PS3", "playstation 3", "playstation 3; (\\d+([._]\\d+)*)"),

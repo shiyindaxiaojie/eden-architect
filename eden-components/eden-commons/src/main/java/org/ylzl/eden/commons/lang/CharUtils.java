@@ -22,8 +22,8 @@ import lombok.experimental.UtilityClass;
  * 字符工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.lang3.CharUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public class CharUtils extends org.apache.commons.lang3.CharUtils {

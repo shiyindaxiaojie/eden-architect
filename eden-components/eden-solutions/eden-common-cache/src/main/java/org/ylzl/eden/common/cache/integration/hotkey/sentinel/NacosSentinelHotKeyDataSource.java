@@ -50,7 +50,8 @@ public class NacosSentinelHotKeyDataSource implements SentinelHotKeyDataSource {
 		ReadableDataSource<String, List<ParamFlowRule>> dataSource = new NacosDataSource<>(properties,
 			sentinelConfig.getDataSource().getNacos().getGroupId(),
 			sentinelConfig.getDataSource().getNacos().getDataId(),
-			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {}));
+			source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {
+			}));
 		ParamFlowRuleManager.register2Property(dataSource.getProperty());
 	}
 }

@@ -21,8 +21,8 @@ import lombok.experimental.UtilityClass;
  * 迭代器工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.collections.IteratorUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public class IteratorUtils extends org.apache.commons.collections.IteratorUtils {

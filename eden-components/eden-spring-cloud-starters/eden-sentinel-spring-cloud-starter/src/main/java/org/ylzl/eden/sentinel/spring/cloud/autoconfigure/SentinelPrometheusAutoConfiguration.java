@@ -37,7 +37,7 @@ import org.ylzl.eden.spring.cloud.sentinel.prometheus.SentinelCollectorRegistry;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@AutoConfigureBefore({ PrometheusMetricsExportAutoConfiguration.class })
+@AutoConfigureBefore({PrometheusMetricsExportAutoConfiguration.class})
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnClass(CollectorRegistry.class)
 @ConditionalOnEnabledMetricsExport("prometheus")

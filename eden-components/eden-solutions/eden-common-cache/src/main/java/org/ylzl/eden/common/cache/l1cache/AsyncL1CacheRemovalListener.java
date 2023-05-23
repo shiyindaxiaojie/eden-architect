@@ -37,9 +37,9 @@ public class AsyncL1CacheRemovalListener {
 	/**
 	 * 缓存过期触发
 	 *
-	 * @param key   Key
+	 * @param key    Key
 	 * @param future CompletableFuture
-	 * @param cause 缓存失效原因
+	 * @param cause  缓存失效原因
 	 */
 	public <K, V> void onRemoval(K key, CompletableFuture<V> future, L1CacheRemovalCause cause) {
 		if (future != null) {

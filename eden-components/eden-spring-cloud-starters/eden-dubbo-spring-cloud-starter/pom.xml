@@ -59,6 +59,18 @@
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- Dubbo Observability -->
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-spring-boot-actuator</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-spring-boot-observability-starter</artifactId>
+		</dependency>-->
+
+		<!-- Dubbo Registry Center -->
 		<dependency>
 			<groupId>org.apache.dubbo</groupId>
 			<artifactId>dubbo-registry-nacos</artifactId>
@@ -76,6 +88,24 @@
 					<artifactId>dubbo-common</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- Dubbo Config Center -->
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-configcenter-nacos</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.dubbo</groupId>
+					<artifactId>dubbo-common</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Dubbo Metadata Center -->
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-metadata-report-nacos</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -38,12 +38,12 @@ public class CatClient {
 	/**
 	 * Transaction 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
-	 * @param data 附加数据
+	 * @param type     类型
+	 * @param name     指标
+	 * @param data     附加数据
 	 * @param function Lambda 函数
+	 * @param <T>      泛型
 	 * @return 函数返回值
-	 * @param <T> 泛型
 	 */
 	public static <T> T newTransaction(String type, String name, Map<String, Object> data, Supplier<T> function) {
 		Transaction transaction = Cat.newTransaction(type, name);
@@ -69,11 +69,11 @@ public class CatClient {
 	/**
 	 * Transaction 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
+	 * @param type     类型
+	 * @param name     指标
 	 * @param function Lambda 函数
+	 * @param <T>      泛型
 	 * @return 函数返回值
-	 * @param <T> 泛型
 	 */
 	public static <T> T newTransaction(String type, String name, Supplier<T> function) {
 		return newTransaction(type, name, null, function);
@@ -82,9 +82,9 @@ public class CatClient {
 	/**
 	 * Transaction 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
-	 * @param data 附加数据
+	 * @param type     类型
+	 * @param name     指标
+	 * @param data     附加数据
 	 * @param runnable 异步函数
 	 */
 	public static void newTransaction(String type, String name, Map<String, Object> data, Runnable runnable) {
@@ -110,8 +110,8 @@ public class CatClient {
 	/**
 	 * Transaction 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
+	 * @param type     类型
+	 * @param name     指标
 	 * @param runnable 异步函数
 	 */
 	public static void newTransaction(String type, String name, Runnable runnable) {
@@ -131,13 +131,13 @@ public class CatClient {
 	/**
 	 * Event 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
-	 * @param status 状态（Event.SUCCESS 表示成功）
+	 * @param type           类型
+	 * @param name           指标
+	 * @param status         状态（Event.SUCCESS 表示成功）
 	 * @param nameValuePairs 键值对
 	 * @see com.dianping.cat.message.Event#SUCCESS
 	 */
-	public static void logEvent(String type, String name, String status, String nameValuePairs)  {
+	public static void logEvent(String type, String name, String status, String nameValuePairs) {
 		Cat.logEvent(type, name, status, nameValuePairs);
 	}
 
@@ -145,7 +145,7 @@ public class CatClient {
 	 * Problem 埋点
 	 *
 	 * @param message 错误信息
-	 * @param cause 异常堆栈
+	 * @param cause   异常堆栈
 	 */
 	public static void logError(String message, Throwable cause) {
 		Cat.logError(message, cause);
@@ -163,13 +163,13 @@ public class CatClient {
 	/**
 	 * Heartbeat 埋点
 	 *
-	 * @param type 类型
-	 * @param name 指标
-	 * @param status 状态（Event.SUCCESS 表示成功）
+	 * @param type           类型
+	 * @param name           指标
+	 * @param status         状态（Event.SUCCESS 表示成功）
 	 * @param nameValuePairs 键值对
 	 * @see com.dianping.cat.message.Event#SUCCESS
 	 */
-	public static void logHeartbeat(String type, String name, String status, String nameValuePairs)  {
+	public static void logHeartbeat(String type, String name, String status, String nameValuePairs) {
 		Cat.logHeartbeat(type, name, status, nameValuePairs);
 	}
 
@@ -185,7 +185,7 @@ public class CatClient {
 	/**
 	 * 业务指标埋点
 	 *
-	 * @param name 指标
+	 * @param name     指标
 	 * @param quantity 数量
 	 */
 	public static void logMetricForCount(String name, int quantity) {
@@ -209,9 +209,9 @@ public class CatClient {
 	/**
 	 * 业务指标埋点
 	 *
-	 * @param name 指标
+	 * @param name     指标
 	 * @param quantity 数量
-	 * @param tags 标签
+	 * @param tags     标签
 	 */
 	public static void logMetricForCount(String name, int quantity, Map<String, String> tags) {
 		if (CollectionUtils.isEmpty(tags)) {
@@ -224,7 +224,7 @@ public class CatClient {
 	/**
 	 * 业务指标埋点
 	 *
-	 * @param name 指标
+	 * @param name             指标
 	 * @param durationInMillis 耗时（毫秒）
 	 */
 	public static void logMetricForDuration(String name, long durationInMillis) {
@@ -234,9 +234,9 @@ public class CatClient {
 	/**
 	 * 业务指标埋点
 	 *
-	 * @param name 指标
+	 * @param name             指标
 	 * @param durationInMillis 耗时（毫秒）
-	 * @param tags 标签
+	 * @param tags             标签
 	 */
 	public static void logMetricForDuration(String name, long durationInMillis, Map<String, String> tags) {
 		if (CollectionUtils.isEmpty(tags)) {
@@ -250,7 +250,7 @@ public class CatClient {
 	 * 业务指标埋点
 	 *
 	 * @param name 指标
-	 * @param sum 总和
+	 * @param sum  总和
 	 */
 	public static void logMetricForSum(String name, double sum) {
 		Cat.logMetricForSum(name, sum);
@@ -259,8 +259,8 @@ public class CatClient {
 	/**
 	 * 业务指标埋点
 	 *
-	 * @param name 指标
-	 * @param sum 总和
+	 * @param name     指标
+	 * @param sum      总和
 	 * @param quantity 数量
 	 */
 	public static void logMetricForSum(String name, double sum, int quantity) {

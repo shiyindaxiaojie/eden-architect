@@ -35,7 +35,9 @@ import java.util.stream.Stream;
 @UtilityClass
 public class SpringSecurityUtils {
 
-	/** 匿名用户 */
+	/**
+	 * 匿名用户
+	 */
 	public static final String ANONYMOUS = "ROLE_ANONYMOUS";
 
 	/**

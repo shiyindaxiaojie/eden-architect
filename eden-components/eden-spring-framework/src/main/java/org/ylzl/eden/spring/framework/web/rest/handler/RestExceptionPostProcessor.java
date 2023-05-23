@@ -17,9 +17,9 @@ public interface RestExceptionPostProcessor {
 	/**
 	 * 处理异常
 	 *
-	 * @param request 当前请求
+	 * @param request  当前请求
 	 * @param response 响应
-	 * @param e 异常
+	 * @param e        异常
 	 */
 	void postProcess(HttpServletRequest request, HttpServletResponse response, Throwable e);
 

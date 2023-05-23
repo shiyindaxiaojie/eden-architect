@@ -17,7 +17,10 @@
 package org.ylzl.eden.common.mq.spring.boot.env.convertor;
 
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 import org.ylzl.eden.common.mq.integration.rocketmq.config.RocketMQConfig;
 import org.ylzl.eden.common.mq.spring.boot.env.RocketMQConsumerProperties;

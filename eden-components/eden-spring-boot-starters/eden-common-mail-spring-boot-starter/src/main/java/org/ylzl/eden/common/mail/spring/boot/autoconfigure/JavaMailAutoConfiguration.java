@@ -70,9 +70,11 @@ public class JavaMailAutoConfiguration {
 		}
 
 		@ConditionalOnProperty(prefix = "spring.mail", name = "host")
-		static class HostProperty {}
+		static class HostProperty {
+		}
 
 		@ConditionalOnProperty(prefix = "spring.mail", name = "jndi-name")
-		static class JndiNameProperty {}
+		static class JndiNameProperty {
+		}
 	}
 }

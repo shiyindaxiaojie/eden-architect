@@ -22,6 +22,7 @@ Do you have any relevant stacktraces or logs of your attempts?
 **The application's environment**
 
 Which versions do you use?
+
 * Spring (boot):
 * java: version + architecture (64bit?)
 * Other relevant libraries...

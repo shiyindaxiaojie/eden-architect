@@ -29,8 +29,8 @@ import java.util.EnumSet;
  * 文件工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see org.apache.commons.io.FileUtils
+ * @since 2.4.13
  */
 @UtilityClass
 public class FileUtils extends org.apache.commons.io.FileUtils {

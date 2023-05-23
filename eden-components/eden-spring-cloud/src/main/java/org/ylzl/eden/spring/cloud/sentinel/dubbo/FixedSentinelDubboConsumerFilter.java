@@ -34,8 +34,8 @@ import java.util.Optional;
  * 修复 SentinelDubboCustomerFilter
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @see com.alibaba.csp.sentinel.adapter.dubbo3.SentinelDubboConsumerFilter
+ * @since 2.4.13
  */
 @Slf4j
 @Activate(group = CommonConstants.CONSUMER, value = "sentinel-dubbo-consumer")

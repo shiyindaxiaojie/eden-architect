@@ -28,12 +28,12 @@ import org.springframework.context.annotation.Role;
 
 /**
  * WebServerFactoryCustomizer 自动配置
- *
+ * <p>
  * <br /> Fixed: WARNING Log `Buffer pool was not set on WebSocketDeploymentInfo`
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
  * @link https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.embedded-container.customizing.programmatic
+ * @since 2.4.13
  */
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

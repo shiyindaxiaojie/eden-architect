@@ -21,17 +21,17 @@ import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.extension.Order;
+import org.ylzl.eden.spring.framework.dto.ResultBuilder;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
-import org.ylzl.eden.spring.framework.dto.ResultBuilder;
 
 /**
  * COLA 响应体构建器
  * <p>覆盖 {@code InternalResponseBuilder}</p>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
  * @see ResultBuilder
+ * @since 2.4.x
  */
 @Order(-1)
 public class ColaResponseBuilder implements ResponseBuilder<Response> {

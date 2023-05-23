@@ -17,11 +17,11 @@
 package org.ylzl.eden.data.filter
 
 import com.google.common.collect.Sets
-import org.ylzl.eden.extension.ExtensionLoader
 import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder
 import org.ylzl.eden.data.filter.config.SensitiveConfig
 import org.ylzl.eden.data.filter.sensitive.SensitiveWord
 import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader
+import org.ylzl.eden.extension.ExtensionLoader
 import spock.lang.Specification
 
 class SensitiveFilterTest extends Specification {
@@ -54,19 +54,19 @@ class SensitiveFilterTest extends Specification {
 		sensitiveWords[index].getKeyword() == keyword
 
 		where:
-		index	|| 	keyword
-		0		||	"鸡巴"
-		1		||	"女仆"
+		index || keyword
+		0     || "鸡巴"
+		1     || "女仆"
 	}
 
 	def "test filter text"() {
 		expect:
 		replacedText == sensitiveFilter.replaceSensitiveWords(sensitiveText)
-		deletedText	== sensitiveFilter.deleteSensitiveWords(sensitiveText)
+		deletedText == sensitiveFilter.deleteSensitiveWords(sensitiveText)
 
 		where:
-		replacedText 								|| deletedText
-		"我是大???美少女，喜欢玩美少女万华镜、3D定制???"	|| "我是大美少女，喜欢玩美少女万华镜、3D定制"
+		replacedText                                   || deletedText
+		"我是大???美少女，喜欢玩美少女万华镜、3D定制???" || "我是大美少女，喜欢玩美少女万华镜、3D定制"
 	}
 }
 

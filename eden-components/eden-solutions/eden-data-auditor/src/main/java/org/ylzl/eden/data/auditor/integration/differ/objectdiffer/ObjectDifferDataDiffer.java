@@ -50,7 +50,7 @@ public class ObjectDifferDataDiffer implements DataDiffer {
 	/**
 	 * 单个比对
 	 *
-	 * @param oldVersion 历史版本
+	 * @param oldVersion     历史版本
 	 * @param currentVersion 当前版本
 	 * @return 比对结果
 	 */

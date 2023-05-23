@@ -32,10 +32,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
-import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 import org.ylzl.eden.spring.integration.xxljob.admin.AutoRegisterXxlJobSpringExecutor;
 import org.ylzl.eden.spring.integration.xxljob.admin.XxlJobAdminTemplate;
+import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
 
 import java.io.File;
 

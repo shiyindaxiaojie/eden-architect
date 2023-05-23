@@ -29,19 +29,19 @@ import org.ylzl.eden.event.auditor.EnableEventAuditor;
  */
 public class EventAuditorImportSelector extends AdviceModeImportSelector<EnableEventAuditor> {
 
-    @Override
-    protected String[] selectImports(AdviceMode adviceMode) {
-        switch (adviceMode) {
-            case PROXY:
-                return new String[]{
-                        AutoProxyRegistrar.class.getName(),
-                        EventAuditorConfiguration.class.getName()
-                };
-            case ASPECTJ:
-                return new String[]{
-                        EventAuditorConfiguration.class.getName()
-                };
-        }
-        return new String[0];
-    }
+	@Override
+	protected String[] selectImports(AdviceMode adviceMode) {
+		switch (adviceMode) {
+			case PROXY:
+				return new String[]{
+					AutoProxyRegistrar.class.getName(),
+					EventAuditorConfiguration.class.getName()
+				};
+			case ASPECTJ:
+				return new String[]{
+					EventAuditorConfiguration.class.getName()
+				};
+		}
+		return new String[0];
+	}
 }

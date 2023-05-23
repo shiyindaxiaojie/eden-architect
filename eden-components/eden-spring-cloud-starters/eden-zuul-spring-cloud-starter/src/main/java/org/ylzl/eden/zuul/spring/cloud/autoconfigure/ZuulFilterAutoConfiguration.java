@@ -30,10 +30,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.util.PathMatcher;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
-import org.ylzl.eden.zuul.spring.cloud.env.ZuulProperties;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulAccessControlFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulFaultFilter;
 import org.ylzl.eden.spring.cloud.zuul.filter.ZuulRateLimitingFilter;
+import org.ylzl.eden.zuul.spring.cloud.env.ZuulProperties;
 
 import javax.cache.CacheManager;
 

@@ -50,5 +50,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-common-mail</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

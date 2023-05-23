@@ -9,7 +9,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.ylzl.eden.spring.boot.profile.autoconfigure.ProfileEndpointAutoConfiguration,\
   org.ylzl.eden.spring.boot.task.autoconfigure.AsyncTaskExecutionAutoConfiguration,\
   org.ylzl.eden.spring.boot.web.autoconfigure.EnhancedRestTemplateAutoConfiguration
-
 # Environment PostProcessor
 org.springframework.boot.env.EnvironmentPostProcessor=\
   org.ylzl.eden.spring.boot.logging.env.BootstrapLogEnvironmentPostProcessor

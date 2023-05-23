@@ -23,8 +23,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.cloud.sleuth.SpanCustomizer;
 import org.springframework.cloud.sleuth.instrument.web.mvc.HandlerParser;
 import org.ylzl.eden.commons.lang.ObjectUtils;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.StringUtils;
+import org.ylzl.eden.commons.lang.Strings;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -60,13 +60,13 @@ public class WebMvcHandlerParser extends HandlerParser {
 		super.preHandle(request, handler, customizer);
 
 		if (!isAllIgnored(ignoreHeaders)) {
-			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
+			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
 				Arrays.asList(ignoreHeaders.split(Strings.COMMA)) : null;
 			handleHeader(ignoreList, request, customizer);
 		}
 
 		if (!isAllIgnored(ignoreParameters)) {
-			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters)?
+			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
 				Arrays.asList(ignoreParameters.split(Strings.COMMA)) : null;
 			handleParameter(ignoreList, request, customizer);
 		}

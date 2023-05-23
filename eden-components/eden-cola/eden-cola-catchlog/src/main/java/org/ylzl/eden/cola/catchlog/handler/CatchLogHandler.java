@@ -33,7 +33,7 @@ public class CatchLogHandler {
 	 * 封装响应报文
 	 *
 	 * @param returnType 返回类型
-	 * @param e 异常
+	 * @param e          异常
 	 * @return 返回值
 	 */
 	public static Object wrap(Class<?> returnType, BaseException e) {

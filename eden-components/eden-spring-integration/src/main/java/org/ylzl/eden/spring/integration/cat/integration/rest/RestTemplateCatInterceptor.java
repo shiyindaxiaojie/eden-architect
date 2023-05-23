@@ -76,7 +76,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 			this.setHeader(req);
 			response = execution.execute(req, body);
 			HttpStatus httpStatus = response.getStatusCode();
-			String status = httpStatus.is2xxSuccessful()? Message.SUCCESS : String.valueOf(httpStatus.value());
+			String status = httpStatus.is2xxSuccessful() ? Message.SUCCESS : String.valueOf(httpStatus.value());
 			if (httpStatus.is3xxRedirection()) {
 				Cat.logEvent(CatConstants.TYPE_URL_REDIRECTION_ERROR, httpStatus.getReasonPhrase(), status, url);
 			} else if (httpStatus.is4xxClientError()) {
@@ -120,7 +120,7 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 		Cat.logEvent(CatConstants.TYPE_URL_SERVER, serverIp);
 
 		String ipForwarded = req.getHeaders().getFirst(CatConstants.X_FORWARDED_FOR);
-		String clientIp = ipForwarded == null? IpConfigUtils.getIpAddress() : ipForwarded;
+		String clientIp = ipForwarded == null ? IpConfigUtils.getIpAddress() : ipForwarded;
 		Cat.logEvent(CatConstants.TYPE_URL_CLIENT, clientIp);
 	}
 
@@ -172,6 +172,6 @@ public class RestTemplateCatInterceptor implements ClientHttpRequestInterceptor 
 		return req.getURI().getScheme() + "://"
 			+ req.getURI().getHost() + ":" + req.getURI().getPort()
 			+ req.getURI().getPath()
-			+ (StringUtils.isNotBlank(req.getURI().getQuery())? ("?" + req.getURI().getQuery()) : Strings.EMPTY);
+			+ (StringUtils.isNotBlank(req.getURI().getQuery()) ? ("?" + req.getURI().getQuery()) : Strings.EMPTY);
 	}
 }

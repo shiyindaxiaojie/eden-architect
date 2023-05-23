@@ -135,7 +135,8 @@
 		<influxdb.version>6.4.0</influxdb.version>
 
 		<!-- 搜索引擎 -->
-		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
+		</spring-boot-starter-data-elasticsearch.version>
 		<t-digest.version>3.2</t-digest.version>
 		<jopt-simple.version>5.0.4</jopt-simple.version>
 
@@ -152,7 +153,7 @@
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.0.14</dubbo.version>
+		<dubbo.version>3.2.1</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<curator.version>5.1.0</curator.version>
@@ -180,11 +181,11 @@
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 通讯组件 -->
-		<netty.version>4.1.85.Final</netty.version>
+		<netty.version>4.1.92.Final</netty.version>
 		<javamail.version>1.6.7</javamail.version>
 
 		<!-- 日志组件 -->
-		<log4j2.version>2.17.2</log4j2.version>
+		<log4j2.version>2.20.0</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 
@@ -1652,17 +1653,54 @@
 			</dependency>
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
-				<artifactId>dubbo-spring-boot-starter</artifactId>
-				<version>${dubbo.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo</artifactId>
 				<version>${dubbo.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-spring-boot-starter</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-spring-boot-actuator</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<!--<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-spring-boot-observability-starter</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>-->
+			<!-- Dubbo For Nacos -->
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-registry-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-configcenter-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-metadata-report-nacos</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<!-- Dubbo For Zookeeper -->
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-registry-zookeeper</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-configcenter-zookeeper</artifactId>
+				<version>${dubbo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.dubbo</groupId>
+				<artifactId>dubbo-metadata-report-zookeeper</artifactId>
 				<version>${dubbo.version}</version>
 			</dependency>
 			<!-- Zookeeper -->
@@ -1919,12 +1957,17 @@
 			<!-- Log4j2 -->
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j-impl</artifactId>
+				<artifactId>log4j-core</artifactId>
 				<version>${log4j2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>${log4j2.version}</version>
 			</dependency>
 			<dependency>

@@ -84,5 +84,5 @@
 			<artifactId>curator-recipes</artifactId>
 			<optional>true</optional>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>

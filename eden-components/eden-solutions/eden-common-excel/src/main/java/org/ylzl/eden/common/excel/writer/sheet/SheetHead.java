@@ -14,9 +14,13 @@ import java.util.Set;
 @Data
 public class SheetHead {
 
-	/** 自定义头部 */
+	/**
+	 * 自定义头部
+	 */
 	private List<List<String>> head;
 
-	/** 忽略字段 */
+	/**
+	 * 忽略字段
+	 */
 	private Set<String> ignoreHeadFields;
 }
