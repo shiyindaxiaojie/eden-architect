@@ -77,11 +77,12 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 			return;
 		}
 		for (MessageQueueConsumer messageQueueConsumer : messageQueueConsumers) {
-			Consumer<String, String> consumer = createConsumer(messageQueueConsumer);
+			Consumer<String, String> consumer = initKafkaConsumer(messageQueueConsumer);
 			if (consumer == null) {
 				continue;
 			}
 			consumers.add(consumer);
+
 			new Thread(() -> {
 				while (threadRunning) {
 					try {
@@ -120,7 +121,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 		consumers.clear();
 	}
 
-	private Consumer<String, String> createConsumer(MessageQueueConsumer messageQueueConsumer) {
+	private Consumer<String, String> initKafkaConsumer(MessageQueueConsumer messageQueueConsumer) {
 		Class<? extends MessageQueueConsumer> clazz = messageQueueConsumer.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
 		if (!matcher.apply(annotation.type())) {

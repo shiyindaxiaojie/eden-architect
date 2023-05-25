@@ -17,6 +17,7 @@
 package org.ylzl.eden.common.mq;
 
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.common.mq.consumer.ConsumeMode;
 import org.ylzl.eden.common.mq.consumer.MessageModel;
 import org.ylzl.eden.common.mq.consumer.MessageSelectorType;
 import org.ylzl.eden.commons.lang.Strings;
@@ -57,35 +58,72 @@ public @interface MessageQueueListener {
 	String topic() default Strings.EMPTY;
 
 	/**
-	 * 批量拉取消息大小
+	 * 从 Broker 端批量拉取消息大小
 	 *
-	 * @return 拉取大小
+	 * @return 默认拉取 32 条消息
 	 */
 	int pullBatchSize() default 0;
 
 	/**
-	 * 消费消息批次上限大小，当拉取消息的大小大于消费的大小时，拆成多个线程并发处理
+	 * 上报 Broker 端的最大消费消息数，当拉取消息的大小大于消费的大小时，拆成多个线程并发处理
+	 *
+	 * @return 默认消费 1 条消息
 	 */
 	int consumeMessageBatchMaxSize() default 0;
 
 	/**
+	 * 最小消费线程
+	 *
+	 * @return 默认 8 个线程
+	 */
+	int consumeThreadMin() default 0;
+
+	/**
+	 * 最大消费线程
+	 *
+	 * @return 默认 64 个线程
+	 */
+	int consumeThreadMax() default 0;
+
+	/**
+	 * 消费超时
+	 *
+	 * @return 默认 15 分钟
+	 */
+	long consumeTimeout() default 0;
+
+	/**
+	 * 消费模式
+	 *
+	 * @return 默认并发消费，不保证顺序
+	 */
+	ConsumeMode consumeMode() default ConsumeMode.UNSET;
+
+	/**
 	 * 消息模式
 	 *
-	 * @return 消息模式
+	 * @return 默认集群模式
 	 */
-	String messageModel() default MessageModel.CLUSTERING;
+	MessageModel messageModel() default MessageModel.UNSET;
 
 	/**
 	 * 消息过滤类型
 	 *
-	 * @return 消息过滤类型
+	 * @return 默认按 Tag 过滤
 	 */
-	String selectorType() default MessageSelectorType.TAG;
+	MessageSelectorType selectorType() default MessageSelectorType.UNSET;
 
 	/**
 	 * 消息过滤规则
 	 *
-	 * @return 消息过滤规则
+	 * @return 默认全模糊匹配
 	 */
 	String selectorExpression() default "*";
+
+	/**
+	 * 是否开启消息轨迹追踪
+	 *
+	 * @return 默认开启
+	 */
+	boolean enableMsgTrace() default true;
 }

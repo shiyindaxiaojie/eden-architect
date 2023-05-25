@@ -33,58 +33,39 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "rocketmq.consumer")
 public class RocketMQConsumerProperties {
 
-	/**
-	 * Group name of consumer.
-	 */
 	private String group;
 
-	/**
-	 * Namespace for this MQ Consumer instance.
-	 */
-	private String namespace;
-
-	/**
-	 * Topic name of consumer.
-	 */
 	private String topic;
 
-	/**
-	 * Control message mode, if you want all subscribers receive message all message, broadcasting is a good choice.
-	 */
 	private String messageModel = "CLUSTERING";
 
-	/**
-	 * Control how to selector message.
-	 */
 	private String selectorType = "TAG";
 
-	/**
-	 * Control which message can be select.
-	 */
 	private String selectorExpression = "*";
 
-	/**
-	 * The property of "access-key".
-	 */
 	private String accessKey;
 
-	/**
-	 * The property of "secret-key".
-	 */
 	private String secretKey;
 
-	/**
-	 * Maximum number of messages pulled each time.
-	 */
-	private int pullBatchSize = 10;
+	private int pullBatchSize = 32;
 
-	/**
-	 * Switch flag instance for message trace.
-	 */
 	private boolean enableMsgTrace = false;
 
-	/**
-	 * The name value of message trace topic.If you don't config,you can use the default trace topic name.
-	 */
 	private String customizedTraceTopic = TopicValidator.RMQ_SYS_TRACE_TOPIC;
+
+	/** 旧版本的 Spring Boot Starter 没有提供以下配置 */
+
+	private String namespace;
+
+	/** 以下是官方没有暴露的配置 */
+
+	private String consumeMode = "CONCURRENTLY";
+
+	private int consumeMessageBatchMaxSize = 1;
+
+	private int consumeThreadMin = 20;
+
+	private int consumeThreadMax = 64;
+
+	private long consumeTimeout = 15L;
 }

@@ -16,18 +16,15 @@
 
 package org.ylzl.eden.common.mq.consumer;
 
-import lombok.experimental.UtilityClass;
-
 /**
- * 消息模型
+ * 消息选择器类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@UtilityClass
-public class MessageSelectorType {
+public enum MessageSelectorType {
 
-	public static final String TAG = "TAG";
-
-	public static final String SQL92 = "SQL92";
+	UNSET,
+	TAG,
+	SQL92
 }
