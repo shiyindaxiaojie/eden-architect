@@ -33,6 +33,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.RPCHook;
 import org.apache.rocketmq.spring.support.RocketMQUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -70,7 +71,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 
 	private static final String ROCKETMQ_CONSUMER_CONSUME_ERROR = "RocketMQConsumer consume error: {}";
 
-	private static final String CREATE_DEFAULT_MQPUSH_CONSUMER_GROUP_NAMESPACE_TOPIC = "Create DefaultMQPushConsumer, group: {}, namespace: {}, topic: {}";
+	private static final String CREATE_MQ_CONSUMER = "Create DefaultMQPushConsumer, group: {}, namespace: {}, topic: {}";
 
 	@Getter
 	private final Map<String, DefaultMQPushConsumer> consumers = Maps.newConcurrentMap();
@@ -110,16 +111,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			}
 
 			try {
-				switch (ConsumeMode.valueOf(rocketMQConfig.getConsumer().getConsumeMode())) {
-					case ORDERLY:
-						consumer.setMessageListener(new DefaultMessageListenerOrderly(messageQueueConsumer));
-						break;
-					case CONCURRENTLY:
-						consumer.setMessageListener(new DefaultMessageListenerConcurrently(messageQueueConsumer));
-						break;
-					default:
-						throw new IllegalArgumentException("Property 'consumeMode' was wrong.");
-				}
 				consumer.start();
 			} catch (MQClientException e) {
 				log.error(ROCKETMQ_CONSUMER_CONSUME_ERROR, e.getMessage(), e);
@@ -217,7 +208,11 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		if (consumeThreadMax < consumeThreadMin) {
 			consumer.setConsumeThreadMin(consumeThreadMax);
 		}
-		consumer.setConsumeTimeout(annotation.consumeTimeout());
+		if (annotation.consumeTimeout() > 0) {
+			consumer.setConsumeTimeout(annotation.consumeTimeout());
+		} else if (rocketMQConfig.getConsumer().getConsumeTimeout() > 0) {
+			consumer.setConsumeTimeout(rocketMQConfig.getConsumer().getConsumeTimeout());
+		}
 
 		// 消息模式
 		switch (annotation.messageModel()) {
@@ -269,7 +264,21 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		}
 		consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
 
-		log.debug(CREATE_DEFAULT_MQPUSH_CONSUMER_GROUP_NAMESPACE_TOPIC, consumerGroup, namespace, topic);
+		// 设置顺序模式或者并发模式
+		ConsumeMode consumeMode = annotation.consumeMode() != ConsumeMode.UNSET ?
+			annotation.consumeMode() : ConsumeMode.valueOf(rocketMQConfig.getConsumer().getConsumeMode());
+		switch (consumeMode) {
+			case ORDERLY:
+				consumer.setMessageListener(new DefaultMessageListenerOrderly(messageQueueConsumer));
+				break;
+			case CONCURRENTLY:
+				consumer.setMessageListener(new DefaultMessageListenerConcurrently(messageQueueConsumer));
+				break;
+			default:
+				throw new IllegalArgumentException("Property 'consumeMode' was wrong.");
+		}
+
+		log.debug(CREATE_MQ_CONSUMER, consumerGroup, namespace, topic);
 		consumers.put(topic, consumer);
 		return consumer;
 	}
@@ -280,29 +289,18 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		private final MessageQueueConsumer messageQueueConsumer;
 
 		@Override
-		public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts,
-														ConsumeConcurrentlyContext context) {
-			log.debug("received msg: {}", messageExts);
+		public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
+			log.debug("received message: {}", messageExts);
 			AtomicReference<ConsumeConcurrentlyStatus> status =
 				new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
-			List<Message> messages = Lists.newArrayListWithCapacity(messageExts.size());
-			messageExts.forEach(messageExt -> messages.add(
-				Message.builder()
-					.topic(messageExt.getTopic())
-					.partition(messageExt.getQueueId())
-					.key(messageExt.getKeys())
-					.tags(messageExt.getTags())
-					.delayTimeLevel(messageExt.getDelayTimeLevel())
-					.body(new String(messageExt.getBody()))
-					.build()));
-
+			List<Message> messages = getMessages(messageExts);
 			long now = System.currentTimeMillis();
 			try {
 				messageQueueConsumer.consume(messages, () -> status.set(ConsumeConcurrentlyStatus.CONSUME_SUCCESS));
 				long costTime = System.currentTimeMillis() - now;
-				log.debug("consume msg cost {} ms", costTime);
+				log.debug("consume message concurrently cost {} ms", costTime);
 			} catch (Exception e) {
-				log.warn("consume message failed", e);
+				log.warn("consume message concurrently failed", e);
 				context.setDelayLevelWhenNextConsume(delayLevelWhenNextConsume);
 				status.set(ConsumeConcurrentlyStatus.RECONSUME_LATER);
 			}
@@ -317,31 +315,36 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 
 		@Override
 		public ConsumeOrderlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeOrderlyContext context) {
-			log.debug("received msg: {}", messageExts);
+			log.debug("received message: {}", messageExts);
 			AtomicReference<ConsumeOrderlyStatus> status =
 				new AtomicReference<>(ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT);
-			List<Message> messages = Lists.newArrayListWithCapacity(messageExts.size());
-			messageExts.forEach(messageExt -> messages.add(
-				Message.builder()
-					.topic(messageExt.getTopic())
-					.partition(messageExt.getQueueId())
-					.key(messageExt.getKeys())
-					.tags(messageExt.getTags())
-					.delayTimeLevel(messageExt.getDelayTimeLevel())
-					.body(new String(messageExt.getBody()))
-					.build()));
-
+			List<Message> messages = getMessages(messageExts);
 			long now = System.currentTimeMillis();
 			try {
 				messageQueueConsumer.consume(messages, () -> status.set(ConsumeOrderlyStatus.SUCCESS));
 				long costTime = System.currentTimeMillis() - now;
-				log.debug("consume msg cost {} ms", costTime);
+				log.debug("consume message orderly cost {} ms", costTime);
 			} catch (Exception e) {
-				log.warn("consume message failed", e);
+				log.warn("consume message orderly failed", e);
 				context.setSuspendCurrentQueueTimeMillis(suspendCurrentQueueTimeMillis);
 				status.set(ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT);
 			}
 			return status.get();
 		}
+	}
+
+	@NotNull
+	private static List<Message> getMessages(List<MessageExt> messageExts) {
+		List<Message> messages = Lists.newArrayListWithCapacity(messageExts.size());
+		messageExts.forEach(messageExt -> messages.add(
+			Message.builder()
+				.topic(messageExt.getTopic())
+				.partition(messageExt.getQueueId())
+				.key(messageExt.getKeys())
+				.tags(messageExt.getTags())
+				.delayTimeLevel(messageExt.getDelayTimeLevel())
+				.body(new String(messageExt.getBody()))
+				.build()));
+		return messages;
 	}
 }

@@ -102,7 +102,7 @@ public class RocketMQConfig {
 
 		private int pullBatchSize = 32;
 
-		private int consumeMessageBatchMaxSize = 1;
+		private int consumeMessageBatchMaxSize = 10;
 
 		private int consumeThreadMin = 20;
 
