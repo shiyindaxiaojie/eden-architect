@@ -68,4 +68,8 @@ public class RocketMQConsumerProperties {
 	private int consumeThreadMax = 64;
 
 	private long consumeTimeout = 15L;
+
+	private long suspendCurrentQueueTimeMillis = 1000;
+
+	private int delayLevelWhenNextConsume = 0;
 }

@@ -84,10 +84,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 
 	private ApplicationContext applicationContext;
 
-	private long suspendCurrentQueueTimeMillis = 1000;
-
-	private int delayLevelWhenNextConsume = 0;
-
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
@@ -126,22 +122,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		consumers.clear();
 	}
 
-	public long getSuspendCurrentQueueTimeMillis() {
-		return suspendCurrentQueueTimeMillis;
-	}
-
-	public void setSuspendCurrentQueueTimeMillis(long suspendCurrentQueueTimeMillis) {
-		this.suspendCurrentQueueTimeMillis = suspendCurrentQueueTimeMillis;
-	}
-
-	public int getDelayLevelWhenNextConsume() {
-		return delayLevelWhenNextConsume;
-	}
-
-	public void setDelayLevelWhenNextConsume(int delayLevelWhenNextConsume) {
-		this.delayLevelWhenNextConsume = delayLevelWhenNextConsume;
-	}
-
 	private DefaultMQPushConsumer initRocketMQPushConsumer(MessageQueueConsumer messageQueueConsumer) throws MQClientException {
 		Class<? extends MessageQueueConsumer> clazz = messageQueueConsumer.getClass();
 		MessageQueueListener annotation = clazz.getAnnotation(MessageQueueListener.class);
@@ -171,7 +151,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		} else if (StringUtils.isNotBlank(rocketMQConfig.getConsumer().getGroup())) {
 			consumerGroup = rocketMQConfig.getConsumer().getGroup() + Strings.UNDERLINE + topic;
 		}
-		AssertUtils.notNull(topic, "PROP-REQUIRED-500", "rocketmq.consumer.group");
+		AssertUtils.notNull(consumerGroup, "PROP-REQUIRED-500", "rocketmq.consumer.group");
 
 		// 初始化消费者
 		Environment environment = this.applicationContext.getEnvironment();
@@ -185,7 +165,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			consumer.setVipChannelEnabled(false);
 			consumer.setInstanceName(RocketMQUtil.getInstanceName(rpcHook, consumerGroup));
 		} else {
-			log.debug("Access-key or secret-key not configure in {}.", this.getClass().getName());
+			log.warn("RocketMQ access-key or secret-key not configure in {}.", this.getClass().getName());
 			consumer = new DefaultMQPushConsumer(namespace, consumerGroup, null, new AllocateMessageQueueAveragely(),
 				enableMsgTrace, environment.resolveRequiredPlaceholders(topic));
 		}
@@ -290,7 +270,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 
 		@Override
 		public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
-			log.debug("received message: {}", messageExts);
 			AtomicReference<ConsumeConcurrentlyStatus> status =
 				new AtomicReference<>(ConsumeConcurrentlyStatus.RECONSUME_LATER);
 			List<Message> messages = getMessages(messageExts);
@@ -298,11 +277,10 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			try {
 				messageQueueConsumer.consume(messages, () -> status.set(ConsumeConcurrentlyStatus.CONSUME_SUCCESS));
 				long costTime = System.currentTimeMillis() - now;
-				log.debug("consume message concurrently cost {} ms", costTime);
+				log.debug("consume message concurrently cost {} ms, message: {}", costTime, messageExts);
 			} catch (Exception e) {
-				log.warn("consume message concurrently failed", e);
-				context.setDelayLevelWhenNextConsume(delayLevelWhenNextConsume);
-				status.set(ConsumeConcurrentlyStatus.RECONSUME_LATER);
+				log.warn("consume message concurrently failed, message: {}", messageExts, e);
+				context.setDelayLevelWhenNextConsume(rocketMQConfig.getConsumer().getDelayLevelWhenNextConsume());
 			}
 			return status.get();
 		}
@@ -315,7 +293,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 
 		@Override
 		public ConsumeOrderlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeOrderlyContext context) {
-			log.debug("received message: {}", messageExts);
 			AtomicReference<ConsumeOrderlyStatus> status =
 				new AtomicReference<>(ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT);
 			List<Message> messages = getMessages(messageExts);
@@ -323,11 +300,10 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			try {
 				messageQueueConsumer.consume(messages, () -> status.set(ConsumeOrderlyStatus.SUCCESS));
 				long costTime = System.currentTimeMillis() - now;
-				log.debug("consume message orderly cost {} ms", costTime);
+				log.debug("consume message concurrently cost {} ms, message: {}", costTime, messageExts);
 			} catch (Exception e) {
-				log.warn("consume message orderly failed", e);
-				context.setSuspendCurrentQueueTimeMillis(suspendCurrentQueueTimeMillis);
-				status.set(ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT);
+				log.warn("consume message concurrently failed, message: {}", messageExts, e);
+				context.setSuspendCurrentQueueTimeMillis(rocketMQConfig.getConsumer().getSuspendCurrentQueueTimeMillis());
 			}
 			return status.get();
 		}

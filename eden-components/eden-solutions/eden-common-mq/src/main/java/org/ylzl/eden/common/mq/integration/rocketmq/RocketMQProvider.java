@@ -69,8 +69,14 @@ public class RocketMQProvider implements MessageQueueProvider {
 	 */
 	@Override
 	public MessageSendResult syncSend(Message message) {
+		DefaultMQProducer producer = rocketMQTemplate.getProducer();
+		if (StringUtils.isNotBlank(rocketMQConfig.getProducer().getNamespace())) {
+			producer.setNamespace(rocketMQConfig.getProducer().getNamespace());
+		} else if (StringUtils.isNotBlank(message.getNamespace())) {
+			producer.setNamespace(message.getNamespace());
+		}
 		try {
-			SendResult sendResult = rocketMQTemplate.getProducer().send(transfer(message));
+			SendResult sendResult = producer.send(transfer(message));
 			return transfer(sendResult);
 		} catch (InterruptedException e) {
 			log.error(ROCKETMQ_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
