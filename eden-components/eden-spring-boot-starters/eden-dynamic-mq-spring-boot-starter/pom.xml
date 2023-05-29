@@ -22,39 +22,46 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-solutions</artifactId>
+		<artifactId>eden-spring-boot-starters</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-sms</artifactId>
+	<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-sms</name>
-	<description>通用短信组件</description>
+	<name>eden-dynamic-mq-spring-boot-starter</name>
+	<description>Spring Boot Starter For Dynamic Message Queue</description>
 
 	<dependencies>
-		<!-- 内部组件 -->
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 通用组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-dynamic-mq</artifactId>
+		</dependency>
+
+		<!-- Kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- RocketMQ -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-spring-boot-starter</artifactId>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>

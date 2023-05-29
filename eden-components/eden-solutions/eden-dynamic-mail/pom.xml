@@ -26,10 +26,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-mq</artifactId>
+	<artifactId>eden-dynamic-mail</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-mq</name>
-	<description>通用消息队列组件</description>
+	<name>eden-dynamic-mail</name>
+	<description>通用邮件组件</description>
 
 	<dependencies>
 		<!-- 内部组件 -->
@@ -54,40 +54,14 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- 测试组件 -->
+		<!-- JavaMail -->
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<scope>test</scope>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>jakarta.mail</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Kafka -->
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- RocketMQ -->
-		<dependency>
-			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot-starter</artifactId>
-			<optional>true</optional>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 	</dependencies>
 </project>

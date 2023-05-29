@@ -406,32 +406,32 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-cache</artifactId>
+				<artifactId>eden-dynamic-cache</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-excel</artifactId>
+				<artifactId>eden-dynamic-excel</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-mail</artifactId>
+				<artifactId>eden-dynamic-mail</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-mq</artifactId>
+				<artifactId>eden-dynamic-mq</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-security</artifactId>
+				<artifactId>eden-dynamic-security</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-sms</artifactId>
+				<artifactId>eden-dynamic-sms</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -503,32 +503,32 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-cache-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-cache-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-excel-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-excel-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-mail-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-mail-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-mq-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-security-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-security-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-common-sms-spring-boot-starter</artifactId>
+				<artifactId>eden-dynamic-sms-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>

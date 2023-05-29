@@ -26,9 +26,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-cache</artifactId>
+	<artifactId>eden-dynamic-cache</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-cache</name>
+	<name>eden-dynamic-cache</name>
 	<description>通用缓存组件</description>
 
 	<dependencies>

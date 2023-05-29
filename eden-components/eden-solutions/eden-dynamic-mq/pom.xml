@@ -22,33 +22,58 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-spring-boot-starters</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-mq-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-mq</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-mq-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Message Queue</description>
+	<name>eden-dynamic-mq</name>
+	<description>通用消息队列组件</description>
 
 	<dependencies>
-		<!-- 开发框架 -->
+		<!-- 内部组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-boot</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- 通用组件 -->
+		<!-- 测试组件 -->
 		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-common-mq</artifactId>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Kafka -->

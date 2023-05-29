@@ -82,7 +82,7 @@
 		<!-- Dynamic MQ -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-common-mq</artifactId>
+			<artifactId>eden-dynamic-mq</artifactId>
 		</dependency>
 	</dependencies>
 </project>

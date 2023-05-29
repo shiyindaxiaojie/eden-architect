@@ -26,10 +26,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-cache-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-mail-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-cache-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Cache</description>
+	<name>eden-dynamic-mail-spring-boot-starter</name>
+	<description>Spring Boot Starter For Dynamic Mail</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
@@ -48,7 +48,7 @@
 		<!-- 通用组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-common-cache</artifactId>
+			<artifactId>eden-dynamic-mail</artifactId>
 		</dependency>
 	</dependencies>
 </project>

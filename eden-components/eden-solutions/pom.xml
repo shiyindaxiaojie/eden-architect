@@ -35,14 +35,14 @@
 		<module>eden-consistency-task</module>
 		<module>eden-data-auditor</module>
 		<module>eden-data-filter</module>
-		<module>eden-common-cache</module>
-		<module>eden-common-excel</module>
-		<module>eden-common-mail</module>
-		<module>eden-common-mq</module>
-		<module>eden-common-security</module>
-		<module>eden-common-sms</module>
 		<module>eden-distributed-lock</module>
 		<module>eden-distributed-uid</module>
+		<module>eden-dynamic-cache</module>
+		<module>eden-dynamic-excel</module>
+		<module>eden-dynamic-mail</module>
+		<module>eden-dynamic-mq</module>
+		<module>eden-dynamic-security</module>
+		<module>eden-dynamic-sms</module>
 		<module>eden-event-auditor</module>
 		<module>eden-flow-compose</module>
 		<module>eden-full-tracing</module>

@@ -22,46 +22,33 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-solutions</artifactId>
+		<artifactId>eden-spring-boot-starters</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-mail</artifactId>
+	<artifactId>eden-dynamic-cache-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-mail</name>
-	<description>通用邮件组件</description>
+	<name>eden-dynamic-cache-spring-boot-starter</name>
+	<description>Spring Boot Starter For Dynamic Cache</description>
 
 	<dependencies>
-		<!-- 内部组件 -->
+		<!-- 开发框架 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-spring-boot</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- JavaMail -->
+		<!-- 通用组件 -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-dynamic-cache</artifactId>
 		</dependency>
 	</dependencies>
 </project>

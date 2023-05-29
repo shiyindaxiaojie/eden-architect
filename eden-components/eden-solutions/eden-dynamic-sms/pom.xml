@@ -26,20 +26,20 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-security</artifactId>
+	<artifactId>eden-dynamic-sms</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-security</name>
-	<description>通用认证授权组件</description>
+	<name>eden-dynamic-sms</name>
+	<description>通用短信组件</description>
 
 	<dependencies>
 		<!-- 内部组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<artifactId>eden-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-security</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->

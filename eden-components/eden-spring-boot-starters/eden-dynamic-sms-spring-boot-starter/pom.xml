@@ -26,9 +26,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-sms-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-sms-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-sms-spring-boot-starter</name>
+	<name>eden-dynamic-sms-spring-boot-starter</name>
 	<description>Spring Boot Starter For Dynamic SMS</description>
 
 	<dependencies>
@@ -48,7 +48,7 @@
 		<!-- 通用组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-common-sms</artifactId>
+			<artifactId>eden-dynamic-sms</artifactId>
 		</dependency>
 	</dependencies>
 </project>

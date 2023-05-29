@@ -26,9 +26,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-common-excel</artifactId>
+	<artifactId>eden-dynamic-excel</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-common-excel</name>
+	<name>eden-dynamic-excel</name>
 	<description>通用Excel组件</description>
 
 	<dependencies>
