@@ -22,67 +22,72 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-spring-boot-starters</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-mq</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-tp-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Thread Pool</description>
+	<name>eden-dynamic-mq</name>
+	<description>通用消息队列组件</description>
 
 	<dependencies>
-		<!-- 开发框架 -->
+		<!-- 内部组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-boot</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dynamic TP -->
+		<!-- 测试组件 -->
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
 		</dependency>
+
+		<!-- Kafka -->
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 			<optional>true</optional>
 		</dependency>
 
 		<!-- RocketMQ -->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot</artifactId>
-		</dependency>
-
-		<!-- Dynamic MQ -->
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-dynamic-mq</artifactId>
+			<artifactId>rocketmq-spring-boot-starter</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

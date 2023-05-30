@@ -22,30 +22,40 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-parent</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../eden-parent/pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-solutions</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-solutions</name>
-	<description>解决方案</description>
+	<artifactId>eden-dynamic-sms</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-dynamic-sms</name>
+	<description>通用短信组件</description>
 
-	<modules>
-		<module>eden-consistency-task</module>
-		<module>eden-data-auditor</module>
-		<module>eden-data-filter</module>
-		<module>eden-distributed-lock</module>
-		<module>eden-distributed-uid</module>
-		<module>eden-dynamic-cache</module>
-		<module>eden-dynamic-excel</module>
-		<module>eden-dynamic-mail</module>
-		<module>eden-dynamic-mq</module>
-		<module>eden-dynamic-security</module>
-		<module>eden-dynamic-sms</module>
-		<module>eden-event-auditor</module>
-		<module>eden-flow-compose</module>
-		<module>eden-full-tracing</module>
-		<module>eden-idempotent</module>
-	</modules>
+	<dependencies>
+		<!-- 内部组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 </project>

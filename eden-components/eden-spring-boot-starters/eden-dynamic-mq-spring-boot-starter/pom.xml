@@ -26,10 +26,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-tp-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Thread Pool</description>
+	<name>eden-dynamic-mq-spring-boot-starter</name>
+	<description>Spring Boot Starter For Dynamic Message Queue</description>
 
 	<dependencies>
 		<!-- 开发框架 -->
@@ -45,44 +45,24 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dynamic TP -->
+		<!-- 通用组件 -->
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-dynamic-mq</artifactId>
 		</dependency>
+
+		<!-- Kafka -->
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 			<optional>true</optional>
 		</dependency>
 
 		<!-- RocketMQ -->
 		<dependency>
 			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot</artifactId>
-		</dependency>
-
-		<!-- Dynamic MQ -->
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-dynamic-mq</artifactId>
+			<artifactId>rocketmq-spring-boot-starter</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>
