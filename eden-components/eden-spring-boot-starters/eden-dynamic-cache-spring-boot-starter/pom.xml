@@ -22,30 +22,33 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-parent</artifactId>
+		<artifactId>eden-spring-boot-starters</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../eden-parent/pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-solutions</artifactId>
-	<packaging>pom</packaging>
-	<name>eden-solutions</name>
-	<description>解决方案</description>
+	<artifactId>eden-dynamic-cache-spring-boot-starter</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-dynamic-cache-spring-boot-starter</name>
+	<description>Spring Boot Starter For Dynamic Cache</description>
 
-	<modules>
-		<module>eden-consistency-task</module>
-		<module>eden-data-auditor</module>
-		<module>eden-data-filter</module>
-		<module>eden-distributed-lock</module>
-		<module>eden-distributed-uid</module>
-		<module>eden-dynamic-cache</module>
-		<module>eden-dynamic-excel</module>
-		<module>eden-dynamic-mail</module>
-		<module>eden-dynamic-mq</module>
-		<module>eden-dynamic-security</module>
-		<module>eden-dynamic-sms</module>
-		<module>eden-event-auditor</module>
-		<module>eden-flow-compose</module>
-		<module>eden-full-tracing</module>
-		<module>eden-idempotent</module>
-	</modules>
+	<dependencies>
+		<!-- 开发框架 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-spring-boot</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 通用组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-dynamic-cache</artifactId>
+		</dependency>
+	</dependencies>
 </project>

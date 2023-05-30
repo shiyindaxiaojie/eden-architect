@@ -22,67 +22,46 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.shiyindaxiaojie</groupId>
-		<artifactId>eden-spring-boot-starters</artifactId>
+		<artifactId>eden-solutions</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
+	<artifactId>eden-dynamic-mail</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-tp-spring-boot-starter</name>
-	<description>Spring Boot Starter For Dynamic Thread Pool</description>
+	<name>eden-dynamic-mail</name>
+	<description>通用邮件组件</description>
 
 	<dependencies>
-		<!-- 开发框架 -->
+		<!-- 内部组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-spring-boot</artifactId>
+			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
 		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dynamic TP -->
+		<!-- JavaMail -->
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-nacos</artifactId>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>jakarta.mail</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-webserver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-dubbo</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-rocketmq</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-grpc</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>cn.dynamictp</groupId>
-			<artifactId>dynamic-tp-spring-boot-starter-adapter-hystrix</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- RocketMQ -->
-		<dependency>
-			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot</artifactId>
-		</dependency>
-
-		<!-- Dynamic MQ -->
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-dynamic-mq</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 	</dependencies>
 </project>
