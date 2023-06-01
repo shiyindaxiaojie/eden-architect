@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 /**
- * TODO
+ * TTL 线程池执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
