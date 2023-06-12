@@ -75,10 +75,10 @@
 		<!-- 代码质量 -->
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 		<!-- 单元测试 -->
-		<maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 		<junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
 		<!-- 集成测试 -->
-		<maven-failsafe-plugin.version>3.0.0-M8</maven-failsafe-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
 		<redis-maven-plugin.version>1.4.6</redis-maven-plugin.version>
 		<!-- 性能测试 -->
 		<gatling-maven-plugin.version>3.0.3</gatling-maven-plugin.version>
