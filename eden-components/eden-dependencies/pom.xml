@@ -47,7 +47,7 @@
 		<lombok.version>1.18.18</lombok.version>
 		<mapstruct.version>1.4.1.Final</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
-		<arthas.version>3.6.0</arthas.version>
+		<arthas.version>3.6.7</arthas.version>
 
 		<!-- Web 组件 -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>

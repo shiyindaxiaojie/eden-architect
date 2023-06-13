@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2.4.13
  */
 @UtilityClass
-public class MvelUtils {
+public class MVELUtils {
 
 	public static <T> T executeExpression(String expression, Class<T> clazz) {
 		return executeExpression(expression, clazz, null);
