@@ -36,9 +36,7 @@ import org.ylzl.eden.common.mq.MessageQueueProvider;
 import org.ylzl.eden.common.mq.MessageQueueType;
 import org.ylzl.eden.common.mq.integration.kafka.KafkaConsumer;
 import org.ylzl.eden.common.mq.integration.kafka.KafkaProvider;
-import org.ylzl.eden.common.mq.integration.kafka.config.KafkaConfig;
 import org.ylzl.eden.common.mq.spring.boot.env.MessageQueueProperties;
-import org.ylzl.eden.common.mq.spring.boot.env.convertor.KafkaConvertor;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
@@ -52,9 +50,9 @@ import java.util.function.Function;
  * @since 2.4.13
  */
 @ConditionalOnProperty(
-	prefix = MessageQueueProperties.Kafka.PREFIX,
-	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE
+	prefix = MessageQueueProperties.PREFIX,
+	name = Conditions.PRIMARY,
+	havingValue = "Kafka"
 )
 @ConditionalOnExpression("${spring.kafka.enabled:true}")
 @ConditionalOnBean(KafkaProperties.class)
@@ -81,8 +79,7 @@ public class KafkaMessageQueueAutoConfiguration {
 		Function<String, Boolean> matcher = type -> StringUtils.isBlank(type) && messageQueueProperties.getPrimary() != null ?
 			MessageQueueType.KAFKA.name().equalsIgnoreCase(messageQueueProperties.getPrimary()) :
 			MessageQueueType.KAFKA.name().equalsIgnoreCase(type);
-		KafkaConfig kafkaConfig = KafkaConvertor.INSTANCE.toConfig(kafkaProperties);
-		return new KafkaConsumer(kafkaConfig, messageListeners.getIfAvailable(),
+		return new KafkaConsumer(kafkaProperties, messageListeners.getIfAvailable(),
 			consumerFactory.getIfAvailable(), matcher);
 	}
 

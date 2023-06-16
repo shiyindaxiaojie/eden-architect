@@ -32,4 +32,6 @@ public class Conditions {
 	public static final String TRUE = "true";
 
 	public static final String FALSE = "false";
+
+	public static final String PRIMARY = "primary";
 }
