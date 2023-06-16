@@ -18,11 +18,12 @@ package org.ylzl.eden.common.mq.spring.boot.autoconfigure.condition;
 
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.ylzl.eden.common.mq.spring.boot.env.MessageQueueProperties;
-import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
 
 /**
  * 消息队列装配条件
@@ -40,23 +41,12 @@ public class OnMessageQueueCondition extends AnyNestedCondition {
 		super(ConfigurationPhase.REGISTER_BEAN);
 	}
 
-	@ConditionalOnProperty(
-		prefix = MessageQueueProperties.RocketMQ.PREFIX,
-		name = Conditions.ENABLED,
-		havingValue = Conditions.TRUE,
-		matchIfMissing = true
-	)
 	@ConditionalOnExpression("${rocketmq.enabled:true}")
 	@ConditionalOnBean(RocketMQProperties.class)
 	@ConditionalOnClass(RocketMQTemplate.class)
 	static class OnRocketMQCondition {
 	}
 
-	@ConditionalOnProperty(
-		prefix = MessageQueueProperties.Kafka.PREFIX,
-		name = Conditions.ENABLED,
-		havingValue = Conditions.TRUE
-	)
 	@ConditionalOnExpression("${spring.kafka.enabled:true}")
 	@ConditionalOnBean(KafkaProperties.class)
 	@ConditionalOnClass(KafkaTemplate.class)

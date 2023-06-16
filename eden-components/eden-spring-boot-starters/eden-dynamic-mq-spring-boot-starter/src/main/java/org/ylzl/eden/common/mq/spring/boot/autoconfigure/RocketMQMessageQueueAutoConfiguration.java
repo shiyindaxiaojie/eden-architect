@@ -54,9 +54,9 @@ import java.util.function.Function;
  * @since 2.4.13
  */
 @ConditionalOnProperty(
-	prefix = MessageQueueProperties.RocketMQ.PREFIX,
-	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE,
+	prefix = MessageQueueProperties.PREFIX,
+	name = Conditions.PRIMARY,
+	havingValue = "RocketMQ",
 	matchIfMissing = true
 )
 @ConditionalOnExpression("${rocketmq.enabled:true}")

@@ -17,8 +17,6 @@
 package org.ylzl.eden.common.mq.spring.boot.env;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -36,26 +34,4 @@ public class MessageQueueProperties {
 	private boolean enabled;
 
 	private String primary = "RocketMQ";
-
-	private final RocketMQ rocketMQ = new RocketMQ();
-
-	private final Kafka kafka = new Kafka();
-
-	@Setter
-	@Getter
-	public static class RocketMQ {
-
-		public static final String PREFIX = MessageQueueProperties.PREFIX + ".rocketmq";
-
-		private boolean enabled;
-	}
-
-	@Setter
-	@Getter
-	public static class Kafka {
-
-		public static final String PREFIX = MessageQueueProperties.PREFIX + ".kafka";
-
-		private boolean enabled;
-	}
 }
