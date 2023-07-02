@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.security.web.handler;
 
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +26,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Ajax 认证失败处理
+ * 无访问权限处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Slf4j
+public class ForbiddenAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-		throws IOException {
-		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", "认证失败");
+	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException {
+		log.error("无访问权限: {}", e.getMessage(), e);
+		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-ACCESS-403", "访问受限");
 	}
 }

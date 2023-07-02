@@ -14,37 +14,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.jwt.token;
-
-import org.ylzl.eden.spring.security.common.token.AccessToken;
+package org.ylzl.eden.spring.security.common.constant;
 
 /**
- * 令牌存储接口
+ * 认证类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface JwtTokenStore {
+public enum AuthorizationType {
 
-	/**
-	 * 存储访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 */
-	void storeAccessToken(AccessToken accessToken);
-
-	/**
-	 * 校验访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 * @return 校验是否通过
-	 */
-	boolean validateAccessToken(AccessToken accessToken);
-
-	/**
-	 * 清除访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 */
-	void removeAccessToken(AccessToken accessToken);
+	BEARER;
 }

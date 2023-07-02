@@ -14,37 +14,23 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.jwt.token;
+package org.ylzl.eden.spring.security.common.token;
 
-import org.ylzl.eden.spring.security.common.token.AccessToken;
+import lombok.*;
 
 /**
- * 令牌存储接口
+ * 刷新令牌
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public interface JwtTokenStore {
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Data
+public class RefreshToken {
 
-	/**
-	 * 存储访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 */
-	void storeAccessToken(AccessToken accessToken);
-
-	/**
-	 * 校验访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 * @return 校验是否通过
-	 */
-	boolean validateAccessToken(AccessToken accessToken);
-
-	/**
-	 * 清除访问令牌
-	 *
-	 * @param accessToken 访问令牌
-	 */
-	void removeAccessToken(AccessToken accessToken);
+	private String value;
 }
