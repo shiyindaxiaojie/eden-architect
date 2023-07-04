@@ -210,7 +210,7 @@ public class RedisConnectionWrapper implements RedisConnection {
 
 	@Override
 	public Long hDel(byte[] key, byte[]... fields) {
-		return RedisTemplateCatSupport.execute(RedisCommand.HDEL, key, () -> connection.hDel(key));
+		return RedisTemplateCatSupport.execute(RedisCommand.HDEL, key, () -> connection.hDel(key, fields));
 	}
 
 	@Override
