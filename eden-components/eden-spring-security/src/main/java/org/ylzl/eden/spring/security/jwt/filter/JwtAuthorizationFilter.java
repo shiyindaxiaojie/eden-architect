@@ -16,22 +16,20 @@
 
 package org.ylzl.eden.spring.security.jwt.filter;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.filter.GenericFilterBean;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
+import org.ylzl.eden.spring.security.common.token.AccessToken;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
-import org.ylzl.eden.spring.security.jwt.model.AccessToken;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -43,19 +41,30 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@RequiredArgsConstructor
-public class JwtFilter extends GenericFilterBean {
+public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+
+	private static final String TOKEN_IS_REQUIRED = "Token is required";
 
 	private final JwtTokenProvider jwtTokenProvider;
 
 	private final PathMatcher pathMatcher;
 
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
+								  JwtTokenProvider jwtTokenProvider, PathMatcher pathMatcher) {
+		super(authenticationManager);
+		this.jwtTokenProvider = jwtTokenProvider;
+		this.pathMatcher = pathMatcher;
+	}
+
 	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) servletRequest;
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+									FilterChain chain) throws IOException, ServletException {
 		if (!isAnonymousUrls(request)) {
 			AccessToken accessToken = resolveToken(request);
+			if (accessToken == null) {
+				ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", TOKEN_IS_REQUIRED);
+				return;
+			}
 			try {
 				this.jwtTokenProvider.validateToken(accessToken);
 			} catch (Exception e) {
@@ -65,7 +74,7 @@ public class JwtFilter extends GenericFilterBean {
 			Authentication authentication = this.jwtTokenProvider.getAuthentication(accessToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
-		filterChain.doFilter(servletRequest, servletResponse);
+		chain.doFilter(request, response);
 	}
 
 	private AccessToken resolveToken(HttpServletRequest request) {

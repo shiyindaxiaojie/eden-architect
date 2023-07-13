@@ -44,7 +44,7 @@ import org.ylzl.eden.spring.boot.info.contributor.MailEnabledInfoContributor;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnClass(name = "org.springframework.boot.actuate.info.InfoContributor")
+@ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration")
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false, value = "enhancedInfoContributorAutoConfiguration")
 public class InfoContributorAutoConfiguration {

@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.web.authentication;
+package org.ylzl.eden.spring.security.web.handler;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +26,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Ajax 认证成功处理
+ * 未认证处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+@Slf4j
+public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
 	@Override
-	public void onAuthenticationSuccess(
-		HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-		ServletUtils.wrap(response, HttpServletResponse.SC_OK);
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
+		log.error("用户未认证: {}", e.getMessage(), e);
+		ServletUtils.wrap(response, HttpServletResponse.SC_UNAUTHORIZED, "USER-AUTH-400", "用户未认证");
 	}
 }

@@ -29,14 +29,10 @@ import org.ylzl.eden.commons.lang.Strings;
 @UtilityClass
 public class JwtConstants {
 
-	/**
-	 * Bearer 认证类型
-	 */
+	/** Bearer 认证类型 */
 	public static String BEARER_TYPE = "Bearer";
 
-	/**
-	 * Bearer 认证前缀
-	 */
+	/** Bearer 认证前缀 */
 	public static final String BEARER_PREFIX = BEARER_TYPE + Strings.SPACE;
 
 	public static final String AUDIENCE = Claims.AUDIENCE;

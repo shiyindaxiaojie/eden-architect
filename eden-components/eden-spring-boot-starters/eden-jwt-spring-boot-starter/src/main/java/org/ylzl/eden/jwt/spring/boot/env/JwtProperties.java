@@ -28,8 +28,10 @@ import java.util.List;
  * @since 2.4.13
  */
 @Data
-@ConfigurationProperties(prefix = "security.jwt")
+@ConfigurationProperties(prefix = JwtProperties.PREFIX)
 public class JwtProperties {
+
+	public static final String PREFIX = "spring.security.jwt";
 
 	private boolean enabled;
 

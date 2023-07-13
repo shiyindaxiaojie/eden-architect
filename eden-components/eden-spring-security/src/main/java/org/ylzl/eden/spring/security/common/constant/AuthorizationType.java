@@ -14,29 +14,15 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.scripts;
-
-import lombok.experimental.UtilityClass;
-import org.mvel2.MVEL;
-
-import java.io.Serializable;
-import java.util.Map;
+package org.ylzl.eden.spring.security.common.constant;
 
 /**
- * MVEL 脚本语言工具集
+ * 认证类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@UtilityClass
-public class MVELUtils {
+public enum AuthorizationType {
 
-	public static <T> T executeExpression(String expression, Class<T> clazz) {
-		return executeExpression(expression, clazz, null);
-	}
-
-	public static <T> T executeExpression(String expression, Class<T> clazz, Map<String, Object> vars) {
-		Serializable compileExpression = MVEL.compileExpression(expression);
-		return MVEL.executeExpression(compileExpression, vars, clazz);
-	}
+	BEARER;
 }
