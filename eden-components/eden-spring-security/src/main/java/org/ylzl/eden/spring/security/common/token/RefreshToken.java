@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.boot.bootstrap.constant;
+package org.ylzl.eden.spring.security.common.token;
 
-import lombok.experimental.UtilityClass;
+import lombok.*;
 
 /**
- * 自动转配条件常量定义
+ * 刷新令牌
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@UtilityClass
-public class Conditions {
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Data
+public class RefreshToken {
 
-	public static final String ENABLED = "enabled";
-
-	public static final String TRUE = "true";
-
-	public static final String FALSE = "false";
-
-	public static final String PRIMARY = "primary";
+	private String value;
 }

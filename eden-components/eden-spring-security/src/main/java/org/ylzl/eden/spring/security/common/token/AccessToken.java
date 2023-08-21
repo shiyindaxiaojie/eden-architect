@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.jwt.model;
+package org.ylzl.eden.spring.security.common.token;
 
 import lombok.*;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;

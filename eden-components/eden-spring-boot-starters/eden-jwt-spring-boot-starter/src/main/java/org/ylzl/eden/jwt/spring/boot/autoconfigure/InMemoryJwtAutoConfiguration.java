@@ -18,14 +18,15 @@ package org.ylzl.eden.jwt.spring.boot.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.jwt.spring.boot.env.JwtProperties;
-import org.ylzl.eden.spring.security.jwt.model.AccessToken;
+import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
+import org.ylzl.eden.spring.security.common.token.AccessToken;
 import org.ylzl.eden.spring.security.jwt.token.JwtTokenStore;
 
 
@@ -35,7 +36,11 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenStore;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnExpression(JwtAutoConfiguration.SECURITY_JWT_ENABLED)
+@ConditionalOnProperty(
+	prefix = JwtProperties.PREFIX,
+	name = Conditions.ENABLED,
+	havingValue = Conditions.TRUE
+)
 @EnableConfigurationProperties(JwtProperties.class)
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

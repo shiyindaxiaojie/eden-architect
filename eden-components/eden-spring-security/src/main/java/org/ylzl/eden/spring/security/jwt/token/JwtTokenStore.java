@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.spring.security.jwt.token;
 
-import org.ylzl.eden.spring.security.jwt.model.AccessToken;
+import org.ylzl.eden.spring.security.common.token.AccessToken;
 
 /**
  * 令牌存储接口
@@ -26,9 +26,25 @@ import org.ylzl.eden.spring.security.jwt.model.AccessToken;
  */
 public interface JwtTokenStore {
 
-	boolean validateAccessToken(AccessToken accessToken);
-
+	/**
+	 * 存储访问令牌
+	 *
+	 * @param accessToken 访问令牌
+	 */
 	void storeAccessToken(AccessToken accessToken);
 
+	/**
+	 * 校验访问令牌
+	 *
+	 * @param accessToken 访问令牌
+	 * @return 校验是否通过
+	 */
+	boolean validateAccessToken(AccessToken accessToken);
+
+	/**
+	 * 清除访问令牌
+	 *
+	 * @param accessToken 访问令牌
+	 */
 	void removeAccessToken(AccessToken accessToken);
 }

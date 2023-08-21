@@ -171,13 +171,46 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 		}
 		consumer.setNamesrvAddr(rocketMQConfig.getNameServer());
 
-		// 消费线程配置
-		int consumeThreadMin = 1;
-		if (annotation.consumeThreadMin() > 0) {
-			consumeThreadMin = annotation.consumeThreadMin();
-		} else if (rocketMQConfig.getConsumer().getConsumeThreadMax() > 0) {
-			consumeThreadMin = rocketMQConfig.getConsumer().getConsumeThreadMin();
+		// 消费者本地缓存消息数，超过这个阈值会降低消费速率
+		int pullThresholdForQueue = 1000;
+		if (rocketMQConfig.getConsumer().getPullThresholdForQueue() > 0) {
+			pullThresholdForQueue = rocketMQConfig.getConsumer().getPullThresholdForQueue();
 		}
+		consumer.setPullThresholdForQueue(pullThresholdForQueue);
+
+		// 消费者本地缓存消息大小，超过这个阈值会降低消费速率
+		int pullThresholdSizeForQueue = 100;
+		if (rocketMQConfig.getConsumer().getPullThresholdSizeForQueue() > 0) {
+			pullThresholdSizeForQueue = rocketMQConfig.getConsumer().getPullThresholdSizeForQueue();
+		}
+		consumer.setPullThresholdSizeForQueue(pullThresholdSizeForQueue);
+
+		// 批量拉取消息条数
+		int pullBatchSize = 32;
+		if (annotation.pullBatchSize() > 0) {
+			pullBatchSize = annotation.pullBatchSize();
+		} else if (rocketMQConfig.getConsumer().getPullBatchSize() > 0) {
+			pullBatchSize = rocketMQConfig.getConsumer().getPullBatchSize();
+		}
+		consumer.setPullBatchSize(pullBatchSize);
+
+		// 批量消费消息条数
+		int consumeMessageBatchMaxSize = 1;
+		if (annotation.consumeMessageBatchMaxSize() > 0) {
+			consumeMessageBatchMaxSize = annotation.consumeMessageBatchMaxSize();
+		} else if (rocketMQConfig.getConsumer().getConsumeMessageBatchMaxSize() > 0) {
+			consumeMessageBatchMaxSize = rocketMQConfig.getConsumer().getConsumeMessageBatchMaxSize();
+		}
+		consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
+
+		// 消费者本地缓存消息跨度，超过这个阈值会降低消费速率
+		int consumeConcurrentlyMaxSpan = 2000;
+		if (rocketMQConfig.getConsumer().getConsumeConcurrentlyMaxSpan() > 0) {
+			consumeConcurrentlyMaxSpan = rocketMQConfig.getConsumer().getConsumeConcurrentlyMaxSpan();
+		}
+		consumer.setConsumeConcurrentlyMaxSpan(consumeConcurrentlyMaxSpan);
+
+		// 消费最大线程
 		int consumeThreadMax = 64;
 		if (annotation.consumeThreadMax() > 0) {
 			consumeThreadMax = annotation.consumeThreadMax();
@@ -185,9 +218,17 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			consumeThreadMax = rocketMQConfig.getConsumer().getConsumeThreadMax();
 		}
 		consumer.setConsumeThreadMax(consumeThreadMax);
-		if (consumeThreadMax < consumeThreadMin) {
-			consumer.setConsumeThreadMin(consumeThreadMax);
+
+		// 消费最小线程
+		int consumeThreadMin = 1;
+		if (annotation.consumeThreadMin() > 0) {
+			consumeThreadMin = annotation.consumeThreadMin();
+		} else if (rocketMQConfig.getConsumer().getConsumeThreadMax() > 0) {
+			consumeThreadMin = rocketMQConfig.getConsumer().getConsumeThreadMin();
 		}
+        consumer.setConsumeThreadMin(Math.min(consumeThreadMin, consumeThreadMax));
+
+		// 消费超时
 		if (annotation.consumeTimeout() > 0) {
 			consumer.setConsumeTimeout(annotation.consumeTimeout());
 		} else if (rocketMQConfig.getConsumer().getConsumeTimeout() > 0) {
@@ -225,24 +266,6 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 				consumer.setMessageModel(MessageModel.valueOf(rocketMQConfig.getConsumer().getMessageModel()));
 		}
 		consumer.subscribe(topic, messageSelector);
-
-		// 批量拉取消息条数设置
-		int pullBatchSize = 32;
-		if (annotation.pullBatchSize() > 0) {
-			pullBatchSize = annotation.pullBatchSize();
-		} else if (rocketMQConfig.getConsumer().getPullBatchSize() > 0) {
-			pullBatchSize = rocketMQConfig.getConsumer().getPullBatchSize();
-		}
-		consumer.setPullBatchSize(pullBatchSize);
-
-		// 批量消费消息条数设置
-		int consumeMessageBatchMaxSize = 1;
-		if (annotation.consumeMessageBatchMaxSize() > 0) {
-			consumeMessageBatchMaxSize = annotation.consumeMessageBatchMaxSize();
-		} else if (rocketMQConfig.getConsumer().getConsumeMessageBatchMaxSize() > 0) {
-			consumeMessageBatchMaxSize = rocketMQConfig.getConsumer().getConsumeMessageBatchMaxSize();
-		}
-		consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
 
 		// 设置顺序模式或者并发模式
 		ConsumeMode consumeMode = annotation.consumeMode() != ConsumeMode.UNSET ?

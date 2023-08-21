@@ -21,9 +21,7 @@ import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.PathMatcher;
-import org.ylzl.eden.spring.security.jwt.filter.JwtFilter;
-import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
+import org.ylzl.eden.spring.security.jwt.filter.JwtAuthorizationFilter;
 
 /**
  * JWT 安全配置
@@ -34,13 +32,10 @@ import org.ylzl.eden.spring.security.jwt.token.JwtTokenProvider;
 @RequiredArgsConstructor
 public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-	private final JwtTokenProvider jwtTokenProvider;
-
-	private final PathMatcher pathMatcher;
+	private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
 	@Override
 	public void configure(HttpSecurity http) {
-		JwtFilter jwtFilter = new JwtFilter(jwtTokenProvider, pathMatcher);
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }

@@ -28,16 +28,17 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.ylzl.eden.common.mq.MessageQueueConsumer;
 import org.ylzl.eden.common.mq.MessageQueueListener;
-import org.ylzl.eden.common.mq.integration.kafka.config.KafkaConfig;
 import org.ylzl.eden.common.mq.model.Message;
 import org.ylzl.eden.commons.lang.Strings;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 /**
@@ -60,7 +61,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final List<Consumer<String, String>> consumers = Lists.newArrayList();
 
-	private final KafkaConfig kafkaConfig;
+	private final KafkaProperties kafkaConfig;
 
 	private final List<MessageQueueConsumer> messageQueueConsumers;
 
@@ -68,7 +69,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 
 	private final Function<String, Boolean> matcher;
 
-	private volatile boolean threadRunning = false;
+	private final AtomicBoolean threadRunning = new AtomicBoolean(false);
 
 	@Override
 	public void afterPropertiesSet() {
@@ -84,7 +85,7 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 			consumers.add(consumer);
 
 			new Thread(() -> {
-				while (threadRunning) {
+				while (threadRunning.get()) {
 					try {
 						ConsumerRecords<String, String> consumerRecords =
 							consumer.poll(kafkaConfig.getConsumer().getFetchMaxWait());
@@ -111,12 +112,13 @@ public class KafkaConsumer implements InitializingBean, DisposableBean {
 				}
 			}).start();
 		}
+		threadRunning.set(true);
 	}
 
 	@Override
 	public void destroy() {
 		log.debug(DESTROY_KAFKA_CONSUMER);
-		threadRunning = false;
+		threadRunning.set(false);
 		consumers.forEach(Consumer::unsubscribe);
 		consumers.clear();
 	}

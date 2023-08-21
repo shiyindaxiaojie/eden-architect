@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.security.jwt.userdetails;
+package org.ylzl.eden.spring.security.common.user;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

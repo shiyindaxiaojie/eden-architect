@@ -27,9 +27,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
+import org.ylzl.eden.spring.security.common.token.AccessToken;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
-import org.ylzl.eden.spring.security.jwt.model.AccessToken;
-import org.ylzl.eden.spring.security.jwt.userdetails.LoginUserDetails;
+import org.ylzl.eden.spring.security.common.user.LoginUserDetails;
 
 import java.util.Map;
 
@@ -54,9 +54,9 @@ public class JwtTokenService {
 	/**
 	 * 认证
 	 *
-	 * @param login
-	 * @param claims
-	 * @return
+	 * @param login 登录信息
+	 * @param claims 附加信息
+	 * @return 访问令牌
 	 */
 	public AccessToken authenticate(LoginUserDetails login, Map<String, Object> claims) {
 		try {

@@ -47,7 +47,7 @@
 		<lombok.version>1.18.18</lombok.version>
 		<mapstruct.version>1.4.1.Final</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
-		<arthas.version>3.6.0</arthas.version>
+		<arthas.version>3.6.7</arthas.version>
 
 		<!-- Web 组件 -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
@@ -97,7 +97,7 @@
 		<ftpserver.version>1.1.1</ftpserver.version>
 		<truelicense.version>1.33</truelicense.version>
 		<thumbnailator.version>0.4.8</thumbnailator.version>
-		<mvel.version>2.4.8.Final</mvel.version>
+		<mvel.version>2.5.0.Final</mvel.version>
 		<json-lib.version>2.4</json-lib.version>
 		<transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
 		<log4j2-ttl-thread-context-map.version>1.4.0</log4j2-ttl-thread-context-map.version>
