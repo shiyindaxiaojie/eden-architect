@@ -626,14 +626,13 @@
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>${spring-boot-maven-plugin.version}</version>
 					<configuration>
-						<executable>true</executable>
-						<fork>true</fork>
 						<mainClass>${start-class}</mainClass>
-						<includeSystemScope>true</includeSystemScope>
 						<layers>
-							<enabled>${build.layers.enabled}</enabled>
+							<enabled>true</enabled>
 							<includeLayerTools>true</includeLayerTools>
-							<configuration>${project.basedir}/src/main/docker/layers.xml</configuration>
+							<configuration>
+								${project.basedir}/src/main/docker/layers.xml
+							</configuration>
 						</layers>
 					</configuration>
 					<executions>
@@ -642,12 +641,6 @@
 							<phase>compile</phase>
 							<goals>
 								<goal>build-info</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>spring-boot-repackage</id>
-							<goals>
-								<goal>repackage</goal>
 							</goals>
 						</execution>
 					</executions>
