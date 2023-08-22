@@ -31,8 +31,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "rocketmq.producer")
 public class RocketMQProducerProperties {
 
-	/**
-	 * Namespace for this MQ Producer instance.
-	 */
+	/** 旧版本的 Spring Boot Starter 没有提供以下配置 */
 	private String namespace;
 }

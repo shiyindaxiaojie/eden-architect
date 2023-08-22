@@ -61,7 +61,13 @@ public class RocketMQConsumerProperties {
 
 	private String consumeMode = "CONCURRENTLY";
 
+	private int pullThresholdForQueue = 1000;
+
+	private int pullThresholdSizeForQueue = 100;
+
 	private int consumeMessageBatchMaxSize = 1;
+
+	private int consumeConcurrentlyMaxSpan = 2000;
 
 	private int consumeThreadMin = 20;
 
