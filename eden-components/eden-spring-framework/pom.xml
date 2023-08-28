@@ -181,6 +181,12 @@
 			<artifactId>fastjson2</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- Gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- Jakarta -->
 		<dependency>
@@ -260,5 +266,5 @@
 			<artifactId>groovy</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>

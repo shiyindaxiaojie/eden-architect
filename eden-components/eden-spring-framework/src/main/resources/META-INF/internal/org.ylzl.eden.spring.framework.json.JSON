@@ -1,3 +1,4 @@
 jackson=org.ylzl.eden.spring.framework.json.jackson.Jackson
 fastjson=org.ylzl.eden.spring.framework.json.fastjson.Fastjson
 fastjson2=org.ylzl.eden.spring.framework.json.fastjson2.Fastjson2
+gson=org.ylzl.eden.spring.framework.json.gson.Gson
