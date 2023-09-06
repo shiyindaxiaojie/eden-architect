@@ -156,7 +156,7 @@
 		<dubbo.version>3.2.1</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
-		<curator.version>5.1.0</curator.version>
+		<curator.version>4.3.0</curator.version>
 		<zkclient.version>0.1</zkclient.version>
 		<xxl-job.version>2.4.0</xxl-job.version>
 		<grpc.version>1.57.2</grpc.version>

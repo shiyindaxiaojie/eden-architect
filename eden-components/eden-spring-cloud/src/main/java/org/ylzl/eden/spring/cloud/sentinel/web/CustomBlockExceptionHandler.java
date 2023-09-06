@@ -18,8 +18,8 @@ package org.ylzl.eden.spring.cloud.sentinel.web;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import org.springframework.http.MediaType;
-import org.ylzl.eden.spring.framework.json.support.JSONHelper;
+import lombok.extern.slf4j.Slf4j;
+import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +30,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Slf4j
 public class CustomBlockExceptionHandler implements BlockExceptionHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, BlockException e) throws Exception {
-		Object body = BlockResponseBuilder.buildResponse(e);
-		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-		response.getWriter().write(JSONHelper.json().toJSONString(body));
+		String body = BlockResponseBuilder.buildResponse(e).toString();
+		log.debug("Trigger sentinel block response: {}", body);
+		response.setContentType(ServletUtils.APPLICATION_JSON_UTF8_VALUE);
+		response.getWriter().write(body);
 	}
 }
