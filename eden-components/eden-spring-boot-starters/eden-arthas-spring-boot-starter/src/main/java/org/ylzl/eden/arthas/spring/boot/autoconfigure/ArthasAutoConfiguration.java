@@ -95,7 +95,7 @@ public class ArthasAutoConfiguration {
 			arthasConfigMap.put(APP_NAME, appName);
 		}
 
-		Map<String, String> mapWithPrefix = new HashMap<String, String>(arthasConfigMap.size());
+		Map<String, String> mapWithPrefix = new HashMap<>(arthasConfigMap.size());
 		for (Map.Entry<String, String> entry : arthasConfigMap.entrySet()) {
 			mapWithPrefix.put(ARTHAS_PROPERTIES_PREFIX + entry.getKey(), entry.getValue());
 		}
