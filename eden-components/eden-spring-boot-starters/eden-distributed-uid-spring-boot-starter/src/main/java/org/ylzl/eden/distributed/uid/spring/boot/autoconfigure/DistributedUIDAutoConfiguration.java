@@ -60,7 +60,7 @@ public class DistributedUIDAutoConfiguration {
 	private final DistributedUIDProperties properties;
 
 	@ConditionalOnProperty(
-		prefix = DistributedUIDProperties.ID_GENERATOR_PREFIX,
+		prefix = DistributedUIDProperties.SNOWFLAKE_GENERATOR_PREFIX,
 		name = Conditions.ENABLED,
 		havingValue = Conditions.FALSE
 	)
