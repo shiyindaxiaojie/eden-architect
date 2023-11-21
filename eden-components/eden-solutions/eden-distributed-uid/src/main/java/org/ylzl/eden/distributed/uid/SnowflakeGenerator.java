@@ -25,13 +25,6 @@ package org.ylzl.eden.distributed.uid;
 public interface SnowflakeGenerator {
 
 	/**
-	 * 生成器类型
-	 *
-	 * @return 生成器类型
-	 */
-	String generatorType();
-
-	/**
 	 * 获取ID
 	 *
 	 * @return ID

@@ -25,13 +25,6 @@ package org.ylzl.eden.distributed.uid;
 public interface SegmentGenerator {
 
 	/**
-	 * 类型
-	 *
-	 * @return 类型
-	 */
-	String generatorType();
-
-	/**
 	 * 从号段获取ID
 	 *
 	 * @return 号段
