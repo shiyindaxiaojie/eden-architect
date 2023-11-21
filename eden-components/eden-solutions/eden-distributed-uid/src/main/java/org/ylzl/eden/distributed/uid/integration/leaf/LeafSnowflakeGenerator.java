@@ -66,16 +66,6 @@ public class LeafSnowflakeGenerator implements SnowflakeGenerator {
 	}
 
 	/**
-	 * 生成器类型
-	 *
-	 * @return 生成器类型
-	 */
-	@Override
-	public String generatorType() {
-		return SnowflakeGeneratorType.LEAF.name();
-	}
-
-	/**
 	 * 获取ID
 	 *
 	 * @return ID

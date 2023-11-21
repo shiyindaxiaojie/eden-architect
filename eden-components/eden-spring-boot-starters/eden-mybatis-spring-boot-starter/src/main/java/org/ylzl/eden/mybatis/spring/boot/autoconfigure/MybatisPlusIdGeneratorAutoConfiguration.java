@@ -9,12 +9,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
+import org.ylzl.eden.distributed.uid.SegmentGenerator;
+import org.ylzl.eden.distributed.uid.SnowflakeGenerator;
 import org.ylzl.eden.mybatis.spring.boot.env.MybatisPlusIdGeneratorProperties;
 import org.ylzl.eden.mybatis.spring.boot.idgenerator.SegmentIdentifierGenerator;
 import org.ylzl.eden.mybatis.spring.boot.idgenerator.SnowflakeIdentifierGenerator;
 
 /**
- *  MybatisPlus ID生成自动装配
+ *  MybatisPlus ID 生成自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -32,8 +34,8 @@ public class MybatisPlusIdGeneratorAutoConfiguration {
 		havingValue = MybatisPlusIdGeneratorProperties.SNOWFLAKE
 	)
 	@Bean
-	public SnowflakeIdentifierGenerator snowflakeIdentifierGenerator() {
-		return new SnowflakeIdentifierGenerator();
+	public SnowflakeIdentifierGenerator snowflakeIdentifierGenerator(SnowflakeGenerator snowflakeGenerator) {
+		return new SnowflakeIdentifierGenerator(snowflakeGenerator);
 	}
 
 	@ConditionalOnProperty(
@@ -42,7 +44,7 @@ public class MybatisPlusIdGeneratorAutoConfiguration {
 		havingValue = MybatisPlusIdGeneratorProperties.SEGMENT
 	)
 	@Bean
-	public SegmentIdentifierGenerator segmentIdentifierGenerator() {
-		return new SegmentIdentifierGenerator();
+	public SegmentIdentifierGenerator segmentIdentifierGenerator(SegmentGenerator segmentGenerator) {
+		return new SegmentIdentifierGenerator(segmentGenerator);
 	}
 }
