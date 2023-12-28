@@ -30,9 +30,8 @@ public interface TimeToLiveIdempotentStrategy {
 	 * 检查是否一次请求
 	 *
 	 * @param key      键
-	 * @param value    值
 	 * @param ttl      存活时间
 	 * @param timeUnit 时间单位
 	 */
-	void checkOnceRequest(String key, String value, long ttl, TimeUnit timeUnit);
+	void checkOnceRequest(String key, long ttl, TimeUnit timeUnit);
 }

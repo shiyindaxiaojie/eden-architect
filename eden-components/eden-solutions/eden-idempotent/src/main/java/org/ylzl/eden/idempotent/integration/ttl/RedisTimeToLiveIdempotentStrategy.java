@@ -19,6 +19,7 @@ package org.ylzl.eden.idempotent.integration.ttl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.config.TimeToLiveIdempotentConfig;
 import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
@@ -43,19 +44,19 @@ public class RedisTimeToLiveIdempotentStrategy implements TimeToLiveIdempotentSt
 	 * 检查是否首次请求
 	 *
 	 * @param key      键
-	 * @param value    值
 	 * @param ttl      存活时间
 	 * @param timeUnit 时间单位
 	 */
 	@Override
-	public void checkOnceRequest(String key, String value, long ttl, TimeUnit timeUnit) {
+	public void checkOnceRequest(String key, long ttl, TimeUnit timeUnit) {
 		String resolveKey = config.getPrefix() + ":" + key;
 
 		// 如果存在，表示已被其他请求处理，判定为重复请求
 		AssertUtils.isTrue(Boolean.FALSE.equals(redisTemplate.hasKey(resolveKey)), "REQ-UNIQUE-409");
 
 		// 如果存储失败，表示已被其他请求处理，判定为重复请求
-		boolean isSuccess = Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(resolveKey, value, ttl, timeUnit));
+		boolean isSuccess = Boolean.TRUE.equals(
+			redisTemplate.opsForValue().setIfAbsent(resolveKey, Strings.EMPTY, ttl, timeUnit));
 		AssertUtils.isTrue(isSuccess, "REQ-UNIQUE-409");
 	}
 }
