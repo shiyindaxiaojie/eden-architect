@@ -145,7 +145,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	 */
 	@Override
 	public <T> void set(String key, T data, long timeout, TimeUnit unit) {
-		String value = JSONHelper.json().toJSONString(data);
+		String value = toString(data);
 		redisTemplate.opsForValue().set(key, value, timeout, unit);
 	}
 
@@ -244,7 +244,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void rightPushAll(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			values[i] = JSONHelper.json().toJSONString(data.get(i));
+			values[i] = toString(data.get(i));
 		}
 		redisTemplate.opsForList().rightPushAll(key, values);
 	}
@@ -273,7 +273,7 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	public <T> void add(String key, List<T> data) {
 		String[] values = new String[data.size()];
 		for (int i = 0; i < values.length; i++) {
-			values[i] = JSONHelper.json().toJSONString(data.get(i));
+			values[i] = toString(data.get(i));
 		}
 		redisTemplate.opsForSet().add(key, values);
 	}
@@ -293,5 +293,25 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 			return optional;
 		}
 		return Optional.of(JSONHelper.json().parseObject(value, clazz));
+	}
+
+	/**
+	 * 数据转换
+	 *
+	 * @param data 原始数据
+	 * @return 字符串
+	 * @param <T>
+	 */
+	private <T> String toString(T data) {
+		if (data == null) {
+			return null;
+		}
+		String value = null;
+		if (data instanceof CharSequence || data instanceof Character) {
+			value = data.toString();
+		} else {
+			value = JSONHelper.json().toJSONString(data);
+		}
+		return value;
 	}
 }
