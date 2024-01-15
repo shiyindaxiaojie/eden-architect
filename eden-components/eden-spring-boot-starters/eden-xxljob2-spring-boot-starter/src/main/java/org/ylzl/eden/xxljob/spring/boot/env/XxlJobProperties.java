@@ -52,6 +52,11 @@ public class XxlJobProperties {
 	public static class Executor {
 
 		/**
+		 * 执行器名称，必填项
+		 */
+		private String title;
+
+		/**
 		 * 应用标识，配置为空时自动获取 Spring 应用名称
 		 */
 		private String appName;

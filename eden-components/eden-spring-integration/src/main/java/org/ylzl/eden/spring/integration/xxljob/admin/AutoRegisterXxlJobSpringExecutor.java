@@ -26,6 +26,7 @@ import com.xxl.job.core.glue.GlueTypeEnum;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.handler.impl.MethodJobHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -51,6 +52,8 @@ import java.util.Map;
 @Slf4j
 public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 
+	public static final String UNKNOWN = "Unknown";
+
 	private final List<XxlJobInfo> xxlJobInfos = Lists.newArrayList();
 
 	private final XxlJobAdminTemplate xxlJobAdminTemplate;
@@ -58,6 +61,9 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 	private static ApplicationContext applicationContext;
 
 	private String appName;
+
+	@Setter
+	private String title = UNKNOWN;
 
 	@Override
 	public void setAppname(String appname) {
@@ -88,8 +94,8 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 		super.start();
 
 		XxlJobGroup xxlJobGroup = new XxlJobGroup();
-		xxlJobGroup.setTitle(appName);
-		xxlJobGroup.setAppName(appName);
+		xxlJobGroup.setTitle(title);
+		xxlJobGroup.setAppname(appName);
 		xxlJobGroup.setAddressType(0);
 		ResponseEntity<String> responseEntity = xxlJobAdminTemplate.saveGroup(xxlJobGroup);
 		if (!responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -97,8 +103,7 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 			return;
 		}
 
-		ReturnT<String> returnT = JSON.parseObject(responseEntity.getBody(), new TypeReference<ReturnT<String>>() {
-		});
+		ReturnT<String> returnT = JSON.parseObject(responseEntity.getBody(), new TypeReference<ReturnT<String>>() {});
 		if (returnT == null || returnT.getCode() == ReturnT.FAIL_CODE) {
 			log.warn("添加执行器 '{}' 失败，原因: {}", appName, returnT == null ? "接口返回NULL" : returnT.getMsg());
 			return;
@@ -156,26 +161,17 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 				}
 
 				String name = xxlJob.value();
-				if (name.trim().length() == 0) {
+				if (name.trim().isEmpty()) {
 					throw new RuntimeException("xxl-job method-jobhandler name invalid, for[" + bean.getClass() + "#" + method.getName() + "] .");
 				}
 				if (loadJobHandler(name) != null) {
 					throw new RuntimeException("xxl-job jobhandler[" + name + "] naming conflicts.");
 				}
-
-				if (!(method.getParameterTypes().length == 1 && method.getParameterTypes()[0].isAssignableFrom(String.class))) {
-					throw new RuntimeException("xxl-job method-jobhandler param-classtype invalid, for[" + bean.getClass() + "#" + method.getName() + "] , " +
-						"The correct method format like \" public ReturnT<String> execute(String param) \" .");
-				}
-				if (!method.getReturnType().isAssignableFrom(ReturnT.class)) {
-					throw new RuntimeException("xxl-job method-jobhandler return-classtype invalid, for[" + bean.getClass() + "#" + method.getName() + "] , " +
-						"The correct method format like \" public ReturnT<String> execute(String param) \" .");
-				}
 				method.setAccessible(true);
 
 				Method initMethod = null;
 				Method destroyMethod = null;
-				if (xxlJob.init().trim().length() > 0) {
+				if (!xxlJob.init().trim().isEmpty()) {
 					try {
 						initMethod = bean.getClass().getDeclaredMethod(xxlJob.init());
 						initMethod.setAccessible(true);
@@ -183,7 +179,7 @@ public class AutoRegisterXxlJobSpringExecutor extends XxlJobSpringExecutor {
 						throw new RuntimeException("xxl-job method-jobhandler initMethod invalid, for[" + bean.getClass() + "#" + method.getName() + "] .");
 					}
 				}
-				if (xxlJob.destroy().trim().length() > 0) {
+				if (!xxlJob.destroy().trim().isEmpty()) {
 					try {
 						destroyMethod = bean.getClass().getDeclaredMethod(xxlJob.destroy());
 						destroyMethod.setAccessible(true);
