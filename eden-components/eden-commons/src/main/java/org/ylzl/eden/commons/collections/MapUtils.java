@@ -37,4 +37,13 @@ public class MapUtils {
 	public static boolean isNotEmpty(final Map<?, ?> map) {
 		return org.apache.commons.collections4.MapUtils.isNotEmpty(map);
 	}
+
+	public static <K, V> K findKey(final Map<K, V> map, V value) {
+		for (Map.Entry<?, ?> entry : map.entrySet()) {
+			if (value == null ? entry.getValue() == null : value.equals(entry.getValue())) {
+				return (K) entry.getKey();
+			}
+		}
+		return null;
+	}
 }
