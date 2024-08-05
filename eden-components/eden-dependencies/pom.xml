@@ -142,7 +142,7 @@
 
 		<!-- 缓存组件 -->
 		<ehcache.version>2.10.4</ehcache.version>
-		<redisson.version>3.15.2</redisson.version>
+		<redisson.version>3.22.0</redisson.version>
 		<caffeine.version>2.9.3</caffeine.version>
 		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
 
