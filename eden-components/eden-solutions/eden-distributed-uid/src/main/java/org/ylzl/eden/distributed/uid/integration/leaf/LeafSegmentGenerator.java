@@ -135,7 +135,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	}
 
 	private void updateCacheFromDb() {
-		log.info("Update cache from db");
+		log.debug("Update cache from db");
 		try {
 			List<String> dbTags = leafAllocDAO.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
