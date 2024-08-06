@@ -46,11 +46,11 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 
 	public static final String ARTHAS_AGENT = "arthasAgent";
 
-	public static final String REGISTER_ARTHAS = "Register arthas";
+	public static final String REGISTER_ARTHAS = "Register arthas to {}";
 
 	public static final String ARTHAS_ALREADY_REGISTERED = "Arthas already registered";
 
-	public static final String DESTROY_ARTHAS = "Destroy arthas";
+	public static final String DESTROY_ARTHAS = "Destroy arthas from {}";
 
 	public static final String ARTHAS_ALREADY_DESTROY = "Arthas already destroy";
 
@@ -82,13 +82,13 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 			log.info(ARTHAS_ALREADY_REGISTERED);
 			return;
 		}
-		log.info(REGISTER_ARTHAS);
+		log.info(REGISTER_ARTHAS, arthasProperties.getTunnelServer());
 		DefaultListableBeanFactory defaultListableBeanFactory = getDefaultListableBeanFactory();
 		if (defaultListableBeanFactory.containsBean(ARTHAS_AGENT)) {
 			((ArthasAgent) defaultListableBeanFactory.getBean(ARTHAS_AGENT)).init();
 		} else {
 			defaultListableBeanFactory.registerSingleton(ARTHAS_AGENT,
-				ArthasAutoConfiguration.initArthasAgent(arthasConfigMap, environment, arthasProperties));
+				ArthasAutoConfiguration.init(arthasConfigMap, environment, arthasProperties));
 		}
 	}
 
@@ -97,11 +97,12 @@ public class ArthasEnvironmentChangeListener implements ApplicationListener<Envi
 			log.info(ARTHAS_ALREADY_DESTROY);
 			return;
 		}
-		log.info(DESTROY_ARTHAS);
+		log.info(DESTROY_ARTHAS, arthasProperties.getTunnelServer());
 		DefaultListableBeanFactory defaultListableBeanFactory = getDefaultListableBeanFactory();
 		if (defaultListableBeanFactory.containsBean(ARTHAS_AGENT)) {
 			defaultListableBeanFactory.destroySingleton(ARTHAS_AGENT);
 		}
+		ArthasAutoConfiguration.destroy(arthasConfigMap, arthasProperties);
 	}
 
 	@NotNull
