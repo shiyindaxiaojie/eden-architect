@@ -155,7 +155,7 @@
 		<!-- 分布式组件 -->
 		<dubbo.version>3.2.1</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
-		<zookeeper.version>3.7.0</zookeeper.version>
+		<zookeeper.version>3.8.4</zookeeper.version>
 		<curator.version>4.3.0</curator.version>
 		<zkclient.version>0.1</zkclient.version>
 		<xxl-job.version>2.4.0</xxl-job.version>
