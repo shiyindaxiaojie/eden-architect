@@ -155,7 +155,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 				segment.setMax(0);
 				segment.setStep(0);
 				cache.put(tag, buffer);
-				log.debug("Add tag {} from db to IdCache, SegmentBuffer {}", tag, buffer);
+				log.debug("Add tag {} from db to IdCache", tag);
 			}
 			for (String tag : dbTags) {
 				removeTagsSet.remove(tag);
