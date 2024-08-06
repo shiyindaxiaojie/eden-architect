@@ -177,7 +177,7 @@
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
 		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
-		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
+		<spring-security-oauth2-authorization-server.version>1.1.6</spring-security-oauth2-authorization-server.version>
 		<jjwt.version>0.11.2</jjwt.version>
 
 		<!-- 通讯组件 -->
