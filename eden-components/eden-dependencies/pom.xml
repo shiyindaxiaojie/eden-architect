@@ -888,6 +888,16 @@
 				<artifactId>arthas-spring-boot-starter</artifactId>
 				<version>${arthas.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-spy</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-agent-attach</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
 
 			<!-- Web -->
 			<dependency>
