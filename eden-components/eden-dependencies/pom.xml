@@ -113,9 +113,9 @@
 		<mysql-connector-j.version>8.0.32</mysql-connector-j.version>
 		<mariadb-java-client.version>3.1.1</mariadb-java-client.version>
 		<sqlite.version>3.42.0.0</sqlite.version>
-		<mybatis.version>3.5.6</mybatis.version>
-		<mybatis-spring.version>2.0.3</mybatis-spring.version>
-		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
+		<mybatis.version>3.5.16</mybatis.version>
+		<mybatis-spring.version>2.1.2</mybatis-spring.version>
+		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.7</mybatis-plus.version>
 		<pagehelper.version>5.3.1</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
@@ -886,6 +886,16 @@
 			<dependency>
 				<groupId>com.taobao.arthas</groupId>
 				<artifactId>arthas-spring-boot-starter</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-spy</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-agent-attach</artifactId>
 				<version>${arthas.version}</version>
 			</dependency>
 

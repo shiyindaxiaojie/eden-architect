@@ -135,7 +135,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	}
 
 	private void updateCacheFromDb() {
-		log.debug("Update cache from db");
+		log.debug("Leaf update cache from db");
 		try {
 			List<String> dbTags = leafAllocDAO.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
@@ -155,24 +155,24 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 				segment.setMax(0);
 				segment.setStep(0);
 				cache.put(tag, buffer);
-				log.debug("Add tag {} from db to IdCache", tag);
+				log.debug("Leaf add tag {} from db to IdCache", tag);
 			}
 			for (String tag : dbTags) {
 				removeTagsSet.remove(tag);
 			}
 			for (String tag : removeTagsSet) {
 				cache.remove(tag);
-				log.debug("Remove tag {} from IdCache", tag);
+				log.debug("Leaf remove tag {} from IdCache", tag);
 			}
 		} catch (Exception e) {
-			log.warn("Update cache from db exception", e);
+			log.warn("Leaf update cache from db exception", e);
 		}
 	}
 
 	private void updateCacheFromDbAtEveryMinute() {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(r -> {
 			Thread t = new Thread(r);
-			t.setName("check-idCache-thread");
+			t.setName("leaf-check-id-cache-thread");
 			t.setDaemon(true);
 			return t;
 		});
@@ -229,9 +229,9 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 						try {
 							updateSegmentFromDb(buffer.getKey(), next);
 							updateOk = true;
-							log.info("Update segment {} from db {}", buffer.getKey(), next);
+							log.info("Leaf update segment {} from db {}", buffer.getKey(), next);
 						} catch (Exception e) {
-							log.error("Update segment {} from db {} error", buffer.getKey(), e);
+							log.error("Leaf update segment {} from db {} error", buffer.getKey(), e);
 						} finally {
 							if (updateOk) {
 								buffer.wLock().lock();
