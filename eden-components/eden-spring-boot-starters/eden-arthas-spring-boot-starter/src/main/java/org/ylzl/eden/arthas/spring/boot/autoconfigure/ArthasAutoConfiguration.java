@@ -83,7 +83,7 @@ public class ArthasAutoConfiguration {
 	@Primary
 	@Bean
 	public HashMap<String, String> arthasConfigMap() {
-		return new HashMap();
+		return new HashMap<>();
 	}
 
 	@ConditionalOnProperty(
