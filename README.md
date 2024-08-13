@@ -29,7 +29,7 @@ Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建�
 
 * **eden-dependencies**: 依赖管理组件，管理全局依赖的版本。
 * **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置。
-* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 、`HuTool` 扩展。
+* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 扩展。
 * **eden-extensions**: 扩展点组件，参考 `Dubbo` 扩展点改造，轻量级实现组件的扩展。
 * **eden-cola**: `COLA` 组件，在 `COLA` 原生的基础上优化，完善了 `DDD` 领域模型、轻量级状态机、业务扩展点等组件。
 * **eden-solutions**: 解决方案工具集，提供 `多级缓存`、`分布式锁`、`分布式唯一ID`、`数据去重`、`事件审计` 等场景的设计与实现。
