@@ -116,7 +116,7 @@
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.7</mybatis-plus.version>
-		<pagehelper.version>5.3.1</pagehelper.version>
+		<pagehelper.version>6.1.0</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
