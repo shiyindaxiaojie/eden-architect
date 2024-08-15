@@ -628,7 +628,7 @@
 					<configuration>
 						<mainClass>${start-class}</mainClass>
 						<layers>
-							<enabled>true</enabled>
+							<enabled>${build.layers.enabled}</enabled>
 							<includeLayerTools>true</includeLayerTools>
 							<configuration>
 								${project.basedir}/src/main/docker/layers.xml
