@@ -86,7 +86,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 				if (!buffer.isInitialized()) {
 					try {
 						updateSegmentFromDb(key, buffer.getCurrent());
-						log.info("Initialize buffer and update leaf key {} {} from db", key, buffer.getCurrent());
+						log.debug("Initialize buffer and update leaf key {} {} from db", key, buffer.getCurrent());
 						buffer.setInitialized(true);
 					} catch (Exception e) {
 						log.warn("Initialize buffer {} catch exception", buffer.getCurrent(), e);
