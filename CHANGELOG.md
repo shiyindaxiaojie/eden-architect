@@ -6,18 +6,14 @@
 
 ### FEATURES
 
--
-自研流程编排组件，支持配置中心动态刷新流程，详见 [`eden-flow-compose`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-flow-compose)
+- 自研流程编排组件，支持配置中心动态刷新流程，详见 [`eden-flow-compose`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-flow-compose)
 - 自研一致性框架，支持 MQ 和 Cache
   实现最终一致性，详见 [`eden-consistency-task`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-consistency-task)
--
-自研全链路标记组件，支持常用组件的影子库切换，详见 [`eden-full-tracing`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-full-tracing)
+- 自研全链路标记组件，支持常用组件的影子库切换，详见 [`eden-full-tracing`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-full-tracing)
 - 封装授权认证组件，支持 `OAuth2`、`JWT`
   无缝切换，详见 [`eden-dynamic-security`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-security)
--
-封装数据审计组件，提供数据比对、数据脱敏功能，详见 [`eden-data-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-auditor)
--
-封装数据过滤组件，提供数据去重、敏感词过滤功能，详见 [`eden-data-filter`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-filter)
+- 封装数据审计组件，提供数据比对、数据脱敏功能，详见 [`eden-data-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-auditor)
+- 封装数据过滤组件，提供数据去重、敏感词过滤功能，详见 [`eden-data-filter`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-filter)
 - 封装事件审计组件，支持 SpEL
   表达式和自定义函数，详见 [`eden-event-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-event-auditor)
 - 封装 `Excel` 组件，目前阿里的 `EasyExcel`
