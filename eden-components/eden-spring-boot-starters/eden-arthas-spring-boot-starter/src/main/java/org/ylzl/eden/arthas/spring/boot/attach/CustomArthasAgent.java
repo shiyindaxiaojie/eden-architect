@@ -9,7 +9,6 @@ import org.zeroturnaround.zip.ZipUtil;
 import java.arthas.SpyAPI;
 import java.io.File;
 import java.lang.instrument.Instrumentation;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,19 +84,16 @@ public class CustomArthasAgent extends ArthasAgent {
 			if (!arthasCoreJarFile.exists()) {
 				throw new IllegalStateException("can not find arthas-core.jar under arthasHome: " + arthasHome);
 			}
-			try (AttachArthasClassloader arthasClassLoader= new AttachArthasClassloader(
-				new URL[] { arthasCoreJarFile.toURI().toURL() })){
-				bootstrapClass = arthasClassLoader.loadClass(ARTHAS_BOOTSTRAP);
-				bootstrap = bootstrapClass.getMethod(GET_INSTANCE, Instrumentation.class, Map.class).invoke(null,
-					instrumentation, configMap);
-				boolean isBind = (Boolean) bootstrapClass.getMethod(IS_BIND).invoke(bootstrap);
-				if (!isBind) {
-					String errorMsg = "Arthas server port binding failed! " +
-						"Please check $HOME/logs/arthas/arthas.log for more details.";
-					throw new RuntimeException(errorMsg);
-				}
-			} catch (MalformedURLException e) {
-				throw new RuntimeException(e);
+			AttachArthasClassloader arthasClassLoader = new AttachArthasClassloader(
+				new URL[] { arthasCoreJarFile.toURI().toURL() });
+
+			bootstrapClass = arthasClassLoader.loadClass(ARTHAS_BOOTSTRAP);
+			bootstrap = bootstrapClass.getMethod(GET_INSTANCE, Instrumentation.class, Map.class).invoke(null,
+				instrumentation, configMap);
+			boolean isBind = (Boolean) bootstrapClass.getMethod(IS_BIND).invoke(bootstrap);
+			if (!isBind) {
+				String errorMsg = "Arthas server port binding failed! Please check $HOME/logs/arthas/arthas.log for more details.";
+				throw new RuntimeException(errorMsg);
 			}
 		} catch (Throwable e) {
 			if (!slientInit) {

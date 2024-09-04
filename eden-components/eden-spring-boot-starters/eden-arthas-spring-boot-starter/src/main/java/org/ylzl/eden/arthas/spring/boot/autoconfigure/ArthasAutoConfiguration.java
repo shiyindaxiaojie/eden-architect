@@ -40,6 +40,7 @@ import org.ylzl.eden.arthas.spring.boot.attach.CustomArthasAgent;
 import org.ylzl.eden.arthas.spring.boot.env.SpringArthasProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 
+import java.lang.instrument.Instrumentation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public class ArthasAutoConfiguration {
 
 	private static final String ARTHAS_PROPERTIES_PREFIX = "arthas.";
 
-	private static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent start success";
+	private static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent '{}' start success: {}";
 
 	private final ApplicationContext applicationContext;
 
@@ -116,7 +117,7 @@ public class ArthasAutoConfiguration {
 			arthasProperties.isSlientInit(), null);
 
 		arthasAgent.init();
-		log.info(ARTHAS_AGENT_START_SUCCESS);
+		log.info(ARTHAS_AGENT_START_SUCCESS, arthasProperties.getAgentId(), arthasProperties.getTunnelServer());
 		return arthasAgent;
 	}
 }
