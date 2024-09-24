@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class AhoCorasickSensitiveFilterBuilder extends AbstractSensitiveFilterBuilder implements SensitiveFilterBuilder {
 
-	private static Trie trie;
+	private Trie trie;
 
 	private static final AtomicBoolean BUILD_STATE = new AtomicBoolean(false);
 

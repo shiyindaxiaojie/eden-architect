@@ -14,26 +14,38 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.masking.houbb;
+package org.ylzl.eden.data.filter.builder;
 
-import com.github.houbb.chars.scan.util.CharsScanPropertyHelper;
-import org.ylzl.eden.data.filter.MaskingFilter;
+import org.ylzl.eden.data.filter.config.MaskingConfig;
 
 /**
- * Houbb 开源的组件
+ * 数据脱敏过滤构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- * @link https://github.com/houbb
+ * @since 2.4.x
  */
-public class HoubbFilter implements MaskingFilter {
+public abstract class AbstractMaskingFilterBuilder implements MaskingFilterBuilder {
 
+	private MaskingConfig config = new MaskingConfig();
+
+	/**
+	 * 设置数据脱敏过滤配置
+	 *
+	 * @param config 数据脱敏过滤配置
+	 * @return MaskingFilterBuilder
+	 */
 	@Override
-	public String mask(String text) {
-		try {
-			return CharsScanPropertyHelper.scanAndReplace(text);
-		} catch (Exception e) {
-			return text;
-		}
+	public MaskingFilterBuilder config(MaskingConfig config) {
+		this.config = config;
+		return this;
+	}
+
+	/**
+	 * 获取数据脱敏过滤配置
+	 *
+	 * @return 数据脱敏配置
+	 */
+	protected MaskingConfig getConfig() {
+		return config;
 	}
 }

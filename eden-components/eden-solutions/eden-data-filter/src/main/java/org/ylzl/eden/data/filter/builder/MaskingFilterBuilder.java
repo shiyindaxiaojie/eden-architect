@@ -17,6 +17,7 @@
 package org.ylzl.eden.data.filter.builder;
 
 import org.ylzl.eden.data.filter.MaskingFilter;
+import org.ylzl.eden.data.filter.config.MaskingConfig;
 import org.ylzl.eden.extension.SPI;
 
 /**
@@ -25,13 +26,21 @@ import org.ylzl.eden.extension.SPI;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
-@SPI("houbb")
+@SPI("chars-scan")
 public interface MaskingFilterBuilder {
 
 	/**
-	 * 构建敏感词过滤器
+	 * 设置数据脱敏过滤配置
 	 *
-	 * @return 敏感词过滤器
+	 * @param config 数据脱敏过滤配置
+	 * @return MaskingFilterBuilder
+	 */
+	MaskingFilterBuilder config(MaskingConfig config);
+
+	/**
+	 * 构建数据脱敏过滤器
+	 *
+	 * @return 数据脱敏过滤器
 	 */
 	MaskingFilter build();
 }

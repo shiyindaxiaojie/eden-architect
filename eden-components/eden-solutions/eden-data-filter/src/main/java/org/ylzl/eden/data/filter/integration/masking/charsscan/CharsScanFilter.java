@@ -14,21 +14,30 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.data.filter.integration.masking.houbb;
+package org.ylzl.eden.data.filter.integration.masking.charsscan;
 
+import com.github.houbb.chars.scan.bs.CharsScanBs;
+import lombok.RequiredArgsConstructor;
 import org.ylzl.eden.data.filter.MaskingFilter;
-import org.ylzl.eden.data.filter.builder.MaskingFilterBuilder;
 
 /**
- * Houbb 开源的组件
+ * CharsScan 组件
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @link https://github.com/houbb
  */
-public class HoubbFilterBuilder implements MaskingFilterBuilder {
+@RequiredArgsConstructor
+public class CharsScanFilter implements MaskingFilter {
+
+	private final CharsScanBs charsScanBs;
 
 	@Override
-	public MaskingFilter build() {
-		return new HoubbFilter();
+	public String mask(String text) {
+		try {
+			return charsScanBs.scanAndReplace(text);
+		} catch (Exception e) {
+			return text;
+		}
 	}
 }

@@ -1,1 +1,1 @@
-houbb=org.ylzl.eden.data.filter.integration.masking.houbb.HoubbFilterBuilder
+chars-scan=org.ylzl.eden.data.filter.integration.masking.charsscan.CharsScanFilterBuilder

@@ -17,10 +17,8 @@
 package org.ylzl.eden.data.filter.support;
 
 import org.ylzl.eden.data.filter.MaskingFilter;
-import org.ylzl.eden.data.filter.SensitiveFilter;
 import org.ylzl.eden.data.filter.builder.MaskingFilterBuilder;
-import org.ylzl.eden.data.filter.builder.SensitiveFilterBuilder;
-import org.ylzl.eden.data.filter.sensitive.SensitiveWordLoader;
+import org.ylzl.eden.data.filter.config.MaskingConfig;
 import org.ylzl.eden.extension.ExtensionLoader;
 
 /**
@@ -38,5 +36,27 @@ public class MaskingFilterHelper {
 	 */
 	public static MaskingFilter maskingFilter() {
 		return ExtensionLoader.getExtensionLoader(MaskingFilterBuilder.class).getDefaultExtension().build();
+	}
+
+	/**
+	 * 获取数据脱敏过滤器实例
+	 *
+	 * @return 数据脱敏过滤器实例
+	 */
+	public static MaskingFilter maskingFilter(String spi) {
+		return ExtensionLoader.getExtensionLoader(MaskingFilterBuilder.class).getExtension(spi).build();
+	}
+
+	/**
+	 * 获取数据脱敏过滤器实例
+	 *
+	 * @param config 配置信息
+	 * @return 数据脱敏过滤器实例
+	 */
+	public static MaskingFilter maskingFilter(MaskingConfig config) {
+		return ExtensionLoader.getExtensionLoader(MaskingFilterBuilder.class)
+			.getExtension(config.getType())
+			.config(config)
+			.build();
 	}
 }

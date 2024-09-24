@@ -34,7 +34,7 @@ public interface SensitiveFilterBuilder {
 	 * 设置敏感词过滤配置
 	 *
 	 * @param config 敏感词过滤配置
-	 * @return DataSensitiveFilterBuilder
+	 * @return SensitiveFilterBuilder
 	 */
 	SensitiveFilterBuilder config(SensitiveConfig config);
 
@@ -42,7 +42,7 @@ public interface SensitiveFilterBuilder {
 	 * 设置敏感词处理器
 	 *
 	 * @param sensitiveWordLoader 敏感词加载器
-	 * @return DataSensitiveFilterBuilder
+	 * @return SensitiveFilterBuilder
 	 */
 	SensitiveFilterBuilder sensitiveWordLoader(SensitiveWordLoader sensitiveWordLoader);
 
