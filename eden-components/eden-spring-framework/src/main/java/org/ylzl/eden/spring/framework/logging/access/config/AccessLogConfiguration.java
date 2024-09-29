@@ -54,7 +54,7 @@ public class AccessLogConfiguration implements ImportAware {
 	}
 
 	@Bean
-	public AccessLogAdvisor loggingAspectPointcutAdvisor(ObjectProvider<AccessLogConfig> configs,
+	public AccessLogAdvisor accessLogAdvisor(ObjectProvider<AccessLogConfig> configs,
 														 AccessLogInterceptor interceptor) {
 		AccessLogAdvisor advisor = new AccessLogAdvisor();
 		String expression = getAccessLogConfig(configs).getExpression();
@@ -67,7 +67,7 @@ public class AccessLogConfiguration implements ImportAware {
 	}
 
 	@Bean
-	public AccessLogInterceptor loggingAspectInterceptor(ObjectProvider<AccessLogConfig> configs) {
+	public AccessLogInterceptor accessLogInterceptor(ObjectProvider<AccessLogConfig> configs) {
 		return new AccessLogInterceptor(getAccessLogConfig(configs));
 	}
 
