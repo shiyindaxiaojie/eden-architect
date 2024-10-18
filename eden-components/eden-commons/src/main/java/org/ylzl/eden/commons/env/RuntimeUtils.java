@@ -17,6 +17,8 @@ package org.ylzl.eden.commons.env;
 
 import lombok.experimental.UtilityClass;
 
+import java.lang.management.ManagementFactory;
+
 /**
  * 运行工具集
  *
@@ -25,4 +27,22 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class RuntimeUtils {
+
+	/**
+	 * 获取进程 ID
+	 *
+	 * @return PID
+	 */
+	public static long getPID() {
+		try {
+			String jvmName = ManagementFactory.getRuntimeMXBean().getName();
+			int index = jvmName.indexOf('@');
+			if (index > 0) {
+				return Long.parseLong(jvmName.substring(0, index));
+			}
+		} catch (Throwable e) {
+			// ignore
+		}
+		return -1;
+	}
 }
