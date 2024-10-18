@@ -33,7 +33,7 @@ public interface DuplicateFilterBuilder {
 	 * 设置数据去重过滤配置
 	 *
 	 * @param config 数据去重过滤配置
-	 * @return DataDuplicateFilterBuilder
+	 * @return DuplicateFilterBuilder
 	 */
 	DuplicateFilterBuilder config(DuplicateConfig config);
 

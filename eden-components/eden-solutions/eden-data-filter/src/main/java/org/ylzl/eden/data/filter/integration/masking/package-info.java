@@ -13,36 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.commons.env;
 
-import lombok.experimental.UtilityClass;
-
-import java.lang.management.ManagementFactory;
-
-/**
- * 运行工具集
- *
- * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
- */
-@UtilityClass
-public class RuntimeUtils {
-
-	/**
-	 * 获取进程 ID
-	 *
-	 * @return PID
-	 */
-	public static long getPID() {
-		try {
-			String jvmName = ManagementFactory.getRuntimeMXBean().getName();
-			int index = jvmName.indexOf('@');
-			if (index > 0) {
-				return Long.parseLong(jvmName.substring(0, index));
-			}
-		} catch (Throwable e) {
-			// ignore
-		}
-		return -1;
-	}
-}
+package org.ylzl.eden.data.filter.integration.masking;

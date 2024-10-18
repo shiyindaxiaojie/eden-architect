@@ -13,36 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.commons.env;
 
-import lombok.experimental.UtilityClass;
+package org.ylzl.eden.data.filter.integration.masking.charsscan;
 
-import java.lang.management.ManagementFactory;
+import com.github.houbb.chars.scan.bs.CharsScanBs;
+import lombok.RequiredArgsConstructor;
+import org.ylzl.eden.data.filter.MaskingFilter;
 
 /**
- * 运行工具集
+ * CharsScan 组件
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
+ * @link https://github.com/houbb
  */
-@UtilityClass
-public class RuntimeUtils {
+@RequiredArgsConstructor
+public class CharsScanFilter implements MaskingFilter {
 
-	/**
-	 * 获取进程 ID
-	 *
-	 * @return PID
-	 */
-	public static long getPID() {
+	private final CharsScanBs charsScanBs;
+
+	@Override
+	public String mask(String text) {
 		try {
-			String jvmName = ManagementFactory.getRuntimeMXBean().getName();
-			int index = jvmName.indexOf('@');
-			if (index > 0) {
-				return Long.parseLong(jvmName.substring(0, index));
-			}
-		} catch (Throwable e) {
-			// ignore
+			return charsScanBs.scanAndReplace(text);
+		} catch (Exception e) {
+			return text;
 		}
-		return -1;
 	}
 }

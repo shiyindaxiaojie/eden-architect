@@ -57,7 +57,7 @@
 		<swagger.version>1.6.3</swagger.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 		<swagger-parser.version>2.0.1</swagger-parser.version>
-		<swagger-ui.version>3.14.2</swagger-ui.version>
+		<swagger-ui.version>3.52.5</swagger-ui.version>
 		<swagger3.version>2.0.1</swagger3.version>
 		<knife4j.version>2.0.3</knife4j.version>
 		<tomcat.version>10.1.5</tomcat.version>
@@ -85,7 +85,6 @@
 		<guava.version>32.1.2-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
-		<hutool.version>5.8.21</hutool.version>
 		<disruptor.version>3.4.4</disruptor.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
@@ -117,7 +116,7 @@
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.7</mybatis-plus.version>
-		<pagehelper.version>5.3.1</pagehelper.version>
+		<pagehelper.version>6.1.0</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
@@ -1032,12 +1031,6 @@
 				<groupId>com.google.errorprone</groupId>
 				<artifactId>error_prone_annotations</artifactId>
 				<version>${errorprone.version}</version>
-			</dependency>
-			<!-- Hutool -->
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-all</artifactId>
-				<version>${hutool.version}</version>
 			</dependency>
 			<!-- Disruptor -->
 			<dependency>

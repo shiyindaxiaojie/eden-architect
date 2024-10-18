@@ -58,7 +58,7 @@ public abstract class AbstractSensitiveFilterBuilder implements SensitiveFilterB
 	/**
 	 * 获取敏感词过滤配置
 	 *
-	 * @return 数据比对配置
+	 * @return 敏感词配置
 	 */
 	protected SensitiveConfig getConfig() {
 		return config;

@@ -13,36 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ylzl.eden.commons.env;
 
-import lombok.experimental.UtilityClass;
+package org.ylzl.eden.data.filter.builder;
 
-import java.lang.management.ManagementFactory;
+import org.ylzl.eden.data.filter.config.MaskingConfig;
 
 /**
- * 运行工具集
+ * 数据脱敏过滤构建器抽象
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-@UtilityClass
-public class RuntimeUtils {
+public abstract class AbstractMaskingFilterBuilder implements MaskingFilterBuilder {
+
+	private MaskingConfig config = new MaskingConfig();
 
 	/**
-	 * 获取进程 ID
+	 * 设置数据脱敏过滤配置
 	 *
-	 * @return PID
+	 * @param config 数据脱敏过滤配置
+	 * @return MaskingFilterBuilder
 	 */
-	public static long getPID() {
-		try {
-			String jvmName = ManagementFactory.getRuntimeMXBean().getName();
-			int index = jvmName.indexOf('@');
-			if (index > 0) {
-				return Long.parseLong(jvmName.substring(0, index));
-			}
-		} catch (Throwable e) {
-			// ignore
-		}
-		return -1;
+	@Override
+	public MaskingFilterBuilder config(MaskingConfig config) {
+		this.config = config;
+		return this;
+	}
+
+	/**
+	 * 获取数据脱敏过滤配置
+	 *
+	 * @return 数据脱敏配置
+	 */
+	protected MaskingConfig getConfig() {
+		return config;
 	}
 }

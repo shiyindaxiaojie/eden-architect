@@ -287,12 +287,15 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 	 * @param clazz
 	 * @return Optional<T>
 	 */
-	private <T> Optional<T> toObject(String value, Class<T> clazz) {
-		Optional optional = Optional.ofNullable(value).filter(StringUtils::isNotBlank);
-		if (!optional.isPresent()) {
-			return optional;
+	public static <T> Optional<T> toObject(String value, Class<T> clazz) {
+		if (value == null || value.trim().isEmpty()) {
+			return Optional.empty();
 		}
-		return Optional.of(JSONHelper.json().parseObject(value, clazz));
+		try {
+			return Optional.of(JSONHelper.json().parseObject(value, clazz));
+		} catch (Exception e) {
+			return Optional.of((T)value);
+		}
 	}
 
 	/**
@@ -308,10 +311,8 @@ public class CustomRedisTemplateImpl implements CustomRedisTemplate {
 		}
 		String value = null;
 		if (data instanceof CharSequence || data instanceof Character) {
-			value = data.toString();
-		} else {
-			value = JSONHelper.json().toJSONString(data);
+			return data.toString();
 		}
-		return value;
+		return JSONHelper.json().toJSONString(data);
 	}
 }

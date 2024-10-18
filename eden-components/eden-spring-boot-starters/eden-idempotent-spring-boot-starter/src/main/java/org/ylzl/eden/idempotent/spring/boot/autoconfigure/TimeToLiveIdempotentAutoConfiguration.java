@@ -32,7 +32,7 @@ import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(prefix = TimeToLiveIdempotentProperties.PREFIX, matchIfMissing = true)
+@ConditionalOnProperty(prefix = TimeToLiveIdempotentProperties.PREFIX)
 @EnableConfigurationProperties(TimeToLiveIdempotentProperties.class)
 @RequiredArgsConstructor
 @Import(TimeToLiveIdempotentAspectRegistrar.class)

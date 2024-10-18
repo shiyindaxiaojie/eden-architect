@@ -14,39 +14,21 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.commons.io;
-
-import cn.hutool.core.io.FastStringWriter;
-
-import java.io.PrintWriter;
+package org.ylzl.eden.data.filter;
 
 /**
- * 更快的 PrintWriter
+ * 数据脱敏过滤器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class FastStringPrintWriter extends PrintWriter {
+public interface MaskingFilter {
 
-	private final FastStringWriter writer;
-
-	public FastStringPrintWriter() {
-		this(256);
-	}
-
-	public FastStringPrintWriter(int initialSize) {
-		super(new FastStringWriter(initialSize));
-		this.writer = (FastStringWriter) out;
-	}
-
-	@Override
-	public void println(Object x) {
-		writer.write(String.valueOf(x));
-		writer.write("\n");
-	}
-
-	@Override
-	public String toString() {
-		return writer.toString();
-	}
+	/**
+	 * 文本脱敏
+	 *
+	 * @param text 文本内容
+	 * @return 脱敏后的文本内容
+	 */
+	String mask(String text);
 }
