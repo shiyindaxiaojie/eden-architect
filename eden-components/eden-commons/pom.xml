@@ -127,13 +127,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Hutool -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Jackson 序列化 -->
 		<dependency>
 			<groupId>com.fasterxml</groupId>

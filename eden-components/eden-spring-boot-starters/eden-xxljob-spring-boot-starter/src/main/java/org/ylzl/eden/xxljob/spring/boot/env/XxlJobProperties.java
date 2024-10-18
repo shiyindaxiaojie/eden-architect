@@ -22,7 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * XxlJob 配置
  *
- * @author <a href="mailto:guoyuanlu@puyiwm.com">gyl</a>
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @link <a href="https://github.com/xuxueli/xxl-job/blob/master/xxl-job-executor-samples/xxl-job-executor-sample-springboot/src/main/resources/application.properties">...</a>
  * @since 2.4.13
  **/

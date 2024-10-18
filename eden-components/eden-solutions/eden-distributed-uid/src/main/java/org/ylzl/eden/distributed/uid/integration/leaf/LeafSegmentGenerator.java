@@ -21,7 +21,6 @@ import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.ylzl.eden.distributed.uid.SegmentGenerator;
-import org.ylzl.eden.distributed.uid.SnowflakeGeneratorType;
 import org.ylzl.eden.distributed.uid.config.SegmentGeneratorConfig;
 import org.ylzl.eden.distributed.uid.exception.SegmentGeneratorException;
 import org.ylzl.eden.distributed.uid.integration.leaf.segement.dao.LeafAllocDAO;
@@ -68,16 +67,6 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	}
 
 	/**
-	 * 生成器类型
-	 *
-	 * @return 生成器类型
-	 */
-	@Override
-	public String generatorType() {
-		return SnowflakeGeneratorType.LEAF.name();
-	}
-
-	/**
 	 * 从号段获取ID
 	 *
 	 * @return 号段
@@ -97,7 +86,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 				if (!buffer.isInitialized()) {
 					try {
 						updateSegmentFromDb(key, buffer.getCurrent());
-						log.info("Initialize buffer and update leaf key {} {} from db", key, buffer.getCurrent());
+						log.debug("Initialize buffer and update leaf key {} {} from db", key, buffer.getCurrent());
 						buffer.setInitialized(true);
 					} catch (Exception e) {
 						log.warn("Initialize buffer {} catch exception", buffer.getCurrent(), e);
@@ -146,7 +135,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 	}
 
 	private void updateCacheFromDb() {
-		log.info("Update cache from db");
+		log.debug("Leaf update cache from db");
 		try {
 			List<String> dbTags = leafAllocDAO.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
@@ -166,24 +155,24 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 				segment.setMax(0);
 				segment.setStep(0);
 				cache.put(tag, buffer);
-				log.info("Add tag {} from db to IdCache, SegmentBuffer {}", tag, buffer);
+				log.debug("Leaf add tag {} from db to IdCache", tag);
 			}
 			for (String tag : dbTags) {
 				removeTagsSet.remove(tag);
 			}
 			for (String tag : removeTagsSet) {
 				cache.remove(tag);
-				log.info("Remove tag {} from IdCache", tag);
+				log.debug("Leaf remove tag {} from IdCache", tag);
 			}
 		} catch (Exception e) {
-			log.warn("Update cache from db exception", e);
+			log.warn("Leaf update cache from db exception", e);
 		}
 	}
 
 	private void updateCacheFromDbAtEveryMinute() {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(r -> {
 			Thread t = new Thread(r);
-			t.setName("check-idCache-thread");
+			t.setName("leaf-check-id-cache-thread");
 			t.setDaemon(true);
 			return t;
 		});
@@ -212,7 +201,7 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 			} else if (duration >= config.getSegmentTtl() * 2) {
 				nextStep = nextStep / 2 >= buffer.getMinStep() ? nextStep / 2 : nextStep;
 			}
-			log.info("leafKey[{}], step[{}], duration[{}mins], nextStep[{}]", key, buffer.getStep(), String.format("%.2f", ((double) duration / (1000 * 60))), nextStep);
+			log.debug("leafKey[{}], step[{}], duration[{}mins], nextStep[{}]", key, buffer.getStep(), String.format("%.2f", ((double) duration / (1000 * 60))), nextStep);
 			LeafAlloc temp = new LeafAlloc();
 			temp.setKey(key);
 			temp.setStep(nextStep);
@@ -240,9 +229,9 @@ public class LeafSegmentGenerator implements SegmentGenerator {
 						try {
 							updateSegmentFromDb(buffer.getKey(), next);
 							updateOk = true;
-							log.info("Update segment {} from db {}", buffer.getKey(), next);
+							log.info("Leaf update segment {} from db {}", buffer.getKey(), next);
 						} catch (Exception e) {
-							log.error("Update segment {} from db {} error", buffer.getKey(), e);
+							log.error("Leaf update segment {} from db {} error", buffer.getKey(), e);
 						} finally {
 							if (updateOk) {
 								buffer.wLock().lock();

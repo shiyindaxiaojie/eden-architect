@@ -35,7 +35,7 @@ public class DistributedUIDProperties {
 
 	public static final String PREFIX = "distributed-uid";
 
-	public static final String ID_GENERATOR_PREFIX = PREFIX + ".id-generator";
+	public static final String SNOWFLAKE_GENERATOR_PREFIX = PREFIX + ".snowflake-generator";
 
 	public static final String SEGMENT_GENERATOR_PREFIX = PREFIX + ".segment-generator";
 

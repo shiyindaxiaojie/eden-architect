@@ -33,6 +33,7 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
+import org.ylzl.eden.spring.framework.error.ServerAssert;
 import org.ylzl.eden.spring.integration.xxljob.admin.AutoRegisterXxlJobSpringExecutor;
 import org.ylzl.eden.spring.integration.xxljob.admin.XxlJobAdminTemplate;
 import org.ylzl.eden.xxljob.spring.boot.env.XxlJobProperties;
@@ -78,21 +79,28 @@ public class XxlJobAutoConfiguration {
 	@Bean(initMethod = "start", destroyMethod = "destroy")
 	public XxlJobSpringExecutor xxlJobSpringExecutor(XxlJobAdminTemplate xxlJobAdminTemplate) {
 		log.info(AUTOWIRED_XXL_JOB_SPRING_EXECUTOR);
-		XxlJobSpringExecutor xxlJobSpringExecutor = new AutoRegisterXxlJobSpringExecutor(xxlJobAdminTemplate);
-		xxlJobSpringExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
+		AutoRegisterXxlJobSpringExecutor xxlJobSpringExecutor = new AutoRegisterXxlJobSpringExecutor(xxlJobAdminTemplate);
 
-		if (StringUtils.isNotBlank(xxlJobProperties.getAccessToken())) {
-			xxlJobSpringExecutor.setAccessToken(xxlJobProperties.getAccessToken());
-		}
+		String title = xxlJobProperties.getExecutor().getTitle();
+		ServerAssert.notNull(title, "PROP-REQUIRED-500", "xxl.job.executor.title");
+		xxlJobSpringExecutor.setTitle(title);
 
 		String appName = resolveAppName(xxlJobProperties.getExecutor().getAppName());
 		xxlJobSpringExecutor.setAppname(appName);
+
+		xxlJobSpringExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
 		if (StringUtils.isNotBlank(xxlJobProperties.getExecutor().getAddress())) {
 			xxlJobSpringExecutor.setAddress(xxlJobProperties.getExecutor().getAddress());
 		} else {
 			xxlJobSpringExecutor.setIp(resolveIp(xxlJobProperties.getExecutor().getIp()));
 			xxlJobSpringExecutor.setPort(resolvePort(xxlJobProperties.getExecutor().getPort()));
 		}
+
+		if (StringUtils.isNotBlank(xxlJobProperties.getAccessToken())) {
+			xxlJobSpringExecutor.setAccessToken(xxlJobProperties.getAccessToken());
+		}
+
+
 		xxlJobSpringExecutor.setLogPath(resolveLogPath(xxlJobProperties.getExecutor().getLogPath(), appName));
 		xxlJobSpringExecutor.setLogRetentionDays(xxlJobProperties.getExecutor().getLogRetentionDays());
 		return xxlJobSpringExecutor;

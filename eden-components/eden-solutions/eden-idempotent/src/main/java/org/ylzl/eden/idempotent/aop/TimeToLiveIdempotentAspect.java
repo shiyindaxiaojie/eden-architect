@@ -24,7 +24,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.idempotent.Idempotent;
 import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
@@ -58,7 +57,7 @@ public class TimeToLiveIdempotentAspect {
 		Idempotent idempotent = method.getAnnotation(Idempotent.class);
 		if (IdempotentStrategy.TTL == idempotent.strategy()) {
 			String key = resolveKey(idempotent.key(), joinPoint);
-			strategy.checkOnceRequest(key, Strings.EMPTY, idempotent.ttl(), idempotent.timeUnit());
+			strategy.checkOnceRequest(key, idempotent.ttl(), idempotent.timeUnit());
 		}
 		return joinPoint.proceed();
 	}

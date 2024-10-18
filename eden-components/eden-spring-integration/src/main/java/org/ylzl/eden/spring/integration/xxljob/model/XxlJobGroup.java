@@ -38,7 +38,7 @@ public class XxlJobGroup {
 
 	private int id;
 
-	private String appName;
+	private String appname;
 
 	private String title;
 
@@ -51,7 +51,7 @@ public class XxlJobGroup {
 	private List<String> registryList;
 
 	public List<String> getRegistryList() {
-		if (addressList != null && addressList.trim().length() > 0) {
+		if (addressList != null && !addressList.trim().isEmpty()) {
 			registryList = new ArrayList<>(Arrays.asList(addressList.split(",")));
 		}
 		return registryList;

@@ -60,9 +60,9 @@ public class DistributedUIDAutoConfiguration {
 	private final DistributedUIDProperties properties;
 
 	@ConditionalOnProperty(
-		prefix = DistributedUIDProperties.ID_GENERATOR_PREFIX,
+		prefix = DistributedUIDProperties.SNOWFLAKE_GENERATOR_PREFIX,
 		name = Conditions.ENABLED,
-		havingValue = Conditions.FALSE
+		havingValue = Conditions.TRUE
 	)
 	@ConditionalOnMissingBean
 	@Bean
@@ -78,7 +78,7 @@ public class DistributedUIDAutoConfiguration {
 	@ConditionalOnProperty(
 		prefix = DistributedUIDProperties.SEGMENT_GENERATOR_PREFIX,
 		name = Conditions.ENABLED,
-		havingValue = Conditions.FALSE
+		havingValue = Conditions.TRUE
 	)
 	@ConditionalOnMissingBean
 	@Bean

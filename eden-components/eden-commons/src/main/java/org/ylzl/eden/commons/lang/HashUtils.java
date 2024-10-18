@@ -22,7 +22,6 @@ import lombok.experimental.UtilityClass;
  * 哈希工具集
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @see cn.hutool.core.util.HashUtil
  * @since 2.4.x
  */
 @UtilityClass

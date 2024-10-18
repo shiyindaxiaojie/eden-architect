@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -43,7 +42,7 @@ import java.util.Collections;
 @Slf4j
 public class XxlJobAdminTemplate {
 
-	private final static String XXL_RPC_ACCESS_TOKEN = "XXL-RPC-ACCESS-TOKEN";
+	private static final String LOGIN_IDENTITY_KEY = "XXL_JOB_LOGIN_IDENTITY";
 
 	private final RestTemplate restTemplate;
 
@@ -86,8 +85,7 @@ public class XxlJobAdminTemplate {
 	}
 
 	private void addAccessToken(HttpHeaders headers) {
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		headers.add(XXL_RPC_ACCESS_TOKEN, accessToken);
+		headers.add("Cookie", LOGIN_IDENTITY_KEY + "=" + accessToken);
 	}
 
 	public ResponseEntity<String> loadGroupById(int groupId) {

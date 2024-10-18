@@ -249,7 +249,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 				consumer.setMessageModel(MessageModel.valueOf(rocketMQConfig.getConsumer().getMessageModel()));
 		}
 
-		// 消息模式
+		// 消息选择器类型
 		String selectorExpression = annotation.selectorExpression();
 		AssertUtils.notNull(selectorExpression, "PROP-REQUIRED-500", "rocketmq.consumer.selectorType");
 		MessageSelector messageSelector;

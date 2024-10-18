@@ -55,10 +55,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		return true;
 	}
 
-	public static void delete(File file) throws IOException {
-		java.nio.file.Files.delete(Paths.get(file.getAbsolutePath()));
-	}
-
 	public static void deleteIfExists(File file) throws IOException {
 		java.nio.file.Files.deleteIfExists(Paths.get(file.getAbsolutePath()));
 	}

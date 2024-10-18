@@ -31,6 +31,16 @@
 	<name>eden-shardingsphere-spring-boot-starter</name>
 	<description>Spring Boot Starter For Shardingsphere</description>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<artifactId>curator-client</artifactId>
+				<groupId>org.apache.curator</groupId>
+				<version>${curator.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<!-- 开发框架 -->
 		<dependency>

@@ -25,8 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -34,9 +36,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.env.Environment;
+import org.ylzl.eden.arthas.spring.boot.attach.CustomArthasAgent;
 import org.ylzl.eden.arthas.spring.boot.env.SpringArthasProperties;
 import org.ylzl.eden.spring.framework.bootstrap.constant.SpringProperties;
 
+import java.lang.instrument.Instrumentation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +50,8 @@ import java.util.Map;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(
-	name = {"spring.arthas.enabled"},
-	matchIfMissing = true
-)
-@AutoConfigureAfter(ArthasConfiguration.class)
-@EnableConfigurationProperties(SpringArthasProperties.class)
+@AutoConfigureBefore(ArthasConfiguration.class)
+@EnableConfigurationProperties({ SpringArthasProperties.class, ArthasProperties.class })
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -64,7 +64,7 @@ public class ArthasAutoConfiguration {
 
 	private static final String ARTHAS_PROPERTIES_PREFIX = "arthas.";
 
-	private static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent start success";
+	private static final String ARTHAS_AGENT_START_SUCCESS = "Arthas agent '{}' start success: {}";
 
 	private final ApplicationContext applicationContext;
 
@@ -79,15 +79,28 @@ public class ArthasAutoConfiguration {
 			environment, arthasProperties, arthasConfigMap);
 	}
 
+	@ConfigurationProperties(prefix = "arthas")
+	@ConditionalOnMissingBean(name = {"arthasConfigMap"})
+	@Primary
+	@Bean
+	public HashMap<String, String> arthasConfigMap() {
+		return new HashMap<>();
+	}
+
+	@ConditionalOnProperty(
+		name = {"spring.arthas.enabled"},
+		matchIfMissing = true
+	)
 	@Primary
 	@Bean
 	public ArthasAgent arthasAgent(@Autowired @Qualifier(ARTHAS_CONFIG_MAP) Map<String, String> arthasConfigMap) {
 		arthasConfigMap = StringUtils.removeDashKey(arthasConfigMap);
-		return initArthasAgent(arthasConfigMap, environment, arthasProperties);
+		return init(arthasConfigMap, environment, arthasProperties);
 	}
 
-	public static ArthasAgent initArthasAgent(Map<String, String> arthasConfigMap, Environment environment,
+	public static ArthasAgent init(Map<String, String> arthasConfigMap, Environment environment,
 											  ArthasProperties arthasProperties) {
+		arthasConfigMap = StringUtils.removeDashKey(arthasConfigMap);
 		ArthasProperties.updateArthasConfigMapDefaultValue(arthasConfigMap);
 
 		String appName = environment.getProperty(SpringProperties.SPRING_APPLICATION_NAME);
@@ -95,16 +108,16 @@ public class ArthasAutoConfiguration {
 			arthasConfigMap.put(APP_NAME, appName);
 		}
 
-		Map<String, String> mapWithPrefix = new HashMap<String, String>(arthasConfigMap.size());
+		Map<String, String> mapWithPrefix = new HashMap<>(arthasConfigMap.size());
 		for (Map.Entry<String, String> entry : arthasConfigMap.entrySet()) {
 			mapWithPrefix.put(ARTHAS_PROPERTIES_PREFIX + entry.getKey(), entry.getValue());
 		}
 
-		final ArthasAgent arthasAgent = new ArthasAgent(mapWithPrefix, arthasProperties.getHome(),
+		final ArthasAgent arthasAgent = new CustomArthasAgent(mapWithPrefix, arthasProperties.getHome(),
 			arthasProperties.isSlientInit(), null);
 
 		arthasAgent.init();
-		log.info(ARTHAS_AGENT_START_SUCCESS);
+		log.info(ARTHAS_AGENT_START_SUCCESS, arthasProperties.getAgentId(), arthasProperties.getTunnelServer());
 		return arthasAgent;
 	}
 }

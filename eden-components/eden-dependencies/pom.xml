@@ -57,7 +57,7 @@
 		<swagger.version>1.6.3</swagger.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 		<swagger-parser.version>2.0.1</swagger-parser.version>
-		<swagger-ui.version>3.14.2</swagger-ui.version>
+		<swagger-ui.version>3.52.5</swagger-ui.version>
 		<swagger3.version>2.0.1</swagger3.version>
 		<knife4j.version>2.0.3</knife4j.version>
 		<tomcat.version>10.1.5</tomcat.version>
@@ -68,24 +68,23 @@
 		<cglib.version>3.3.0</cglib.version>
 		<javassist.version>3.26.0-GA</javassist.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
-		<commons-collections4.version>4.4</commons-collections4.version>
-		<commons-text.version>1.10.0</commons-text.version>
+		<commons-collections4.version>4.5.0-M2</commons-collections4.version>
+		<commons-text.version>1.12.0</commons-text.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-codec.version>1.10</commons-codec.version>
+		<commons-codec.version>1.17.0</commons-codec.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-fileupload.version>1.5</commons-fileupload.version>
-		<commons-io.version>2.7</commons-io.version>
-		<commons-logging.version>1.2</commons-logging.version>
+		<commons-io.version>2.16.1</commons-io.version>
+		<commons-logging.version>1.3.3</commons-logging.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
-		<commons-net.version>3.9.0</commons-net.version>
-		<commons-cli.version>1.4</commons-cli.version>
+		<commons-net.version>3.11.1</commons-net.version>
+		<commons-cli.version>1.8.0</commons-cli.version>
 		<jackson-bom.version>2.14.1</jackson-bom.version>
 		<fastjson.version>2.0.22</fastjson.version>
 		<fastjson2.version>2.0.22</fastjson2.version>
-		<guava.version>30.0-jre</guava.version>
+		<guava.version>32.1.2-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
-		<hutool.version>5.7.14</hutool.version>
 		<disruptor.version>3.4.4</disruptor.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
@@ -112,12 +111,12 @@
 		<mysql-connector-java.version>8.0.32</mysql-connector-java.version>
 		<mysql-connector-j.version>8.0.32</mysql-connector-j.version>
 		<mariadb-java-client.version>3.1.1</mariadb-java-client.version>
-		<sqlite.version>3.30.1</sqlite.version>
-		<mybatis.version>3.5.6</mybatis.version>
-		<mybatis-spring.version>2.0.3</mybatis-spring.version>
-		<mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
-		<mybatis-plus.version>3.5.3</mybatis-plus.version>
-		<pagehelper.version>5.3.1</pagehelper.version>
+		<sqlite.version>3.42.0.0</sqlite.version>
+		<mybatis.version>3.5.16</mybatis.version>
+		<mybatis-spring.version>2.1.2</mybatis-spring.version>
+		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
+		<mybatis-plus.version>3.5.7</mybatis-plus.version>
+		<pagehelper.version>6.1.0</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
@@ -142,7 +141,7 @@
 
 		<!-- 缓存组件 -->
 		<ehcache.version>2.10.4</ehcache.version>
-		<redisson.version>3.15.2</redisson.version>
+		<redisson.version>3.32.0</redisson.version>
 		<caffeine.version>2.9.3</caffeine.version>
 		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
 
@@ -153,13 +152,13 @@
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.2.1</dubbo.version>
+		<dubbo.version>3.2.14</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
-		<zookeeper.version>3.7.0</zookeeper.version>
-		<curator.version>5.1.0</curator.version>
+		<zookeeper.version>3.8.4</zookeeper.version>
+		<curator.version>4.3.0</curator.version>
 		<zkclient.version>0.1</zkclient.version>
-		<xxl-job.version>2.3.1</xxl-job.version>
-		<grpc.version>1.52.1</grpc.version>
+		<xxl-job.version>2.4.0</xxl-job.version>
+		<grpc.version>1.57.2</grpc.version>
 		<grpc-spring-boot-starter.version>2.14.0.RELEASE</grpc-spring-boot-starter.version>
 		<hessian.version>4.0.63</hessian.version>
 		<quartz.version>2.3.2</quartz.version>
@@ -175,7 +174,7 @@
 		<!-- 授权认证组件 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
-		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+		<spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
 		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
 		<jjwt.version>0.11.2</jjwt.version>
@@ -888,6 +887,16 @@
 				<artifactId>arthas-spring-boot-starter</artifactId>
 				<version>${arthas.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-spy</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.taobao.arthas</groupId>
+				<artifactId>arthas-agent-attach</artifactId>
+				<version>${arthas.version}</version>
+			</dependency>
 
 			<!-- Web -->
 			<dependency>
@@ -1022,12 +1031,6 @@
 				<groupId>com.google.errorprone</groupId>
 				<artifactId>error_prone_annotations</artifactId>
 				<version>${errorprone.version}</version>
-			</dependency>
-			<!-- Hutool -->
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-all</artifactId>
-				<version>${hutool.version}</version>
 			</dependency>
 			<!-- Disruptor -->
 			<dependency>

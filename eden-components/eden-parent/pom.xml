@@ -628,7 +628,7 @@
 					<configuration>
 						<mainClass>${start-class}</mainClass>
 						<layers>
-							<enabled>true</enabled>
+							<enabled>${build.layers.enabled}</enabled>
 							<includeLayerTools>true</includeLayerTools>
 							<configuration>
 								${project.basedir}/src/main/docker/layers.xml
@@ -1245,18 +1245,6 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>assembly</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-assembly-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>
