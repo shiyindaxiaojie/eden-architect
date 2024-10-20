@@ -106,6 +106,8 @@
 		<javers.version>6.8.1</javers.version>
 		<java-object-diff.version>0.95</java-object-diff.version>
 		<ahocorasick.version>0.6.3</ahocorasick.version>
+		<zstd-jni.version>1.5.6-6</zstd-jni.version>
+		<lz4-java.version>1.8.0</lz4-java.version>
 
 		<!-- 关系型数据库 -->
 		<mysql-connector-java.version>8.0.32</mysql-connector-java.version>
@@ -1294,6 +1296,18 @@
 				<groupId>org.ahocorasick</groupId>
 				<artifactId>ahocorasick</artifactId>
 				<version>${ahocorasick.version}</version>
+			</dependency>
+			<!-- zstd-jni -->
+			<dependency>
+				<groupId>com.github.luben</groupId>
+				<artifactId>zstd-jni</artifactId>
+				<version>${zstd-jni.version}</version>
+			</dependency>
+			<!-- lz4-java -->
+			<dependency>
+				<groupId>org.lz4</groupId>
+				<artifactId>lz4-java</artifactId>
+				<version>${lz4-java.version}</version>
 			</dependency>
 
 			<!-- 数据库 -->
