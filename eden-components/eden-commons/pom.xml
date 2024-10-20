@@ -216,6 +216,18 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- 压缩工具 -->
+		<dependency>
+			<groupId>com.github.luben</groupId>
+			<artifactId>zstd-jni</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.lz4</groupId>
+			<artifactId>lz4-java</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- 字节码增强 -->
 		<dependency>
 			<groupId>org.javassist</groupId>
