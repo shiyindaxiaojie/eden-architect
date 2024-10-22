@@ -19,6 +19,7 @@ package org.ylzl.eden.idempotent.spring.boot.autoconfigure;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +40,7 @@ import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
  */
 @ConditionalOnBean(StringRedisTemplate.class)
 @ConditionalOnProperty(value = RedisTimeToLiveIdempotentAutoConfiguration.ENABLED, havingValue = "true")
+@AutoConfigureAfter(TimeToLiveIdempotentAutoConfiguration.class)
 @RequiredArgsConstructor
 @Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j

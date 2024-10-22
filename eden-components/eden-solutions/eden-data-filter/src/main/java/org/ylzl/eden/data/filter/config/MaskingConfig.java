@@ -23,7 +23,9 @@ import java.util.stream.Collectors;
 @Getter
 public class MaskingConfig {
 
-	private String type = "chars-scan";
+	public static final String CHARS_SCAN = "chars-scan";
+
+	private String type = CHARS_SCAN;
 
 	private final CharsScan charsScan = new CharsScan();
 

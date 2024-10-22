@@ -61,6 +61,7 @@
 		<module>eden-leaf-spring-boot-starter</module>
 		<module>eden-liquibase-spring-boot-starter</module>
 		<module>eden-logstash-spring-boot-starter</module>
+		<module>eden-loki-spring-boot-starter</module>
 		<module>eden-metrics-spring-boot-starter</module>
 		<module>eden-mongobee-spring-boot-starter</module>
 		<module>eden-mongodb-spring-boot-starter</module>

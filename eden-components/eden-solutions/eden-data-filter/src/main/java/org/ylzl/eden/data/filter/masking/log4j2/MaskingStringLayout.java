@@ -16,6 +16,7 @@
 
 package org.ylzl.eden.data.filter.masking.log4j2;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -74,12 +75,10 @@ public class MaskingStringLayout extends AbstractStringLayout {
 												   @PluginAttribute(value = "charset", defaultString = "UTF-8") String charset,
 												   @PluginAttribute(value = "pattern", defaultString = PatternLayout.DEFAULT_CONVERSION_PATTERN) String pattern,
 												   @PluginAttribute(value = "type") String type,
-												   @PluginAttribute(value = "prefix") String prefix,
-												   @PluginAttribute(value = "scanList") String scanList,
-												   @PluginAttribute(value = "replaceList") String replaceList,
-												   @PluginAttribute(value = "defaultReplace") String defaultReplace,
-												   @PluginAttribute(value = "replaceHash") String replaceHash,
-												   @PluginAttribute(value = "whiteList") String whiteList) {
+												   @PluginAttribute(value = "strategies") String strategies,
+												   @PluginAttribute(value = "replacement") String replacement,
+												   @PluginAttribute(value = "hash") String hash,
+												   @PluginAttribute(value = "whitelist") String whitelist) {
 
 		PatternParser patternParser = null;
 		if (config != null) {
@@ -90,26 +89,23 @@ public class MaskingStringLayout extends AbstractStringLayout {
 		}
 
 		MaskingConfig maskingConfig = new MaskingConfig();
-		if (type != null) {
+		if (StringUtils.isNotBlank(type)) {
 			maskingConfig.setType(type);
 		}
-		if (prefix != null) {
-			maskingConfig.getCharsScan().setPrefix(prefix);
-		}
-		if (scanList != null) {
-			maskingConfig.getCharsScan().setScanList(scanList);
-		}
-		if (replaceList != null) {
-			maskingConfig.getCharsScan().setReplaceList(replaceList);
-		}
-		if (defaultReplace != null) {
-			maskingConfig.getCharsScan().setDefaultReplace(defaultReplace);
-		}
-		if (replaceHash != null) {
-			maskingConfig.getCharsScan().setReplaceHash(replaceHash);
-		}
-		if (whiteList != null) {
-			maskingConfig.getCharsScan().setWhiteList(whiteList);
+		if (MaskingConfig.CHARS_SCAN.equals(maskingConfig.getType())) {
+			if (StringUtils.isNotBlank(strategies)) {
+				maskingConfig.getCharsScan().setReplaceList(strategies);
+				maskingConfig.getCharsScan().setScanList(strategies);
+			}
+			if (StringUtils.isNotBlank(replacement)) {
+				maskingConfig.getCharsScan().setDefaultReplace(replacement);
+			}
+			if (StringUtils.isNotBlank(hash)) {
+				maskingConfig.getCharsScan().setReplaceHash(hash);
+			}
+			if (StringUtils.isNotBlank(whitelist)) {
+				maskingConfig.getCharsScan().setWhiteList(whitelist);
+			}
 		}
 
 		MaskingStringLayout layout = new MaskingStringLayout(Charset.forName(charset), maskingConfig);
