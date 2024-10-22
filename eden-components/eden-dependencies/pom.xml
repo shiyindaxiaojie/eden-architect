@@ -189,6 +189,7 @@
 		<log4j2.version>2.20.0</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
+		<loki-logback-appender.version>1.6.0-m1</loki-logback-appender.version>
 
 		<!-- 监控组件 -->
 		<prometheus.version>0.16.0</prometheus.version>
@@ -620,6 +621,11 @@
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-logstash-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-loki-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -2023,6 +2029,13 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			<!-- Loki -->
+			<dependency>
+				<groupId>com.github.loki4j</groupId>
+				<artifactId>loki-logback-appender</artifactId>
+				<version>${loki-logback-appender.version}</version>
+			</dependency>
+
 
 			<!-- 监控组件 -->
 			<!-- Spring Boot Admin -->

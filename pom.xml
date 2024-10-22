@@ -38,7 +38,8 @@
 		<module>eden-components</module>
 		<module>eden-plugins</module>
 		<module>eden-tests</module>
-	</modules>
+        <module>eden-components/eden-spring-boot-starters/eden-loki-spring-boot-starter</module>
+    </modules>
 
 	<developers>
 		<developer>
