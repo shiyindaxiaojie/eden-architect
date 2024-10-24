@@ -48,5 +48,6 @@
 		<module>eden-spring-integration</module>
 		<module>eden-spring-security</module>
 		<module>eden-spring-test</module>
-	</modules>
+        <module>eden-solutions/eden-data-crypto</module>
+    </modules>
 </project>
