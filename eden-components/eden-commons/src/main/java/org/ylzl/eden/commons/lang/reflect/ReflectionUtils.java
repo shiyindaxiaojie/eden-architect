@@ -160,6 +160,25 @@ public class ReflectionUtils {
 		return methodList;
 	}
 
+	public static String resolveMethodNameAndParams(@NonNull Method method) {
+		String className = method.getDeclaringClass().getName();
+		String name = method.getName();
+		Class<?>[] params = method.getParameterTypes();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(className).append(":").append(name);
+		sb.append("(");
+		int paramPos = 0;
+		for (Class<?> clazz : params) {
+			sb.append(clazz.getCanonicalName());
+			if (++paramPos < params.length) {
+				sb.append(",");
+			}
+		}
+		sb.append(")");
+		return sb.toString();
+	}
+
 	public static <T> Class<T> getSuperClassGenricType(@NonNull Class<?> clazz, final int index) {
 		Type genType = clazz.getGenericSuperclass();
 		if (!(genType instanceof ParameterizedType)) {
