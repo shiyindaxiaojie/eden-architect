@@ -33,7 +33,7 @@ public class DataDifferHelper {
 	 *
 	 * @return 数据比对实例
 	 */
-	public static DataDiffer dataDiffer() {
+	public static DataDiffer build() {
 		return ExtensionLoader.getExtensionLoader(DataDifferBuilder.class).getDefaultExtension().build();
 	}
 
@@ -43,7 +43,7 @@ public class DataDifferHelper {
 	 * @param spi 扩展点
 	 * @return 数据比对实例
 	 */
-	public static DataDiffer dataDiffer(String spi) {
+	public static DataDiffer build(String spi) {
 		return ExtensionLoader.getExtensionLoader(DataDifferBuilder.class).getExtension(spi).build();
 	}
 }

@@ -35,15 +35,11 @@ import lombok.*;
 @com.alibaba.fastjson2.annotation.JSONType(orders = {"address", "chineseName", "idCard", "mobilePhone"})
 public class TestCase {
 
-	@DataMasking("address")
 	private String address;
 
-	@DataMasking("chinese-name")
 	private String chineseName;
 
-	@DataMasking("id-card")
 	private String idCard;
 
-	@DataMasking("mobile-phone")
 	private String mobilePhone;
 }

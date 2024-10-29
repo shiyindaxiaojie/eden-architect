@@ -418,17 +418,22 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-data-differ</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-data-crypto</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-sensitive-word</artifactId>
+				<artifactId>eden-data-differ</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-data-duplicate</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-data-masker</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -459,6 +464,11 @@
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-idempotent</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-sensitive-word</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 

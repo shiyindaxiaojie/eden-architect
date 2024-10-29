@@ -70,7 +70,7 @@ public class DataMaskerStringLayout extends AbstractStringLayout {
 		for (PatternFormatter formatter : patternFormatterList) {
 			formatter.format(event, stringBuilder);
 		}
-		return DataMaskerHelper.dataMasker(config).masking(stringBuilder.toString());
+		return DataMaskerHelper.build(config).masking(stringBuilder.toString());
 	}
 
 	@PluginFactory

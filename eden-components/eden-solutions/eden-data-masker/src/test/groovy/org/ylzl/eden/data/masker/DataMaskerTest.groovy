@@ -39,7 +39,7 @@ class DataMaskerTest extends Specification {
 
 	def "test data masking"() {
 		given:
-		DataMasker dataMasker = DataMaskerHelper.dataMasker(strategy)
+		DataMasker dataMasker = DataMaskerHelper.build(strategy)
 
 		expect:
 		maskedData == dataMasker.masking(data)

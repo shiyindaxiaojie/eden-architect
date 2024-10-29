@@ -35,7 +35,7 @@ public class DataMaskerHelper {
 	 * @param strategy 策略
 	 * @return 数据脱敏实例
 	 */
-	public static DataMasker dataMasker(String strategy) {
+	public static DataMasker build(String strategy) {
 		return ExtensionLoader.getExtensionLoader(DataMaskerBuilder.class).getDefaultExtension().strategy(strategy).build();
 	}
 
@@ -46,7 +46,7 @@ public class DataMaskerHelper {
 	 * @param strategy 策略
 	 * @return 数据脱敏实例
 	 */
-	public static DataMasker dataMasker(String spi, String strategy) {
+	public static DataMasker build(String spi, String strategy) {
 		return ExtensionLoader.getExtensionLoader(DataMaskerBuilder.class).getExtension(spi).strategy(strategy).build();
 	}
 
@@ -56,7 +56,7 @@ public class DataMaskerHelper {
 	 * @param config 配置
 	 * @return 数据脱敏实例
 	 */
-	public static DataMasker dataMasker(DataMaskerConfig config) {
+	public static DataMasker build(DataMaskerConfig config) {
 		return ExtensionLoader.getExtensionLoader(DataMaskerBuilder.class)
 			.getDefaultExtension()
 			.config(config)

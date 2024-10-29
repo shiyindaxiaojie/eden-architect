@@ -37,7 +37,7 @@ class DataDifferTest extends Specification {
 
 	def "test data differing"() {
 		given:
-		DataDiffer dataDiffer = DataDifferHelper.dataDiffer(spi)
+		DataDiffer dataDiffer = DataDifferHelper.build(spi)
 		TestCase changeVersion = dataDiffer.compare(oldVersion, newVersion).getChanges().get(0).getAffectedValue();
 
 		expect:
