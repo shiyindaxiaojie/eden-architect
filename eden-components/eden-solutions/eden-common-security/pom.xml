@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-security</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-security</name>
+	<name>eden-common-security</name>
 	<description>通用认证授权组件</description>
 
 	<dependencies>

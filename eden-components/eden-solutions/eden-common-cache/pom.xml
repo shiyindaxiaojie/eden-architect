@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-cache</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-cache</name>
+	<name>eden-common-cache</name>
 	<description>通用缓存组件</description>
 
 	<dependencies>

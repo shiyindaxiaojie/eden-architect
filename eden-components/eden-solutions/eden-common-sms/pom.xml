@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-sms</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-sms</name>
+	<name>eden-common-sms</name>
 	<description>通用短信组件</description>
 
 	<dependencies>

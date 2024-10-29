@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-excel</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-excel</name>
+	<name>eden-common-excel</name>
 	<description>通用Excel组件</description>
 
 	<dependencies>

@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-mq-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-mq-spring-boot-starter</name>
+	<name>eden-common-mq-spring-boot-starter</name>
 	<description>Spring Boot Starter For Common Message Queue</description>
 
 	<dependencies>

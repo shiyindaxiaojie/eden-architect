@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-mq</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-mq</name>
+	<name>eden-common-mq</name>
 	<description>通用消息队列组件</description>
 
 	<dependencies>

@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-mail</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-mail</name>
+	<name>eden-common-mail</name>
 	<description>通用邮件组件</description>
 
 	<dependencies>

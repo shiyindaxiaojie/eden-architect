@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-mail-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-mail-spring-boot-starter</name>
+	<name>eden-common-mail-spring-boot-starter</name>
 	<description>Spring Boot Starter For Common Mail</description>
 
 	<dependencies>

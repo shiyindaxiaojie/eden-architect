@@ -40,6 +40,7 @@
 		<module>eden-common-sms</module>
 		<module>eden-consistency-task</module>
 		<module>eden-data-differ</module>
+		<module>eden-data-duplicate</module>
 		<module>eden-data-crypto</module>
 		<module>eden-data-masker</module>
 		<module>eden-distributed-lock</module>

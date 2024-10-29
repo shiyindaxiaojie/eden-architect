@@ -31,15 +31,6 @@
 	<name>eden-audit-differ</name>
 	<description>数据对比组件</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<!-- 内部组件 -->
 		<dependency>

@@ -28,7 +28,7 @@
 	</parent>
 	<artifactId>eden-common-cache-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-dynamic-cache-spring-boot-starter</name>
+	<name>eden-common-cache-spring-boot-starter</name>
 	<description>Spring Boot Starter For Common Cache</description>
 
 	<dependencies>
