@@ -290,7 +290,7 @@ public class HttpCatFilter extends CatFilter {
 		if (traceMode) {
 			String id = Cat.getCurrentMessageId();
 			res.setHeader(CatConstants.X_CAT_ID, id);
-			res.setHeader(CatConstants.X_CAT_SERVER, getCatServer());
+//			res.setHeader(CatConstants.X_CAT_SERVER, getCatServer());
 		}
 	}
 

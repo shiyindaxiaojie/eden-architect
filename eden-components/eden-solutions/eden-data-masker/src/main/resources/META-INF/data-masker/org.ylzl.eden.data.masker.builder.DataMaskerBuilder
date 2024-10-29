@@ -1,0 +1,4 @@
+jackson=org.ylzl.eden.data.masker.integration.jackson.JacksonDataMaskerBuilder
+fastjson=org.ylzl.eden.data.masker.integration.fastjson.FastjsonDataMaskerBuilder
+fastjson2=org.ylzl.eden.data.masker.integration.fastjson2.Fastjson2DataMaskerBuilder
+chars-scan=org.ylzl.eden.data.masker.integration.charsscan.CharsScanDataMaskerBuilder

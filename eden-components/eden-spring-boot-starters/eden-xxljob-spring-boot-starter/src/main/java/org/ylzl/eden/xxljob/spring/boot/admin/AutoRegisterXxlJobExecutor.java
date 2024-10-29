@@ -64,23 +64,23 @@ public class AutoRegisterXxlJobExecutor extends XxlJobExecutor {
 		xxlJobGroup.setAddressType(0);
 		ResponseEntity<String> responseEntity = xxlJobAdminTemplate.saveOrUpdateGroup(xxlJobGroup);
 		if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-			log.warn("添加执行器 `{}` 失败，原因: 响应状态码为 {}", appName, responseEntity.getStatusCodeValue());
+			log.warn("Add executor '{}' failed, cause: response code is {}", appName, responseEntity.getStatusCodeValue());
 			return;
 		}
 
 		ReturnT<String> returnT = JSON.parseObject(responseEntity.getBody(), new TypeReference<ReturnT<String>>() {
 		});
 		if (returnT == null || returnT.getCode() == ReturnT.FAIL_CODE) {
-			log.warn("添加执行器 `{}` 失败，原因: {}", appName, returnT == null ? "接口返回NULL" : returnT.getMsg());
+			log.warn("Add executor '{}' failed, cause: {}", appName, returnT == null ? "response is null" : returnT.getMsg());
 			return;
 		}
 
-		log.info("添加执行器 `{}` 成功", appName);
+		log.info("Add executor '{}' success", appName);
 		for (XxlJobInfo xxlJobInfo : xxlJobInfos) {
 			xxlJobInfo.setJobGroup(Integer.parseInt(returnT.getContent()));
 			ResponseEntity<String> response = xxlJobAdminTemplate.addOrUpdateJob(xxlJobInfo);
 			if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-				log.warn("添加任务 `{}` 失败，原因: 响应状态码为 {}", xxlJobInfo.getExecutorHandler(),
+				log.warn("Add executor '{}' failed, cause: response code is {}", xxlJobInfo.getExecutorHandler(),
 					responseEntity.getStatusCodeValue());
 				return;
 			}
@@ -89,8 +89,8 @@ public class AutoRegisterXxlJobExecutor extends XxlJobExecutor {
 			ReturnT<String> result = JSON.parseObject(responseBody, new TypeReference<ReturnT<String>>() {
 			});
 			if (result == null || result.getCode() == ReturnT.FAIL_CODE) {
-				log.warn("添加任务 `{}` 失败，原因: {}", xxlJobInfo.getExecutorHandler(), result == null ?
-					"接口返回NULL" : result.getMsg());
+				log.warn("Add task '{}' failed, cause: {}", xxlJobInfo.getExecutorHandler(), result == null ?
+					"response is null" : result.getMsg());
 				return;
 			}
 		}

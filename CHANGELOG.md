@@ -11,7 +11,7 @@
   实现最终一致性，详见 [`eden-consistency-task`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-consistency-task)
 - 自研全链路标记组件，支持常用组件的影子库切换，详见 [`eden-full-tracing`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-full-tracing)
 - 封装授权认证组件，支持 `OAuth2`、`JWT`
-  无缝切换，详见 [`eden-dynamic-security`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-security)
+  无缝切换，详见 [`eden-common-security`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-security)
 - 封装数据审计组件，提供数据比对、数据脱敏功能，详见 [`eden-data-auditor`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-auditor)
 - 封装数据过滤组件，提供数据去重、敏感词过滤功能，详见 [`eden-data-filter`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-data-filter)
 - 封装事件审计组件，支持 SpEL
@@ -41,9 +41,9 @@
 - 基于 `COLA4` 扩展，重构 `DTO`
   、状态机、业务扩展点等组件，详见 [`eden-cola`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-cola)
 - 封装分布式缓存组件，支持 `Redis`、`Caffeine`、`Guava` 无缝切换，接入 `JD HotKey` 或者 `Sentinel`
-  可实现多级缓存动态切换，详见 [`eden-dynamic-cache`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-cache)
+  可实现多级缓存动态切换，详见 [`eden-common-cache`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-common-cache)
 - 封装消息队列组件，支持 `RocketMQ`、`Kafka`、`Pulsar`
-  无缝切换，详见 [`eden-dynamic-mq`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-mq)
+  无缝切换，详见 [`eden-common-mq`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-common-mq)
 - 封装分布式锁组件，支持 `Redisson`、`Jedis`、`Curator`、`Zookeeper`
   无缝切换，详见 [`eden-distrubuted-lock`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-distrubuted-lock)
 - 封装分布式唯一ID组件，支持 `Leaf`、`UIDGenerator`、`TinyId`、`Snowflake`
@@ -51,9 +51,9 @@
 - 封装幂等性处理组件，提供 `Token` （校验令牌）或者 `TTL`
   （过期时间）两种解决方案，详见 [`eden-idempotent`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-idempotent)
 - 封装 SMS
-  组件，支持阿里云、腾讯云、梦网、亿美等短信平台组件无缝切换，详见 [`eden-dynamic-sms`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-sms)
+  组件，支持阿里云、腾讯云、梦网、亿美等短信平台组件无缝切换，详见 [`eden-common-sms`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-common-sms)
 - 封装 Mail 组件，由于使用较少，目前仅接入 `JavaMail`
-  组件，详见 [`eden-dynamic-mail`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-dynamic-mail)
+  组件，详见 [`eden-common-mail`](https://github.com/shiyindaxiaojie/eden-architect/tree/main/eden-components/eden-solutions/eden-common-mail)
 
 ### IMPROVEMENTS
 
