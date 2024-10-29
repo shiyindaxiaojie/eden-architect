@@ -383,12 +383,42 @@
 			<!-- 解决方案 -->
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-cache</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-excel</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-mail</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-mq</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-security</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-sms</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-consistency-task</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-data-auditor</artifactId>
+				<artifactId>eden-data-differ</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -398,7 +428,7 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-data-filter</artifactId>
+				<artifactId>eden-sensitive-word</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -409,36 +439,6 @@
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-distributed-uid</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-cache</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-excel</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-mail</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-mq</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-security</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-sms</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -470,11 +470,6 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-data-filter-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-canel-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
@@ -485,7 +480,32 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-consistency-task-spring-boot-starter</artifactId>
+				<artifactId>eden-common-cache-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-excel-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-mail-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-mq-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-security-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-common-sms-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -506,36 +526,6 @@
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-druid-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-cache-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-excel-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-mail-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-security-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.shiyindaxiaojie</groupId>
-				<artifactId>eden-dynamic-sms-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>

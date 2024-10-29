@@ -1,0 +1,2 @@
+javers=org.ylzl.eden.data.differ.integration.javers.JaversDataDifferBuilder
+object-differ=org.ylzl.eden.data.differ.integration.objectdiffer.ObjectDifferDataDifferBuilder

@@ -1,2 +1,0 @@
-javers=org.ylzl.eden.data.auditor.integration.differ.javers.JaversDataDifferBuilder
-object-differ=org.ylzl.eden.data.auditor.integration.differ.objectdiffer.ObjectDifferDataDifferBuilder
