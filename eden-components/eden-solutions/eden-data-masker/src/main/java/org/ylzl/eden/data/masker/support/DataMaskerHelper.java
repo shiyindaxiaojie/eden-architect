@@ -58,7 +58,7 @@ public class DataMaskerHelper {
 	 */
 	public static DataMasker build(DataMaskerConfig config) {
 		return ExtensionLoader.getExtensionLoader(DataMaskerBuilder.class)
-			.getDefaultExtension()
+			.getExtension(config.getType())
 			.config(config)
 			.build();
 	}

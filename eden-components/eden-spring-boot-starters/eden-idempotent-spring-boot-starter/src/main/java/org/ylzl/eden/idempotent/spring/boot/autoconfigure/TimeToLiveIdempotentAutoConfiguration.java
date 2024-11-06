@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
+import org.ylzl.eden.idempotent.spring.boot.env.IdempotentProperties;
 
 /**
  * 幂等请求自动装配
@@ -32,8 +32,8 @@ import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(prefix = TimeToLiveIdempotentProperties.PREFIX)
-@EnableConfigurationProperties(TimeToLiveIdempotentProperties.class)
+@ConditionalOnProperty(prefix = IdempotentProperties.TimeToLive.PREFIX)
+@EnableConfigurationProperties(IdempotentProperties.class)
 @RequiredArgsConstructor
 @Import(TimeToLiveIdempotentAspectRegistrar.class)
 @Slf4j

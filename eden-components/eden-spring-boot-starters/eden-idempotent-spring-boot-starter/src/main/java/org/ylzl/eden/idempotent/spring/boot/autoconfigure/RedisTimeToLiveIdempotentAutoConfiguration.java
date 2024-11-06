@@ -28,8 +28,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.ylzl.eden.idempotent.integration.ttl.RedisTimeToLiveIdempotentStrategy;
-import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentConvertor;
-import org.ylzl.eden.idempotent.spring.boot.env.TimeToLiveIdempotentProperties;
+import org.ylzl.eden.idempotent.spring.boot.env.IdempotentConvertor;
+import org.ylzl.eden.idempotent.spring.boot.env.IdempotentProperties;
 import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 
 /**
@@ -48,15 +48,16 @@ import org.ylzl.eden.idempotent.strategy.TimeToLiveIdempotentStrategy;
 @Configuration(proxyBeanMethods = false)
 public class RedisTimeToLiveIdempotentAutoConfiguration {
 
-	public static final String ENABLED = TimeToLiveIdempotentProperties.PREFIX + ".redis.enabled";
+	public static final String ENABLED = IdempotentProperties.TimeToLive.PREFIX + ".redis.enabled";
 
 	private static final String AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY = "Autowired RedisTimeToLiveIdempotentStrategy";
 
-	private final TimeToLiveIdempotentProperties properties;
+	private final IdempotentProperties properties;
 
 	@Bean
 	public TimeToLiveIdempotentStrategy ttlIdempotentStrategy(StringRedisTemplate redisTemplate) {
 		log.debug(AUTOWIRED_REDIS_TTL_IDEMPOTENT_STRATEGY);
-		return new RedisTimeToLiveIdempotentStrategy(redisTemplate, TimeToLiveIdempotentConvertor.INSTANCE.toConfig(properties));
+		return new RedisTimeToLiveIdempotentStrategy(redisTemplate,
+			IdempotentConvertor.INSTANCE.toTimeToLiveConfig(properties.getTtl()));
 	}
 }
