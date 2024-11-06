@@ -1,3 +1,4 @@
+chars-scan=org.ylzl.eden.data.masker.integration.charsscan.CharsScanDataMasker
 address=org.ylzl.eden.data.masker.spi.AddressDataMasker
 bank-card=org.ylzl.eden.data.masker.spi.BankCardDataMasker
 car-license=org.ylzl.eden.data.masker.spi.CarLicenseDataMasker

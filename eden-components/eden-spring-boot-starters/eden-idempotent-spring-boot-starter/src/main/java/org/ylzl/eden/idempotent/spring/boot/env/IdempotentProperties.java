@@ -30,16 +30,36 @@ import java.util.concurrent.TimeUnit;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = TokenIdempotentProperties.PREFIX)
-public class TokenIdempotentProperties {
+@ConfigurationProperties(prefix = IdempotentProperties.PREFIX)
+public class IdempotentProperties {
 
-	public static final String PREFIX = "idempotent.token";
+	public static final String PREFIX = "idempotent";
 
-	private String prefix = "idempotent:token";
+	private final Token token = new Token();
 
-	private long ttl = 10L;
+	private final TimeToLive ttl = new TimeToLive();
 
-	private TimeUnit timeUnit = TimeUnit.SECONDS;
+	@Getter
+	@Setter
+	public static class Token {
 
-	private String tokenName = "idempotent";
+		public static final String PREFIX = "idempotent.token";
+
+		private String prefix = "idempotent:token";
+
+		private long ttl = 10L;
+
+		private TimeUnit timeUnit = TimeUnit.SECONDS;
+
+		private String tokenName = "idempotent";
+	}
+
+	@Getter
+	@Setter
+	public static class TimeToLive {
+
+		public static final String PREFIX = "idempotent.ttl";
+
+		private String prefix = "idempotent:ttl";
+	}
 }

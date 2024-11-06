@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.ylzl.eden.commons.lang.StringUtils;
-import org.ylzl.eden.idempotent.spring.boot.env.TokenIdempotentProperties;
+import org.ylzl.eden.idempotent.spring.boot.env.IdempotentProperties;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.idempotent.web.controller.TokenIdempotentController;
 import org.ylzl.eden.idempotent.web.interceptor.TokenIdempotentInterceptor;
@@ -36,8 +36,8 @@ import org.ylzl.eden.idempotent.web.interceptor.TokenIdempotentInterceptor;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(prefix = TokenIdempotentProperties.PREFIX)
-@EnableConfigurationProperties(TokenIdempotentProperties.class)
+@ConditionalOnProperty(prefix = IdempotentProperties.Token.PREFIX)
+@EnableConfigurationProperties(IdempotentProperties.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -48,7 +48,7 @@ public class TokenIdempotentAutoConfiguration {
 
 	private static final String AUTOWIRED_IDEMPOTENT_TOKEN_INTERCEPTOR = "Autowired TokenIdempotentInterceptor";
 
-	private final TokenIdempotentProperties properties;
+	private final IdempotentProperties properties;
 
 	@Bean
 	public TokenIdempotentController idempotentTokenController(TokenIdempotentStrategy strategy) {
@@ -60,8 +60,8 @@ public class TokenIdempotentAutoConfiguration {
 	public TokenIdempotentInterceptor idempotentTokenInterceptor(TokenIdempotentStrategy strategy) {
 		log.debug(AUTOWIRED_IDEMPOTENT_TOKEN_INTERCEPTOR);
 		TokenIdempotentInterceptor interceptor = new TokenIdempotentInterceptor(strategy);
-		if (StringUtils.isNotBlank(properties.getTokenName())) {
-			interceptor.setTokenName(properties.getTokenName());
+		if (StringUtils.isNotBlank(properties.getToken().getTokenName())) {
+			interceptor.setTokenName(properties.getToken().getTokenName());
 		}
 		return interceptor;
 	}
