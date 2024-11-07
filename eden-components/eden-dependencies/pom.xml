@@ -86,7 +86,7 @@
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
 		<disruptor.version>3.4.4</disruptor.version>
-		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
+		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
 		<easyexcel.version>3.2.0</easyexcel.version>
