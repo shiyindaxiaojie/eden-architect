@@ -149,7 +149,7 @@
 
 		<!-- 消息队列 -->
 		<spring-kafka.version>2.7.9</spring-kafka.version>
-		<kafka.version>2.7.2</kafka.version>
+		<kafka.version>3.7.1</kafka.version>
 		<rocketmq.version>4.7.1</rocketmq.version>
 		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
 
