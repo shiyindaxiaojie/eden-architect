@@ -231,6 +231,9 @@
 		<scala.version>2.12.9</scala.version>
 		<scala-module.version>0.9.0</scala-module.version>
 
+		<!-- 数据同步 -->
+		<debezium.version>3.0.6.Final</debezium.version>
+
 		<!-- 云原生组件 -->
 		<docker-java.version>3.2.14</docker-java.version>
 	</properties>
@@ -522,6 +525,11 @@
 			<dependency>
 				<groupId>io.github.shiyindaxiaojie</groupId>
 				<artifactId>eden-curator-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.shiyindaxiaojie</groupId>
+				<artifactId>eden-debezium-spring-boot-starter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -2466,6 +2474,59 @@
 				<groupId>org.scala-lang.modules</groupId>
 				<artifactId>scala-java8-compat_2.12</artifactId>
 				<version>${scala-module.version}</version>
+			</dependency>
+
+			<!-- 数据同步 -->
+			<!-- Debezium -->
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-core</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-embedded</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-mysql</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-postgres</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-oracle</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-sqlserver</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-mongodb</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-ddl-parser</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-storage-kafka</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-storage-file</artifactId>
+				<version>${debezium.version}</version>
 			</dependency>
 
 			<!-- 云原生组件 -->
