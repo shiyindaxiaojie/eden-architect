@@ -8,12 +8,11 @@
 
 # Eden* Architect
 
+[<img src="https://api.gitsponsors.com/api/badge/img?id=237178706" height="90">](https://api.gitsponsors.com/api/badge/link?p=D2U/1v/9zVxqte4fgc472KrAzU7YaaSaIaHjjbqCHzAB5LDT/n2wM//x4nhDKuoxKq/wQmi+5xWro5DV4nDBdXmYN0nnecmY8LtNsOgUEjg9UQXat39/fDr8XyjDWdOGm7Nn5yIP7bqYK402lWpNpw==)
+
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
 
-Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将
-Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
-
-> 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki) 。
+Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将 Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
 
 ## 功能特性
 
