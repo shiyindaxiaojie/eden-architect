@@ -36,6 +36,7 @@ public class RestExceptionHandlerRegistrar implements ImportBeanDefinitionRegist
 	@Override
 	public void registerBeanDefinitions(@NotNull AnnotationMetadata metadata,
 										@NotNull BeanDefinitionRegistry registry) {
+
 		ApplicationContextHelper.registerBean(RestExceptionHandler.class, registry);
 	}
 }
