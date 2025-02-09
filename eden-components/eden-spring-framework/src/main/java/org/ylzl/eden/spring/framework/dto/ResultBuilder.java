@@ -19,7 +19,7 @@ package org.ylzl.eden.spring.framework.dto;
 import org.jetbrains.annotations.PropertyKey;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 /**
  * 默认响应体构建

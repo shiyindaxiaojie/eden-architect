@@ -22,7 +22,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import lombok.experimental.UtilityClass;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 /**
  * Sentinel 熔断响应构建器

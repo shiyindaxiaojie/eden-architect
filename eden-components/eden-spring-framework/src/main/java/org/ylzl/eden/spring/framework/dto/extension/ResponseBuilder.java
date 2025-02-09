@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.extension;
+package org.ylzl.eden.spring.framework.dto.extension;
 
 import org.jetbrains.annotations.PropertyKey;
 import org.ylzl.eden.extension.ExtensionLoader;

@@ -38,7 +38,7 @@ import org.ylzl.eden.spring.framework.error.ThirdServiceException;
 import org.ylzl.eden.spring.framework.error.http.BadRequestException;
 import org.ylzl.eden.spring.framework.error.http.ForbiddenException;
 import org.ylzl.eden.spring.framework.error.http.UnauthorizedException;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;

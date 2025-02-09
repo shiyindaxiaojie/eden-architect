@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 /**
  * 幂等请求令牌控制器
