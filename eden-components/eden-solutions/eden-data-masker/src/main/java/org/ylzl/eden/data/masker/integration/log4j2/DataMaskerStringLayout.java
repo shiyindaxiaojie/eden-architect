@@ -42,7 +42,7 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@Plugin(name = "MaskingStringLayout", category = Node.CATEGORY, elementType = Layout.ELEMENT_TYPE, printObject = true)
+@Plugin(name = "DataMaskerStringLayout", category = Node.CATEGORY, elementType = Layout.ELEMENT_TYPE, printObject = true)
 public class DataMaskerStringLayout extends AbstractStringLayout {
 
 	private static final String KEY = "Converter";
