@@ -23,7 +23,7 @@ import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.extension.Order;
 import org.ylzl.eden.spring.framework.dto.ResultBuilder;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 /**
  * COLA 响应体构建器
