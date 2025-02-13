@@ -17,6 +17,7 @@
 package org.ylzl.eden.spring.data.mybatis.plugin;
 
 import com.baomidou.mybatisplus.core.toolkit.SystemClock;
+import lombok.Setter;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -36,6 +37,7 @@ import java.time.Duration;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Setter
 @Intercepts({
 	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
 	@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
@@ -43,9 +45,7 @@ import java.time.Duration;
 })
 public class MybatisSqlLogInterceptor implements Interceptor {
 
-	private static final String MYBATIS_SQL_LOG = "MybatisSqlLog";
-
-	private static final Logger log = LoggerFactory.getLogger(MYBATIS_SQL_LOG);
+	private static final Logger log = LoggerFactory.getLogger("MybatisSqlLog");
 
 	private static final String INFO_SQL = "{} execute sql: {} ({} ms)";
 
@@ -65,7 +65,7 @@ public class MybatisSqlLogInterceptor implements Interceptor {
 		long duration = SystemClock.now() - start;
 		if (Duration.ofMillis(duration).compareTo(slownessThreshold) < 0) {
 			log.info(INFO_SQL, mapperId, originalSql, duration);
-		} else {
+		} else if (log.isWarnEnabled()) {
 			log.warn(WARN_SQL, mapperId, slownessThreshold.toMillis(), originalSql, duration);
 		}
 		return result;
@@ -77,9 +77,5 @@ public class MybatisSqlLogInterceptor implements Interceptor {
 			return Plugin.wrap(target, this);
 		}
 		return target;
-	}
-
-	public void setSlownessThreshold(Duration slownessThreshold) {
-		this.slownessThreshold = slownessThreshold;
 	}
 }
