@@ -72,7 +72,7 @@ public class NettyClientAutoConfiguration {
 			nettyClient.addAllChannelFutureListeners(channelFutureListeners);
 		}
 		if (properties.isAutoStartup()) {
-			nettyClient.setAutoStartup(properties.isAutoStartup());
+			nettyClient.setAutoStartup(true);
 		}
 		return nettyClient;
 	}
