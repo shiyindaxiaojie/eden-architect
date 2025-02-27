@@ -16,10 +16,17 @@
 
 package org.ylzl.eden.event.auditor.integration.kafka;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 基于 Kafka 发送审计事件
@@ -27,7 +34,19 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
+@Slf4j
 public class KafkaEventSender implements EventSender {
+
+	private static final String KAFKA_SEND_AUDIT_EVENT_SUCCESS = "KafkaTemplate send audit event success, message: {}";
+
+	private static final String KAFKA_SEND_AUDIT_EVENT_FAILED = "KafkaTemplate send audit event failed, message: {}";
+
+	private static final String KAFKA_SEND_AUDIT_EVENT_ERROR = "KafkaTemplate send audit event error";
+
+	private final KafkaTemplate<String, String> kafkaTemplate;
+
+	private final String topic;
 
 	/**
 	 * 发送审计事件列表
@@ -36,6 +55,29 @@ public class KafkaEventSender implements EventSender {
 	 */
 	@Override
 	public void send(List<AuditingEvent> events) {
+		List<String> messages = events.stream()
+			.map(AuditingEvent::getContent).collect(Collectors.toList());
+		messages.forEach(
+			message -> {
+				try {
+					ListenableFuture<SendResult<String, String>> future =
+						kafkaTemplate.send(topic, message);
+					future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
 
+						@Override
+						public void onSuccess(SendResult<String, String> sendResult) {
+							log.debug(KAFKA_SEND_AUDIT_EVENT_SUCCESS, message);
+						}
+
+						@Override
+						public void onFailure(Throwable e) {
+							log.warn(KAFKA_SEND_AUDIT_EVENT_FAILED, message, e);
+						}
+					});
+				} catch (Exception e) {
+					log.error(KAFKA_SEND_AUDIT_EVENT_ERROR, e);
+				}
+			}
+		);
 	}
 }

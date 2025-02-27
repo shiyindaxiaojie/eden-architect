@@ -26,7 +26,7 @@ public class EventAuditorConfig {
 	@Getter
 	public static class Sender {
 
-		private String senderType = "logging";
+		private String type = "logging";
 
 		private boolean async = true;
 
@@ -51,6 +51,7 @@ public class EventAuditorConfig {
 		@Getter
 		public static class Kafka {
 
+			private String topic;
 		}
 
 		@EqualsAndHashCode
@@ -59,6 +60,13 @@ public class EventAuditorConfig {
 		@Getter
 		public static class RocketMQ {
 
+			private String topic;
+
+			private String namespace;
+
+			private String tags;
+
+			private String keys;
 		}
 	}
 }
