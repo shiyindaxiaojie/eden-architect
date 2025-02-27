@@ -130,7 +130,7 @@ public class EventAuditorInterceptor implements MethodInterceptor {
 	 * @param events 审计事件列表
 	 */
 	private void send(List<AuditingEvent> events) {
-		String senderType = eventAuditorConfig.getSender().getSenderType();
+		String senderType = eventAuditorConfig.getSender().getType();
 		EventSenderBuilder eventSenderBuilder = ExtensionLoader.getExtensionLoader(EventSenderBuilder.class).getExtension(senderType);
 		eventSenderBuilder.setEventAuditorConfig(eventAuditorConfig);
 		EventSender eventSender = eventSenderBuilder.build();

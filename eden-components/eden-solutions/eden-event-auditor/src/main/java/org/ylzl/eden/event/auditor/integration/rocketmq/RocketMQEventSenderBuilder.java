@@ -18,9 +18,12 @@
 package org.ylzl.eden.event.auditor.integration.rocketmq;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.builder.AbstractEventSenderBuilder;
 import org.ylzl.eden.event.auditor.builder.EventSenderBuilder;
+import org.ylzl.eden.event.auditor.config.EventAuditorConfig;
+import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 
 /**
  * 基于 RocketMQ 发送审计事件构建器
@@ -38,6 +41,9 @@ public class RocketMQEventSenderBuilder extends AbstractEventSenderBuilder imple
 	 */
 	@Override
 	public EventSender build() {
-		return null;
+		RocketMQTemplate rocketMQTemplate = ApplicationContextHelper.getBean(RocketMQTemplate.class);
+		EventAuditorConfig.Sender.RocketMQ config = this.getEventAuditorConfig().getSender().getRocketMQ();
+		return new RocketMQEventSender(rocketMQTemplate, config.getTopic(),
+			config.getNamespace(), config.getTags(), config.getKeys());
 	}
 }

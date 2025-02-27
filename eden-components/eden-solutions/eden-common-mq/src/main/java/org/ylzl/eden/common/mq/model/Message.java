@@ -36,39 +36,25 @@ import java.io.Serializable;
 @Data
 public class Message implements Serializable {
 
-	/**
-	 * 命名空间
-	 */
+	/** 命名空间 */
 	private String namespace;
 
-	/**
-	 * 主题
-	 */
+	/** 主题 */
 	private String topic;
 
-	/**
-	 * 分区/队列
-	 */
+	/** 分区/队列 */
 	private Integer partition;
 
-	/**
-	 * 分区键
-	 */
+	/** 分区键 */
 	private String key;
 
-	/**
-	 * 标签过滤
-	 */
+	/** 标签过滤 */
 	private String tags;
 
-	/**
-	 * 消息体
-	 */
+	/** 消息体 */
 	private String body;
 
-	/**
-	 * 延时等级
-	 */
+	/** 延时等级 */
 	@Builder.Default
 	private Integer delayTimeLevel = 0;
 }

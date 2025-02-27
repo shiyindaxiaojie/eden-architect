@@ -32,7 +32,8 @@ public interface MessageQueueConsumer {
 	/**
 	 * 消费消息
 	 *
-	 * @param messages
+	 * @param messages 消息报文
+	 * @param ack 消息确认
 	 */
 	void consume(List<Message> messages, Acknowledgement ack);
 }
