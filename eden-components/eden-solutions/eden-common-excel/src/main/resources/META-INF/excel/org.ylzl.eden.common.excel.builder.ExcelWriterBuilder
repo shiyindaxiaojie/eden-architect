@@ -1,1 +1,2 @@
 easy-excel=org.ylzl.eden.common.excel.integration.easyexcel.EasyExcelWriterBuilder
+fast-excel=org.ylzl.eden.common.excel.integration.fastexcel.FastExcelWriterBuilder

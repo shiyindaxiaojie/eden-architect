@@ -14,26 +14,14 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.mq;
-
-import org.ylzl.eden.common.mq.consumer.Acknowledgement;
-import org.ylzl.eden.common.mq.model.Message;
-
-import java.util.List;
+package org.ylzl.eden.common.excel.converter;
 
 /**
- * 消息队列消费者
+ * TODO
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface MessageQueueConsumer {
+public interface Converter<T> {
 
-	/**
-	 * 消费消息
-	 *
-	 * @param messages 消息报文
-	 * @param ack 消息确认
-	 */
-	void consume(List<Message> messages, Acknowledgement ack);
 }

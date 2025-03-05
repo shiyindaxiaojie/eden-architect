@@ -32,7 +32,7 @@ import org.ylzl.eden.commons.net.IpConfigUtils;
 import org.ylzl.eden.spring.framework.bootstrap.constant.Globals;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;

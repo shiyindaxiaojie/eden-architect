@@ -41,9 +41,9 @@ import org.ylzl.eden.common.mq.producer.MessageSendResult;
 @Slf4j
 public class KafkaProvider implements MessageQueueProvider {
 
-	private static final String KAFKA_PROVIDER_SEND_INTERRUPTED = "KafkaProvider send interrupted: {}";
+	private static final String KAFKA_PROVIDER_SEND_INTERRUPTED = "KafkaProvider send interrupted";
 
-	private static final String KAFKA_PROVIDER_CONSUME_ERROR = "KafkaProvider send error: {}";
+	private static final String KAFKA_PROVIDER_SEND_ERROR = "KafkaProvider send error";
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
 
@@ -70,11 +70,11 @@ public class KafkaProvider implements MessageQueueProvider {
 			SendResult<String, String> sendResult = future.get();
 			return transfer(sendResult);
 		} catch (InterruptedException e) {
-			log.error(KAFKA_PROVIDER_SEND_INTERRUPTED, e.getMessage(), e);
+			log.error(KAFKA_PROVIDER_SEND_INTERRUPTED, e);
 			Thread.currentThread().interrupt();
 			throw new MessageSendException(e.getMessage());
 		} catch (Exception e) {
-			log.error(KAFKA_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
+			log.error(KAFKA_PROVIDER_SEND_ERROR, e);
 			throw new MessageSendException(e.getMessage());
 		}
 	}
@@ -102,7 +102,7 @@ public class KafkaProvider implements MessageQueueProvider {
 				}
 			});
 		} catch (Exception e) {
-			log.error(KAFKA_PROVIDER_CONSUME_ERROR, e.getMessage(), e);
+			log.error(KAFKA_PROVIDER_SEND_ERROR, e);
 			throw new MessageSendException(e.getMessage());
 		}
 	}

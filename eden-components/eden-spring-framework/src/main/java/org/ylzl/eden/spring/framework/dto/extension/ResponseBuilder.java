@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.spring.framework.web.extension;
+package org.ylzl.eden.spring.framework.dto.extension;
 
 import org.jetbrains.annotations.PropertyKey;
 import org.ylzl.eden.extension.ExtensionLoader;
 import org.ylzl.eden.extension.SPI;
+import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 
 /**
@@ -31,6 +32,10 @@ import org.ylzl.eden.spring.framework.error.ErrorCodeLoader;
 public interface ResponseBuilder<T> {
 
 	static ResponseBuilder<?> builder() {
+		ResponseBuilder<?> builder = ApplicationContextHelper.getBean(ResponseBuilder.class);
+		if (builder != null) {
+			return builder;
+		}
 		return ExtensionLoader.getExtensionLoader(ResponseBuilder.class).getDefaultExtension();
 	}
 

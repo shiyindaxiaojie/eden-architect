@@ -18,9 +18,12 @@
 package org.ylzl.eden.event.auditor.integration.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.builder.AbstractEventSenderBuilder;
 import org.ylzl.eden.event.auditor.builder.EventSenderBuilder;
+import org.ylzl.eden.event.auditor.config.EventAuditorConfig;
+import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 
 /**
  * 基于 Kafka 发送审计事件构建器
@@ -36,8 +39,11 @@ public class KafkaEventSenderBuilder extends AbstractEventSenderBuilder implemen
 	 *
 	 * @return 事件审计实例
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public EventSender build() {
-		return null;
+		KafkaTemplate<String, String> kafkaTemplate = ApplicationContextHelper.getBean(KafkaTemplate.class);
+		EventAuditorConfig.Sender.Kafka config = this.getEventAuditorConfig().getSender().getKafka();
+		return new KafkaEventSender(kafkaTemplate, config.getTopic());
 	}
 }

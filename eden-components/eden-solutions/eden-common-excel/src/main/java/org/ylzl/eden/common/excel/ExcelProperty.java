@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.common.mq;
+package org.ylzl.eden.common.excel;
 
-import org.ylzl.eden.common.mq.consumer.Acknowledgement;
-import org.ylzl.eden.common.mq.model.Message;
-
-import java.util.List;
+import java.lang.annotation.*;
 
 /**
- * 消息队列消费者
+ * Excel 属性项
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
-public interface MessageQueueConsumer {
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface ExcelProperty {
 
-	/**
-	 * 消费消息
-	 *
-	 * @param messages 消息报文
-	 * @param ack 消息确认
-	 */
-	void consume(List<Message> messages, Acknowledgement ack);
+	String[] value() default {""};
+
+	int index() default -1;
+
+	int order() default Integer.MAX_VALUE;
 }

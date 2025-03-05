@@ -28,7 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.PathMatcher;
 import org.springframework.util.ReflectionUtils;
 import org.ylzl.eden.spring.framework.json.support.JSONHelper;
-import org.ylzl.eden.spring.framework.web.extension.ResponseBuilder;
+import org.ylzl.eden.spring.framework.dto.extension.ResponseBuilder;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
