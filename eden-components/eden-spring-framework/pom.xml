@@ -137,7 +137,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<scope>runtime</scope>
+			<scope>optional</scope>
 		</dependency>
 		<!-- 引入实现 Slf4j 的 log4j2 -->
 		<dependency>

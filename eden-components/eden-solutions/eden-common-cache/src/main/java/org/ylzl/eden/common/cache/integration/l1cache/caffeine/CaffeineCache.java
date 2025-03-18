@@ -61,7 +61,7 @@ public class CaffeineCache extends AbstractAdaptingCache implements L1Cache {
 	}
 
 	/**
-	 * 使用本地缓存提供类
+	 * 使用原生缓存提供类
 	 * <p>针对定制化需求暴露底层的客户端实例操作</p>
 	 *
 	 * @return 本地缓存提供类
