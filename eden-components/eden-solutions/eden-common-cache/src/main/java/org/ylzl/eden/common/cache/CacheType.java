@@ -16,6 +16,8 @@
 
 package org.ylzl.eden.common.cache;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 /**
@@ -24,6 +26,7 @@ import java.util.Objects;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@Getter
 public enum CacheType {
 
 	COMPOSITE(0),
@@ -36,10 +39,6 @@ public enum CacheType {
 
 	CacheType(int level) {
 		this.level = level;
-	}
-
-	public int getLevel() {
-		return level;
 	}
 
 	public static CacheType parse(String type) {

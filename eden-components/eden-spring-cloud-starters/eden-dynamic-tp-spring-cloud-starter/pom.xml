@@ -51,7 +51,7 @@
 			<artifactId>eden-dynamic-tp-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>cn.dynamictp</groupId>
+			<groupId>org.dromara.dynamictp</groupId>
 			<artifactId>dynamic-tp-spring-cloud-starter-nacos</artifactId>
 		</dependency>-->
 	</dependencies>
