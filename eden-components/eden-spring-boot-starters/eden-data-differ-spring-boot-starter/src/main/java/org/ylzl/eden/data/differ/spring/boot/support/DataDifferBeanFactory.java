@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.lock.spring.boot.support;
+package org.ylzl.eden.data.differ.spring.boot.support;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.distributed.lock.DistributedLock;
+import org.ylzl.eden.data.differ.DataDiffer;
 import org.ylzl.eden.spring.framework.beans.ApplicationContextHelper;
 
 import java.util.Map;
 
 /**
- * 分布式锁操作实例帮助支持
+ * 数据比对操作实例工厂类
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
-public class DistributedLockHelper {
+public class DataDifferBeanFactory {
 
-	private static final String LOCK_TYPE_NOT_FOUND = "Distributed lock type named '{}' not found";
+	private static final String DATA_DIFFER_TYPE_NOT_FOUND = "Data differ type named '{}' not found";
 
 	private final String primary;
 
-	public DistributedLock getBean() {
+	public DataDiffer getBean() {
 		return getBean(primary);
 	}
 
-	public DistributedLock getBean(String lockType) {
-		Map<String, DistributedLock> distributedLocks = ApplicationContextHelper.getBeansOfType(DistributedLock.class);
-		return distributedLocks.values().stream()
-			.filter(predicate -> predicate.lockType().equalsIgnoreCase(lockType))
+	public DataDiffer getBean(String type) {
+		Map<String, DataDiffer> dataDiffers = ApplicationContextHelper.getBeansOfType(DataDiffer.class);
+		return dataDiffers.values().stream()
+			.filter(predicate -> predicate.getType().equalsIgnoreCase(type))
 			.findFirst()
-			.orElseThrow(() -> new RuntimeException(LOCK_TYPE_NOT_FOUND));
+			.orElseThrow(() -> new RuntimeException(DATA_DIFFER_TYPE_NOT_FOUND));
 	}
 }

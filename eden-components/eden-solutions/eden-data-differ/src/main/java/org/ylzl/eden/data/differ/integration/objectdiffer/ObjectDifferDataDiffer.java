@@ -38,6 +38,16 @@ public class ObjectDifferDataDiffer implements DataDiffer {
 	private final ObjectDiffer objectDiffer;
 
 	/**
+	 * 获取工具名称
+	 *
+	 * @return 工具名称
+	 */
+	@Override
+	public String getType() {
+		return "java-object-diff";
+	}
+
+	/**
 	 * 获取实际比对工具
 	 *
 	 * @return 比对工具
