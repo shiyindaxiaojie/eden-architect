@@ -14,48 +14,40 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.distributed.lock.spring.boot.autoconfigure;
+package org.ylzl.eden.data.differ.spring.boot.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
-import org.ylzl.eden.distributed.lock.DistributedLock;
-import org.ylzl.eden.distributed.lock.spring.boot.env.DistributedLockProperties;
-import org.ylzl.eden.distributed.lock.spring.boot.support.DistributedLockBeanFactory;
-import org.ylzl.eden.spring.boot.bootstrap.constant.Conditions;
+import org.ylzl.eden.data.differ.spring.boot.env.DataDifferProperties;
+import org.ylzl.eden.data.differ.spring.boot.support.DataDifferBeanFactory;
 
 /**
- * 分布式锁操作自动装配
+ * 数据比对自动装配
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@ConditionalOnProperty(
-	prefix = DistributedLockProperties.PREFIX,
-	name = Conditions.ENABLED,
-	havingValue = Conditions.TRUE
-)
-@ConditionalOnBean(DistributedLock.class)
-@EnableConfigurationProperties(DistributedLockProperties.class)
+@ConditionalOnProperty(prefix = DataDifferProperties.PREFIX)
+@EnableConfigurationProperties(DataDifferProperties.class)
 @RequiredArgsConstructor
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @Configuration(proxyBeanMethods = false)
-public class DistributedLockAutoConfiguration {
+public class DataDifferAutoConfiguration {
 
-	private static final String AUTOWIRED_DISTRIBUTED_LOCK_FACTORY = "Autowired DistributedLockBeanFactory";
+	private static final String AUTOWIRED_DATA_DIFFER_HELPER = "Autowired Data Differ Helper";
 
-	private final DistributedLockProperties distributedLockProperties;
+	private final DataDifferProperties properties;
 
 	@Bean
-	public DistributedLockBeanFactory distributedLockBeanFactory() {
-		log.debug(AUTOWIRED_DISTRIBUTED_LOCK_FACTORY);
-		return new DistributedLockBeanFactory(distributedLockProperties.getPrimary());
+	public DataDifferBeanFactory dataDifferBeanFactory() {
+		log.debug(AUTOWIRED_DATA_DIFFER_HELPER);
+		return new DataDifferBeanFactory(properties.getPrimary());
 	}
 }

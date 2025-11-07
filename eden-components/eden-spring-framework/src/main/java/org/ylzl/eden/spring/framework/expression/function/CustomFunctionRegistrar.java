@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 import org.ylzl.eden.spring.framework.aop.util.AopUtils;
 
@@ -48,6 +50,15 @@ public class CustomFunctionRegistrar implements ApplicationContextAware {
 	private void initialize(ApplicationContext applicationContext) {
 		Map<String, Object> components = applicationContext.getBeansWithAnnotation(Component.class);
 		components.values().forEach(component -> {
+			// 跳过 Request/Session 作用域的 Bean
+			Scope scope = AnnotatedElementUtils.findMergedAnnotation(component.getClass(), Scope.class);
+			if (scope != null &&
+				(WebApplicationContext.SCOPE_REQUEST.equals(scope.value()) ||
+				WebApplicationContext.SCOPE_SESSION.equals(scope.value()))) {
+				log.warn("Skipping request/session-scoped bean: {}", component.getClass().getName());
+				return;
+			}
+
 			Method[] methods = component.getClass().getMethods();
 			if (methods.length == 0) {
 				return;
