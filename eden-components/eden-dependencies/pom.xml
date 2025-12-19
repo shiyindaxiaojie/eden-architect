@@ -188,7 +188,7 @@
 		<javamail.version>1.6.7</javamail.version>
 
 		<!-- 日志组件 -->
-		<log4j2.version>2.20.0</log4j2.version>
+		<log4j2.version>2.25.3</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 		<loki-logback-appender.version>1.6.0-m1</loki-logback-appender.version>
