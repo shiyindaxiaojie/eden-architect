@@ -1,132 +1,136 @@
-<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/icon.png" align="right" />
-
-[license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
-
-[github-action]:https://github.com/shiyindaxiaojie/eden-architect/actions
-
-[sonarcloud-dashboard]:https://sonarcloud.io/dashboard?id=shiyindaxiaojie_eden-architect
+<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/readme/icon.png" align="right" />
 
 # Eden* Architect
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)][sonarcloud-dashboard]
+[![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/readme/language-java-blue.svg)](https://github.com/shiyindaxiaojie/eden-architect)
+[![Build Status](https://github.com/shiyindaxiaojie/eden-architect/workflows/build/badge.svg)](https://github.com/shiyindaxiaojie/eden-architect/actions)
+[![License](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/readme/license-apache2.0-red.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)](https://sonarcloud.io/dashboard?id=shiyindaxiaojie_eden-architect)
 
-Eden* Architect 致力于提供企业开发的一站式解决方案。此项目包含开发分布式应用服务的必需组件，您只需要添加一些注解和少量配置，就可以将
-Spring Boot 应用接入微服务解决方案，通过中间件来迅速搭建分布式应用系统。
+<p>
+  <strong>企业级分布式应用一站式解决方案</strong>
+</p>
 
-> 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki) 。
+简体中文 | [English](./README.md)
 
-## 功能特性
+---
 
-* **依赖管理和插件封装**：统一管理依赖版本，解决依赖冲突问题，并提供常用插件的封装，让开发者减少在构建工具所消耗的时间。
-* **常用组件集成与封装**：在 Spring 官方的基础上扩展，提供 `XxlJob`、`CAT`、`Netty`、`Arthas` 等组件的集成。
-* **组件适配及扩展点**：针对现有主流技术点进行高级抽象，提供 `消息队列`、`缓存`、`短信平台`、`邮件`、`Excel` 等组件的动态适配。
-* **通用场景解决方案**：提供`多级缓存`、`分布式锁`、`分布式唯一ID`、`幂等性处理`、`业务流程编排`、`最终一致性`、`全链路标记`
-  等解决方案工具。
+## 📖 简介
 
-## 组件构成
+**Eden* Architect** 致力于为企业开发提供一站式的解决方案。它封装了构建分布式应用服务所需的各类必选组件。您只需要简单的注解和少量的配置，即可将 Spring Boot 应用接入微服务生态，并利用我们强大的中间件能力迅速搭建稳定可靠的分布式系统。
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-architect/component.png)
+> 📚 详细文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-architect/wiki)。
 
-* **eden-dependencies**: 依赖管理组件，管理全局依赖的版本。
-* **eden-parent**: 构建管理组件，封装常用插件，提供开箱即用的配置。
-* **eden-commons**: 基础工具组件，基于 `Apache Commons`、`Google Guava` 扩展。
-* **eden-extensions**: 扩展点组件，参考 `Dubbo` 扩展点改造，轻量级实现组件的扩展。
-* **eden-cola**: `COLA` 组件，在 `COLA` 原生的基础上优化，完善了 `DDD` 领域模型、轻量级状态机、业务扩展点等组件。
-* **eden-solutions**: 解决方案工具集，提供 `多级缓存`、`分布式锁`、`分布式唯一ID`、`数据去重`、`事件审计` 等场景的设计与实现。
-* **eden-spring-framework**: 基础框架组件，支持自定义错误码、异常解析器。
-* **eden-spring-data**: 数据存储组件，扩展了 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等组件。
-* **eden-spring-security**: 授权认证组件，扩展了 `Spring Security OAuth2`、`Jwt`、`Shiro` 等组件。
-* **eden-spring-integration**: 第三方集成组件，扩展了 `RocketMQ`、`Kafka`、`Netty`、`XxlJob` 等组件。
-* **eden-spring-boot**: `Spring Boot`组件，根据实际的使用场景进行扩展。
-* **eden-spring-boot-starters**: `Spring Boot`组件自动装配，对官方原生组件无感知增强，并扩充未集成的组件。
-* **eden-spring-boot-test**: `Spring Boot`组件测试，对官方原生组件进行扩展。
-* **eden-spring-cloud**: `Spring Cloud`组件，扩展了 `Nacos`、`Sentinel`、`Zookeeper` 等组件。
-* **eden-spring-cloud-starters**: `Spring Cloud`组件自动装配，基于 `Spring Cloud Starters` 扩展。
-* **eden-spring-test**: `Spring`测试组件，扩展了 `TestContainer`测试容器和嵌入式的中间件，单元测试。
+## ✨ 功能特性
 
-## 如何构建
+- **📦 统一依赖管理**: 集中管理依赖版本，彻底解决依赖 conflict 问题；封装常用插件，显著减少构建时间。
+- **🛠️ 组件深度集成**: 在 Spring 官方基础上扩展，开箱即用集成 `XxlJob`、`CAT`、`Netty`、`Arthas` 等主流组件。
+- **🔌 灵活扩展点**: 针对消息队列、缓存、短信、邮件、Excel 等技术提供高度抽象的扩展接口，支持动态适配。
+- **💡 通用解决方案**: 提供`多级缓存`、`分布式锁`、`分布式唯一ID`、`幂等性`、`审计日志`、`最终一致性`、`全链路追踪` 等企业级解决方案。
 
-由于 `Spring Boot 2.4.x` 和 `Spring Boot 3.0.x` 在架构层面有很大的变更，因此我们采取跟 Spring Boot 版本号一致的分支:
+## 🏗️ 架构概览
 
-* 2.4.x 分支适用于 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
-* 2.7.x 分支适用于 `Spring Boot 2.7.x`，最低支持 JDK 11。
-* 3.0.x 分支适用于 `Spring Boot 3.0.x`，最低支持 JDK 17。
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-architect/component.png" alt="Architecture Diagram" width="100%" />
+</div>
 
-本项目默认使用 Maven 来构建，最快的使用方式是 `git clone` 到本地，然后执行以下命令：
+### 组件构成
+
+| 组件名称 | 说明 |
+|-----------|-------------|
+| **eden-dependencies** | 依赖管理组件，统一管控全局依赖版本。 |
+| **eden-parent** | 构建管理组件，封装常用插件，提供开箱即用的构建配置。 |
+| **eden-commons** | 基础工具组件，扩展了 `Apache Commons` 和 `Google Guava`。 |
+| **eden-extensions** | 扩展点组件，参考 `Dubbo` SPI 机制实现的轻量级扩展框架。 |
+| **eden-cola** | 优化版 `COLA` 组件，完善了 DDD 领域模型、状态机及业务扩展点支持。 |
+| **eden-solutions** | 解决方案工具集，涵盖 `缓存`、`锁`、`去重`、`审计` 等场景实现。 |
+| **eden-spring-framework** | 基础框架组件，支持自定义错误码及异常解析机制。 |
+| **eden-spring-data** | 数据存储扩展，支持 `Mybatis`、`Redis`、`Flyway`、`Liquibase` 等。 |
+| **eden-spring-security** | 安全认证扩展，支持 `OAuth2`、`Jwt`、`Shiro` 等。 |
+| **eden-spring-integration** | 第三方集成扩展，支持 `RocketMQ`、`Kafka`、`Netty`、`XxlJob`。 |
+| **eden-spring-cloud** | 微服务组件扩展，支持 `Nacos`、`Sentinel`、`Zookeeper` 等。 |
+
+## 🚀 快速开始
+
+### 环境准备
+
+由于 `Spring Boot 2.4.x` 和 `3.0.x` 架构差异较大，我们维护了与 Spring Boot 版本一致的分支：
+
+- **2.4.x 分支**: 适用于 `Spring Boot 2.4.x` (JDK 1.8+)
+- **2.7.x 分支**: 适用于 `Spring Boot 2.7.x` (JDK 11+)
+- **3.0.x 分支**: 适用于 `Spring Boot 3.0.x` (JDK 17+)
+
+### 安装
+
+克隆项目并安装到本地 Maven 仓库：
 
 ```bash
+git clone https://github.com/shiyindaxiaojie/eden-architect.git
+cd eden-architect
 ./mvnw install -T 4C
 ```
 
-执行完毕后，项目将被安装到本地 Maven 仓库。
+### 使用指南
 
-## 如何使用
+1. **引入父工程**:
+   在您项目的 `pom.xml` 中引入 `eden-parent`。
 
-首先，在您的项目 `pom.xml` 的 `parent` 节点引用 `eden-parent` 父工程。
+   ```xml
+   <parent>
+       <groupId>io.github.shiyindaxiaojie</groupId>
+       <artifactId>eden-parent</artifactId>
+       <version>0.0.1-SNAPSHOT</version>
+       <relativePath/>
+   </parent>
+   ```
 
-```xml
-<parent>
-    <groupId>io.github.shiyindaxiaojie</groupId>
-    <artifactId>eden-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath/>
-</parent>
-```
+2. **添加依赖**:
+   按需引入 Starter 组件（例如集成 CAT 监控）。
 
-然后，从 `eden-spring-boot-starters` 或者 `eden-spring-cloud-starters` 搜索您需要集成的组件。例如，集成
-CAT，您可以在 `dependencies` 节点中添加以下内容：
+   ```xml
+   <dependencies>
+       <dependency>
+           <groupId>io.github.shiyindaxiaojie</groupId>
+           <artifactId>eden-cat-spring-boot-starter</artifactId>
+       </dependency>
+   </dependencies>
+   ```
+   *> 注：版本号已由 `eden-parent` 统一管理，无需手动指定。*
 
-```xml
-<dependencies>
-    <dependency>
-        <groupId>io.github.shiyindaxiaojie</groupId>
-        <artifactId>eden-mybatis-spring-boot-starter</artifactId>
-    </dependency>
-</dependencies>
-```
+3. **配置参数**:
+   在 `application.yml` 中开启相关功能。
 
-> 为了减少繁琐的依赖冲突解决工作，在第一步引入的 `eden-parent` 组件已经导入了常用的依赖，一般情况下，不需要填写版本号。
+   ```yaml
+   cat:
+     enabled: true # 开启 CAT
+     trace-mode: true
+     servers: localhost
+   ```
 
-在您的项目配置文件如 `application.yml` ，开启相关配置，大多数组件以 `xxx.enabled` 属性项作为开关。
+4. **启动运行**:
+   启动应用后，发起 HTTP 请求，即可在 CAT 控制台查看全链路追踪数据。
 
-````yaml
-cat:
-  enabled: false # 默认关闭，请按需开启
-  trace-mode: true # 开启访问观测
-  support-out-trace-id: false # 允许异构子系统间透传链路ID
-  home: /tmp
-  servers: localhost # CAT 地址
-  tcp-port: 2280
-  http-port: 8080
-````
+   <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/cat/tracing.png" alt="Tracing Demo" />
 
-业务代码无须改动，直接启动您的项目，简单发起HTTP请求和RPC调用，您会发现，我们已经自动帮您完成了 CAT 的埋点。
+## 🧩 代码演示
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/cat/tracing.png)
+我们提供三种不同架构风格的示例项目，供您参考：
 
-## 代码演示
+- **[eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola)**: 面向领域模型的 **COLA 架构**。
+- **[eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)**: 传统的面向数据模型 **分层架构**。
+- **[eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)**: 简单的 **MVC 架构**，适用于单体应用。
 
-为了演示如何使用，我们提供了 3 种不同架构风格的 Demo
+## 📅 版本规范
 
-* 面向领域模型的 **COLA 架构**，代码实例可以查看 [eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola)
-* 面向数据模型的 **分层架构**，代码实例请查看 [eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)
-* 面向单机模型的 **MVC 架构**，代码实例可以查看 [eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)
+遵循语义化版本规范 `x.y.z`：
+- **x**: 主版本号 (0 表示孵化阶段)。
+- **y**: 次版本号 (功能迭代)。
+- **z**: 修订号 (Bug 修复)。
 
-## 版本规范
+## 📝 变更日志
 
-项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用
-0，即版本号为 `0.x.x` 的格式。
+详细变更记录请参阅 [CHANGELOG.md](https://github.com/shiyindaxiaojie/eden-architect/blob/main/CHANGELOG.md)。
 
-* 孵化版本：0.0.1-SNAPSHOT
-* 开发版本：1.0.0-SNAPSHOT
-* 发布版本：1.0.0
+## 📄 开源协议
 
-版本迭代规则：
-
-* 1.0.0 <> 1.0.1：兼容
-* 1.0.0 <> 1.1.0：基本兼容
-* 1.0.0 <> 2.0.0：不兼容
-
-## 变更日志
-
-请查阅 [CHANGELOG.md](https://github.com/shiyindaxiaojie/eden-architect/blob/main/CHANGELOG.md)
+本项目采用 [Apache-2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html) 协议开源。
