@@ -40,6 +40,16 @@ public class JaversDataDiffer implements DataDiffer {
 	private final Javers javers;
 
 	/**
+	 * 获取工具名称
+	 *
+	 * @return 工具名称
+	 */
+	@Override
+	public String getType() {
+		return "javers";
+	}
+
+	/**
 	 * 获取实际比对工具
 	 *
 	 * @return 比对工具

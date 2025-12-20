@@ -27,6 +27,13 @@ import java.util.Collection;
 public interface DataDiffer {
 
 	/**
+	 * 获取工具名称
+	 *
+	 * @return 工具名称
+	 */
+	String getType();
+
+	/**
 	 * 获取实际比对工具
 	 *
 	 * @return 比对工具

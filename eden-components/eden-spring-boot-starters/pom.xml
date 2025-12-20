@@ -35,16 +35,20 @@
 		<module>eden-arthas-spring-boot-starter</module>
 		<module>eden-canel-spring-boot-starter</module>
 		<module>eden-cat-spring-boot-starter</module>
-		<module>eden-curator-spring-boot-starter</module>
-		<module>eden-debezium-spring-boot-starter</module>
-		<module>eden-distributed-lock-spring-boot-starter</module>
-		<module>eden-distributed-uid-spring-boot-starter</module>
-		<module>eden-druid-spring-boot-starter</module>
 		<module>eden-common-cache-spring-boot-starter</module>
 		<module>eden-common-mail-spring-boot-starter</module>
 		<module>eden-common-mq-spring-boot-starter</module>
 		<module>eden-common-security-spring-boot-starter</module>
 		<module>eden-common-sms-spring-boot-starter</module>
+		<module>eden-curator-spring-boot-starter</module>
+		<module>eden-data-crypto-spring-boot-starter</module>
+		<module>eden-data-differ-spring-boot-starter</module>
+		<module>eden-data-duplicate-spring-boot-starter</module>
+		<module>eden-data-masker-spring-boot-starter</module>
+		<module>eden-debezium-spring-boot-starter</module>
+		<module>eden-distributed-lock-spring-boot-starter</module>
+		<module>eden-distributed-uid-spring-boot-starter</module>
+		<module>eden-druid-spring-boot-starter</module>
 		<module>eden-dynamic-datasource-spring-boot-starter</module>
 		<module>eden-dynamic-tp-spring-boot-starter</module>
 		<module>eden-elasticsearch-spring-boot-starter</module>
@@ -76,15 +80,16 @@
 		<module>eden-redis-spring-boot-starter</module>
 		<module>eden-redisson-spring-boot-starter</module>
 		<module>eden-rocketmq-spring-boot-starter</module>
+		<module>eden-sensitive-word-spring-boot-starter</module>
 		<module>eden-shardingsphere-spring-boot-starter</module>
 		<module>eden-swagger2-spring-boot-starter</module>
 		<module>eden-swagger3-spring-boot-starter</module>
 		<module>eden-tinyid-spring-boot-starter</module>
 		<module>eden-tomcat-spring-boot-starter</module>
 		<module>eden-truelicense-spring-boot-starter</module>
-		<module>eden-undertow-spring-boot-starter</module>
 		<module>eden-uid-generator-spring-boot-starter</module>
-		<module>eden-xxljob-spring-boot-starter</module>
+		<module>eden-undertow-spring-boot-starter</module>
 		<module>eden-xxljob2-spring-boot-starter</module>
+		<module>eden-xxljob-spring-boot-starter</module>
 	</modules>
 </project>
