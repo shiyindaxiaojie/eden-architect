@@ -70,6 +70,9 @@
 		<!-- 发布版本 -->
 		<maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
 		<versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+		<!-- 代码规范检查 -->
+		<maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+		<puppycrawl-checkstyle.version>8.45.1</puppycrawl-checkstyle.version>
 		<!-- 代码覆盖率 -->
 		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 		<!-- 代码质量 -->
@@ -367,6 +370,38 @@
 									</resource>
 								</resources>
 							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- 代码规范检查 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${puppycrawl-checkstyle.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>extra/checkstyle/checkstyle.xml</configLocation>
+						<suppressionsLocation>extra/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>false</failsOnError>
+						<failOnViolation>false</failOnViolation>
+						<includeTestSourceDirectory>false</includeTestSourceDirectory>
+						<linkXRef>false</linkXRef>
+						<encoding>UTF-8</encoding>
+					</configuration>
+					<executions>
+						<execution>
+							<id>checkstyle-validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
 						</execution>
 					</executions>
 				</plugin>
