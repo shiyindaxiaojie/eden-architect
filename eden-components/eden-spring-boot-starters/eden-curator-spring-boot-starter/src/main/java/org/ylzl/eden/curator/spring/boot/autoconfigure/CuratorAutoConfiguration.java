@@ -121,14 +121,8 @@ public class CuratorAutoConfiguration {
 			builder.connectionStateErrorPolicy(curatorProperties.getConnectionStateErrorPolicy());
 		}
 
-		builder.zk34CompatibilityMode(curatorProperties.isZk34CompatibilityMode());
-
 		if (curatorProperties.getWaitForShutdownTimeoutMs() > 0) {
 			builder.waitForShutdownTimeoutMs(curatorProperties.getWaitForShutdownTimeoutMs());
-		}
-
-		if (curatorProperties.getConnectionHandlingPolicy() != null) {
-			builder.connectionHandlingPolicy(curatorProperties.getConnectionHandlingPolicy());
 		}
 
 		if (curatorProperties.getSchemaSet() != null) {

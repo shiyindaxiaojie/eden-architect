@@ -163,7 +163,7 @@ public class RocketMQConsumer implements InitializingBean, DisposableBean, Appli
 			consumer = new DefaultMQPushConsumer(namespace, consumerGroup, rpcHook, new AllocateMessageQueueAveragely(),
 				enableMsgTrace, environment.resolveRequiredPlaceholders(topic));
 			consumer.setVipChannelEnabled(false);
-			consumer.setInstanceName(RocketMQUtil.getInstanceName(rpcHook, consumerGroup));
+			consumer.setInstanceName(consumerGroup + "_" + System.currentTimeMillis());
 		} else {
 			log.warn("RocketMQ access-key or secret-key not configure in {}.", this.getClass().getName());
 			consumer = new DefaultMQPushConsumer(namespace, consumerGroup, null, new AllocateMessageQueueAveragely(),

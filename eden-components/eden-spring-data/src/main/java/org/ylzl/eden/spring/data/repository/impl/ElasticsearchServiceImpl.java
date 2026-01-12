@@ -19,10 +19,18 @@ package org.ylzl.eden.spring.data.repository.impl;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.ylzl.eden.spring.data.elasticsearch.repository.ElasticsearchRepository;
 import org.ylzl.eden.spring.data.repository.ElasticsearchService;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Elasticsearch 业务实现
@@ -36,24 +44,46 @@ public class ElasticsearchServiceImpl<T, ID extends Serializable>
 
 	private final ElasticsearchRepository<T, ID> elasticsearchRepository;
 
-	public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository) {
+	private final ElasticsearchOperations elasticsearchOperations;
+
+	private final Class<T> entityClass;
+
+	public ElasticsearchServiceImpl(ElasticsearchRepository<T, ID> elasticsearchRepository,
+									ElasticsearchOperations elasticsearchOperations,
+									Class<T> entityClass) {
 		super(elasticsearchRepository);
 		this.elasticsearchRepository = elasticsearchRepository;
+		this.elasticsearchOperations = elasticsearchOperations;
+		this.entityClass = entityClass;
 	}
 
 	@Override
 	public <S extends T> S index(S entity) {
-		return elasticsearchRepository.index(entity);
+		return elasticsearchRepository.save(entity);
 	}
 
 	@Override
 	public Iterable<T> search(QueryBuilder queryBuilder) {
-		return elasticsearchRepository.search(queryBuilder);
+		NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+			.withQuery(queryBuilder)
+			.build();
+		SearchHits<T> searchHits = elasticsearchOperations.search(searchQuery, entityClass);
+		return searchHits.getSearchHits().stream()
+			.map(SearchHit::getContent)
+			.collect(Collectors.toList());
 	}
 
 	@Override
 	public Page<T> search(QueryBuilder queryBuilder, Pageable pageable) {
-		return elasticsearchRepository.search(queryBuilder, pageable);
+		NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+			.withQuery(queryBuilder)
+			.withPageable(pageable)
+			.build();
+		SearchHits<T> searchHits = elasticsearchOperations.search(searchQuery, entityClass);
+		List<T> content = searchHits.getSearchHits().stream()
+			.map(SearchHit::getContent)
+			.collect(Collectors.toList());
+		return PageableExecutionUtils.getPage(content, pageable, searchHits::getTotalHits);
 	}
 
 	@Override
@@ -63,6 +93,6 @@ public class ElasticsearchServiceImpl<T, ID extends Serializable>
 
 	@Override
 	public void refresh() {
-		elasticsearchRepository.refresh();
+		elasticsearchOperations.indexOps(entityClass).refresh();
 	}
 }

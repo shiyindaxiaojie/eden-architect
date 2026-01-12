@@ -33,21 +33,21 @@
 
 	<properties>
 		<!-- 基础属性 -->
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.profiles.active>prod</spring.profiles.active>
 
 		<!-- 基础框架 -->
 		<cola.version>4.1.0</cola.version>
-		<spring-boot.version>2.4.13</spring-boot.version>
-		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<spring-boot.version>2.7.18</spring-boot.version>
+		<spring-cloud.version>2021.0.9</spring-cloud.version>
 
 		<!-- 效率组件 -->
-		<lombok.version>1.18.18</lombok.version>
-		<mapstruct.version>1.4.1.Final</mapstruct.version>
+		<lombok.version>1.18.30</lombok.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
-		<arthas.version>3.6.7</arthas.version>
+		<arthas.version>3.7.2</arthas.version>
 
 		<!-- Web 组件 -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
@@ -79,9 +79,9 @@
 		<commons-math3.version>3.6.1</commons-math3.version>
 		<commons-net.version>3.11.1</commons-net.version>
 		<commons-cli.version>1.8.0</commons-cli.version>
-		<jackson-bom.version>2.14.1</jackson-bom.version>
-		<fastjson.version>2.0.22</fastjson.version>
-		<fastjson2.version>2.0.22</fastjson2.version>
+		<jackson-bom.version>2.14.3</jackson-bom.version>
+		<fastjson.version>2.0.43</fastjson.version>
+		<fastjson2.version>2.0.43</fastjson2.version>
 		<guava.version>32.1.2-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
@@ -89,7 +89,7 @@
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<jakarta.el.version>3.0.4</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
-		<easyexcel.version>3.2.0</easyexcel.version>
+		<easyexcel.version>3.3.3</easyexcel.version>
 		<fastexcel.version>1.1.0</fastexcel.version>
 		<poi.version>4.1.1</poi.version>
 		<dom4j.version>2.1.3</dom4j.version>
@@ -118,18 +118,18 @@
 		<sqlite.version>3.42.0.0</sqlite.version>
 		<mybatis.version>3.5.16</mybatis.version>
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
-		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
+		<mybatis-spring-boot.version>2.3.2</mybatis-spring-boot.version>
 		<mybatis-plus.version>3.5.7</mybatis-plus.version>
 		<pagehelper.version>6.1.0</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
-		<hibernate.version>5.4.10.Final</hibernate.version>
+		<hibernate.version>5.6.15.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
 		<hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
-		<druid.version>1.2.14</druid.version>
-		<shardingsphere.version>5.2.1</shardingsphere.version>
-		<dynamic-datasource-spring-boot-starter.version>3.5.0</dynamic-datasource-spring-boot-starter.version>
-		<liquibase.version>4.13.0</liquibase.version>
+		<druid.version>1.2.20</druid.version>
+		<shardingsphere.version>5.4.1</shardingsphere.version>
+		<dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
+		<liquibase.version>4.17.2</liquibase.version>
 
 		<!-- NoSQL 数据库 -->
 		<mongodb.version>3.12.11</mongodb.version>
@@ -152,28 +152,28 @@
 		<!-- 消息队列 -->
 		<spring-kafka.version>2.7.9</spring-kafka.version>
 		<kafka.version>2.7.2</kafka.version>
-		<rocketmq.version>4.7.1</rocketmq.version>
-		<rocketmq-spring-boot.version>2.1.1</rocketmq-spring-boot.version>
+		<rocketmq.version>4.9.7</rocketmq.version>
+		<rocketmq-spring-boot.version>2.2.3</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
 		<dubbo.version>3.2.14</dubbo.version>
 		<protobuf.version>4.0.0-rc-2</protobuf.version>
 		<zookeeper.version>3.8.4</zookeeper.version>
-		<curator.version>4.3.0</curator.version>
+		<curator.version>5.4.0</curator.version>
 		<zkclient.version>0.1</zkclient.version>
 		<xxl-job.version>2.4.0</xxl-job.version>
-		<grpc.version>1.57.2</grpc.version>
+		<grpc.version>1.58.0</grpc.version>
 		<grpc-spring-boot-starter.version>2.14.0.RELEASE</grpc-spring-boot-starter.version>
 		<hessian.version>4.0.63</hessian.version>
 		<quartz.version>2.3.2</quartz.version>
 
 		<!-- 微服务组件 -->
-		<nacos.version>2.0.4</nacos.version>
-		<sentinel.version>1.8.5</sentinel.version>
+		<nacos.version>2.1.2</nacos.version>
+		<sentinel.version>1.8.6</sentinel.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
 		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
-		<spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+		<spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
 
 		<!-- 授权认证组件 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
@@ -181,10 +181,10 @@
 		<spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
 		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
-		<jjwt.version>0.11.2</jjwt.version>
+		<jjwt.version>0.11.5</jjwt.version>
 
 		<!-- 通讯组件 -->
-		<netty.version>4.1.92.Final</netty.version>
+		<netty.version>4.1.100.Final</netty.version>
 		<javamail.version>1.6.7</javamail.version>
 
 		<!-- 日志组件 -->
@@ -195,9 +195,9 @@
 
 		<!-- 监控组件 -->
 		<prometheus.version>0.16.0</prometheus.version>
-		<micrometer.version>1.9.1</micrometer.version>
+		<micrometer.version>1.9.17</micrometer.version>
 		<metrics-spring.version>3.1.3</metrics-spring.version>
-		<spring-boot-admin.version>2.4.4</spring-boot-admin.version>
+		<spring-boot-admin.version>2.7.10</spring-boot-admin.version>
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
 		<cat.version>3.1.0</cat.version>
@@ -219,10 +219,10 @@
 		<gatling.version>3.2.1</gatling.version>
 		<jmh.version>1.36</jmh.version>
 		<junit.version>4.13.1</junit.version>
-		<jupiter.version>5.7.2</jupiter.version>
-		<mockito.version>3.6.28</mockito.version>
+		<jupiter.version>5.9.3</jupiter.version>
+		<mockito.version>4.8.1</mockito.version>
 		<dbunit.version>2.7.2</dbunit.version>
-		<testcontainers.version>1.17.6</testcontainers.version>
+		<testcontainers.version>1.18.3</testcontainers.version>
 		<embedded-mongo.version>2.2.0</embedded-mongo.version>
 		<embedded-redis.version>0.11.0</embedded-redis.version>
 		<apiguardian.version>1.1.2</apiguardian.version>

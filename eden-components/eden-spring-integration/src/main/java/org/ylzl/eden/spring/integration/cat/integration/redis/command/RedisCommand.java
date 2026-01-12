@@ -35,6 +35,7 @@ public class RedisCommand {
 	public static final String BITFIELD = "BITFIELD";
 	public static final String BITOP = "BITOP";
 	public static final String BITPOS = "BITPOS";
+	public static final String BLMOVE = "BLMOVE";
 	public static final String BLPOP = "BLPOP";
 	public static final String BRPOP = "BRPOP";
 	public static final String BRPOPLPUSH = "BRPOPLPUSH";
@@ -76,6 +77,7 @@ public class RedisCommand {
 	public static final String CONFIG_REWRITE = "CONFIG REWRITE";
 	public static final String CONFIG_SET = "CONFIG SET";
 	public static final String CONFIG_RESETSTAT = "CONFIG RESETSTAT";
+	public static final String COPY = "COPY";
 	public static final String DBSIZE = "DBSIZE";
 	public static final String DEBUG_OBJECT = "DEBUG OBJECT";
 	public static final String DEBUG_SEGFAULT = "DEBUG SEGFAULT";
@@ -100,8 +102,12 @@ public class RedisCommand {
 	public static final String GEORADIUS = "GEORADIUS";
 	public static final String GEORADIUSBYMEMBER = "GEORADIUSBYMEMBER";
 	public static final String GEOREMOVE = "GEOREMOVE";
+	public static final String GEOSEARCH = "GEOSEARCH";
+	public static final String GEOSEARCHSTORE = "GEOSEARCHSTORE";
 	public static final String GET = "GET";
 	public static final String GETBIT = "GETBIT";
+	public static final String GETDEL = "GETDEL";
+	public static final String GETEX = "GETEX";
 	public static final String GETRANGE = "GETRANGE";
 	public static final String GETSET = "GETSET";
 	public static final String HDEL = "HDEL";
@@ -117,6 +123,7 @@ public class RedisCommand {
 	public static final String HSET = "HSET";
 	public static final String HSETNX = "HSETNX";
 	public static final String HSTRLEN = "HSTRLEN";
+	public static final String HRANDFIELD = "HRANDFIELD";
 	public static final String HVALS = "HVALS";
 	public static final String INCR = "INCR";
 	public static final String INCRBY = "INCRBY";
@@ -127,6 +134,7 @@ public class RedisCommand {
 	public static final String LINDEX = "LINDEX";
 	public static final String LINSERT = "LINSERT";
 	public static final String LLEN = "LLEN";
+	public static final String LMOVE = "LMOVE";
 	public static final String LPOP = "LPOP";
 	public static final String LPOS = "LPOS";
 	public static final String LPUSH = "LPUSH";
@@ -194,6 +202,7 @@ public class RedisCommand {
 	public static final String SINTER = "SINTER";
 	public static final String SINTERSTORE = "SINTERSTORE";
 	public static final String SISMEMBER = "SISMEMBER";
+	public static final String SMISMEMBER = "SMISMEMBER";
 	public static final String SLAVEOF = "SLAVEOF";
 	public static final String SLAVEOFNOONE = "SLAVEOFNOONE";
 	public static final String REPLICAOF = "REPLICAOF";
@@ -222,11 +231,15 @@ public class RedisCommand {
 	public static final String ZADD = "ZADD";
 	public static final String ZCARD = "ZCARD";
 	public static final String ZCOUNT = "ZCOUNT";
+	public static final String ZDIFF = "ZDIFF";
+	public static final String ZDIFFSTORE = "ZDIFFSTORE";
 	public static final String ZINCRBY = "ZINCRBY";
+	public static final String ZINTER = "ZINTER";
 	public static final String ZINTERSTORE = "ZINTERSTORE";
 	public static final String ZLEXCOUNT = "ZLEXCOUNT";
 	public static final String ZPOPMAX = "ZPOPMAX";
 	public static final String ZPOPMIN = "ZPOPMIN";
+	public static final String ZRANDMEMBER = "ZRANDMEMBER";
 	public static final String ZRANGE = "ZRANGE";
 	public static final String ZRANGE_WITHSCORES = "ZRANGE WITHSCORES";
 	public static final String ZRANGEBYLEX = "ZRANGEBYLEX";
@@ -245,6 +258,8 @@ public class RedisCommand {
 	public static final String ZREVRANGEBYSCORE_WITHSCORES = "ZREVRANGEBYSCORE WITHSCORES";
 	public static final String ZREVRANK = "ZREVRANK";
 	public static final String ZSCORE = "ZSCORE";
+	public static final String ZMSCORE = "ZMSCORE";
+	public static final String ZUNION = "ZUNION";
 	public static final String ZUNIONSTORE = "ZUNIONSTORE";
 	public static final String SCAN = "SCAN";
 	public static final String SSCAN = "SSCAN";

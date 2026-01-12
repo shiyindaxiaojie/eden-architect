@@ -18,7 +18,6 @@ package org.ylzl.eden.curator.spring.boot.env;
 
 import lombok.Data;
 import org.apache.curator.RetryPolicy;
-import org.apache.curator.connection.ConnectionHandlingPolicy;
 import org.apache.curator.ensemble.EnsembleProvider;
 import org.apache.curator.framework.AuthInfo;
 import org.apache.curator.framework.api.ACLProvider;
@@ -75,11 +74,7 @@ public class CuratorProperties {
 
 	private ConnectionStateErrorPolicy connectionStateErrorPolicy;
 
-	private ConnectionHandlingPolicy connectionHandlingPolicy;
-
 	private SchemaSet schemaSet;
-
-	private boolean zk34CompatibilityMode;
 
 	private int waitForShutdownTimeoutMs;
 

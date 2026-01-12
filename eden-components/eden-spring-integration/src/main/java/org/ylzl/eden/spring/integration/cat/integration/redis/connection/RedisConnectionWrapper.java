@@ -20,11 +20,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.geo.*;
 import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.RedisGeoCommands.GeoLocation;
+import org.springframework.data.redis.connection.RedisGeoCommands.GeoSearchCommandArgs;
+import org.springframework.data.redis.connection.RedisGeoCommands.GeoSearchStoreCommandArgs;
+import org.springframework.data.redis.connection.RedisListCommands.Direction;
+import org.springframework.data.redis.connection.RedisServerCommands.FlushOption;
 import org.springframework.data.redis.connection.stream.*;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.core.types.RedisClientInfo;
+import org.springframework.data.redis.domain.geo.GeoReference;
+import org.springframework.data.redis.domain.geo.GeoShape;
 import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatSupport;
 import org.ylzl.eden.spring.integration.cat.integration.redis.command.RedisCommand;
 
@@ -169,6 +176,16 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public GeoResults<GeoLocation<byte[]>> geoSearch(byte[] key, GeoReference<byte[]> reference, GeoShape predicate, GeoSearchCommandArgs args) {
+		return RedisTemplateCatSupport.execute(RedisCommand.GEOSEARCH, key, () -> connection.geoSearch(key, reference, predicate, args));
+	}
+
+	@Override
+	public Long geoSearchStore(byte[] destKey, byte[] key, GeoReference<byte[]> reference, GeoShape predicate, GeoSearchStoreCommandArgs args) {
+		return RedisTemplateCatSupport.execute(RedisCommand.GEOSEARCHSTORE, destKey, () -> connection.geoSearchStore(destKey, key, reference, predicate, args));
+	}
+
+	@Override
 	public Boolean hSet(byte[] key, byte[] field, byte[] value) {
 		return RedisTemplateCatSupport.execute(RedisCommand.HSET, key, () -> connection.hSet(key, field, value));
 	}
@@ -241,6 +258,26 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public Long hStrLen(byte[] key, byte[] field) {
 		return RedisTemplateCatSupport.execute(RedisCommand.HSTRLEN, key, () -> connection.hStrLen(key, field));
+	}
+
+	@Override
+	public byte[] hRandField(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.HRANDFIELD, key, () -> connection.hRandField(key));
+	}
+
+	@Override
+	public List<byte[]> hRandField(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.HRANDFIELD, key, () -> connection.hRandField(key, count));
+	}
+
+	@Override
+	public Map.Entry<byte[], byte[]> hRandFieldWithValues(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.HRANDFIELD, key, () -> connection.hRandFieldWithValues(key));
+	}
+
+	@Override
+	public List<Map.Entry<byte[], byte[]>> hRandFieldWithValues(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.HRANDFIELD, key, () -> connection.hRandFieldWithValues(key, count));
 	}
 
 	@Override
@@ -459,8 +496,18 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public List<byte[]> lPop(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.LPOP, key, () -> connection.lPop(key, count));
+	}
+
+	@Override
 	public byte[] rPop(byte[] key) {
 		return RedisTemplateCatSupport.execute(RedisCommand.RPOP, key, () -> connection.rPop(key));
+	}
+
+	@Override
+	public List<byte[]> rPop(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.RPOP, key, () -> connection.rPop(key, count));
 	}
 
 	@Override
@@ -481,6 +528,16 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public byte[] bRPopLPush(int timeout, byte[] srcKey, byte[] dstKey) {
 		return RedisTemplateCatSupport.execute(RedisCommand.BRPOPLPUSH, srcKey, () -> connection.bRPopLPush(timeout, srcKey, dstKey));
+	}
+
+	@Override
+	public byte[] lMove(byte[] sourceKey, byte[] destinationKey, Direction from, Direction to) {
+		return RedisTemplateCatSupport.execute(RedisCommand.LMOVE, sourceKey, () -> connection.lMove(sourceKey, destinationKey, from, to));
+	}
+
+	@Override
+	public byte[] bLMove(byte[] sourceKey, byte[] destinationKey, Direction from, Direction to, double timeout) {
+		return RedisTemplateCatSupport.execute(RedisCommand.BLMOVE, sourceKey, () -> connection.bLMove(sourceKey, destinationKey, from, to, timeout));
 	}
 
 	@Override
@@ -574,8 +631,18 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public void flushDb(FlushOption option) {
+		RedisTemplateCatSupport.execute(RedisCommand.FLUSHDB, () -> connection.flushDb(option));
+	}
+
+	@Override
 	public void flushAll() {
 		RedisTemplateCatSupport.execute(RedisCommand.FLUSHALL, () -> connection.flushAll());
+	}
+
+	@Override
+	public void flushAll(FlushOption option) {
+		RedisTemplateCatSupport.execute(RedisCommand.FLUSHALL, () -> connection.flushAll(option));
 	}
 
 	@Override
@@ -614,8 +681,18 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public void rewriteConfig() {
+		RedisTemplateCatSupport.execute(RedisCommand.CONFIG_REWRITE, () -> connection.rewriteConfig());
+	}
+
+	@Override
 	public Long time() {
 		return RedisTemplateCatSupport.execute(RedisCommand.TIME, () -> connection.time());
+	}
+
+	@Override
+	public Long time(TimeUnit timeUnit) {
+		return RedisTemplateCatSupport.execute(RedisCommand.TIME, () -> connection.time(timeUnit));
 	}
 
 	@Override
@@ -694,6 +771,11 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public List<Boolean> sMIsMember(byte[] key, byte[]... values) {
+		return RedisTemplateCatSupport.execute(RedisCommand.SMISMEMBER, key, () -> connection.sMIsMember(key, values));
+	}
+
+	@Override
 	public Set<byte[]> sInter(byte[]... keys) {
 		return RedisTemplateCatSupport.execute(RedisCommand.SINTER, () -> connection.sInter(keys));
 	}
@@ -746,6 +828,16 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public byte[] get(byte[] key) {
 		return RedisTemplateCatSupport.execute(RedisCommand.GET, key, () -> connection.get(key));
+	}
+
+	@Override
+	public byte[] getEx(byte[] key, Expiration expiration) {
+		return RedisTemplateCatSupport.execute(RedisCommand.GETEX, key, () -> connection.getEx(key, expiration));
+	}
+
+	@Override
+	public byte[] getDel(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.GETDEL, key, () -> connection.getDel(key));
 	}
 
 	@Override
@@ -904,13 +996,73 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public Boolean zAdd(byte[] key, double score, byte[] value, ZAddArgs args) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZADD, key, () -> connection.zAdd(key, score, value, args));
+	}
+
+	@Override
 	public Long zAdd(byte[] key, Set<Tuple> tuples) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZADD, key, () -> connection.zAdd(key, tuples));
 	}
 
 	@Override
+	public Long zAdd(byte[] key, Set<Tuple> tuples, ZAddArgs args) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZADD, key, () -> connection.zAdd(key, tuples, args));
+	}
+
+	@Override
 	public Long zRem(byte[] key, byte[]... keys) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZREM, key, () -> connection.zRem(key, keys));
+	}
+
+	@Override
+	public Tuple bZPopMin(byte[] key, long timeout, TimeUnit unit) {
+		return RedisTemplateCatSupport.execute(RedisCommand.BZPOPMIN, key, () -> connection.bZPopMin(key, timeout, unit));
+	}
+
+	@Override
+	public Tuple bZPopMax(byte[] key, long timeout, TimeUnit unit) {
+		return RedisTemplateCatSupport.execute(RedisCommand.BZPOPMAX, key, () -> connection.bZPopMax(key, timeout, unit));
+	}
+
+	@Override
+	public Set<Tuple> zPopMin(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZPOPMIN, key, () -> connection.zPopMin(key, count));
+	}
+
+	@Override
+	public Tuple zPopMin(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZPOPMIN, key, () -> connection.zPopMin(key));
+	}
+
+	@Override
+	public Set<Tuple> zPopMax(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZPOPMAX, key, () -> connection.zPopMax(key, count));
+	}
+
+	@Override
+	public Tuple zPopMax(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZPOPMAX, key, () -> connection.zPopMax(key));
+	}
+
+	@Override
+	public byte[] zRandMember(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZRANDMEMBER, key, () -> connection.zRandMember(key));
+	}
+
+	@Override
+	public List<byte[]> zRandMember(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZRANDMEMBER, key, () -> connection.zRandMember(key, count));
+	}
+
+	@Override
+	public Tuple zRandMemberWithScore(byte[] key) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZRANDMEMBER, key, () -> connection.zRandMemberWithScore(key));
+	}
+
+	@Override
+	public List<Tuple> zRandMemberWithScore(byte[] key, long count) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZRANDMEMBER, key, () -> connection.zRandMemberWithScore(key, count));
 	}
 
 	@Override
@@ -979,6 +1131,11 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public List<Double> zMScore(byte[] key, byte[]... values) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZMSCORE, key, () -> connection.zMScore(key, values));
+	}
+
+	@Override
 	public Long zRemRange(byte[] key, long start, long end) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZREMRANGE, key, () -> connection.zRemRange(key, start, end));
 	}
@@ -999,6 +1156,21 @@ public class RedisConnectionWrapper implements RedisConnection {
 	}
 
 	@Override
+	public Set<byte[]> zUnion(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZUNION, () -> connection.zUnion(sets));
+	}
+
+	@Override
+	public Set<Tuple> zUnionWithScores(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZUNION, () -> connection.zUnionWithScores(sets));
+	}
+
+	@Override
+	public Set<Tuple> zUnionWithScores(Aggregate aggregate, Weights weights, byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZUNION, () -> connection.zUnionWithScores(aggregate, weights, sets));
+	}
+
+	@Override
 	public Long zInterStore(byte[] destKey, byte[]... sets) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZINTERSTORE, destKey, () -> connection.zInterStore(destKey, sets));
 	}
@@ -1006,6 +1178,36 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public Long zInterStore(byte[] destKey, Aggregate aggregate, Weights weights, byte[]... sets) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZINTERSTORE, destKey, () -> connection.zInterStore(destKey, aggregate, weights, sets));
+	}
+
+	@Override
+	public Set<byte[]> zInter(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZINTER, () -> connection.zInter(sets));
+	}
+
+	@Override
+	public Set<Tuple> zInterWithScores(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZINTER, () -> connection.zInterWithScores(sets));
+	}
+
+	@Override
+	public Set<Tuple> zInterWithScores(Aggregate aggregate, Weights weights, byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZINTER, () -> connection.zInterWithScores(aggregate, weights, sets));
+	}
+
+	@Override
+	public Set<byte[]> zDiff(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZDIFF, () -> connection.zDiff(sets));
+	}
+
+	@Override
+	public Set<Tuple> zDiffWithScores(byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZDIFF, () -> connection.zDiffWithScores(sets));
+	}
+
+	@Override
+	public Long zDiffStore(byte[] destKey, byte[]... sets) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZDIFFSTORE, destKey, () -> connection.zDiffStore(destKey, sets));
 	}
 
 	@Override
@@ -1026,6 +1228,11 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public Set<byte[]> zRangeByLex(byte[] key, Range range, Limit limit) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZRANGEBYLEX, key, () -> connection.zRangeByLex(key, range, limit));
+	}
+
+	@Override
+	public Long zRemRangeByLex(byte[] key, Range range) {
+		return RedisTemplateCatSupport.execute(RedisCommand.ZREMRANGEBYLEX, key, () -> connection.zRemRangeByLex(key, range));
 	}
 
 	@Override
@@ -1146,5 +1353,10 @@ public class RedisConnectionWrapper implements RedisConnection {
 	@Override
 	public Set<byte[]> zRevRangeByLex(byte[] key, Range range, Limit limit) {
 		return RedisTemplateCatSupport.execute(RedisCommand.ZREVRANGEBYLEX, () -> connection.zRevRangeByLex(key, range, limit));
+	}
+
+	@Override
+	public Boolean copy(byte[] sourceKey, byte[] targetKey, boolean replace) {
+		return RedisTemplateCatSupport.execute(RedisCommand.COPY, sourceKey, () -> connection.copy(sourceKey, targetKey, replace));
 	}
 }

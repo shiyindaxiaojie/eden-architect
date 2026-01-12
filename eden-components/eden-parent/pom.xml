@@ -52,7 +52,7 @@
 		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
 		<!-- 打包成可执行程序 -->
-		<spring-boot-maven-plugin.version>2.4.13</spring-boot-maven-plugin.version>
+		<spring-boot-maven-plugin.version>2.7.18</spring-boot-maven-plugin.version>
 		<start-class/>
 		<build.layers.enabled>false</build.layers.enabled>
 		<maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>

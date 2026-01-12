@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.integration.cat.integration.redis.connection;
 import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisClusterNode;
+import org.springframework.data.redis.connection.RedisServerCommands.FlushOption;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.types.RedisClientInfo;
@@ -26,6 +27,7 @@ import org.ylzl.eden.spring.integration.cat.integration.redis.RedisTemplateCatSu
 import org.ylzl.eden.spring.integration.cat.integration.redis.command.RedisCommand;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis 集群连接包装
@@ -183,8 +185,18 @@ public class RedisClusterConnectionWrapper extends RedisConnectionWrapper implem
 	}
 
 	@Override
+	public void flushDb(RedisClusterNode node, FlushOption option) {
+		RedisTemplateCatSupport.execute(RedisCommand.FLUSHDB, () -> connection.flushDb(node, option));
+	}
+
+	@Override
 	public void flushAll(RedisClusterNode node) {
 		RedisTemplateCatSupport.execute(RedisCommand.FLUSHALL, () -> connection.flushAll(node));
+	}
+
+	@Override
+	public void flushAll(RedisClusterNode node, FlushOption option) {
+		RedisTemplateCatSupport.execute(RedisCommand.FLUSHALL, () -> connection.flushAll(node, option));
 	}
 
 	@Override
@@ -218,8 +230,18 @@ public class RedisClusterConnectionWrapper extends RedisConnectionWrapper implem
 	}
 
 	@Override
+	public void rewriteConfig(RedisClusterNode node) {
+		RedisTemplateCatSupport.execute(RedisCommand.CONFIG_REWRITE, () -> connection.rewriteConfig(node));
+	}
+
+	@Override
 	public Long time(RedisClusterNode node) {
 		return RedisTemplateCatSupport.execute(RedisCommand.TIME, () -> connection.time(node));
+	}
+
+	@Override
+	public Long time(RedisClusterNode node, TimeUnit timeUnit) {
+		return RedisTemplateCatSupport.execute(RedisCommand.TIME, () -> connection.time(node, timeUnit));
 	}
 
 	@Override
