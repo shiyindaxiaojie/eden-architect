@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "spring.shardingsphere",
+      "type": "org.ylzl.eden.shardingsphere.spring.boot.env.ShardingSphereProperties",
+      "sourceType": "org.ylzl.eden.shardingsphere.spring.boot.env.ShardingSphereProperties",
+      "description": "ShardingSphere configuration properties."
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.shardingsphere.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable ShardingSphere.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.shardingsphere.config-file",
+      "type": "java.lang.String",
+      "description": "Path to ShardingSphere YAML configuration file. Supports 'classpath:' and 'file:' prefixes.",
+      "defaultValue": "classpath:shardingsphere.yaml"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.shardingsphere.config-file",
+      "values": [
+        {
+          "value": "classpath:shardingsphere.yaml",
+          "description": "Default classpath configuration file."
+        },
+        {
+          "value": "classpath:shardingsphere-sharding.yaml",
+          "description": "Sharding configuration file."
+        },
+        {
+          "value": "classpath:shardingsphere-readwrite-splitting.yaml",
+          "description": "Read-write splitting configuration file."
+        }
+      ]
+    }
+  ]
+}

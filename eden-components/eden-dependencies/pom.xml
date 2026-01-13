@@ -1464,26 +1464,17 @@
 				<version>${dynamic-datasource-spring-boot-starter.version}
 				</version>
 			</dependency>
-			<!-- Shardingsphere -->
+			<!-- Shardingsphere 5.4.x JDBC Driver -->
 			<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+				<artifactId>shardingsphere-jdbc</artifactId>
 				<version>${shardingsphere.version}</version>
-			</dependency>
-			<!--<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-transaction-xa-core</artifactId>
-				<version>${shardingsphere.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-transaction-base-seata-at</artifactId>
-				<version>${shardingsphere.version}</version>
-			</dependency>-->
-			<dependency>
-				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>sharding-core-api</artifactId>
-				<version>${shardingsphere.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.quartz-scheduler</groupId>
+						<artifactId>quartz</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<!-- TKMybatis -->

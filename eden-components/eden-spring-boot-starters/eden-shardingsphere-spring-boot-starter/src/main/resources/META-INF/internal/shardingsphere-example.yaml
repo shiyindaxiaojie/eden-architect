@@ -1,0 +1,83 @@
+# ShardingSphere 5.4.x 配置示例
+# 更多配置请参考: https://shardingsphere.apache.org/document/5.4.1/en/user-manual/shardingsphere-jdbc/yaml-config/
+
+# 运行模式配置
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+# 数据源配置
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/demo_ds_0?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+    minPoolSize: 1
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/demo_ds_1?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+    minPoolSize: 1
+
+# 规则配置
+rules:
+  # 分片规则
+  - !SHARDING
+    tables:
+      t_order:
+        actualDataNodes: ds_${0..1}.t_order_${0..1}
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_inline
+        keyGenerateStrategy:
+          column: order_id
+          keyGeneratorName: snowflake
+      t_order_item:
+        actualDataNodes: ds_${0..1}.t_order_item_${0..1}
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_item_inline
+        keyGenerateStrategy:
+          column: order_item_id
+          keyGeneratorName: snowflake
+    bindingTables:
+      - t_order,t_order_item
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: user_id
+        shardingAlgorithmName: database_inline
+    shardingAlgorithms:
+      database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_${user_id % 2}
+      t_order_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_${order_id % 2}
+      t_order_item_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_item_${order_id % 2}
+    keyGenerators:
+      snowflake:
+        type: SNOWFLAKE
+
+# 属性配置
+props:
+  sql-show: true

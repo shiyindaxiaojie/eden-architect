@@ -64,17 +64,17 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Sharding JDBC -->
+		<!-- ShardingSphere 5.4.x JDBC Driver -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-			<exclusions>
-				<!-- 请使用 eden-quartz-spring-boot-starter 代替 -->
-				<exclusion>
-					<artifactId>quartz</artifactId>
-					<groupId>org.quartz-scheduler</groupId>
-				</exclusion>
-			</exclusions>
+			<artifactId>shardingsphere-jdbc</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Configuration Processor -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

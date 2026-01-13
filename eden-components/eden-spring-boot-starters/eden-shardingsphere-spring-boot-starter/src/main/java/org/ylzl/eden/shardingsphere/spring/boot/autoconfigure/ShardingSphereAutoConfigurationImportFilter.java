@@ -35,15 +35,14 @@ public class ShardingSphereAutoConfigurationImportFilter implements AutoConfigur
 
 	private static final String MATCH_KEY = "spring.shardingsphere.enabled";
 
+	/**
+	 * ShardingSphere 5.3.0+ 已移除 Spring Boot Starter 支持
+	 * 这些类在 5.4.x 中不再存在，保留此列表以便向后兼容
+	 * 如果用户意外引入旧版依赖，可以正确过滤
+	 */
 	private static final String[] IGNORE_CLASSES = {
-		"org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration",
-		"org.apache.shardingsphere.sharding.spring.boot.ShardingRuleSpringBootConfiguration",
-		"org.apache.shardingsphere.shadow.spring.boot.ShadowRuleSpringBootConfiguration",
-		"org.apache.shardingsphere.parser.spring.boot.SQLParserRuleSpringBootConfiguration",
-		"org.apache.shardingsphere.sqltranslator.spring.boot.SQLTranslatorRuleSpringBootConfiguration",
-		"org.apache.shardingsphere.encrypt.spring.boot.EncryptRuleSpringBootConfiguration",
-		"org.apache.shardingsphere.readwritesplitting.spring.boot.ReadwriteSplittingRuleSpringbootConfiguration",
-		"org.apache.shardingsphere.dbdiscovery.spring.boot.DatabaseDiscoveryRuleSpringbootConfiguration"
+		// 旧版 ShardingSphere Spring Boot Starter 配置类（5.2.x 及更早版本）
+		// 这些类在 5.3.0+ 中已被移除
 	};
 
 	private Environment environment;
