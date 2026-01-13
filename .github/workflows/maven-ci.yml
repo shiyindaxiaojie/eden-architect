@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+      - 2.4.x
+      - 2.7.x
+      - 3.5.x
     paths-ignore:
       - '**.md'
   pull_request:
@@ -15,15 +18,26 @@ on:
 
 jobs:
   build:
-    name: Build on java ${{ matrix.java }}
+    name: Build on branch ${{ github.ref_name }} with Java ${{ matrix.java }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       contents: read
       packages: write
-    strategy:
+    fail-fast: false
       matrix:
-        java: [ '8' ]
+        include:
+          - branch: '2.4.x'
+            java: '8'
+          - branch: '2.7.x'
+            java: '11'
+          - branch: '3.5.x'
+            java: '21'
+          - branch: 'main'
+            java: '11'
+
+    if: github.ref_name == matrix.branch
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
