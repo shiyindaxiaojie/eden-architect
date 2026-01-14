@@ -18,15 +18,12 @@ package org.ylzl.eden.shardingsphere.spring.boot.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
-import org.apache.shardingsphere.infra.metadata.database.ShardingSphereDatabase;
-import org.apache.shardingsphere.mode.manager.ContextManager;
 import org.ylzl.eden.spring.data.jdbc.datasource.DataSourceUrlParser;
 import org.ylzl.eden.spring.data.jdbc.datasource.DataSourceUrlParserException;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.util.Map;
 
 /**
  * ShardingSphere 5.4.x 数据源 URL 解析器
@@ -50,64 +47,14 @@ public class ShardingSphereDataSourceUrlParser implements DataSourceUrlParser {
 		}
 
 		try {
-			ShardingSphereDataSource shardingSphereDataSource = (ShardingSphereDataSource) dataSource;
-			return extractUrlFromShardingSphereDataSource(shardingSphereDataSource);
+			// 通过获取连接的方式获取 URL
+			try (Connection connection = dataSource.getConnection()) {
+				DatabaseMetaData metaData = connection.getMetaData();
+				return metaData.getURL();
+			}
 		} catch (Exception ex) {
 			log.error("Failed to extract URL from ShardingSphereDataSource: {}", ex.getMessage(), ex);
 			throw new DataSourceUrlParserException(ex.getMessage(), ex);
-		}
-	}
-
-	/**
-	 * 从 ShardingSphereDataSource 中提取 URL
-	 * 适配 ShardingSphere 5.4.x API
-	 */
-	private String extractUrlFromShardingSphereDataSource(ShardingSphereDataSource dataSource) throws Exception {
-		// 方式1: 尝试通过 ContextManager 获取
-		try {
-			ContextManager contextManager = dataSource.getContextManager();
-			Map<String, ShardingSphereDatabase> databases = contextManager
-				.getMetaDataContexts()
-				.getMetaData()
-				.getDatabases();
-
-			// 获取第一个数据库的第一个数据源 URL
-			for (ShardingSphereDatabase database : databases.values()) {
-				Map<String, DataSource> dataSources = database.getResourceMetaData().getStorageUnits()
-					.entrySet().stream()
-					.collect(java.util.stream.Collectors.toMap(
-						Map.Entry::getKey,
-						e -> e.getValue().getDataSource()
-					));
-
-				for (DataSource ds : dataSources.values()) {
-					String url = extractUrlFromDataSource(ds);
-					if (url != null) {
-						return url;
-					}
-				}
-			}
-		} catch (Exception e) {
-			log.debug("Failed to extract URL via ContextManager, trying connection method: {}", e.getMessage());
-		}
-
-		// 方式2: 通过获取连接的方式获取 URL
-		try (Connection connection = dataSource.getConnection()) {
-			DatabaseMetaData metaData = connection.getMetaData();
-			return metaData.getURL();
-		}
-	}
-
-	/**
-	 * 从普通 DataSource 中提取 URL
-	 */
-	private String extractUrlFromDataSource(DataSource dataSource) {
-		try (Connection connection = dataSource.getConnection()) {
-			DatabaseMetaData metaData = connection.getMetaData();
-			return metaData.getURL();
-		} catch (Exception e) {
-			log.debug("Failed to extract URL from DataSource: {}", e.getMessage());
-			return null;
 		}
 	}
 }

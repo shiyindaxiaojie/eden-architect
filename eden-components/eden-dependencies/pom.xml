@@ -1467,7 +1467,7 @@
 			<!-- Shardingsphere 5.4.x JDBC Driver -->
 			<dependency>
 				<groupId>org.apache.shardingsphere</groupId>
-				<artifactId>shardingsphere-jdbc</artifactId>
+				<artifactId>shardingsphere-jdbc-core</artifactId>
 				<version>${shardingsphere.version}</version>
 				<exclusions>
 					<exclusion>
