@@ -22,7 +22,7 @@ import org.ylzl.eden.commons.lang.Chars;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;

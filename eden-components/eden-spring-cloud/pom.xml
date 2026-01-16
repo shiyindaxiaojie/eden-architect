@@ -234,17 +234,19 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Sleuth -->
-		<dependency>
+		<!-- Sleuth (已废弃，Spring Cloud 2024.0.x 使用 Micrometer Tracing) -->
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-api</artifactId>
+			<version>${spring-cloud-sleuth.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-instrumentation</artifactId>
+			<version>${spring-cloud-sleuth.version}</version>
 			<optional>true</optional>
-		</dependency>
+		</dependency>-->
 
 		<!-- Eureka -->
 		<dependency>
@@ -388,6 +390,7 @@
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-hibernate53</artifactId>
+			<version>${hazelcast-hibernate.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -411,6 +414,7 @@
 		<dependency>
 			<groupId>org.jolokia</groupId>
 			<artifactId>jolokia-core</artifactId>
+			<version>${jolokia.version}</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -465,17 +469,19 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Sleuth -->
-		<dependency>
+		<!-- Sleuth (已废弃，Spring Cloud 2024.0.x 使用 Micrometer Tracing) -->
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-api</artifactId>
+			<version>${spring-cloud-sleuth.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-instrumentation</artifactId>
+			<version>${spring-cloud-sleuth.version}</version>
 			<optional>true</optional>
-		</dependency>
+		</dependency>-->
 
 		<!-- Spock -->
 		<dependency>

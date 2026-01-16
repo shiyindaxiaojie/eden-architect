@@ -33,7 +33,7 @@ import org.ylzl.eden.commons.id.NanoIdGenerator;
 import org.ylzl.eden.commons.lang.MessageFormatUtils;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

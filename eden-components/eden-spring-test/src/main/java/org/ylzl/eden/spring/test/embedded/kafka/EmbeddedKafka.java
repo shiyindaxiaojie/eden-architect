@@ -18,16 +18,19 @@ package org.ylzl.eden.spring.test.embedded.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
+import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 import org.ylzl.eden.spring.test.embedded.EmbeddedServer;
 
 /**
  * 嵌入式的 Kafka
  *
- * <p>Spring Kafka 从 1.X 升级到 2.X
+ * <p>Spring Kafka API 变更历史：
  *
  * <ul>
- *   <li>org.springframework.kafka.test.rule.KafkaEmbedded 变更为 {@link EmbeddedKafkaRule}
+ *   <li>1.X → 2.X: org.springframework.kafka.test.rule.KafkaEmbedded 变更为 {@link EmbeddedKafkaRule}
+ *   <li>2.X → 3.X: {@link EmbeddedKafkaBroker} 变为抽象类，使用 {@link EmbeddedKafkaZKBroker} 或 EmbeddedKafkaKraftBroker
+ *   <li>2.X → 3.X: 移除 zkPort() 方法，Kafka 支持 KRaft 模式无需 Zookeeper
  * </ul>
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
@@ -38,18 +41,15 @@ public class EmbeddedKafka implements EmbeddedServer {
 
 	private static final int DEFAULT_PORT = 9092;
 
-	private static final int DEFAULT_ZOOKEEPER_PORT = 2181;
-
 	private static final int DEFAULT_BROKER_COUNT = 1;
 
 	private final EmbeddedKafkaBroker kafkaBroker;
 
-	private boolean isRunning = true;
+	private boolean isRunning = false;
 
 	public EmbeddedKafka() {
-		kafkaBroker = new EmbeddedKafkaBroker(DEFAULT_BROKER_COUNT);
+		kafkaBroker = new EmbeddedKafkaZKBroker(DEFAULT_BROKER_COUNT, false);
 		kafkaBroker.kafkaPorts(DEFAULT_PORT);
-		kafkaBroker.zkPort(DEFAULT_ZOOKEEPER_PORT);
 	}
 
 	/**

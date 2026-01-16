@@ -30,8 +30,8 @@ import org.ylzl.eden.spring.framework.logging.MdcConstants;
 import org.ylzl.eden.spring.framework.logging.access.model.AccessLog;
 import org.ylzl.eden.spring.framework.web.util.ServletUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**

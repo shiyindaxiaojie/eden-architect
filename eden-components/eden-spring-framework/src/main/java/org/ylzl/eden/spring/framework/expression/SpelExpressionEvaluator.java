@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.spring.framework.expression;
 
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -34,7 +34,7 @@ public class SpelExpressionEvaluator {
 
 	private static final ExpressionParser PARSER = new SpelExpressionParser();
 
-	private static final ParameterNameDiscoverer DISCOVERER = new LocalVariableTableParameterNameDiscoverer();
+	private static final ParameterNameDiscoverer DISCOVERER = new DefaultParameterNameDiscoverer();
 
 	public static ExpressionParser getExpressionParser() {
 		return PARSER;

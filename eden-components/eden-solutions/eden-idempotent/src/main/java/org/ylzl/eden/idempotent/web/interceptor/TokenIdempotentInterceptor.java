@@ -27,8 +27,8 @@ import org.ylzl.eden.idempotent.strategy.IdempotentStrategy;
 import org.ylzl.eden.idempotent.strategy.TokenIdempotentStrategy;
 import org.ylzl.eden.spring.framework.error.util.AssertUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 幂等令牌拦截器

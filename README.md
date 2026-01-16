@@ -8,10 +8,10 @@
 [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-architect&metric=alert_status)](https://sonarcloud.io/dashboard?id=shiyindaxiaojie_eden-architect)
 
 <p>
-  <strong>A One-Stop Solution for Enterprise Distributed Applications</strong>
+  <strong>🚀 A One-Stop Solution for Enterprise Distributed Applications</strong>
 </p>
 
-[简体中文](./README-zh-CN.md) | English
+English | [简体中文](./README-zh-CN.md)
 
 ---
 
@@ -19,34 +19,86 @@
 
 **Eden* Architect** is dedicated to providing a comprehensive solution for enterprise-level development. It encapsulates the essential components for building distributed application services. By simply adding a few annotations and minimal configuration, you can integrate Spring Boot applications into a microservices ecosystem and rapidly build distributed systems using our robust middleware capabilities.
 
+## 📚 Documentation
+
+- [English Documentation](./docs/en/README.md) - Component Integration Guides
+- [中文文档](./docs/zh-CN/README.md) - 组件集成指南
+
 ## ✨ Key Features
 
-- **📦 Unified Dependency Management**: Centralized management of dependency versions to resolve conflicts and encapsulated common plugins to save build time.
-- **🛠️ Component Integration**: Extensions based on official Spring, integrating components like `XxlJob`, `CAT`, `Netty`, `Arthas`, and more.
-- **🔌 Flexible Extension Points**: High-level abstractions for mainstream technologies, allowing dynamic adaptation of `Message Queues`, `Caching`, `SMS`, `Email`, `Excel`, etc.
-- **💡 Enterprise Solutions**: Out-of-the-box solutions for `Multi-level Caching`, `Distributed Locks`, `Unique IDs`, `Idempotency`, `Auditing`, `Eventual Consistency`, and `Full-link Tracing`.
+| Feature | Description |
+|---------|-------------|
+| 📦 **Unified Dependency Management** | Centralized version management to resolve conflicts; encapsulated plugins to reduce build time |
+| 🛠️ **Deep Component Integration** | Spring-based extensions with out-of-the-box integration for `XxlJob`, `CAT`, `Netty`, `Arthas` |
+| 🔌 **Flexible Extension Points** | High-level abstractions for MQ, Cache, SMS, Email, Excel with dynamic adaptation |
+| 💡 **Enterprise Solutions** | `Multi-level Cache`, `Distributed Lock`, `Unique ID`, `Idempotency`, `Audit Log`, `Eventual Consistency`, `Full-link Tracing` |
 
-## 🏗️ Architecture
+## 🏗️ Architecture Overview
 
-<div align="center">
-  <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-architect/component.png" alt="Architecture Diagram" width="100%" />
-</div>
+```mermaid
+graph TB
+    subgraph Starters["🔧 Auto-Configuration Layer"]
+        SBS["eden-spring-boot-starters"]
+        SCS["eden-spring-cloud-starters"]
+        SOL["eden-solutions"]
+    end
+
+    subgraph Spring["📦 Spring Component Layer"]
+        SB["eden-spring-boot"]
+        SC["eden-spring-cloud"]
+        SEC["eden-spring-security"]
+        SD["eden-spring-data"]
+        SI["eden-spring-integration"]
+    end
+
+    subgraph Framework["🏛️ Framework Layer"]
+        SF["eden-spring-framework"]
+    end
+
+    subgraph Foundation["🧱 Foundation Layer"]
+        EXT["eden-extensions"]
+        COM["eden-commons"]
+    end
+
+    subgraph COLA["🎯 COLA Architecture"]
+        COLA_ALL["eden-cola"]
+        CSM["eden-cola-statemachine"]
+    end
+
+    subgraph Build["🔨 Build Layer"]
+        PAR["eden-parent"]
+        DEP["eden-dependencies"]
+    end
+
+    Starters --> Spring --> Framework --> Foundation --> Build
+    COLA --> Foundation
+    EXT --> COM
+    PAR --> DEP
+    CSM -.-> COLA_ALL
+
+    style Starters fill:#e3f2fd,stroke:#1976d2
+    style Spring fill:#f3e5f5,stroke:#7b1fa2
+    style Framework fill:#e8f5e9,stroke:#388e3c
+    style Foundation fill:#fff8e1,stroke:#ffa000
+    style COLA fill:#fce4ec,stroke:#c2185b
+    style Build fill:#eceff1,stroke:#607d8b
+```
 
 ### Component Overview
 
 | Component | Description |
 |-----------|-------------|
-| **eden-dependencies** | Manages global dependency versions. |
-| **eden-parent** | Build management, encapsulates common plugins, provides out-of-the-box configuration. |
-| **eden-commons** | Basic utility component, extending `Apache Commons` and `Google Guava`. |
-| **eden-extensions** | Lightweight extension point component, inspired by `Dubbo` SPI. |
-| **eden-cola** | Optimized `COLA` component with improved DDD models, state machines, and business extensions. |
-| **eden-solutions** | Solution toolkit for `Caching`, `Locks`, `Deduplication`, `Auditing`, etc. |
-| **eden-spring-framework** | Base framework supporting custom error codes and exception resolvers. |
-| **eden-spring-data** | Data storage extensions for `Mybatis`, `Redis`, `Flyway`, `Liquibase`. |
-| **eden-spring-security** | Auth extensions for `OAuth2`, `Jwt`, `Shiro`. |
-| **eden-spring-integration** | Integration with `RocketMQ`, `Kafka`, `Netty`, `XxlJob`. |
-| **eden-spring-cloud** | Cloud extensions for `Nacos`, `Sentinel`, `Zookeeper`. |
+| **eden-dependencies** | Manages global dependency versions |
+| **eden-parent** | Build management with common plugins and out-of-the-box configuration |
+| **eden-commons** | Basic utilities extending `Apache Commons` and `Google Guava` |
+| **eden-extensions** | Lightweight extension framework inspired by `Dubbo` SPI |
+| **eden-cola** | Optimized `COLA` component with DDD models, state machines, and business extensions |
+| **eden-solutions** | Solution toolkit for `Caching`, `Locks`, `Deduplication`, `Auditing` |
+| **eden-spring-framework** | Base framework supporting custom error codes and exception resolvers |
+| **eden-spring-data** | Data storage extensions for `Mybatis`, `Redis`, `Flyway`, `Liquibase` |
+| **eden-spring-security** | Auth extensions for `OAuth2`, `Jwt`, `Shiro` |
+| **eden-spring-integration** | Integration with `RocketMQ`, `Kafka`, `Netty`, `XxlJob` |
+| **eden-spring-cloud** | Cloud extensions for `Nacos`, `Sentinel`, `Zookeeper` |
 
 ## 🚀 Getting Started
 
@@ -54,13 +106,13 @@
 
 Since `Spring Boot 2.4.x` and `3.0.x` vary significantly, we maintain matching branches:
 
-- **Branch 2.4.x**: For `Spring Boot 2.4.x` (Min JDK 1.8)
-- **Branch 2.7.x**: For `Spring Boot 2.7.x` (Min JDK 11)
-- **Branch 3.0.x**: For `Spring Boot 3.0.x` (Min JDK 17)
+| Branch | Spring Boot | JDK |
+|--------|-------------|-----|
+| 2.4.x | 2.4.x | 8+ |
+| 2.7.x | 2.7.x | 11+ |
+| 3.0.x | 3.0.x | 17+ |
 
 ### Installation
-
-Clone the repository and install it to your local Maven repository:
 
 ```bash
 git clone https://github.com/shiyindaxiaojie/eden-architect.git
@@ -70,60 +122,78 @@ cd eden-architect
 
 ### Usage
 
-1. **Add Parent POM**:
-   Reference `eden-parent` in your project's `pom.xml`.
+**1. Add Parent POM**
 
-   ```xml
-   <parent>
-       <groupId>io.github.shiyindaxiaojie</groupId>
-       <artifactId>eden-parent</artifactId>
-       <version>0.0.1-SNAPSHOT</version>
-       <relativePath/>
-   </parent>
-   ```
+```xml
+<parent>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath/>
+</parent>
+```
 
-2. **Add Dependencies**:
-   Select the starters you need (e.g., for CAT integration).
+**2. Add Dependencies**
 
-   ```xml
-   <dependencies>
-       <dependency>
-           <groupId>io.github.shiyindaxiaojie</groupId>
-           <artifactId>eden-cat-spring-boot-starter</artifactId>
-       </dependency>
-   </dependencies>
-   ```
-   *> Note: Version numbers are managed by `eden-parent`.*
+```xml
+<dependency>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-cat-spring-boot-starter</artifactId>
+</dependency>
+```
 
-3. **Configuration**:
-   Enable features in `application.yml`.
+> Version numbers are managed by `eden-parent`.
 
-   ```yaml
-   cat:
-     enabled: true # Enable CAT
-     trace-mode: true
-     servers: localhost
-   ```
+**3. Configuration**
 
-4. **Run**:
-   Start your application. Tracing and other features will be active automatically.
+```yaml
+cat:
+  enabled: true
+  trace-mode: true
+  servers: localhost
+```
 
-   <img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/cat/tracing.png" alt="Tracing Demo" />
+**4. Run**
 
-## 🧩 Demos
+Start your application and make HTTP requests to see full-link tracing in CAT console.
 
-We provide sample projects demonstrating different architectural styles:
+## 🧩 Demo Projects
 
-- **[eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola)**: Domain-Driven Design (COLA) architecture.
-- **[eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer)**: Traditional Layered architecture.
-- **[eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc)**: Simple MVC architecture for single-node apps.
+| Project | Architecture | Description |
+|---------|--------------|-------------|
+| [eden-demo-cola](https://github.com/shiyindaxiaojie/eden-demo-cola) | COLA | Domain-Driven Design for complex business |
+| [eden-demo-layer](https://github.com/shiyindaxiaojie/eden-demo-layer) | Layered | Traditional data-centric architecture |
+| [eden-demo-mvc](https://github.com/shiyindaxiaojie/eden-demo-mvc) | MVC | Simple monolithic applications |
+
+## 🔧 Best Practices
+
+### CAT Full-Link Tracing
+
+Analyze the entire trace including `HTTP` latency, `RPC` details, `Log` business logs, `SQL` and `Cache` execution time via `TraceId`.
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/cat/tracing.png)
+
+### Sentinel Traffic Governance
+
+Configure flow control rules based on business load, monitor interface QPS and rate limiting status.
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/sentinel/sentinel-dashboard-overview-custom.png)
+
+### Arthas Online Diagnostics
+
+Use runtime probes for dynamic service discovery, out-of-the-box diagnostics in low-load environments.
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/arthas/arthas-dashboard-overview.png)
 
 ## 📅 Versioning
 
 We follow Semantic Versioning `x.y.z`:
-- **x**: Major version (0 for incubation).
-- **y**: Minor version.
-- **z**: Patch version.
+
+| Version | Description |
+|---------|-------------|
+| x | Major version (0 for incubation) |
+| y | Minor version (feature iterations) |
+| z | Patch version (bug fixes) |
 
 ## 📝 Changelog
 

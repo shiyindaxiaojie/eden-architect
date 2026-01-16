@@ -18,8 +18,8 @@ package org.ylzl.eden.spring.framework.web.filter;
 
 import org.apache.http.HttpHeaders;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
 /**

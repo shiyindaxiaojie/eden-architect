@@ -33,21 +33,27 @@
 
 	<properties>
 		<!-- 基础属性 -->
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.profiles.active>prod</spring.profiles.active>
 
 		<!-- 基础框架 -->
 		<cola.version>4.1.0</cola.version>
-		<spring-boot.version>2.7.18</spring-boot.version>
-		<spring-cloud.version>2021.0.9</spring-cloud.version>
+		<spring-boot.version>3.5.9</spring-boot.version>
+		<spring-cloud.version>2024.0.1</spring-cloud.version>
+		<!-- Spring 组件版本 (Spring Boot 3.5.x 对应版本) -->
+		<spring-framework.version>6.2.2</spring-framework.version>
+		<spring-data-bom.version>2024.1.2</spring-data-bom.version>
+		<spring-integration.version>6.4.2</spring-integration.version>
+		<spring-security.version>6.4.2</spring-security.version>
+		<spring-session-bom.version>3.4.1</spring-session-bom.version>
 
 		<!-- 效率组件 -->
-		<lombok.version>1.18.30</lombok.version>
-		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<lombok.version>1.18.36</lombok.version>
+		<mapstruct.version>1.6.3</mapstruct.version>
 		<jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
-		<arthas.version>3.7.2</arthas.version>
+		<arthas.version>4.0.4</arthas.version>
 
 		<!-- Web 组件 -->
 		<javax-ws-rs.version>2.1.1</javax-ws-rs.version>
@@ -79,17 +85,17 @@
 		<commons-math3.version>3.6.1</commons-math3.version>
 		<commons-net.version>3.11.1</commons-net.version>
 		<commons-cli.version>1.8.0</commons-cli.version>
-		<jackson-bom.version>2.14.3</jackson-bom.version>
-		<fastjson.version>2.0.43</fastjson.version>
-		<fastjson2.version>2.0.43</fastjson2.version>
-		<guava.version>32.1.2-jre</guava.version>
+		<jackson-bom.version>2.18.2</jackson-bom.version>
+		<fastjson.version>2.0.53</fastjson.version>
+		<fastjson2.version>2.0.53</fastjson2.version>
+		<guava.version>33.3.1-jre</guava.version>
 		<checker.version>3.19.0</checker.version>
 		<errorprone.version>2.10.0</errorprone.version>
 		<disruptor.version>3.4.4</disruptor.version>
-		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
-		<jakarta.el.version>3.0.4</jakarta.el.version>
+		<hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+		<jakarta.el.version>5.0.0</jakarta.el.version>
 		<classmate.version>1.5.1</classmate.version>
-		<easyexcel.version>3.3.3</easyexcel.version>
+		<easyexcel.version>4.0.3</easyexcel.version>
 		<fastexcel.version>1.1.0</fastexcel.version>
 		<poi.version>4.1.1</poi.version>
 		<dom4j.version>2.1.3</dom4j.version>
@@ -116,23 +122,26 @@
 		<mysql-connector-j.version>8.0.32</mysql-connector-j.version>
 		<mariadb-java-client.version>3.1.1</mariadb-java-client.version>
 		<sqlite.version>3.42.0.0</sqlite.version>
-		<mybatis.version>3.5.16</mybatis.version>
-		<mybatis-spring.version>2.1.2</mybatis-spring.version>
-		<mybatis-spring-boot.version>2.3.2</mybatis-spring-boot.version>
-		<mybatis-plus.version>3.5.7</mybatis-plus.version>
+		<mybatis.version>3.5.19</mybatis.version>
+		<mybatis-spring.version>3.0.4</mybatis-spring.version>
+		<mybatis-spring-boot.version>3.0.4</mybatis-spring-boot.version>
+		<mybatis-plus.version>3.5.9</mybatis-plus.version>
 		<pagehelper.version>6.1.0</pagehelper.version>
 		<tk-mybatis.version>1.2.4</tk-mybatis.version>
-		<hibernate.version>5.6.15.Final</hibernate.version>
+		<hibernate.version>6.6.0.Final</hibernate.version>
 		<hibernate-commons.version>5.1.0.Final</hibernate-commons.version>
 		<hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
-		<hikaricp.version>4.0.3</hikaricp.version>
-		<druid.version>1.2.20</druid.version>
-		<shardingsphere.version>5.4.1</shardingsphere.version>
-		<dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
-		<liquibase.version>4.17.2</liquibase.version>
+		<hikaricp.version>5.1.0</hikaricp.version>
+		<druid.version>1.2.23</druid.version>
+		<shardingsphere.version>5.5.1</shardingsphere.version>
+		<dynamic-datasource-spring-boot-starter.version>4.3.1</dynamic-datasource-spring-boot-starter.version>
+		<liquibase.version>4.29.2</liquibase.version>
+		
 
 		<!-- NoSQL 数据库 -->
-		<mongodb.version>3.12.11</mongodb.version>
+		<!-- 覆盖 Spring Boot 3.5.9 默认的 mongodb-driver-bom 版本 (3.12.11 不存在) -->
+		<mongodb.version>5.5.2</mongodb.version>
+		<mongodb-driver-bom.version>5.5.2</mongodb-driver-bom.version>
 		<mongobee.version>0.13</mongobee.version>
 		<neo4j.version>2.0.6</neo4j.version>
 		<influxdb.version>6.4.0</influxdb.version>
@@ -140,72 +149,76 @@
 		<!-- 搜索引擎 -->
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}
 		</spring-boot-starter-data-elasticsearch.version>
+		<elasticsearch.version>8.15.0</elasticsearch.version>
 		<t-digest.version>3.2</t-digest.version>
 		<jopt-simple.version>5.0.4</jopt-simple.version>
 
 		<!-- 缓存组件 -->
 		<ehcache.version>2.10.4</ehcache.version>
-		<redisson.version>3.32.0</redisson.version>
-		<caffeine.version>2.9.3</caffeine.version>
+		<redisson.version>3.40.2</redisson.version>
+		<caffeine.version>3.1.8</caffeine.version>
 		<hotkey.version>0.0.4-SNAPSHOT</hotkey.version>
+		<hazelcast.version>5.5.0</hazelcast.version>
+		<hazelcast-hibernate.version>5.2.0</hazelcast-hibernate.version>
 
 		<!-- 消息队列 -->
-		<spring-kafka.version>2.7.9</spring-kafka.version>
-		<kafka.version>2.7.2</kafka.version>
-		<rocketmq.version>4.9.7</rocketmq.version>
-		<rocketmq-spring-boot.version>2.2.3</rocketmq-spring-boot.version>
+		<spring-kafka.version>3.3.1</spring-kafka.version>
+		<kafka.version>3.8.1</kafka.version>
+		<rocketmq.version>5.1.4</rocketmq.version>
+		<rocketmq-spring-boot.version>2.3.1</rocketmq-spring-boot.version>
 
 		<!-- 分布式组件 -->
-		<dubbo.version>3.2.14</dubbo.version>
-		<protobuf.version>4.0.0-rc-2</protobuf.version>
-		<zookeeper.version>3.8.4</zookeeper.version>
-		<curator.version>5.4.0</curator.version>
+		<dubbo.version>3.3.0</dubbo.version>
+		<protobuf.version>4.28.3</protobuf.version>
+		<zookeeper.version>3.9.3</zookeeper.version>
+		<curator.version>5.7.1</curator.version>
 		<zkclient.version>0.1</zkclient.version>
-		<xxl-job.version>2.4.0</xxl-job.version>
-		<grpc.version>1.58.0</grpc.version>
+		<xxl-job.version>2.4.1</xxl-job.version>
+		<grpc.version>1.68.2</grpc.version>
 		<grpc-spring-boot-starter.version>2.14.0.RELEASE</grpc-spring-boot-starter.version>
 		<hessian.version>4.0.63</hessian.version>
 		<quartz.version>2.3.2</quartz.version>
 
 		<!-- 微服务组件 -->
-		<nacos.version>2.1.2</nacos.version>
-		<sentinel.version>1.8.6</sentinel.version>
+		<nacos.version>2.3.2</nacos.version>
+		<sentinel.version>1.8.8</sentinel.version>
 		<spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
 		<spring-cloud-starter-netflix.version>2.2.10.RELEASE</spring-cloud-starter-netflix.version>
 		<spring-cloud-gateway.version>3.0.7</spring-cloud-gateway.version>
-		<spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+		<spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
 
 		<!-- 授权认证组件 -->
 		<spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
 		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
 		<spring-security-oauth2-autoconfigure.version>2.6.6</spring-security-oauth2-autoconfigure.version>
-		<spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
-		<jjwt.version>0.11.5</jjwt.version>
+		<spring-security-oauth2-authorization-server.version>1.4.1</spring-security-oauth2-authorization-server.version>
+		<jjwt.version>0.12.6</jjwt.version>
 
 		<!-- 通讯组件 -->
-		<netty.version>4.1.100.Final</netty.version>
+		<netty.version>4.1.115.Final</netty.version>
 		<javamail.version>1.6.7</javamail.version>
 
 		<!-- 日志组件 -->
-		<log4j2.version>2.20.0</log4j2.version>
+		<log4j2.version>2.24.2</log4j2.version>
 		<logback-extensions.version>0.1.5</logback-extensions.version>
 		<logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
 		<loki-logback-appender.version>1.6.0-m1</loki-logback-appender.version>
 
 		<!-- 监控组件 -->
 		<prometheus.version>0.16.0</prometheus.version>
-		<micrometer.version>1.9.17</micrometer.version>
+		<micrometer.version>1.14.2</micrometer.version>
+		<dropwizard-metrics.version>4.2.28</dropwizard-metrics.version>
 		<metrics-spring.version>3.1.3</metrics-spring.version>
-		<spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+		<spring-boot-admin.version>3.4.1</spring-boot-admin.version>
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
 		<cat.version>3.1.0</cat.version>
 		<plexus.version>3.0.24</plexus.version>
 
 		<!-- 链路组件 -->
-		<zipkin2.version>2.23.18</zipkin2.version>
-		<brave.version>5.13.10</brave.version>
+		<zipkin2.version>2.27.1</zipkin2.version>
+		<brave.version>6.0.3</brave.version>
 		<brave-opentracing.version>1.0.0</brave-opentracing.version>
 		<opentracing-redis.version>0.1.16</opentracing-redis.version>
 		<opentracing-spring-jaeger-starter.version>3.3.1</opentracing-spring-jaeger-starter.version>
@@ -213,16 +226,16 @@
 		<sofa-tracer-plugin.version>3.1.2</sofa-tracer-plugin.version>
 
 		<!-- 测试组件 -->
-		<spock.version>2.3-groovy-4.0</spock.version>
+		<spock.version>2.4-groovy-4.0</spock.version>
 		<groovy4.version>4.0.6</groovy4.version>
 		<cucumber.version>3.0.2</cucumber.version>
 		<gatling.version>3.2.1</gatling.version>
 		<jmh.version>1.36</jmh.version>
 		<junit.version>4.13.1</junit.version>
-		<jupiter.version>5.9.3</jupiter.version>
-		<mockito.version>4.8.1</mockito.version>
+		<jupiter.version>5.11.3</jupiter.version>
+		<mockito.version>5.14.2</mockito.version>
 		<dbunit.version>2.7.2</dbunit.version>
-		<testcontainers.version>1.18.3</testcontainers.version>
+		<testcontainers.version>1.20.4</testcontainers.version>
 		<embedded-mongo.version>2.2.0</embedded-mongo.version>
 		<embedded-redis.version>0.11.0</embedded-redis.version>
 		<apiguardian.version>1.1.2</apiguardian.version>
@@ -237,6 +250,12 @@
 
 		<!-- 云原生组件 -->
 		<docker-java.version>3.2.14</docker-java.version>
+
+		<!-- 监控代理 -->
+		<jolokia.version>2.1.2</jolokia.version>
+
+		<!-- Sleuth (已废弃，Spring Cloud 2024.0.x 使用 Micrometer Tracing) -->
+		<spring-cloud-sleuth.version>3.1.11</spring-cloud-sleuth.version>
 	</properties>
 
 	<dependencyManagement>
@@ -294,6 +313,14 @@
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
 				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- MongoDB 驱动 BOM (覆盖 Spring Boot 3.5.9 默认的 3.12.11，该版本不存在) -->
+			<dependency>
+				<groupId>org.mongodb</groupId>
+				<artifactId>mongodb-driver-bom</artifactId>
+				<version>${mongodb-driver-bom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -1154,8 +1181,8 @@
 			</dependency>
 			<!-- Jakarta Validator -->
 			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>jakarta.el</artifactId>
+				<groupId>org.glassfish.expressly</groupId>
+				<artifactId>expressly</artifactId>
 				<version>${jakarta.el.version}</version>
 			</dependency>
 			<!-- EasyExcel -->
@@ -1505,15 +1532,20 @@
 			</dependency>
 
 			<!-- NoSQL 数据库 -->
-			<!-- MongoDB -->
+			<!-- MongoDB (5.x 版本使用 mongodb-driver-sync 替代 mongo-java-driver) -->
 			<dependency>
 				<groupId>org.mongodb</groupId>
-				<artifactId>mongo-java-driver</artifactId>
+				<artifactId>mongodb-driver-sync</artifactId>
 				<version>${mongodb.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mongodb</groupId>
-				<artifactId>mongodb-driver</artifactId>
+				<artifactId>mongodb-driver-core</artifactId>
+				<version>${mongodb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mongodb</groupId>
+				<artifactId>bson</artifactId>
 				<version>${mongodb.version}</version>
 			</dependency>
 			<!-- Mongobee -->
@@ -2151,6 +2183,16 @@
 			<dependency>
 				<groupId>io.dropwizard.metrics</groupId>
 				<artifactId>metrics-json</artifactId>
+				<version>${dropwizard-metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-core</artifactId>
+				<version>${dropwizard-metrics.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard.metrics</groupId>
+				<artifactId>metrics-annotation</artifactId>
 				<version>${dropwizard-metrics.version}</version>
 			</dependency>
 			<dependency>

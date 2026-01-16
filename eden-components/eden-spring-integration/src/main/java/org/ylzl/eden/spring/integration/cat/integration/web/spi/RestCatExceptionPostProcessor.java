@@ -2,8 +2,8 @@ package org.ylzl.eden.spring.integration.cat.integration.web.spi;
 
 import org.ylzl.eden.spring.framework.web.rest.handler.RestExceptionPostProcessor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Rest 异常后置处理

@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.ylzl.eden.commons.regex.RegexUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 浏览器

@@ -19,8 +19,8 @@ package org.ylzl.eden.commons.safe.sql.validator;
 import org.ylzl.eden.commons.safe.SqlSafeUtils;
 import org.ylzl.eden.commons.safe.sql.annotation.SQLInjectionSafe;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * SQL 注入安全校验器

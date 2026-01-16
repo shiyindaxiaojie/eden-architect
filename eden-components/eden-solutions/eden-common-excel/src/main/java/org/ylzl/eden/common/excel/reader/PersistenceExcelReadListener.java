@@ -7,7 +7,7 @@ import org.ylzl.eden.common.excel.model.ValidationErrors;
 import org.ylzl.eden.commons.collections.CollectionUtils;
 import org.ylzl.eden.commons.validation.ValidatorUtils;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

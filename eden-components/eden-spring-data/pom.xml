@@ -122,7 +122,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-hibernate53</artifactId>
+			<artifactId>hazelcast-hibernate52</artifactId>
+			<version>${hazelcast-hibernate.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -138,8 +139,9 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<version>${elasticsearch.version}</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -248,28 +250,20 @@
 
 		<!-- Hibernate -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-envers</artifactId>
+			<version>${hibernate.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<optional>true</optional>
 		</dependency>
 

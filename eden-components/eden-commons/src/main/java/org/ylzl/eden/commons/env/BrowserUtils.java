@@ -20,7 +20,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.ylzl.eden.commons.env.browser.Browser;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 

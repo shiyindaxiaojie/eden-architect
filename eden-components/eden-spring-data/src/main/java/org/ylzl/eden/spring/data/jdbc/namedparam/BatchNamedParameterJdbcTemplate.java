@@ -27,9 +27,9 @@ import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
 import org.ylzl.eden.commons.lang.reflect.ReflectionUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;

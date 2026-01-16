@@ -16,7 +16,7 @@
 
 package org.ylzl.eden.spring.framework.web.cookie;
 
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 import java.util.*;
 
 /**
