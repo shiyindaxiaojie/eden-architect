@@ -1272,6 +1272,64 @@ logging:
     mybatis: debug
 ```
 
+#### 4.11 POM 结构优化 (Maven 3.9+)
+
+在升级过程中，部分 POM 文件的结构可能触发 Maven 3.9+ 的严格校验，导致构建失败或产生 `malformed project` 警告。
+
+##### 4.11.1 依赖作用域规范
+
+`scope` 不允许使用 `optional` 字符串，应使用 `<optional>true</optional>` 标签。
+
+```xml
+<!-- ❌ 错误做法 -->
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <scope>optional</scope>
+</dependency>
+
+<!-- ✅ 正确做法 -->
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+
+##### 4.11.2 重复依赖清理
+
+确保同一个 POM 文件中没有重复声明同一个依赖（甚至不同版本）。
+
+```xml
+<!-- ❌ 错误做法：在不同地方重复声明 -->
+<dependency>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-spring-data</artifactId>
+</dependency>
+<!-- ... -->
+<dependency>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-spring-data</artifactId>
+</dependency>
+```
+
+##### 4.11.3 插件版本管理
+
+所有在子模块中使用的插件，推荐在 `eden-parent` 的 `pluginManagement` 中进行统一定义，避免子模块因缺失版本号而报错。
+
+```xml
+<!-- eden-parent/pom.xml -->
+<pluginManagement>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+        </plugin>
+    </plugins>
+</pluginManagement>
+```
+
 ---
 
 ## 五、常见问题解答
