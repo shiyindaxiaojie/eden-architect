@@ -22,14 +22,14 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.common.mq.MessageQueueProvider;
 import org.ylzl.eden.common.mq.MessageQueueType;
 import org.ylzl.eden.common.mq.model.Message;
 import org.ylzl.eden.common.mq.producer.MessageSendCallback;
 import org.ylzl.eden.common.mq.producer.MessageSendException;
 import org.ylzl.eden.common.mq.producer.MessageSendResult;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Kafka 生产者
@@ -66,7 +66,7 @@ public class KafkaProvider implements MessageQueueProvider {
 	@Override
 	public MessageSendResult syncSend(Message message) {
 		try {
-			ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
+			CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
 			SendResult<String, String> sendResult = future.get();
 			return transfer(sendResult);
 		} catch (InterruptedException e) {
@@ -88,17 +88,12 @@ public class KafkaProvider implements MessageQueueProvider {
 	@Override
 	public void asyncSend(Message message, MessageSendCallback messageCallback) {
 		try {
-			ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
-			future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
-
-				@Override
-				public void onSuccess(SendResult<String, String> sendResult) {
+			CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(message.getTopic(), message.getBody());
+			future.whenComplete((sendResult, ex) -> {
+				if (ex == null) {
 					messageCallback.onSuccess(transfer(sendResult));
-				}
-
-				@Override
-				public void onFailure(Throwable e) {
-					messageCallback.onFailed(e);
+				} else {
+					messageCallback.onFailed(ex);
 				}
 			});
 		} catch (Exception e) {

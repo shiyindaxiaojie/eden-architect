@@ -29,7 +29,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.ylzl.eden.spring.framework.web.rest.annotation.EnableRestExceptionHandler;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.util.concurrent.TimeUnit;
 
 /**

@@ -36,7 +36,7 @@ import org.ylzl.eden.spring.security.common.token.AccessToken;
 import org.ylzl.eden.spring.security.jwt.config.JwtConfig;
 import org.ylzl.eden.spring.security.jwt.constant.JwtConstants;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,7 +57,7 @@ public class JwtTokenProvider implements InitializingBean {
 
 	private JwtParser jwtParser;
 
-	private Key key;
+	private SecretKey key;
 
 	private long tokenValidityInMilliseconds;
 
@@ -69,7 +69,7 @@ public class JwtTokenProvider implements InitializingBean {
 			Decoders.BASE64.decode(jwtConfig.getBase64Secret()) :
 			jwtConfig.getSecret().getBytes();
 		key = Keys.hmacShaKeyFor(keyBytes);
-		this.jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
+		this.jwtParser = Jwts.parser().verifyWith(key).build();
 		this.tokenValidityInMilliseconds = 1000 * jwtConfig.getTokenValidityInSeconds();
 		this.tokenValidityInMillisecondsForRememberMe = 1000 * jwtConfig.getTokenValidityInSecondsForRememberMe();
 	}
@@ -95,10 +95,10 @@ public class JwtTokenProvider implements InitializingBean {
 
 		String value = Jwts
 			.builder()
-			.setSubject(subject)
-			.addClaims(claims)
-			.signWith(key, SignatureAlgorithm.HS512)
-			.setExpiration(expiration)
+			.subject(subject)
+			.claims(claims)
+			.signWith(key)
+			.expiration(expiration)
 			.compact();
 
 		AccessToken accessToken = AccessToken.builder()
@@ -116,7 +116,7 @@ public class JwtTokenProvider implements InitializingBean {
 			if (tokenStore != null && !tokenStore.validateAccessToken(accessToken)) {
 				throw new UnauthorizedException("存储的令牌不存在");
 			}
-			jwtParser.parseClaimsJws(accessToken.getValue());
+			jwtParser.parseSignedClaims(accessToken.getValue());
 		} catch (ExpiredJwtException e) {
 			log.debug(e.getMessage(), e);
 			throw new UnauthorizedException("令牌已失效");
@@ -158,6 +158,6 @@ public class JwtTokenProvider implements InitializingBean {
 	}
 
 	public Claims parseClaims(AccessToken accessToken) {
-		return jwtParser.parseClaimsJws(accessToken.getValue()).getBody();
+		return jwtParser.parseSignedClaims(accessToken.getValue()).getPayload();
 	}
 }

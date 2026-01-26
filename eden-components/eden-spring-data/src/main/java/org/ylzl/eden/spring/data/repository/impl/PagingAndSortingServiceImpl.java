@@ -19,6 +19,7 @@ package org.ylzl.eden.spring.data.repository.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.ylzl.eden.spring.data.repository.PagingAndSortingService;
 
@@ -26,6 +27,9 @@ import java.io.Serializable;
 
 /**
  * 查询分页排序业务实现
+ *
+ * <p>Spring Data 3.x API 变更：PagingAndSortingRepository 不再继承 CrudRepository，
+ * 需要同时接收两个 repository 实例或使用 ListCrudRepository
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -35,8 +39,9 @@ public class PagingAndSortingServiceImpl<T, ID extends Serializable> extends Cru
 
 	private final PagingAndSortingRepository<T, ID> pagingAndSortingRepository;
 
-	public PagingAndSortingServiceImpl(PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
-		super(pagingAndSortingRepository);
+	public PagingAndSortingServiceImpl(CrudRepository<T, ID> crudRepository, 
+									   PagingAndSortingRepository<T, ID> pagingAndSortingRepository) {
+		super(crudRepository);
 		this.pagingAndSortingRepository = pagingAndSortingRepository;
 	}
 

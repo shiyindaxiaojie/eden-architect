@@ -122,7 +122,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-hibernate52</artifactId>
+			<artifactId>hazelcast-hibernate53</artifactId>
 			<version>${hazelcast-hibernate.version}</version>
 			<optional>true</optional>
 		</dependency>

@@ -2,144 +2,144 @@
 
 ## 一、概述
 
-本文档详细记录 Eden* Architect 从 Spring Boot 2.7.18 升级到 3.5.9 所有必须修改的配置和代码。这是一次重大升级，涉及 Java 版本、命名空间迁移（javax → jakarta）、Spring Framework 6.x 等核心变更。
+本文档详细记录 Eden\* Architect 从 Spring Boot 2.7.18 升级到 3.5.9 所有必须修改的配置和代码。这是一次重大升级，涉及 Java 版本、命名空间迁移（javax → jakarta）、Spring Framework 6.x 等核心变更。
 
 ## 二、版本演进
 
 Spring Boot 版本演进如下（🔴 不兼容 | 🟡 废弃 | 🔵 安全修复 | 🟢 Bug 修复）
 
-| 版本 | 变更类型 | 变更内容 |
-|------|----------|----------|
-| 3.0.0 | 🔴 不兼容 | 最低要求 JDK 17 |
-| 3.0.0 | 🔴 不兼容 | `javax.*` 命名空间迁移到 `jakarta.*` |
-| 3.0.0 | 🔴 不兼容 | Spring Framework 升级到 6.0.x |
+| 版本  | 变更类型  | 变更内容                                      |
+| ----- | --------- | --------------------------------------------- |
+| 3.0.0 | 🔴 不兼容 | 最低要求 JDK 17                               |
+| 3.0.0 | 🔴 不兼容 | `javax.*` 命名空间迁移到 `jakarta.*`          |
+| 3.0.0 | 🔴 不兼容 | Spring Framework 升级到 6.0.x                 |
 | 3.0.0 | 🔴 不兼容 | `spring.redis.*` 迁移到 `spring.data.redis.*` |
-| 3.0.0 | 🔴 不兼容 | Hibernate 升级到 6.x，JPA 规范升级到 3.1 |
-| 3.0.0 | 🔴 不兼容 | 移除 `spring-security-oauth2` 支持 |
-| 3.0.0 | 🟡 废弃 | `@ConstructorBinding` 不再需要显式声明 |
-| 3.1.0 | 🔴 不兼容 | Servlet 6.0 / Tomcat 10.1 |
-| 3.1.0 | 🟢 修复 | 改进 GraalVM 原生镜像支持 |
-| 3.2.0 | 🔴 不兼容 | 虚拟线程支持（需 JDK 21） |
-| 3.2.0 | 🟡 废弃 | `RestTemplate` 推荐使用 `RestClient` |
-| 3.3.0 | 🟢 修复 | CDS (Class Data Sharing) 支持 |
-| 3.4.0 | 🔴 不兼容 | 结构化日志支持 |
-| 3.5.0 | 🟢 修复 | 性能优化和 Bug 修复 |
-| 3.5.9 | 🟢 修复 | 最新维护版本 |
+| 3.0.0 | 🔴 不兼容 | Hibernate 升级到 6.x，JPA 规范升级到 3.1      |
+| 3.0.0 | 🔴 不兼容 | 移除 `spring-security-oauth2` 支持            |
+| 3.0.0 | 🟡 废弃   | `@ConstructorBinding` 不再需要显式声明        |
+| 3.1.0 | 🔴 不兼容 | Servlet 6.0 / Tomcat 10.1                     |
+| 3.1.0 | 🟢 修复   | 改进 GraalVM 原生镜像支持                     |
+| 3.2.0 | 🔴 不兼容 | 虚拟线程支持（需 JDK 21）                     |
+| 3.2.0 | 🟡 废弃   | `RestTemplate` 推荐使用 `RestClient`          |
+| 3.3.0 | 🟢 修复   | CDS (Class Data Sharing) 支持                 |
+| 3.4.0 | 🔴 不兼容 | 结构化日志支持                                |
+| 3.5.0 | 🟢 修复   | 性能优化和 Bug 修复                           |
+| 3.5.9 | 🟢 修复   | 最新维护版本                                  |
 
 ## 三、升级清单
 
 ### 3.1 核心框架升级
 
-| 项目 | 旧版本 | 新版本 | 必须 |
-|------|--------|--------|------|
-| JDK | 11 | 17+ | ✅ |
-| Spring Boot | 2.7.18 | 3.5.9 | ✅ |
-| Spring Framework | 5.3.31 | 6.2.x | ✅ |
-| Spring Cloud | 2021.0.9 | 2024.0.1 | ✅ |
-| Spring Cloud Alibaba | 2021.0.5.0 | 2023.0.1.0 | ✅ |
-| Spring Security | 5.7.x | 6.4.x | ✅ |
+| 项目                 | 旧版本     | 新版本     | 必须 |
+| -------------------- | ---------- | ---------- | ---- |
+| JDK                  | 11         | 17+        | ✅   |
+| Spring Boot          | 2.7.18     | 3.5.9      | ✅   |
+| Spring Framework     | 5.3.31     | 6.2.x      | ✅   |
+| Spring Cloud         | 2021.0.9   | 2024.0.1   | ✅   |
+| Spring Cloud Alibaba | 2021.0.5.0 | 2023.0.1.0 | ✅   |
+| Spring Security      | 5.7.x      | 6.4.x      | ✅   |
 
 ### 3.2 命名空间迁移 (javax → jakarta)
 
-| 旧包名 | 新包名 | 说明 |
-|--------|--------|------|
-| `javax.servlet.*` | `jakarta.servlet.*` | Servlet API |
-| `javax.persistence.*` | `jakarta.persistence.*` | JPA API |
-| `javax.validation.*` | `jakarta.validation.*` | Bean Validation |
-| `javax.annotation.*` | `jakarta.annotation.*` | Common Annotations |
-| `javax.transaction.*` | `jakarta.transaction.*` | JTA |
-| `javax.mail.*` | `jakarta.mail.*` | JavaMail |
-| `javax.websocket.*` | `jakarta.websocket.*` | WebSocket |
+| 旧包名                | 新包名                  | 说明               |
+| --------------------- | ----------------------- | ------------------ |
+| `javax.servlet.*`     | `jakarta.servlet.*`     | Servlet API        |
+| `javax.persistence.*` | `jakarta.persistence.*` | JPA API            |
+| `javax.validation.*`  | `jakarta.validation.*`  | Bean Validation    |
+| `javax.annotation.*`  | `jakarta.annotation.*`  | Common Annotations |
+| `javax.transaction.*` | `jakarta.transaction.*` | JTA                |
+| `javax.mail.*`        | `jakarta.mail.*`        | JavaMail           |
+| `javax.websocket.*`   | `jakarta.websocket.*`   | WebSocket          |
 
 > **注意**: `javax.sql.*`、`javax.naming.*`、`javax.crypto.*` 等属于 Java SE，无需迁移。
 
 ### 3.3 数据库升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| mybatis | 3.5.16 | 3.5.19 |
-| mybatis-spring | 2.1.2 | 3.0.4 |
-| mybatis-spring-boot | 2.3.2 | 3.0.4 |
-| mybatis-plus | 3.5.7 | 3.5.9 |
-| hibernate | 5.6.15.Final | 6.6.0.Final |
-| hikaricp | 4.0.3 | 5.1.0 |
-| druid | 1.2.20 | 1.2.23 |
-| shardingsphere | 5.4.1 | 5.5.1 |
-| dynamic-datasource | 3.6.1 | 4.3.1 |
-| liquibase | 4.17.2 | 4.29.2 |
+| 依赖                | 旧版本       | 新版本      |
+| ------------------- | ------------ | ----------- |
+| mybatis             | 3.5.16       | 3.5.19      |
+| mybatis-spring      | 2.1.2        | 3.0.4       |
+| mybatis-spring-boot | 2.3.2        | 3.0.4       |
+| mybatis-plus        | 3.5.7        | 3.5.9       |
+| hibernate           | 5.6.15.Final | 6.6.0.Final |
+| hikaricp            | 4.0.3        | 5.1.0       |
+| druid               | 1.2.20       | 1.2.23      |
+| shardingsphere      | 5.4.1        | 5.5.1       |
+| dynamic-datasource  | 3.6.1        | 4.3.1       |
+| liquibase           | 4.17.2       | 4.29.2      |
 
 ### 3.4 中间件升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| nacos-client | 2.1.2 | 2.3.2 |
-| sentinel | 1.8.6 | 1.8.8 |
-| dubbo | 3.2.14 | 3.3.0 |
-| redisson | 3.32.0 | 3.40.2 |
-| rocketmq | 4.9.7 | 5.1.4 |
-| rocketmq-spring-boot | 2.2.3 | 2.3.1 |
-| kafka | 2.7.2 | 3.8.1 |
-| spring-kafka | 2.7.9 | 3.3.1 |
+| 依赖                 | 旧版本 | 新版本 |
+| -------------------- | ------ | ------ |
+| nacos-client         | 2.1.2  | 2.3.2  |
+| sentinel             | 1.8.6  | 1.8.8  |
+| dubbo                | 3.2.14 | 3.3.0  |
+| redisson             | 3.32.0 | 3.40.2 |
+| rocketmq             | 4.9.7  | 5.1.4  |
+| rocketmq-spring-boot | 2.2.3  | 2.3.1  |
+| kafka                | 2.7.2  | 3.8.1  |
+| spring-kafka         | 2.7.9  | 3.3.1  |
 
 ### 3.5 工具库升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| lombok | 1.18.30 | 1.18.36 |
-| mapstruct | 1.5.5.Final | 1.6.3 |
-| guava | 32.1.2-jre | 33.3.1-jre |
-| jackson | 2.14.3 | 2.18.2 |
-| fastjson2 | 2.0.43 | 2.0.53 |
-| easyexcel | 3.3.3 | 4.0.3 |
-| netty | 4.1.100.Final | 4.1.115.Final |
-| log4j2 | 2.20.0 | 2.24.2 |
+| 依赖      | 旧版本        | 新版本        |
+| --------- | ------------- | ------------- |
+| lombok    | 1.18.30       | 1.18.36       |
+| mapstruct | 1.5.5.Final   | 1.6.3         |
+| guava     | 32.1.2-jre    | 33.3.1-jre    |
+| jackson   | 2.14.3        | 2.18.2        |
+| fastjson2 | 2.0.43        | 2.0.53        |
+| easyexcel | 3.3.3         | 4.0.3         |
+| netty     | 4.1.100.Final | 4.1.115.Final |
+| log4j2    | 2.20.0        | 2.24.2        |
 
 ### 3.6 测试框架升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| junit-jupiter | 5.9.3 | 5.11.3 |
-| mockito | 4.8.1 | 5.14.2 |
-| testcontainers | 1.18.3 | 1.20.4 |
-| spock | 2.3-groovy-4.0 | 2.4-groovy-4.0 |
+| 依赖           | 旧版本         | 新版本         |
+| -------------- | -------------- | -------------- |
+| junit-jupiter  | 5.9.3          | 5.11.3         |
+| mockito        | 4.8.1          | 5.14.2         |
+| testcontainers | 1.18.3         | 1.20.4         |
+| spock          | 2.3-groovy-4.0 | 2.4-groovy-4.0 |
 
 #### 3.6.1 Spring Kafka Test API 变更
 
 Spring Kafka Test 在 3.x 版本中对嵌入式 Kafka 测试组件进行了重大重构：
 
-| 变更项 | 旧版本 (2.x) | 新版本 (3.x) | 说明 |
-|--------|-------------|-------------|------|
-| EmbeddedKafkaBroker | 具体类 | 抽象类 | 不能直接实例化 |
-| 实现类 | - | EmbeddedKafkaZKBroker | 使用 Zookeeper 模式 |
-| 实现类 | - | EmbeddedKafkaKraftBroker | 使用 KRaft 模式（无需 Zookeeper） |
-| zkPort() 方法 | 存在 | 已移除 | Kafka 3.x 支持 KRaft 模式 |
+| 变更项              | 旧版本 (2.x) | 新版本 (3.x)             | 说明                              |
+| ------------------- | ------------ | ------------------------ | --------------------------------- |
+| EmbeddedKafkaBroker | 具体类       | 抽象类                   | 不能直接实例化                    |
+| 实现类              | -            | EmbeddedKafkaZKBroker    | 使用 Zookeeper 模式               |
+| 实现类              | -            | EmbeddedKafkaKraftBroker | 使用 KRaft 模式（无需 Zookeeper） |
+| zkPort() 方法       | 存在         | 已移除                   | Kafka 3.x 支持 KRaft 模式         |
 
 ### 3.7 监控组件升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| micrometer | 1.9.17 | 1.14.2 |
-| spring-boot-admin | 2.7.10 | 3.4.1 |
-| zipkin | 2.23.18 | 2.27.1 |
-| brave | 5.13.10 | 6.0.3 |
+| 依赖              | 旧版本  | 新版本 |
+| ----------------- | ------- | ------ |
+| micrometer        | 1.9.17  | 1.14.2 |
+| spring-boot-admin | 2.7.10  | 3.4.1  |
+| zipkin            | 2.23.18 | 2.27.1 |
+| brave             | 5.13.10 | 6.0.3  |
 
 ### 3.8 认证授权升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| spring-authorization-server | 0.2.3 | 1.4.1 |
-| jjwt | 0.11.5 | 0.12.6 |
+| 依赖                        | 旧版本 | 新版本 |
+| --------------------------- | ------ | ------ |
+| spring-authorization-server | 0.2.3  | 1.4.1  |
+| jjwt                        | 0.11.5 | 0.12.6 |
 
 ### 3.9 其他依赖升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| curator | 5.4.0 | 5.7.1 |
-| zookeeper | 3.8.4 | 3.9.3 |
-| grpc | 1.58.0 | 1.68.2 |
-| protobuf | 4.0.0-rc-2 | 4.28.3 |
-| arthas | 3.7.2 | 4.0.4 |
-| xxl-job | 2.4.0 | 2.4.1 |
+| 依赖      | 旧版本     | 新版本 |
+| --------- | ---------- | ------ |
+| curator   | 5.4.0      | 5.7.1  |
+| zookeeper | 3.8.4      | 3.9.3  |
+| grpc      | 1.58.0     | 1.68.2 |
+| protobuf  | 4.0.0-rc-2 | 4.28.3 |
+| arthas    | 3.7.2      | 4.0.4  |
+| xxl-job   | 2.4.0      | 2.4.1  |
 
 ---
 
@@ -152,7 +152,7 @@ Spring Kafka Test 在 3.x 版本中对嵌入式 Kafka 测试组件进行了重�
 <properties>
     <!-- ❌ 旧配置 -->
     <java.version>11</java.version>
-    
+
     <!-- ✅ 新配置 -->
     <java.version>17</java.version>
 </properties>
@@ -236,7 +236,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-    password: 
+    password:
     database: 0
     lettuce:
       pool:
@@ -250,7 +250,7 @@ spring:
     redis:
       host: localhost
       port: 6379
-      password: 
+      password:
       database: 0
       lettuce:
         pool:
@@ -299,7 +299,7 @@ management:
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -317,7 +317,7 @@ public class SecurityConfig {
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -406,9 +406,9 @@ List<User> users = query.getResultList();
 // ❌ 旧代码 - 2.7.x (RestTemplate)
 @Service
 public class UserService {
-    
+
     private final RestTemplate restTemplate;
-    
+
     public User getUser(Long id) {
         return restTemplate.getForObject("/api/users/{id}", User.class, id);
     }
@@ -417,13 +417,13 @@ public class UserService {
 // ✅ 新代码 - 3.5.x (RestClient)
 @Service
 public class UserService {
-    
+
     private final RestClient restClient;
-    
+
     public UserService(RestClient.Builder builder) {
         this.restClient = builder.baseUrl("http://user-service").build();
     }
-    
+
     public User getUser(Long id) {
         return restClient.get()
             .uri("/api/users/{id}", id)
@@ -439,7 +439,7 @@ public class UserService {
 // 3.5.x 新增 Micrometer Observation API
 @Configuration
 public class ObservabilityConfig {
-    
+
     @Bean
     public ObservationRegistry observationRegistry() {
         return ObservationRegistry.create();
@@ -455,14 +455,29 @@ public class ObservabilityConfig {
 // ❌ 旧代码 - Spring Kafka 2.x
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 
-public class EmbeddedKafka {
+public class EmbeddedKafka implements EmbeddedServer {
+    private static final int DEFAULT_PORT = 9092;
+    private static final int DEFAULT_ZOOKEEPER_PORT = 2181;
+    private static final int DEFAULT_BROKER_COUNT = 1;
+
     private final EmbeddedKafkaBroker kafkaBroker;
-    
+    private boolean isRunning = false;
+
     public EmbeddedKafka() {
         // 直接实例化（2.x 中是具体类）
-        kafkaBroker = new EmbeddedKafkaBroker(1);
-        kafkaBroker.kafkaPorts(9092);
-        kafkaBroker.zkPort(2181);  // 配置 Zookeeper 端口
+        kafkaBroker = new EmbeddedKafkaBroker(DEFAULT_BROKER_COUNT);
+        kafkaBroker.kafkaPorts(DEFAULT_PORT);
+        kafkaBroker.zkPort(DEFAULT_ZOOKEEPER_PORT);  // 配置 Zookeeper 端口
+    }
+
+    @Override
+    public void startup() {
+        try {
+            kafkaBroker.afterPropertiesSet();
+            this.isRunning = true;
+        } catch (Exception e) {
+            log.error("Startup embedded kafka server error", e);
+        }
     }
 }
 
@@ -470,14 +485,29 @@ public class EmbeddedKafka {
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 
-public class EmbeddedKafka {
+public class EmbeddedKafka implements EmbeddedServer {
+    private static final int DEFAULT_PORT = 9092;
+    private static final int DEFAULT_BROKER_COUNT = 1;
+
     private final EmbeddedKafkaBroker kafkaBroker;
-    
+    private boolean isRunning = false;
+
     public EmbeddedKafka() {
         // 使用具体实现类（3.x 中 EmbeddedKafkaBroker 是抽象类）
-        kafkaBroker = new EmbeddedKafkaZKBroker(1, false);
-        kafkaBroker.kafkaPorts(9092);
+        // 第二个参数 controlledShutdown 设置为 false
+        kafkaBroker = new EmbeddedKafkaZKBroker(DEFAULT_BROKER_COUNT, false);
+        kafkaBroker.kafkaPorts(DEFAULT_PORT);
         // zkPort() 方法已移除，Zookeeper 端口由 Broker 自动管理
+    }
+
+    @Override
+    public void startup() {
+        try {
+            kafkaBroker.afterPropertiesSet();
+            this.isRunning = true;
+        } catch (Exception e) {
+            log.error("Startup embedded kafka server error", e);
+        }
     }
 }
 ```
@@ -489,13 +519,27 @@ public class EmbeddedKafka {
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaKraftBroker;
 
-public class EmbeddedKafka {
+public class EmbeddedKafka implements EmbeddedServer {
+    private static final int DEFAULT_PORT = 9092;
+    private static final int DEFAULT_BROKER_COUNT = 1;
+
     private final EmbeddedKafkaBroker kafkaBroker;
-    
+    private boolean isRunning = false;
+
     public EmbeddedKafka() {
-        // 使用 KRaft 模式（Kafka 3.x 推荐方式）
-        kafkaBroker = new EmbeddedKafkaKraftBroker(1);
-        kafkaBroker.kafkaPorts(9092);
+        // 使用 KRaft 模式（Kafka 3.x 推荐方式，无需 Zookeeper）
+        kafkaBroker = new EmbeddedKafkaKraftBroker(DEFAULT_BROKER_COUNT);
+        kafkaBroker.kafkaPorts(DEFAULT_PORT);
+    }
+
+    @Override
+    public void startup() {
+        try {
+            kafkaBroker.afterPropertiesSet();
+            this.isRunning = true;
+        } catch (Exception e) {
+            log.error("Startup embedded kafka server error", e);
+        }
     }
 }
 ```
@@ -511,10 +555,10 @@ public class EmbeddedKafka {
     bootstrapServersProperty = "spring.kafka.bootstrap-servers"
 )
 public class KafkaIntegrationTest {
-    
+
     @Autowired
     private EmbeddedKafkaBroker embeddedKafka;
-    
+
     @Test
     void testKafkaMessage() {
         // 测试代码
@@ -538,13 +582,22 @@ public class KafkaIntegrationTest {
 
 **解决**: 使用 `org.hibernate.dialect.MySQLDialect`，Hibernate 6.x 会自动检测版本
 
-### 5.3 Spring Security antMatchers 不存在
+### 5.3 Spring Security requestMatchers 替代 antMatchers
 
 **问题**: `antMatchers` 方法不存在
 
 **解决**: 使用 `requestMatchers` 替代
 
-### 5.4 MyBatis 启动失败
+### 5.4 Hazelcast 和 Jolokia 坐标变更
+
+**问题**: 升级后出现无法解析 `hazelcast-hibernate6` 或 `jolokia-core` 2.x 的错误。
+
+**解决**:
+
+1. `hazelcast-hibernate6` 修正为 `hazelcast-hibernate53`（支持 Hibernate 5.3+ 及 6.x）。
+2. `jolokia-core` 修正为 `jolokia-server-core`（Jolokia 2.x 的新坐标）。
+
+### 5.5 MyBatis 启动失败
 
 **问题**: MyBatis 自动配置失败
 
@@ -559,17 +612,19 @@ public class KafkaIntegrationTest {
 **解决方案**:
 
 1. **使用 Zookeeper 模式**（兼容旧版本）:
+
    ```java
    import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
-   
+
    EmbeddedKafkaBroker broker = new EmbeddedKafkaZKBroker(1, false);
    broker.kafkaPorts(9092);
    ```
 
 2. **使用 KRaft 模式**（推荐，无需 Zookeeper）:
+
    ```java
    import org.springframework.kafka.test.EmbeddedKafkaKraftBroker;
-   
+
    EmbeddedKafkaBroker broker = new EmbeddedKafkaKraftBroker(1);
    broker.kafkaPorts(9092);
    ```

@@ -16,11 +16,15 @@
 package org.ylzl.eden.spring.data.hibernate.dialect;
 
 import org.hibernate.dialect.H2Dialect;
+import org.hibernate.dialect.DatabaseVersion;
 
 import java.sql.Types;
 
 /**
  * H2 方言类
+ *
+ * <p>Hibernate 6.x API 变更：registerColumnType 方法已移除，
+ * 使用构造器传递数据库版本，类型映射由 Hibernate 自动处理
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -29,6 +33,11 @@ public class FixedH2Dialect extends H2Dialect {
 
 	public FixedH2Dialect() {
 		super();
-		registerColumnType(Types.FLOAT, "real");
+		// Hibernate 6.x 中 registerColumnType 已被移除
+		// FLOAT 类型映射由 Hibernate 自动处理，无需手动注册
+	}
+	
+	public FixedH2Dialect(DatabaseVersion version) {
+		super(version);
 	}
 }

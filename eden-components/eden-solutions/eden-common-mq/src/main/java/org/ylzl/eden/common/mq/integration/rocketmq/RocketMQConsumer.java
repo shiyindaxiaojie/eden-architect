@@ -30,7 +30,7 @@ import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAverage
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.filter.ExpressionType;
 import org.apache.rocketmq.common.message.MessageExt;
-import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
+import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.RPCHook;
 import org.apache.rocketmq.spring.support.RocketMQUtil;
 import org.jetbrains.annotations.NotNull;

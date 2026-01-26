@@ -44,7 +44,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.servlet.Servlet;
+import jakarta.servlet.Servlet;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;

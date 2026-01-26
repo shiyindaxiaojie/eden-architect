@@ -20,12 +20,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.ylzl.eden.event.auditor.EventSender;
 import org.ylzl.eden.event.auditor.model.AuditingEvent;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -60,18 +59,13 @@ public class KafkaEventSender implements EventSender {
 		messages.forEach(
 			message -> {
 				try {
-					ListenableFuture<SendResult<String, String>> future =
+					CompletableFuture<SendResult<String, String>> future =
 						kafkaTemplate.send(topic, message);
-					future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
-
-						@Override
-						public void onSuccess(SendResult<String, String> sendResult) {
+					future.whenComplete((sendResult, ex) -> {
+						if (ex == null) {
 							log.debug(KAFKA_SEND_AUDIT_EVENT_SUCCESS, message);
-						}
-
-						@Override
-						public void onFailure(Throwable e) {
-							log.warn(KAFKA_SEND_AUDIT_EVENT_FAILED, message, e);
+						} else {
+							log.warn(KAFKA_SEND_AUDIT_EVENT_FAILED, message, ex);
 						}
 					});
 				} catch (Exception e) {

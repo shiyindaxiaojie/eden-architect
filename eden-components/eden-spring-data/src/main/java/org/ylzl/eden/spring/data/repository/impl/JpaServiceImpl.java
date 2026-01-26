@@ -39,7 +39,7 @@ public class JpaServiceImpl<T, ID extends Serializable> extends PagingAndSorting
 	private final JpaRepository<T, ID> jpaRepository;
 
 	public JpaServiceImpl(JpaRepository<T, ID> jpaRepository) {
-		super(jpaRepository);
+		super(jpaRepository, jpaRepository);
 		this.jpaRepository = jpaRepository;
 	}
 

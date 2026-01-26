@@ -2,99 +2,99 @@
 
 ## 一、概述
 
-本文档详细记录 Eden* Architect 从 Spring Boot 2.4.13 升级到 2.7.18 所有必须修改的配置和代码。
+本文档详细记录 Eden\* Architect 从 Spring Boot 2.4.13 升级到 2.7.18 所有必须修改的配置和代码。
 
 ## 二、版本演进
 
 Spring Boot 版本演进如下（🔴 不兼容 | 🟡 废弃 | 🔵 安全修复 | 🟢 Bug 修复）
 
-| 版本 | 变更类型 | 变更内容 |
-|------|----------|----------|
-| 2.5.0 | 🔴 不兼容 | `spring.profiles` 废弃，改用 `spring.config.activate.on-profile` |
-| 2.5.0 | 🔴 不兼容 | `spring.profiles.include` 废弃，改用 `spring.profiles.group` |
-| 2.5.0 | 🔴 不兼容 | SQL 脚本初始化属性从 `spring.datasource.*` 迁移到 `spring.sql.init.*` |
-| 2.5.0 | 🟡 废弃 | `spring.data.*.repositories.enabled` 废弃，改用 `spring.data.*.repositories.type` |
-| 2.5.5 | 🟢 修复 | Hibernate 升级到 5.4.32，修复部分 HQL 解析问题 |
-| 2.5.7 | 🔵 安全 | Log4j2 安全修复 (CVE-2021-44228) |
-| 2.6.0 | 🔴 不兼容 | 默认禁止循环依赖，需配置 `spring.main.allow-circular-references=true` 启用 |
-| 2.6.0 | 🔴 不兼容 | PathPatternParser 成为默认路径匹配策略，影响 Swagger/SpringFox/Knife4j |
-| 2.6.0 | 🔴 不兼容 | `WebMvcConfigurerAdapter` 彻底移除（5.0 废弃，5.3 移除） |
-| 2.6.0 | 🔴 不兼容 | Actuator 端点 `/info` 默认不暴露，需手动配置 |
-| 2.6.2 | 🔵 安全 | Log4j2 安全修复 (CVE-2021-45046) |
-| 2.6.3 | 🔵 安全 | Log4j2 安全修复 (CVE-2021-45105) |
-| 2.6.6 | 🔵 安全 | Spring Framework 升级到 5.3.18，修复 RCE 漏洞 (CVE-2022-22965) |
-| 2.7.0 | 🔴 不兼容 | `WebSecurityConfigurerAdapter` 废弃，改用 `SecurityFilterChain` |
-| 2.7.0 | 🔴 不兼容 | `@EnableGlobalMethodSecurity` 废弃，改用 `@EnableMethodSecurity` |
-| 2.7.0 | 🟡 废弃 | `spring.factories` 自动配置注册方式废弃，改用 `AutoConfiguration.imports` |
-| 2.7.0 | 🟡 废弃 | Spring Security `csrf()`、`cors()` 等链式方法废弃，改用 Lambda DSL |
-| 2.7.1 | 🟢 修复 | 修复 Spring Security 配置兼容性问题 |
-| 2.7.3 | 🔵 安全 | SnakeYAML 安全修复 (CVE-2022-25857) |
-| 2.7.5 | 🔵 安全 | 修复 Tomcat 请求走私漏洞 |
-| 2.7.18 | 🟢 修复 | 最终维护版本，包含所有安全修复 |
+| 版本   | 变更类型  | 变更内容                                                                          |
+| ------ | --------- | --------------------------------------------------------------------------------- |
+| 2.5.0  | 🔴 不兼容 | `spring.profiles` 废弃，改用 `spring.config.activate.on-profile`                  |
+| 2.5.0  | 🔴 不兼容 | `spring.profiles.include` 废弃，改用 `spring.profiles.group`                      |
+| 2.5.0  | 🔴 不兼容 | SQL 脚本初始化属性从 `spring.datasource.*` 迁移到 `spring.sql.init.*`             |
+| 2.5.0  | 🟡 废弃   | `spring.data.*.repositories.enabled` 废弃，改用 `spring.data.*.repositories.type` |
+| 2.5.5  | 🟢 修复   | Hibernate 升级到 5.4.32，修复部分 HQL 解析问题                                    |
+| 2.5.7  | 🔵 安全   | Log4j2 安全修复 (CVE-2021-44228)                                                  |
+| 2.6.0  | 🔴 不兼容 | 默认禁止循环依赖，需配置 `spring.main.allow-circular-references=true` 启用        |
+| 2.6.0  | 🔴 不兼容 | PathPatternParser 成为默认路径匹配策略，影响 Swagger/SpringFox/Knife4j            |
+| 2.6.0  | 🔴 不兼容 | `WebMvcConfigurerAdapter` 彻底移除（5.0 废弃，5.3 移除）                          |
+| 2.6.0  | 🔴 不兼容 | Actuator 端点 `/info` 默认不暴露，需手动配置                                      |
+| 2.6.2  | 🔵 安全   | Log4j2 安全修复 (CVE-2021-45046)                                                  |
+| 2.6.3  | 🔵 安全   | Log4j2 安全修复 (CVE-2021-45105)                                                  |
+| 2.6.6  | 🔵 安全   | Spring Framework 升级到 5.3.18，修复 RCE 漏洞 (CVE-2022-22965)                    |
+| 2.7.0  | 🔴 不兼容 | `WebSecurityConfigurerAdapter` 废弃，改用 `SecurityFilterChain`                   |
+| 2.7.0  | 🔴 不兼容 | `@EnableGlobalMethodSecurity` 废弃，改用 `@EnableMethodSecurity`                  |
+| 2.7.0  | 🟡 废弃   | `spring.factories` 自动配置注册方式废弃，改用 `AutoConfiguration.imports`         |
+| 2.7.0  | 🟡 废弃   | Spring Security `csrf()`、`cors()` 等链式方法废弃，改用 Lambda DSL                |
+| 2.7.1  | 🟢 修复   | 修复 Spring Security 配置兼容性问题                                               |
+| 2.7.3  | 🔵 安全   | SnakeYAML 安全修复 (CVE-2022-25857)                                               |
+| 2.7.5  | 🔵 安全   | 修复 Tomcat 请求走私漏洞                                                          |
+| 2.7.18 | 🟢 修复   | 最终维护版本，包含所有安全修复                                                    |
 
 ## 三、升级清单
 
 ### 3.1 核心框架升级
 
-| 项目 | 旧版本 | 新版本 | 必须 |
-|------|--------|--------|------|
-| JDK | 8 | 11+ | ✅ |
-| Spring Boot | 2.4.13 | 2.7.18 | ✅ |
-| Spring Framework | 5.3.13 | 5.3.31 | ✅ |
-| Spring Cloud | 2020.0.x | 2021.0.9 | ✅ |
-| Spring Cloud Alibaba | 2.2.7.RELEASE | 2021.0.5.0 | ✅ |
-| Spring Security | 5.4.x | 5.7.x | ✅ |
+| 项目                 | 旧版本        | 新版本     | 必须 |
+| -------------------- | ------------- | ---------- | ---- |
+| JDK                  | 8             | 11+        | ✅   |
+| Spring Boot          | 2.4.13        | 2.7.18     | ✅   |
+| Spring Framework     | 5.3.13        | 5.3.31     | ✅   |
+| Spring Cloud         | 2020.0.x      | 2021.0.9   | ✅   |
+| Spring Cloud Alibaba | 2.2.7.RELEASE | 2021.0.5.0 | ✅   |
+| Spring Security      | 5.4.x         | 5.7.x      | ✅   |
 
 > **注意**: Spring Cloud Alibaba 从 2021.0.1.0 开始采用新的版本命名规则，与 Spring Cloud 版本号对齐。`2021.0.5.0` 表示对应 Spring Cloud 2021.0.x 的第 5 个版本，实际上比旧版 `2.2.7.RELEASE` 更新。
 
 ### 3.2 数据库升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| mybatis-spring-boot | 2.1.4 | 2.3.2 |
-| mybatis-plus | 3.5.x | 3.5.7 |
-| pagehelper | 5.x | 6.1.0 |
-| druid | 1.2.14 | 1.2.20 |
-| hibernate | 5.4.10.Final | 5.6.15.Final |
-| shardingsphere | 5.2.1 | 5.4.1 |
-| dynamic-datasource | 3.5.0 | 3.6.1 |
-| liquibase | 4.13.0 | 4.17.2 |
+| 依赖                | 旧版本       | 新版本       |
+| ------------------- | ------------ | ------------ |
+| mybatis-spring-boot | 2.1.4        | 2.3.2        |
+| mybatis-plus        | 3.5.x        | 3.5.7        |
+| pagehelper          | 5.x          | 6.1.0        |
+| druid               | 1.2.14       | 1.2.20       |
+| hibernate           | 5.4.10.Final | 5.6.15.Final |
+| shardingsphere      | 5.2.1        | 5.4.1        |
+| dynamic-datasource  | 3.5.0        | 3.6.1        |
+| liquibase           | 4.13.0       | 4.17.2       |
 
 ### 3.3 中间件升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| nacos-client | 2.0.4 | 2.1.2 |
-| sentinel | 1.8.5 | 1.8.6 |
-| dubbo | 3.2.x | 3.2.14 |
-| redisson | 3.x | 3.32.0 |
-| rocketmq | 4.7.1 | 4.9.7 |
-| kafka | 2.7.x | 2.7.2 |
+| 依赖         | 旧版本 | 新版本 |
+| ------------ | ------ | ------ |
+| nacos-client | 2.0.4  | 2.1.2  |
+| sentinel     | 1.8.5  | 1.8.6  |
+| dubbo        | 3.2.x  | 3.2.14 |
+| redisson     | 3.x    | 3.32.0 |
+| rocketmq     | 4.7.1  | 4.9.7  |
+| kafka        | 2.7.x  | 2.7.2  |
 
 ### 3.4 工具库升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| lombok | 1.18.18 | 1.18.30 |
+| 依赖      | 旧版本      | 新版本      |
+| --------- | ----------- | ----------- |
+| lombok    | 1.18.18     | 1.18.30     |
 | mapstruct | 1.4.1.Final | 1.5.5.Final |
-| guava | 30.x | 32.1.2-jre |
-| jackson | 2.12.x | 2.14.3 |
-| fastjson2 | 2.0.22 | 2.0.43 |
+| guava     | 30.x        | 32.1.2-jre  |
+| jackson   | 2.12.x      | 2.14.3      |
+| fastjson2 | 2.0.22      | 2.0.43      |
 
 ### 3.5 测试框架升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| junit-jupiter | 5.7.2 | 5.9.3 |
-| mockito | 3.6.28 | 4.8.1 |
+| 依赖           | 旧版本 | 新版本 |
+| -------------- | ------ | ------ |
+| junit-jupiter  | 5.7.2  | 5.9.3  |
+| mockito        | 3.6.28 | 4.8.1  |
 | testcontainers | 1.15.x | 1.18.3 |
 
 ### 3.6 监控组件升级
 
-| 依赖 | 旧版本 | 新版本 |
-|------|--------|--------|
-| micrometer | 1.7.x | 1.9.17 |
-| spring-boot-admin | 2.4.4 | 2.7.10 |
+| 依赖              | 旧版本 | 新版本 |
+| ----------------- | ------ | ------ |
+| micrometer        | 1.7.x  | 1.9.17 |
+| spring-boot-admin | 2.4.4  | 2.7.10 |
 
 ---
 
@@ -126,6 +126,7 @@ server.port: 8080
 ---
 spring.profiles: prod
 server.port: 80
+
 
 # ✅ 新配置 - 2.5+
 ---
@@ -314,14 +315,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
             .addPathPatterns("/api/**")
             .excludePathPatterns("/api/public/**");
     }
-    
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -329,7 +330,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowCredentials(true);
     }
-    
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
@@ -342,14 +343,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
             .addPathPatterns("/api/**")
             .excludePathPatterns("/api/public/**");
     }
-    
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -358,7 +359,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowCredentials(true);
     }
-    
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
@@ -378,7 +379,7 @@ public CorsFilter corsFilter() {
     config.setAllowCredentials(true);
     config.addAllowedMethod("*");
     config.addAllowedHeader("*");
-    
+
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
@@ -393,7 +394,7 @@ public CorsFilter corsFilter() {
     config.setAllowCredentials(true);
     config.addAllowedMethod("*");
     config.addAllowedHeader("*");
-    
+
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
@@ -433,7 +434,7 @@ public RestTemplate restTemplate(RestTemplateBuilder builder) {
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -451,7 +452,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -474,19 +475,19 @@ public class SecurityConfig {
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
-    
+
     @Autowired
     private JwtAuthenticationFilter jwtFilter;
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder());
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -505,13 +506,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
-    
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -522,13 +523,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Autowired
     private JwtAuthenticationFilter jwtFilter;
-    
+
     @Autowired
     private AuthenticationEntryPoint authEntryPoint;
-    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -546,24 +547,24 @@ public class SecurityConfig {
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-    
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-    
+
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-    
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -571,7 +572,7 @@ public class SecurityConfig {
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
@@ -586,7 +587,7 @@ public class SecurityConfig {
 @Configuration
 @EnableWebSecurity
 public class MultiSecurityConfig {
-    
+
     @Configuration
     @Order(1)
     public static class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -599,7 +600,7 @@ public class MultiSecurityConfig {
                 .httpBasic();
         }
     }
-    
+
     @Configuration
     @Order(2)
     public static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -617,7 +618,7 @@ public class MultiSecurityConfig {
 @Configuration
 @EnableWebSecurity
 public class MultiSecurityConfig {
-    
+
     @Bean
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
@@ -629,7 +630,7 @@ public class MultiSecurityConfig {
             .httpBasic(Customizer.withDefaults());
         return http.build();
     }
-    
+
     @Bean
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
@@ -697,7 +698,7 @@ http.oauth2Login(oauth2 -> oauth2.loginPage("/oauth2/login"));
 // ❌ 旧代码 - 2.4.x
 @Configuration
 public class ElasticsearchConfig {
-    
+
     @Bean
     public RestHighLevelClient elasticsearchClient() {
         return new RestHighLevelClient(
@@ -711,18 +712,18 @@ public class ElasticsearchConfig {
 // ✅ 新代码 - 2.7.x
 @Configuration
 public class ElasticsearchConfig {
-    
+
     @Bean
     public ElasticsearchClient elasticsearchClient() {
         RestClient restClient = RestClient.builder(
             new HttpHost("localhost", 9200)
         ).build();
-        
+
         ElasticsearchTransport transport = new RestClientTransport(
-            restClient, 
+            restClient,
             new JacksonJsonpMapper()
         );
-        
+
         return new ElasticsearchClient(transport);
     }
 }
@@ -736,7 +737,7 @@ public class ElasticsearchConfig {
 public class UserDocument {
     @Id
     private String id;
-    
+
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String name;
 }
@@ -746,7 +747,7 @@ public class UserDocument {
 public class UserDocument {
     @Id
     private String id;
-    
+
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String name;
 }
@@ -758,7 +759,7 @@ public class UserDocument {
 // ❌ 旧代码 - 2.4.x (默认序列化器可能导致乱码)
 @Configuration
 public class RedisConfig {
-    
+
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -770,23 +771,23 @@ public class RedisConfig {
 // ✅ 新代码 - 2.7.x (推荐显式配置序列化器)
 @Configuration
 public class RedisConfig {
-    
+
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
-        
+
         // Key 序列化
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
         template.setKeySerializer(stringSerializer);
         template.setHashKeySerializer(stringSerializer);
-        
+
         // Value 序列化
-        GenericJackson2JsonRedisSerializer jsonSerializer = 
+        GenericJackson2JsonRedisSerializer jsonSerializer =
             new GenericJackson2JsonRedisSerializer();
         template.setValueSerializer(jsonSerializer);
         template.setHashValueSerializer(jsonSerializer);
-        
+
         template.afterPropertiesSet();
         return template;
     }
@@ -798,10 +799,10 @@ public class RedisConfig {
 ```java
 // ❌ 旧代码 - 2.4.x
 public interface UserRepository extends JpaRepository<User, Long> {
-    
+
     @Query("SELECT u FROM User u WHERE u.status = ?1")
     List<User> findByStatus(Integer status);
-    
+
     // getOne 已废弃
     default User getById(Long id) {
         return getOne(id);
@@ -810,10 +811,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 // ✅ 新代码 - 2.7.x
 public interface UserRepository extends JpaRepository<User, Long> {
-    
+
     @Query("SELECT u FROM User u WHERE u.status = ?1")
     List<User> findByStatus(Integer status);
-    
+
     // 使用 getReferenceById 替代 getOne
     default User getById(Long id) {
         return getReferenceById(id);
@@ -831,7 +832,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 // ❌ 旧代码 - PageHelper 5.x
 @Configuration
 public class MyBatisConfig {
-    
+
     @Bean
     public PageHelper pageHelper() {
         PageHelper pageHelper = new PageHelper();
@@ -847,7 +848,7 @@ public class MyBatisConfig {
 // ✅ 新代码 - PageHelper 6.x
 @Configuration
 public class MyBatisConfig {
-    
+
     @Bean
     public PageInterceptor pageInterceptor() {
         PageInterceptor interceptor = new PageInterceptor();
@@ -883,38 +884,38 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceTest {
-    
+
     @Autowired
     private UserService userService;
-    
+
     @BeforeClass
     public static void beforeAll() { }
-    
+
     @Before
     public void setUp() { }
-    
+
     @Test
     public void testFindById() {
         User user = userService.findById(1L);
         assertNotNull(user);
         assertEquals("test", user.getName());
     }
-    
+
     @Test(expected = UserNotFoundException.class)
     public void testFindByIdNotFound() {
         userService.findById(999L);
     }
-    
+
     @Test(timeout = 1000)
     public void testTimeout() { }
-    
+
     @Ignore("暂时跳过")
     @Test
     public void testIgnored() { }
-    
+
     @After
     public void tearDown() { }
-    
+
     @AfterClass
     public static void afterAll() { }
 }
@@ -931,41 +932,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceTest {
-    
+
     @Autowired
     private UserService userService;
-    
+
     @BeforeAll
     static void beforeAll() { }
-    
+
     @BeforeEach
     void setUp() { }
-    
+
     @Test
     void testFindById() {
         User user = userService.findById(1L);
         assertNotNull(user);
         assertEquals("test", user.getName());
     }
-    
+
     @Test
     void testFindByIdNotFound() {
         assertThrows(UserNotFoundException.class, () -> {
             userService.findById(999L);
         });
     }
-    
+
     @Test
     @Timeout(1)
     void testTimeout() { }
-    
+
     @Disabled("暂时跳过")
     @Test
     void testIgnored() { }
-    
+
     @AfterEach
     void tearDown() { }
-    
+
     @AfterAll
     static void afterAll() { }
 }
@@ -980,20 +981,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
-    
+
     @Mock
     private UserRepository userRepository;
-    
+
     @InjectMocks
     private UserServiceImpl userService;
-    
+
     @Test
     public void testFindById() {
         when(userRepository.findById(1L))
             .thenReturn(Optional.of(new User(1L, "test")));
-        
+
         User user = userService.findById(1L);
-        
+
         assertNotNull(user);
         verify(userRepository, times(1)).findById(1L);
     }
@@ -1005,20 +1006,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
-    
+
     @Mock
     private UserRepository userRepository;
-    
+
     @InjectMocks
     private UserServiceImpl userService;
-    
+
     @Test
     void testFindById() {
         when(userRepository.findById(1L))
             .thenReturn(Optional.of(new User(1L, "test")));
-        
+
         User user = userService.findById(1L);
-        
+
         assertNotNull(user);
         verify(userRepository, times(1)).findById(1L);
     }
@@ -1036,10 +1037,10 @@ class UserServiceTest {
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ExtendWith(MockitoExtension.class)
 class MyTest {
-    
+
     @Mock
     private FinalClass finalClass;  // 现在可以 mock final 类
-    
+
     @Test
     void test() {
         when(finalClass.finalMethod()).thenReturn("mocked");
@@ -1054,17 +1055,17 @@ class MyTest {
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
-    
+
     @MockBean
     private UserService userService;
-    
+
     @Test
     public void testGetUser() throws Exception {
         when(userService.findById(1L)).thenReturn(new User(1L, "test"));
-        
+
         mockMvc.perform(get("/api/users/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("test"));
@@ -1074,17 +1075,17 @@ public class UserControllerTest {
 // ✅ 新代码 - 2.7.x
 @WebMvcTest(UserController.class)
 class UserControllerTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
-    
+
     @MockBean
     private UserService userService;
-    
+
     @Test
     void testGetUser() throws Exception {
         when(userService.findById(1L)).thenReturn(new User(1L, "test"));
-        
+
         mockMvc.perform(get("/api/users/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("test"));
@@ -1139,10 +1140,10 @@ public class Order {
 @AllArgsConstructor
 public class Order {
     private Long id;
-    
+
     @Builder.Default
     private Integer status = 0;
-    
+
     @Builder.Default
     private List<OrderItem> items = new ArrayList<>();
 }
@@ -1158,10 +1159,10 @@ public class Order {
 // ❌ 旧代码 - 使用 java.util.Date
 public class User {
     private Long id;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }
@@ -1169,10 +1170,10 @@ public class User {
 // ✅ 新代码 - 使用 Java 8 时间 API
 public class User {
     private Long id;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
@@ -1193,22 +1194,22 @@ public ObjectMapper objectMapper() {
 @Bean
 public ObjectMapper objectMapper() {
     ObjectMapper mapper = new ObjectMapper();
-    
+
     // 注册 Java 8 时间模块
     mapper.registerModule(new JavaTimeModule());
-    
+
     // 禁用将日期写为时间戳
     mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    
+
     // 忽略未知属性
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    
+
     // 空对象不报错
     mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-    
+
     // 允许单引号
     mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-    
+
     return mapper;
 }
 ```
@@ -1272,6 +1273,64 @@ logging:
     mybatis: debug
 ```
 
+#### 4.11 POM 结构优化 (Maven 3.9+)
+
+在升级过程中，部分 POM 文件的结构可能触发 Maven 3.9+ 的严格校验，导致构建失败或产生 `malformed project` 警告。
+
+##### 4.11.1 依赖作用域规范
+
+`scope` 不允许使用 `optional` 字符串，应使用 `<optional>true</optional>` 标签。
+
+```xml
+<!-- ❌ 错误做法 -->
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <scope>optional</scope>
+</dependency>
+
+<!-- ✅ 正确做法 -->
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+
+##### 4.11.2 重复依赖清理
+
+确保同一个 POM 文件中没有重复声明同一个依赖（甚至不同版本）。
+
+```xml
+<!-- ❌ 错误做法：在不同地方重复声明 -->
+<dependency>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-spring-data</artifactId>
+</dependency>
+<!-- ... -->
+<dependency>
+    <groupId>io.github.shiyindaxiaojie</groupId>
+    <artifactId>eden-spring-data</artifactId>
+</dependency>
+```
+
+##### 4.11.3 插件版本管理
+
+所有在子模块中使用的插件，推荐在 `eden-parent` 的 `pluginManagement` 中进行统一定义，避免子模块因缺失版本号而报错。
+
+```xml
+<!-- eden-parent/pom.xml -->
+<pluginManagement>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+        </plugin>
+    </plugins>
+</pluginManagement>
+```
+
 ---
 
 ## 五、常见问题解答
@@ -1293,6 +1352,7 @@ logging:
 **原因**: 2.6+ 默认禁止循环依赖。
 
 **解决**:
+
 1. 推荐：重构代码，使用 `@Lazy` 注解或提取公共依赖消除循环
 2. 临时：配置 `spring.main.allow-circular-references=true`
 
@@ -1313,6 +1373,7 @@ logging:
 **原因**: Mockito 4.x 默认不能 mock final 类/方法。
 
 **解决**:
+
 1. 创建 `src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker`
 2. 文件内容填写 `mock-maker-inline`
 
@@ -1321,10 +1382,11 @@ logging:
 **原因**: Elasticsearch 7.15+ 废弃 RestHighLevelClient。
 
 **解决**:
+
 1. 迁移到新的 `ElasticsearchClient`，参考 4.4.1 节
 2. 或暂时添加 `@SuppressWarnings("deprecation")`
 
-### Q8: allowedOrigins("*") 与 allowCredentials(true) 冲突报错
+### Q8: allowedOrigins("\*") 与 allowCredentials(true) 冲突报错
 
 **原因**: 2.7.x 安全策略不允许同时使用通配符和凭证。
 
@@ -1347,6 +1409,7 @@ logging:
 **原因**: 2.7.x 移除了 `authenticationManagerBean()` 方法。
 
 **解决**: 通过 `AuthenticationConfiguration` 获取：
+
 ```java
 @Bean
 public AuthenticationManager authenticationManager(
@@ -1372,6 +1435,7 @@ public AuthenticationManager authenticationManager(
 **原因**: ShardingSphere 5.4.1 需要阿里云私有仓库。
 
 **解决**: 配置阿里云 Maven 仓库：
+
 ```xml
 <repository>
     <id>aliyun-releases</id>
@@ -1396,6 +1460,7 @@ public AuthenticationManager authenticationManager(
 **原因**: JUnit 5 移除了 `expected` 属性。
 
 **解决**: 使用 `assertThrows`：
+
 ```java
 @Test
 void testException() {

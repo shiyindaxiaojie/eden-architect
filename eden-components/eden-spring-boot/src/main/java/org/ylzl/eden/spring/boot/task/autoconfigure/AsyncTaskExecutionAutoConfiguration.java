@@ -22,8 +22,6 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
-import org.springframework.boot.task.TaskExecutorBuilder;
-import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -39,6 +37,9 @@ import java.util.concurrent.Executor;
 
 /**
  * 异步任务执行器自动装配
+ *
+ * <p>Spring Boot 3.x API 变更：TaskExecutorBuilder 和 TaskExecutorCustomizer 已移除，
+ * 直接配置 ThreadPoolTaskExecutor
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
@@ -59,15 +60,11 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 
 	private final TaskExecutionProperties properties;
 
-	private final ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers;
-
 	private final ObjectProvider<TaskDecorator> taskDecorator;
 
 	public AsyncTaskExecutionAutoConfiguration(TaskExecutionProperties properties,
-											   ObjectProvider<TaskExecutorCustomizer> taskExecutorCustomizers,
 											   ObjectProvider<TaskDecorator> taskDecorator) {
 		this.properties = properties;
-		this.taskExecutorCustomizers = taskExecutorCustomizers;
 		this.taskDecorator = taskDecorator;
 	}
 
@@ -77,39 +74,50 @@ public class AsyncTaskExecutionAutoConfiguration implements AsyncConfigurer {
 	public Executor getAsyncExecutor() {
 		log.debug(AUTOWIRED_ASYNC_TASK_EXECUTOR);
 		TaskExecutionProperties.Pool pool = properties.getPool();
-		TaskExecutorBuilder builder = new TaskExecutorBuilder();
-
+		
+		// 使用阿里巴巴 TTL 线程池
+		ThreadPoolTaskExecutor taskExecutor = new TtlThreadPoolTaskExecutor();
+		
+		// 配置核心线程数
 		if (pool.getCoreSize() > POOL_SIZE_LIMIT) {
-			builder = builder.corePoolSize(POOL_SIZE_LIMIT);
+			taskExecutor.setCorePoolSize(POOL_SIZE_LIMIT);
 		} else {
-			builder = builder.corePoolSize(pool.getCoreSize());
+			taskExecutor.setCorePoolSize(pool.getCoreSize());
 		}
 
+		// 配置最大线程数
 		if (pool.getMaxSize() > POOL_SIZE_LIMIT) {
-			builder = builder.maxPoolSize(POOL_SIZE_LIMIT);
+			taskExecutor.setMaxPoolSize(POOL_SIZE_LIMIT);
 		} else {
-			builder = builder.maxPoolSize(pool.getMaxSize());
+			taskExecutor.setMaxPoolSize(pool.getMaxSize());
 		}
 
 		// 注意：Spring 默认使用 LinkedBlockingQueue 无界阻塞队列
 		if (pool.getQueueCapacity() == Integer.MAX_VALUE) {
-			builder = builder.queueCapacity(QUEUE_CAPACITY_LIMIT);
+			taskExecutor.setQueueCapacity(QUEUE_CAPACITY_LIMIT);
 		} else {
-			builder = builder.queueCapacity(pool.getQueueCapacity());
+			taskExecutor.setQueueCapacity(pool.getQueueCapacity());
 		}
 
-		builder = builder.allowCoreThreadTimeOut(pool.isAllowCoreThreadTimeout());
-		builder = builder.keepAlive(pool.getKeepAlive());
+		taskExecutor.setAllowCoreThreadTimeOut(pool.isAllowCoreThreadTimeout());
+		taskExecutor.setKeepAliveSeconds((int) pool.getKeepAlive().getSeconds());
+		
 		TaskExecutionProperties.Shutdown shutdown = properties.getShutdown();
-		builder = builder.awaitTermination(shutdown.isAwaitTermination());
-		builder = builder.awaitTerminationPeriod(shutdown.getAwaitTerminationPeriod());
-		builder = builder.threadNamePrefix(properties.getThreadNamePrefix());
-		builder = builder.customizers(taskExecutorCustomizers.orderedStream()::iterator);
-		builder = builder.taskDecorator(taskDecorator.getIfUnique());
-
-		// 使用阿里巴巴 TTL 线程池
-		ThreadPoolTaskExecutor taskExecutor = builder.configure(new TtlThreadPoolTaskExecutor());
+		taskExecutor.setWaitForTasksToCompleteOnShutdown(shutdown.isAwaitTermination());
+		if (shutdown.getAwaitTerminationPeriod() != null) {
+			taskExecutor.setAwaitTerminationSeconds((int) shutdown.getAwaitTerminationPeriod().getSeconds());
+		}
+		
+		taskExecutor.setThreadNamePrefix(properties.getThreadNamePrefix());
+		
+		// 设置 TaskDecorator
+		TaskDecorator decorator = taskDecorator.getIfUnique();
+		if (decorator != null) {
+			taskExecutor.setTaskDecorator(decorator);
+		}
+		
 		taskExecutor.initialize();
+		
 		// Spring 默认装配的 Bean 对异常的处理不是很友好，需要替换
 		return new ExceptionHandlingAsyncTaskExecutor(taskExecutor);
 	}

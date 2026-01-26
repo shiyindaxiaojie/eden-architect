@@ -413,7 +413,7 @@
 		<!-- Jolokia -->
 		<dependency>
 			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
+			<artifactId>jolokia-server-core</artifactId>
 			<version>${jolokia.version}</version>
 			<optional>true</optional>
 		</dependency>
