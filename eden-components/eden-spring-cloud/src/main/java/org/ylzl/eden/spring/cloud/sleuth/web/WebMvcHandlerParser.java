@@ -20,8 +20,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.cloud.sleuth.SpanCustomizer;
-import org.springframework.cloud.sleuth.instrument.web.mvc.HandlerParser;
+// import org.springframework.cloud.sleuth.SpanCustomizer;
+// import org.springframework.cloud.sleuth.instrument.web.mvc.HandlerParser;
 import org.ylzl.eden.commons.lang.ObjectUtils;
 import org.ylzl.eden.commons.lang.StringUtils;
 import org.ylzl.eden.commons.lang.Strings;
@@ -41,13 +41,11 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Data
-public class WebMvcHandlerParser extends HandlerParser {
+public class WebMvcHandlerParser /* extends HandlerParser */ {
 
-	public static final String CONTROLLER_REQUEST_HEADER_PREFIX =
-		"mvc.controller.request.header.";
+	public static final String CONTROLLER_REQUEST_HEADER_PREFIX = "mvc.controller.request.header.";
 
-	public static final String CONTROLLER_REQUEST_PARAMETER_PREFIX =
-		"mvc.controller.request.parameter.";
+	public static final String CONTROLLER_REQUEST_PARAMETER_PREFIX = "mvc.controller.request.parameter.";
 
 	private static final String ALL_PATTERN = "*";
 
@@ -55,59 +53,64 @@ public class WebMvcHandlerParser extends HandlerParser {
 
 	private String ignoreParameters;
 
-	@Override
-	protected void preHandle(HttpServletRequest request, Object handler, SpanCustomizer customizer) {
-		super.preHandle(request, handler, customizer);
-
-		if (!isAllIgnored(ignoreHeaders)) {
-			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
-				Arrays.asList(ignoreHeaders.split(Strings.COMMA)) : null;
-			handleHeader(ignoreList, request, customizer);
-		}
-
-		if (!isAllIgnored(ignoreParameters)) {
-			List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
-				Arrays.asList(ignoreParameters.split(Strings.COMMA)) : null;
-			handleParameter(ignoreList, request, customizer);
-		}
-	}
-
-	private void handleHeader(List<String> ignoreList, HttpServletRequest request, SpanCustomizer customizer) {
-		Enumeration<String> headerNames = request.getHeaderNames();
-		while (headerNames.hasMoreElements()) {
-			String key = headerNames.nextElement();
-			if (ignored(ignoreList, key)) {
-				continue;
-			}
-
-			String value = request.getHeader(key);
-			customizer.tag(CONTROLLER_REQUEST_HEADER_PREFIX + key, value);
-		}
-	}
-
-	private void handleParameter(List<String> ignoreList, HttpServletRequest request, SpanCustomizer customizer) {
-		Map<String, String[]> parameterMap = request.getParameterMap();
-		for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
-			String key = entry.getKey();
-			if (ignored(ignoreList, key)) {
-				continue;
-			}
-
-			String[] value = entry.getValue();
-			if (ObjectUtils.isEmpty(value)) {
-				customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, Strings.EMPTY);
-			} else {
-				StringBuilder values = new StringBuilder();
-				for (String val : value) {
-					values.append(val).append(Strings.DOT);
-				}
-				if (values.indexOf(Strings.DOT) >= 0) {
-					values.delete(values.length() - 1, values.length());
-				}
-				customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, values.toString());
-			}
-		}
-	}
+	/*
+	 * @Override
+	 * protected void preHandle(HttpServletRequest request, Object handler,
+	 * SpanCustomizer customizer) {
+	 * super.preHandle(request, handler, customizer);
+	 * 
+	 * if (!isAllIgnored(ignoreHeaders)) {
+	 * List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
+	 * Arrays.asList(ignoreHeaders.split(Strings.COMMA)) : null;
+	 * handleHeader(ignoreList, request, customizer);
+	 * }
+	 * 
+	 * if (!isAllIgnored(ignoreParameters)) {
+	 * List<String> ignoreList = StringUtils.isNotEmpty(ignoreParameters) ?
+	 * Arrays.asList(ignoreParameters.split(Strings.COMMA)) : null;
+	 * handleParameter(ignoreList, request, customizer);
+	 * }
+	 * }
+	 * 
+	 * private void handleHeader(List<String> ignoreList, HttpServletRequest
+	 * request, SpanCustomizer customizer) {
+	 * Enumeration<String> headerNames = request.getHeaderNames();
+	 * while (headerNames.hasMoreElements()) {
+	 * String key = headerNames.nextElement();
+	 * if (ignored(ignoreList, key)) {
+	 * continue;
+	 * }
+	 * 
+	 * String value = request.getHeader(key);
+	 * customizer.tag(CONTROLLER_REQUEST_HEADER_PREFIX + key, value);
+	 * }
+	 * }
+	 * 
+	 * private void handleParameter(List<String> ignoreList, HttpServletRequest
+	 * request, SpanCustomizer customizer) {
+	 * Map<String, String[]> parameterMap = request.getParameterMap();
+	 * for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+	 * String key = entry.getKey();
+	 * if (ignored(ignoreList, key)) {
+	 * continue;
+	 * }
+	 * 
+	 * String[] value = entry.getValue();
+	 * if (ObjectUtils.isEmpty(value)) {
+	 * customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, Strings.EMPTY);
+	 * } else {
+	 * StringBuilder values = new StringBuilder();
+	 * for (String val : value) {
+	 * values.append(val).append(Strings.DOT);
+	 * }
+	 * if (values.indexOf(Strings.DOT) >= 0) {
+	 * values.delete(values.length() - 1, values.length());
+	 * }
+	 * customizer.tag(CONTROLLER_REQUEST_PARAMETER_PREFIX + key, values.toString());
+	 * }
+	 * }
+	 * }
+	 */
 
 	private boolean isAllIgnored(String pattern) {
 		return ALL_PATTERN.equals(pattern);

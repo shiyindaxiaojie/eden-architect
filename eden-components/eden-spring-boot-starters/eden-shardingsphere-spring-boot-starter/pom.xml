@@ -67,7 +67,7 @@
 		<!-- Sharding JDBC -->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
-			<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+			<artifactId>shardingsphere-jdbc</artifactId>
 			<exclusions>
 				<!-- 请使用 eden-quartz-spring-boot-starter 代替 -->
 				<exclusion>
