@@ -201,7 +201,7 @@
 		<javamelody.version>1.81.0</javamelody.version>
 		<javamelody-theme.version>1.0</javamelody-theme.version>
 		<cat.version>3.1.0</cat.version>
-		<plexus.version>3.0.24</plexus.version>
+		<plexus.version>4.0.3</plexus.version>
 
 		<!-- 链路组件 -->
 		<zipkin2.version>2.23.18</zipkin2.version>
